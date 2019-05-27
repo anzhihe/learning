@@ -1,0 +1,491 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>重要的系统目录</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="重要的文件"
+HREF="files.html"><LINK
+REL="NEXT"
+TITLE="本地化"
+HREF="localization.html"></HEAD
+><BODY
+CLASS="APPENDIX"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="files.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="localization.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="APPENDIX"
+><H1
+><A
+NAME="SYSTEMDIRS"
+></A
+>Appendix H. 重要的系统目录</H1
+><P
+>每位系统管理员或者是编写系统管理脚本的人员都应该对这些系统目录非常熟悉. 
+        </P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/bin</TT
+></P
+><P
+>二进制(可执行文件). 基本的系统程序和工具(比如<B
+CLASS="COMMAND"
+>bash</B
+>). </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/usr/bin</TT
+>
+
+            <A
+NAME="AEN18484"
+HREF="#FTN.AEN18484"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+
+	    </P
+><P
+>更多的系统二进制可执行文件. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/usr/local/bin</TT
+></P
+><P
+>一些局部于特定机器的杂项二进制可执行文件. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/sbin</TT
+></P
+><P
+>系统二进制可执行文件. 
+				基本的系统管理程序和工具(比如<B
+CLASS="COMMAND"
+>fsck</B
+>). </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/usr/sbin</TT
+></P
+><P
+>更多的系统管理程序和工具. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/etc</TT
+></P
+><P
+><EM
+>其他</EM
+>. 系统范围的配置脚本. </P
+><P
+>其中比较有趣的文件是<TT
+CLASS="FILENAME"
+>/etc/fstab</TT
+>(文件系统表), 
+			<TT
+CLASS="FILENAME"
+>/etc/mtab</TT
+>(挂载文件系统表), 
+			还有文件<A
+HREF="system.html#INITTABREF"
+><TT
+CLASS="FILENAME"
+>/etc/inittab</TT
+></A
+>. 
+	      </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/etc/rc.d</TT
+></P
+><P
+>启动脚本, 适用于红帽及其派生的Linux发行版. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/usr/share/doc</TT
+></P
+><P
+>安装包的文档. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/usr/man</TT
+></P
+><P
+>系统范围的man页. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/dev</TT
+></P
+><P
+>设备目录. 物理设备和虚拟设备的入口(但<EM
+>不是</EM
+>挂载点). 
+	      请参考<A
+HREF="devproc.html"
+> 27</A
+>. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/proc</TT
+></P
+><P
+>进程目录. 包含关于运行进程和内核参数的统计信息与其他信息. 
+	      请参考<A
+HREF="devproc.html"
+> 27</A
+>. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/sys</TT
+></P
+><P
+>系统范围的设备目录. 包含关于设备和设备名称的统计信息与其他信息. 
+	      这是在Linux 2.6.X内核版本上新添加的目录. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/mnt</TT
+></P
+><P
+><EM
+>挂载</EM
+>. 挂载硬驱动分区的目录, 
+				比如<TT
+CLASS="FILENAME"
+>/mnt/dos</TT
+>, 
+				和物理驱动器. 
+	      在比较新的Linux发行版中, <TT
+CLASS="FILENAME"
+>/media</TT
+>目录已经成为了I/O设备的首选挂载点. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/media</TT
+></P
+><P
+>在比较新的Linux发行版中, I/O设备的首选挂载点, 
+	      比如CD ROM或USB flash驱动器. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/var</TT
+></P
+><P
+><EM
+>可变的</EM
+>(可修改的)系统文件. 
+			这是一个包罗万象的<SPAN
+CLASS="QUOTE"
+>"杂项"</SPAN
+>目录, 
+			用于保存Linux/UNIX机器运行时产生的各种数据. 
+	      </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/var/log</TT
+></P
+><P
+>系统范围的日志文件. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/var/spool/mail</TT
+></P
+><P
+>用户的假脱机邮件(mail spool).</P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/lib</TT
+></P
+><P
+>系统范围的库文件. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/usr/lib</TT
+></P
+><P
+>更多系统范围的库文件. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/tmp</TT
+></P
+><P
+>系统临时文件. </P
+></LI
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>/boot</TT
+></P
+><P
+>系统<EM
+>引导</EM
+>目录. 
+				内核, 模块链接, 系统镜像, 和引导管理器都放在这. </P
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/warning.gif"
+HSPACE="5"
+ALT="Warning"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果在这个目录下修改文件, 可能会导致系统不能启动. </P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+></UL
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN18484"
+HREF="systemdirs.html#AEN18484"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>早期的UNIX系统一般都有两个磁盘设备, 
+					一个是速度快但容量小的硬盘(主要包含<TT
+CLASS="FILENAME"
+>/</TT
+>, 即根目录), 
+	      另一个磁盘容量大, 但是速度慢(主要包含<TT
+CLASS="FILENAME"
+>/usr</TT
+>目录和其他分区). 
+	      所以, 使用频率最高的程序和工具都放到小而快的磁盘中, 
+	      也就是放到<TT
+CLASS="FILENAME"
+>/bin</TT
+>中, 
+	      而其他的东西都放到慢磁盘上, 即<TT
+CLASS="FILENAME"
+>/usr/bin</TT
+>中. </P
+><P
+>其他的类似的东西也是按照这种方式进行分类的, 
+	      比如<TT
+CLASS="FILENAME"
+>/sbin</TT
+>和<TT
+CLASS="FILENAME"
+>/usr/sbin</TT
+>, 
+	      <TT
+CLASS="FILENAME"
+>/lib</TT
+>和<TT
+CLASS="FILENAME"
+>/usr/lib</TT
+>, 等等. </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="files.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="localization.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>重要的文件</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>本地化</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,348 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>交互与非交互式的交互与非交互式的shell和脚本</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="杂项"
+HREF="miscellany.html"><LINK
+REL="PREVIOUS"
+TITLE="杂项"
+HREF="miscellany.html"><LINK
+REL="NEXT"
+TITLE="Shell包装"
+HREF="wrapper.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="miscellany.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>33. 杂项</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="wrapper.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="INTANDNONINT"
+>33.1. 交互与非交互式的交互与非交互式的shell和脚本</A
+></H1
+><P
+><EM
+>交互式</EM
+>的shell会在<TT
+CLASS="FILENAME"
+>tty</TT
+>上从用户输入中读取命令. 
+	   另一方面, 
+	   这样的shell能在启动时读取启动文件, 
+	   显示一个提示符, 并默认激活作业控制. 
+	   也就是说, 用户可以与shell<EM
+>交互</EM
+>. </P
+><P
+>shell所运行的脚本通常都是非交互的shell. 
+		 但是脚本仍然可以访问它的<TT
+CLASS="FILENAME"
+>tty</TT
+>. 
+		 甚至可以在脚本中模拟一个交互式的shell. 
+
+	   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;MY_PROMPT='$ '
+  3&nbsp;while :
+  4&nbsp;do
+  5&nbsp;  echo -n "$MY_PROMPT"
+  6&nbsp;  read line
+  7&nbsp;  eval "$line"
+  8&nbsp;  done
+  9&nbsp;
+ 10&nbsp;exit 0
+ 11&nbsp;
+ 12&nbsp;# 这个例子脚本, 还有上面那么多的解释
+ 13&nbsp;# 都是由Stephane Chazelas提供的(再次感谢). </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>让我们考虑一个需要用户输入的<EM
+>交互式</EM
+>脚本, 
+		 这种脚本通常都要使用<A
+HREF="internal.html#READREF"
+>read</A
+>语句(请参考<A
+HREF="internal.html#EX36"
+>例子 11-3</A
+>). 
+		但是<SPAN
+CLASS="QUOTE"
+>"现实的情况"</SPAN
+>肯定要比这复杂的多. 
+		就目前的情况来看, 交互式脚本通常都绑定在一个tty设备上, 
+		换句话说, 用户都是在控制终端或<I
+CLASS="FIRSTTERM"
+>xterm</I
+>上来调用脚本的. </P
+><P
+>初始化脚本和启动脚本都是非交互式的, 
+		因为它们都不需要人为干预, 都是自动运行的. 
+	   许多管理脚本和系统维护脚本也同样是非交互式的. 
+	   对于那些不需要经常变化的, 重复性的任务, 应该交给非交互式的脚本来自动完成. 
+	   </P
+><P
+>非交互式的脚本可以在后台运行, 
+		 但是如果交互式脚本在后台运行的话, 就会被挂起, 
+		 因为它们在等待永远不会到来的输入. 
+		 如果想解决后台运行交互式脚本的问题, 
+		 可以使用带有<B
+CLASS="COMMAND"
+>expect</B
+>命令的脚本, 
+		 或者在脚本中嵌入<A
+HREF="here-docs.html#HEREDOCREF"
+>here
+	   document</A
+>来提供交互式脚本所需要的输入. 
+	   最简单的办法其实就是将一个文件重定向给<B
+CLASS="COMMAND"
+>read</B
+>命令, 
+	   来提供它所需要的输入(<B
+CLASS="COMMAND"
+>read variable &#60;file</B
+>). 
+	   通过使用上述方法, 就可以编写出通用目的脚本, 
+	   这种脚本即可以运行在交互模式下, 也可以运行在非交互模式下. 
+	   </P
+><P
+>如果脚本需要测试一下自己是否运行在交互式shell中, 
+		   那么一个简单的办法就是察看是否存在<EM
+>提示符(prompt)</EM
+>变量, 
+		   也就是察看一下变量<A
+HREF="internalvariables.html#PS1REF"
+>$PS1</A
+>是否被设置. 
+		   (如果脚本需要用户输入, 那么脚本就需要显示提示符.)
+
+	   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if [ -z $PS1 ] # 没有提示符? 
+  2&nbsp;then
+  3&nbsp;  # 非交互式
+  4&nbsp;  ...
+  5&nbsp;else
+  6&nbsp;  # 交互式
+  7&nbsp;  ...
+  8&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+	   <A
+NAME="IITEST"
+></A
+>另一种办法, 脚本可以测试一下标志<A
+HREF="internalvariables.html#FLPREF"
+>$-</A
+>中是否存在选项<SPAN
+CLASS="QUOTE"
+>"i"</SPAN
+>. 
+
+           <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;case $- in
+  2&nbsp;*i*)    # 交互式shell
+  3&nbsp;;;
+  4&nbsp;*)      # 非交互式shell
+  5&nbsp;;;
+  6&nbsp;# ("UNIX F.A.Q."的惯例, 1993)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>使用<KBD
+CLASS="USERINPUT"
+>#!/bin/bash -i</KBD
+>头, 
+			 或者使用<SPAN
+CLASS="TOKEN"
+>-i</SPAN
+>选项, 
+			 可以强制脚本运行在交互模式下. 
+			 注意, 这么做可能会让脚本产生古怪的行为, 
+			 有时候即使在没有错误的情况下, 也可能会显示错误信息. 
+	   </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="miscellany.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="wrapper.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>杂项</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="miscellany.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Shell包装</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,33 @@
+<!-- archive.html -->
+
+<html>
+<title>My Blog</title>
+<body>
+
+<form action="/blog/create/" method=post>{% csrf_token %}
+    <!--Title: <input type=text name=title><br>
+    Body: <textarea name=body rows=3 cols=60></textarea><br-->
+    <table>{{ form }}</table><br>
+    <input type=submit>
+</form>
+
+<hr>
+
+{% if posts %}
+    {% for post in posts %}
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.timestamp }}</p>
+        <p>{{ post.body }}</p>
+        <hr>
+    {% endfor %}
+{% else %}
+    <p>No blog entries have been posted yet.</p>
+{% endif %}
+
+{{ sql_queries|length }} queries
+{% for qdict in sql_queries %}
+    {{ qdict.sql|safe }} ({{ qdict.time }} seconds)
+{% endfor %}
+
+</body>
+</html>

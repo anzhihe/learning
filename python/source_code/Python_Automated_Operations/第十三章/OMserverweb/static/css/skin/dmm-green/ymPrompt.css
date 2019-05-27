@@ -1,0 +1,74 @@
+﻿/*container*/
+#ym-window{
+	background:#F0FAFF;overflow:hidden;
+	font-size:12px;font-family:'宋体'
+}
+
+.ym-tl{padding-left:3px;background:#CFD7EC url(/images/dmm-green/title_bg_left.gif) no-repeat 0 0}
+.ym-tr{padding-right:3px;background:#CFD7EC url(/images/dmm-green/title_bg_right.gif) no-repeat right 0;}
+.ym-tc{background:#CFD7EC url(/images/dmm-green/title_bg_center.gif) repeat-x 0 0;overflow:hidden;height:28px;line-height:30px;}
+.ym-ttc{height:3px}
+.ym-header-text{font-size:12px;font-weight:bold;color:#fff;padding-left:28px;background: url(/images/dmm-green/titleIco.gif) no-repeat 1px 1px;float:left}
+.ym-header-tools{float:right;margin-top:3px}
+.ym-header-tools strong{display:none}
+
+/*body*/
+.ym-ml{background:url(/images/dmm-green/win_l.gif) repeat-y 0 0;padding-left:3px;}
+.ym-mr{background:url(/images/dmm-green/win_r.gif) repeat-y right 0;padding-right:3px;}
+.ym-mc{padding:0}
+.ym-body{overflow:auto;padding:0;font-size:12px;color:#0076A9}
+
+/*button*/
+.ym-btn{text-align:center}
+
+/*footer*/
+.ym-bl{background:url(/images/dmm-green/win_lb.gif) no-repeat 0 bottom;padding-left:3px}
+.ym-br{background:url(/images/dmm-green/win_rb.gif) no-repeat right bottom;padding-right:3px}
+.ym-bc{background:url(/images/dmm-green/win_b.gif) repeat-x 0 bottom;height:3px;font-size:3px}
+
+.ymPrompt_alert{
+	padding-left:90px;
+	background:url(/images/dmm-green/info.gif) no-repeat 20px 50%
+}
+.ymPrompt_succeed{
+	padding-left:90px;
+	background:url(/images/dmm-green/right.gif) no-repeat 20px 50%
+}
+.ymPrompt_error{
+	padding-left:90px;
+	background:url(/images/dmm-green/err.gif) no-repeat 20px 50%
+}
+.ymPrompt_confirm{
+	padding-left:90px;
+	background:url(/images/dmm-green/ask.gif) no-repeat 20px 50%
+}
+.ymPrompt_close{
+	cursor:pointer;
+	background:url(/images/dmm-green/close.gif) no-repeat 0 0;
+	width:22px;height:22px;
+}
+.ymPrompt_alert .ym-content,.ymPrompt_succeed .ym-content,.ymPrompt_error .ym-content,.ymPrompt_confirm .ym-content{padding:50px 0 0}
+/*图标公共定义*/
+.ym-header-tools div{
+	cursor:pointer;
+	width:22px;height:22px;float:left;margin:0 0;
+	background:url(/images/dmm-green/ico.gif) no-repeat;
+}
+.ymPrompt_close{
+	background-position:-66px 0 !important;
+}
+.ymPrompt_max{
+	background-position:0 0 !important;
+}
+.ymPrompt_min{
+	background-position:-44px 0 !important;
+}
+.ymPrompt_normal{
+	background-position:-22px 0 !important;
+}
+/*取消确认按钮样式*/
+input.btnStyle{
+	background:url(/images/dmm-green/btn_bg.gif) no-repeat;
+	width:80px;height:23px;line-height:23px;
+	font-size:12px;color:#fff;font-weight:bold;border:0;margin:10px 0
+}

@@ -1,0 +1,687 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>/proc</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="/dev和/proc"
+HREF="devproc.html"><LINK
+REL="PREVIOUS"
+TITLE="/dev"
+HREF="devref1.html"><LINK
+REL="NEXT"
+TITLE="Zero与Null"
+HREF="zeros.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="devref1.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>27. /dev和/proc</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="zeros.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="PROCREF1"
+>27.2. <TT
+CLASS="FILENAME"
+>/proc</TT
+></A
+></H1
+><P
+><TT
+CLASS="FILENAME"
+>/proc</TT
+>目录实际上是一个伪文件系统. 
+		  <TT
+CLASS="FILENAME"
+>/proc</TT
+>目录中的文件用来映射当前运行的系统, 
+		  内核<EM
+>进程</EM
+>以及与它们相关的状态与统计信息. 
+	</P
+><P
+>         <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cat /proc/devices</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Character devices:
+   1 mem
+   2 pty
+   3 ttyp
+   4 ttyS
+   5 cua
+   7 vcs
+  10 misc
+  14 sound
+  29 fb
+  36 netlink
+ 128 ptm
+ 136 pts
+ 162 raw
+ 254 pcmcia
+
+ Block devices:
+   1 ramdisk
+   2 fd
+   3 ide0
+   9 md</SAMP
+>
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cat /proc/interrupts</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>           CPU0       
+   0:      84505          XT-PIC  timer
+   1:       3375          XT-PIC  keyboard
+   2:          0          XT-PIC  cascade
+   5:          1          XT-PIC  soundblaster
+   8:          1          XT-PIC  rtc
+  12:       4231          XT-PIC  PS/2 Mouse
+  14:     109373          XT-PIC  ide0
+ NMI:          0 
+ ERR:          0</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cat /proc/partitions</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>major minor  #blocks  name     rio rmerge rsect ruse wio wmerge wsect wuse running use aveq
+
+    3     0    3007872 hda 4472 22260 114520 94240 3551 18703 50384 549710 0 111550 644030
+    3     1      52416 hda1 27 395 844 960 4 2 14 180 0 800 1140
+    3     2          1 hda2 0 0 0 0 0 0 0 0 0 0 0
+    3     4     165280 hda4 10 0 20 210 0 0 0 0 0 210 210
+    ...</SAMP
+>
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cat /proc/loadavg</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>0.13 0.42 0.27 2/44 1119</SAMP
+>
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cat /proc/apm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>1.16 1.2 0x03 0x01 0xff 0x80 -1% -1 ?</SAMP
+>
+         </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>Shell脚本可以从<TT
+CLASS="FILENAME"
+>/proc</TT
+>目录下的某些特定文件中提取数据. 
+
+		   <A
+NAME="AEN14936"
+HREF="#FTN.AEN14936"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;FS=iso                       # 内核是否支持ISO文件系统? 
+  2&nbsp;
+  3&nbsp;grep $FS /proc/filesystems   # iso9660</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;kernel_version=$( awk '{ print $3 }' /proc/version )</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;CPU=$( awk '/model name/ {print $4}' &#60; /proc/cpuinfo )
+  2&nbsp;
+  3&nbsp;if [ $CPU = Pentium ]
+  4&nbsp;then
+  5&nbsp;  run_some_commands
+  6&nbsp;  ...
+  7&nbsp;else
+  8&nbsp;  run_different_commands
+  9&nbsp;  ...
+ 10&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;devfile="/proc/bus/usb/devices"
+  2&nbsp;USB1="Spd=12"
+  3&nbsp;USB2="Spd=480"
+  4&nbsp;
+  5&nbsp;
+  6&nbsp;bus_speed=$(grep Spd $devfile | awk '{print $9}')
+  7&nbsp;
+  8&nbsp;if [ "$bus_speed" = "$USB1" ]
+  9&nbsp;then
+ 10&nbsp;  echo "USB 1.1 port found."
+ 11&nbsp;  # 可以在这里添加操作USB 1.1的相关动作. 
+ 12&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><TT
+CLASS="FILENAME"
+>/proc</TT
+>目录下包含有许多以不同数字命名的子目录. 
+	   这些作为子目录名字的数字, 代表的是当前正在运行进程的<A
+HREF="internalvariables.html#PPIDREF"
+>进程ID</A
+>. 
+	   在这些以数字命名的子目录中, 
+	   每一个子目录都有许多文件用来保存对应进程的可用信息. 
+	   文件<TT
+CLASS="FILENAME"
+>stat</TT
+>和<TT
+CLASS="FILENAME"
+>status</TT
+>保存着进程运行时的各项统计信息,  
+	   文件<TT
+CLASS="FILENAME"
+>cmdline</TT
+>保存着进程被调用时的命令行参数, 
+	   而文件<TT
+CLASS="FILENAME"
+>exe</TT
+>是一个符号链接, 
+	   这个符号链接指向这个运行进程的完整路径. 
+	   还有许多类似这样的文件, 
+	   如果从脚本的视角来看它们的话, 这些文件都非常的有意思. 
+	   </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="PIDID"
+></A
+><P
+><B
+>例子 27-2. 找出与给定PID相关联的进程</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# pid-identifier.sh: 给出与指定pid相关联进程的完整路径名. 
+  3&nbsp;
+  4&nbsp;ARGNO=1  # 期望的参数个数. 
+  5&nbsp;E_WRONGARGS=65
+  6&nbsp;E_BADPID=66
+  7&nbsp;E_NOSUCHPROCESS=67
+  8&nbsp;E_NOPERMISSION=68
+  9&nbsp;PROCFILE=exe
+ 10&nbsp;
+ 11&nbsp;if [ $# -ne $ARGNO ]
+ 12&nbsp;then
+ 13&nbsp;  echo "Usage: `basename $0` PID-number" &#62;&#38;2  # Error message &#62;stderr(错误信息重定向到标准错误). 
+ 14&nbsp;  exit $E_WRONGARGS
+ 15&nbsp;fi  
+ 16&nbsp;
+ 17&nbsp;pidno=$( ps ax | grep $1 | awk '{ print $1 }' | grep $1 )
+ 18&nbsp;# 从"ps"命令的输出中搜索带有pid的行, pid位置在第一列#1, 由awk过滤出来. 
+ 19&nbsp;# 然后再次确认这就是我们所要找的进程, 而不是由这个脚本调用所产生的进程. 
+ 20&nbsp;# 最后的"grep $1"就是用来过滤掉这种可能性. 
+ 21&nbsp;#
+ 22&nbsp;#    pidno=$( ps ax | awk '{ print $1 }' | grep $1 )
+ 23&nbsp;#    这么写就可以了, 这一点由Teemu Huovila指出. 
+ 24&nbsp;
+ 25&nbsp;if [ -z "$pidno" ]  # 如果经过所有的过滤之后, 得到的结果是一个长度为0的字符串, 
+ 26&nbsp;then                # 那就说明这个pid没有相应的进程在运行. 
+ 27&nbsp;  echo "No such process running."
+ 28&nbsp;  exit $E_NOSUCHPROCESS
+ 29&nbsp;fi  
+ 30&nbsp;
+ 31&nbsp;# 也可以这么写: 
+ 32&nbsp;#   if ! ps $1 &#62; /dev/null 2&#62;&#38;1
+ 33&nbsp;#   then                # 没有与给定pid相匹配的进程在运行. 
+ 34&nbsp;#     echo "No such process running."
+ 35&nbsp;#     exit $E_NOSUCHPROCESS
+ 36&nbsp;#    fi
+ 37&nbsp;
+ 38&nbsp;# 为了简化整个过程, 可以使用"pidof". 
+ 39&nbsp;
+ 40&nbsp;
+ 41&nbsp;if [ ! -r "/proc/$1/$PROCFILE" ]  # 检查读权限. 
+ 42&nbsp;then
+ 43&nbsp;  echo "Process $1 running, but..."
+ 44&nbsp;  echo "Can't get read permission on /proc/$1/$PROCFILE."
+ 45&nbsp;  exit $E_NOPERMISSION  # 一般用户不能访问/proc目录下的某些文件. 
+ 46&nbsp;fi  
+ 47&nbsp;
+ 48&nbsp;# 最后两个测试可以使用下面的语句来代替: 
+ 49&nbsp;#    if ! kill -0 $1 &#62; /dev/null 2&#62;&#38;1 # '0'不是一个信号, but
+ 50&nbsp;                                      # 但是这么做, 可以测试一下是否
+ 51&nbsp;                                      # 可以向该进程发送信号. 
+ 52&nbsp;#    then echo "PID doesn't exist or you're not its owner" &#62;&#38;2
+ 53&nbsp;#    exit $E_BADPID
+ 54&nbsp;#    fi
+ 55&nbsp;
+ 56&nbsp;
+ 57&nbsp;
+ 58&nbsp;exe_file=$( ls -l /proc/$1 | grep "exe" | awk '{ print $11 }' )
+ 59&nbsp;# 或       exe_file=$( ls -l /proc/$1/exe | awk '{print $11}' )
+ 60&nbsp;#
+ 61&nbsp;# /proc/pid-number/exe是一个符号链接, 
+ 62&nbsp;# 指向这个调用进程的完整路径名. 
+ 63&nbsp;
+ 64&nbsp;if [ -e "$exe_file" ]  # 如果/proc/pid-number/exe存在...
+ 65&nbsp;then                 # 那么相应的进程就存在. 
+ 66&nbsp;  echo "Process #$1 invoked by $exe_file."
+ 67&nbsp;else
+ 68&nbsp;  echo "No such process running."
+ 69&nbsp;fi  
+ 70&nbsp;
+ 71&nbsp;
+ 72&nbsp;# 这个精心制作的脚本, *几乎*能够被下边这一行所替代: 
+ 73&nbsp;# ps ax | grep $1 | awk '{ print $5 }'
+ 74&nbsp;# 但是, 这样并不会工作...
+ 75&nbsp;# 因为'ps'输出的第5列是进程的argv[0](译者注: 这是命令行第一个参数, 即调用时程序用的程序路径本身.)
+ 76&nbsp;# 而不是可执行文件的路径. 
+ 77&nbsp;#
+ 78&nbsp;# 然而, 下边这两种方法都能正确地完成这个任务. 
+ 79&nbsp;#       find /proc/$1/exe -printf '%l\n'
+ 80&nbsp;#       lsof -aFn -p $1 -d txt | sed -ne 's/^n//p'
+ 81&nbsp;
+ 82&nbsp;# 附加注释, 是Stephane Chazelas添加的. 
+ 83&nbsp;
+ 84&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="CONSTAT"
+></A
+><P
+><B
+>例子 27-3. 网络连接状态</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;PROCNAME=pppd        # ppp守护进程
+  4&nbsp;PROCFILENAME=status  # 在这里寻找信息. 
+  5&nbsp;NOTCONNECTED=65
+  6&nbsp;INTERVAL=2           # 每2秒刷新一次. 
+  7&nbsp;
+  8&nbsp;pidno=$( ps ax | grep -v "ps ax" | grep -v grep | grep $PROCNAME | awk '{ print $1 }' )
+  9&nbsp;# 找出'pppd'所对应的进程号, 即'ppp守护进程'. 
+ 10&nbsp;# 必须过滤掉由搜索本身所产生的进程行. 
+ 11&nbsp;#
+ 12&nbsp;#  然而, 就像Oleg Philon所指出的那样, 
+ 13&nbsp;#+ 如果使用"pidof"的话, 就会非常简单. 
+ 14&nbsp;#  pidno=$( pidof $PROCNAME )
+ 15&nbsp;#
+ 16&nbsp;#  从经验中总结出来的忠告: 
+ 17&nbsp;#+ 当命令序列变得非常复杂的时候, 一定要找到更简洁的方法. 
+ 18&nbsp;
+ 19&nbsp;
+ 20&nbsp;if [ -z "$pidno" ]   # 如果没有找到匹配的pid, 那么就说明相应的进程没运行. 
+ 21&nbsp;then
+ 22&nbsp;  echo "Not connected."
+ 23&nbsp;  exit $NOTCONNECTED
+ 24&nbsp;else
+ 25&nbsp;  echo "Connected."; echo
+ 26&nbsp;fi
+ 27&nbsp;
+ 28&nbsp;while [ true ]       # 死循环, 这里可以改进一下. 
+ 29&nbsp;do
+ 30&nbsp;
+ 31&nbsp;  if [ ! -e "/proc/$pidno/$PROCFILENAME" ]
+ 32&nbsp;  # 进程运行时, 相应的"status"文件就会存在. 
+ 33&nbsp;  then
+ 34&nbsp;    echo "Disconnected."
+ 35&nbsp;    exit $NOTCONNECTED
+ 36&nbsp;  fi
+ 37&nbsp;
+ 38&nbsp;netstat -s | grep "packets received"  # 获得一些连接统计. 
+ 39&nbsp;netstat -s | grep "packets delivered"
+ 40&nbsp;
+ 41&nbsp;
+ 42&nbsp;  sleep $INTERVAL
+ 43&nbsp;  echo; echo
+ 44&nbsp;
+ 45&nbsp;done
+ 46&nbsp;
+ 47&nbsp;exit 0
+ 48&nbsp;
+ 49&nbsp;# 如果你想停止这个脚本, 只能使用Control-C. 
+ 50&nbsp;
+ 51&nbsp;#    练习:
+ 52&nbsp;#    -----
+ 53&nbsp;#    改进这个脚本, 使它可以按"q"键退出. 
+ 54&nbsp;#    提高这个脚本的用户友好性. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/warning.gif"
+HSPACE="5"
+ALT="Warning"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>一般来说, 
+		在<TT
+CLASS="FILENAME"
+>/proc</TT
+>目录中, 
+		进行<EM
+>写</EM
+>文件操作是非常危险的, 
+	 因为这么做可能会破坏文件系统, 甚至于摧毁整个机器. 
+	 </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN14936"
+HREF="procref1.html#AEN14936"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>某些系统命令也可做类似的事情, 
+				   比如<A
+HREF="system.html#PROCINFOREF"
+>procinfo</A
+>, 
+	     <A
+HREF="system.html#FREEREF"
+>free</A
+>, 
+	     <A
+HREF="system.html#VMSTATREF"
+>vmstat</A
+>, 
+	     <A
+HREF="system.html#LSDEVREF"
+>lsdev</A
+>, 
+	     和<A
+HREF="system.html#UPTIMEREF"
+>uptime</A
+>. 
+	     </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="devref1.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="zeros.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><TT
+CLASS="FILENAME"
+>/dev</TT
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="devproc.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Zero与Null</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

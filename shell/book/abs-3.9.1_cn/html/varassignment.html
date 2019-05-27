@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>变量赋值</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="变量和参数的介绍"
+HREF="variables.html"><LINK
+REL="PREVIOUS"
+TITLE="变量替换"
+HREF="varsubn.html"><LINK
+REL="NEXT"
+TITLE="Bash变量是不区分类型的"
+HREF="untyped.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="varsubn.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>4. 变量和参数的介绍</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="untyped.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="VARASSIGNMENT"
+>4.2. 变量赋值</A
+></H1
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="EQREF"
+></A
+><SPAN
+CLASS="TOKEN"
+>=</SPAN
+></DT
+><DD
+><P
+>赋值操作(<EM
+>前后都不能有空白</EM
+>)</P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>因为<A
+HREF="comparison-ops.html#EQUALSIGNREF"
+>=</A
+>和<A
+HREF="comparison-ops.html#EQUALREF"
+>-eq</A
+>都可以用做条件测试操作, 
+			所以不要与这里的赋值操作相混淆. </P
+><P
+>注意: <SPAN
+CLASS="TOKEN"
+>=</SPAN
+>既可以用做条件测试操作, 
+		   也可以用于赋值操作, 这需要视具体的上下文而定. </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX15"
+></A
+><P
+><B
+>例子 4-2. 简单的变量赋值</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# "裸体"变量
+  3&nbsp;
+  4&nbsp;echo
+  5&nbsp;
+  6&nbsp;# 变量什么时候是"裸体"的, 比如前边少了$的时候?
+  7&nbsp;# 当它被赋值的时候, 而不是被引用的时候.
+  8&nbsp;
+  9&nbsp;# 赋值
+ 10&nbsp;a=879
+ 11&nbsp;echo "The value of \"a\" is $a."
+ 12&nbsp;
+ 13&nbsp;# 使用'let'赋值
+ 14&nbsp;let a=16+5
+ 15&nbsp;echo "The value of \"a\" is now $a."
+ 16&nbsp;
+ 17&nbsp;echo
+ 18&nbsp;
+ 19&nbsp;# 在'for'循环中(事实上, 这是一种伪赋值):
+ 20&nbsp;echo -n "Values of \"a\" in the loop are: "
+ 21&nbsp;for a in 7 8 9 11
+ 22&nbsp;do
+ 23&nbsp;  echo -n "$a "
+ 24&nbsp;done
+ 25&nbsp;
+ 26&nbsp;echo
+ 27&nbsp;echo
+ 28&nbsp;
+ 29&nbsp;# 使用'read'命令进行赋值(这也是一种赋值的类型):
+ 30&nbsp;echo -n "Enter \"a\" "
+ 31&nbsp;read a
+ 32&nbsp;echo "The value of \"a\" is now $a."
+ 33&nbsp;
+ 34&nbsp;echo
+ 35&nbsp;
+ 36&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX16"
+></A
+><P
+><B
+>例子 4-3. 简单和复杂, 两种类型的变量赋值</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;a=23              # 简单的赋值
+  4&nbsp;echo $a
+  5&nbsp;b=$a
+  6&nbsp;echo $b
+  7&nbsp;
+  8&nbsp;# 现在让我们来点小变化(命令替换).
+  9&nbsp;
+ 10&nbsp;a=`echo Hello!`   # 把'echo'命令的结果传给变量'a'
+ 11&nbsp;echo $a
+ 12&nbsp;#  注意, 如果在一个#+的命令替换结构中包含一个(!)的话, 
+ 13&nbsp;#+ 那么在命令行下将无法工作.
+ 14&nbsp;#+ 因为这触发了Bash的"历史机制."
+ 15&nbsp;#  但是, 在脚本中使用的话, 历史功能是被禁用的, 所以就能够正常的运行.
+ 16&nbsp;
+ 17&nbsp;a=`ls -l`         # 把'ls -l'的结果赋值给'a'
+ 18&nbsp;echo $a           # 然而, 如果没有引号的话将会删除ls结果中多余的tab和换行符.
+ 19&nbsp;echo
+ 20&nbsp;echo "$a"         # 如果加上引号的话, 那么就会保留ls结果中的空白符.
+ 21&nbsp;                  # (具体请参阅"引用"的相关章节.)
+ 22&nbsp;
+ 23&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>使用<I
+CLASS="FIRSTTERM"
+>$(...)</I
+>机制来进行变量赋值(这是一种比<A
+HREF="commandsub.html#BACKQUOTESREF"
+>后置引用(反引号`)</A
+>更新的一种方法). 
+			事实上这两种方法都是<A
+HREF="commandsub.html#COMMANDSUBREF"
+>命令替换</A
+>的一种形式.</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# From /etc/rc.d/rc.local
+  2&nbsp;R=$(cat /etc/redhat-release)
+  3&nbsp;arch=$(uname -m)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="varsubn.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="untyped.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>变量替换</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="variables.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Bash变量是不区分类型的</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

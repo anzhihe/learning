@@ -1,0 +1,468 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>带有特殊含义的退出码</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Awk"
+HREF="awk.html"><LINK
+REL="NEXT"
+TITLE="I/O和I/O重定向的详细介绍"
+HREF="ioredirintro.html"></HEAD
+><BODY
+CLASS="APPENDIX"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="awk.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ioredirintro.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="APPENDIX"
+><H1
+><A
+NAME="EXITCODES"
+></A
+>Appendix D. 带有特殊含义的退出码</H1
+><P
+><A
+NAME="EXITCODESREF"
+></A
+></P
+><DIV
+CLASS="TABLE"
+><HR><A
+NAME="AEN18110"
+></A
+><P
+><B
+>表格 D-1. <SPAN
+CLASS="QUOTE"
+>"保留的"</SPAN
+>退出码</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>退出码的值</TH
+><TH
+>含义</TH
+><TH
+>例子</TH
+><TH
+>注释</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>1</CODE
+></TD
+><TD
+>通用错误</TD
+><TD
+>let "var1 = 1/0"</TD
+><TD
+>各种各样的错误都可能使用这个退出码, 比如<SPAN
+CLASS="QUOTE"
+>"除0错误"</SPAN
+></TD
+></TR
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>2</CODE
+></TD
+><TD
+>shell内建命令使用错误(Bash文档上有说明)</TD
+><TD
+>&nbsp;</TD
+><TD
+>很少看到, 通常情况下退出码都为<SPAN
+CLASS="ERRORCODE"
+>1</SPAN
+></TD
+></TR
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>126</CODE
+></TD
+><TD
+>命令调用不能执行</TD
+><TD
+>&nbsp;</TD
+><TD
+>程序或命令的权限是不可执行的</TD
+></TR
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>127</CODE
+></TD
+><TD
+><SPAN
+CLASS="QUOTE"
+>"command not found"</SPAN
+></TD
+><TD
+>&nbsp;</TD
+><TD
+>估计是<CODE
+CLASS="VARNAME"
+>$PATH</CODE
+>不对, 或者是拼写错误</TD
+></TR
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>128</CODE
+></TD
+><TD
+><A
+HREF="exit-status.html#EXITCOMMANDREF"
+>exit</A
+>的参数错误</TD
+><TD
+>exit 3.14159</TD
+><TD
+><B
+CLASS="COMMAND"
+>exit</B
+>只能以整数作为参数, 
+			  范围是<SPAN
+CLASS="RETURNVALUE"
+>0 - 255</SPAN
+>(见脚注)</TD
+></TR
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>128+n</CODE
+></TD
+><TD
+>信号<SPAN
+CLASS="QUOTE"
+>"n"</SPAN
+>的致命错误</TD
+><TD
+><B
+CLASS="COMMAND"
+>kill -9</B
+> 脚本的<CODE
+CLASS="VARNAME"
+>$PPID</CODE
+></TD
+><TD
+><KBD
+CLASS="USERINPUT"
+>$?</KBD
+> 返回<SPAN
+CLASS="ERRORCODE"
+>137</SPAN
+>(128 + 9)</TD
+></TR
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>130</CODE
+></TD
+><TD
+>用Control-C来结束脚本</TD
+><TD
+>&nbsp;</TD
+><TD
+>Control-C是信号<SPAN
+CLASS="ERRORCODE"
+>2</SPAN
+>的致命错误, 
+			  (130 = 128 + 2, 见上边)</TD
+></TR
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>255*</CODE
+></TD
+><TD
+>超出范围的退出状态</TD
+><TD
+>exit <SPAN
+CLASS="RETURNVALUE"
+>-1</SPAN
+></TD
+><TD
+><B
+CLASS="COMMAND"
+>exit</B
+>命令只能够接受范围是<SPAN
+CLASS="ERRORCODE"
+>0 - 255</SPAN
+>的整数作为参数</TD
+></TR
+></TBODY
+></TABLE
+><HR></DIV
+><P
+>通过上面的表, 我们了解到, 退出码<SPAN
+CLASS="ERRORCODE"
+>1 - 2,
+        126 - 165, 和255</SPAN
+>
+
+	<A
+NAME="AEN18187"
+HREF="#FTN.AEN18187"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+
+	都具有特殊的含义, 因此应该避免使用用户指定的退出参数. 
+	如果脚本使用<B
+CLASS="COMMAND"
+>exit 127</B
+>作为退出语句, 
+	那么可能就会在故障诊断的时候产生混淆(如何判断这是由<SPAN
+CLASS="QUOTE"
+>"command not found"</SPAN
+>引起的, 还是由用户定义引起的?). 
+	然而, 许多脚本使用<B
+CLASS="COMMAND"
+>exit 1</B
+>作为通用的返回错误值. 
+	因为退出码<SPAN
+CLASS="ERRORCODE"
+>1</SPAN
+>能够表示的错误太多了, 
+	不过这么做, 对于调试来说, 也起不到任何帮助的作用. 
+	</P
+><P
+>其实早就有人对退出状态值进行了系统的分类(请参考<TT
+CLASS="FILENAME"
+>/usr/include/sysexits.h</TT
+>), 
+	不过这个文件是为C/C++程序员准备的. 
+	其实shell脚本也需要这样一个类似的标准. 
+	所以本文作者呼吁限制使用用户定义的退出码, 
+	尤其是范围<SPAN
+CLASS="RETURNVALUE"
+>64 - 113</SPAN
+>(还有<SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>, 表示成功), 
+	这么做, 就可以和C/C++标准保持一致. 
+	这样我们就有了50个可用的退出码, 
+	而且非常便于故障诊断. </P
+><P
+>本书中所有例子中的用户定义退出码都符合这个标准, 
+	除了那些超出标准范围的例子, 比如<A
+HREF="internalvariables.html#TMDIN"
+>例子 9-2</A
+>. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>只有在Bash或<EM
+>sh</EM
+>提示符下, 当shell脚本退出后, 
+			在命令行上使用<A
+HREF="internalvariables.html#XSTATVARREF"
+>$?</A
+>才会得到与上表相一致的结果. 
+	在某些情况下, 
+	运行C-shell或者<EM
+>tcsh</EM
+>可能会给出不同的值. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN18187"
+HREF="exitcodes.html#AEN18187"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>超出范围的退出值可能会产生意想不到的退出码. 
+			如果退出值比<SPAN
+CLASS="ERRORCODE"
+>255</SPAN
+>大, 
+			那么退出码将会取<SPAN
+CLASS="ERRORCODE"
+>256</SPAN
+>的<A
+HREF="ops.html#MODULOREF"
+>模</A
+>. 
+	  举个例子, <B
+CLASS="COMMAND"
+>exit 3809</B
+>的退出码将是<SPAN
+CLASS="ERRORCODE"
+>225</SPAN
+>(3809 % 256 = 225). </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="awk.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ioredirintro.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Awk</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>I/O和I/O重定向的详细介绍</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

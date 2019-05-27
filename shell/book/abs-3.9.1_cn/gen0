@@ -1,0 +1,18 @@
+# This is an example "generation 0" start-up file for "life.sh".
+# --------------------------------------------------------------
+#  The "gen0" file is a 10 x 10 grid using a period (.) for live cells,
+#+ and an underscore (_) for dead ones. We cannot simply use spaces
+#+ for dead cells in this file because of a peculiarity in Bash arrays.
+#  [Exercise for the reader: explain this.]
+#
+# Lines beginning with a '#' are comments, and the script ignores them.
+__.__..___
+___._.____
+____.___..
+_._______.
+____._____
+..__...___
+____._____
+___...____
+__.._..___
+_..___..__

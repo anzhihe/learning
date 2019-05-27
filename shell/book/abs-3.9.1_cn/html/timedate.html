@@ -1,0 +1,890 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>时间/日期 命令</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="外部过滤器, 程序和命令"
+HREF="external.html"><LINK
+REL="PREVIOUS"
+TITLE="复杂命令"
+HREF="moreadv.html"><LINK
+REL="NEXT"
+TITLE="文本处理命令"
+HREF="textproc.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="moreadv.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>12. 外部过滤器, 程序和命令</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="textproc.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="TIMEDATE"
+>12.3. 时间/日期 命令</A
+></H1
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="TDLISTING1"
+></A
+>时间/日期和计时</B
+></P
+><DL
+><DT
+><A
+NAME="DATEREF"
+></A
+><B
+CLASS="COMMAND"
+>date</B
+></DT
+><DD
+><P
+>直接调用<B
+CLASS="COMMAND"
+>date</B
+>命令就会把日期和时间输出到 <TT
+CLASS="FILENAME"
+>stdout</TT
+>上. 
+			  这个命令有趣的地方在于它的格式化和分析选项上.
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX51"
+></A
+><P
+><B
+>例子 12-10. 使用<B
+CLASS="COMMAND"
+>date</B
+>命令</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 练习'date'命令
+  3&nbsp;
+  4&nbsp;echo "The number of days since the year's beginning is `date +%j`."
+  5&nbsp;# 需要在调用格式的前边加上一个'+'号.
+  6&nbsp;# %j用来给出今天是本年度的第几天. 
+  7&nbsp;
+  8&nbsp;echo "The number of seconds elapsed since 01/01/1970 is `date +%s`."
+  9&nbsp;#  %s将产生从"UNIX 元年"到现在为止的秒数,
+ 10&nbsp;#+ 但是这东西现在还有用么?
+ 11&nbsp;
+ 12&nbsp;prefix=temp
+ 13&nbsp;suffix=$(date +%s)  # 'date'命令的"+%s"选项是GNU特性.
+ 14&nbsp;filename=$prefix.$suffix
+ 15&nbsp;echo $filename
+ 16&nbsp;#  这是一种非常好的产生"唯一"临时文件的办法,
+ 17&nbsp;#+ 甚至比使用$$都强.
+ 18&nbsp;
+ 19&nbsp;# 如果想了解'date'命令的更多选项, 请查阅这个命令的man页.
+ 20&nbsp;
+ 21&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><CODE
+CLASS="OPTION"
+>-u</CODE
+>选项将给出UTC时间(Universal
+	      Coordinated Time).</P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>date</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Fri Mar 29 21:07:39 MST 2002</SAMP
+>
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>date -u</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Sat Mar 30 04:07:42 UTC 2002</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><P
+><A
+NAME="DATERANDREF"
+></A
+></P
+><P
+><B
+CLASS="COMMAND"
+>date</B
+>命令有许多的输出选项. 
+	       比如<CODE
+CLASS="OPTION"
+>%N</CODE
+>将以十亿分之一为单位表示当前时间. 
+	       这个选项的一个有趣的用法就是用来产生一个6位的随机数.
+	       <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;date +%N | sed -e 's/000$//' -e 's/^0//'
+  2&nbsp;           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3&nbsp;# 去掉开头和结尾的0. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><P
+>当然, 还有许多其他的选项(请察看<B
+CLASS="COMMAND"
+>man date</B
+>).
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;date +%j
+  2&nbsp;# 显示今天是本年度的第几天(从1月1日开始计算).
+  3&nbsp;
+  4&nbsp;date +%k%M
+  5&nbsp;# 使用24小时的格式来显示当前小时数和分钟数.
+  6&nbsp;
+  7&nbsp;
+  8&nbsp;
+  9&nbsp;# 'TZ'参数允许改变当前的默认时区.
+ 10&nbsp;date                 # Mon Mar 28 21:42:16 MST 2005
+ 11&nbsp;TZ=EST date          # Mon Mar 28 23:42:16 EST 2005
+ 12&nbsp;# 感谢, Frank Kannemann 和 Pete Sjoberg 提供了这个技巧. 
+ 13&nbsp;
+ 14&nbsp;
+ 15&nbsp;SixDaysAgo=$(date --date='6 days ago')
+ 16&nbsp;OneMonthAgo=$(date --date='1 month ago')  # 四周前(不是一个月).
+ 17&nbsp;OneYearAgo=$(date --date='1 year ago')</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>请参考<A
+HREF="special-chars.html#EX58"
+>例子 3-4</A
+>.</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>zdump</B
+></DT
+><DD
+><P
+>时区dump: 查看特定时区的当前时间. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>zdump EST</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>EST  Tue Sep 18 22:09:22 2001 EST</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+></DD
+><DT
+><A
+NAME="TIMREF"
+></A
+><B
+CLASS="COMMAND"
+>time</B
+></DT
+><DD
+><P
+>输出统计出来的命令执行的时间. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>time ls -l /</KBD
+> 给出的输出大概是如下格式: 
+<TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>0.00user 0.01system 0:00.05elapsed 16%CPU (0avgtext+0avgdata 0maxresident)k
+ 0inputs+0outputs (149major+27minor)pagefaults 0swaps</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+><P
+>请参考前边章节所讲的一个类似的命令<A
+HREF="x6756.html#TIMESREF"
+>times</A
+>. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在Bash的<A
+HREF="bashver2.html#BASH2REF"
+>2.0版本</A
+>中, 
+			  <B
+CLASS="COMMAND"
+>time</B
+>成为了shell的一个保留字, 
+			  并且在一个带有管道的命令行中, 这个命令的行为有些小的变化. 
+	    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="TOUCHREF"
+></A
+><B
+CLASS="COMMAND"
+>touch</B
+></DT
+><DD
+><P
+>这是一个用来更新文件被访问或修改的时间的工具, 
+			  这个时间可以是当前系统的时间,也可以是指定的时间, 
+			  这个命令也用来产生一个新文件. 
+			  命令<KBD
+CLASS="USERINPUT"
+>touch zzz</KBD
+>将产生一个<TT
+CLASS="FILENAME"
+>zzz</TT
+>为名字的0字节长度文件, 
+			  当然前提是<TT
+CLASS="FILENAME"
+>zzz</TT
+>文件不存在. 
+			  为了存储时间信息, 就需要一个时间戳为空的文件, 
+			  比如当你想跟踪一个工程的修改时间的时候, 这就非常有用了.
+	      </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>touch</B
+>命令等价于<KBD
+CLASS="USERINPUT"
+>: 
+					  &#62;&#62; newfile</KBD
+>或<KBD
+CLASS="USERINPUT"
+>&#62;&#62; 
+					  newfile</KBD
+>(对于一个普通文件). </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="ATREF"
+></A
+><B
+CLASS="COMMAND"
+>at</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>at</B
+>命令是一个作业控制命令, 
+			  用来在指定时间点上执行指定的命令集合. 
+			  它有点像<A
+HREF="system.html#CRONREF"
+>cron</A
+>命令, 
+			  然而, <B
+CLASS="COMMAND"
+>at</B
+>命令主要还是用来执行那种一次性执行的命令集合. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>at 2pm January 15</KBD
+>将会产生提示, 
+	      提示你输入需要在这个时间上需要执行的命令序列. 
+		  这些命令应该是可以和shll脚本兼容的, 
+		  因为实际上在一个可执行的脚本中, 
+	      用户每次只能输入一行. 
+	      输入将以<A
+HREF="special-chars.html#CTLDREF"
+>Ctl-D</A
+>结束. </P
+><P
+>你可以使用<CODE
+CLASS="OPTION"
+>-f</CODE
+>选项或者使用(<SPAN
+CLASS="TOKEN"
+>&#60;</SPAN
+>)重定向操作符, 
+		  来让<B
+CLASS="COMMAND"
+>at</B
+>命令从一个文件中读取命令集合. 
+	      这个文件其实就一个可执行的的脚本, 虽然它是一个不可交互的脚本. 
+	      在文件中包含一个<A
+HREF="extmisc.html#RUNPARTSREF"
+>run-parts</A
+>命令, 
+	      对于执行一套不同的脚本来说是非常聪明的做法. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>at 2:30 am Friday &#60; at-jobs.list</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>job 2 at 2000-10-27 02:30</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>batch</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>batch</B
+>作业控制命令与<B
+CLASS="COMMAND"
+>at</B
+>令的行为很相像, 
+			  但是<B
+CLASS="COMMAND"
+>batch</B
+>命令被用来在系统平均负载量降到<TT
+CLASS="LITERAL"
+>.8</TT
+>以下时执行一次性的任务. 
+			  与<B
+CLASS="COMMAND"
+>at</B
+>命令相似的是, 
+			  它也可以使用<CODE
+CLASS="OPTION"
+>-f</CODE
+>选项来从文件中读取命令. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>cal</B
+></DT
+><DD
+><P
+>从<TT
+CLASS="FILENAME"
+>stdout</TT
+>中输出一个格式比较整齐的日历. 
+			  既可以指定当前年度, 也可以指定过去或将来的某个年度. </P
+></DD
+><DT
+><A
+NAME="SLEEPREF"
+></A
+><B
+CLASS="COMMAND"
+>sleep</B
+></DT
+><DD
+><P
+>这个命令与一个等待循环的效果一样. 
+			  你可以指定需要暂停的秒数, 这段时间将什么都不干. 
+			  当一个后台运行的进程需要偶尔检测一个事件时, 这个功能很有用. 
+			  也可用于计时. 
+	      请参考<A
+HREF="debugging.html#ONLINE"
+>例子 29-6</A
+>.
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;sleep 3     # 暂停3秒. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>sleep</B
+>默认是以秒为单位, 
+	      但是你也可以指定分钟, 小时, 或者天数为单位.
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;sleep 3 h   # 暂停3小时!</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果你想每隔一段时间来运行一个命令的话, 
+				那么<A
+HREF="system.html#WATCHREF"
+>watch</A
+>命令将比<B
+CLASS="COMMAND"
+>sleep</B
+>命令好得多. 
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>usleep</B
+></DT
+><DD
+><P
+><EM
+>指定需要sleep的微秒数</EM
+> 
+			  (<SPAN
+CLASS="QUOTE"
+>"u"</SPAN
+>会被希腊人读成<SPAN
+CLASS="QUOTE"
+>"mu"</SPAN
+>, 
+			  或者是 micro- 前缀). 
+			  与上边的<B
+CLASS="COMMAND"
+>sleep</B
+>命令相同, 
+	      但这个命令以微秒为单位. 
+		  当需要精确计时, 
+		  或者需要非常频繁的监控一个正在运行进程的时候, 
+		  这个命令非常有用. </P
+><P
+>  
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;usleep 30     # 暂停30微秒. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>这个命令是Red Hat的<EM
+>initscripts /
+	      rc-scripts</EM
+>包的一部分. </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>事实上<B
+CLASS="COMMAND"
+>usleep</B
+>命令并不能提供非常精确的计时, 
+		  所以如果你需要运行一个实时的任务的话, 这个命令并不适合.
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>hwclock</B
+>, <B
+CLASS="COMMAND"
+>clock</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>hwclock</B
+>命令可以访问或调整硬件时钟. 
+			  这个命令的一些选项需要具有root权限. 
+	      在系统启动的时候, <TT
+CLASS="FILENAME"
+>/etc/rc.d/rc.sysinit</TT
+>, 
+	      会使用<B
+CLASS="COMMAND"
+>hwclock</B
+>来从硬件时钟中读取并设置系统时间. </P
+><P
+><B
+CLASS="COMMAND"
+>clock</B
+>命令与<B
+CLASS="COMMAND"
+>hwclock</B
+>命令完全相同. </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="moreadv.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="textproc.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>复杂命令</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="external.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>文本处理命令</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

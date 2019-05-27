@@ -1,0 +1,1598 @@
+2014-06-02 15:57:51,228 [ERROR] History not configured in /etc/profile!
+2014-06-02 15:59:19,841 [ERROR] History not configured in /etc/profile!
+2014-06-02 16:12:54,697 [ERROR] get localhost IP address error:[Errno 19] No such device
+2014-06-02 16:15:56,581 [ERROR] get localhost IP address error:[Errno 19] No such device
+2014-06-02 16:18:52,937 [ERROR] History not configured in /etc/profile!
+2014-06-02 16:26:32,340 [INFO] 192.168.1.20 141 root 2014-06-02 11:46:32 ps -efgrep nginx 
+2014-06-02 16:27:01,412 [INFO] 192.168.1.20 141 root 2014-06-02 11:46:32 ps -efgrep nginx 
+2014-06-02 16:27:24,874 [INFO] 192.168.1.20 141 root 2014-06-02 11:46:32 ps -efgrep httpd 
+2014-06-02 16:31:44,014 [INFO] 192.168.1.20 116 root 2014-06-02 16:31:43 source /etc/profile 
+2014-06-02 16:31:49,423 [INFO] 192.168.1.20 105 root 2014-06-02 16:31:46 exit 
+2014-06-02 16:32:11,135 [INFO] 192.168.1.20 106 root 2014-06-02 16:32:10 ps -ef 
+2014-06-02 16:32:21,137 [INFO] 192.168.1.20 107 root 2014-06-02 16:32:21 free -m 
+2014-06-02 16:32:47,964 [INFO] 192.168.1.20 108 root 2014-06-02 16:32:43 vi /etc/sysctl.conf 
+2014-06-02 16:33:10,227 [INFO] 192.168.1.20 109 root 2014-06-02 16:33:10 ps -ef|grep nginx 
+2014-06-02 16:44:19,056 [INFO] 192.168.1.20 110 root 2014-06-02 16:44:18 ps -ef|grep nginx > aa 
+2014-06-02 16:44:24,902 [INFO] 192.168.1.20 111 root 2014-06-02 16:44:24 ls 
+2014-06-02 16:44:29,947 [INFO] 192.168.1.20 112 root 2014-06-02 16:44:29 rm -rf aa 
+2014-06-02 16:46:03,005 [INFO] 192.168.1.20 105 root 2014-06-02 16:44:29 rm -rf aa 
+2014-06-02 16:46:49,453 [INFO] 192.168.1.20 106 root 2014-06-02 16:46:34 top 
+2014-06-02 16:47:10,489 [INFO] 192.168.1.20 107 root 2014-06-02 16:47:10 uptime 
+2014-06-02 16:51:39,239 [INFO] 192.168.1.20 108 root 2014-06-02 16:51:39 history -10 
+2014-06-02 16:51:42,310 [INFO] 192.168.1.20 109 root 2014-06-02 16:51:42 history 10 
+2014-06-02 16:51:58,156 [INFO] 192.168.1.20 110 root 2014-06-02 16:51:58 history 15 
+2014-06-02 16:54:24,017 [INFO] 192.168.1.20 111 root 2014-06-02 16:54:23 ll 
+2014-06-02 16:54:26,415 [INFO] 192.168.1.20 111 root 2014-06-02 16:54:23 ll 
+2014-06-02 16:54:28,047 [INFO] 192.168.1.20 111 root 2014-06-02 16:54:23 ll 
+2014-06-02 16:56:09,818 [INFO] 192.168.1.20 112 root 2014-06-02 16:55:47 vi /etc/passwd 
+2014-06-02 16:56:11,652 [INFO] 192.168.1.20 113 root 2014-06-02 16:56:11 ls /home 
+2014-06-02 16:56:59,863 [ERROR] History not configured in /etc/profile!
+2014-06-02 16:57:04,552 [ERROR] History not configured in /etc/profile!
+2014-06-02 16:58:18,927 [ERROR] History not configured in /etc/profile!
+2014-06-02 16:58:20,230 [ERROR] History not configured in /etc/profile!
+2014-06-02 16:59:27,590 [INFO] 192.168.1.20 117 root 2014-06-02 16:59:27 cd /home/test/OMAudit/ 
+2014-06-02 16:59:28,047 [INFO] 192.168.1.20 118 root 2014-06-02 16:59:27 ls 
+2014-06-02 16:59:28,716 [INFO] 192.168.1.20 119 root 2014-06-02 16:59:28 ll 
+2014-06-02 16:59:50,500 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:00:15,052 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:01:09,658 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:01:12,758 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:03:19,612 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:04:18,390 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:04:19,267 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:04:24,579 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:04:32,078 [INFO] 192.168.1.20 120 root 2014-06-02 16:56:20 su mysql 
+2014-06-02 17:04:59,232 [INFO] 192.168.1.20 121 root 2014-06-02 17:04:58 adduser devuser 
+2014-06-02 17:05:12,329 [INFO] 192.168.1.20 122 root 2014-06-02 17:05:06 passwd devuser 
+2014-06-02 17:05:16,133 [INFO] 192.168.1.20 123 root 2014-06-02 17:05:16 ls /home 
+2014-06-02 17:05:41,715 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:05:55,479 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:06:09,186 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:06:09,947 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:06:11,373 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:08:21,039 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:08:32,705 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:08:33,489 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:08:36,249 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:08:38,717 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:08:53,068 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:08:54,867 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:09:17,942 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:09:39,120 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:13:15,037 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:13:21,395 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:13:26,552 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:13:29,926 [INFO] 192.168.1.20 124 root 2014-06-02 17:05:41 su devuser 
+2014-06-02 17:13:34,899 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:13:36,422 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:13:43,713 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:13:45,239 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:14:27,446 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:14:32,929 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:14:33,840 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:14:35,453 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:14:37,229 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:14:38,787 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:14:55,499 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:14:58,367 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:15:39,494 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:15:40,572 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:15:57,823 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:15:58,846 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:17:22,204 [INFO] 192.168.1.20 125 root 2014-06-02 17:09:05 vi /etc/profile 
+2014-06-02 17:17:25,474 [INFO] 192.168.1.20 126 root 2014-06-02 17:17:25 source /etc/profile 
+2014-06-02 17:17:32,259 [INFO] 192.168.1.20 100 root 2014-06-02 17:17:30 exit 
+2014-06-02 17:18:04,131 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:18:13,075 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:18:15,873 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:18:23,714 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:18:33,185 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:18:35,521 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:18:37,591 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:18:38,975 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:18:46,337 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:19:05,169 [INFO] 192.168.1.20 1 devuser 2014-06-02 17:18:52 exit 
+2014-06-02 17:19:08,912 [INFO] 192.168.1.20 2 devuser 2014-06-02 17:19:08 ls -a 
+2014-06-02 17:19:48,254 [INFO] 192.168.1.20 3 devuser 2014-06-02 17:19:46 top 
+2014-06-02 17:20:01,351 [INFO] 192.168.1.20 3 devuser 2014-06-02 17:19:46 top 
+2014-06-02 17:20:08,442 [INFO] 192.168.1.20 4 devuser 2014-06-02 17:20:08 history 2 
+2014-06-02 17:24:12,252 [INFO] 192.168.1.20 101 root 2014-06-02 17:21:56 vi /etc/profile 
+2014-06-02 17:24:16,413 [INFO] 192.168.1.20 102 root 2014-06-02 17:24:16 deluser devuser 
+2014-06-02 17:24:21,408 [INFO] 192.168.1.20 103 root 2014-06-02 17:24:21 userdel devuser 
+2014-06-02 17:24:22,981 [INFO] 192.168.1.20 104 root 2014-06-02 17:24:22 cd /home 
+2014-06-02 17:24:23,570 [INFO] 192.168.1.20 105 root 2014-06-02 17:24:23 ls 
+2014-06-02 17:24:27,410 [INFO] 192.168.1.20 106 root 2014-06-02 17:24:27 ls devuser/ 
+2014-06-02 17:24:32,003 [INFO] 192.168.1.20 107 root 2014-06-02 17:24:31 rm -rf devuser/ 
+2014-06-02 17:24:32,930 [INFO] 192.168.1.20 108 root 2014-06-02 17:24:32 ls 
+2014-06-02 17:24:55,195 [INFO] 192.168.1.20 109 root 2014-06-02 17:24:55 useradd devuser 
+2014-06-02 17:25:00,463 [INFO] 192.168.1.20 110 root 2014-06-02 17:25:00 ls 
+2014-06-02 17:25:06,972 [INFO] 192.168.1.20 111 root 2014-06-02 17:25:06 ls devuser/ 
+2014-06-02 17:25:10,093 [INFO] 192.168.1.20 112 root 2014-06-02 17:25:10 ls devuser/ -a 
+2014-06-02 17:25:15,444 [INFO] 192.168.1.20 113 root 2014-06-02 17:25:15 rm -rf devuser 
+2014-06-02 17:25:16,568 [INFO] 192.168.1.20 114 root 2014-06-02 17:25:16 ls 
+2014-06-02 17:25:38,779 [INFO] 192.168.1.20 115 root 2014-06-02 17:25:38 userdel devuser 
+2014-06-02 17:25:40,230 [INFO] 192.168.1.20 115 root 2014-06-02 17:25:38 userdel devuser 
+2014-06-02 17:25:43,472 [INFO] 192.168.1.20 116 root 2014-06-02 17:25:43 ls 
+2014-06-02 17:25:54,971 [INFO] 192.168.1.20 117 root 2014-06-02 17:25:54 useradd devuser 
+2014-06-02 17:26:09,608 [INFO] 192.168.1.20 118 root 2014-06-02 17:26:05 passwd devuser 
+2014-06-02 17:26:11,574 [INFO] 192.168.1.20 119 root 2014-06-02 17:26:11 ls 
+2014-06-02 17:26:17,660 [INFO] 192.168.1.20 120 root 2014-06-02 17:26:17 ls devuser/ 
+2014-06-02 17:26:19,166 [INFO] 192.168.1.20 121 root 2014-06-02 17:26:19 ls devuser/ -a 
+2014-06-02 17:26:33,621 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:26:36,155 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:26:47,658 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:27:16,517 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:27:19,219 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:27:25,096 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:27:30,620 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:27:31,776 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:27:44,874 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:27:49,007 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:27:53,282 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:28:01,912 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:28:06,269 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:28:36,566 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:28:39,578 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:28:44,427 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:29:10,258 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:29:12,599 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:29:25,965 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:29:49,016 [INFO] 192.168.1.20 1 devuser 2014-06-02 17:29:44 exit 
+2014-06-02 17:29:59,415 [INFO] 192.168.1.20 2 devuser 2014-06-02 17:29:59 ps -ef 
+2014-06-02 17:33:08,032 [INFO] 192.168.1.20 122 root 2014-06-02 17:28:20 vi /etc/profile 
+2014-06-02 17:33:09,338 [INFO] 192.168.1.20 123 root 2014-06-02 17:33:09 ls 
+2014-06-02 17:33:13,821 [INFO] 192.168.1.20 124 root 2014-06-02 17:33:13 userdel devuser 
+2014-06-02 17:33:17,454 [INFO] 192.168.1.20 125 root 2014-06-02 17:33:17 ls 
+2014-06-02 17:33:20,483 [INFO] 192.168.1.20 126 root 2014-06-02 17:33:20 rm -rf devuser/ 
+2014-06-02 17:33:21,023 [INFO] 192.168.1.20 127 root 2014-06-02 17:33:20 ls 
+2014-06-02 17:33:27,618 [INFO] 192.168.1.20 128 root 2014-06-02 17:33:27 useradd devuser 
+2014-06-02 17:33:37,438 [INFO] 192.168.1.20 129 root 2014-06-02 17:33:32 passwd devuser 
+2014-06-02 17:33:43,224 [INFO] 192.168.1.20 130 root 2014-06-02 17:33:43 ls devuser 
+2014-06-02 17:33:46,250 [INFO] 192.168.1.20 131 root 2014-06-02 17:33:46 ls devuser -a 
+2014-06-02 17:34:14,755 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:34:20,944 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:34:25,867 [INFO] 192.168.1.20 1 devuser 2014-06-02 17:34:25 history -w 
+2014-06-02 17:34:27,203 [INFO] 192.168.1.20 2 devuser 2014-06-02 17:34:27 ls 
+2014-06-02 17:34:28,771 [INFO] 192.168.1.20 3 devuser 2014-06-02 17:34:28 ls -a 
+2014-06-02 17:35:49,866 [INFO] 192.168.1.20 132 root 2014-06-02 17:35:27 vi /etc/profile 
+2014-06-02 17:35:52,264 [INFO] 192.168.1.20 134 root 2014-06-02 17:35:52 source /etc/profile 
+2014-06-02 17:36:13,299 [INFO] 192.168.1.20 135 root 2014-06-02 17:36:13 useradd devuser1 
+2014-06-02 17:36:20,039 [INFO] 192.168.1.20 136 root 2014-06-02 17:36:16 passwd devuser1 
+2014-06-02 17:36:44,243 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:36:58,497 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:37:05,660 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:37:14,425 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:37:16,070 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:37:17,728 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:37:42,008 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:37:49,758 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:37:51,244 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:38:08,239 [INFO] 192.168.1.20 1 devuser1 2014-06-02 17:38:08 history -w 
+2014-06-02 17:38:22,304 [INFO] 192.168.1.20 2 devuser1 2014-06-02 17:38:22 ls -a 
+2014-06-02 17:38:24,415 [INFO] 192.168.1.20 3 devuser1 2014-06-02 17:38:24 ll -a 
+2014-06-02 17:39:10,761 [INFO] 192.168.1.20 4 devuser1 2014-06-02 17:39:10 cc 
+2014-06-02 17:41:54,099 [INFO] 192.168.1.20 137 root 2014-06-02 17:39:28 vi /etc/profile 
+2014-06-02 17:41:56,797 [INFO] 192.168.1.20 139 root 2014-06-02 17:41:56 source /etc/profile 
+2014-06-02 17:42:09,514 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:42:30,247 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:42:44,608 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:43:06,935 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:43:08,415 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:43:10,480 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:43:32,222 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:44:17,477 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:44:23,265 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:44:27,228 [INFO] 192.168.1.20 1 root 2014-06-02 17:44:25 exit 
+2014-06-02 17:44:36,230 [INFO] 192.168.1.20 2 root 2014-06-02 17:44:36 ps -ef 
+2014-06-02 17:44:52,416 [INFO] 192.168.1.20 3 root 2014-06-02 17:44:52 useradd devuser2 
+2014-06-02 17:45:00,647 [INFO] 192.168.1.20 4 root 2014-06-02 17:44:57 passwd devuser2 
+2014-06-02 17:45:10,985 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:45:21,054 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:45:30,691 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:45:39,687 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:45:41,906 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:46:30,578 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:46:32,517 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:46:33,307 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:46:33,729 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:46:33,863 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:46:34,017 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:46:34,165 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:46:34,289 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:46:36,623 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:50:43,540 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:50:49,420 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:56:29,734 [INFO] 192.168.1.20 5 root 2014-06-02 17:56:23 vi /root/.bash_history 
+2014-06-02 17:57:05,953 [INFO] 192.168.1.20 6 root 2014-06-02 17:57:05 df 
+2014-06-02 17:57:22,887 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:57:34,333 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 17:58:45,830 [INFO] 192.168.1.20 1 devuser2 2014-06-02 17:58:35 exit 
+2014-06-02 17:58:49,159 [INFO] 192.168.1.20 2 devuser2 2014-06-02 17:58:49 ls 
+2014-06-02 17:58:51,433 [INFO] 192.168.1.20 3 devuser2 2014-06-02 17:58:51 ls -a 
+2014-06-02 17:58:53,969 [INFO] 192.168.1.20 4 devuser2 2014-06-02 17:58:53 ll -a 
+2014-06-02 18:00:41,199 [INFO] 192.168.1.20 7 root 2014-06-02 17:59:12 vi /etc/profile 
+2014-06-02 18:00:52,467 [INFO] 192.168.1.20 16 root 2014-06-02 17:59:12 vi /etc/profile 
+2014-06-02 18:00:56,861 [INFO] 192.168.1.20 17 root 2014-06-02 18:00:55 exit 
+2014-06-02 18:01:11,983 [INFO] 192.168.1.20 18 root 2014-06-02 18:01:07 vi /root/.bash_history 
+2014-06-02 18:01:24,501 [INFO] 192.168.1.20 19 root 2014-06-02 18:01:24 passwd devuser3 
+2014-06-02 18:01:30,915 [INFO] 192.168.1.20 20 root 2014-06-02 18:01:30 useradd devuser3 
+2014-06-02 18:01:47,534 [INFO] 192.168.1.20 21 root 2014-06-02 18:01:35 passwd devuser3 
+2014-06-02 18:02:11,108 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:02:25,995 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:02:38,597 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:02:46,052 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:05:33,845 [INFO] 192.168.1.20 22 root 2014-06-02 18:04:12 vi /etc/profile 
+2014-06-02 18:05:36,305 [INFO] 192.168.1.20 46 root 2014-06-02 18:05:36 source /etc/profile 
+2014-06-02 18:05:44,440 [INFO] 192.168.1.20 47 root 2014-06-02 18:05:38 exit 
+2014-06-02 18:05:58,357 [INFO] 192.168.1.20 48 root 2014-06-02 18:05:58 useradd devuser4 
+2014-06-02 18:06:07,057 [INFO] 192.168.1.20 49 root 2014-06-02 18:06:03 passwd devuser4 
+2014-06-02 18:06:25,962 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:06:31,817 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:06:34,034 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:06:38,732 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:06:42,814 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:07:50,637 [INFO] 192.168.1.20 50 root 2014-06-02 18:06:55 vi /etc/profile 
+2014-06-02 18:07:53,982 [INFO] 192.168.1.20 102 root 2014-06-02 18:07:53 source /etc/profile 
+2014-06-02 18:08:16,782 [INFO] 192.168.1.20 200 root 2014-06-02 18:08:10 exit 
+2014-06-02 18:08:39,424 [INFO] 192.168.1.20 201 root 2014-06-02 18:08:39 passwd devuser5 
+2014-06-02 18:08:46,511 [INFO] 192.168.1.20 202 root 2014-06-02 18:08:46 useradd devuser5 
+2014-06-02 18:08:51,158 [INFO] 192.168.1.20 203 root 2014-06-02 18:08:47 passwd devuser5 
+2014-06-02 18:09:02,510 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:09:10,022 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:09:22,736 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:09:26,859 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:09:28,500 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:09:30,879 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:09:34,628 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:10:00,576 [INFO] 192.168.1.20 204 root 2014-06-02 18:09:42 vi /etc/profile 
+2014-06-02 18:10:46,596 [INFO] 192.168.1.20 204 root 2014-06-02 18:09:42 vi /etc/profile 
+2014-06-02 18:10:50,390 [INFO] 192.168.1.20 217 root 2014-06-02 18:10:50 source /etc/profile 
+2014-06-02 18:10:53,117 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:10:56,007 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:10:56,188 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:11:00,209 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:11:05,098 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:11:13,678 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:11:15,151 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:11:16,484 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:11:17,343 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:11:23,288 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:11:29,997 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:11:49,919 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:12:12,271 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:12:15,899 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:12:20,929 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:12:21,875 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:12:23,733 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:12:33,186 [INFO] 192.168.1.20 1 root 2014-06-02 18:12:31 exit 
+2014-06-02 18:12:37,450 [INFO] 192.168.1.20 2 root 2014-06-02 18:12:37 ps -ef 
+2014-06-02 18:12:45,961 [INFO] 192.168.1.20 3 root 2014-06-02 18:12:45 free -m 
+2014-06-02 18:12:53,243 [INFO] 192.168.1.20 3 root 2014-06-02 18:12:45 free -m 
+2014-06-02 18:12:54,788 [INFO] 192.168.1.20 4 root 2014-06-02 18:12:54 ls /home 
+2014-06-02 18:13:01,952 [INFO] 192.168.1.20 5 root 2014-06-02 18:13:01 useradd devuser6 
+2014-06-02 18:13:08,137 [INFO] 192.168.1.20 6 root 2014-06-02 18:13:05 passwd devuser6 
+2014-06-02 18:13:20,915 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:13:27,057 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:14:22,413 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:14:26,353 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:14:31,467 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:14:36,711 [INFO] 192.168.1.20 1 devuser6 2014-06-02 18:14:36 history -w 
+2014-06-02 18:14:40,316 [INFO] 192.168.1.20 1 devuser6 2014-06-02 18:14:36 history -w 
+2014-06-02 18:14:40,507 [INFO] 192.168.1.20 1 devuser6 2014-06-02 18:14:36 history -w 
+2014-06-02 18:14:40,651 [INFO] 192.168.1.20 1 devuser6 2014-06-02 18:14:36 history -w 
+2014-06-02 18:14:42,174 [INFO] 192.168.1.20 2 devuser6 2014-06-02 18:14:42 ps -ef 
+2014-06-02 18:16:22,329 [INFO] 192.168.1.20 3 devuser6 2014-06-02 18:14:42 ps -ef 
+2014-06-02 18:16:27,558 [INFO] 192.168.1.20 4 devuser6 2014-06-02 18:16:27 history 
+2014-06-02 18:16:32,835 [INFO] 192.168.1.20 5 devuser6 2014-06-02 18:16:32 history -a 
+2014-06-02 18:16:35,211 [INFO] 192.168.1.20 6 devuser6 2014-06-02 18:16:35 history 
+2014-06-02 18:16:37,729 [INFO] 192.168.1.20 6 devuser6 2014-06-02 18:16:35 history 
+2014-06-02 18:16:39,193 [INFO] 192.168.1.20 6 devuser6 2014-06-02 18:16:35 history 
+2014-06-02 18:22:04,326 [INFO] 192.168.1.20 7 root 2014-06-02 18:21:17 vi /etc/profile 
+2014-06-02 18:22:49,494 [INFO] 192.168.1.20 7 root 2014-06-02 18:21:17 vi /etc/profile 
+2014-06-02 18:22:57,655 [INFO] 192.168.1.20 8 root 2014-06-02 18:21:17 vi /etc/profile 
+2014-06-02 18:23:01,758 [INFO] 192.168.1.20 9 root 2014-06-02 18:23:00 exit 
+2014-06-02 18:23:02,877 [INFO] 192.168.1.20 9 root 2014-06-02 18:23:00 exit 
+2014-06-02 18:23:11,500 [INFO] 192.168.1.20 10 root 2014-06-02 18:23:11 useradd devuser7 
+2014-06-02 18:23:18,651 [INFO] 192.168.1.20 11 root 2014-06-02 18:23:15 passwd devuser7 
+2014-06-02 18:23:35,611 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:23:37,207 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:23:50,479 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:24:03,375 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:24:05,375 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:24:13,112 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:24:14,985 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:24:19,504 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:24:19,705 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:24:19,868 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:24:22,136 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:24:24,536 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:25:52,966 [INFO] 192.168.1.20 12 root 2014-06-02 18:25:26 vi /etc/profile 
+2014-06-02 18:26:03,914 [INFO] 192.168.1.20 26 root 2014-06-02 18:25:26 vi /etc/profile 
+2014-06-02 18:26:04,462 [INFO] 192.168.1.20 26 root 2014-06-02 18:25:26 vi /etc/profile 
+2014-06-02 18:26:04,617 [INFO] 192.168.1.20 26 root 2014-06-02 18:25:26 vi /etc/profile 
+2014-06-02 18:26:14,393 [INFO] 192.168.1.20 27 root 2014-06-02 18:26:13 exit 
+2014-06-02 18:26:15,266 [INFO] 192.168.1.20 27 root 2014-06-02 18:26:13 exit 
+2014-06-02 18:26:15,424 [INFO] 192.168.1.20 27 root 2014-06-02 18:26:13 exit 
+2014-06-02 18:26:26,937 [INFO] 192.168.1.20 28 root 2014-06-02 18:26:26 passwd devuser8 
+2014-06-02 18:26:32,037 [INFO] 192.168.1.20 29 root 2014-06-02 18:26:31 useradd devuser8 
+2014-06-02 18:26:37,554 [INFO] 192.168.1.20 30 root 2014-06-02 18:26:34 passwd devuser8 
+2014-06-02 18:26:50,012 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:26:58,539 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:27:05,238 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:27:07,652 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:27:09,309 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:27:31,873 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:27:34,793 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:27:38,413 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:28:11,749 [INFO] 192.168.1.20 31 root 2014-06-02 18:27:45 vi /etc/profile 
+2014-06-02 18:28:46,797 [INFO] 192.168.1.20 33 root 2014-06-02 18:27:45 vi /etc/profile 
+2014-06-02 18:28:47,357 [INFO] 192.168.1.20 33 root 2014-06-02 18:27:45 vi /etc/profile 
+2014-06-02 18:28:47,507 [INFO] 192.168.1.20 33 root 2014-06-02 18:27:45 vi /etc/profile 
+2014-06-02 18:29:00,693 [INFO] 192.168.1.20 34 root 2014-06-02 18:28:59 exit 
+2014-06-02 18:29:06,689 [INFO] 192.168.1.20 35 root 2014-06-02 18:29:06 ps -ef 
+2014-06-02 18:29:18,498 [INFO] 192.168.1.20 36 root 2014-06-02 18:29:18 useradd devuser9 
+2014-06-02 18:29:27,698 [INFO] 192.168.1.20 37 root 2014-06-02 18:29:24 passwd devuser9 
+2014-06-02 18:29:43,664 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:29:52,758 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:29:58,065 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:30:01,788 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:30:05,191 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:30:06,163 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:30:06,315 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:30:06,476 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:30:08,830 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:30:10,631 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py']
+2014-06-02 18:30:27,780 [INFO] 192.168.1.20 1 devuser9 2014-06-02 18:30:24 exit 
+2014-06-02 18:30:29,476 [INFO] 192.168.1.20 2 devuser9 2014-06-02 18:30:29 ll -a 
+2014-06-02 18:31:09,609 [INFO] 192.168.1.20 38 root 2014-06-02 18:30:45 vi /etc/profile 
+2014-06-02 18:31:18,384 [INFO] 192.168.1.20 39 root 2014-06-02 18:31:18 source /etc/profile 
+2014-06-02 18:31:46,075 [INFO] 192.168.1.20 1 devuser5 2014-06-02 18:09:36 exit 
+2014-06-02 18:31:47,299 [INFO] 192.168.1.20 2 devuser5 2014-06-02 18:31:47 ll -a 
+2014-06-02 18:32:05,483 [INFO] 192.168.1.20 3 devuser5 2014-06-02 18:32:05 uptime 
+2014-06-02 18:32:17,116 [INFO] 192.168.1.20 39 root 2014-06-02 18:31:18 source /etc/profile 
+2014-06-02 18:32:31,421 [INFO] 192.168.1.20 40 root 2014-06-02 18:32:28 ping 192.168.1.120 
+2014-06-02 18:39:09,216 [INFO] 192.168.1.20 42 root 2014-06-02 18:34:31 vi /etc/profile 
+2014-06-02 18:39:11,084 [INFO] 192.168.1.20 43 root 2014-06-02 18:39:11 source /etc/profile 
+2014-06-02 18:39:16,162 [INFO] 192.168.1.20 44 root 2014-06-02 18:39:16 PROMPT_COMMAND=12 
+2014-06-02 18:39:26,181 [INFO] 192.168.1.20 45 root 2014-06-02 18:39:26 HISTTIMEFORMAT=98 
+2014-06-02 18:40:57,734 [INFO] 192.168.1.20 46 root 2014-06-02 18:40:57 export 
+2014-06-02 18:47:12,294 [INFO] 192.168.1.20 46 root 2014-06-02 18:40:57 export 
+2014-06-02 18:47:23,121 [INFO] 192.168.1.20 47 root 2014-06-02 18:47:23 unset HISTTIMEFORMAT 
+2014-06-02 18:47:25,668 [INFO] 192.168.1.20 47 root 2014-06-02 18:47:23 unset HISTTIMEFORMAT 
+2014-06-02 18:47:28,633 [INFO] 192.168.1.20 48 root 2014-06-02 18:47:28 HISTTIMEFORMAT=98 
+2014-06-02 18:47:44,242 [INFO] 192.168.1.20 49 root 2014-06-02 18:47:44 unset HISTTIMEFORMAT 
+2014-06-02 18:47:49,016 [INFO] 192.168.1.20 50 root 2014-06-02 18:47:47 exit 
+2014-06-02 18:47:52,212 [INFO] 192.168.1.20 51 root 2014-06-02 18:47:52 unset HISTTIMEFORMAT 
+2014-06-02 18:47:55,328 [INFO] 192.168.1.20 52 root 2014-06-02 18:47:55 HISTTIMEFORMAT=98 
+2014-06-02 18:48:52,962 [INFO] 192.168.1.20 53 root 2014-06-02 18:48:20 vi /etc/profile 
+2014-06-02 20:46:05,043 [INFO] 192.168.1.20 53 root 2014-06-02 18:48:20 vi /etc/profile 
+2014-06-02 20:46:06,754 [INFO] 192.168.1.20 54 root 2014-06-02 20:46:06 source /etc/profile 
+2014-06-02 20:46:45,316 [INFO] 192.168.1.20 55 root 2014-06-02 20:46:45 echo $PROMPT_COMMAND 
+2014-06-02 20:46:51,580 [INFO] 192.168.1.20 56 root 2014-06-02 20:46:51 source /etc/profile 
+2014-06-02 20:47:10,132 [INFO] 192.168.1.20 57 root 2014-06-02 20:46:59 vi /etc/profile 
+2014-06-02 20:47:11,522 [INFO] 192.168.1.20 58 root 2014-06-02 20:47:11 source /etc/profile 
+2014-06-02 20:47:12,948 [INFO] 192.168.1.20 58 root 2014-06-02 20:47:11 source /etc/profile 
+2014-06-02 20:47:17,734 [INFO] 192.168.1.20 58 root 2014-06-02 20:47:11 source /etc/profile 
+2014-06-02 20:47:25,763 [INFO] 192.168.1.20 59 root 2014-06-02 20:47:25 unset HISTTIMEFORMAT 
+2014-06-02 20:47:30,884 [INFO] 192.168.1.20 59 root 2014-06-02 20:47:25 unset HISTTIMEFORMAT 
+2014-06-02 20:47:34,077 [INFO] 192.168.1.20 60 root 2014-06-02 20:47:33 sudo unset HISTTIMEFORMAT 
+2014-06-02 20:47:37,258 [INFO] 192.168.1.20 61 root 2014-06-02 20:47:37 unset HISTTIMEFORMAT 
+2014-06-02 20:47:47,523 [INFO] 192.168.1.20 62 root 2014-06-02 20:47:46 exit 
+2014-06-02 20:47:49,673 [ERROR] History not configured in /etc/profile!['/home/test/OMAudit/OMAuditmain.py', '63', 'unset', 'HISTTIMEFORMAT']
+2014-06-02 20:47:57,113 [INFO] 192.168.1.20 64 root 2014-06-02 20:47:57 source /etc/profile 
+2014-06-02 20:48:11,944 [INFO] 192.168.1.20 65 root 2014-06-02 20:48:08 vi /etc/profile 
+2014-06-02 20:48:13,187 [INFO] 192.168.1.20 66 root 2014-06-02 20:48:13 source /etc/profile 
+2014-06-02 20:48:14,676 [INFO] 192.168.1.20 66 root 2014-06-02 20:48:13 source /etc/profile 
+2014-06-02 21:03:44,183 [INFO] 192.168.1.20 67 root 2014-06-02 21:03:39 vi /root/.bash_history 
+2014-06-02 21:30:06,493 [INFO] 192.168.1.20 68 root 2014-06-02 21:30:06 cd /data/www 
+2014-06-02 21:30:07,064 [INFO] 192.168.1.20 69 root 2014-06-02 21:30:06 ls 
+2014-06-02 21:30:09,937 [INFO] 192.168.1.20 70 root 2014-06-02 21:30:09 cd OMserverweb/ 
+2014-06-02 21:30:10,454 [INFO] 192.168.1.20 71 root 2014-06-02 21:30:10 ls 
+2014-06-02 21:31:41,699 [INFO] 192.168.1.20 72 root 2014-06-02 21:31:38 python manage.py startapp omaudit 
+2014-06-02 21:31:50,536 [INFO] 192.168.1.20 73 root 2014-06-02 21:31:50 ls 
+2014-06-02 22:43:07,708 [INFO] 192.168.1.20 74 root 2014-06-02 22:39:38 python manage.py inspectdb 
+2014-06-02 23:18:21,868 [ERROR] connection django-cgi server error:[Errno -2] Name or service not known
+2014-06-02 23:18:39,620 [ERROR] connection django-cgi server error:[Errno -2] Name or service not known
+2014-06-02 23:19:37,472 [ERROR] connection django-cgi server error:sendall() argument 1 must be string or buffer, not dict
+2014-06-02 23:22:09,081 [ERROR] response http status error:500
+2014-06-02 23:22:41,584 [ERROR] response http status error:500
+2014-06-02 23:22:42,386 [ERROR] response http status error:500
+2014-06-02 23:22:52,622 [ERROR] response http status error:500
+2014-06-02 23:25:28,487 [ERROR] response http status error:301
+2014-06-02 23:27:47,897 [ERROR] response http content error:
+2014-06-02 23:29:06,976 [ERROR] response http content error:
+2014-06-02 23:39:22,796 [ERROR] response http content error:
+2014-06-02 23:40:45,861 [ERROR] response http content error:
+2014-06-02 23:42:07,960 [ERROR] response http content error:
+2014-06-02 23:42:26,694 [ERROR] response http content error:
+2014-06-02 23:43:23,501 [ERROR] response http content error:
+2014-06-02 23:44:44,203 [ERROR] response http content error:
+2014-06-02 23:47:42,549 [ERROR] response http content error:
+2014-06-02 23:49:45,719 [ERROR] response http content error:
+2014-06-02 23:52:32,875 [ERROR] response http content error:
+2014-06-02 23:53:13,293 [ERROR] response http content error:
+2014-06-02 23:53:57,064 [ERROR] response http content error:
+2014-06-02 23:56:24,871 [ERROR] response http content error:
+2014-06-03 00:03:41,485 [ERROR] response http content error:
+2014-06-03 00:05:34,281 [ERROR] response http status error:200
+2014-06-03 00:11:19,720 [ERROR] response http status error:301
+2014-06-03 00:12:55,971 [ERROR] response http status error:301
+2014-06-03 00:14:12,362 [ERROR] response http status error:301
+2014-06-03 00:16:18,521 [ERROR] response http status error:301
+2014-06-03 00:22:42,586 [ERROR] response http status error:301
+2014-06-03 21:20:57,234 [ERROR] connection django-cgi server error:timed out
+2014-06-03 21:21:45,101 [ERROR] connection django-cgi server error:timed out
+2014-06-03 21:21:57,356 [ERROR] connection django-cgi server error:timed out
+2014-06-03 21:29:46,713 [ERROR] connection django-cgi server error:timed out
+2014-06-03 21:29:47,762 [ERROR] connection django-cgi server error:timed out
+2014-06-05 19:28:19,265 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-05 19:29:56,632 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-05 19:30:29,510 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-05 19:30:56,547 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-05 19:31:01,192 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-05 19:31:51,862 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-05 19:31:55,215 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-05 19:32:11,119 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-05 19:32:19,120 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-05 19:32:30,095 [ERROR] response http status error:502
+2014-06-05 19:32:35,794 [ERROR] response http status error:502
+2014-06-05 19:32:42,005 [ERROR] connection django-cgi server error:timed out
+2014-06-05 20:59:44,747 [ERROR] connection django-cgi server error:timed out
+2014-06-05 21:02:19,833 [ERROR] connection django-cgi server error:timed out
+2014-06-07 13:43:24,299 [ERROR] connection django-cgi server error:timed out
+2014-06-11 20:36:18,887 [ERROR] response http status error:502
+2014-06-11 20:36:25,099 [ERROR] connection django-cgi server error:timed out
+2014-06-11 20:45:15,893 [ERROR] response http status error:404
+2014-06-11 20:45:28,352 [ERROR] response http status error:404
+2014-06-11 20:45:31,836 [ERROR] response http status error:404
+2014-06-11 20:45:43,691 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-11 20:45:44,907 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-11 20:45:50,708 [ERROR] response http status error:404
+2014-06-11 20:45:52,332 [ERROR] response http status error:404
+2014-06-11 20:48:15,029 [ERROR] response http status error:404
+2014-06-11 20:48:18,865 [ERROR] response http status error:404
+2014-06-11 20:48:42,301 [ERROR] response http status error:404
+2014-06-11 20:48:46,571 [ERROR] response http status error:404
+2014-06-11 20:49:19,798 [ERROR] response http status error:404
+2014-06-11 20:49:21,310 [ERROR] response http status error:404
+2014-06-11 20:49:45,830 [ERROR] response http status error:404
+2014-06-11 20:49:48,595 [ERROR] response http status error:404
+2014-06-11 20:49:50,311 [ERROR] response http status error:404
+2014-06-11 20:50:09,547 [ERROR] response http status error:404
+2014-06-11 20:50:16,943 [ERROR] response http status error:404
+2014-06-11 20:50:43,909 [ERROR] response http status error:404
+2014-06-11 20:50:51,350 [ERROR] response http status error:404
+2014-06-11 20:50:55,954 [ERROR] response http status error:404
+2014-06-11 20:51:00,434 [ERROR] response http status error:404
+2014-06-11 20:51:50,203 [ERROR] response http status error:404
+2014-06-11 20:51:56,883 [ERROR] response http status error:404
+2014-06-11 20:52:06,153 [ERROR] response http status error:404
+2014-06-11 20:52:11,913 [ERROR] response http status error:404
+2014-06-11 20:52:14,608 [ERROR] response http status error:404
+2014-06-11 20:52:16,235 [ERROR] response http status error:404
+2014-06-11 20:52:17,414 [ERROR] response http status error:404
+2014-06-11 20:52:18,221 [ERROR] response http status error:404
+2014-06-11 20:52:22,606 [ERROR] response http status error:404
+2014-06-11 20:52:25,752 [ERROR] response http status error:404
+2014-06-11 20:52:27,708 [ERROR] response http status error:404
+2014-06-11 20:52:37,418 [ERROR] response http status error:404
+2014-06-11 20:53:22,388 [ERROR] response http status error:404
+2014-06-11 20:53:26,339 [ERROR] response http status error:502
+2014-06-11 20:53:58,235 [ERROR] response http status error:502
+2014-06-11 20:53:58,672 [ERROR] response http status error:502
+2014-06-11 20:54:18,120 [ERROR] response http status error:502
+2014-06-11 20:54:20,477 [ERROR] response http status error:502
+2014-06-11 20:56:01,406 [ERROR] response http status error:502
+2014-06-11 20:56:23,582 [ERROR] response http status error:502
+2014-06-11 20:58:42,294 [ERROR] response http status error:502
+2014-06-11 20:59:57,138 [ERROR] response http status error:502
+2014-06-11 21:00:06,721 [ERROR] response http status error:502
+2014-06-11 21:00:46,968 [ERROR] response http status error:502
+2014-06-11 21:01:00,795 [ERROR] response http status error:502
+2014-06-11 21:07:55,462 [ERROR] response http status error:502
+2014-06-11 21:12:02,635 [ERROR] response http status error:502
+2014-06-11 21:25:27,408 [ERROR] response http status error:500
+2014-06-11 21:25:28,773 [ERROR] response http status error:500
+2014-06-11 21:25:39,333 [ERROR] response http status error:500
+2014-06-11 21:25:54,614 [ERROR] response http status error:500
+2014-06-11 21:26:05,167 [ERROR] response http status error:500
+2014-06-11 21:26:09,772 [ERROR] response http status error:502
+2014-06-11 21:35:39,480 [ERROR] response http status error:500
+2014-06-11 21:35:51,232 [ERROR] response http status error:502
+2014-06-11 21:40:05,793 [ERROR] response http status error:502
+2014-06-11 22:03:27,620 [ERROR] response http status error:500
+2014-06-11 22:03:33,025 [ERROR] response http status error:500
+2014-06-11 22:03:34,184 [ERROR] response http status error:500
+2014-06-11 22:04:10,863 [ERROR] response http status error:500
+2014-06-11 22:04:12,415 [ERROR] response http status error:500
+2014-06-11 22:04:18,064 [ERROR] response http status error:500
+2014-06-11 22:04:18,845 [ERROR] response http status error:500
+2014-06-11 22:04:30,772 [ERROR] response http status error:500
+2014-06-11 22:04:31,505 [ERROR] response http status error:500
+2014-06-11 22:04:43,022 [ERROR] response http status error:500
+2014-06-11 22:04:43,860 [ERROR] response http status error:500
+2014-06-11 22:05:32,652 [ERROR] response http status error:500
+2014-06-11 22:08:36,741 [ERROR] response http status error:502
+2014-06-11 22:08:38,147 [ERROR] response http status error:502
+2014-06-11 22:10:26,486 [ERROR] response http status error:500
+2014-06-11 22:10:46,081 [ERROR] response http status error:502
+2014-06-11 22:10:47,578 [ERROR] response http status error:502
+2014-06-11 22:10:49,065 [ERROR] response http status error:502
+2014-06-11 22:13:59,670 [ERROR] response http status error:502
+2014-06-11 22:14:10,698 [ERROR] response http status error:502
+2014-06-11 22:14:12,770 [ERROR] response http status error:502
+2014-06-11 22:14:15,023 [ERROR] response http status error:502
+2014-06-11 22:16:45,884 [ERROR] response http status error:502
+2014-06-11 22:16:46,309 [ERROR] response http status error:502
+2014-06-11 22:16:48,354 [ERROR] response http status error:502
+2014-06-11 22:16:48,765 [ERROR] response http status error:502
+2014-06-11 22:19:31,539 [ERROR] response http status error:502
+2014-06-11 22:19:33,346 [ERROR] response http status error:502
+2014-06-11 22:24:57,174 [ERROR] response http status error:502
+2014-06-11 22:24:57,752 [ERROR] response http status error:502
+2014-06-11 22:25:03,501 [ERROR] response http status error:502
+2014-06-11 22:25:12,657 [ERROR] response http status error:502
+2014-06-11 22:25:36,999 [ERROR] response http status error:502
+2014-06-11 22:25:42,799 [ERROR] response http status error:502
+2014-06-11 22:25:48,999 [ERROR] response http status error:502
+2014-06-11 22:25:50,137 [ERROR] response http status error:502
+2014-06-11 22:25:58,015 [ERROR] response http status error:502
+2014-06-11 22:26:02,714 [ERROR] response http status error:502
+2014-06-11 22:26:03,933 [ERROR] response http status error:502
+2014-06-11 22:26:29,280 [ERROR] response http status error:502
+2014-06-11 22:26:59,190 [ERROR] response http status error:502
+2014-06-11 22:27:58,917 [ERROR] response http status error:502
+2014-06-11 22:28:04,952 [ERROR] response http status error:502
+2014-06-11 22:28:07,414 [ERROR] response http status error:502
+2014-06-11 22:28:08,495 [ERROR] response http status error:502
+2014-06-11 22:28:22,596 [ERROR] response http status error:502
+2014-06-11 22:28:36,361 [ERROR] response http status error:502
+2014-06-11 22:29:45,895 [ERROR] response http status error:502
+2014-06-11 22:29:48,046 [ERROR] response http status error:502
+2014-06-11 22:29:49,749 [ERROR] response http status error:502
+2014-06-11 22:29:51,300 [ERROR] response http status error:502
+2014-06-11 22:36:13,983 [ERROR] response http status error:502
+2014-06-11 22:36:15,938 [ERROR] response http status error:502
+2014-06-11 22:37:14,255 [ERROR] response http status error:502
+2014-06-11 22:37:15,524 [ERROR] response http status error:502
+2014-06-11 22:47:58,422 [ERROR] response http status error:502
+2014-06-11 22:48:00,083 [ERROR] response http status error:502
+2014-06-11 22:48:11,330 [ERROR] response http status error:502
+2014-06-11 22:48:16,075 [ERROR] response http status error:502
+2014-06-11 22:48:16,547 [ERROR] response http status error:502
+2014-06-11 22:48:19,643 [ERROR] response http status error:502
+2014-06-11 22:48:19,872 [ERROR] response http status error:502
+2014-06-11 22:48:21,187 [ERROR] response http status error:502
+2014-06-11 22:48:21,740 [ERROR] response http status error:502
+2014-06-11 22:48:23,200 [ERROR] response http status error:502
+2014-06-11 22:48:32,175 [ERROR] response http status error:502
+2014-06-11 22:48:36,459 [ERROR] response http status error:502
+2014-06-11 22:48:36,887 [ERROR] response http status error:502
+2014-06-11 22:48:50,743 [ERROR] response http status error:502
+2014-06-12 23:31:47,233 [ERROR] response http status error:502
+2014-06-12 23:32:12,510 [ERROR] response http status error:502
+2014-06-17 20:07:40,969 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-17 20:07:42,203 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-17 20:07:48,437 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-17 20:07:50,097 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-17 20:07:50,663 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-17 20:08:05,363 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-17 20:08:34,001 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-17 20:08:34,442 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-17 20:08:42,583 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-17 20:08:43,340 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-17 20:09:40,440 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-17 20:09:49,642 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-17 20:09:57,355 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-17 20:10:27,168 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-17 20:10:33,007 [ERROR] response http status error:502
+2014-06-17 20:10:58,165 [ERROR] response http status error:502
+2014-06-17 20:12:04,807 [ERROR] response http status error:502
+2014-06-17 20:12:15,869 [ERROR] response http status error:502
+2014-06-17 20:12:16,712 [ERROR] response http status error:502
+2014-06-17 20:12:37,494 [ERROR] response http status error:502
+2014-06-17 20:12:57,223 [ERROR] response http status error:502
+2014-06-17 20:13:08,523 [ERROR] response http status error:502
+2014-06-17 21:05:59,675 [ERROR] response http status error:502
+2014-06-17 21:06:03,433 [ERROR] response http status error:502
+2014-06-17 21:20:39,889 [ERROR] response http status error:502
+2014-06-17 21:20:40,621 [ERROR] response http status error:502
+2014-06-17 21:20:43,293 [ERROR] response http status error:502
+2014-06-17 21:20:47,487 [ERROR] response http status error:502
+2014-06-17 21:24:18,300 [ERROR] response http status error:404
+2014-06-17 21:24:22,246 [ERROR] response http status error:502
+2014-06-17 21:24:24,377 [ERROR] response http status error:502
+2014-06-17 21:24:27,450 [ERROR] response http status error:502
+2014-06-17 21:24:30,979 [ERROR] response http status error:404
+2014-06-17 21:25:01,449 [ERROR] response http status error:404
+2014-06-17 21:25:14,470 [ERROR] response http status error:404
+2014-06-17 21:25:36,245 [ERROR] response http status error:404
+2014-06-17 21:25:37,665 [ERROR] response http status error:502
+2014-06-17 21:25:40,133 [ERROR] response http status error:502
+2014-06-17 21:25:42,641 [ERROR] response http status error:404
+2014-06-17 21:26:24,540 [ERROR] response http status error:404
+2014-06-17 21:26:25,954 [ERROR] response http status error:404
+2014-06-17 21:26:56,614 [ERROR] response http status error:404
+2014-06-17 21:27:13,851 [ERROR] response http status error:404
+2014-06-17 21:27:15,267 [ERROR] response http status error:502
+2014-06-17 21:27:17,403 [ERROR] response http status error:502
+2014-06-17 21:27:20,259 [ERROR] response http status error:404
+2014-06-17 21:28:10,745 [ERROR] response http status error:404
+2014-06-17 21:28:12,198 [ERROR] response http status error:502
+2014-06-17 21:30:25,387 [ERROR] response http status error:502
+2014-06-17 21:30:27,864 [ERROR] response http status error:502
+2014-06-17 21:30:33,309 [ERROR] response http status error:502
+2014-06-17 21:30:34,416 [ERROR] response http status error:502
+2014-06-17 21:30:36,177 [ERROR] response http status error:502
+2014-06-17 21:33:32,448 [ERROR] response http status error:502
+2014-06-17 21:33:35,219 [ERROR] response http status error:502
+2014-06-17 21:34:15,923 [ERROR] response http status error:502
+2014-06-17 21:34:19,597 [ERROR] response http status error:502
+2014-06-17 21:34:22,769 [ERROR] response http status error:502
+2014-06-17 21:34:23,788 [ERROR] response http status error:502
+2014-06-17 21:34:56,465 [ERROR] response http status error:502
+2014-06-17 21:34:57,520 [ERROR] response http status error:502
+2014-06-17 21:34:59,409 [ERROR] response http status error:502
+2014-06-17 21:35:11,478 [ERROR] response http status error:502
+2014-06-17 21:37:21,266 [ERROR] response http status error:502
+2014-06-17 21:37:33,255 [ERROR] response http status error:502
+2014-06-17 21:37:36,495 [ERROR] response http status error:502
+2014-06-17 21:37:45,481 [ERROR] response http status error:502
+2014-06-17 21:37:49,014 [ERROR] response http status error:502
+2014-06-17 21:37:59,387 [ERROR] response http status error:502
+2014-06-18 22:18:59,623 [ERROR] connection django-cgi server error:timed out
+2014-06-19 22:33:18,349 [ERROR] connection django-cgi server error:timed out
+2014-06-20 19:49:35,339 [ERROR] response http status error:502
+2014-06-20 21:18:13,855 [ERROR] connection django-cgi server error:timed out
+2014-06-20 21:37:46,794 [ERROR] connection django-cgi server error:timed out
+2014-06-21 10:35:23,270 [ERROR] response http status error:502
+2014-06-21 11:59:52,156 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 12:00:20,036 [ERROR] response http status error:502
+2014-06-21 12:00:33,408 [ERROR] response http status error:502
+2014-06-21 12:00:34,088 [ERROR] response http status error:502
+2014-06-21 12:00:34,280 [ERROR] response http status error:502
+2014-06-21 12:00:34,444 [ERROR] response http status error:502
+2014-06-21 12:00:38,589 [ERROR] response http status error:502
+2014-06-21 12:01:02,938 [ERROR] response http status error:502
+2014-06-21 12:01:13,024 [ERROR] connection django-cgi server error:timed out
+2014-06-21 13:03:32,203 [ERROR] connection django-cgi server error:timed out
+2014-06-21 13:14:46,186 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 13:15:13,379 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 13:15:17,326 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 13:15:46,048 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 13:16:07,028 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 13:17:18,759 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 13:20:01,699 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 13:20:59,761 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 13:22:26,224 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 13:24:16,258 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 13:25:02,411 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 13:25:27,309 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 13:25:52,378 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 13:26:20,264 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 13:26:27,678 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 15:16:44,463 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:17:44,948 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:17:51,314 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:17:52,022 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:17:54,644 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:17:55,244 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:18:06,946 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:19:48,265 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:20:08,313 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:20:10,155 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:20:16,810 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:20:21,536 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:20:25,321 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:23:39,254 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:23:39,414 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:23:41,539 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:24:11,560 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:24:12,987 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:24:20,354 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:24:21,610 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:25:32,030 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:25:33,293 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:26:30,853 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:26:31,031 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:26:31,207 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:27:30,377 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:31:17,959 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:31:18,393 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:31:18,574 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:31:19,760 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-06-21 15:31:24,431 [ERROR] response http status error:502
+2014-06-21 15:31:33,146 [ERROR] connection django-cgi server error:timed out
+2014-06-21 15:48:58,570 [ERROR] response http status error:502
+2014-06-21 15:55:26,497 [ERROR] response http status error:502
+2014-06-21 15:56:12,631 [ERROR] response http status error:502
+2014-06-21 16:09:17,750 [ERROR] response http status error:502
+2014-06-21 16:46:54,390 [ERROR] connection django-cgi server error:timed out
+2014-06-21 16:47:35,380 [ERROR] connection django-cgi server error:timed out
+2014-06-21 16:55:44,947 [ERROR] connection django-cgi server error:timed out
+2014-06-21 16:55:55,505 [ERROR] connection django-cgi server error:timed out
+2014-06-21 17:01:37,171 [ERROR] connection django-cgi server error:timed out
+2014-06-21 17:02:06,202 [ERROR] connection django-cgi server error:timed out
+2014-06-21 17:02:24,001 [ERROR] connection django-cgi server error:timed out
+2014-06-21 17:03:37,856 [ERROR] response http content error:入库失败，请与管理员联系！(2003, "Can't connect to MySQL server on '192.168.1.10' (113)")
+2014-06-21 17:20:03,164 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 17:20:47,128 [ERROR] response http status error:502
+2014-06-21 17:21:46,615 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 17:22:22,346 [ERROR] response http status error:502
+2014-06-21 17:22:46,512 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 17:23:19,567 [ERROR] response http status error:502
+2014-06-21 17:24:13,405 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 17:25:03,901 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 17:25:42,430 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 17:26:33,446 [ERROR] response http content error:入库失败，请与管理员联系！Data truncated for column 'history_command' at row 1
+2014-06-21 18:07:24,988 [ERROR] response http status error:502
+2014-06-21 18:13:40,979 [ERROR] connection django-cgi server error:timed out
+2014-06-21 18:14:59,018 [ERROR] response http status error:502
+2014-06-21 18:15:17,081 [ERROR] response http status error:502
+2014-06-21 18:16:10,301 [ERROR] response http status error:502
+2014-06-21 18:16:53,316 [ERROR] connection django-cgi server error:timed out
+2014-06-21 18:18:20,647 [ERROR] response http status error:502
+2014-06-21 18:18:34,718 [ERROR] response http status error:502
+2014-06-21 18:18:45,817 [ERROR] response http status error:502
+2014-06-21 18:19:08,897 [ERROR] response http status error:502
+2014-06-21 18:51:50,357 [ERROR] connection django-cgi server error:timed out
+2014-06-21 19:17:28,890 [ERROR] response http status error:502
+2014-06-21 19:59:20,666 [ERROR] response http status error:502
+2014-06-23 19:30:55,490 [ERROR] connection django-cgi server error:timed out
+2014-06-23 19:31:30,380 [ERROR] connection django-cgi server error:timed out
+2014-06-26 16:55:33,609 [ERROR] connection django-cgi server error:timed out
+2014-06-26 21:19:38,844 [ERROR] connection django-cgi server error:timed out
+2014-06-26 21:21:25,675 [ERROR] response http status error:502
+2014-06-26 21:31:05,908 [ERROR] response http status error:502
+2014-06-26 21:41:04,174 [ERROR] response http status error:502
+2014-06-26 21:42:20,376 [ERROR] response http status error:502
+2014-06-28 08:23:58,718 [ERROR] connection django-cgi server error:timed out
+2014-06-28 08:24:02,730 [ERROR] connection django-cgi server error:timed out
+2014-06-28 09:16:19,584 [ERROR] connection django-cgi server error:timed out
+2014-06-28 09:17:07,341 [ERROR] connection django-cgi server error:timed out
+2014-06-29 23:23:10,743 [ERROR] connection django-cgi server error:timed out
+2014-07-01 00:01:15,981 [ERROR] connection django-cgi server error:timed out
+2014-07-01 21:32:56,769 [ERROR] connection django-cgi server error:timed out
+2014-07-02 06:26:03,056 [ERROR] connection django-cgi server error:timed out
+2014-07-02 23:58:24,150 [ERROR] response http content error:入库失败，请与管理员联系！(1049, "Unknown database 'OMServerdb'")
+2014-07-02 23:59:03,909 [ERROR] response http status error:502
+2014-07-02 23:59:30,764 [ERROR] response http content error:入库失败，请与管理员联系！(1049, "Unknown database 'OMServerdb'")
+2014-07-06 07:58:46,820 [ERROR] connection django-cgi server error:timed out
+2014-07-06 07:58:53,210 [ERROR] connection django-cgi server error:timed out
+2014-07-07 23:09:23,590 [ERROR] connection django-cgi server error:timed out
+2014-07-13 16:21:00,185 [ERROR] connection django-cgi server error:timed out
+2014-07-13 16:47:36,005 [ERROR] connection django-cgi server error:timed out
+2014-07-13 17:48:34,093 [ERROR] response http content error:入库失败，请与管理员联系！(2003, "Can't connect to MySQL server on '192.168.1.10' (111)")
+2014-07-13 17:48:35,047 [ERROR] response http content error:入库失败，请与管理员联系！(2003, "Can't connect to MySQL server on '192.168.1.10' (111)")
+2014-07-13 17:57:33,992 [ERROR] connection django-cgi server error:timed out
+2014-07-13 18:00:51,594 [ERROR] connection django-cgi server error:timed out
+2014-07-13 18:01:54,804 [ERROR] response http content error:入库失败，请与管理员联系！(2003, "Can't connect to MySQL server on '192.168.1.10' (113)")
+2014-07-13 18:02:06,303 [ERROR] response http content error:入库失败，请与管理员联系！(2003, "Can't connect to MySQL server on '192.168.1.10' (113)")
+2014-07-13 18:02:09,306 [ERROR] response http content error:入库失败，请与管理员联系！(2003, "Can't connect to MySQL server on '192.168.1.10' (113)")
+2014-07-13 18:15:36,043 [ERROR] connection django-cgi server error:
+2014-07-13 18:15:37,017 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:15:37,150 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:15:41,239 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:15:54,957 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:15:55,691 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:15:58,943 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:15:59,369 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:17:11,225 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:17:16,782 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:17:18,233 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:17:22,290 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:17:38,855 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:17:39,689 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:17:41,213 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:17:50,149 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:17:54,832 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:17:55,692 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:17:56,863 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:17:57,292 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:18:02,149 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:18:06,392 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:20:21,323 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:23:01,079 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:23:14,597 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:23:16,962 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:23:56,879 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:23:59,488 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:23:59,924 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:24:14,289 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:24:18,262 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:24:25,208 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:24:31,981 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:24:32,477 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:24:36,093 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:24:36,877 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:24:41,170 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:24:44,000 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:24:51,490 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:24:59,101 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:25:09,994 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:28:00,848 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:28:30,745 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:28:59,943 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:29:02,053 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:29:11,160 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:29:15,815 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:29:21,866 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:29:24,773 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:29:27,182 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:29:28,077 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:30:23,243 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:30:27,681 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:30:33,787 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:30:34,259 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:30:38,323 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:30:38,760 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:30:41,520 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:31:01,029 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:31:11,607 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:32:39,461 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:32:41,519 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:32:41,939 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:32:50,594 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:33:02,887 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:33:06,686 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:33:07,172 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:33:09,381 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:33:09,865 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:33:15,607 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:33:36,364 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:33:36,844 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:33:47,319 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:33:51,592 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:35:46,036 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:35:47,920 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:35:48,802 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:35:58,557 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:36:14,152 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:10,021 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:10,444 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:12,717 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:13,386 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:15,862 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:23,124 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:23,834 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:25,117 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:25,794 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:27,264 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:40,314 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:44,771 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:46,986 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:47,439 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:48,777 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:49,260 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:55,258 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:56,609 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:58,798 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:37:59,158 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:38:01,499 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:38:02,483 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:38:02,919 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:38:09,222 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:38:16,763 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:38:25,070 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:38:31,018 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:39:30,414 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:39:32,152 [ERROR] response http status error:302
+2014-07-13 18:39:34,017 [ERROR] response http status error:302
+2014-07-13 18:40:22,068 [ERROR] response http status error:302
+2014-07-13 18:40:25,187 [ERROR] response http status error:302
+2014-07-13 18:40:27,238 [ERROR] response http status error:302
+2014-07-13 18:40:29,218 [ERROR] response http status error:302
+2014-07-13 18:40:30,188 [ERROR] response http status error:302
+2014-07-13 18:40:30,707 [ERROR] response http status error:302
+2014-07-13 18:40:31,199 [ERROR] response http status error:302
+2014-07-13 18:40:34,302 [ERROR] response http status error:302
+2014-07-13 18:40:35,365 [ERROR] response http status error:302
+2014-07-13 18:41:17,424 [ERROR] response http status error:302
+2014-07-13 18:42:02,971 [ERROR] response http status error:302
+2014-07-13 18:42:05,458 [ERROR] response http status error:302
+2014-07-13 18:42:05,945 [ERROR] response http status error:302
+2014-07-13 18:42:56,911 [ERROR] response http status error:302
+2014-07-13 18:42:57,779 [ERROR] response http status error:302
+2014-07-13 18:42:59,313 [ERROR] response http status error:302
+2014-07-13 18:43:12,685 [ERROR] response http status error:302
+2014-07-13 18:43:13,687 [ERROR] response http status error:302
+2014-07-13 18:43:34,649 [ERROR] response http status error:302
+2014-07-13 18:43:37,314 [ERROR] response http status error:302
+2014-07-13 18:44:00,913 [ERROR] response http status error:302
+2014-07-13 18:44:22,348 [ERROR] response http status error:302
+2014-07-13 18:44:27,802 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:44:34,954 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:44:40,901 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:44:41,363 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:46:08,693 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:46:12,255 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:46:12,787 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:46:23,988 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:46:25,091 [ERROR] response http status error:302
+2014-07-13 18:46:26,351 [ERROR] response http status error:302
+2014-07-13 18:46:26,869 [ERROR] response http status error:302
+2014-07-13 18:46:30,974 [ERROR] response http status error:302
+2014-07-13 18:46:31,986 [ERROR] response http status error:302
+2014-07-13 18:46:32,601 [ERROR] response http status error:302
+2014-07-13 18:46:33,059 [ERROR] response http status error:302
+2014-07-13 18:46:33,397 [ERROR] response http status error:302
+2014-07-13 18:46:34,482 [ERROR] response http status error:302
+2014-07-13 18:46:40,281 [ERROR] response http status error:302
+2014-07-13 18:46:41,005 [ERROR] response http status error:302
+2014-07-13 18:46:57,528 [ERROR] response http status error:302
+2014-07-13 18:46:58,051 [ERROR] response http status error:302
+2014-07-13 18:47:14,750 [ERROR] response http status error:302
+2014-07-13 18:47:15,368 [ERROR] response http status error:302
+2014-07-13 18:47:16,340 [ERROR] response http status error:302
+2014-07-13 18:47:16,913 [ERROR] response http status error:302
+2014-07-13 18:47:18,224 [ERROR] response http status error:302
+2014-07-13 18:49:27,295 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:49:34,292 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:49:35,534 [ERROR] response http status error:302
+2014-07-13 18:49:36,697 [ERROR] response http status error:302
+2014-07-13 18:49:40,789 [ERROR] response http status error:302
+2014-07-13 18:50:26,448 [ERROR] response http status error:302
+2014-07-13 18:50:28,706 [ERROR] response http status error:302
+2014-07-13 18:50:33,619 [ERROR] response http status error:302
+2014-07-13 18:50:34,660 [ERROR] response http status error:302
+2014-07-13 18:50:35,197 [ERROR] response http status error:302
+2014-07-13 18:50:36,093 [ERROR] response http status error:302
+2014-07-13 18:50:36,375 [ERROR] response http status error:302
+2014-07-13 18:50:38,441 [ERROR] response http status error:302
+2014-07-13 18:50:39,251 [ERROR] response http status error:302
+2014-07-13 18:50:39,892 [ERROR] response http status error:302
+2014-07-13 18:52:39,668 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 18:52:43,734 [ERROR] response http status error:302
+2014-07-13 18:52:58,371 [ERROR] response http status error:302
+2014-07-13 18:53:00,261 [ERROR] response http status error:302
+2014-07-13 18:53:00,832 [ERROR] response http status error:302
+2014-07-13 18:53:04,637 [ERROR] response http status error:302
+2014-07-13 18:53:14,753 [ERROR] response http status error:302
+2014-07-13 18:53:15,433 [ERROR] response http status error:302
+2014-07-13 18:53:16,127 [ERROR] response http status error:302
+2014-07-13 18:53:20,255 [ERROR] response http status error:404
+2014-07-13 18:53:21,729 [ERROR] response http status error:302
+2014-07-13 18:54:34,129 [ERROR] response http status error:302
+2014-07-13 19:06:37,042 [ERROR] response http status error:302
+2014-07-13 19:06:38,869 [ERROR] response http status error:302
+2014-07-13 19:06:43,193 [ERROR] response http status error:302
+2014-07-13 19:06:47,888 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:06:54,422 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:06:54,883 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:07:03,650 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:07:10,818 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:07:17,384 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:07:19,382 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:07:24,635 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:07:26,408 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:07:34,601 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:07:35,859 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:07:36,645 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:07:37,096 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:08:04,672 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:08:25,138 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:09:19,480 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:09:21,370 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:09:21,770 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:09:29,200 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:09:29,937 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:09:49,264 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:09:52,894 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:09:53,367 [ERROR] connection django-cgi server error:[Errno 104] Connection reset by peer
+2014-07-13 19:09:59,137 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:10:02,671 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:10:03,145 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:13:43,177 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:14:21,375 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:14:23,325 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:18:16,256 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:18:20,434 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:18:21,929 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:18:30,176 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:18:33,571 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:18:36,951 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:18:38,648 [ERROR] response http status error:302
+2014-07-13 19:19:06,686 [ERROR] response http status error:302
+2014-07-13 19:19:08,701 [ERROR] response http status error:302
+2014-07-13 19:19:15,157 [ERROR] response http status error:302
+2014-07-13 19:19:27,918 [ERROR] response http status error:302
+2014-07-13 19:20:36,483 [ERROR] response http status error:302
+2014-07-13 19:20:50,148 [ERROR] response http status error:302
+2014-07-13 19:22:03,595 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:22:05,794 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:22:18,658 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:22:21,000 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:22:25,504 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:22:27,617 [ERROR] response http status error:302
+2014-07-13 19:23:18,165 [ERROR] response http status error:302
+2014-07-13 19:24:33,885 [ERROR] response http status error:302
+2014-07-13 19:26:58,674 [ERROR] response http status error:302
+2014-07-13 19:27:02,509 [ERROR] response http status error:302
+2014-07-13 19:27:13,802 [ERROR] response http status error:302
+2014-07-13 19:27:16,932 [ERROR] response http status error:302
+2014-07-13 19:27:17,675 [ERROR] response http status error:302
+2014-07-13 19:27:27,541 [ERROR] response http status error:404
+2014-07-13 19:27:36,853 [ERROR] response http status error:302
+2014-07-13 19:27:41,540 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:27:43,641 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:27:46,197 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:27:58,094 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:28:00,120 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:28:06,473 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:28:07,842 [ERROR] response http status error:302
+2014-07-13 19:28:39,628 [ERROR] response http status error:302
+2014-07-13 19:29:43,333 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:29:54,014 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:29:55,686 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:29:56,930 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:29:57,341 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:30:09,826 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:30:12,385 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:30:16,526 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:30:17,710 [ERROR] response http status error:302
+2014-07-13 19:30:27,141 [ERROR] response http status error:302
+2014-07-13 19:30:44,879 [ERROR] response http status error:302
+2014-07-13 19:30:51,272 [ERROR] response http status error:302
+2014-07-13 19:31:20,200 [ERROR] response http status error:302
+2014-07-13 19:33:42,499 [ERROR] response http status error:302
+2014-07-13 19:33:42,852 [ERROR] response http status error:302
+2014-07-13 19:33:51,875 [ERROR] response http status error:302
+2014-07-13 19:33:53,496 [ERROR] response http status error:302
+2014-07-13 19:34:13,711 [ERROR] response http status error:302
+2014-07-13 19:34:14,158 [ERROR] response http status error:302
+2014-07-13 19:34:19,941 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:34:46,925 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:34:47,341 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:34:55,140 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:34:57,322 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:35:01,928 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:35:02,449 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:35:04,047 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:35:05,328 [ERROR] response http status error:302
+2014-07-13 19:35:51,944 [ERROR] response http status error:302
+2014-07-13 19:35:53,489 [ERROR] response http status error:302
+2014-07-13 19:35:53,680 [ERROR] response http status error:302
+2014-07-13 19:36:11,783 [ERROR] response http status error:302
+2014-07-13 19:36:12,231 [ERROR] response http status error:302
+2014-07-13 19:36:20,859 [ERROR] response http status error:302
+2014-07-13 19:36:29,068 [ERROR] response http status error:302
+2014-07-13 19:36:40,445 [ERROR] response http status error:302
+2014-07-13 19:36:54,078 [ERROR] response http status error:302
+2014-07-13 19:37:14,857 [ERROR] response http status error:302
+2014-07-13 19:37:33,675 [ERROR] response http status error:302
+2014-07-13 19:38:26,569 [ERROR] response http status error:302
+2014-07-13 19:38:27,109 [ERROR] response http status error:302
+2014-07-13 19:38:45,858 [ERROR] response http status error:302
+2014-07-13 19:39:02,134 [ERROR] response http status error:302
+2014-07-13 19:39:36,722 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:39:43,278 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:39:43,714 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:39:53,375 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:44:44,040 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:44:46,392 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 19:44:52,897 [ERROR] response http status error:302
+2014-07-13 19:45:04,898 [ERROR] response http status error:302
+2014-07-13 19:45:12,235 [ERROR] response http status error:302
+2014-07-13 19:45:16,750 [ERROR] response http status error:302
+2014-07-13 19:45:29,840 [ERROR] response http status error:302
+2014-07-13 19:45:38,451 [ERROR] response http status error:302
+2014-07-13 19:45:40,383 [ERROR] response http status error:302
+2014-07-13 19:45:40,949 [ERROR] response http status error:302
+2014-07-13 19:46:36,902 [ERROR] response http status error:302
+2014-07-13 19:46:38,008 [ERROR] response http status error:302
+2014-07-13 19:46:38,168 [ERROR] response http status error:302
+2014-07-13 19:46:38,363 [ERROR] response http status error:302
+2014-07-13 19:46:38,485 [ERROR] response http status error:302
+2014-07-13 19:46:38,646 [ERROR] response http status error:302
+2014-07-13 19:47:09,854 [ERROR] response http status error:302
+2014-07-13 19:47:49,015 [ERROR] response http status error:302
+2014-07-13 19:48:21,895 [ERROR] response http status error:302
+2014-07-13 20:33:12,829 [ERROR] response http status error:302
+2014-07-13 20:33:13,318 [ERROR] response http status error:302
+2014-07-13 20:33:15,130 [ERROR] response http status error:302
+2014-07-13 20:33:24,314 [ERROR] response http status error:302
+2014-07-13 20:34:03,274 [ERROR] response http status error:302
+2014-07-13 20:34:21,321 [ERROR] response http status error:302
+2014-07-13 20:35:17,656 [ERROR] response http status error:302
+2014-07-13 20:35:18,368 [ERROR] response http status error:302
+2014-07-13 20:36:38,582 [ERROR] response http status error:302
+2014-07-13 20:37:00,020 [ERROR] response http status error:302
+2014-07-13 20:38:46,359 [ERROR] response http status error:302
+2014-07-13 20:40:46,085 [ERROR] response http status error:302
+2014-07-13 20:41:48,740 [ERROR] response http status error:302
+2014-07-13 20:46:39,970 [ERROR] response http status error:302
+2014-07-13 20:47:56,172 [ERROR] response http status error:302
+2014-07-13 20:48:01,282 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:48:09,278 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:48:17,274 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:48:22,905 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:51:25,612 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:51:35,489 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:51:41,655 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:53:23,681 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:54:08,966 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:54:10,027 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:54:25,933 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:54:31,283 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:54:51,931 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:55:13,335 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:55:13,783 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:55:21,178 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:55:48,642 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:55:52,457 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:55:53,360 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 20:59:33,600 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:00:29,892 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:00:32,608 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:00:34,956 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:01:17,260 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:01:18,137 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:01:18,288 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:01:22,727 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:01:39,599 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:01:55,684 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:16,678 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:17,163 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:17,656 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:17,706 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:17,755 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:17,808 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:17,860 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:17,906 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:17,956 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:18,012 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:18,063 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:18,126 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:18,172 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:18,216 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:18,282 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:18,328 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:18,375 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:03:18,419 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:04:02,189 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:04:02,557 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:04:03,378 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:04:07,780 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:04:08,416 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:04:16,268 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:04:17,252 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:04:20,226 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:04:20,830 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:05:14,170 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:05:16,197 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:05:19,534 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:05:21,130 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:05:22,898 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:05:25,496 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:05:27,582 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:05:30,300 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:21:42,838 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:21:45,819 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:36:34,360 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:36:42,830 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:36:44,156 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:36:44,842 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:36:50,968 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:36:53,355 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:36:53,854 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:37:12,886 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:37:14,919 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:37:17,779 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:37:18,687 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:37:24,399 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:37:26,635 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:38:20,853 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:38:58,726 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-13 21:39:00,640 [ERROR] response http status error:302
+2014-07-13 21:39:09,650 [ERROR] response http status error:302
+2014-07-14 08:21:38,807 [ERROR] response http status error:302
+2014-07-14 08:21:41,976 [ERROR] response http status error:302
+2014-07-14 08:21:42,651 [ERROR] response http status error:302
+2014-07-14 08:21:43,653 [ERROR] response http status error:302
+2014-07-14 09:00:54,096 [ERROR] response http status error:302
+2014-07-14 09:00:57,790 [ERROR] response http status error:302
+2014-07-14 09:00:58,817 [ERROR] response http status error:302
+2014-07-14 09:00:59,290 [ERROR] response http status error:302
+2014-07-14 09:01:01,496 [ERROR] response http status error:302
+2014-07-14 09:01:06,792 [ERROR] response http status error:404
+2014-07-14 09:01:09,724 [ERROR] response http status error:302
+2014-07-14 09:01:13,818 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 09:01:17,128 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 09:01:21,835 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 09:01:39,769 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 09:03:23,293 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 09:03:29,949 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 09:05:52,393 [ERROR] response http status error:302
+2014-07-14 09:10:10,690 [ERROR] response http status error:302
+2014-07-14 09:11:07,931 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 09:11:10,261 [ERROR] response http status error:302
+2014-07-14 20:43:54,815 [ERROR] response http status error:302
+2014-07-14 20:43:56,857 [ERROR] response http status error:302
+2014-07-14 20:44:01,509 [ERROR] response http status error:302
+2014-07-14 20:44:05,455 [ERROR] response http status error:302
+2014-07-14 20:47:41,743 [ERROR] response http status error:302
+2014-07-14 20:48:18,616 [ERROR] response http status error:302
+2014-07-14 20:48:33,120 [ERROR] response http status error:302
+2014-07-14 20:49:46,876 [ERROR] response http status error:302
+2014-07-14 20:50:07,298 [ERROR] response http status error:302
+2014-07-14 22:50:38,505 [ERROR] response http status error:302
+2014-07-14 22:50:39,030 [ERROR] response http status error:302
+2014-07-14 22:50:41,377 [ERROR] response http status error:302
+2014-07-14 22:50:41,798 [ERROR] response http status error:302
+2014-07-14 22:50:44,944 [ERROR] response http status error:302
+2014-07-14 22:50:48,544 [ERROR] response http status error:302
+2014-07-14 22:51:32,345 [ERROR] response http status error:302
+2014-07-14 22:51:33,206 [ERROR] response http status error:302
+2014-07-14 22:55:23,639 [ERROR] response http status error:302
+2014-07-14 22:55:27,123 [ERROR] response http status error:302
+2014-07-14 22:59:08,464 [ERROR] response http status error:302
+2014-07-14 22:59:10,341 [ERROR] response http status error:302
+2014-07-14 22:59:28,009 [ERROR] response http status error:302
+2014-07-14 22:59:28,595 [ERROR] response http status error:302
+2014-07-14 22:59:35,448 [ERROR] response http status error:302
+2014-07-14 22:59:36,112 [ERROR] response http status error:302
+2014-07-14 22:59:39,292 [ERROR] response http status error:302
+2014-07-14 22:59:50,068 [ERROR] response http status error:302
+2014-07-14 22:59:51,397 [ERROR] response http status error:302
+2014-07-14 22:59:59,420 [ERROR] response http status error:302
+2014-07-14 23:00:00,209 [ERROR] response http status error:302
+2014-07-14 23:00:02,775 [ERROR] response http status error:302
+2014-07-14 23:00:11,194 [ERROR] response http status error:302
+2014-07-14 23:00:13,943 [ERROR] response http status error:302
+2014-07-14 23:00:22,920 [ERROR] response http status error:302
+2014-07-14 23:00:24,945 [ERROR] response http status error:302
+2014-07-14 23:00:34,742 [ERROR] response http status error:302
+2014-07-14 23:01:02,148 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:01:04,479 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:01:06,673 [ERROR] response http status error:302
+2014-07-14 23:01:44,085 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:01:49,099 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:01:51,853 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:03:11,667 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:03:13,578 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:04:38,757 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:04:39,421 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:05:09,236 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:05:33,717 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:05:35,705 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:05:57,276 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:06:07,343 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:06:07,904 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:06:25,639 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:06:33,113 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:06:35,873 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:06:54,369 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:08:18,855 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:08:20,695 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:09:03,867 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:09:06,734 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:09:19,557 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:09:36,820 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:09:37,273 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:09:39,526 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:09:41,264 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:09:44,768 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:09:58,489 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:10:46,129 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:10:47,053 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:10:48,216 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:10:48,618 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:10:51,282 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:10:51,948 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:11:34,567 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:11:35,204 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:11:39,877 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:11:43,409 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:11:44,635 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-14 23:11:45,763 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-15 23:12:10,040 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-15 23:12:14,391 [ERROR] response http status error:302
+2014-07-17 22:18:34,820 [ERROR] response http status error:302
+2014-07-17 22:18:36,028 [ERROR] response http status error:302
+2014-07-17 22:59:34,759 [ERROR] response http status error:302
+2014-07-17 22:59:36,437 [ERROR] response http status error:302
+2014-07-17 22:59:37,093 [ERROR] response http status error:302
+2014-07-17 22:59:59,284 [ERROR] response http status error:404
+2014-07-18 20:46:51,709 [ERROR] response http status error:302
+2014-07-18 20:46:56,944 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 20:46:58,996 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 20:47:44,656 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 21:08:01,519 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 21:08:04,305 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 21:08:05,873 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 21:12:48,171 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 21:14:28,027 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 21:14:29,172 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 21:16:39,605 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 21:59:50,074 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 21:59:52,057 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 22:00:24,150 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 22:02:12,666 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 22:02:14,154 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 22:02:33,190 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 22:02:36,344 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 22:02:42,401 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-18 22:02:44,201 [ERROR] response http status error:302
+2014-07-18 22:03:07,976 [ERROR] response http status error:302
+2014-07-18 22:03:09,461 [ERROR] response http status error:302
+2014-07-18 22:03:09,828 [ERROR] response http status error:302
+2014-07-18 22:03:22,787 [ERROR] connection django-cgi server error:
+2014-07-19 08:49:10,707 [ERROR] response http status error:302
+2014-07-19 08:49:25,813 [ERROR] response http status error:302
+2014-07-19 08:49:27,629 [ERROR] response http status error:302
+2014-07-19 08:49:37,645 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 08:49:47,032 [ERROR] response http status error:302
+2014-07-19 08:54:03,571 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 08:54:12,474 [ERROR] response http status error:302
+2014-07-19 11:16:23,604 [ERROR] response http status error:302
+2014-07-19 11:16:24,786 [ERROR] response http status error:302
+2014-07-19 11:16:30,511 [ERROR] response http status error:302
+2014-07-19 11:16:30,964 [ERROR] response http status error:302
+2014-07-19 11:16:44,767 [ERROR] response http status error:302
+2014-07-19 11:16:46,356 [ERROR] response http status error:302
+2014-07-19 11:16:47,213 [ERROR] response http status error:302
+2014-07-19 11:16:50,533 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:17:06,976 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:22:13,034 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:24:07,085 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:24:07,229 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:24:12,285 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:24:25,003 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:24:31,324 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:24:34,785 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:25:29,773 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:25:44,324 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:26:01,596 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:26:07,746 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:26:08,039 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:26:08,176 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:26:08,348 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:26:08,505 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:26:08,702 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:26:08,847 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:26:08,995 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:26:09,133 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:26:12,440 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:27:21,921 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:27:22,720 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:34:40,738 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:34:40,867 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:34:42,950 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:34:52,664 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:35:15,320 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:35:16,836 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 11:35:30,562 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 12:00:03,606 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 12:00:06,645 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 12:00:17,816 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 12:00:23,996 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 12:00:25,481 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 12:00:38,556 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 12:01:36,715 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 12:01:38,385 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 12:01:47,730 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 12:01:49,890 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 12:01:53,140 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 12:02:06,091 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 13:08:27,433 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 13:08:30,284 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 13:08:30,883 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 13:09:11,576 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 13:09:13,955 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:50:01,614 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:50:04,424 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:50:05,111 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:50:07,350 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:50:08,226 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:50:09,608 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:50:27,812 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:50:29,921 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:50:50,065 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:50:51,949 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:53:08,496 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:53:35,081 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:53:37,022 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:54:03,727 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:54:23,137 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:54:38,727 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:54:52,229 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:54:54,562 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 15:55:01,949 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 16:00:33,798 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 16:00:36,317 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 16:05:51,157 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 16:06:00,984 [ERROR] response http status error:302
+2014-07-19 17:06:57,302 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:06:59,129 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:11:00,071 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:11:00,630 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:28:35,303 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:29:22,805 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:40:24,243 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:41:05,309 [ERROR] response http status error:404
+2014-07-19 17:41:12,570 [ERROR] response http status error:302
+2014-07-19 17:41:13,098 [ERROR] response http status error:302
+2014-07-19 17:41:15,521 [ERROR] response http content error:HTTP/1.0 404 No permission to list directory
+Server: YorServer1.0 
+Date: Sat, 19 Jul 2014 09:41:15 GMT
+Content-Type: text/html
+Connection: close
+
+<head>
+<title>Error response</title>
+</head>
+<body>
+<h1>Error response</h1>
+<p>Error code 404.
+<p>Message: No permission to list directory.
+<p>Error code explanation: 404 = Nothing matches the given URI.
+</body>
+2014-07-19 17:41:16,130 [ERROR] response http status error:302
+2014-07-19 17:41:20,047 [ERROR] response http status error:302
+2014-07-19 17:41:22,723 [ERROR] response http status error:302
+2014-07-19 17:43:19,581 [ERROR] response http status error:302
+2014-07-19 17:43:20,085 [ERROR] response http status error:302
+2014-07-19 17:43:27,050 [ERROR] response http status error:302
+2014-07-19 17:43:29,989 [ERROR] response http status error:302
+2014-07-19 17:43:31,766 [ERROR] response http status error:302
+2014-07-19 17:43:52,990 [ERROR] response http content error:HTTP/1.0 404 No permission to list directory
+Server: YorServer1.0 
+Date: Sat, 19 Jul 2014 09:43:52 GMT
+Content-Type: text/html
+Connection: close
+
+<head>
+<title>Error response</title>
+</head>
+<body>
+<h1>Error response</h1>
+<p>Error code 404.
+<p>Message: No permission to list directory.
+<p>Error code explanation: 404 = Nothing matches the given URI.
+</body>
+2014-07-19 17:43:59,284 [ERROR] response http content error:HTTP/1.0 404 No permission to list directory
+Server: YorServer1.0 
+Date: Sat, 19 Jul 2014 09:43:59 GMT
+Content-Type: text/html
+Connection: close
+
+<head>
+<title>Error response</title>
+</head>
+<body>
+<h1>Error response</h1>
+<p>Error code 404.
+<p>Message: No permission to list directory.
+<p>Error code explanation: 404 = Nothing matches the given URI.
+</body>
+2014-07-19 17:47:55,803 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:47:56,571 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:47:56,723 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:47:57,806 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:48:59,219 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:49:00,126 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:49:12,594 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:49:14,876 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:49:15,502 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 17:49:20,518 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 18:42:46,764 [ERROR] response http status error:302
+2014-07-19 18:42:47,615 [ERROR] response http status error:302
+2014-07-19 18:42:48,730 [ERROR] response http status error:302
+2014-07-19 18:42:49,191 [ERROR] response http status error:302
+2014-07-19 18:42:50,997 [ERROR] response http content error:HTTP/1.0 404 No permission to list directory
+Server: YorServer1.0 
+Date: Sat, 19 Jul 2014 10:42:50 GMT
+Content-Type: text/html
+Connection: close
+
+<head>
+<title>Error response</title>
+</head>
+<body>
+<h1>Error response</h1>
+<p>Error code 404.
+<p>Message: No permission to list directory.
+<p>Error code explanation: 404 = Nothing matches the given URI.
+</body>
+2014-07-19 18:42:51,375 [ERROR] response http status error:302
+2014-07-19 18:42:55,443 [ERROR] response http status error:302
+2014-07-19 19:21:01,479 [ERROR] response http status error:302
+2014-07-19 19:22:49,563 [ERROR] response http status error:302
+2014-07-19 19:22:58,166 [ERROR] response http status error:302
+2014-07-19 19:23:00,422 [ERROR] response http status error:302
+2014-07-19 19:23:02,824 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 19:23:03,878 [ERROR] response http status error:302
+2014-07-19 19:23:15,439 [ERROR] response http status error:302
+2014-07-19 19:23:22,979 [ERROR] response http status error:302
+2014-07-19 19:33:23,275 [ERROR] response http status error:302
+2014-07-19 19:33:25,138 [ERROR] response http status error:302
+2014-07-19 19:33:25,341 [ERROR] response http status error:302
+2014-07-19 19:33:25,447 [ERROR] response http status error:302
+2014-07-19 19:36:27,663 [ERROR] response http status error:302
+2014-07-19 19:38:49,509 [ERROR] response http status error:302
+2014-07-19 19:38:52,961 [ERROR] response http status error:302
+2014-07-19 19:38:53,365 [ERROR] response http status error:302
+2014-07-19 19:38:54,294 [ERROR] response http status error:302
+2014-07-19 19:39:04,015 [ERROR] response http status error:404
+2014-07-19 19:39:22,793 [ERROR] response http status error:404
+2014-07-19 19:39:23,164 [ERROR] response http status error:404
+2014-07-19 19:39:54,076 [ERROR] response http status error:404
+2014-07-19 23:06:33,195 [ERROR] response http status error:302
+2014-07-19 23:06:35,374 [ERROR] response http status error:302
+2014-07-19 23:06:37,943 [ERROR] response http status error:302
+2014-07-19 23:06:47,501 [ERROR] response http status error:302
+2014-07-19 23:06:50,163 [ERROR] response http status error:302
+2014-07-19 23:06:53,653 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 23:07:00,826 [ERROR] response http status error:302
+2014-07-19 23:09:33,421 [ERROR] response http status error:302
+2014-07-19 23:09:41,216 [ERROR] response http status error:302
+2014-07-19 23:09:44,004 [ERROR] response http status error:302
+2014-07-19 23:09:45,434 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-19 23:09:56,972 [ERROR] response http status error:302
+2014-07-19 23:09:59,033 [ERROR] response http status error:302
+2014-07-19 23:09:59,375 [ERROR] response http status error:302
+2014-07-19 23:10:05,186 [ERROR] response http status error:302
+2014-07-19 23:10:06,007 [ERROR] response http status error:302
+2014-07-19 23:10:16,940 [ERROR] response http status error:302
+2014-07-19 23:55:19,469 [ERROR] response http status error:302
+2014-07-20 00:00:26,208 [ERROR] response http status error:302
+2014-07-20 00:00:28,755 [ERROR] response http status error:302
+2014-07-20 00:00:30,346 [ERROR] response http status error:302
+2014-07-20 00:00:30,836 [ERROR] response http status error:302
+2014-07-20 00:00:40,725 [ERROR] response http status error:302
+2014-07-20 00:00:41,871 [ERROR] response http status error:302
+2014-07-20 00:00:47,337 [ERROR] response http status error:302
+2014-07-20 00:00:48,109 [ERROR] response http status error:302
+2014-07-20 00:00:50,278 [ERROR] response http status error:302
+2014-07-20 00:00:50,751 [ERROR] response http status error:302
+2014-07-20 00:00:52,304 [ERROR] response http status error:302
+2014-07-20 00:00:58,711 [ERROR] response http status error:302
+2014-07-20 00:00:59,629 [ERROR] response http status error:302
+2014-07-20 00:01:04,187 [ERROR] response http status error:302
+2014-07-20 00:01:05,326 [ERROR] response http status error:302
+2014-07-20 00:01:06,807 [ERROR] response http status error:302
+2014-07-20 00:02:59,591 [ERROR] response http status error:302
+2014-07-20 00:03:09,671 [ERROR] response http status error:302
+2014-07-20 00:03:13,117 [ERROR] response http status error:302
+2014-07-20 00:03:14,093 [ERROR] response http status error:302
+2014-07-20 00:03:18,251 [ERROR] response http status error:302
+2014-07-20 00:03:18,696 [ERROR] response http status error:302
+2014-07-20 00:03:25,850 [ERROR] response http status error:302
+2014-07-20 00:03:26,888 [ERROR] response http status error:302
+2014-07-20 00:03:38,829 [ERROR] response http status error:302
+2014-07-20 00:03:39,367 [ERROR] response http status error:302
+2014-07-20 00:03:49,286 [ERROR] response http status error:302
+2014-07-20 00:03:49,709 [ERROR] response http status error:302
+2014-07-20 00:03:56,474 [ERROR] response http status error:404
+2014-07-20 00:03:57,526 [ERROR] response http status error:302
+2014-07-20 00:04:23,770 [ERROR] response http status error:302
+2014-07-20 00:04:24,516 [ERROR] response http status error:302
+2014-07-20 00:04:33,975 [ERROR] response http status error:302
+2014-07-20 00:04:35,561 [ERROR] response http status error:302
+2014-07-20 00:04:37,233 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-20 00:04:43,320 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-20 00:04:45,274 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-20 00:04:45,697 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-20 00:04:50,286 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-20 00:04:51,081 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-20 00:04:52,392 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-20 00:04:55,762 [ERROR] connection django-cgi server error:[Errno 111] Connection refused
+2014-07-20 00:04:56,858 [ERROR] response http status error:302
+2014-07-20 00:05:17,826 [ERROR] response http status error:302
+2014-07-20 00:05:18,576 [ERROR] response http status error:302
+2014-07-20 00:13:30,482 [ERROR] response http status error:302
+2014-07-20 00:13:38,189 [ERROR] response http status error:302
+2014-07-20 00:17:23,001 [ERROR] response http status error:302
+2014-07-20 00:27:49,643 [ERROR] response http status error:302
+2014-07-20 00:27:52,821 [ERROR] response http status error:302
+2014-07-20 00:28:15,882 [ERROR] response http status error:302
+2014-07-20 00:28:16,561 [ERROR] response http status error:302
+2014-07-20 00:28:19,120 [ERROR] response http status error:302
+2014-07-20 00:28:19,747 [ERROR] response http status error:302
+2014-07-20 00:28:33,008 [ERROR] response http status error:302
+2014-07-20 00:28:37,595 [ERROR] response http status error:302
+2014-07-20 00:28:38,210 [ERROR] response http status error:302
+2014-07-20 00:28:53,948 [ERROR] response http status error:302
+2014-07-20 00:28:55,448 [ERROR] response http status error:302
+2014-07-20 00:32:35,619 [ERROR] response http status error:302
+2014-07-20 00:33:44,634 [ERROR] response http status error:302

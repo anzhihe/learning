@@ -1,0 +1,946 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>²âÊÔÓë·ÖÖ§(caseÓëselect½á¹¹)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="¸ß¼¶Bash½Å±¾±à³ÌÖ¸ÄÏ"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Ñ­»·Óë·ÖÖ§"
+HREF="loops.html"><LINK
+REL="PREVIOUS"
+TITLE="Ñ­»·¿ØÖÆ"
+HREF="loopcontrol.html"><LINK
+REL="NEXT"
+TITLE="ÄÚ²¿ÃüÁîÓëÄÚ½¨ÃüÁî"
+HREF="internal.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>¸ß¼¶Bash½Å±¾±à³ÌÖ¸ÄÏ: Ò»±¾ÉîÈëÑ§Ï°shell½Å±¾ÒÕÊõµÄÊé¼®</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="loopcontrol.html"
+ACCESSKEY="P"
+>Ç°Ò»Ò³</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>10. Ñ­»·Óë·ÖÖ§</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="internal.html"
+ACCESSKEY="N"
+>ÏÂÒ»Ò³</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="TESTBRANCH"
+>10.4. ²âÊÔÓë·ÖÖ§(caseÓëselect½á¹¹)</A
+></H1
+><P
+><B
+CLASS="COMMAND"
+>case</B
+>ºÍ<B
+CLASS="COMMAND"
+>select</B
+>½á¹¹ÔÚ¼¼ÊõÉÏËµ²¢²»ÊÇÑ­»·, ÒòÎªËüÃÇ²¢²»¶Ô¿ÉÖ´ĞĞ´úÂë¿é½øĞĞµü´ú. 
+	  µ«ÊÇºÍÑ­»·ÏàËÆµÄÊÇ, ËüÃÇÒ²ÒÀ¿¿ÔÚ´úÂë¿é¶¥²¿»òµ×²¿µÄÌõ¼şÅĞ¶ÏÀ´¾ö¶¨³ÌĞòµÄ·ÖÖ§. </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="CASEESAC1"
+></A
+>ÔÚ´úÂë¿éÖĞ¿ØÖÆ³ÌĞò·ÖÖ§</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>case (in) / esac</B
+></DT
+><DD
+><P
+>ÔÚshellÖĞµÄ<B
+CLASS="COMMAND"
+>case</B
+>½á¹¹ÓëC/C++ÖĞµÄ<B
+CLASS="COMMAND"
+>switch</B
+>½á¹¹ÊÇÏàÍ¬µÄ. 
+	      ËüÔÊĞíÍ¨¹ıÅĞ¶ÏÀ´Ñ¡Ôñ´úÂë¿éÖĞ¶àÌõÂ·¾¶ÖĞµÄÒ»Ìõ. 
+	      ËüµÄ×÷ÓÃºÍ¶à¸ö<SPAN
+CLASS="TOKEN"
+>if/then/else</SPAN
+>Óï¾äµÄ×÷ÓÃÏàÍ¬, 
+	      ÊÇËüÃÇµÄ¼ò»¯½á¹¹, ÌØ±ğÊÊÓÃÓÚ´´½¨²Ëµ¥. </P
+><P
+><P
+><B
+CLASS="COMMAND"
+>case</B
+>   "$<TT
+CLASS="REPLACEABLE"
+><I
+>variable</I
+></TT
+>"   in <BR><BR>   "$<TT
+CLASS="REPLACEABLE"
+><I
+>condition1</I
+></TT
+>" ) <BR>   <TT
+CLASS="REPLACEABLE"
+><I
+>command</I
+></TT
+>... <BR>   ;; <BR><BR>   "$<TT
+CLASS="REPLACEABLE"
+><I
+>condition2</I
+></TT
+>" ) <BR>   <TT
+CLASS="REPLACEABLE"
+><I
+>command</I
+></TT
+>... <BR>   ;; <BR><BR>  esac </P
+></P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>	      <P
+></P
+><UL
+><LI
+><P
+>¶Ô±äÁ¿Ê¹ÓÃ""²¢²»ÊÇÇ¿ÖÆµÄ, ÒòÎª²»»á·¢Éúµ¥´Ê·Ö¸î.
+		</P
+></LI
+><LI
+><P
+>Ã¿¾ä²âÊÔĞĞ, ¶¼ÒÔÓÒĞ¡À¨ºÅ<SPAN
+CLASS="TOKEN"
+>)</SPAN
+>À´½áÎ².</P
+></LI
+><LI
+><P
+>Ã¿¸öÌõ¼şÅĞ¶ÏÓï¾ä¿é¶¼ÒÔ<EM
+>Ò»¶Ô</EM
+>·ÖºÅ½áÎ² <SPAN
+CLASS="TOKEN"
+>;;</SPAN
+>.</P
+></LI
+><LI
+><P
+><B
+CLASS="COMMAND"
+>case</B
+>¿éÒÔ<B
+CLASS="COMMAND"
+>esac</B
+> (<I
+CLASS="WORDASWORD"
+>case</I
+>µÄ·´ÏòÆ´Ğ´)½áÎ².</P
+></LI
+></UL
+>
+	    </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX29"
+></A
+><P
+><B
+>Àı×Ó 10-24. Ê¹ÓÃ<B
+CLASS="COMMAND"
+>case</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# ²âÊÔ×Ö·û´®·¶Î§.
+  3&nbsp;
+  4&nbsp;echo; echo "Hit a key, then hit return."
+  5&nbsp;read Keypress
+  6&nbsp;
+  7&nbsp;case "$Keypress" in
+  8&nbsp;  [[:lower:]]   ) echo "Lowercase letter";;
+  9&nbsp;  [[:upper:]]   ) echo "Uppercase letter";;
+ 10&nbsp;  [0-9]         ) echo "Digit";;
+ 11&nbsp;  *             ) echo "Punctuation, whitespace, or other";;
+ 12&nbsp;esac      #  ÔÊĞí×Ö·û´®µÄ·¶Î§³öÏÖÔÚ[ÖĞÀ¨ºÅ]ÖĞ,
+ 13&nbsp;          #+ »òÕß³öÏÖÔÚPOSIX·ç¸ñµÄ[[Ë«ÖĞÀ¨ºÅÖĞ.
+ 14&nbsp;
+ 15&nbsp;#  ÔÚÕâ¸öÀı×ÓµÄµÚÒ»¸ö°æ±¾ÖĞ,
+ 16&nbsp;#+ ²âÊÔ´óĞ´ºÍĞ¡Ğ´×Ö·û´®µÄ¹¤×÷Ê¹ÓÃµÄÊÇ
+ 17&nbsp;#+ [a-z] ºÍ [A-Z].
+ 18&nbsp;#  ÕâÖÖÓÃ·¨ÔÚÄ³Ğ©ÌØ¶¨³¡ºÏµÄ»òÄ³Ğ©Linux·¢ĞĞ°æÖĞ²»ÄÜ¹»Õı³£¹¤×÷.
+ 19&nbsp;#  POSIX µÄ·ç¸ñ¸ü¾ß¿ÉÒÆÖ²ĞÔ.
+ 20&nbsp;#  ¸ĞĞ»Frank WangÖ¸³öÁËÕâµã.
+ 21&nbsp;
+ 22&nbsp;#  Á·Ï°:
+ 23&nbsp;#  -----
+ 24&nbsp;#  ¾ÍÏñÕâ¸ö½Å±¾Ëù±íÏÖ³öÀ´µÄ, ËüÖ»ÔÊĞíµ¥´ÎµÄ°´¼ü, È»ºó¾Í½áÊøÁË.
+ 25&nbsp;#  ĞŞ¸ÄÕâ¸ö½Å±¾, ÈÃËüÄÜ¹»½ÓÊÜÖØ¸´ÊäÈë,
+ 26&nbsp;#+ ±¨¸æÃ¿´Î°´¼ü, ²¢ÇÒÖ»ÓĞÔÚ"X"±»¼üÈëÊ±²Å½áÊø. 
+ 27&nbsp;#  °µÊ¾: ½«ÕâĞ©´úÂë¶¼ÓÃ"while"Ñ­»·È¦ÆğÀ´. 
+ 28&nbsp;
+ 29&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX30"
+></A
+><P
+><B
+>Àı×Ó 10-25. Ê¹ÓÃ<B
+CLASS="COMMAND"
+>case</B
+>À´´´½¨²Ëµ¥</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# Î´¾­´¦ÀíµÄµØÖ·×ÊÁÏ
+  4&nbsp;
+  5&nbsp;clear # ÇåÆÁ.
+  6&nbsp;
+  7&nbsp;echo "          Contact List"
+  8&nbsp;echo "          ------- ----"
+  9&nbsp;echo "Choose one of the following persons:" 
+ 10&nbsp;echo
+ 11&nbsp;echo "[E]vans, Roland"
+ 12&nbsp;echo "[J]ones, Mildred"
+ 13&nbsp;echo "[S]mith, Julie"
+ 14&nbsp;echo "[Z]ane, Morris"
+ 15&nbsp;echo
+ 16&nbsp;
+ 17&nbsp;read person
+ 18&nbsp;
+ 19&nbsp;case "$person" in
+ 20&nbsp;# ×¢Òâ, ±äÁ¿ÊÇ±»""ÒıÓÃµÄ.
+ 21&nbsp;
+ 22&nbsp;  "E" | "e" )
+ 23&nbsp;  # ½ÓÊÜ´óĞ´»òÕßĞ¡Ğ´ÊäÈë.
+ 24&nbsp;  echo
+ 25&nbsp;  echo "Roland Evans"
+ 26&nbsp;  echo "4321 Floppy Dr."
+ 27&nbsp;  echo "Hardscrabble, CO 80753"
+ 28&nbsp;  echo "(303) 734-9874"
+ 29&nbsp;  echo "(303) 734-9892 fax"
+ 30&nbsp;  echo "revans@zzy.net"
+ 31&nbsp;  echo "Business partner &#38; old friend"
+ 32&nbsp;  ;;
+ 33&nbsp;# ×¢Òâ, Ã¿¸öÑ¡Ïîºó±ß¶¼ÒªÒÔË«·ÖºÅ;;½áÎ².
+ 34&nbsp;
+ 35&nbsp;  "J" | "j" )
+ 36&nbsp;  echo
+ 37&nbsp;  echo "Mildred Jones"
+ 38&nbsp;  echo "249 E. 7th St., Apt. 19"
+ 39&nbsp;  echo "New York, NY 10009"
+ 40&nbsp;  echo "(212) 533-2814"
+ 41&nbsp;  echo "(212) 533-9972 fax"
+ 42&nbsp;  echo "milliej@loisaida.com"
+ 43&nbsp;  echo "Ex-girlfriend"
+ 44&nbsp;  echo "Birthday: Feb. 11"
+ 45&nbsp;  ;;
+ 46&nbsp;
+ 47&nbsp;# ºó±ßµÄ Smith ºÍ Zane µÄĞÅÏ¢ÔÚÕâÀï¾ÍÊ¡ÂÔÁË.
+ 48&nbsp;
+ 49&nbsp;          * )
+ 50&nbsp;   # Ä¬ÈÏÑ¡Ïî.
+ 51&nbsp;   # ¿ÕÊäÈë(ÇÃ»Ø³µRETURN), Ò²ÊÊÓÃÓÚÕâÀï. 
+ 52&nbsp;   echo
+ 53&nbsp;   echo "Not yet in database."
+ 54&nbsp;  ;;
+ 55&nbsp;
+ 56&nbsp;esac
+ 57&nbsp;
+ 58&nbsp;echo
+ 59&nbsp;
+ 60&nbsp;#  Á·Ï°:
+ 61&nbsp;#  -----
+ 62&nbsp;#  ĞŞ¸ÄÕâ¸ö½Å±¾, ÈÃËüÄÜ¹»½ÓÊÜ¶à¸öÊäÈë,
+ 63&nbsp;#+ ²¢ÇÒÄÜ¹»ÏÔÊ¾¶à¸öµØÖ·.
+ 64&nbsp;
+ 65&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>Ò»¸ö<B
+CLASS="COMMAND"
+>case</B
+>µÄ·Ç³£´ÏÃ÷µÄÓÃ·¨, 
+	      ÓÃÀ´²âÊÔÃüÁîĞĞ²ÎÊı.
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#! /bin/bash
+  2&nbsp;
+  3&nbsp;case "$1" in
+  4&nbsp;"") echo "Usage: ${0##*/} &#60;filename&#62;"; exit $E_PARAM;;  # Ã»ÓĞÃüÁîĞĞ²ÎÊı,
+  5&nbsp;                                                        # »òÕßµÚÒ»¸ö²ÎÊıÎª¿Õ.
+  6&nbsp;# ×¢Òâ: ${0##*/} ÊÇ ${var##pattern} µÄÒ»ÖÖÌæ»»ĞÎÊ½. µÃµ½µÄ½á¹ûÎª$0.
+  7&nbsp;
+  8&nbsp;-*) FILENAME=./$1;;   #  Èç¹û´«µİ½øÀ´µÄÎÄ¼şÃû²ÎÊı($1)ÒÔÒ»¸öÆÆÕÛºÅ¿ªÍ·, 
+  9&nbsp;                      #+ ÄÇÃ´ÓÃ./$1À´´úÌæ.
+ 10&nbsp;                      #+ ÕâÑùºó±ßµÄÃüÁî½«²»»á°ÑËü×÷ÎªÒ»¸öÑ¡ÏîÀ´½âÊÍ.
+ 11&nbsp;
+ 12&nbsp;* ) FILENAME=$1;;     # ·ñÔò, $1.
+ 13&nbsp;esac</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>ÕâÊÇÒ»¸öÃüÁîĞĞ²ÎÊı´¦ÀíµÄ¸üÈİÒ×Àí½âµÄÀı×Ó: 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#! /bin/bash
+  2&nbsp;
+  3&nbsp;
+  4&nbsp;while [ $# -gt 0 ]; do    # Ö±µ½ÄãÓÃÍêËùÓĞµÄ²ÎÊı . . .
+  5&nbsp;  case "$1" in
+  6&nbsp;    -d|--debug)
+  7&nbsp;              # ÊÇ "-d" »ò "--debug" ²ÎÊı?
+  8&nbsp;              DEBUG=1
+  9&nbsp;              ;;
+ 10&nbsp;    -c|--conf)
+ 11&nbsp;              CONFFILE="$2"
+ 12&nbsp;              shift
+ 13&nbsp;              if [ ! -f $CONFFILE ]; then
+ 14&nbsp;                echo "Error: Supplied file doesn't exist!"
+ 15&nbsp;                exit $E_CONFFILE     # ´íÎó: ÎÄ¼şÎ´·¢ÏÖ.
+ 16&nbsp;              fi
+ 17&nbsp;              ;;
+ 18&nbsp;  esac
+ 19&nbsp;  shift       # ¼ì²éÊ£ÓàµÄ²ÎÊı.
+ 20&nbsp;done
+ 21&nbsp;
+ 22&nbsp;#  À´×ÔStefano FalsettoµÄ "Log2Rot" ½Å±¾,
+ 23&nbsp;#+ ²¢ÇÒÊÇËûµÄ"rottlog"°üµÄÒ»²¿·Ö. 
+ 24&nbsp;#  ÒÑµÃµ½Ê¹ÓÃĞí¿É. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="CASECMD"
+></A
+><P
+><B
+>Àı×Ó 10-26. Ê¹ÓÃÃüÁîÌæ»»À´²úÉú<B
+CLASS="COMMAND"
+>case</B
+>±äÁ¿</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# case-cmd.sh: Ê¹ÓÃÃüÁîÌæ»»À´²úÉú"case"±äÁ¿.
+  3&nbsp;
+  4&nbsp;case $( arch ) in   # "arch" ·µ»Ø»úÆ÷ÌåÏµµÄÀàĞÍ.
+  5&nbsp;                    # µÈ¼ÛÓÚ 'uname -m' ...
+  6&nbsp;i386 ) echo "80386-based machine";;
+  7&nbsp;i486 ) echo "80486-based machine";;
+  8&nbsp;i586 ) echo "Pentium-based machine";;
+  9&nbsp;i686 ) echo "Pentium2+-based machine";;
+ 10&nbsp;*    ) echo "Other type of machine";;
+ 11&nbsp;esac
+ 12&nbsp;
+ 13&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><B
+CLASS="COMMAND"
+>case</B
+>½á¹¹Ò²¿ÉÒÔ¹ıÂË<A
+HREF="globbingref.html"
+>Í¨Åä(globbing)</A
+>Ä£Ê½µÄ×Ö·û´®.</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="MATCHSTRING"
+></A
+><P
+><B
+>Àı×Ó 10-27. ¼òµ¥µÄ×Ö·û´®Æ¥Åä</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# match-string.sh: ¼òµ¥µÄ×Ö·û´®Æ¥Åä
+  3&nbsp;
+  4&nbsp;match_string ()
+  5&nbsp;{
+  6&nbsp;  MATCH=0
+  7&nbsp;  NOMATCH=90
+  8&nbsp;  PARAMS=2     # ´Ëº¯ÊıĞèÒª2¸ö²ÎÊı.
+  9&nbsp;  BAD_PARAMS=91
+ 10&nbsp;
+ 11&nbsp;  [ $# -eq $PARAMS ] || return $BAD_PARAMS
+ 12&nbsp;
+ 13&nbsp;  case "$1" in
+ 14&nbsp;  "$2") return $MATCH;;
+ 15&nbsp;  *   ) return $NOMATCH;;
+ 16&nbsp;  esac
+ 17&nbsp;
+ 18&nbsp;}  
+ 19&nbsp;
+ 20&nbsp;
+ 21&nbsp;a=one
+ 22&nbsp;b=two
+ 23&nbsp;c=three
+ 24&nbsp;d=two
+ 25&nbsp;
+ 26&nbsp;
+ 27&nbsp;match_string $a     # ²ÎÊı¸öÊı´íÎó.
+ 28&nbsp;echo $?             # 91
+ 29&nbsp;
+ 30&nbsp;match_string $a $b  # ²»Æ¥Åä
+ 31&nbsp;echo $?             # 90
+ 32&nbsp;
+ 33&nbsp;match_string $b $d  # Æ¥Åä
+ 34&nbsp;echo $?             # 0
+ 35&nbsp;
+ 36&nbsp;
+ 37&nbsp;exit 0		    </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ISALPHA"
+></A
+><P
+><B
+>Àı×Ó 10-28. ¼ì²éÊäÈë×Ö·ûÊÇ·ñÎª×ÖÄ¸</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# isalpha.sh: Ê¹ÓÃ"case"½á¹¹À´¹ıÂË×Ö·û´®. 
+  3&nbsp;
+  4&nbsp;SUCCESS=0
+  5&nbsp;FAILURE=-1
+  6&nbsp;
+  7&nbsp;isalpha ()  # ¼ì²éÊäÈëµÄ *µÚÒ»¸ö×Ö·û* ÊÇ²»ÊÇ×ÖÄ¸±íÉÏµÄ×Ö·û.
+  8&nbsp;{
+  9&nbsp;if [ -z "$1" ]                # Ã»ÓĞ²ÎÊı´«½øÀ´?
+ 10&nbsp;then
+ 11&nbsp;  return $FAILURE
+ 12&nbsp;fi
+ 13&nbsp;
+ 14&nbsp;case "$1" in
+ 15&nbsp;[a-zA-Z]*) return $SUCCESS;;  # ÒÔÒ»¸ö×ÖÄ¸¿ªÍ·?
+ 16&nbsp;*        ) return $FAILURE;;
+ 17&nbsp;esac
+ 18&nbsp;}             # Í¬CÓïÑÔµÄ"isalpha ()"º¯Êı±È½ÏÒ»ÏÂ. 
+ 19&nbsp;
+ 20&nbsp;
+ 21&nbsp;isalpha2 ()   # ²âÊÔ *Õû¸ö×Ö·û´®* ÊÇ·ñ¶¼ÊÇ×ÖÄ¸±íÉÏµÄ×Ö·û.
+ 22&nbsp;{
+ 23&nbsp;  [ $# -eq 1 ] || return $FAILURE
+ 24&nbsp;
+ 25&nbsp;  case $1 in
+ 26&nbsp;  *[!a-zA-Z]*|"") return $FAILURE;;
+ 27&nbsp;               *) return $SUCCESS;;
+ 28&nbsp;  esac
+ 29&nbsp;}
+ 30&nbsp;
+ 31&nbsp;isdigit ()    # ²âÊÔ *Õû¸ö×Ö·û´®* ÊÇ·ñ¶¼ÊÇÊı×Ö.
+ 32&nbsp;{             # »»¾ä»°Ëµ, ¾ÍÊÇ²âÊÔÒ»ÏÂÊÇ·ñÊÇÕûÊı±äÁ¿.
+ 33&nbsp;  [ $# -eq 1 ] || return $FAILURE
+ 34&nbsp;
+ 35&nbsp;  case $1 in
+ 36&nbsp;  *[!0-9]*|"") return $FAILURE;;
+ 37&nbsp;            *) return $SUCCESS;;
+ 38&nbsp;  esac
+ 39&nbsp;}
+ 40&nbsp;
+ 41&nbsp;
+ 42&nbsp;
+ 43&nbsp;check_var ()  # ²âÊÔisalpha().
+ 44&nbsp;{
+ 45&nbsp;if isalpha "$@"
+ 46&nbsp;then
+ 47&nbsp;  echo "\"$*\" begins with an alpha character."
+ 48&nbsp;  if isalpha2 "$@"
+ 49&nbsp;  then        # ²»ĞèÒª²âÊÔµÚÒ»¸ö×Ö·ûÊÇ·ñÊÇnon-alpha.
+ 50&nbsp;    echo "\"$*\" contains only alpha characters."
+ 51&nbsp;  else
+ 52&nbsp;    echo "\"$*\" contains at least one non-alpha character."
+ 53&nbsp;  fi  
+ 54&nbsp;else
+ 55&nbsp;  echo "\"$*\" begins with a non-alpha character."
+ 56&nbsp;              # Èç¹ûÃ»ÓĞ²ÎÊı´«µİ½øÀ´, Ò²ÊÇ"non-alpha". 
+ 57&nbsp;fi
+ 58&nbsp;
+ 59&nbsp;echo
+ 60&nbsp;
+ 61&nbsp;}
+ 62&nbsp;
+ 63&nbsp;digit_check ()  # ²âÊÔisdigit().
+ 64&nbsp;{
+ 65&nbsp;if isdigit "$@"
+ 66&nbsp;then
+ 67&nbsp;  echo "\"$*\" contains only digits [0 - 9]."
+ 68&nbsp;else
+ 69&nbsp;  echo "\"$*\" has at least one non-digit character."
+ 70&nbsp;fi
+ 71&nbsp;
+ 72&nbsp;echo
+ 73&nbsp;
+ 74&nbsp;}
+ 75&nbsp;
+ 76&nbsp;a=23skidoo
+ 77&nbsp;b=H3llo
+ 78&nbsp;c=-What?
+ 79&nbsp;d=What?
+ 80&nbsp;e=`echo $b`   # ÃüÁîÌæ»».
+ 81&nbsp;f=AbcDef
+ 82&nbsp;g=27234
+ 83&nbsp;h=27a34
+ 84&nbsp;i=27.34
+ 85&nbsp;
+ 86&nbsp;check_var $a
+ 87&nbsp;check_var $b
+ 88&nbsp;check_var $c
+ 89&nbsp;check_var $d
+ 90&nbsp;check_var $e
+ 91&nbsp;check_var $f
+ 92&nbsp;check_var     # Ã»ÓĞ²ÎÊı´«µİ½øÀ´, ½«»á·¢ÉúÊ²Ã´?
+ 93&nbsp;#
+ 94&nbsp;digit_check $g
+ 95&nbsp;digit_check $h
+ 96&nbsp;digit_check $i
+ 97&nbsp;
+ 98&nbsp;
+ 99&nbsp;exit 0        # S.C¸Ä½øÁËÕâ¸ö½Å±¾.
+100&nbsp;
+101&nbsp;# Á·Ï°:
+102&nbsp;# -----
+103&nbsp;#  ±àĞ´Ò»¸ö'isfloat ()'º¯ÊıÀ´²âÊÔ¸¡µãÊı.
+104&nbsp;#  °µÊ¾: Õâ¸öº¯Êı»ù±¾ÉÏÓë'isdigit ()'ÏàÍ¬,
+105&nbsp;#+ µ«ÊÇÒªÌí¼ÓÒ»Ğ©Ğ¡Êıµã²¿·ÖµÄ´¦Àí.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><A
+NAME="SELECTREF"
+></A
+><B
+CLASS="COMMAND"
+>select</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>select</B
+>½á¹¹ÊÇ½¨Á¢²Ëµ¥µÄÁíÒ»ÖÖ¹¤¾ß, 
+	      ÕâÖÖ½á¹¹ÊÇ´ÓkshÖĞÒıÈëµÄ. </P
+><P
+><P
+><B
+CLASS="COMMAND"
+>select</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>variable</I
+></TT
+>  [in <TT
+CLASS="REPLACEABLE"
+><I
+>list</I
+></TT
+>]<BR>  do <BR>   <TT
+CLASS="REPLACEABLE"
+><I
+>command</I
+></TT
+>... <BR>   break <BR>  done </P
+></P
+><P
+>ÌáÊ¾ÓÃ»§ÊäÈëÑ¡ÔñµÄÄÚÈİ(±ÈÈç·ÅÔÚ±äÁ¿ÁĞ±íÖĞ).  
+			  ×¢Òâ: <B
+CLASS="COMMAND"
+>select</B
+>ÃüÁîÊ¹ÓÃ<CODE
+CLASS="VARNAME"
+>PS3</CODE
+>ÌáÊ¾·û, 
+			  Ä¬ÈÏÎª(<SAMP
+CLASS="PROMPT"
+>#?</SAMP
+>), 
+		µ±È», Õâ¿ÉÒÔĞŞ¸Ä.</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX31"
+></A
+><P
+><B
+>Àı×Ó 10-29. Ê¹ÓÃ<B
+CLASS="COMMAND"
+>select</B
+>À´´´½¨²Ëµ¥</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;PS3='Choose your favorite vegetable: ' # ÉèÖÃÌáÊ¾·û×Ö´®.
+  4&nbsp;
+  5&nbsp;echo
+  6&nbsp;
+  7&nbsp;select vegetable in "beans" "carrots" "potatoes" "onions" "rutabagas"
+  8&nbsp;do
+  9&nbsp;  echo
+ 10&nbsp;  echo "Your favorite veggie is $vegetable."
+ 11&nbsp;  echo "Yuck!"
+ 12&nbsp;  echo
+ 13&nbsp;  break  # Èç¹ûÕâÀïÃ»ÓĞ 'break' »á·¢ÉúÊ²Ã´?
+ 14&nbsp;done
+ 15&nbsp;
+ 16&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>Èç¹ûºöÂÔÁË<KBD
+CLASS="USERINPUT"
+>in <TT
+CLASS="REPLACEABLE"
+><I
+>list</I
+></TT
+></KBD
+>ÁĞ±í, 
+			ÄÇÃ´<B
+CLASS="COMMAND"
+>select</B
+>ÃüÁî½«»áÊ¹ÓÃ´«µİµ½½Å±¾µÄÃüÁîĞĞ²ÎÊı(<CODE
+CLASS="VARNAME"
+>$@</CODE
+>), 
+			»òÕßÊÇº¯Êı²ÎÊı(µ±<B
+CLASS="COMMAND"
+>select</B
+>ÊÇÔÚº¯ÊıÖĞÊ±). 
+		</P
+><P
+>ÓëºöÂÔ<KBD
+CLASS="USERINPUT"
+>in <TT
+CLASS="REPLACEABLE"
+><I
+>list</I
+></TT
+></KBD
+>µÄ
+	      <P
+><B
+CLASS="COMMAND"
+>for</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>variable</I
+></TT
+>  [in <TT
+CLASS="REPLACEABLE"
+><I
+>list</I
+></TT
+>]</P
+>
+	      ½á¹¹±È½ÏÒ»ÏÂ. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX32"
+></A
+><P
+><B
+>Àı×Ó 10-30. Ê¹ÓÃº¯ÊıÖĞµÄ<B
+CLASS="COMMAND"
+>select</B
+>½á¹¹À´´´½¨²Ëµ¥</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;PS3='Choose your favorite vegetable: '
+  4&nbsp;
+  5&nbsp;echo
+  6&nbsp;
+  7&nbsp;choice_of()
+  8&nbsp;{
+  9&nbsp;select vegetable
+ 10&nbsp;# [in list]±»ºöÂÔ, ËùÒÔ'select'Ê¹ÓÃ´«µİ¸øº¯ÊıµÄ²ÎÊı.
+ 11&nbsp;do
+ 12&nbsp;  echo
+ 13&nbsp;  echo "Your favorite veggie is $vegetable."
+ 14&nbsp;  echo "Yuck!"
+ 15&nbsp;  echo
+ 16&nbsp;  break
+ 17&nbsp;done
+ 18&nbsp;}
+ 19&nbsp;
+ 20&nbsp;choice_of beans rice carrots radishes tomatoes spinach
+ 21&nbsp;#         $1    $2   $3      $4       $5       $6
+ 22&nbsp;#         ´«µİ¸øchoice_of()µÄ²ÎÊı
+ 23&nbsp;
+ 24&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>²Î¿¼<A
+HREF="bashver2.html#RESISTOR"
+>Àı×Ó 34-3</A
+>.</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="loopcontrol.html"
+ACCESSKEY="P"
+>Ç°Ò»Ò³</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Ê×Ò³</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="internal.html"
+ACCESSKEY="N"
+>ÏÂÒ»Ò³</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Ñ­»·¿ØÖÆ</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="loops.html"
+ACCESSKEY="U"
+>ÉÏÒ»¼¶</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ÄÚ²¿ÃüÁîÓëÄÚ½¨ÃüÁî</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

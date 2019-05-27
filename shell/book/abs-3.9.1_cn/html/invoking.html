@@ -1,0 +1,351 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>调用一个脚本</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="带着一个Sha-Bang出发(Sha-Bang指的是#!)"
+HREF="sha-bang.html"><LINK
+REL="PREVIOUS"
+TITLE="带着一个Sha-Bang出发(Sha-Bang指的是#!)"
+HREF="sha-bang.html"><LINK
+REL="NEXT"
+TITLE="初步的练习"
+HREF="prelimexer.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="sha-bang.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>2. 带着一个Sha-Bang出发(Sha-Bang指的是#!)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="prelimexer.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="INVOKING"
+>2.1. 调用一个脚本</A
+></H1
+><P
+>编写完脚本之后,你可以使用<KBD
+CLASS="USERINPUT"
+>sh scriptname</KBD
+>,
+
+	  <A
+NAME="AEN283"
+HREF="#FTN.AEN283"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+	
+	或者<KBD
+CLASS="USERINPUT"
+>bash scriptname</KBD
+>来调用这个脚本. 
+	(不推荐使用<KBD
+CLASS="USERINPUT"
+>sh &#60;scriptname</KBD
+>,
+	因为这禁用了脚本从<TT
+CLASS="FILENAME"
+>stdin</TT
+>中读数据的功能. )
+	更方便的方法是让脚本本身就具有可执行权限, 
+	通过<A
+HREF="basic.html#CHMODREF"
+>chmod</A
+>命令可以修改.
+
+	<P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>比如:</DT
+><DD
+><P
+><KBD
+CLASS="USERINPUT"
+>chmod 555 scriptname</KBD
+> (允许任何人都具有可读和执行权限)
+	        <A
+NAME="AEN296"
+HREF="#FTN.AEN296"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+	      </P
+></DD
+><DT
+>或者</DT
+><DD
+><P
+><KBD
+CLASS="USERINPUT"
+>chmod +rx scriptname</KBD
+> (允许任何人都具有可读和执行权限)</P
+><P
+><KBD
+CLASS="USERINPUT"
+>chmod u+rx scriptname</KBD
+> (只给脚本的所有者可读和执行权限)</P
+></DD
+></DL
+></DIV
+>
+      </P
+><P
+>既然脚本已经具有了可执行权限,现在你可以使用
+	<KBD
+CLASS="USERINPUT"
+>./scriptname</KBD
+>
+	
+	<A
+NAME="AEN308"
+HREF="#FTN.AEN308"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+>
+
+	来测试这个脚本了. 
+	如果这个脚本以一个<SPAN
+CLASS="QUOTE"
+>"sha-bang"</SPAN
+>行开头, 那么脚本将会调用合适的命令解释器来运行. </P
+><P
+>最后一步, 在脚本被测试和debug之后, 你可能想把它移动到<TT
+CLASS="FILENAME"
+>/usr/local/bin</TT
+>下, 
+	(当然是以root身份), 来让你的脚本对所有用户都有用. 
+     这样以来, 用户就可以在命令行上简单的输入<B
+CLASS="COMMAND"
+>scriptname</B
+>
+        <B
+CLASS="KEYCAP"
+>[ENTER]</B
+>就可以运行这个脚本了. </P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN283"
+HREF="invoking.html#AEN283"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>小心: 使用<KBD
+CLASS="USERINPUT"
+>sh
+	  scriptname</KBD
+>来调用脚本的时候将会关闭一些Bash特定的扩展, 
+	  脚本可能因此而调用失败. </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN296"
+HREF="invoking.html#AEN296"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>脚本需要<EM
+>读</EM
+>和可执行的权限, 
+			因为shell需要读这个脚本. </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN308"
+HREF="invoking.html#AEN308"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>为什么不直接使用<KBD
+CLASS="USERINPUT"
+>scriptname</KBD
+>来调用脚本? 
+	如果你当前的目录下(<A
+HREF="internalvariables.html#PWDREF"
+>$PWD</A
+>) 正好是
+	  <EM
+>scriptname</EM
+>所在的目录, 为什么它运行不了呢? 
+	  失败的原因是出于安全考虑, 当前目录并没有被加在用户的
+	  <A
+HREF="internalvariables.html#PATHREF"
+>$PATH</A
+>环境变量中. 
+	  因此,在当前目录下调用脚本必须使用<KBD
+CLASS="USERINPUT"
+>./scriptname</KBD
+>这种形式.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="sha-bang.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="prelimexer.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>带着一个Sha-Bang出发(Sha-Bang指的是#!)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="sha-bang.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>初步的练习</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

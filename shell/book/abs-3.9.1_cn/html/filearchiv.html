@@ -1,0 +1,3680 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>文件与归档命令</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="外部过滤器, 程序和命令"
+HREF="external.html"><LINK
+REL="PREVIOUS"
+TITLE="文本处理命令"
+HREF="textproc.html"><LINK
+REL="NEXT"
+TITLE="通讯命令"
+HREF="communications.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="textproc.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>12. 外部过滤器, 程序和命令</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="communications.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="FILEARCHIV"
+>12.5. 文件与归档命令</A
+></H1
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="FAARCHIVING1"
+></A
+>归档命令</B
+></P
+><DL
+><DT
+><A
+NAME="TARREF"
+></A
+><B
+CLASS="COMMAND"
+>tar</B
+></DT
+><DD
+><P
+>标准的UNIX归档工具.
+	        <A
+NAME="AEN8734"
+HREF="#FTN.AEN8734"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+			起初这只是一个<I
+CLASS="WORDASWORD"
+>磁带归档</I
+>程序, 
+			而现在这个工具已经被开发为通用打包程序, 
+			它能够处理所有设备的所有类型的归档文件, 
+			包括磁带设备, 正常文件, 甚至是<TT
+CLASS="FILENAME"
+>stdout</TT
+>(请参考<A
+HREF="special-chars.html#EX58"
+>例子 3-4</A
+>). 
+				GNU的tar工具现在可以接受不同种类的压缩过滤器, 
+				比如<B
+CLASS="COMMAND"
+>tar czvf archive_name.tar.gz *</B
+>, 
+				并且可以递归的处理归档文件, 
+				还可以用<A
+HREF="filearchiv.html#GZIPREF"
+>gzips</A
+>压缩目录下的所有文件, 
+				除了当前目录下(<B
+CLASS="COMMAND"
+>$PWD</B
+>)的<A
+HREF="basic.html#DOTFILESREF"
+>点文件</A
+>. 
+
+		<A
+NAME="AEN8744"
+HREF="#FTN.AEN8744"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+            </P
+><P
+>一些有用的<B
+CLASS="COMMAND"
+>tar</B
+>命令选项:   
+	      <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><CODE
+CLASS="OPTION"
+>-c</CODE
+> 创建(一个新的归档文件)</P
+></LI
+><LI
+><P
+><CODE
+CLASS="OPTION"
+>-x</CODE
+> 解压文件(从存在的归档文件中)</P
+></LI
+><LI
+><P
+><CODE
+CLASS="OPTION"
+>--delete</CODE
+> 删除文件(从存在的归档文件中)</P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>这个选项不能用于磁带类型设备. </P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+><CODE
+CLASS="OPTION"
+>-r</CODE
+> 将文件添加到现存的归档文件的尾部</P
+></LI
+><LI
+><P
+><CODE
+CLASS="OPTION"
+>-A</CODE
+> 将<EM
+>tar</EM
+>文件添加到现存的归档文件的尾部</P
+></LI
+><LI
+><P
+><CODE
+CLASS="OPTION"
+>-t</CODE
+> 列出现存的归档文件中包含的内容</P
+></LI
+><LI
+><P
+><CODE
+CLASS="OPTION"
+>-u</CODE
+> 更新归档文件</P
+></LI
+><LI
+><P
+><CODE
+CLASS="OPTION"
+>-d</CODE
+> 使用指定的文件系统, 
+					比较归档文件</P
+></LI
+><LI
+><P
+><CODE
+CLASS="OPTION"
+>-z</CODE
+> 用<A
+HREF="filearchiv.html#GZIPREF"
+>gzip</A
+>压缩归档文件</P
+><P
+>(压缩还是解压, 
+	  依赖于是否组合了<CODE
+CLASS="OPTION"
+>-c</CODE
+>或<CODE
+CLASS="OPTION"
+>-x</CODE
+>)选项</P
+></LI
+><LI
+><P
+><CODE
+CLASS="OPTION"
+>-j</CODE
+>
+		  用<A
+HREF="filearchiv.html#BZIPREF"
+>bzip2</A
+>压缩归档文件</P
+></LI
+></OL
+>
+	      </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果想从损坏的用<EM
+>gzipped</EM
+>压缩过的tar文件中取得数据, 
+				  那将是非常困难的. 所以当我们归档重要的文件的时候, 
+				  一定要保留多个备份.
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>shar</B
+></DT
+><DD
+><P
+>Shell归档工具. 
+			  存在于shell归档文件中的所有文件都是未经压缩的, 
+			  并且本质上是一个shell脚本, 
+			  以<SPAN
+CLASS="TOKEN"
+>#!/bin/sh</SPAN
+>开头, 并且包含所有必要的解档命令. 
+	      <I
+CLASS="FIRSTTERM"
+>Shar 归档文件</I
+>至今还在Internet新闻组中使用, 
+		  否则的话, <B
+CLASS="COMMAND"
+>shar</B
+>早就被<B
+CLASS="COMMAND"
+>tar</B
+>/<B
+CLASS="COMMAND"
+>gzip</B
+>所取代了. 
+	      <B
+CLASS="COMMAND"
+>unshar</B
+>命令用来解档<I
+CLASS="FIRSTTERM"
+>shar</I
+>归档文件. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>ar</B
+></DT
+><DD
+><P
+>创建和操作归档文件的工具, 
+			  主要在对二进制目标文件打包成库时才会用到. </P
+></DD
+><DT
+><A
+NAME="RPMREF"
+></A
+><B
+CLASS="COMMAND"
+>rpm</B
+></DT
+><DD
+><P
+><EM
+>Red Hat包管理器</EM
+>, 
+			  或者说<B
+CLASS="COMMAND"
+>rpm</B
+>工具提供了一种对源文件或二进制文件进行打包的方法. 
+			  除此之外, 它还包括安装命令, 并且还检查包的完整性. 
+	      </P
+><P
+>一个简单的<B
+CLASS="COMMAND"
+>rpm -i package_name.rpm</B
+>命令对于安装一个包来说就足够了, 
+			  虽然这个命令还有好多其它的选项. 
+	      </P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><KBD
+CLASS="USERINPUT"
+>rpm -qf</KBD
+> 列出一个文件属于那个包. 
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>rpm -qf /bin/ls</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>coreutils-5.2.1-31</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><KBD
+CLASS="USERINPUT"
+>rpm -qa</KBD
+>将会列出给定系统上所有安装了的
+	      <EM
+>rpm</EM
+>包. 
+	      <KBD
+CLASS="USERINPUT"
+>rpm -qa package_name</KBD
+>命令将会列出与给定名字<TT
+CLASS="FILENAME"
+>package_name</TT
+>相匹配的包. 
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>rpm -qa</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>redhat-logos-1.1.3-1
+ glibc-2.2.4-13
+ cracklib-2.7-12
+ dosfstools-2.7-1
+ gdbm-1.8.0-10
+ ksymoops-2.4.1-1
+ mktemp-1.5-11
+ perl-5.6.0-17
+ reiserfs-utils-3.x.0j-2
+ ...</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>rpm -qa docbook-utils</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>docbook-utils-0.6.9-2</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>rpm -qa docbook | grep docbook</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>docbook-dtd31-sgml-1.0-10
+ docbook-style-dsssl-1.64-3
+ docbook-dtd30-sgml-1.0-10
+ docbook-dtd40-sgml-1.0-11
+ docbook-utils-pdf-0.6.9-2
+ docbook-dtd41-sgml-1.0-10
+ docbook-utils-0.6.9-2</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>cpio</B
+></DT
+><DD
+><P
+>这个特殊的归档拷贝命令(拷贝输入和输出, 
+			  <B
+CLASS="COMMAND"
+>c</B
+>o<B
+CLASS="COMMAND"
+>p</B
+>y
+			  <B
+CLASS="COMMAND"
+>i</B
+>nput and <B
+CLASS="COMMAND"
+>o</B
+>utput)现在已经很少能见到了, 
+			  因为它已经被<B
+CLASS="COMMAND"
+>tar</B
+>/<B
+CLASS="COMMAND"
+>gzip</B
+>所替代了. 
+			  现在这个命令只在一些比较特殊的地方还在使用, 
+			  比如拷贝一个目录树. 如果指定一个合适尺寸的块(用于拷贝), 
+			  那么这个命令会比<B
+CLASS="COMMAND"
+>tar</B
+>命令快一些. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX48"
+></A
+><P
+><B
+>例子 12-27. 使用<B
+CLASS="COMMAND"
+>cpio</B
+>来拷贝一个目录树</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# 使用cpio来拷贝目录树.
+  4&nbsp;
+  5&nbsp;# 使用'cpio'的优点: 
+  6&nbsp;#   加速拷贝. 比通过管道使用'tar'命令快一些.
+  7&nbsp;#   很适合拷贝一些'cp'命令
+  8&nbsp;#+  搞不定的的特殊文件(比如名字叫pipes的文件, 等等)
+  9&nbsp;
+ 10&nbsp;ARGS=2
+ 11&nbsp;E_BADARGS=65
+ 12&nbsp;
+ 13&nbsp;if [ $# -ne "$ARGS" ]
+ 14&nbsp;then
+ 15&nbsp;  echo "Usage: `basename $0` source destination"
+ 16&nbsp;  exit $E_BADARGS
+ 17&nbsp;fi  
+ 18&nbsp;
+ 19&nbsp;source=$1
+ 20&nbsp;destination=$2
+ 21&nbsp;
+ 22&nbsp;
+ 23&nbsp;find "$source" -depth | cpio -admvp "$destination"
+ 24&nbsp;#               ^^^^^         ^^^^^
+ 25&nbsp;# 阅读'find'和'cpio'的man页来了解这些选项的意义. 
+ 26&nbsp;                                                         
+ 27&nbsp;                                                         
+ 28&nbsp;# 练习:
+ 29&nbsp;# -----
+ 30&nbsp;                                                         
+ 31&nbsp;#  添加一些代码来检查'find | cpio'管道命令的退出码($?)
+ 32&nbsp;#+ 并且如果出现错误的时候输出合适的错误码. 
+ 33&nbsp;
+ 34&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>rpm2cpio</B
+></DT
+><DD
+><P
+>这个命令可以从<A
+HREF="filearchiv.html#RPMREF"
+>rpm</A
+>归档文件中解出一个<B
+CLASS="COMMAND"
+>cpio</B
+>归档文件. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="DERPM"
+></A
+><P
+><B
+>例子 12-28. 解包一个<EM
+>rpm</EM
+>归档文件</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# de-rpm.sh: 解包一个'rpm'归档文件
+  3&nbsp;
+  4&nbsp;: ${1?"Usage: `basename $0` target-file"}
+  5&nbsp;# 必须指定'rpm'归档文件名作为参数. 
+  6&nbsp;
+  7&nbsp;
+  8&nbsp;TEMPFILE=$$.cpio                         # Tempfile必须是一个"唯一"的名字.
+  9&nbsp;                                         # $$是这个脚本的进程ID.
+ 10&nbsp;                                                                                 
+ 11&nbsp;rpm2cpio &#60; $1 &#62; $TEMPFILE                # 将rpm归档文件转换为cpio归档文件.
+ 12&nbsp;cpio --make-directories -F $TEMPFILE -i  # 解包cpio归档文件.
+ 13&nbsp;rm -f $TEMPFILE                          # 删除cpio归档文件.
+ 14&nbsp;
+ 15&nbsp;exit 0
+ 16&nbsp;
+ 17&nbsp;#  练习:
+ 18&nbsp;#  添加一些代码来检查    1) "target-file"是否存在
+ 19&nbsp;#+                       2) 这个文件是否是一个rpm归档文件.
+ 20&nbsp;#  暗示:                    分析'file'命令的输出.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="FACOMPRESSION1"
+></A
+>压缩命令</B
+></P
+><DL
+><DT
+><A
+NAME="GZIPREF"
+></A
+><B
+CLASS="COMMAND"
+>gzip</B
+></DT
+><DD
+><P
+>标准的GNU/UNIX压缩工具, 
+			  取代了比较差的<B
+CLASS="COMMAND"
+>compress</B
+>命令. 
+			  相应的解压命令是<B
+CLASS="COMMAND"
+>gunzip</B
+>, 
+			  与<B
+CLASS="COMMAND"
+>gzip -d</B
+>是等价的. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><CODE
+CLASS="OPTION"
+>-c</CODE
+>选项将会把<B
+CLASS="COMMAND"
+>gzip</B
+>的输出打印到<TT
+CLASS="FILENAME"
+>stdout</TT
+>上. 
+		当你想通过<A
+HREF="special-chars.html#PIPEREF"
+>管道</A
+>传递到其他命令的时候, 
+		这就非常有用了. </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+><B
+CLASS="COMMAND"
+>zcat</B
+>过滤器可以将一个<EM
+>gzip</EM
+>文件解压到<TT
+CLASS="FILENAME"
+>stdout</TT
+>, 
+	所以尽可能的使用管道和重定向. 
+	这个命令事实上就是一个可以工作于压缩文件(包括一些的使用老的<B
+CLASS="COMMAND"
+>compress</B
+>工具压缩的文件)的<B
+CLASS="COMMAND"
+>cat</B
+>命令. 
+	      <B
+CLASS="COMMAND"
+>zcat</B
+>命令等价于<B
+CLASS="COMMAND"
+>gzip -dc</B
+>. </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在某些商业的UNIX系统上, 
+			  <B
+CLASS="COMMAND"
+>zcat</B
+>与<B
+CLASS="COMMAND"
+>uncompress -c</B
+>等价, 
+	      并且不能工作于<EM
+>gzip</EM
+>文件. 
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>请参考<A
+HREF="comparison-ops.html#EX14"
+>例子 7-7</A
+>. </P
+></DD
+><DT
+><A
+NAME="BZIPREF"
+></A
+><B
+CLASS="COMMAND"
+>bzip2</B
+></DT
+><DD
+><P
+>用来压缩的一个可选的工具, 
+			  通常比<B
+CLASS="COMMAND"
+>gzip</B
+>命令压缩率更高(所以更慢), 
+			  适用于比较大的文件. 相应的解压命令是<B
+CLASS="COMMAND"
+>bunzip2</B
+>. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>新版本的<A
+HREF="filearchiv.html#TARREF"
+>tar</A
+>命令已经直接支持<B
+CLASS="COMMAND"
+>bzip2</B
+>了. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>compress</B
+>, <B
+CLASS="COMMAND"
+>uncompress</B
+></DT
+><DD
+><P
+>这是一个老的, 私有的压缩工具, 
+			  一般的商业UNIX发行版都会有这个工具. 
+			  更有效率的<B
+CLASS="COMMAND"
+>gzip</B
+>工具早就把这个工具替换掉了. 
+	      Linux发行版一般也会包含一个兼容的<B
+CLASS="COMMAND"
+>compress</B
+>命令, 
+	      虽然<B
+CLASS="COMMAND"
+>gunzip</B
+>也可以解压用<B
+CLASS="COMMAND"
+>compress</B
+>工具压缩的文件. </P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>znew</B
+>命令可以将<EM
+>compress</EM
+>压缩的文件转换为<EM
+>gzip</EM
+>压缩的文件. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>sq</B
+></DT
+><DD
+><P
+>另一种压缩工具, 一个只能工作于排过序的ASCII单词列表的过滤器. 
+			  这个命令使用过滤器标准的调用语法, 
+	      <B
+CLASS="COMMAND"
+>sq &#60; input-file &#62;
+			  output-file</B
+>. 速度很快, 
+		  但是效率远不及<A
+HREF="filearchiv.html#GZIPREF"
+>gzip</A
+>. 
+		  相应的解压命令为<B
+CLASS="COMMAND"
+>unsq</B
+>, 
+		  调用方法与<B
+CLASS="COMMAND"
+>sq</B
+>相同. </P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>sq</B
+>的输出可以通过管道传递给<B
+CLASS="COMMAND"
+>gzip</B
+>, 
+			 以便于进一步的压缩. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>zip</B
+>, <B
+CLASS="COMMAND"
+>unzip</B
+></DT
+><DD
+><P
+>跨平台的文件归档和压缩工具, 
+			  与DOS下的<EM
+>pkzip.exe</EM
+>兼容. 
+	      <SPAN
+CLASS="QUOTE"
+>"Zip"</SPAN
+>归档文件看起来在互联网上比<SPAN
+CLASS="QUOTE"
+>"tar包"</SPAN
+>更流行. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>unarc</B
+>, <B
+CLASS="COMMAND"
+>unarj</B
+>, <B
+CLASS="COMMAND"
+>unrar</B
+></DT
+><DD
+><P
+>这些Linux工具可以用来解档那些用DOS下的<EM
+>arc.exe</EM
+>, 
+			<EM
+>arj.exe</EM
+>, 
+			和<EM
+>rar.exe</EM
+> 程序进行归档的文件. </P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="FAINFORMATION1"
+></A
+>文件信息</B
+></P
+><DL
+><DT
+><A
+NAME="FILEREF"
+></A
+><B
+CLASS="COMMAND"
+>file</B
+></DT
+><DD
+><P
+>确定文件类型的工具. 
+			  命令<KBD
+CLASS="USERINPUT"
+>file file-name</KBD
+>将会用<SAMP
+CLASS="COMPUTEROUTPUT"
+>ascii文本</SAMP
+>或<SAMP
+CLASS="COMPUTEROUTPUT"
+>数据</SAMP
+>的形式返回<TT
+CLASS="FILENAME"
+>file-name</TT
+>文件的详细描述. 
+	      这个命令会使用<TT
+CLASS="FILENAME"
+>/usr/share/magic</TT
+>, 
+	      <TT
+CLASS="FILENAME"
+>/etc/magic</TT
+>, 
+		  或<TT
+CLASS="FILENAME"
+>/usr/lib/magic</TT
+>中定义的<A
+HREF="sha-bang.html#MAGNUMREF"
+>魔法数字</A
+>来标识包含某种魔法数字的文件, 
+		  上边所举出的这3个文件需要依赖于具体的 Linux/UNIX 发行版. 
+	      </P
+><P
+><CODE
+CLASS="OPTION"
+>-f</CODE
+>选项将会让<B
+CLASS="COMMAND"
+>file</B
+>命令运行于批处理模式, 
+			  也就是说它会分析<CODE
+CLASS="OPTION"
+>-f</CODE
+>后边所指定的文件, 
+			  从中读取需要处理的文件列表, 
+			  然后依次执行<B
+CLASS="COMMAND"
+>file</B
+>命令. 
+			  <CODE
+CLASS="OPTION"
+>-z</CODE
+>选项, 
+			  当对压缩过的目标文件使用时, 
+			  将会强制分析压缩的文件类型. 
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>file test.tar.gz</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>test.tar.gz: gzip compressed data, deflated, last modified: Sun Sep 16 13:34:51 2001, os: Unix</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash </SAMP
+><KBD
+CLASS="USERINPUT"
+>file -z test.tar.gz</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>test.tar.gz: GNU tar archive (gzip compressed data, deflated, last modified: Sun Sep 16 13:34:51 2001, os: Unix)</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 在给定的目录中找出sh和Bash脚本文件:
+  2&nbsp;
+  3&nbsp;DIRECTORY=/usr/local/bin
+  4&nbsp;KEYWORD=Bourne
+  5&nbsp;# Bourne和Bourne-Again shell脚本
+  6&nbsp;
+  7&nbsp;file $DIRECTORY/* | fgrep $KEYWORD
+  8&nbsp;
+  9&nbsp;# 输出:
+ 10&nbsp;
+ 11&nbsp;# /usr/local/bin/burn-cd:          Bourne-Again shell script text executable
+ 12&nbsp;# /usr/local/bin/burnit:           Bourne-Again shell script text executable
+ 13&nbsp;# /usr/local/bin/cassette.sh:      Bourne shell script text executable
+ 14&nbsp;# /usr/local/bin/copy-cd:          Bourne-Again shell script text executable
+ 15&nbsp;# . . .</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="STRIPC"
+></A
+><P
+><B
+>例子 12-29. 从C文件中去掉注释</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# strip-comment.sh: 去掉C程序中的注释(/* 注释 */). 
+  3&nbsp;
+  4&nbsp;E_NOARGS=0
+  5&nbsp;E_ARGERROR=66
+  6&nbsp;E_WRONG_FILE_TYPE=67
+  7&nbsp;
+  8&nbsp;if [ $# -eq "$E_NOARGS" ]
+  9&nbsp;then
+ 10&nbsp;  echo "Usage: `basename $0` C-program-file" &#62;&#38;2 # 将错误消息发到stderr.
+ 11&nbsp;  exit $E_ARGERROR
+ 12&nbsp;fi  
+ 13&nbsp;
+ 14&nbsp;# 检查文件类型是否正确. 
+ 15&nbsp;type=`file $1 | awk '{ print $2, $3, $4, $5 }'`
+ 16&nbsp;# "file $1" echo出文件类型 . . .
+ 17&nbsp;# 然后awk会删掉第一个域, 就是文件名 . . .
+ 18&nbsp;# 然后结果将会传递到变量"type"中.
+ 19&nbsp;correct_type="ASCII C program text"
+ 20&nbsp;
+ 21&nbsp;if [ "$type" != "$correct_type" ]
+ 22&nbsp;then
+ 23&nbsp;  echo
+ 24&nbsp;  echo "This script works on C program files only."
+ 25&nbsp;  echo
+ 26&nbsp;  exit $E_WRONG_FILE_TYPE
+ 27&nbsp;fi  
+ 28&nbsp;
+ 29&nbsp;
+ 30&nbsp;# 相当隐秘的sed脚本:
+ 31&nbsp;#--------
+ 32&nbsp;sed '
+ 33&nbsp;/^\/\*/d
+ 34&nbsp;/.*\*\//d
+ 35&nbsp;' $1
+ 36&nbsp;#--------
+ 37&nbsp;# 如果你花上几个小时来学习sed语法的话, 上边这个命令还是很好理解的.
+ 38&nbsp;                                                                     
+ 39&nbsp;                                                                     
+ 40&nbsp;#  如果注释和代码在同一行上, 上边的脚本就不行了.
+ 41&nbsp;#+ 所以需要添加一些代码来处理这种情况.
+ 42&nbsp;#  这是一个很重要的练习.
+ 43&nbsp;                                                                     
+ 44&nbsp;#  当然, 上边的代码也会删除带有"*/"的非注释行 --
+ 45&nbsp;#+ 这也不是一个令人满意的结果.
+ 46&nbsp;
+ 47&nbsp;exit 0
+ 48&nbsp;
+ 49&nbsp;
+ 50&nbsp;# ----------------------------------------------------------------
+ 51&nbsp;# 下边的代码不会执行, 因为上边已经'exit 0'了.
+ 52&nbsp;                                                
+ 53&nbsp;# Stephane Chazelas建议使用下边的方法:
+ 54&nbsp;
+ 55&nbsp;usage() {
+ 56&nbsp;  echo "Usage: `basename $0` C-program-file" &#62;&#38;2
+ 57&nbsp;  exit 1
+ 58&nbsp;}
+ 59&nbsp;
+ 60&nbsp;WEIRD=`echo -n -e '\377'`   # 或者WEIRD=$'\377'
+ 61&nbsp;[[ $# -eq 1 ]] || usage
+ 62&nbsp;case `file "$1"` in
+ 63&nbsp;  *"C program text"*) sed -e "s%/\*%${WEIRD}%g;s%\*/%${WEIRD}%g" "$1" \
+ 64&nbsp;     | tr '\377\n' '\n\377' \
+ 65&nbsp;     | sed -ne 'p;n' \
+ 66&nbsp;     | tr -d '\n' | tr '\377' '\n';;
+ 67&nbsp;  *) usage;;
+ 68&nbsp;esac
+ 69&nbsp;
+ 70&nbsp;#  如果是下列的这些情况, 还是很糟糕:
+ 71&nbsp;#  printf("/*");
+ 72&nbsp;#  或者
+ 73&nbsp;#  /*  /* buggy embedded comment */
+ 74&nbsp;#                                                                
+ 75&nbsp;#  为了处理上边所有这些特殊情况(字符串中的注释, 含有 \", \\" ...
+ 76&nbsp;#+ 的字符串中的注释)唯一的方法还是写一个C分析器
+ 77&nbsp;#+ (或许可以使用lex或者yacc?).
+ 78&nbsp;
+ 79&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><A
+NAME="WHICHREF"
+></A
+><B
+CLASS="COMMAND"
+>which</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>which command-xxx</B
+>将会给出<SPAN
+CLASS="QUOTE"
+>"command-xxx"</SPAN
+>的完整路径. 
+			  当你想在系统中准确定位一个特定的命令或工具的时候, 
+			  这个命令就非常有用了. 
+	      </P
+><P
+><KBD
+CLASS="USERINPUT"
+>$bash which rm</KBD
+>
+<TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>/usr/bin/rm</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>whereis</B
+></DT
+><DD
+><P
+>与上边的<B
+CLASS="COMMAND"
+>which</B
+>很相似, 
+			<B
+CLASS="COMMAND"
+>whereis command-xxx</B
+>不只会给出<SPAN
+CLASS="QUOTE"
+>"command-xxx"</SPAN
+>的完整路径, 
+			而且还会给出这个命令的<EM
+>man页</EM
+>的完整路径. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>$bash whereis rm</KBD
+>
+<TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>rm: /bin/rm /usr/share/man/man1/rm.1.bz2</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+></DD
+><DT
+><A
+NAME="WHATISREF"
+></A
+><B
+CLASS="COMMAND"
+>whatis</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>whatis filexxx</B
+>将会在<TT
+CLASS="REPLACEABLE"
+><I
+>whatis</I
+></TT
+>数据库中查询<SPAN
+CLASS="QUOTE"
+>"filexxx"</SPAN
+>. 
+			当你想确认系统命令和重要的配置文件的时候, 
+			这个命令就非常重要了. 
+			可以把这个命令认为是一个简单的<B
+CLASS="COMMAND"
+>man</B
+>命令. 
+	      </P
+><P
+><KBD
+CLASS="USERINPUT"
+>$bash whatis whatis</KBD
+>
+<TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>whatis               (1)  - search the whatis database for complete words</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="WHAT"
+></A
+><P
+><B
+>例子 12-30. <B
+CLASS="COMMAND"
+>浏览<TT
+CLASS="FILENAME"
+>/usr/X11R6/bin</TT
+></B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# 所有在/usr/X11R6/bin中的神秘2进制文件都是些什么东西?
+  4&nbsp;
+  5&nbsp;DIRECTORY="/usr/X11R6/bin"
+  6&nbsp;# 也试试 "/bin", "/usr/bin", "/usr/local/bin", 等等.
+  7&nbsp;
+  8&nbsp;for file in $DIRECTORY/*
+  9&nbsp;do
+ 10&nbsp;  whatis `basename $file`   # 将会echo出这个2进制文件的信息.
+ 11&nbsp;done
+ 12&nbsp;
+ 13&nbsp;exit 0
+ 14&nbsp;
+ 15&nbsp;# 你可能希望将这个脚本的输出重定向, 像这样:
+ 16&nbsp;# ./what.sh &#62;&#62;whatis.db
+ 17&nbsp;# 或者一页一页的在stdout上察看,
+ 18&nbsp;# ./what.sh | less</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>请参考<A
+HREF="loops1.html#FILEINFO"
+>例子 10-3</A
+>. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>vdir</B
+></DT
+><DD
+><P
+>显示详细的目录列表. 
+	      与<A
+HREF="basic.html#LSREF"
+>ls -l</A
+>的效果相似. </P
+><P
+>这是一个GNU <EM
+>fileutils</EM
+>.</P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>vdir</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 10
+ -rw-r--r--    1 bozo  bozo      4034 Jul 18 22:04 data1.xrolo
+ -rw-r--r--    1 bozo  bozo      4602 May 25 13:58 data1.xrolo.bak
+ -rw-r--r--    1 bozo  bozo       877 Dec 17  2000 employment.xrolo</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -l</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 10
+ -rw-r--r--    1 bozo  bozo      4034 Jul 18 22:04 data1.xrolo
+ -rw-r--r--    1 bozo  bozo      4602 May 25 13:58 data1.xrolo.bak
+ -rw-r--r--    1 bozo  bozo       877 Dec 17  2000 employment.xrolo</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>locate</B
+>, <B
+CLASS="COMMAND"
+>slocate</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>locate</B
+>命令将会在预先建立好的档案数据库中查询文件. 
+	      <B
+CLASS="COMMAND"
+>slocate</B
+>命令是<B
+CLASS="COMMAND"
+>locate</B
+>的安全版本(<B
+CLASS="COMMAND"
+>locate</B
+>命令很有可能已经被关联到<B
+CLASS="COMMAND"
+>slocate</B
+>命令上了). </P
+><P
+><KBD
+CLASS="USERINPUT"
+>$bash locate hickson</KBD
+>
+<TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>/usr/lib/xephem/catalogs/hickson.edb</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>readlink</B
+></DT
+><DD
+><P
+>显示符号链接所指向的文件. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>readlink /usr/bin/awk</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>../../bin/gawk</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>strings</B
+></DT
+><DD
+><P
+>使用<B
+CLASS="COMMAND"
+>strings</B
+>命令在二进制或数据文件中找出可打印字符. 
+			  它将在目标文件中列出所有找到的可打印字符的序列. 
+			  这个命令对于想进行快速查找n个字符的打印检查来说是很方便的, 
+			  也可以用来检查一个未知格式的图片文件(<KBD
+CLASS="USERINPUT"
+>strings image-file | 
+				  more</KBD
+>可能会搜索出像<SAMP
+CLASS="COMPUTEROUTPUT"
+>JFIF</SAMP
+>这样的字符串, 
+			  那么这就意味着这个文件是一个<EM
+>jpeg</EM
+>格式的图片文件). 
+			  在脚本中, 你可能会使用<A
+HREF="textproc.html#GREPREF"
+>grep</A
+>或者<A
+HREF="sedawk.html#SEDREF"
+>sed</A
+>命令来分析<B
+CLASS="COMMAND"
+>strings</B
+>命令的输出. 
+	      请参考<A
+HREF="loops1.html#BINGREP"
+>例子 10-7</A
+>和<A
+HREF="loops1.html#FINDSTRING"
+>例子 10-9</A
+>. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="WSTRINGS"
+></A
+><P
+><B
+>例子 12-31. 一个<SPAN
+CLASS="QUOTE"
+>"改进过"</SPAN
+>的<EM
+>strings</EM
+>命令</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# wstrings.sh: "word-strings" (增强的"strings"命令)
+  3&nbsp;#
+  4&nbsp;#  这个脚本将会通过排除标准单词列表的形式
+  5&nbsp;#+ 来过滤"strings"命令的输出. 
+  6&nbsp;#  这将有效的过滤掉无意义的字符, 
+  7&nbsp;#+ 并且只会输出可以识别的字符. 
+  8&nbsp;
+  9&nbsp;# ===========================================================
+ 10&nbsp;#                 脚本参数的标准检查
+ 11&nbsp;ARGS=1
+ 12&nbsp;E_BADARGS=65
+ 13&nbsp;E_NOFILE=66
+ 14&nbsp;
+ 15&nbsp;if [ $# -ne $ARGS ]
+ 16&nbsp;then
+ 17&nbsp;  echo "Usage: `basename $0` filename"
+ 18&nbsp;  exit $E_BADARGS
+ 19&nbsp;fi
+ 20&nbsp;
+ 21&nbsp;if [ ! -f "$1" ]                      # 检查文件是否存在. 
+ 22&nbsp;then
+ 23&nbsp;    echo "File \"$1\" does not exist."
+ 24&nbsp;    exit $E_NOFILE
+ 25&nbsp;fi
+ 26&nbsp;# ===========================================================
+ 27&nbsp;
+ 28&nbsp;
+ 29&nbsp;MINSTRLEN=3                           #  最小的字符串长度.
+ 30&nbsp;WORDFILE=/usr/share/dict/linux.words  #  字典文件.
+ 31&nbsp;                                      #  也可以指定一个不同的
+ 32&nbsp;                                      #+ 单词列表文件,
+ 33&nbsp;                                      #+ 但这种文件必须是以每个单词一行的方式进行保存.
+ 34&nbsp;
+ 35&nbsp;
+ 36&nbsp;wlist=`strings "$1" | tr A-Z a-z | tr '[:space:]' Z | \
+ 37&nbsp;tr -cs '[:alpha:]' Z | tr -s '\173-\377' Z | tr Z ' '`
+ 38&nbsp;
+ 39&nbsp;#  将'strings'命令的输出通过管道传递到多个'tr'命令中.
+ 40&nbsp;#  "tr A-Z a-z" 全部转换为小写字符.
+ 41&nbsp;#  "tr '[:space:]'" 转换空白字符为多个Z.
+ 42&nbsp;#  "tr -cs '[:alpha:]' Z" 将非字母表字符转换为多个Z,
+ 43&nbsp;#+ 然后去除多个连续的Z.
+ 44&nbsp;#  "tr -s '\173-\377' Z" 把所有z后边的字符都转换为Z.
+ 45&nbsp;#+ 并且去除多余重复的Z. (注意173(123 ascii "{")和377(255 ascii 最后一个字符)都是8进制)
+ 46&nbsp;#+ 这样处理之后, 我们所有之前需要处理的令我们头痛的字符
+ 47&nbsp;#+ 就全都转换为字符Z了.
+ 48&nbsp;#  最后"tr Z ' '" 将把所有的Z都转换为空格,
+ 49&nbsp;#+ 这样我们在下边循环中用到的变量wlist中的内容就全部以空格分隔了.
+ 50&nbsp;
+ 51&nbsp;#  ****************************************************************
+ 52&nbsp;#  注意, 我们使用管道来将多个'tr'的输出传递到下一个'tr'时 
+ 53&nbsp;#+ 每次都使用了不同的参数. 
+ 54&nbsp;#  ****************************************************************
+ 55&nbsp;
+ 56&nbsp;
+ 57&nbsp;for word in $wlist                    # 重要:
+ 58&nbsp;                                      # $wlist 这里不能使用双引号.
+ 59&nbsp;                                      # "$wlist" 不能正常工作.
+ 60&nbsp;                                      # 为什么不行?
+ 61&nbsp;do                                                                 
+ 62&nbsp;                                                                   
+ 63&nbsp;  strlen=${#word}                     # 字符串长度.
+ 64&nbsp;  if [ "$strlen" -lt "$MINSTRLEN" ]   # 跳过短的字符串.
+ 65&nbsp;  then                                                             
+ 66&nbsp;    continue                                                       
+ 67&nbsp;  fi                                                               
+ 68&nbsp;                                                                   
+ 69&nbsp;  grep -Fw $word "$WORDFILE"          #  只匹配整个单词.
+ 70&nbsp;#      ^^^                            #  "固定字符串" 和
+ 71&nbsp;                                      #+ "整个单词" 选项. 
+ 72&nbsp;
+ 73&nbsp;done  
+ 74&nbsp;
+ 75&nbsp;
+ 76&nbsp;exit $?</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="COMPARISONN1"
+></A
+>Comparison</B
+></P
+><DL
+><DT
+><A
+NAME="DIFFREF"
+></A
+><B
+CLASS="COMMAND"
+>diff</B
+>, <B
+CLASS="COMMAND"
+>patch</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>diff</B
+>: 一个非常灵活的文件比较工具. 
+			  这个工具将会以一行接一行的形式来比较目标文件. 
+			  在某些应用中, 比如说比较单词词典, 
+			  在通过管道将结果传递给<B
+CLASS="COMMAND"
+>diff</B
+>命令之前, 
+	      使用诸如<A
+HREF="textproc.html#SORTREF"
+>sort</A
+>和<B
+CLASS="COMMAND"
+>uniq</B
+>命令来对文件进行过滤将是非常有用的. 
+		  <KBD
+CLASS="USERINPUT"
+>diff file-1 file-2</KBD
+> 
+		  将会输出两个文件中不同的行, 并会通过符号标识出每个不同行所属的文件. 
+	      </P
+><P
+><B
+CLASS="COMMAND"
+>diff</B
+>命令的<CODE
+CLASS="OPTION"
+>--side-by-side</CODE
+>选项将会按照左右分隔的形式, 
+			  把两个比较中的文件全部输出, 并且会把不同的行标记出来. 
+	    <CODE
+CLASS="OPTION"
+>-c</CODE
+>和<CODE
+CLASS="OPTION"
+>-u</CODE
+>选项也会使得<B
+CLASS="COMMAND"
+>diff</B
+>命令的输出变得容易解释一些. 
+	    </P
+><P
+>还有一些<B
+CLASS="COMMAND"
+>diff</B
+>命令的变种, 
+			比如<B
+CLASS="COMMAND"
+>sdiff</B
+>,
+			<B
+CLASS="COMMAND"
+>wdiff</B
+>, <B
+CLASS="COMMAND"
+>xdiff</B
+>, 
+			和<B
+CLASS="COMMAND"
+>mgdiff</B
+>. </P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果比较的两个文件是完全一样的话, 
+				那么<B
+CLASS="COMMAND"
+>diff</B
+>命令会返回0作为退出状态码, 
+				如果不同的话就返回1作为退出码. 
+	    这样<B
+CLASS="COMMAND"
+>diff</B
+>命令就可以用在shell脚本的测试结构中了. (见下边). </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+><B
+CLASS="COMMAND"
+>diff</B
+>命令的一个重要用法就是产生区别文件, 
+	这个文件将用作<B
+CLASS="COMMAND"
+>patch</B
+>命令的<CODE
+CLASS="OPTION"
+>-e</CODE
+>选项的参数, 
+	      <CODE
+CLASS="OPTION"
+>-e</CODE
+>选项接受<B
+CLASS="COMMAND"
+>ed</B
+>或<B
+CLASS="COMMAND"
+>ex</B
+>脚本. 
+	      </P
+><P
+><B
+CLASS="COMMAND"
+>patch</B
+>: 灵活的版本工具. 
+			  给出一个用<B
+CLASS="COMMAND"
+>diff</B
+>命令产生的区别文件, 
+			  <B
+CLASS="COMMAND"
+>patch</B
+>命令可以将一个老版本的包更新为一个新版本的包. 
+			  因为你发布一个小的<SPAN
+CLASS="QUOTE"
+>"区别"</SPAN
+>文件远比重新发布一个大的软件包来的容易得多. 
+	      对于频繁更新的Linux内核来说, 使用内核<SPAN
+CLASS="QUOTE"
+>"补丁包"</SPAN
+>的形式来发布是一种非常好的办法. 
+	      </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;patch -p1 &#60;patch-file
+  2&nbsp;# 在'patch-file'中取得所有的修改列表, 
+  3&nbsp;# 然后把它们更新到相应的文件中. 
+  4&nbsp;# 那么这个包就被更新为新版本了. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>更新内核: </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;cd /usr/src
+  2&nbsp;gzip -cd patchXX.gz | patch -p0
+  3&nbsp;# 使用'patch'来更新内核源文件.
+  4&nbsp;# 来自于linux内核文档"README",
+  5&nbsp;# 这份文档由匿名作者(Alan Cox?)所编写. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>diff</B
+>也可以递归的比较目录下的所有文件(包含子目录). </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>diff -r ~/notes1 ~/notes2</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Only in /home/bozo/notes1: file02
+ Only in /home/bozo/notes1: file03
+ Only in /home/bozo/notes2: file04</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>使用<B
+CLASS="COMMAND"
+>zdiff</B
+>来比较<EM
+>gzip</EM
+>文件. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>diff3</B
+></DT
+><DD
+><P
+>这是<B
+CLASS="COMMAND"
+>diff</B
+>命令的扩展版本, 
+			可以同时比较三个文件. 
+			如果成功执行那么这个命令就返回0, 
+			但不幸的是这个命令不给出比较结果的信息. 
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>diff3 file-1 file-2 file-3</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>====
+ 1:1c
+   This is line 1 of "file-1".
+ 2:1c
+   This is line 1 of "file-2".
+ 3:1c
+   This is line 1 of "file-3"</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>sdiff</B
+></DT
+><DD
+><P
+>比较和(或)编辑两个文件, 
+			  将它们合并到一个输出文件中. 
+			  由于这个命令的交互特性, 
+			  所以在脚本中很少使用这个命令.
+	      </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>cmp</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>cmp</B
+>命令是上边<B
+CLASS="COMMAND"
+>diff</B
+>命令的一个简单版本. 
+			  <B
+CLASS="COMMAND"
+>diff</B
+>命令会报告两个文件的不同之处, 
+			  而<B
+CLASS="COMMAND"
+>cmp</B
+>命令仅仅指出哪些位置有所不同, 
+	      不会显示不同之处的具体细节. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>就像<B
+CLASS="COMMAND"
+>diff</B
+>命令那样, 
+			  如果两个文件相同的话, 
+			  <B
+CLASS="COMMAND"
+>cmp</B
+>将返回0作为退出状态码, 
+			  如果不同就返回1. 这样能用在shell脚本的测试结构中了. </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="FILECOMP"
+></A
+><P
+><B
+>例子 12-32. 在一个脚本中使用<B
+CLASS="COMMAND"
+>cmp</B
+>命令来比较两个文件. </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;ARGS=2  # 脚本需要两个参数. 
+  4&nbsp;E_BADARGS=65
+  5&nbsp;E_UNREADABLE=66
+  6&nbsp;
+  7&nbsp;if [ $# -ne "$ARGS" ]
+  8&nbsp;then
+  9&nbsp;  echo "Usage: `basename $0` file1 file2"
+ 10&nbsp;  exit $E_BADARGS
+ 11&nbsp;fi
+ 12&nbsp;
+ 13&nbsp;if [[ ! -r "$1" || ! -r "$2" ]]
+ 14&nbsp;then
+ 15&nbsp;  echo "Both files to be compared must exist and be readable."
+ 16&nbsp;  exit $E_UNREADABLE
+ 17&nbsp;fi
+ 18&nbsp;
+ 19&nbsp;cmp $1 $2 &#38;&#62; /dev/null  # /dev/null将会禁止"cmp"命令的输出.
+ 20&nbsp;#   cmp -s $1 $2 与上边这句的结果相同("-s"选项是禁止输出(silent)标志)
+ 21&nbsp;#   感谢Anders Gustavsson指出这点.
+ 22&nbsp;#
+ 23&nbsp;# 使用'diff'命令也可以, 比如,   diff $1 $2 &#38;&#62; /dev/null
+ 24&nbsp;
+ 25&nbsp;if [ $? -eq 0 ]         # 测试"cmp"命令的退出状态.
+ 26&nbsp;then
+ 27&nbsp;  echo "File \"$1\" is identical to file \"$2\"."
+ 28&nbsp;else  
+ 29&nbsp;  echo "File \"$1\" differs from file \"$2\"."
+ 30&nbsp;fi
+ 31&nbsp;
+ 32&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>使用<B
+CLASS="COMMAND"
+>zcmp</B
+>处理<EM
+>gzip</EM
+>文件. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>comm</B
+></DT
+><DD
+><P
+>多功能的文件比较工具. 使用这个命令之前必须先排序. 
+	      </P
+><P
+><B
+CLASS="COMMAND"
+>comm
+		<TT
+CLASS="REPLACEABLE"
+><I
+>-options</I
+></TT
+>
+		<TT
+CLASS="REPLACEABLE"
+><I
+>first-file</I
+></TT
+>
+		<TT
+CLASS="REPLACEABLE"
+><I
+>second-file</I
+></TT
+></B
+></P
+><P
+><KBD
+CLASS="USERINPUT"
+>comm file-1 file-2</KBD
+> 将会输出3列: 
+	      <P
+></P
+><UL
+><LI
+><P
+>第1列 = 只在<TT
+CLASS="FILENAME"
+>file-1</TT
+>中存在的行</P
+></LI
+><LI
+><P
+>第2列 = 只在<TT
+CLASS="FILENAME"
+>file-2</TT
+>中存在的行</P
+></LI
+><LI
+><P
+>第3列 = 两边相同的行. </P
+></LI
+></UL
+></P
+><P
+>下列选项可以禁止一列或多列的输出.
+	      <P
+></P
+><UL
+><LI
+><P
+><CODE
+CLASS="OPTION"
+>-1</CODE
+> 禁止显示第<TT
+CLASS="LITERAL"
+>1</TT
+>列 (译者: 在File1中的行)</P
+></LI
+><LI
+><P
+><CODE
+CLASS="OPTION"
+>-2</CODE
+> 禁止显示第<TT
+CLASS="LITERAL"
+>2</TT
+>列 (译者: 在File2中的行)</P
+></LI
+><LI
+><P
+><CODE
+CLASS="OPTION"
+>-3</CODE
+> 禁止显示第<TT
+CLASS="LITERAL"
+>3</TT
+>列 (译者: 在File3中的行)</P
+></LI
+><LI
+><P
+><CODE
+CLASS="OPTION"
+>-12</CODE
+> 禁止第<TT
+CLASS="LITERAL"
+>1</TT
+>列和第<TT
+CLASS="LITERAL"
+>2</TT
+>列, 等等. (译者: 就是说选项可以组合)</P
+></LI
+></UL
+>
+	    </P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="FAUTILS1"
+></A
+>Utilities</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>basename</B
+></DT
+><DD
+><P
+>从文件名中去掉路径信息, 只打印出文件名. 
+			  结构<KBD
+CLASS="USERINPUT"
+>basename
+		$0</KBD
+>可以让脚本获得它自己的名字, 也就是, 它被调用的名字. 
+	可以用来显示<SPAN
+CLASS="QUOTE"
+>"用法"</SPAN
+>信息, 
+	      比如如果你调用脚本的时候缺少参数, 可以使用如下语句: 
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo "Usage: `basename $0` arg1 arg2 ... argn"</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>dirname</B
+></DT
+><DD
+><P
+>从带路径的文件名字符串中去掉文件名(<B
+CLASS="COMMAND"
+>basename</B
+>), 只打印出路径信息. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>basename</B
+>和<B
+CLASS="COMMAND"
+>dirname</B
+>可以操作任意字符串. 
+				它们的参数不一定是一个真正存在的文件, 甚至可以不是一个文件名. 
+		(请参考<A
+HREF="contributed-scripts.html#DAYSBETWEEN"
+>例子 A-7</A
+>). </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX35"
+></A
+><P
+><B
+>例子 12-33. <B
+CLASS="COMMAND"
+>basename</B
+>和<B
+CLASS="COMMAND"
+>dirname</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;a=/home/bozo/daily-journal.txt
+  4&nbsp;
+  5&nbsp;echo "Basename of /home/bozo/daily-journal.txt = `basename $a`"
+  6&nbsp;echo "Dirname of /home/bozo/daily-journal.txt = `dirname $a`"
+  7&nbsp;echo
+  8&nbsp;echo "My own home is `basename ~/`."         # `basename ~` 也可以.
+  9&nbsp;echo "The home of my home is `dirname ~/`."  # `dirname ~`  也可以.
+ 10&nbsp;
+ 11&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>split</B
+>, <B
+CLASS="COMMAND"
+>csplit</B
+></DT
+><DD
+><P
+>将一个文件分割为几个小段的工具. 
+			  这些命令通常会将大的文件分割, 然后备份到软盘上, 
+			  或者是为了将大文件切成合适的尺寸, 然后用email上传. 
+	      </P
+><P
+><B
+CLASS="COMMAND"
+>csplit</B
+>命令会根据<EM
+>上下文</EM
+>来切割文件, 
+			  切割的位置将会发生在模式匹配的地方. 
+	      </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>sum</B
+>, <B
+CLASS="COMMAND"
+>cksum</B
+>, <A
+NAME="MD5SUMREF"
+></A
+><B
+CLASS="COMMAND"
+>md5sum</B
+>, <B
+CLASS="COMMAND"
+>sha1sum</B
+></DT
+><DD
+><P
+>这些都是用来产生checksum的工具. 
+			<EM
+>checksum</EM
+>是对文件的内容进行数学计算而得到的, 
+			它的目的是用来检验文件的完整性, 
+			出于安全目的一个脚本可能会有一个checksum列表, 
+			这样可以确保关键系统文件的内容不会被修改或损坏. 
+			对于需要安全性的应用来说, 应该使用<B
+CLASS="COMMAND"
+>md5sum</B
+> (<B
+CLASS="COMMAND"
+>m</B
+>essage
+	      <B
+CLASS="COMMAND"
+>d</B
+>igest <B
+CLASS="COMMAND"
+>5</B
+>
+		  check<B
+CLASS="COMMAND"
+>sum</B
+>)命令, 
+		  或者使用更好更新的<B
+CLASS="COMMAND"
+>sha1sum</B
+>命令(安全Hash算法). 
+	  </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cksum /boot/vmlinuz</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>1670054224 804083 /boot/vmlinuz</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo -n "Top Secret" | cksum</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>3391003827 10</SAMP
+>
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>md5sum /boot/vmlinuz</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>0f43eccea8f09e0a0b2b5cf1dcf333ba  /boot/vmlinuz</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo -n "Top Secret" | md5sum</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>8babc97a6f62a4649716f4df8d61728f  -</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>cksum</B
+>将会显示目标尺寸(以字节为单位), 
+	    目标可以是<TT
+CLASS="FILENAME"
+>stdout</TT
+>, 也可以是文件. </P
+><P
+><B
+CLASS="COMMAND"
+>md5sum</B
+>和<B
+CLASS="COMMAND"
+>sha1sum</B
+>命令在它们收到来自于<TT
+CLASS="FILENAME"
+>stdout</TT
+>的输入的时候, 
+	    显示一个<A
+HREF="special-chars.html#DASHREF2"
+>dash</A
+>. 
+	    </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="FILEINTEGRITY"
+></A
+><P
+><B
+>例子 12-34. 检查文件完整性</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# file-integrity.sh: 检查一个给定目录下的文件
+  3&nbsp;#                    是否被改动了. 
+  4&nbsp;
+  5&nbsp;E_DIR_NOMATCH=70
+  6&nbsp;E_BAD_DBFILE=71
+  7&nbsp;
+  8&nbsp;dbfile=File_record.md5
+  9&nbsp;# 存储记录的文件名(数据库文件).
+ 10&nbsp;
+ 11&nbsp;
+ 12&nbsp;set_up_database ()
+ 13&nbsp;{
+ 14&nbsp;  echo ""$directory"" &#62; "$dbfile"
+ 15&nbsp;  # 把目录名写到文件的第一行. 
+ 16&nbsp;  md5sum "$directory"/* &#62;&#62; "$dbfile"
+ 17&nbsp;  # 在文件中附上md5 checksum和filename. 
+ 18&nbsp;}
+ 19&nbsp;
+ 20&nbsp;check_database ()
+ 21&nbsp;{
+ 22&nbsp;  local n=0
+ 23&nbsp;  local filename
+ 24&nbsp;  local checksum
+ 25&nbsp;
+ 26&nbsp;  # ------------------------------------------- #
+ 27&nbsp;  #  这个文件检查其实是不必要的,
+ 28&nbsp;  #+ 但是能更安全一些.
+ 29&nbsp;
+ 30&nbsp;  if [ ! -r "$dbfile" ]
+ 31&nbsp;  then
+ 32&nbsp;    echo "Unable to read checksum database file!"
+ 33&nbsp;    exit $E_BAD_DBFILE
+ 34&nbsp;  fi
+ 35&nbsp;  # ------------------------------------------- #
+ 36&nbsp;
+ 37&nbsp;  while read record[n]
+ 38&nbsp;  do
+ 39&nbsp;
+ 40&nbsp;    directory_checked="${record[0]}"
+ 41&nbsp;    if [ "$directory_checked" != "$directory" ]
+ 42&nbsp;    then
+ 43&nbsp;      echo "Directories do not match up!"
+ 44&nbsp;      # 换个目录试一下. 
+ 45&nbsp;      exit $E_DIR_NOMATCH
+ 46&nbsp;    fi
+ 47&nbsp;
+ 48&nbsp;    if [ "$n" -gt 0 ]   # 不是目录名. 
+ 49&nbsp;    then
+ 50&nbsp;      filename[n]=$( echo ${record[$n]} | awk '{ print $2 }' )
+ 51&nbsp;      #  md5sum向后写记录, 
+ 52&nbsp;      #+ 先写checksum, 然后写filename. 
+ 53&nbsp;      checksum[n]=$( md5sum "${filename[n]}" )
+ 54&nbsp;
+ 55&nbsp;
+ 56&nbsp;      if [ "${record[n]}" = "${checksum[n]}" ]
+ 57&nbsp;      then
+ 58&nbsp;        echo "${filename[n]} unchanged."
+ 59&nbsp;
+ 60&nbsp;      elif [ "`basename ${filename[n]}`" != "$dbfile" ]
+ 61&nbsp;             #  跳过checksum数据库文件, 
+ 62&nbsp;             #+ 因为在每次调用脚本它都会被修改. 
+ 63&nbsp;	     #  ---
+ 64&nbsp;	     #  这不幸的意味着当我们在$PWD中运行这个脚本时侯, 
+ 65&nbsp;	     #+ 篡改这个checksum数
+ 66&nbsp;	     #+ 据库文件将不会被检测出来. 
+ 67&nbsp;	     #  练习: 修正这个问题.
+ 68&nbsp;	then
+ 69&nbsp;          echo "${filename[n]} : CHECKSUM ERROR!"
+ 70&nbsp;        # 从上次的检查之后, 文件已经被修改. 
+ 71&nbsp;      fi
+ 72&nbsp;
+ 73&nbsp;      fi
+ 74&nbsp;
+ 75&nbsp;
+ 76&nbsp;
+ 77&nbsp;    let "n+=1"
+ 78&nbsp;  done &#60;"$dbfile"       # 从checksum数据库文件中读.  
+ 79&nbsp;
+ 80&nbsp;}  
+ 81&nbsp;
+ 82&nbsp;# =================================================== #
+ 83&nbsp;# main ()
+ 84&nbsp;
+ 85&nbsp;if [ -z  "$1" ]
+ 86&nbsp;then
+ 87&nbsp;  directory="$PWD"      #  如果没指定参数的话, 
+ 88&nbsp;else                    #+ 那么就使用当前的工作目录. 
+ 89&nbsp;  directory="$1"
+ 90&nbsp;fi  
+ 91&nbsp;
+ 92&nbsp;clear                   # 清屏.
+ 93&nbsp;echo " Running file integrity check on $directory"
+ 94&nbsp;echo
+ 95&nbsp;
+ 96&nbsp;# ------------------------------------------------------------------ #
+ 97&nbsp;  if [ ! -r "$dbfile" ] # 是否需要建立数据库文件? 
+ 98&nbsp;  then
+ 99&nbsp;    echo "Setting up database file, \""$directory"/"$dbfile"\"."; echo
+100&nbsp;    set_up_database
+101&nbsp;  fi  
+102&nbsp;# ------------------------------------------------------------------ #
+103&nbsp;
+104&nbsp;check_database          # 调用主要处理函数. 
+105&nbsp;
+106&nbsp;echo 
+107&nbsp;
+108&nbsp;#  你可能想把这个脚本的输出重定向到文件中, 
+109&nbsp;#+ 尤其在这个目录中有很多文件的时候. 
+110&nbsp;
+111&nbsp;exit 0
+112&nbsp;
+113&nbsp;#  如果要对数量非常多的文件做完整性检查, 
+114&nbsp;#+ 可以考虑一下"Tripwire"包,
+115&nbsp;#+ http://sourceforge.net/projects/tripwire/.
+116&nbsp;</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>请参考<A
+HREF="contributed-scripts.html#DIRECTORYINFO"
+>例子 A-19</A
+>和<A
+HREF="colorizing.html#HORSERACE"
+>例子 33-14</A
+>, 
+			这两个例子展示了<B
+CLASS="COMMAND"
+>md5sum</B
+>命令的用法. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>	    到目前为止, 已经有128-bit的<B
+CLASS="COMMAND"
+>md5sum</B
+>被破解的报告了, 
+		所以现在更安全的160-bit的<B
+CLASS="COMMAND"
+>sha1sum</B
+>非常受欢迎, 
+		这个命令已经被加入到checksum工具包中了.
+          </P
+><P
+>一些安全顾问认为即使是<B
+CLASS="COMMAND"
+>sha1sum</B
+>也是一种折衷的做法. 
+			  所以, 下一个工具是什么呢?
+	      -- 512-bit的checksum工具? </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>md5sum testfile</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>e181e2c8720c60522c4c4c981108e367  testfile</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>sha1sum testfile</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>5d7425a9c08a66c3177f1e31286fa40986ffc996  testfile</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="SHREDREF"
+></A
+><B
+CLASS="COMMAND"
+>shred</B
+></DT
+><DD
+><P
+>用随机字符填充文件, 使得文件无法恢复, 
+			  这样就可以保证文件安全的被删除. 
+			  这个命令的效果与<A
+HREF="extmisc.html#BLOTOUT"
+>例子 12-55</A
+>一样, 
+			但是使用这个命令是一种更优雅更彻底的方法. </P
+><P
+>这是GNU的<EM
+>文件工具</EM
+>之一. </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>即使使用了<B
+CLASS="COMMAND"
+>shred</B
+>命令, 
+				高级的辨别技术也还是能够恢复文件的内容. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="FAENCENCR1"
+></A
+>编码和解码</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>uuencode</B
+></DT
+><DD
+><P
+>这个工具用来把二进制文件编码成ASCII字符串, 
+			  这个工具适用于编码e-mail消息体, 或者新闻组消息. 
+	      </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>uudecode</B
+></DT
+><DD
+><P
+>这个工具用来把uuencode后的ASCII字符串恢复为二进制文件. 
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX52"
+></A
+><P
+><B
+>例子 12-35. Uudecode编码后的文件</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 在当前目录下用Uudecode解码所有用uuencode编码的文件. 
+  3&nbsp;
+  4&nbsp;lines=35        # 允许读头部的35行(范围很宽). 
+  5&nbsp;
+  6&nbsp;for File in *   # 测试所有$PWD下的文件. 
+  7&nbsp;do
+  8&nbsp;  search1=`head -$lines $File | grep begin | wc -w`
+  9&nbsp;  search2=`tail -$lines $File | grep end | wc -w`
+ 10&nbsp;  #  用Uuencode编码过的文件在文件开始的地方都有个"begin", 
+ 11&nbsp;  #+ 在文件结尾的地方都有"end".
+ 12&nbsp;  if [ "$search1" -gt 0 ]
+ 13&nbsp;  then
+ 14&nbsp;    if [ "$search2" -gt 0 ]
+ 15&nbsp;    then
+ 16&nbsp;      echo "uudecoding - $File -"
+ 17&nbsp;      uudecode $File
+ 18&nbsp;    fi  
+ 19&nbsp;  fi
+ 20&nbsp;done  
+ 21&nbsp;
+ 22&nbsp;#  小心不要让这个脚本运行自己, 
+ 23&nbsp;#+ 因为它也会把自身也认为是一个经过uuencode编码过的文件, 
+ 24&nbsp;#+ 这都是因为这个脚本自身也包含"begin"和"end". 
+ 25&nbsp;
+ 26&nbsp;#  练习:
+ 27&nbsp;#  -----
+ 28&nbsp;#  修改这个脚本, 让它可以检查一个新闻组的每个文件, 
+ 29&nbsp;#+ 并且如果下一个没找到的话就跳过. 
+ 30&nbsp;
+ 31&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><A
+HREF="textproc.html#FOLDREF"
+>fold -s</A
+>命令在处理从Usenet新闻组下载下来的长的uudecode文本消息的时候可能会有用(可能在管道中).
+	    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>mimencode</B
+>, <B
+CLASS="COMMAND"
+>mmencode</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>mimencode</B
+>和<B
+CLASS="COMMAND"
+>mmencode</B
+>命令用来处理多媒体编码的email附件. 
+			虽然<EM
+>mail用户代理</EM
+>(比如<B
+CLASS="COMMAND"
+>pine</B
+>或<B
+CLASS="COMMAND"
+>kmail</B
+>)通常情况下都会自动处理, 
+			但是这些特定的工具允许从命令行或shell脚本中来手动操作这些附件. 
+	      </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>crypt</B
+></DT
+><DD
+><P
+>这个工具曾经是标准的UNIX文件加密工具.
+
+			<A
+NAME="AEN9617"
+HREF="#FTN.AEN9617"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+>
+
+		政府由于政策上的动机规定禁止加密软件的输出, 
+		这样导致了<B
+CLASS="COMMAND"
+>crypt</B
+>命令从UNIX世界消失, 
+		并且在大多数的Linux发行版中也没有这个命令. 
+		幸运的是, 程序员们想出了一些替代它的方法, 
+		在这些方法中有作者自己的<A
+HREF="ftp://metalab.unc.edu/pub/Linux/utils/file/cruft-0.2.tar.gz"
+TARGET="_top"
+>cruft</A
+>
+	      (请参考<A
+HREF="contributed-scripts.html#ENCRYPTEDPW"
+>例子 A-4</A
+>). </P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="FAMISC1"
+></A
+>Miscellaneous</B
+></P
+><DL
+><DT
+><A
+NAME="MKTEMPREF"
+></A
+><B
+CLASS="COMMAND"
+>mktemp</B
+></DT
+><DD
+><P
+>使用一个<SPAN
+CLASS="QUOTE"
+>"唯一"</SPAN
+>的文件名来创建一个<I
+CLASS="FIRSTTERM"
+>临时文件</I
+>. 
+
+	       <A
+NAME="AEN9640"
+HREF="#FTN.AEN9640"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+>
+
+		   如果不带参数的在命令行下调用这个命令时, 
+		   将会在<TT
+CLASS="FILENAME"
+>/tmp</TT
+>目录下产生一个零长度的文件. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>mktemp</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/tmp/tmp.zzsvql3154</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;PREFIX=filename
+  2&nbsp;tempfile=`mktemp $PREFIX.XXXXXX`
+  3&nbsp;#                        ^^^^^^ 在这个临时的文件名中
+  4&nbsp;#+                              至少需要6个占位符. 
+  5&nbsp;#   如果没有指定临时文件的文件名, 
+  6&nbsp;#+  那么默认就是"tmp.XXXXXXXXXX". 
+  7&nbsp;
+  8&nbsp;echo "tempfile name = $tempfile"
+  9&nbsp;# tempfile name = filename.QA2ZpY
+ 10&nbsp;#                 或者一些其他的相似的名字...
+ 11&nbsp;
+ 12&nbsp;#  使用600为文件权限
+ 13&nbsp;#+ 来在当前工作目录下创建一个这样的文件.
+ 14&nbsp;#  这样就不需要"umask 177"了.
+ 15&nbsp;#  但不管怎么说, 这也是一个好的编程风格. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>make</B
+></DT
+><DD
+><P
+>build(建立)和compile(编译)二进制包的工具.  
+			当源文件被增加或修改时就会触发一些操作, 
+			这个工具用来控制这些操作. </P
+><P
+><A
+NAME="MAKEFILEREF"
+></A
+></P
+><P
+><B
+CLASS="COMMAND"
+>make</B
+>命令会检查<TT
+CLASS="FILENAME"
+>Makefile</TT
+>, makefile是文件的依赖和操作列表. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>install</B
+></DT
+><DD
+><P
+>特殊目的的文件拷贝命令, 
+			  与<B
+CLASS="COMMAND"
+>cp</B
+>命令相似, 
+			  但是具有设置拷贝文件的权限和属性的能力. 
+			  这个命令看起来是为了安装软件包所定制的, 
+			  而且就其本身而言, 这个命令经常出现在<TT
+CLASS="FILENAME"
+>Makefiles</TT
+>中(在<TT
+CLASS="REPLACEABLE"
+><I
+>make install :</I
+></TT
+> 区域中). 
+			  在安装脚本中也会看到这个命令的使用. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>dos2unix</B
+></DT
+><DD
+><P
+>这个工具是由Benjamin Lin及其同事共同编写的, 
+	      目的是将DOS格式的文本文件(以CR-LF为行结束符)转换为UNIX格式(以LF为行结束符), 
+	      反过来也一样. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>ptx</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>ptx [targetfile]</B
+>命令将输出目标文件的序列改变索引(交叉引用列表). 
+	      如果必要的话, 这个命令可以在管道中进行更深层次的过滤和格式化. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>more</B
+>, <B
+CLASS="COMMAND"
+>less</B
+></DT
+><DD
+><P
+>分页显示文本文件或<TT
+CLASS="FILENAME"
+>stdout</TT
+>, 
+			  一次一屏. 可以用来过滤<TT
+CLASS="FILENAME"
+>stdout</TT
+>的输出 . . . 或过滤一个脚本的输出. </P
+><P
+>				<B
+CLASS="COMMAND"
+>more</B
+>命令的一个有趣的应用就是测试一个命令序列的执行, 
+				这样做的目的是避免可能发生的糟糕的结果.
+                 <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;ls /home/bozo | awk '{print "rm -rf " $1}' | more
+  2&nbsp;#                                            ^^^^
+  3&nbsp;		 
+  4&nbsp;# 检查下边(灾难性的)命令行的效果: 
+  5&nbsp;#      ls /home/bozo | awk '{print "rm -rf " $1}' | sh
+  6&nbsp;#      推入shell中执行 . . .       ^^</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+></DD
+></DL
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN8734"
+HREF="filearchiv.html#AEN8734"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>在这里所讨论的<I
+CLASS="FIRSTTERM"
+>归档文件</I
+>, 
+	        只不过是存储在一个单一位置上的一些相关文件的集合. 
+	        </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN8744"
+HREF="filearchiv.html#AEN8744"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>		    <B
+CLASS="COMMAND"
+>tar czvf archive_name.tar.gz *</B
+><EM
+>可以</EM
+>包含当前目录<EM
+>下</EM
+>的点文件. 
+		    这是一个未文档化的GNU<B
+CLASS="COMMAND"
+>tar</B
+>的<SPAN
+CLASS="QUOTE"
+>"特性"</SPAN
+>. 
+		  </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN9617"
+HREF="filearchiv.html#AEN9617"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>这是一个对称的块密码, 
+					过去曾在单系统或本地网络中用来加密文件, 
+					用来对抗<SPAN
+CLASS="QUOTE"
+>"public key"</SPAN
+>密码类, 
+		<B
+CLASS="COMMAND"
+>pgp</B
+>就是一个众所周知的例子. 
+		</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN9640"
+HREF="filearchiv.html#AEN9640"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>使用<CODE
+CLASS="OPTION"
+>-d</CODE
+>选项可以创建一个临时的<EM
+>目录</EM
+>. </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="textproc.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="communications.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>文本处理命令</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="external.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>通讯命令</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

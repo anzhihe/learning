@@ -1,0 +1,744 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>文件测试操作符</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="条件判断"
+HREF="tests.html"><LINK
+REL="PREVIOUS"
+TITLE="条件测试结构"
+HREF="testconstructs.html"><LINK
+REL="NEXT"
+TITLE="其他比较操作符"
+HREF="comparison-ops.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="testconstructs.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>7. 条件判断</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="comparison-ops.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="FTO"
+>7.2. 文件测试操作符</A
+></H1
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="RTIF"
+></A
+>如果下面的条件成立将会返回真.</B
+></P
+><DL
+><DT
+><SPAN
+CLASS="TOKEN"
+>-e</SPAN
+></DT
+><DD
+><P
+>文件存在</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-a</SPAN
+></DT
+><DD
+><P
+>文件存在</P
+><P
+>这个选项的效果与<SPAN
+CLASS="TOKEN"
+>-e</SPAN
+>相同.
+	      但是它已经被<SPAN
+CLASS="QUOTE"
+>"弃用"</SPAN
+>了, 并且不鼓励使用.</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-f</SPAN
+></DT
+><DD
+><P
+>表示这个文件是一个<TT
+CLASS="REPLACEABLE"
+><I
+>一般</I
+></TT
+>文件(并不是目录或者设备文件)</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-s</SPAN
+></DT
+><DD
+><P
+>文件大小不为零</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-d</SPAN
+></DT
+><DD
+><P
+>表示这是一个目录</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-b</SPAN
+></DT
+><DD
+><P
+>表示这是一个块设备(软盘, 光驱, 等等.)
+	    </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-c</SPAN
+></DT
+><DD
+><P
+>表示这是一个字符设备(键盘, modem, 声卡, 等等.)</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-p</SPAN
+></DT
+><DD
+><P
+>这个文件是一个<A
+HREF="special-chars.html#PIPEREF"
+>管道</A
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-h</SPAN
+></DT
+><DD
+><P
+>这是一个<A
+HREF="basic.html#SYMLINKREF"
+>符号链接</A
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-L</SPAN
+></DT
+><DD
+><P
+>这是一个符号链接</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-S</SPAN
+></DT
+><DD
+><P
+>表示这是一个<A
+HREF="devref1.html#SOCKETREF"
+>socket</A
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-t</SPAN
+></DT
+><DD
+><P
+>文件(<A
+HREF="io-redirection.html#FDREF"
+>描述符</A
+>)被关联到一个终端设备上</P
+><P
+>这个测试选项一般被用来检测脚本中的<TT
+CLASS="FILENAME"
+>stdin</TT
+>(<KBD
+CLASS="USERINPUT"
+>[ -t 0 
+				]</KBD
+>) 或者<TT
+CLASS="FILENAME"
+>stdout</TT
+>(<KBD
+CLASS="USERINPUT"
+>[ -t 1 ]</KBD
+>)是否来自于一个终端. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-r</SPAN
+></DT
+><DD
+><P
+>文件是否具有可读权限(<EM
+>指的是正在运行这个测试命令的用户是否具有读权限</EM
+>)</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-w</SPAN
+></DT
+><DD
+><P
+>文件是否具有可写权限(指的是正在运行这个测试命令的用户是否具有写权限)</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-x</SPAN
+></DT
+><DD
+><P
+>文件是否具有可执行权限(指的是正在运行这个测试命令的用户是否具有可执行权限)</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-g</SPAN
+></DT
+><DD
+><P
+>set-group-id(sgid)标记被设置到文件或目录上</P
+><P
+>如果目录具有<TT
+CLASS="REPLACEABLE"
+><I
+>sgid</I
+></TT
+>标记的话, 
+			那么在这个目录下所创建的文件将属于拥有这个目录的用户组, 
+			而不必是创建这个文件的用户组. 
+			这个特性对于在一个工作组中共享目录非常有用. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-u</SPAN
+></DT
+><DD
+><P
+>set-user-id (suid)标记被设置到文件上</P
+><P
+>如果一个<EM
+>root</EM
+>用户所拥有的二进制可执行文件设置了<TT
+CLASS="REPLACEABLE"
+><I
+>set-user-id</I
+></TT
+>标记位的话, 
+		  那么普通用户也会以<EM
+>root</EM
+>权限来运行这个文件. 
+	      
+		<A
+NAME="AEN2740"
+HREF="#FTN.AEN2740"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+
+	      这对于需要访问系统硬件的执行程序(比如<B
+CLASS="COMMAND"
+>pppd</B
+>和<B
+CLASS="COMMAND"
+>cdrecord</B
+>)非常有用. 
+		  如果没有<EM
+>suid</EM
+>标志的话, 这些二进制执行程序是不能够被非root用户调用的.
+
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+>	      <SAMP
+CLASS="COMPUTEROUTPUT"
+>-rwsr-xr-t    1 root       178236 Oct  2  2000 /usr/sbin/pppd</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+	      对于设置了<TT
+CLASS="REPLACEABLE"
+><I
+>suid</I
+></TT
+>标志的文件, 在它的权限列中将会以<EM
+>s</EM
+>表示. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-k</SPAN
+></DT
+><DD
+><P
+>设置<TT
+CLASS="REPLACEABLE"
+><I
+>粘贴位</I
+></TT
+></P
+><P
+>对于<SPAN
+CLASS="QUOTE"
+>"粘贴位"</SPAN
+>的一般了解, 
+			<EM
+>save-text-mode</EM
+>标志是一个文件权限的特殊类型. 
+	      如果文件设置了这个标志, 
+	      那么这个文件将会被保存到缓存中, 这样可以提高访问速度.
+		  <A
+NAME="AEN2760"
+HREF="#FTN.AEN2760"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+	      粘贴位如果设置在目录中, 那么它将限制写权限. 
+	      对于设置了粘贴位的文件或目录, 在它们的权限标记列中将会显示<EM
+>t</EM
+>.
+
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+>	      <SAMP
+CLASS="COMPUTEROUTPUT"
+>drwxrwxrwt    7 root         1024 May 19 21:26 tmp/</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    
+		  如果用户并不拥有这个设置了粘贴位的目录, 
+		  但是他在这个目录下具有写权限, 
+		  那么这个用户只能在这个目录下删除自己所拥有的文件. 
+	      这将有效的防止用户在一个公共目录中不慎覆盖或者删除别人的文件. 
+	      比如说<TT
+CLASS="FILENAME"
+>/tmp</TT
+>目录.
+	      (当然, 目录的所有者或者<EM
+>root</EM
+>用户可以随意删除或重命名其中的文件.) </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-O</SPAN
+></DT
+><DD
+><P
+>判断你是否是文件的拥有者</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-G</SPAN
+></DT
+><DD
+><P
+>文件的group-id是否与你的相同</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-N</SPAN
+></DT
+><DD
+><P
+>从文件上一次被读取到现在为止, 文件是否被修改过</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>f1 -nt f2</SPAN
+></DT
+><DD
+><P
+>文件<TT
+CLASS="REPLACEABLE"
+><I
+>f1</I
+></TT
+>比文件<TT
+CLASS="REPLACEABLE"
+><I
+>f2</I
+></TT
+>新</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>f1 -ot f2</SPAN
+></DT
+><DD
+><P
+>文件<TT
+CLASS="REPLACEABLE"
+><I
+>f1</I
+></TT
+>比文件<TT
+CLASS="REPLACEABLE"
+><I
+>f2</I
+></TT
+>旧</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>f1 -ef f2</SPAN
+></DT
+><DD
+><P
+>文件<TT
+CLASS="REPLACEABLE"
+><I
+>f1</I
+></TT
+>和文件<TT
+CLASS="REPLACEABLE"
+><I
+>f2</I
+></TT
+>是相同文件的硬链接</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>!</SPAN
+></DT
+><DD
+><P
+><SPAN
+CLASS="QUOTE"
+>"非"</SPAN
+> -- 反转上边所有测试的结果(如果没给出条件, 那么返回真).</P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="BROKENLINK"
+></A
+><P
+><B
+>例子 7-4. 测试那些断掉的链接文件</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# broken-link.sh
+  3&nbsp;# 由Lee bigelow所编写 &#60;ligelowbee@yahoo.com&#62;
+  4&nbsp;# 已经争得作者的授权引用在本书中.
+  5&nbsp;
+  6&nbsp;#一个纯粹的shell脚本用来找出那些断掉的符号链接文件并且输出它们所指向的文件.
+  7&nbsp;#以便于它们可以把输出提供给xargs来进行处理 :)
+  8&nbsp;#比如. broken-link.sh /somedir /someotherdir|xargs rm
+  9&nbsp;#
+ 10&nbsp;#下边的方法, 不管怎么说, 都是一种更好的办法:
+ 11&nbsp;#
+ 12&nbsp;#find "somedir" -type l -print0|\
+ 13&nbsp;#xargs -r0 file|\
+ 14&nbsp;#grep "broken symbolic"|
+ 15&nbsp;#sed -e 's/^\|: *broken symbolic.*$/"/g'
+ 16&nbsp;#
+ 17&nbsp;#但这不是一个纯粹的bash脚本, 最起码现在不是.
+ 18&nbsp;#注意: 谨防在/proc文件系统和任何死循环链接中使用!
+ 19&nbsp;##############################################################
+ 20&nbsp;
+ 21&nbsp;
+ 22&nbsp;#如果没有参数被传递到脚本中, 那么就使用
+ 23&nbsp;#当前目录. 否则就是用传递进来的参数作为目录
+ 24&nbsp;#来搜索.
+ 25&nbsp;####################
+ 26&nbsp;[ $# -eq 0 ] &#38;&#38; directorys=`pwd` || directorys=$@
+ 27&nbsp;
+ 28&nbsp;#编写函数linkchk用来检查传递进来的目录或文件是否是链接, 
+ 29&nbsp;#并判断这些文件或目录是否存在. 然后打印它们所指向的文件.
+ 30&nbsp;#如果传递进来的元素包含子目录, 
+ 31&nbsp;#那么把子目录也放到linkcheck函数中处理, 这样就达到了递归的目的.
+ 32&nbsp;##########
+ 33&nbsp;linkchk () {
+ 34&nbsp;    for element in $1/*; do
+ 35&nbsp;    [ -h "$element" -a ! -e "$element" ] &#38;&#38; echo \"$element\"
+ 36&nbsp;    [ -d "$element" ] &#38;&#38; linkchk $element
+ 37&nbsp;    # 当然, '-h'用来测试符号链接, '-d'用来测试目录.
+ 38&nbsp;    done
+ 39&nbsp;}
+ 40&nbsp;
+ 41&nbsp;#把每个传递到脚本的参数都送到linkchk函数中进行处理, 
+ 42&nbsp;#检查是否有可用目录. 如果没有, 那么就打印错误消息和
+ 43&nbsp;#使用信息.
+ 44&nbsp;################
+ 45&nbsp;for directory in $directorys; do
+ 46&nbsp;    if [ -d $directory ]
+ 47&nbsp;	then linkchk $directory
+ 48&nbsp;	else 
+ 49&nbsp;	    echo "$directory is not a directory"
+ 50&nbsp;	    echo "Usage: $0 dir1 dir2 ..."
+ 51&nbsp;    fi
+ 52&nbsp;done
+ 53&nbsp;
+ 54&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><A
+HREF="zeros.html#COOKIES"
+>例子 28-1</A
+>, <A
+HREF="loops1.html#BINGREP"
+>例子 10-7</A
+>,
+	  <A
+HREF="loops1.html#FILEINFO"
+>例子 10-3</A
+>, <A
+HREF="zeros.html#RAMDISK"
+>例子 28-3</A
+>, 和<A
+HREF="contributed-scripts.html#MAILFORMAT"
+>例子 A-1</A
+>也会演示文件测试操作的使用过程. </P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN2740"
+HREF="fto.html#AEN2740"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>在将<EM
+>suid</EM
+>标记设置到二进制可执行文件的时候, 一定要小心. 
+			因为这可能会引发安全漏洞. 但是<EM
+>suid</EM
+>标记不会影响shell脚本.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN2760"
+HREF="fto.html#AEN2760"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>在当代UNIX系统中, 
+		  文件中已经不使用粘贴位了, 粘贴位只使用在目录中. </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="testconstructs.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="comparison-ops.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>条件测试结构</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="tests.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>其他比较操作符</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

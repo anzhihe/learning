@@ -1,0 +1,3702 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>文本处理命令</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="外部过滤器, 程序和命令"
+HREF="external.html"><LINK
+REL="PREVIOUS"
+TITLE="时间/日期 命令"
+HREF="timedate.html"><LINK
+REL="NEXT"
+TITLE="文件与归档命令"
+HREF="filearchiv.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="timedate.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>12. 外部过滤器, 程序和命令</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="filearchiv.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="TEXTPROC"
+>12.4. 文本处理命令</A
+></H1
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="TPCOMMANDLISTING1"
+></A
+>处理文本和文本文件的命令</B
+></P
+><DL
+><DT
+><A
+NAME="SORTREF"
+></A
+><B
+CLASS="COMMAND"
+>sort</B
+></DT
+><DD
+><P
+>文件排序, 通常用在管道中当过滤器来使用. 
+			  这个命令可以依据指定的关键字或指定的字符位置, 
+			  对文件行进行排序. 使用<CODE
+CLASS="OPTION"
+>-m</CODE
+>选项, 
+			  它将会合并预排序的输入文件. 
+	      想了解这个命令的全部参数请参考这个命令的<EM
+>info页</EM
+>. 
+		  请参考<A
+HREF="loops1.html#FINDSTRING"
+>例子 10-9</A
+>, 
+			  <A
+HREF="loops1.html#SYMLINKS"
+>例子 10-10</A
+>, 和<A
+HREF="contributed-scripts.html#MAKEDICT"
+>例子 A-8</A
+>.</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>tsort</B
+></DT
+><DD
+><P
+>拓扑排序, 
+			  读取以空格分隔的有序对, 
+			  并且依靠输入模式进行排序. 
+	      </P
+></DD
+><DT
+><A
+NAME="UNIQREF"
+></A
+><B
+CLASS="COMMAND"
+>uniq</B
+></DT
+><DD
+><P
+>这个过滤器将会删除一个已排序文件中的重复行.
+	      这个命令经常出现在<A
+HREF="textproc.html#SORTREF"
+>sort</A
+>命令的管道后边. 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;cat list-1 list-2 list-3 | sort | uniq &#62; final.list
+  2&nbsp;# 将3个文件连接起来,
+  3&nbsp;# 将它们排序,
+  4&nbsp;# 删除其中重复的行,
+  5&nbsp;# 最后将结果重定向到一个文件中. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><CODE
+CLASS="OPTION"
+>-c</CODE
+>用来统计每行出现的次数, 并把次数作为前缀放到输出行的前面. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cat testfile</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>This line occurs only once.
+ This line occurs twice.
+ This line occurs twice.
+ This line occurs three times.
+ This line occurs three times.
+ This line occurs three times.</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>uniq -c testfile</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>      1 This line occurs only once.
+       2 This line occurs twice.
+       3 This line occurs three times.</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>sort testfile | uniq -c | sort -nr</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>      3 This line occurs three times.
+       2 This line occurs twice.
+       1 This line occurs only once.</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	     </P
+><P
+><KBD
+CLASS="USERINPUT"
+>sort INPUTFILE | uniq -c | sort -nr</KBD
+>
+			 命令先对<TT
+CLASS="FILENAME"
+>INPUTFILE</TT
+>文件进行排序, 
+			 然后统计<EM
+>每行出现的次数</EM
+>
+			 (<B
+CLASS="COMMAND"
+>sort</B
+>命令的<CODE
+CLASS="OPTION"
+>-nr</CODE
+>选项会产生一个数字的反转排序). 
+			 这种命令模板一般都用来分析log文件或者用来分析字典列表, 
+	       或者用在那些需要检查文本词汇结构的地方. 
+	       </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="WF"
+></A
+><P
+><B
+>例子 12-11. 分析单词出现的频率</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# wf.sh: 分析文本文件中词汇出现的频率. 
+  3&nbsp;# "wf2.sh"脚本是一个效率更高的版本. 
+  4&nbsp;
+  5&nbsp;
+  6&nbsp;# 从命令行中检查输入的文件. 
+  7&nbsp;ARGS=1
+  8&nbsp;E_BADARGS=65
+  9&nbsp;E_NOFILE=66
+ 10&nbsp;
+ 11&nbsp;if [ $# -ne "$ARGS" ]  # 检验传递到脚本中参数的个数. 
+ 12&nbsp;then
+ 13&nbsp;  echo "Usage: `basename $0` filename"
+ 14&nbsp;  exit $E_BADARGS
+ 15&nbsp;fi
+ 16&nbsp;
+ 17&nbsp;if [ ! -f "$1" ]       # 检查传入的文件是否存在. 
+ 18&nbsp;then
+ 19&nbsp;  echo "File \"$1\" does not exist."
+ 20&nbsp;  exit $E_NOFILE
+ 21&nbsp;fi
+ 22&nbsp;
+ 23&nbsp;
+ 24&nbsp;
+ 25&nbsp;########################################################
+ 26&nbsp;# main ()
+ 27&nbsp;sed -e 's/\.//g'  -e 's/\,//g' -e 's/ /\
+ 28&nbsp;/g' "$1" | tr 'A-Z' 'a-z' | sort | uniq -c | sort -nr
+ 29&nbsp;#                           =========================
+ 30&nbsp;#                              检查单词出现的频率
+ 31&nbsp;
+ 32&nbsp;#  过滤掉句号和逗号, 
+ 33&nbsp;#+ 并且把单词间的空格转化为换行, 
+ 34&nbsp;#+ 然后转化为小写, 
+ 35&nbsp;#+ 最后统计单词出现的频率并按频率排序. 
+ 36&nbsp;
+ 37&nbsp;#  Arun Giridhar建议将上边的代码修改为: 
+ 38&nbsp;#  . . . | sort | uniq -c | sort +1 [-f] | sort +0 -nr
+ 39&nbsp;#  这句添加了第2个排序主键, 所以
+ 40&nbsp;#+ 这个与上边等价的例子将按照字母顺序进行排序.
+ 41&nbsp;#  就像他所解释的:
+ 42&nbsp;#  "这是一个有效的根排序, 首先对频率最少的
+ 43&nbsp;#+ 列进行排序
+ 44&nbsp;#+ (单词或者字符串, 忽略大小写)
+ 45&nbsp;#+ 然后对频率最高的列进行排序."
+ 46&nbsp;#
+ 47&nbsp;#  像Frank Wang所解释的那样, 上边的代码等价于: 
+ 48&nbsp;#+       . . . | sort | uniq -c | sort +0 -nr
+ 49&nbsp;#+ 用下边这行也行: 
+ 50&nbsp;#+       . . . | sort | uniq -c | sort -k1nr -k
+ 51&nbsp;########################################################
+ 52&nbsp;
+ 53&nbsp;exit 0
+ 54&nbsp;
+ 55&nbsp;# 练习:
+ 56&nbsp;# -----
+ 57&nbsp;# 1) 使用'sed'命令来过滤其他的标点符号,
+ 58&nbsp;#+   比如分号. 
+ 59&nbsp;# 2) 修改这个脚本, 添加能够过滤多个空格或者
+ 60&nbsp;#    空白的能力. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>	       <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cat testfile</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>This line occurs only once.
+ This line occurs twice.
+ This line occurs twice.
+ This line occurs three times.
+ This line occurs three times.
+ This line occurs three times.</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>./wf.sh testfile</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>      6 this
+       6 occurs
+       6 line
+       3 times
+       3 three
+       2 twice
+       1 only
+       1 once</SAMP
+>
+	       </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	     </P
+></DD
+><DT
+><A
+NAME="EXPANDREF"
+></A
+><B
+CLASS="COMMAND"
+>expand</B
+>, <B
+CLASS="COMMAND"
+>unexpand</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>expand</B
+>命令将会把每个tab转化为一个空格. 
+			  这个命令经常用在管道中. 
+	      </P
+><P
+><B
+CLASS="COMMAND"
+>unexpand</B
+>命令将会把每个空格转化为一个tab. 
+			  效果与<B
+CLASS="COMMAND"
+>expand</B
+>命令相反. </P
+></DD
+><DT
+><A
+NAME="CUTREF"
+></A
+><B
+CLASS="COMMAND"
+>cut</B
+></DT
+><DD
+><P
+>一个从文件中提取特定域的工具. 
+			  这个命令与<A
+HREF="awk.html#AWKREF"
+>awk</A
+>中使用的<KBD
+CLASS="USERINPUT"
+>print 
+				  $N</KBD
+>命令很相似, 
+			 但是更受限. 
+			 在脚本中使用<B
+CLASS="COMMAND"
+>cut</B
+>命令会比使用<B
+CLASS="COMMAND"
+>awk</B
+>命令来得容易一些. 
+			 最重要的选项就是<CODE
+CLASS="OPTION"
+>-d</CODE
+>(字段定界符)和<CODE
+CLASS="OPTION"
+>-f</CODE
+>(域分隔符)选项. </P
+><P
+>使用<B
+CLASS="COMMAND"
+>cut</B
+>来获得所有mount上的文件系统的列表: 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;cut -d ' ' -f1,2 /etc/mtab</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>使用<B
+CLASS="COMMAND"
+>cut</B
+>命令列出OS和内核版本:
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;uname -a | cut -d" " -f1,3,11,12</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>使用<B
+CLASS="COMMAND"
+>cut</B
+>命令从e-mail中提取消息头: 
+
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>grep '^Subject:' read-messages | cut -c10-80</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Re: Linux suitable for mission-critical apps?
+ MAKE MILLIONS WORKING AT HOME!!!
+ Spam complaint
+ Re: Spam complaint</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>使用<B
+CLASS="COMMAND"
+>cut</B
+>命令来分析一个文件: 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 列出所有在/etc/passwd中的用户. 
+  2&nbsp;
+  3&nbsp;FILENAME=/etc/passwd
+  4&nbsp;
+  5&nbsp;for user in $(cut -d: -f1 $FILENAME)
+  6&nbsp;do
+  7&nbsp;  echo $user
+  8&nbsp;done
+  9&nbsp;
+ 10&nbsp;# 感谢Oleg Philon对此的建议. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><KBD
+CLASS="USERINPUT"
+>cut -d ' ' -f2,3 filename</KBD
+>等价于<KBD
+CLASS="USERINPUT"
+>awk -F'[ ]' '{ print $2, $3 }' filename</KBD
+></P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>你甚至可以指定换行符作为字段定界符. 这个小伎俩实际上就是在命令行上插入一个换行(<B
+CLASS="KEYCAP"
+>RETURN</B
+>). (译者: linux使用lf作为换行符). </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cut -d'
+ ' -f3,7,19 testfile</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>This is line 3 of testfile.
+ This is line 7 of testfile.
+ This is line 19 of testfile.</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+><P
+>感谢, Jaka Kranjc指出这点. </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>请参考<A
+HREF="mathc.html#BASE"
+>例子 12-43</A
+>.</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>paste</B
+></DT
+><DD
+><P
+>将多个文件, 以每个文件一列的形式合并到一个文件中, 
+			  合并后文件中的每一列就是原来的一个文件. 
+	      与<B
+CLASS="COMMAND"
+>cut</B
+>结合使用, 经常用于创建系统log文件. 
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>join</B
+></DT
+><DD
+><P
+>这个命令与<B
+CLASS="COMMAND"
+>paste</B
+>命令属于同类命令. 
+			  但是它能够完成某些特殊的目地. 
+			  这个强力工具能够以一种特殊的形式来合并两个文件, 
+			  这种特殊的形式本质上就是一个关联数据库的简单版本. 
+	      </P
+><P
+><B
+CLASS="COMMAND"
+>join</B
+>命令只能够操作两个文件. 
+	      它可以将那些具有特定标记域(通常是一个数字标签)的行合并起来,
+	      并且将结果输出到<TT
+CLASS="FILENAME"
+>stdout</TT
+>. 
+	      被加入的文件应该事先根据标记域进行排序以便于能够正确的匹配. 
+	      </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;File: 1.data
+  2&nbsp;
+  3&nbsp;100 Shoes
+  4&nbsp;200 Laces
+  5&nbsp;300 Socks</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;File: 2.data
+  2&nbsp;
+  3&nbsp;100 $40.00
+  4&nbsp;200 $1.00
+  5&nbsp;300 $2.00</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>join 1.data 2.data</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>File: 1.data 2.data
+
+ 100 Shoes $40.00
+ 200 Laces $1.00
+ 300 Socks $2.00</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在输出中标记域将只会出现一次. 
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>head</B
+></DT
+><DD
+><P
+>把文件的头部内容打印到<TT
+CLASS="FILENAME"
+>stdout</TT
+>上(默认为<TT
+CLASS="LITERAL"
+>10</TT
+>行, 
+			  可以自己修改). 这个命令有一些比较有趣的选项. 
+
+	    <DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="SCRIPTDETECTOR"
+></A
+><P
+><B
+>例子 12-12. 哪个文件是脚本?</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# script-detector.sh: 在一个目录中检查所有的脚本文件. 
+  3&nbsp;
+  4&nbsp;TESTCHARS=2    # 测试前两个字符.
+  5&nbsp;SHABANG='#!'   # 脚本都是以"#!"开头的. 
+  6&nbsp;
+  7&nbsp;for file in *  # 遍历当前目录下的所有文件. 
+  8&nbsp;do
+  9&nbsp;  if [[ `head -c$TESTCHARS "$file"` = "$SHABANG" ]]
+ 10&nbsp;  #      head -c2                      #!
+ 11&nbsp;  #  '-c' 选项将从文件头输出指定个数的字符, 
+ 12&nbsp;  #+ 而不是默认的行数. 
+ 13&nbsp;  then
+ 14&nbsp;    echo "File \"$file\" is a script."
+ 15&nbsp;  else
+ 16&nbsp;    echo "File \"$file\" is *not* a script."
+ 17&nbsp;  fi
+ 18&nbsp;done
+ 19&nbsp;  
+ 20&nbsp;exit 0
+ 21&nbsp;
+ 22&nbsp;#  练习:
+ 23&nbsp;#  -----
+ 24&nbsp;#  1) 修改这个脚本, 
+ 25&nbsp;#+    让它可以指定扫描的路径. 
+ 26&nbsp;#+    (而不是只搜索当前目录). 
+ 27&nbsp;#
+ 28&nbsp;#  2) 以这个脚本目前的状况, 它不能正确识别出
+ 29&nbsp;#+    Perl, awk, 和其他一些脚本语言的脚本文件.
+ 30&nbsp;#     修正这个问题.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+>	    
+
+	    <DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="RND"
+></A
+><P
+><B
+>例子 12-13. 产生10-进制随机数</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# rnd.sh: 输出一个10进制随机数
+  3&nbsp;
+  4&nbsp;# 由Stephane Chazelas所编写的这个脚本.
+  5&nbsp;
+  6&nbsp;head -c4 /dev/urandom | od -N4 -tu4 | sed -ne '1s/.* //p'
+  7&nbsp;
+  8&nbsp;
+  9&nbsp;# =================================================================== #
+ 10&nbsp;
+ 11&nbsp;# 分析
+ 12&nbsp;# ----
+ 13&nbsp;
+ 14&nbsp;# head:
+ 15&nbsp;# -c4 选项将取得前4个字节.
+ 16&nbsp;                                               
+ 17&nbsp;# od:
+ 18&nbsp;# -N4 选项将限制输出为4个字节.
+ 19&nbsp;# -tu4 选项将使用无符号10进制格式来输出.
+ 20&nbsp;                                               
+ 21&nbsp;# sed: 
+ 22&nbsp;# -n 选项, 使用"s"命令与"p"标志组合的方式,
+ 23&nbsp;# 将会只输出匹配的行.
+ 24&nbsp;                                               
+ 25&nbsp;                                               
+ 26&nbsp;                                               
+ 27&nbsp;# 本脚本作者解释'sed'命令的行为如下.
+ 28&nbsp;
+ 29&nbsp;# head -c4 /dev/urandom | od -N4 -tu4 | sed -ne '1s/.* //p'
+ 30&nbsp;# ----------------------------------&#62; |
+ 31&nbsp;
+ 32&nbsp;# 假设一直处理到"sed"命令时的输出--&#62; |
+ 33&nbsp;# 为 0000000 1198195154\n
+ 34&nbsp;                                                                                  
+ 35&nbsp;#  sed命令开始读取字串: 0000000 1198195154\n.
+ 36&nbsp;#  这里它发现一个换行符,
+ 37&nbsp;#+ 所以sed准备处理第一行 (0000000 1198195154).
+ 38&nbsp;#  sed命令开始匹配它的&#60;range&#62;和&#60;action&#62;. 第一个匹配的并且只有这一个匹配的:
+ 39&nbsp;                                                                                  
+ 40&nbsp;#   range     action
+ 41&nbsp;#   1         s/.* //p
+ 42&nbsp;                                                                                  
+ 43&nbsp;#  因为行号在range中, 所以sed开始执行action:
+ 44&nbsp;#+ 替换掉以空格结束的最长的字符串, 在这行中这个字符串是
+ 45&nbsp;#  ("0000000 "), 用空字符串(//)将这个匹配到的字串替换掉, 如果成功, 那就打印出结果
+ 46&nbsp;#  ("p"在这里是"s"命令的标志, 这与单独的"p"命令是不同的).
+ 47&nbsp;                                                                                  
+ 48&nbsp;#  sed命令现在开始继续读取输入. (注意在继续之前, 
+ 49&nbsp;#+ continuing, 如果没使用-n选项的话, sed命令将再次
+ 50&nbsp;#+ 将这行打印一遍).
+ 51&nbsp;                                                                                  
+ 52&nbsp;# 现在, sed命令读取剩余的字符串, 并且找到文件的结尾.
+ 53&nbsp;# sed命令开始处理第2行(这行也被标记为'$'
+ 54&nbsp;# 因为这已经是最后一行).
+ 55&nbsp;# 所以这行没被匹配到&#60;range&#62;中, 这样sed命令就结束了.
+ 56&nbsp;                                                                                  
+ 57&nbsp;#  这个sed命令的简短的解释是:
+ 58&nbsp;#  "在第一行中删除第一个空格左边全部的字符,
+ 59&nbsp;#+ 然后打印出来."
+ 60&nbsp;                                                                                  
+ 61&nbsp;# 一个更好的来达到这个目的的方法是:
+ 62&nbsp;#           sed -e 's/.* //;q'
+ 63&nbsp;                                                                                  
+ 64&nbsp;# 这里, &#60;range&#62;和&#60;action&#62;分别是(也可以写成
+ 65&nbsp;#           sed -e 's/.* //' -e q):
+ 66&nbsp;                                                                                  
+ 67&nbsp;#   range                    action
+ 68&nbsp;#   nothing (matches line)   s/.* //
+ 69&nbsp;#   nothing (matches line)   q (quit)
+ 70&nbsp;                                                                                  
+ 71&nbsp;#  这里, sed命令只会读取第一行的输入.
+ 72&nbsp;#  将会执行2个命令, 并且会在退出之前打印出(已经替换过的)这行(因为"q" action),
+ 73&nbsp;#+ 因为没使用"-n"选项.
+ 74&nbsp;                                                                                  
+ 75&nbsp;# =================================================================== #
+ 76&nbsp;                                                                                  
+ 77&nbsp;# 也可以使用如下一个更简单的语句来代替:
+ 78&nbsp;#           head -c4 /dev/urandom| od -An -tu4
+ 79&nbsp;
+ 80&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+>	    
+
+	      请参考<A
+HREF="filearchiv.html#EX52"
+>例子 12-35</A
+>.</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>tail</B
+></DT
+><DD
+><P
+>将一个文件结尾部分的内容输出到<TT
+CLASS="FILENAME"
+>stdout</TT
+>中(默认为<TT
+CLASS="LITERAL"
+>10</TT
+>行). 
+			通常用来跟踪一个系统logfile的修改情况, 
+			如果使用<CODE
+CLASS="OPTION"
+>-f</CODE
+>选项的话, 
+			这个命令将会继续显示添加到文件中的行. 
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX12"
+></A
+><P
+><B
+>例子 12-14. 使用<B
+CLASS="COMMAND"
+>tail</B
+>命令来监控系统log</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;filename=sys.log
+  4&nbsp;
+  5&nbsp;cat /dev/null &#62; $filename; echo "Creating / cleaning out file."
+  6&nbsp;#  如果文件不存在的话就创建文件,
+  7&nbsp;#+ 然后将这个文件清空.
+  8&nbsp;#  : &#62; filename   和   &#62; filename 也能完成这个工作.
+  9&nbsp;
+ 10&nbsp;tail /var/log/messages &#62; $filename  
+ 11&nbsp;# /var/log/messages 必须具有全局的可读权限才行. 
+ 12&nbsp;
+ 13&nbsp;echo "$filename contains tail end of system log."
+ 14&nbsp;
+ 15&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>为了列出一个文本文件中的指定行的内容, 
+			可以将<B
+CLASS="COMMAND"
+>head</B
+>命令的输出通过<A
+HREF="special-chars.html#PIPEREF"
+>管道</A
+>传递到<B
+CLASS="COMMAND"
+>tail -1</B
+>中. 
+		比如<KBD
+CLASS="USERINPUT"
+>head -8 database.txt | tail
+		-1</KBD
+>将会列出<TT
+CLASS="FILENAME"
+>database.txt</TT
+>文件第8行的内容. </P
+><P
+>下边是将一个文本文件中指定范围的所有行都保存到一个变量中:
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;var=$(head -$m $filename | tail -$n)
+  2&nbsp;
+  3&nbsp;# filename = 文件名
+  4&nbsp;# m = 从文件开头到块结尾的行数
+  5&nbsp;# n = 想保存到变量中的指定行数(从块结尾开始截断)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>请参考<A
+HREF="moreadv.html#EX41"
+>例子 12-5</A
+>, 
+		  <A
+HREF="filearchiv.html#EX52"
+>例子 12-35</A
+>和<A
+HREF="debugging.html#ONLINE"
+>例子 29-6</A
+>.</P
+></DD
+><DT
+><A
+NAME="GREPREF"
+></A
+><B
+CLASS="COMMAND"
+>grep</B
+></DT
+><DD
+><P
+>使用<A
+HREF="regexp.html#REGEXREF"
+>正则表达式</A
+>的一个多用途文本搜索工具. 
+	      这个命令本来是<B
+CLASS="COMMAND"
+>ed</B
+>行编辑器中的一个命令/过滤器: 
+	      <KBD
+CLASS="USERINPUT"
+>g/re/p</KBD
+> -- <EM
+>global -
+	      regular expression - print</EM
+>.</P
+><P
+><P
+><B
+CLASS="COMMAND"
+>grep</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>pattern</I
+></TT
+>  [<TT
+CLASS="REPLACEABLE"
+><I
+>file</I
+></TT
+>...]</P
+>在文件中搜索所有<TT
+CLASS="REPLACEABLE"
+><I
+>pattern</I
+></TT
+>出现的位置, 
+		  <TT
+CLASS="REPLACEABLE"
+><I
+>pattern</I
+></TT
+>既可以是要搜索的字符串, 
+		  也可以是一个正则表达式. 
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>grep '[rst]ystem.$' osinfo.txt</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>The GPL governs the distribution of the Linux operating system.</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><P
+>如果没有指定文件参数, 
+			  <B
+CLASS="COMMAND"
+>grep</B
+>通常用在<A
+HREF="special-chars.html#PIPEREF"
+>管道</A
+>中对<TT
+CLASS="FILENAME"
+>stdout</TT
+>进行过滤. 
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ps ax | grep clock</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>765 tty1     S      0:00 xclock
+ 901 pts/1    S      0:00 grep clock</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><P
+><CODE
+CLASS="OPTION"
+>-i</CODE
+> 选项在搜索时忽略大小写. </P
+><P
+><CODE
+CLASS="OPTION"
+>-w</CODE
+> 选项用来匹配整个单词. </P
+><P
+><CODE
+CLASS="OPTION"
+>-l</CODE
+> 选项仅列出符合匹配的文件, 
+			而不列出匹配行. </P
+><P
+><CODE
+CLASS="OPTION"
+>-r</CODE
+> (递归) 选项不仅在当前工作目录下搜索匹配, 
+			而且搜索子目录. </P
+><P
+><CODE
+CLASS="OPTION"
+>-n</CODE
+> 选项列出所有匹配行, 并显示行号. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>grep -n Linux osinfo.txt</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>2:This is a file containing information about Linux.
+ 6:The GPL governs the distribution of the Linux operating system.</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><P
+><CODE
+CLASS="OPTION"
+>-v</CODE
+> (或者<CODE
+CLASS="OPTION"
+>--invert-match</CODE
+>)选项将会显示所有<EM
+>不匹配的行</EM
+>.
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;grep pattern1 *.txt | grep -v pattern2
+  2&nbsp;
+  3&nbsp;# 匹配在"*.txt"中所有包含 "pattern1"的行, 
+  4&nbsp;# 而***不显示***匹配包含"pattern2"的行.	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><CODE
+CLASS="OPTION"
+>-c</CODE
+> (<CODE
+CLASS="OPTION"
+>--count</CODE
+>)
+	      选项将只会显示匹配到的行数的总数,而不会列出具体的匹配.
+
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;grep -c txt *.sgml   # (在 "*.sgml" 文件中, 匹配"txt"的行数的总数.)
+  2&nbsp;
+  3&nbsp;
+  4&nbsp;#   grep -cz .
+  5&nbsp;#            ^ 点
+  6&nbsp;# 意思是计数 (-c) 所有以空字符分割(-z) 的匹配 "."的项
+  7&nbsp;# "."是正则表达式的一个符号, 表达匹配任意一个非空字符(至少要包含一个字符).
+  8&nbsp;# 
+  9&nbsp;printf 'a b\nc  d\n\n\n\n\n\000\n\000e\000\000\nf' | grep -cz .     # 3
+ 10&nbsp;printf 'a b\nc  d\n\n\n\n\n\000\n\000e\000\000\nf' | grep -cz '$'   # 5
+ 11&nbsp;printf 'a b\nc  d\n\n\n\n\n\000\n\000e\000\000\nf' | grep -cz '^'   # 5
+ 12&nbsp;#
+ 13&nbsp;printf 'a b\nc  d\n\n\n\n\n\000\n\000e\000\000\nf' | grep -c '$'    # 9
+ 14&nbsp;# 默认情况下, 是使用换行符(\n)来分隔匹配项.
+ 15&nbsp;
+ 16&nbsp;# 注意  -z 选项是 GNU "grep" 特定的选项.
+ 17&nbsp;
+ 18&nbsp;
+ 19&nbsp;# 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>当有多个文件参数的时候, 
+	      <B
+CLASS="COMMAND"
+>grep</B
+>将会指出哪个文件中包含具体的匹配. 
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>grep Linux osinfo.txt misc.txt</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>osinfo.txt:This is a file containing information about Linux.
+ osinfo.txt:The GPL governs the distribution of the Linux operating system.
+ misc.txt:The Linux operating system is steadily gaining in popularity.</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果在<B
+CLASS="COMMAND"
+>grep</B
+>命令只搜索一个文件的时候, 
+				那么可以简单的把<TT
+CLASS="FILENAME"
+>/dev/null</TT
+>作为第二个文件参数传递给<B
+CLASS="COMMAND"
+>grep</B
+>. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>grep Linux osinfo.txt /dev/null</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>osinfo.txt:This is a file containing information about Linux.
+ osinfo.txt:The GPL governs the distribution of the Linux operating system.</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>如果存在一个成功的匹配, 
+			那么<B
+CLASS="COMMAND"
+>grep</B
+>命令将会返回0作为<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>, 
+			这样就可以将<B
+CLASS="COMMAND"
+>grep</B
+>命令的结果放在脚本的条件测试中来使用, 
+			尤其和<CODE
+CLASS="OPTION"
+>-q</CODE
+>(禁止输出)选项组合时特别有用. 
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;SUCCESS=0                      # 如果grep匹配成功
+  2&nbsp;word=Linux
+  3&nbsp;filename=data.file
+  4&nbsp;
+  5&nbsp;grep -q "$word" "$filename"    # "-q"选项将使得什么都不输出到stdout上.
+  6&nbsp;
+  7&nbsp;if [ $? -eq $SUCCESS ]
+  8&nbsp;# if grep -q "$word" "$filename"   这句话可以代替行 5 - 7.
+  9&nbsp;then
+ 10&nbsp;  echo "$word found in $filename"
+ 11&nbsp;else
+ 12&nbsp;  echo "$word not found in $filename"
+ 13&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+><A
+HREF="debugging.html#ONLINE"
+>例子 29-6</A
+>展示了如何使用<B
+CLASS="COMMAND"
+>grep</B
+>命令在一个系统logfile中进行一个单词的模式匹配. 
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="GRP"
+></A
+><P
+><B
+>例子 12-15. 在脚本中模拟<SPAN
+CLASS="QUOTE"
+>"grep"</SPAN
+>的行为</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# grp.sh: 一个非常粗糙的'grep'命令的实现. 
+  3&nbsp;
+  4&nbsp;E_BADARGS=65
+  5&nbsp;
+  6&nbsp;if [ -z "$1" ]    # 检查传递给脚本的参数. 
+  7&nbsp;then
+  8&nbsp;  echo "Usage: `basename $0` pattern"
+  9&nbsp;  exit $E_BADARGS
+ 10&nbsp;fi  
+ 11&nbsp;
+ 12&nbsp;echo
+ 13&nbsp;
+ 14&nbsp;for file in *     # 遍历$PWD下的所有文件.
+ 15&nbsp;do
+ 16&nbsp;  output=$(sed -n /"$1"/p $file)  # 命令替换.
+ 17&nbsp;
+ 18&nbsp;  if [ ! -z "$output" ]           # 如果"$output"不加双引号将会发生什么?
+ 19&nbsp;  then
+ 20&nbsp;    echo -n "$file: "
+ 21&nbsp;    echo $output
+ 22&nbsp;  fi              #  sed -ne "/$1/s|^|${file}: |p"  这句与上边这段等价. 
+ 23&nbsp;
+ 24&nbsp;  echo
+ 25&nbsp;done  
+ 26&nbsp;
+ 27&nbsp;echo
+ 28&nbsp;
+ 29&nbsp;exit 0
+ 30&nbsp;
+ 31&nbsp;# 练习:
+ 32&nbsp;# -----
+ 33&nbsp;# 1) 在任何给定的文件中,如果有超过一个匹配的话, 在输出中添加新行. 
+ 34&nbsp;# 2) 添加一些特征. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>如何使用<B
+CLASS="COMMAND"
+>grep</B
+>命令来搜索两个(或两个以上)独立的模式? 
+			如果你想在一个或多个文件中显示既匹配<SPAN
+CLASS="QUOTE"
+>"pattern1"</SPAN
+><EM
+>又匹配</EM
+><SPAN
+CLASS="QUOTE"
+>"pattern2"</SPAN
+>的所有匹配的话, 那又该如何做呢? (译者: 这是取交集的情况, 如果取并集该怎么办呢?) </P
+><P
+>一个方法是通过<A
+HREF="special-chars.html#PIPEREF"
+>管道</A
+>来将<B
+CLASS="COMMAND"
+>grep
+	      pattern1</B
+>的结果传递到<B
+CLASS="COMMAND"
+>grep pattern2</B
+>中. </P
+><P
+>比如, 给定如下文件: </P
+><P
+>	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 文件名: tstfile
+  2&nbsp;
+  3&nbsp;This is a sample file.
+  4&nbsp;This is an ordinary text file.
+  5&nbsp;This file does not contain any unusual text.
+  6&nbsp;This file is not unusual.
+  7&nbsp;Here is some text.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>现在, 让我们在这个文件中搜索<EM
+>既</EM
+>包含
+				<SPAN
+CLASS="QUOTE"
+>"file"</SPAN
+><EM
+>又</EM
+>包含<SPAN
+CLASS="QUOTE"
+>"text"</SPAN
+>的所有行. </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>grep file tstfile</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+># 文件名: tstfile
+ This is a sample file.
+ This is an ordinary text file.
+ This file does not contain any unusual text.
+ This file is not unusual.</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>grep file tstfile | grep text</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>This is an ordinary text file.
+ This file does not contain any unusual text.</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>--</P
+><P
+><A
+NAME="EGREPREF"
+></A
+><B
+CLASS="COMMAND"
+>egrep</B
+>
+				- <EM
+>扩展的grep</EM
+> - 这个命令与<B
+CLASS="COMMAND"
+>grep -E</B
+>等价. 
+				这个命令用起来有些不同, 
+				由于使用<A
+HREF="regexp.html#REGEXREF"
+>正则表达式</A
+>的扩展集合, 
+				将会使得搜索更具灵活性.
+	      它也允许逻辑|(<I
+CLASS="FIRSTTERM"
+>或</I
+>)操作. 
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash $ </SAMP
+><KBD
+CLASS="USERINPUT"
+>egrep 'matches|Matches' file.txt</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Line 1 matches.
+ Line 3 Matches.
+ Line 4 contains matches, but also Matches</SAMP
+>
+              </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><P
+><B
+CLASS="COMMAND"
+>fgrep</B
+> - <EM
+>快速的grep</EM
+>
+			- 这个命令与<B
+CLASS="COMMAND"
+>grep -F</B
+>等价. 
+			这是一种按照字符串字面意思进行的搜索(即不允许使用正则表达式), 
+			这样有时候会使搜索变得容易一些. 
+	      </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在某些Linux发行版中, 
+				  <B
+CLASS="COMMAND"
+>egrep</B
+>和<B
+CLASS="COMMAND"
+>fgrep</B
+>都是<B
+CLASS="COMMAND"
+>grep</B
+>命令的符号链接或者别名, 
+				  只不过在调用的时候分别使用了<CODE
+CLASS="OPTION"
+>-E</CODE
+>和<CODE
+CLASS="OPTION"
+>-F</CODE
+>选项罢了. </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="DICTLOOKUP"
+></A
+><P
+><B
+>例子 12-16. 在<I
+CLASS="CITETITLE"
+>1913年的韦氏词典</I
+>中查找定义</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# dict-lookup.sh
+  3&nbsp;
+  4&nbsp;#  这个脚本在1913年的韦氏词典中查找定义.
+  5&nbsp;#  这本公共词典可以通过不同的
+  6&nbsp;#+ 站点来下载,包括
+  7&nbsp;#+ Project Gutenberg (http://www.gutenberg.org/etext/247).
+  8&nbsp;#                                                                  
+  9&nbsp;#  在使用本脚本之前,
+ 10&nbsp;#+ 先要将这本字典由DOS格式转换为UNIX格式(只以LF作为行结束符).
+ 11&nbsp;#  将这个文件存储为纯文本形式, 并且保证是未压缩的ASCII格式.
+ 12&nbsp;#  将DEFAULT_DICTFILE变量以path/filename形式设置好.
+ 13&nbsp;
+ 14&nbsp;
+ 15&nbsp;E_BADARGS=65
+ 16&nbsp;MAXCONTEXTLINES=50                        # 显示的最大行数. 
+ 17&nbsp;DEFAULT_DICTFILE="/usr/share/dict/webster1913-dict.txt"
+ 18&nbsp;                                          # 默认的路径和文件名.
+ 19&nbsp;                                          # 在必要的时候可以进行修改.
+ 20&nbsp;#  注意:
+ 21&nbsp;#  -----
+ 22&nbsp;#  这个特定的1913年版的韦氏词典
+ 23&nbsp;#+ 在每个入口都是以大写字母开头的
+ 24&nbsp;#+ (剩余的字符都是小写).
+ 25&nbsp;#  只有每部分的第一行是以这种形式开始的,
+ 26&nbsp;#+ 这也就是为什么搜索算法是下边的这个样子.
+ 27&nbsp;
+ 28&nbsp;
+ 29&nbsp;
+ 30&nbsp;if [[ -z $(echo "$1" | sed -n '/^[A-Z]/p') ]]
+ 31&nbsp;#  必须指定一个要查找的单词,
+ 32&nbsp;#+ 并且这个单词必须以大写字母开头.
+ 33&nbsp;then
+ 34&nbsp;  echo "Usage: `basename $0` Word-to-define [dictionary-file]"
+ 35&nbsp;  echo
+ 36&nbsp;  echo "Note: Word to look up must start with capital letter,"
+ 37&nbsp;  echo "with the rest of the word in lowercase."
+ 38&nbsp;  echo "--------------------------------------------"
+ 39&nbsp;  echo "Examples: Abandon, Dictionary, Marking, etc."
+ 40&nbsp;  exit $E_BADARGS
+ 41&nbsp;fi
+ 42&nbsp;
+ 43&nbsp;
+ 44&nbsp;if [ -z "$2" ]                            #  也可以指定不同的词典
+ 45&nbsp;                                          #+ 作为这个脚本的第2个参数传递进来.
+ 46&nbsp;then
+ 47&nbsp;  dictfile=$DEFAULT_DICTFILE
+ 48&nbsp;else
+ 49&nbsp;  dictfile="$2"
+ 50&nbsp;fi
+ 51&nbsp;
+ 52&nbsp;# ---------------------------------------------------------
+ 53&nbsp;Definition=$(fgrep -A $MAXCONTEXTLINES "$1 \\" "$dictfile")
+ 54&nbsp;#                                   以 "Word \..." 这种形式定义
+ 55&nbsp;#                                                               
+ 56&nbsp;#  当然, 即使搜索一个特别大的文本文件的时候
+ 57&nbsp;#+ "fgrep"也是足够快的.
+ 58&nbsp;
+ 59&nbsp;
+ 60&nbsp;# 现在, 剪掉定义块.
+ 61&nbsp;
+ 62&nbsp;echo "$Definition" |
+ 63&nbsp;sed -n '1,/^[A-Z]/p' |
+ 64&nbsp;#  从输出的第一行
+ 65&nbsp;#+ 打印到下一部分的第一行.
+ 66&nbsp;sed '$d' | sed '$d'
+ 67&nbsp;#  删除输出的最后两行
+ 68&nbsp;#+ (空行和下一部分的第一行).
+ 69&nbsp;# ---------------------------------------------------------
+ 70&nbsp;
+ 71&nbsp;exit 0
+ 72&nbsp;
+ 73&nbsp;# 练习:
+ 74&nbsp;# -----
+ 75&nbsp;# 1)  修改这个脚本, 让它具备能够处理任何字符形式的输入
+ 76&nbsp;#   + (大写, 小写, 或大小写混合), 然后将其转换为
+ 77&nbsp;#   + 能够处理的统一形式.
+ 78&nbsp;#                                                       
+ 79&nbsp;# 2)  将这个脚本转化为一个GUI应用,
+ 80&nbsp;#   + 使用一些比如像"gdialog"的东西 .  .  .
+ 81&nbsp;#     这样的话, 脚本将不再从命令行中
+ 82&nbsp;#   + 取得这些参数.
+ 83&nbsp;#                                                       
+ 84&nbsp;# 3)  修改这个脚本让它具备能够分析另外一个
+ 85&nbsp;#   + 公共词典的能力, 比如 U.S. Census Bureau Gazetteer.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><B
+CLASS="COMMAND"
+>agrep</B
+> (<EM
+>近似grep</EM
+>)扩展了<B
+CLASS="COMMAND"
+>grep</B
+>近似匹配的能力. 
+			搜索的字符串可能会与最终匹配结果所找到字符串有些不同. 
+			这个工具并不是核心Linux发行版的一部分. 
+	      </P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>为了搜索压缩文件, 
+				  应使用<B
+CLASS="COMMAND"
+>zgrep</B
+>, 
+				  <B
+CLASS="COMMAND"
+>zegrep</B
+>, 
+				  或<B
+CLASS="COMMAND"
+>zfgrep</B
+>. 
+				  这些命令也可以对未压缩的文件进行搜索, 
+				  只不过会比一般的<B
+CLASS="COMMAND"
+>grep</B
+>, 
+				  <B
+CLASS="COMMAND"
+>egrep</B
+>, 
+				  和<B
+CLASS="COMMAND"
+>fgrep</B
+>慢上一些. 
+	      当然, 在你要搜索的文件中如果混合了压缩和未压缩的文件的话, 
+	      那么使用这些命令是非常方便的. </P
+><P
+>如果要搜索<A
+HREF="filearchiv.html#BZIPREF"
+>bzipped</A
+>类型的文件, 
+	      使用<B
+CLASS="COMMAND"
+>bzgrep</B
+>. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>look</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>look</B
+>命令与<B
+CLASS="COMMAND"
+>grep</B
+>命令很相似, 
+			  但是这个命令只能做<SPAN
+CLASS="QUOTE"
+>"字典查询"</SPAN
+>, 
+			  也就是它所搜索的文件必须是已经排过序的单词列表. 
+			  默认情况下, 如果没有指定搜索哪个文件, 
+			  <B
+CLASS="COMMAND"
+>look</B
+>命令就默认搜索<TT
+CLASS="FILENAME"
+>/usr/dict/words</TT
+>(译者: 
+			  感觉好像应该是<TT
+CLASS="FILENAME"
+>/usr/share/dict/words</TT
+>), 
+			  当然也可以指定其他目录下的文件进行搜索. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="LOOKUP"
+></A
+><P
+><B
+>例子 12-17. 检查列表中单词的正确性</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# lookup: 对指定数据文件中的每个单词都做一遍字典查询. 
+  3&nbsp;
+  4&nbsp;file=words.data  # 指定的要搜索的数据文件. 
+  5&nbsp;
+  6&nbsp;echo
+  7&nbsp;
+  8&nbsp;while [ "$word" != end ]  # 数据文件中最后一个单词. 
+  9&nbsp;do
+ 10&nbsp;  read word      # 从数据文件中读, 因为在循环的后边重定向了. 
+ 11&nbsp;  look $word &#62; /dev/null  # 不想将字典文件中的行显示出来.
+ 12&nbsp;  lookup=$?      # 'look'命令的退出状态. 
+ 13&nbsp;
+ 14&nbsp;  if [ "$lookup" -eq 0 ]
+ 15&nbsp;  then
+ 16&nbsp;    echo "\"$word\" is valid."
+ 17&nbsp;  else
+ 18&nbsp;    echo "\"$word\" is invalid."
+ 19&nbsp;  fi  
+ 20&nbsp;
+ 21&nbsp;done &#60;"$file"    # 将stdin重定向到$file, 所以"reads"来自于$file.
+ 22&nbsp;
+ 23&nbsp;echo
+ 24&nbsp;
+ 25&nbsp;exit 0
+ 26&nbsp;
+ 27&nbsp;# ----------------------------------------------------------------
+ 28&nbsp;# 下边的代码行将不会执行, 因为上边已经有"exit"命令了.
+ 29&nbsp;
+ 30&nbsp;
+ 31&nbsp;# Stephane Chazelas建议使用下边更简洁的方法:
+ 32&nbsp;
+ 33&nbsp;while read word &#38;&#38; [[ $word != end ]]
+ 34&nbsp;do if look "$word" &#62; /dev/null
+ 35&nbsp;   then echo "\"$word\" is valid."
+ 36&nbsp;   else echo "\"$word\" is invalid."
+ 37&nbsp;   fi
+ 38&nbsp;done &#60;"$file"
+ 39&nbsp;
+ 40&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>sed</B
+>, <B
+CLASS="COMMAND"
+>awk</B
+></DT
+><DD
+><P
+>这个两个命令都是独立的脚本语言, 
+			  尤其适合分析文本文件和命令输出. 
+			  既可以单独使用, 也可以结合管道和在shell脚本中使用. 
+	      </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+><A
+HREF="sedawk.html#SEDREF"
+>sed</A
+></B
+></DT
+><DD
+><P
+>非交互式的<SPAN
+CLASS="QUOTE"
+>"流编辑器"</SPAN
+>, 
+			  在批处理模式下, 允许使用多个<B
+CLASS="COMMAND"
+>ex</B
+>命令. 
+	      你会发现它在shell脚本中非常有用. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+><A
+HREF="awk.html#AWKREF"
+>awk</A
+></B
+></DT
+><DD
+><P
+>可编程的文件提取器和文件格式化工具, 
+			  在结构化的文本文件中, 
+			  处理或提取特定域(特定列)具有非常好的表现. 
+			  它的语法与C语言很类似. 
+	      </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>wc</B
+></DT
+><DD
+><P
+><EM
+>wc</EM
+>可以统计文件或I/O流中的<SPAN
+CLASS="QUOTE"
+>"单词数量"</SPAN
+>: 
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash $ </SAMP
+><KBD
+CLASS="USERINPUT"
+>wc /usr/share/doc/sed-4.1.2/README</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>13  70  447 README</SAMP
+>
+[13 lines  70 words  447 characters]</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><KBD
+CLASS="USERINPUT"
+>wc -w</KBD
+> 统计单词数量. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>wc -l</KBD
+> 统计行数量. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>wc -c</KBD
+> 统计字节数量. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>wc -m</KBD
+> 统计字符数量. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>wc -L</KBD
+> 给出文件中最长行的长度. </P
+><P
+>使用<B
+CLASS="COMMAND"
+>wc</B
+>命令来统计当前工作目录下有多少个<EM
+>.txt</EM
+>文件: 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;$ ls *.txt | wc -l
+  2&nbsp;# 因为列出的文件名都是以换行符区分的, 所以使用-l来统计.
+  3&nbsp;
+  4&nbsp;
+  5&nbsp;# 另一种方法:
+  6&nbsp;#      find . -maxdepth 1 -name \*.txt -print0 | grep -cz .
+  7&nbsp;#      (shopt -s nullglob; set -- *.txt; echo $#)
+  8&nbsp;
+  9&nbsp;# 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+><B
+CLASS="COMMAND"
+>wc</B
+>命令来统计所有以 d - h 开头的文件的大小. 
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>wc [d-h]* | grep total | awk '{print $3}'</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>71832</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>使用<B
+CLASS="COMMAND"
+>wc</B
+>命令来查看指定文件中包含<SPAN
+CLASS="QUOTE"
+>"Linux"</SPAN
+>的行一共有多少. 
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>grep Linux abs-book.sgml | wc -l</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>50</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>请参考<A
+HREF="filearchiv.html#EX52"
+>例子 12-35</A
+>和<A
+HREF="redircb.html#REDIR4"
+>例子 16-8</A
+>. </P
+><P
+>某些命令的某些选项其实已经包含了<B
+CLASS="COMMAND"
+>wc</B
+>命令的部分功能.
+	      
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;... | grep foo | wc -l
+  2&nbsp;# 这个命令使用的非常频繁, 但事实上它有更简便的写法.
+  3&nbsp;
+  4&nbsp;... | grep -c foo
+  5&nbsp;# 只要使用grep命令的"-c"(或"--count")选项就能达到同样的目的.
+  6&nbsp;
+  7&nbsp;# 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><A
+NAME="TRREF"
+></A
+><B
+CLASS="COMMAND"
+>tr</B
+></DT
+><DD
+><P
+>字符转换过滤器. </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><A
+HREF="special-chars.html#UCREF"
+>必须使用引用或中括号</A
+>, 
+				这样做才是合理的. 
+				引用可以阻止shell重新解释出现在<B
+CLASS="COMMAND"
+>tr</B
+>命令序列中的特殊字符. 
+	      中括号应该被引用起来防止被shell扩展. </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>无论<KBD
+CLASS="USERINPUT"
+>tr "A-Z" "*" &#60;filename</KBD
+>还是<KBD
+CLASS="USERINPUT"
+>tr A-Z \* 
+		  &#60;filename</KBD
+>都可以将<TT
+CLASS="FILENAME"
+>filename</TT
+>中的大写字符修改为星号(写到<TT
+CLASS="FILENAME"
+>stdout</TT
+>). 
+	      但是在某些系统上可能就不能正常工作了, 而<KBD
+CLASS="USERINPUT"
+>tr A-Z
+	      '[**]'</KBD
+>在任何系统上都可以正常工作. </P
+><P
+><CODE
+CLASS="OPTION"
+>-d</CODE
+>选项删除指定范围的字符. 
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo "abcdef"                 # abcdef
+  2&nbsp;echo "abcdef" | tr -d b-d     # aef
+  3&nbsp;
+  4&nbsp;
+  5&nbsp;tr -d 0-9 &#60;filename
+  6&nbsp;# 删除"filename"中所有的数字. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><CODE
+CLASS="OPTION"
+>--squeeze-repeats</CODE
+> 
+			(或<CODE
+CLASS="OPTION"
+>-s</CODE
+>)选项用来在重复字符序列中除去除第一个字符以外的所有字符. 
+				这个选项在删除多余<A
+HREF="special-chars.html#WHITESPACEREF"
+>空白</A
+>的时候非常有用. 
+
+
+
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo "XXXXX" | tr --squeeze-repeats 'X'</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>X</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><CODE
+CLASS="OPTION"
+>-c</CODE
+><SPAN
+CLASS="QUOTE"
+>"complement"</SPAN
+>选项将会<EM
+>反转</EM
+>匹配的字符集. 
+			通过这个选项, 
+			<B
+CLASS="COMMAND"
+>tr</B
+>将只会对那些<EM
+>不</EM
+>匹配的字符起作用. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo "acfdeb123" | tr -c b-d +</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>+c+d+b++++</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>注意<B
+CLASS="COMMAND"
+>tr</B
+>命令支持<A
+HREF="x13673.html#POSIXREF"
+>POSIX字符类</A
+>.
+	  <A
+NAME="AEN8402"
+HREF="#FTN.AEN8402"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo "abcd2ef1" | tr '[:alpha:]' -</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>----2--1</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX49"
+></A
+><P
+><B
+>例子 12-18. <B
+CLASS="COMMAND"
+>转换大写</B
+>: 把一个文件的内容全部转换为大写. </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 把一个文件的内容全部转换为大写. 
+  3&nbsp;
+  4&nbsp;E_BADARGS=65
+  5&nbsp;
+  6&nbsp;if [ -z "$1" ]  # 检查命令行参数.
+  7&nbsp;then
+  8&nbsp;  echo "Usage: `basename $0` filename"
+  9&nbsp;  exit $E_BADARGS
+ 10&nbsp;fi  
+ 11&nbsp;
+ 12&nbsp;tr a-z A-Z &#60;"$1"
+ 13&nbsp;
+ 14&nbsp;# 与上边的作用相同, 但是使用了POSIX字符集标记方法:
+ 15&nbsp;#        tr '[:lower:]' '[:upper:]' &#60;"$1"
+ 16&nbsp;# 感谢, S.C.
+ 17&nbsp;
+ 18&nbsp;exit 0
+ 19&nbsp;
+ 20&nbsp;#  练习:
+ 21&nbsp;#  重写这个脚本, 通过选项可以控制脚本或者
+ 22&nbsp;#+ 转换为大写或者转换为小写.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="LOWERCASE"
+></A
+><P
+><B
+>例子 12-19. <B
+CLASS="COMMAND"
+>转换小写</B
+>: 将当前目录下的所有文全部转换为小写. </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;#
+  3&nbsp;#  将当前目录下的所有文全部转换为小写. 
+  4&nbsp;#                                      
+  5&nbsp;#  灵感来自于John Dubois的脚本, 
+  6&nbsp;#+ Chet Ramey将其转换为Bash脚本, 
+  7&nbsp;#+ 然后被本书作者精简了一下. 
+  8&nbsp;
+  9&nbsp;
+ 10&nbsp;for filename in *                # 遍历当前目录下的所有文件. 
+ 11&nbsp;do                                                                         
+ 12&nbsp;   fname=`basename $filename`                                              
+ 13&nbsp;   n=`echo $fname | tr A-Z a-z`  # 将名字修改为小写. 
+ 14&nbsp;   if [ "$fname" != "$n" ]       # 只对那些文件名不是小写的文件进行重命名. 
+ 15&nbsp;   then
+ 16&nbsp;     mv $fname $n
+ 17&nbsp;   fi  
+ 18&nbsp;done   
+ 19&nbsp;
+ 20&nbsp;exit $?
+ 21&nbsp;
+ 22&nbsp;
+ 23&nbsp;# 下边的代码将不会被执行, 因为上边的"exit". 
+ 24&nbsp;#-------------------------------------------#
+ 25&nbsp;# 删除上边的内容, 来运行下边的内容. 
+ 26&nbsp;                                                                
+ 27&nbsp;# 对于那些文件名中包含空白和新行的文件, 上边的脚本就不能工作了. 
+ 28&nbsp;# Stephane Chazelas因此建议使用下边的方法: 
+ 29&nbsp;
+ 30&nbsp;
+ 31&nbsp;for filename in *    # 不必非得使用basename命令, 
+ 32&nbsp;                     # 因为"*"不会返回任何包含"/"的文件. 
+ 33&nbsp;do n=`echo "$filename/" | tr '[:upper:]' '[:lower:]'`
+ 34&nbsp;#                             POSIX 字符集标记法.
+ 35&nbsp;#                    添加的斜线是为了在文件名结尾换行不会被
+ 36&nbsp;#                    命令替换删掉. 
+ 37&nbsp;   # 变量替换:
+ 38&nbsp;   n=${n%/}          # 从文件名中将上边添加在结尾的斜线删除掉. 
+ 39&nbsp;   [[ $filename == $n ]] || mv "$filename" "$n"
+ 40&nbsp;                     # 检查文件名是否已经是小写. 
+ 41&nbsp;done
+ 42&nbsp;
+ 43&nbsp;exit $?</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="DU"
+></A
+><P
+><B
+>例子 12-20. <B
+CLASS="COMMAND"
+>Du</B
+>: DOS到UNIX文本文件的转换. </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# Du.sh: DOS到UNIX文本文件的转换.
+  3&nbsp;
+  4&nbsp;E_WRONGARGS=65
+  5&nbsp;
+  6&nbsp;if [ -z "$1" ]
+  7&nbsp;then
+  8&nbsp;  echo "Usage: `basename $0` filename-to-convert"
+  9&nbsp;  exit $E_WRONGARGS
+ 10&nbsp;fi
+ 11&nbsp;
+ 12&nbsp;NEWFILENAME=$1.unx
+ 13&nbsp;
+ 14&nbsp;CR='\015'  # 回车.
+ 15&nbsp;           # 015是8进制的ASCII码的回车.
+ 16&nbsp;           # DOS中文本文件的行结束符是CR-LF.
+ 17&nbsp;           # UNIX中文本文件的行结束符只是LF.
+ 18&nbsp;
+ 19&nbsp;tr -d $CR &#60; $1 &#62; $NEWFILENAME
+ 20&nbsp;# 删除回车并且写到新文件中. 
+ 21&nbsp;
+ 22&nbsp;echo "Original DOS text file is \"$1\"."
+ 23&nbsp;echo "Converted UNIX text file is \"$NEWFILENAME\"."
+ 24&nbsp;
+ 25&nbsp;exit 0
+ 26&nbsp;
+ 27&nbsp;# 练习:
+ 28&nbsp;# -----
+ 29&nbsp;# 修改上边的脚本完成从UNIX到DOS的转换. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ROT13"
+></A
+><P
+><B
+>例子 12-21. <B
+CLASS="COMMAND"
+>rot13</B
+>: rot13, 弱智加密. </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# rot13.sh: 典型的rot13算法, 
+  3&nbsp;#           使用这种方法加密至少可以愚弄一下3岁小孩. 
+  4&nbsp;
+  5&nbsp;# 用法: ./rot13.sh filename
+  6&nbsp;# 或     ./rot13.sh &#60;filename
+  7&nbsp;# 或     ./rot13.sh and supply keyboard input (stdin)
+  8&nbsp;
+  9&nbsp;cat "$@" | tr 'a-zA-Z' 'n-za-mN-ZA-M'   # "a"变为"n", "b"变为"o", 等等. 
+ 10&nbsp;#  'cat "$@"'结构
+ 11&nbsp;#+ 允许从stdin或者从文件中获得输入. 
+ 12&nbsp;
+ 13&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="CRYPTOQUOTE"
+></A
+><P
+><B
+>例子 12-22. 产生<SPAN
+CLASS="QUOTE"
+>"Crypto-Quote"</SPAN
+>游戏(译者: 一种文字游戏)</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# crypto-quote.sh: 加密
+  3&nbsp;
+  4&nbsp;#  使用单码替换(单一字母替换法)来进行加密. 
+  5&nbsp;#  这个脚本的结果与"Crypto Quote"游戏
+  6&nbsp;#+ 的行为很相似. 
+  7&nbsp;
+  8&nbsp;
+  9&nbsp;key=ETAOINSHRDLUBCFGJMQPVWZYXK
+ 10&nbsp;# "key"不过是一个乱序的字母表.
+ 11&nbsp;# 修改"key"就会修改加密的结果.
+ 12&nbsp;
+ 13&nbsp;# 'cat "$@"' 结构既可以从stdin获得输入, 也可以从文件中获得输入. 
+ 14&nbsp;# 如果使用stdin, 那么要想结束输入就使用 Control-D. 
+ 15&nbsp;# 否则就要在命令行上指定文件名. 
+ 16&nbsp;
+ 17&nbsp;cat "$@" | tr "a-z" "A-Z" | tr "A-Z" "$key"
+ 18&nbsp;#        |   转化为大写   |     加密
+ 19&nbsp;# 小写, 大写, 或混合大小写, 都可以正常工作.
+ 20&nbsp;# 但是传递进来的非字母字符将不会起任何变化.
+ 21&nbsp;
+ 22&nbsp;
+ 23&nbsp;# 用下边的语句试试这个脚本:
+ 24&nbsp;# "Nothing so needs reforming as other people's habits."
+ 25&nbsp;# --Mark Twain
+ 26&nbsp;#                                                        
+ 27&nbsp;# 输出为:
+ 28&nbsp;# "CFPHRCS QF CIIOQ MINFMBRCS EQ FPHIM GIFGUI'Q HETRPQ."
+ 29&nbsp;# --BEML PZERC
+ 30&nbsp;                                                         
+ 31&nbsp;# 解密:
+ 32&nbsp;# cat "$@" | tr "$key" "A-Z"
+ 33&nbsp;                                                         
+ 34&nbsp;                                                         
+ 35&nbsp;#  这个简单的密码可以轻易的被一个12岁的小孩
+ 36&nbsp;#+ 用铅笔和纸破解.
+ 37&nbsp;
+ 38&nbsp;exit 0
+ 39&nbsp;
+ 40&nbsp;#  练习:
+ 41&nbsp;#  -----
+ 42&nbsp;#  修改这个脚本, 让它可以用命令行参数
+ 43&nbsp;#+ 来决定加密或解密.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><TABLE
+CLASS="SIDEBAR"
+BORDER="1"
+CELLPADDING="5"
+><TR
+><TD
+><DIV
+CLASS="SIDEBAR"
+><A
+NAME="AEN8430"
+></A
+><P
+><B
+><B
+CLASS="COMMAND"
+>tr</B
+>的不同版本</B
+></P
+><P
+>			<B
+CLASS="COMMAND"
+>tr</B
+>工具在历史上有2个重要版本. 
+			BSD版本不需要使用中括号(<KBD
+CLASS="USERINPUT"
+>tr a-z A-Z</KBD
+>), 
+			但是SysV版本则需要中括号(<KBD
+CLASS="USERINPUT"
+>tr '[a-z]' '[A-Z]'</KBD
+>). 
+			GNU版本的<B
+CLASS="COMMAND"
+>tr</B
+>命令与BSD版本比较象, 
+			所以最好使用中括号来引用字符范围. 
+	    </P
+></DIV
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><A
+NAME="FOLDREF"
+></A
+><B
+CLASS="COMMAND"
+>fold</B
+></DT
+><DD
+><P
+>将输入按照指定宽度进行折行. 
+			  这里有一个非常有用的选项<CODE
+CLASS="OPTION"
+>-s</CODE
+>, 
+			  这个选项可以使用空格进行断行(译者: 
+			  事实上只有外文才需要使用空格断行, 
+			  中文是不需要的)(请参考<A
+HREF="textproc.html#EX50"
+>例子 12-23</A
+>和<A
+HREF="contributed-scripts.html#MAILFORMAT"
+>例子 A-1</A
+>). </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>fmt</B
+></DT
+><DD
+><P
+>一个简单的文件格式器, 通常用在管道中, 
+			  将一个比较长的文本行输出进行<SPAN
+CLASS="QUOTE"
+>"折行"</SPAN
+>. 
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX50"
+></A
+><P
+><B
+>例子 12-23. 格式化文件列表.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;WIDTH=40                    # 设为40列宽. 
+  4&nbsp;
+  5&nbsp;b=`ls /usr/local/bin`       # 取得文件列表...
+  6&nbsp;
+  7&nbsp;echo $b | fmt -w $WIDTH
+  8&nbsp;
+  9&nbsp;# 也可以使用如下方法, 作用是相同的.
+ 10&nbsp;#    echo $b | fold - -s -w $WIDTH
+ 11&nbsp; 
+ 12&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>请参考<A
+HREF="moreadv.html#EX41"
+>例子 12-5</A
+>. </P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果想找到一个更强力的<B
+CLASS="COMMAND"
+>fmt</B
+>工具可以选择Kamil 
+			Toman的工具<B
+CLASS="COMMAND"
+>par</B
+>, 
+	      这个工具可以从后边的这个网址取得<A
+HREF="http://www.cs.berkeley.edu/~amc/Par/"
+TARGET="_top"
+>http://www.cs.berkeley.edu/~amc/Par/</A
+>.
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>col</B
+></DT
+><DD
+><P
+>这个命令用来滤除标准输入的反向换行符号. 
+			  这个工具还可以将空白用等价的tab来替换. 
+	      <B
+CLASS="COMMAND"
+>col</B
+>工具最主要的应用还是从特定的文本处理工具中过滤输出, 
+		  比如<B
+CLASS="COMMAND"
+>groff</B
+>和<B
+CLASS="COMMAND"
+>tbl</B
+>. 
+		  (译者: 主要用来将man页转化为文本.) </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>column</B
+></DT
+><DD
+><P
+>列格式化工具. 
+			  通过在合适的位置插入tab, 
+			  这个过滤工具会将列类型的文本转化为<SPAN
+CLASS="QUOTE"
+>"易于打印"</SPAN
+>的表格式进行输出. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="COL"
+></A
+><P
+><B
+>例子 12-24. 使用<B
+CLASS="COMMAND"
+>column</B
+>来格式化目录列表</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 这是"column" man页中的一个例子, 作者对这个例子做了很小的修改. 
+  3&nbsp;
+  4&nbsp;
+  5&nbsp;(printf "PERMISSIONS LINKS OWNER GROUP SIZE MONTH DAY HH:MM PROG-NAME\n" \
+  6&nbsp;; ls -l | sed 1d) | column -t
+  7&nbsp;
+  8&nbsp;#  管道中的"sed 1d"删除输出的第一行, 
+  9&nbsp;#+ 第一行将是"total        N", 
+ 10&nbsp;#+ 其中"N"是"ls -l"找到的文件总数. 
+ 11&nbsp;                                                   
+ 12&nbsp;# "column"中的-t选项用来转化为易于打印的表形式. 
+ 13&nbsp;
+ 14&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>colrm</B
+></DT
+><DD
+><P
+>列删除过滤器. 
+			  这个工具将会从文件中删除指定的列(列中的字符串)并且写到文件中, 
+			  如果指定的列不存在, 
+			  那么就回到<TT
+CLASS="FILENAME"
+>stdout</TT
+>. 
+	      <KBD
+CLASS="USERINPUT"
+>colrm 2 4 &#60;filename</KBD
+>将会删除<TT
+CLASS="FILENAME"
+>filename</TT
+>文件中每行的第2到第4列之间的所有字符. 
+	      </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果这个文件包含tab和不可打印字符, 
+				  那将会引起不可预期的行为. 在这种情况下, 
+				  应该通过管道的手段使用<A
+HREF="textproc.html#EXPANDREF"
+>expand</A
+>和<B
+CLASS="COMMAND"
+>unexpand</B
+>来预处理<B
+CLASS="COMMAND"
+>colrm</B
+>. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>nl</B
+></DT
+><DD
+><P
+>计算行号过滤器. 
+			  <KBD
+CLASS="USERINPUT"
+>nl filename</KBD
+>将会把<TT
+CLASS="FILENAME"
+>filename</TT
+>文件的所有内容都输出到<TT
+CLASS="FILENAME"
+>stdout</TT
+>上, 
+			  但是会在每个非空行的前面加上连续的行号. 
+			  如果没有<TT
+CLASS="FILENAME"
+>filename</TT
+>参数, 
+			  那么就操作<TT
+CLASS="FILENAME"
+>stdin. </TT
+></P
+><P
+><B
+CLASS="COMMAND"
+>nl</B
+>命令的输出与<KBD
+CLASS="USERINPUT"
+>cat -n</KBD
+>非常相似, 
+			  然而, 默认情况下<B
+CLASS="COMMAND"
+>nl</B
+>不会列出空行. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="LNUM"
+></A
+><P
+><B
+>例子 12-25. <B
+CLASS="COMMAND"
+>nl</B
+>: 一个自己计算行号的脚本. </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# line-number.sh
+  3&nbsp;
+  4&nbsp;# 这个脚本将会echo自身两次, 并显示行号. 
+  5&nbsp;                                                              
+  6&nbsp;# 'nl'命令显示的时候你将会看到, 本行是第4行, 因为它不计空行. 
+  7&nbsp;# 'cat -n'命令显示的时候你将会看到, 本行是第6行. 
+  8&nbsp;
+  9&nbsp;nl `basename $0`
+ 10&nbsp;
+ 11&nbsp;echo; echo  # 下边, 让我们试试 'cat -n'
+ 12&nbsp;
+ 13&nbsp;cat -n `basename $0`
+ 14&nbsp;# 区别就是'cat -n'对空行也进行计数. 
+ 15&nbsp;# 注意'nl -ba'也会这么做. 
+ 16&nbsp;
+ 17&nbsp;exit 0
+ 18&nbsp;# -----------------------------------------------------------------</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>pr</B
+></DT
+><DD
+><P
+>格式化打印过滤器. 
+			  这个命令会将文件(或<TT
+CLASS="FILENAME"
+>stdout</TT
+>)分页, 
+			  将它们分成合适的小块以便于硬拷贝打印或者在屏幕上浏览. 
+			  使用这个命令的不同的参数可以完成好多任务, 
+			  比如对行和列的操作, 加入行, 设置页边, 计算行号, 
+			  添加页眉, 合并文件等等. 
+	      <B
+CLASS="COMMAND"
+>pr</B
+>命令集合了许多命令的功能, 
+	      比如<B
+CLASS="COMMAND"
+>nl</B
+>, <B
+CLASS="COMMAND"
+>paste</B
+>,
+		  <B
+CLASS="COMMAND"
+>fold</B
+>, <B
+CLASS="COMMAND"
+>column</B
+>, 
+		  和<B
+CLASS="COMMAND"
+>expand</B
+>. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>pr -o 5 --width=65 fileZZZ | more</KBD
+>
+		   这个命令对<TT
+CLASS="FILENAME"
+>fileZZZ</TT
+>进行了比较好的分页, 
+		   并且打印到屏幕上. 文件的缩进被设置为5, 
+		   总宽度设置为65. </P
+><P
+>一个非常有用的选项<CODE
+CLASS="OPTION"
+>-d</CODE
+>, 
+	      强制隔行打印(与<B
+CLASS="COMMAND"
+>sed -G</B
+>效果相同). </P
+></DD
+><DT
+><A
+NAME="GETTEXTREF"
+></A
+><B
+CLASS="COMMAND"
+>gettext</B
+></DT
+><DD
+><P
+>GNU <B
+CLASS="COMMAND"
+>gettext</B
+>包是专门用来将程序的输出翻译或者<A
+HREF="localization.html"
+>本地化</A
+>为不同国家语言的工具集. 
+			在最开始的时候仅仅支持C语言, 
+			现在已经支持了相当数量的其它程序语言和脚本语言. 
+	      </P
+><P
+>想要查看<B
+CLASS="COMMAND"
+>gettext</B
+><EM
+>程序</EM
+>如何在shell脚本中使用. 
+			  请参考<TT
+CLASS="REPLACEABLE"
+><I
+>info页</I
+></TT
+>. </P
+></DD
+><DT
+><A
+NAME="MSGFMTREF"
+></A
+><B
+CLASS="COMMAND"
+>msgfmt</B
+></DT
+><DD
+><P
+>一个产生二进制消息目录的程序. 
+			  这个命令主要用来<A
+HREF="localization.html"
+>本地化</A
+>. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>iconv</B
+></DT
+><DD
+><P
+>一个可以将文件转化为不同编码格式(字符集)的工具. 
+			  这个命令主要用来<A
+HREF="localization.html"
+>本地化</A
+>. </P
+><P
+>	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 将字符符串由UTF-8格式转换为UTF-16并且打印到BookList中
+  2&nbsp;function write_utf8_string {
+  3&nbsp;    STRING=$1
+  4&nbsp;    BOOKLIST=$2
+  5&nbsp;    echo -n "$STRING" | iconv -f UTF8 -t UTF16 | cut -b 3- | tr -d \\n &#62;&#62; "$BOOKLIST"
+  6&nbsp;}
+  7&nbsp;
+  8&nbsp;#  来自于Peter Knowles的"booklistgen.sh"脚本
+  9&nbsp;#+ 目的是把文件转换为Sony Librie格式.
+ 10&nbsp;#  (http://booklistgensh.peterknowles.com)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>recode</B
+></DT
+><DD
+><P
+>可以认为这个命令是上边<B
+CLASS="COMMAND"
+>iconv</B
+>命令的专业版本. 
+		这个非常灵活的并可以把整个文件都转换为不同编码格式的工具并不是Linux标准安装的一部分. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>TeX</B
+>, <B
+CLASS="COMMAND"
+>gs</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>TeX</B
+>和<B
+CLASS="COMMAND"
+>Postscript</B
+>都是文本标记语言, 
+			 用来对打印和格式化的视频显示进行预拷贝. </P
+><P
+><B
+CLASS="COMMAND"
+>TeX</B
+>是Donald Knuth精心制作的排版系统. 
+			  通常情况下, 
+			  通过编写脚本的手段来把所有的选项和参数封装起来一起传到标记语言中是一件很方便的事情. 
+		</P
+><P
+><EM
+>Ghostscript</EM
+>
+		(<B
+CLASS="COMMAND"
+>gs</B
+>) 是一个 遵循GPL的Postscript解释器. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>enscript</B
+></DT
+><DD
+><P
+>将纯文本文件转换为PostScript的工具</P
+><P
+>比如, <B
+CLASS="COMMAND"
+>enscript filename.txt -p filename.ps</B
+>
+	      产生一个 PostScript 输出文件<TT
+CLASS="FILENAME"
+>filename.ps</TT
+>. </P
+></DD
+><DT
+><A
+NAME="GROFFREF"
+></A
+><B
+CLASS="COMMAND"
+>groff</B
+>, <B
+CLASS="COMMAND"
+>tbl</B
+>, <B
+CLASS="COMMAND"
+>eqn</B
+></DT
+><DD
+><P
+>另一种文本标记和显示格式化语言是<B
+CLASS="COMMAND"
+>groff</B
+>. 
+			  这是一个对传统UNIX <B
+CLASS="COMMAND"
+>roff/troff</B
+>显示和排版包的GNU增强版本. 
+			  <EM
+>Man页</EM
+>使用的就是<B
+CLASS="COMMAND"
+>groff</B
+>.</P
+><P
+><B
+CLASS="COMMAND"
+>tbl</B
+>表处理工具可以认为是<B
+CLASS="COMMAND"
+>groff</B
+>的一部分, 
+			  它的功能就是将表标记转化到<B
+CLASS="COMMAND"
+>groff</B
+>命令中. </P
+><P
+><B
+CLASS="COMMAND"
+>eqn</B
+>等式处理工具也是<B
+CLASS="COMMAND"
+>groff</B
+>的一部分, 
+			  它的功能是将等式标记转化到<B
+CLASS="COMMAND"
+>groff</B
+>命令中. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="MANVIEW"
+></A
+><P
+><B
+>例子 12-26. <B
+CLASS="COMMAND"
+>manview</B
+>: 查看格式化的man页</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# manview.sh: 将man页源文件格式化以方便查看. 
+  3&nbsp;
+  4&nbsp;#  当你想阅读man页的时候, 这个脚本就有用了. 
+  5&nbsp;#  它允许你在运行的时候查看
+  6&nbsp;#+ 中间结果. 
+  7&nbsp;
+  8&nbsp;E_WRONGARGS=65
+  9&nbsp;
+ 10&nbsp;if [ -z "$1" ]
+ 11&nbsp;then
+ 12&nbsp;  echo "Usage: `basename $0` filename"
+ 13&nbsp;  exit $E_WRONGARGS
+ 14&nbsp;fi
+ 15&nbsp;
+ 16&nbsp;# ---------------------------
+ 17&nbsp;groff -Tascii -man $1 | less
+ 18&nbsp;# 来自于groff的man页.
+ 19&nbsp;# ---------------------------
+ 20&nbsp;
+ 21&nbsp;#  如果man页中包括表或者等式,
+ 22&nbsp;#+ 那么上边的代码就够呛了.
+ 23&nbsp;#  下边的这行代码可以解决上边的这个问题.
+ 24&nbsp;#
+ 25&nbsp;#   gtbl &#60; "$1" | geqn -Tlatin1 | groff -Tlatin1 -mtty-char -man
+ 26&nbsp;#
+ 27&nbsp;#   感谢, S.C.
+ 28&nbsp;
+ 29&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>lex</B
+>, <B
+CLASS="COMMAND"
+>yacc</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>lex</B
+>是用于模式匹配的词汇分析产生程序. 
+			  在Linux系统上这个命令已经被<B
+CLASS="COMMAND"
+>flex</B
+>取代了. </P
+><P
+><B
+CLASS="COMMAND"
+>yacc</B
+>工具基于一系列的语法规范, 产生一个语法分析器. 
+			  在Linux系统上这个命令已经被<B
+CLASS="COMMAND"
+>bison</B
+>取代了. </P
+></DD
+></DL
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN8402"
+HREF="textproc.html#AEN8402"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>对于GNU版本的<B
+CLASS="COMMAND"
+>tr</B
+>命令来说, 
+			  这是唯一一处比那些商业UNIX系统上的一般版本更好的地方. </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="timedate.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="filearchiv.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>时间/日期 命令</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="external.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>文件与归档命令</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

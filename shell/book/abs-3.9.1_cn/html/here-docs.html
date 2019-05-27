@@ -1,0 +1,1407 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Here Document</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="进阶"
+HREF="part3.html"><LINK
+REL="PREVIOUS"
+TITLE="重定向的应用"
+HREF="redirapps.html"><LINK
+REL="NEXT"
+TITLE="Here String"
+HREF="x13628.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="redirapps.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x13628.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="HERE-DOCS"
+></A
+>17. Here Document</H1
+><TABLE
+BORDER="0"
+WIDTH="100%"
+CELLSPACING="0"
+CELLPADDING="0"
+CLASS="EPIGRAPH"
+><TR
+><TD
+WIDTH="45%"
+>&nbsp;</TD
+><TD
+WIDTH="45%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+><P
+><I
+>Here and now, boys.</I
+></P
+></I
+></TD
+></TR
+><TR
+><TD
+WIDTH="45%"
+>&nbsp;</TD
+><TD
+WIDTH="45%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><I
+><SPAN
+CLASS="ATTRIBUTION"
+>Aldous Huxley, <SPAN
+CLASS="QUOTE"
+>"Island"</SPAN
+></SPAN
+></I
+></TD
+></TR
+></TABLE
+><P
+><A
+NAME="HEREDOCREF"
+></A
+></P
+><P
+>一个<I
+CLASS="FIRSTTERM"
+>here document</I
+>就是一段带有特殊目的的代码段. 
+	它使用<A
+HREF="io-redirection.html#IOREDIRREF"
+>I/O重定向</A
+>的形式将一个命令序列传递到一个交互程序或者命令中, 比如<A
+HREF="communications.html#FTPREF"
+>ftp</A
+>, <A
+HREF="basic.html#CATREF"
+>cat</A
+>,
+	或者<I
+CLASS="FIRSTTERM"
+>ex</I
+>文本编辑器. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;COMMAND &#60;&#60;InputComesFromHERE
+  2&nbsp;...
+  3&nbsp;InputComesFromHERE</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><I
+CLASS="FIRSTTERM"
+>limit string</I
+>用来界定命令序列的范围(译者注: 
+	两个相同的limit string之间就是命令序列). 
+	特殊符号<SPAN
+CLASS="TOKEN"
+>&#60;&#60;</SPAN
+>用来标识limit string. 
+	这个符号的作用就是将文件的输出重定向到程序或命令的<TT
+CLASS="FILENAME"
+>stdin</TT
+>中. 
+	与<KBD
+CLASS="USERINPUT"
+>interactive-program &#60;
+	command-file</KBD
+>很相似, 其中<TT
+CLASS="FILENAME"
+>command-file</TT
+>包含: 
+
+	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;command #1
+  2&nbsp;command #2
+  3&nbsp;...</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>而<EM
+>here document</EM
+>看上去是下面这个样子: </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;interactive-program &#60;&#60;LimitString
+  3&nbsp;command #1
+  4&nbsp;command #2
+  5&nbsp;...
+  6&nbsp;LimitString</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>选择一个名字非常诡异<EM
+>limit string</EM
+>能够有效的避免命令列表与<EM
+>limit string</EM
+>重名的问题. </P
+><P
+>注意, 某些情况下, 把<EM
+>here document</EM
+>用在非交互工具或命令中, 也会取得非常好的效果, 
+	比如, <A
+HREF="system.html#WALLREF"
+>wall</A
+>. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX70"
+></A
+><P
+><B
+>例子 17-1. <B
+CLASS="COMMAND"
+>广播</B
+>: 将消息发送给每个登陆的用户</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;wall &#60;&#60;zzz23EndOfMessagezzz23
+  4&nbsp;E-mail your noontime orders for pizza to the system administrator.
+  5&nbsp;    (Add an extra dollar for anchovy or mushroom topping.)
+  6&nbsp;# 附加的消息文本放在这里. 
+  7&nbsp;# 注意: 'wall'命令会把注释行也打印出来. 
+  8&nbsp;zzz23EndOfMessagezzz23
+  9&nbsp;
+ 10&nbsp;# 当然, 更有效率的做法是: 
+ 11&nbsp;#         wall &#60;message-file
+ 12&nbsp;#  然而, 将消息模版嵌入到脚本中
+ 13&nbsp;#+ 只是一种"小吃店"(译者注: 方便但是不卫生)的做法, 而且这种做法是一次性的. 
+ 14&nbsp;
+ 15&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>对于某些看上去不太可能的工具, 
+		  比如<I
+CLASS="FIRSTTERM"
+>vi</I
+>, 
+        也能够使用<EM
+>here document</EM
+>. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX69"
+></A
+><P
+><B
+>例子 17-2. <B
+CLASS="COMMAND"
+>虚拟文件</B
+>: 创建一个2行的虚拟文件</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# 用非交互的方式来使用'vi'编辑一个文件. 
+  4&nbsp;# 模仿'sed'.
+  5&nbsp;
+  6&nbsp;E_BADARGS=65
+  7&nbsp;
+  8&nbsp;if [ -z "$1" ]
+  9&nbsp;then
+ 10&nbsp;  echo "Usage: `basename $0` filename"
+ 11&nbsp;  exit $E_BADARGS
+ 12&nbsp;fi
+ 13&nbsp;
+ 14&nbsp;TARGETFILE=$1
+ 15&nbsp;
+ 16&nbsp;# 在文件中插入两行, 然后保存. 
+ 17&nbsp;#--------Begin here document-----------#
+ 18&nbsp;vi $TARGETFILE &#60;&#60;x23LimitStringx23
+ 19&nbsp;i
+ 20&nbsp;This is line 1 of the example file.
+ 21&nbsp;This is line 2 of the example file.
+ 22&nbsp;^[
+ 23&nbsp;ZZ
+ 24&nbsp;x23LimitStringx23
+ 25&nbsp;#----------End here document-----------#
+ 26&nbsp;
+ 27&nbsp;#  注意上边^[是一个转义符, 键入Ctrl+v &#60;Esc&#62;就行,
+ 28&nbsp;#+ 事实上它是&#60;Esc&#62;键;. 
+ 29&nbsp;
+ 30&nbsp;#  Bram Moolenaar指出这种方法不能使用在'vim'上, (译者注: Bram Moolenaar是vim作者)
+ 31&nbsp;#+ 因为可能会存在终端相互影响的问题. 
+ 32&nbsp;
+ 33&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>		  上边的脚本也可以不用<B
+CLASS="COMMAND"
+>vi</B
+>而改用<B
+CLASS="COMMAND"
+>ex</B
+>来实现, 
+		  <EM
+>here document</EM
+>包含<B
+CLASS="COMMAND"
+>ex</B
+>命令列表的形式足以形成自己的类别了, 
+		  称为<I
+CLASS="FIRSTTERM"
+>ex script</I
+>. 
+
+	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;#  把所有后缀为".txt"文件
+  3&nbsp;#+ 中的"Smith"都替换成"Jones". 
+  4&nbsp;
+  5&nbsp;ORIGINAL=Smith
+  6&nbsp;REPLACEMENT=Jones
+  7&nbsp;
+  8&nbsp;for word in $(fgrep -l $ORIGINAL *.txt)
+  9&nbsp;do
+ 10&nbsp;  # -------------------------------------
+ 11&nbsp;  ex $word &#60;&#60;EOF
+ 12&nbsp;  :%s/$ORIGINAL/$REPLACEMENT/g
+ 13&nbsp;  :wq
+ 14&nbsp;EOF
+ 15&nbsp;  # :%s是"ex"的替换命令. (译者注: 与vi和vim的基本命令相同)
+ 16&nbsp;  # :wq是保存并退出的意思. 
+ 17&nbsp;  # -------------------------------------
+ 18&nbsp;done</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	</P
+><P
+><A
+NAME="CATSCRIPTREF"
+></A
+></P
+><P
+>与<SPAN
+CLASS="QUOTE"
+>"ex script"</SPAN
+>相似的是<I
+CLASS="FIRSTTERM"
+>cat script</I
+>. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX71"
+></A
+><P
+><B
+>例子 17-3. 使用<B
+CLASS="COMMAND"
+>cat</B
+>的多行消息</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;#  'echo'对于打印单行消息来说是非常好用的, 
+  4&nbsp;#+  但是在打印消息块时可能就有点问题了. 
+  5&nbsp;#   'cat' here document可以解决这个限制. 
+  6&nbsp;
+  7&nbsp;cat &#60;&#60;End-of-message
+  8&nbsp;-------------------------------------
+  9&nbsp;This is line 1 of the message.
+ 10&nbsp;This is line 2 of the message.
+ 11&nbsp;This is line 3 of the message.
+ 12&nbsp;This is line 4 of the message.
+ 13&nbsp;This is the last line of the message.
+ 14&nbsp;-------------------------------------
+ 15&nbsp;End-of-message
+ 16&nbsp;
+ 17&nbsp;#  用下边这行代替上边的第7行, 
+ 18&nbsp;#+   cat &#62; $Newfile &#60;&#60;End-of-message
+ 19&nbsp;#+       ^^^^^^^^^^
+ 20&nbsp;#+ 那么就会把输出写到文件$Newfile中, 而不是stdout. 
+ 21&nbsp;
+ 22&nbsp;exit 0
+ 23&nbsp;
+ 24&nbsp;
+ 25&nbsp;#--------------------------------------------
+ 26&nbsp;# 下边的代码不会运行, 因为上边有"exit 0". 
+ 27&nbsp;
+ 28&nbsp;# S.C. 指出下边代码也能够达到相同目的. 
+ 29&nbsp;echo "-------------------------------------
+ 30&nbsp;This is line 1 of the message.
+ 31&nbsp;This is line 2 of the message.
+ 32&nbsp;This is line 3 of the message.
+ 33&nbsp;This is line 4 of the message.
+ 34&nbsp;This is the last line of the message.
+ 35&nbsp;-------------------------------------"
+ 36&nbsp;# 然而, 文本中可能不允许包含双引号, 除非它们被转义. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><CODE
+CLASS="OPTION"
+>-</CODE
+>选项用来标记here document的limit string
+		  (<KBD
+CLASS="USERINPUT"
+>&#60;&#60;-LimitString</KBD
+>), 
+		  可以抑制输出时前边的tab(不是空格). 这么做可以增加一个脚本的可读性. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX71A"
+></A
+><P
+><B
+>例子 17-4. 带有抑制tab功能的多行消息</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 与之前的例子相同, 但是... 
+  3&nbsp;
+  4&nbsp;#  - 选项对于here docutment来说, 
+  5&nbsp;#+ &#60;&#60;-可以抑制文档体前边的tab, 
+  6&nbsp;#+ 而*不*是空格. 
+  7&nbsp;
+  8&nbsp;cat &#60;&#60;-ENDOFMESSAGE
+  9&nbsp;	This is line 1 of the message.
+ 10&nbsp;	This is line 2 of the message.
+ 11&nbsp;	This is line 3 of the message.
+ 12&nbsp;	This is line 4 of the message.
+ 13&nbsp;	This is the last line of the message.
+ 14&nbsp;ENDOFMESSAGE
+ 15&nbsp;# 脚本在输出的时候左边将被刷掉. 
+ 16&nbsp;# 就是说每行前边的tab将不会显示. 
+ 17&nbsp;
+ 18&nbsp;# 上边5行"消息"的前边都是tab, 而不是空格. 
+ 19&nbsp;# 空格是不受&#60;&#60;-影响的. 
+ 20&nbsp;
+ 21&nbsp;# 注意, 这个选项对于*嵌在*中间的tab没作用. 
+ 22&nbsp;
+ 23&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><EM
+>here document</EM
+>支持参数和命令替换. 
+		  所以也可以给here document的消息体传递不同的参数, 
+		  这样相应的也会修改输出. 
+	</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX71B"
+></A
+><P
+><B
+>例子 17-5. 使用参数替换的here document</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 一个使用'cat'命令的here document, 使用了参数替换. 
+  3&nbsp;
+  4&nbsp;# 不传命令行参数给它,   ./scriptname
+  5&nbsp;# 传一个命令行参数给它,   ./scriptname Mortimer
+  6&nbsp;# 传一个包含2个单词(用引号括起来)的命令行参数给它, 
+  7&nbsp;#                           ./scriptname "Mortimer Jones"
+  8&nbsp;
+  9&nbsp;CMDLINEPARAM=1     #  所期望的最少的命令行参数个数. 
+ 10&nbsp;
+ 11&nbsp;if [ $# -ge $CMDLINEPARAM ]
+ 12&nbsp;then
+ 13&nbsp;  NAME=$1          #  如果命令行参数超过1个, 
+ 14&nbsp;                   #+ 那么就只取第一个参数. 
+ 15&nbsp;else
+ 16&nbsp;  NAME="John Doe"  #  默认情况下, 如果没有命令行参数的话. 
+ 17&nbsp;fi  
+ 18&nbsp;
+ 19&nbsp;RESPONDENT="the author of this fine script"  
+ 20&nbsp;  
+ 21&nbsp;
+ 22&nbsp;cat &#60;&#60;Endofmessage
+ 23&nbsp;
+ 24&nbsp;Hello, there, $NAME.
+ 25&nbsp;Greetings to you, $NAME, from $RESPONDENT.
+ 26&nbsp;
+ 27&nbsp;# This comment shows up in the output (why?).
+ 28&nbsp;
+ 29&nbsp;Endofmessage
+ 30&nbsp;
+ 31&nbsp;# 注意上边的空行也打印输出, 
+ 32&nbsp;# 而上边那行"注释"当然也会打印到输出. 
+ 33&nbsp;# (译者注: 这就是为什么不翻译那行注释的原因, 尽量保持代码的原样)
+ 34&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>这是一个非常有用的脚本, 其中使用了包含参数替换的here document.  </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX72"
+></A
+><P
+><B
+>例子 17-6. 上传一个文件对到<SPAN
+CLASS="QUOTE"
+>"Sunsite"</SPAN
+>的incoming目录</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# upload.sh
+  3&nbsp;
+  4&nbsp;#  上传这一对文件(Filename.lsm, Filename.tar.gz)
+  5&nbsp;#+ 到Sunsite/UNC (ibiblio.org)的incoming目录. 
+  6&nbsp;#  Filename.tar.gz是自身的tar包. 
+  7&nbsp;#  Filename.lsm是描述文件. 
+  8&nbsp;#  Sunsite需要"lsm"文件, 否则就拒绝上传. 
+  9&nbsp;
+ 10&nbsp;
+ 11&nbsp;E_ARGERROR=65
+ 12&nbsp;
+ 13&nbsp;if [ -z "$1" ]
+ 14&nbsp;then
+ 15&nbsp;  echo "Usage: `basename $0` Filename-to-upload"
+ 16&nbsp;  exit $E_ARGERROR
+ 17&nbsp;fi  
+ 18&nbsp;
+ 19&nbsp;
+ 20&nbsp;Filename=`basename $1`           # 从文件名中去掉目录字符串. 
+ 21&nbsp;
+ 22&nbsp;Server="ibiblio.org"
+ 23&nbsp;Directory="/incoming/Linux"
+ 24&nbsp;#  在这里也不一定非得将上边的参数写死在这个脚本中, 
+ 25&nbsp;#+ 可以使用命令行参数的方法来替换. 
+ 26&nbsp;
+ 27&nbsp;Password="your.e-mail.address"   # 可以修改成相匹配的密码. 
+ 28&nbsp;
+ 29&nbsp;ftp -n $Server &#60;&#60;End-Of-Session
+ 30&nbsp;# -n选项禁用自动登录. 
+ 31&nbsp;
+ 32&nbsp;user anonymous "$Password"
+ 33&nbsp;binary
+ 34&nbsp;bell                             # 在每个文件传输后, 响铃. 
+ 35&nbsp;cd $Directory
+ 36&nbsp;put "$Filename.lsm"
+ 37&nbsp;put "$Filename.tar.gz"
+ 38&nbsp;bye
+ 39&nbsp;End-Of-Session
+ 40&nbsp;
+ 41&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>在here document的开头, 引用或转义<SPAN
+CLASS="QUOTE"
+>"limit string"</SPAN
+>, 
+		  会使得here document消息体中的参数替换被禁用. 
+	</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX71C"
+></A
+><P
+><B
+>例子 17-7. 关闭参数替换</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;#  一个使用'cat'的here document, 但是禁用了参数替换. 
+  3&nbsp;
+  4&nbsp;NAME="John Doe"
+  5&nbsp;RESPONDENT="the author of this fine script"  
+  6&nbsp;
+  7&nbsp;cat &#60;&#60;'Endofmessage'
+  8&nbsp;
+  9&nbsp;Hello, there, $NAME.
+ 10&nbsp;Greetings to you, $NAME, from $RESPONDENT.
+ 11&nbsp;
+ 12&nbsp;Endofmessage
+ 13&nbsp;
+ 14&nbsp;#  如果"limit string"被引用或转义的话, 那么就禁用了参数替换. 
+ 15&nbsp;#  下边的两种方式具有相同的效果. 
+ 16&nbsp;#  cat &#60;&#60;"Endofmessage"
+ 17&nbsp;#  cat &#60;&#60;\Endofmessage
+ 18&nbsp;
+ 19&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>禁用了参数替换后, 将允许输出文本本身(译者注: 就是未转义的原文). 
+        如果你想产生脚本甚至是程序代码的话, 那么可以使用这种办法. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="GENERATESCRIPT"
+></A
+><P
+><B
+>例子 17-8. 生成另外一个脚本的脚本</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# generate-script.sh
+  3&nbsp;# 这个脚本的诞生基于Albert Reiner的一个主意. 
+  4&nbsp;
+  5&nbsp;OUTFILE=generated.sh         # 所产生文件的名字. 
+  6&nbsp;
+  7&nbsp;
+  8&nbsp;# -----------------------------------------------------------
+  9&nbsp;# 'Here document包含了需要产生的脚本的代码. 
+ 10&nbsp;(
+ 11&nbsp;cat &#60;&#60;'EOF'
+ 12&nbsp;#!/bin/bash
+ 13&nbsp;
+ 14&nbsp;echo "This is a generated shell script."
+ 15&nbsp;#  Note that since we are inside a subshell,
+ 16&nbsp;#+ we can't access variables in the "outside" script.
+ 17&nbsp;
+ 18&nbsp;echo "Generated file will be named: $OUTFILE"
+ 19&nbsp;#  Above line will not work as normally expected
+ 20&nbsp;#+ because parameter expansion has been disabled.
+ 21&nbsp;#  Instead, the result is literal output.
+ 22&nbsp;
+ 23&nbsp;a=7
+ 24&nbsp;b=3
+ 25&nbsp;
+ 26&nbsp;let "c = $a * $b"
+ 27&nbsp;echo "c = $c"
+ 28&nbsp;
+ 29&nbsp;exit 0
+ 30&nbsp;EOF
+ 31&nbsp;) &#62; $OUTFILE
+ 32&nbsp;# -----------------------------------------------------------
+ 33&nbsp;
+ 34&nbsp;#  将'limit string'引用起来将会阻止上边
+ 35&nbsp;#+ here document消息体中的变量扩展. 
+ 36&nbsp;#  这会使得输出文件中的内容保持here document消息体中的原文. 
+ 37&nbsp;
+ 38&nbsp;if [ -f "$OUTFILE" ]
+ 39&nbsp;then
+ 40&nbsp;  chmod 755 $OUTFILE
+ 41&nbsp;  # 让所产生的文件具有可执行权限. 
+ 42&nbsp;else
+ 43&nbsp;  echo "Problem in creating file: \"$OUTFILE\""
+ 44&nbsp;fi
+ 45&nbsp;
+ 46&nbsp;#  这个方法也可以用来产生
+ 47&nbsp;#+ C程序代码, Perl程序代码, Python程序代码, makefile, 
+ 48&nbsp;#+ 和其他的一些类似的代码. 
+ 49&nbsp;#  (译者注: 中间一段没译的注释将会被here document打印出来)
+ 50&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>        也可以将here document的输出保存到变量中. 
+	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;variable=$(cat &#60;&#60;SETVAR
+  2&nbsp;This variable
+  3&nbsp;runs over multiple lines.
+  4&nbsp;SETVAR)
+  5&nbsp;
+  6&nbsp;echo "$variable"</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>A here document can supply input to a function in the same
+        script.</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="HF"
+></A
+><P
+><B
+>例子 17-9. Here document与函数</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# here-function.sh
+  3&nbsp;
+  4&nbsp;GetPersonalData ()
+  5&nbsp;{
+  6&nbsp;  read firstname
+  7&nbsp;  read lastname
+  8&nbsp;  read address
+  9&nbsp;  read city 
+ 10&nbsp;  read state 
+ 11&nbsp;  read zipcode
+ 12&nbsp;} # 这个函数看起来就是一个交互函数, 但是... 
+ 13&nbsp;
+ 14&nbsp;
+ 15&nbsp;# 给上边的函数提供输入.
+ 16&nbsp;GetPersonalData &#60;&#60;RECORD001
+ 17&nbsp;Bozo
+ 18&nbsp;Bozeman
+ 19&nbsp;2726 Nondescript Dr.
+ 20&nbsp;Baltimore
+ 21&nbsp;MD
+ 22&nbsp;21226
+ 23&nbsp;RECORD001
+ 24&nbsp;
+ 25&nbsp;
+ 26&nbsp;echo
+ 27&nbsp;echo "$firstname $lastname"
+ 28&nbsp;echo "$address"
+ 29&nbsp;echo "$city, $state $zipcode"
+ 30&nbsp;echo
+ 31&nbsp;
+ 32&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><A
+NAME="ANONHEREDOC0"
+></A
+></P
+><P
+>也可以这么使用<SPAN
+CLASS="TOKEN"
+>:</SPAN
+>(冒号), 
+			  做一个假命令来从一个here document中接收输出. 
+        这么做事实上就是创建了一个<SPAN
+CLASS="QUOTE"
+>"匿名"</SPAN
+>的here document. 
+	</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ANONHEREDOC"
+></A
+><P
+><B
+>例子 17-10. <SPAN
+CLASS="QUOTE"
+>"匿名"</SPAN
+>的here Document</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;: &#60;&#60;TESTVARIABLES
+  4&nbsp;${HOSTNAME?}${USER?}${MAIL?}  # 如果其中某个变量没被设置, 那么就打印错误信息. 
+  5&nbsp;TESTVARIABLES
+  6&nbsp;
+  7&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><A
+NAME="CBLOCK1"
+></A
+></P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>上边所示技术的一种变化, 可以用来<SPAN
+CLASS="QUOTE"
+>"注释"</SPAN
+>掉代码块. </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="COMMENTBLOCK"
+></A
+><P
+><B
+>例子 17-11. 注释掉一段代码块</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# commentblock.sh
+  3&nbsp;
+  4&nbsp;: &#60;&#60;COMMENTBLOCK
+  5&nbsp;echo "This line will not echo."
+  6&nbsp;This is a comment line missing the "#" prefix.
+  7&nbsp;This is another comment line missing the "#" prefix.
+  8&nbsp;
+  9&nbsp;&#38;*@!!++=
+ 10&nbsp;The above line will cause no error message,
+ 11&nbsp;because the Bash interpreter will ignore it.
+ 12&nbsp;COMMENTBLOCK
+ 13&nbsp;
+ 14&nbsp;echo "Exit value of above \"COMMENTBLOCK\" is $?."   # 0
+ 15&nbsp;# 这里将不会显示任何错误. 
+ 16&nbsp;
+ 17&nbsp;
+ 18&nbsp;#  上边的这种技术当然也可以用来注释掉
+ 19&nbsp;#+ 一段正在使用的代码, 如果你有某些特定调试要求的话. 
+ 20&nbsp;#  这比在每行前边都敲入"#"来得方便的多, 
+ 21&nbsp;#+ 而且如果你想恢复的话, 还得将添加上的"#"删除掉. 
+ 22&nbsp;
+ 23&nbsp;: &#60;&#60;DEBUGXXX
+ 24&nbsp;for file in *
+ 25&nbsp;do
+ 26&nbsp; cat "$file"
+ 27&nbsp;done
+ 28&nbsp;DEBUGXXX
+ 29&nbsp;
+ 30&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>关于这种小技巧的另一个应用就是能够产生<SPAN
+CLASS="QUOTE"
+>"自文档化(self-documenting)"</SPAN
+>的脚本. </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="SELFDOCUMENT"
+></A
+><P
+><B
+>例子 17-12. 一个自文档化(self-documenting)的脚本</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# self-document.sh: 自文档化(self-documenting)的脚本
+  3&nbsp;# 修改于"colm.sh".
+  4&nbsp;
+  5&nbsp;DOC_REQUEST=70
+  6&nbsp;
+  7&nbsp;if [ "$1" = "-h"  -o "$1" = "--help" ]     # 请求帮助. 
+  8&nbsp;then
+  9&nbsp;  echo; echo "Usage: $0 [directory-name]"; echo
+ 10&nbsp;  sed --silent -e '/DOCUMENTATIONXX$/,/^DOCUMENTATIONXX$/p' "$0" |
+ 11&nbsp;  sed -e '/DOCUMENTATIONXX$/d'; exit $DOC_REQUEST; fi
+ 12&nbsp;
+ 13&nbsp;
+ 14&nbsp;: &#60;&#60;DOCUMENTATIONXX
+ 15&nbsp;List the statistics of a specified directory in tabular format.
+ 16&nbsp;---------------------------------------------------------------
+ 17&nbsp;The command line parameter gives the directory to be listed.
+ 18&nbsp;If no directory specified or directory specified cannot be read,
+ 19&nbsp;then list the current working directory.
+ 20&nbsp;
+ 21&nbsp;DOCUMENTATIONXX
+ 22&nbsp;
+ 23&nbsp;if [ -z "$1" -o ! -r "$1" ]
+ 24&nbsp;then
+ 25&nbsp;  directory=.
+ 26&nbsp;else
+ 27&nbsp;  directory="$1"
+ 28&nbsp;fi  
+ 29&nbsp;
+ 30&nbsp;echo "Listing of "$directory":"; echo
+ 31&nbsp;(printf "PERMISSIONS LINKS OWNER GROUP SIZE MONTH DAY HH:MM PROG-NAME\n" \
+ 32&nbsp;; ls -l "$directory" | sed 1d) | column -t
+ 33&nbsp;
+ 34&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>使用<A
+HREF="here-docs.html#CATSCRIPTREF"
+>cat脚本</A
+>也能够完成相同的目的. </P
+><P
+>      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;DOC_REQUEST=70
+  2&nbsp;
+  3&nbsp;if [ "$1" = "-h"  -o "$1" = "--help" ]     # 请求帮助. 
+  4&nbsp;then                                       # 使用"cat脚本" . . . 
+  5&nbsp;  cat &#60;&#60;DOCUMENTATIONXX
+  6&nbsp;List the statistics of a specified directory in tabular format.
+  7&nbsp;---------------------------------------------------------------
+  8&nbsp;The command line parameter gives the directory to be listed.
+  9&nbsp;If no directory specified or directory specified cannot be read,
+ 10&nbsp;then list the current working directory.
+ 11&nbsp;
+ 12&nbsp;DOCUMENTATIONXX
+ 13&nbsp;exit $DOC_REQUEST
+ 14&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>请参考<A
+HREF="contributed-scripts.html#ISSPAMMER2"
+>例子 A-28</A
+>可以看到更多关于<SPAN
+CLASS="QUOTE"
+>"自文档化"</SPAN
+>脚本的好例子. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Here document创建临时文件, 
+			  但是这些文件将在打开后被删除, 
+			  并且不能够被任何其他进程所访问. 
+	    </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>bash -c 'lsof -a -p $$ -d0' &#60;&#60; EOF</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>&#62; </SAMP
+><KBD
+CLASS="USERINPUT"
+>EOF</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>lsof    1213 bozo    0r   REG    3,5    0 30386 /tmp/t1213-0-sh (deleted)</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>某些工具是不能放入<EM
+>here document</EM
+>中运行的. </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+><A
+NAME="INDENTEDLS"
+></A
+></P
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/warning.gif"
+HSPACE="5"
+ALT="Warning"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>结尾的<EM
+>limit string</EM
+>, 
+	  就是here document最后一行的limit string, 
+	  必须从<EM
+>第一个</EM
+>字符开始. 
+	  它的前面不能够有任何<EM
+>前置的空白</EM
+>. 
+	  而在这个limit string后边的空白也会引起异常. 
+	  空白将会阻止limit string的识别. 
+	  (译者注: 下边这个脚本由于结束limit string的问题, 
+	  造成脚本无法结束, 所有内容全部被打印出来, 
+	  所以注释就不译了, 保持这个例子脚本的原样.)
+  </P
+><P
+>	 <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;echo "----------------------------------------------------------------------"
+  4&nbsp;
+  5&nbsp;cat &#60;&#60;LimitString
+  6&nbsp;echo "This is line 1 of the message inside the here document."
+  7&nbsp;echo "This is line 2 of the message inside the here document."
+  8&nbsp;echo "This is the final line of the message inside the here document."
+  9&nbsp;     LimitString
+ 10&nbsp;#^^^^Indented limit string. Error! This script will not behave as expected.
+ 11&nbsp;
+ 12&nbsp;echo "----------------------------------------------------------------------"
+ 13&nbsp;
+ 14&nbsp;#  These comments are outside the 'here document',
+ 15&nbsp;#+ and should not echo.
+ 16&nbsp;
+ 17&nbsp;echo "Outside the here document."
+ 18&nbsp;
+ 19&nbsp;exit 0
+ 20&nbsp;
+ 21&nbsp;echo "This line had better not echo."  # Follows an 'exit' command.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	 </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>对于那些使用<SPAN
+CLASS="QUOTE"
+>"here document"</SPAN
+>, 并且非常复杂的任务, 
+		  最好考虑使用<B
+CLASS="COMMAND"
+>expect</B
+>脚本语言, 
+		  这种语言就是为了达到向交互程序添加输入的目的而量身定做的. 
+	  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="redirapps.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x13628.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>重定向的应用</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part3.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Here String</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

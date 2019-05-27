@@ -1,0 +1,600 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>代码块重定向</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="I/O重定向"
+HREF="io-redirection.html"><LINK
+REL="PREVIOUS"
+TITLE="使用exec"
+HREF="x13380.html"><LINK
+REL="NEXT"
+TITLE="重定向的应用"
+HREF="redirapps.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x13380.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>16. I/O重定向</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="redirapps.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="REDIRCB"
+>16.2. 代码块重定向</A
+></H1
+><P
+><A
+NAME="REDIRREF"
+></A
+>象<A
+HREF="loops1.html#WHILELOOPREF"
+>while</A
+>, <A
+HREF="loops1.html#UNTILLOOPREF"
+>until</A
+>, 和<A
+HREF="loops1.html#FORLOOPREF1"
+>for</A
+>循环代码块, 
+	  甚至<A
+HREF="tests.html#IFTHEN"
+>if/then</A
+>测试结构的代码块, 
+	  都可以对<TT
+CLASS="FILENAME"
+>stdin</TT
+>进行重定向. 
+	  即使函数也可以使用这种重定向方式(请参考<A
+HREF="complexfunct.html#REALNAME"
+>例子 23-11</A
+>). 
+	  要想做到这些, 都要依靠代码块结尾的<SPAN
+CLASS="TOKEN"
+>&#60;</SPAN
+>操作符. 
+	  </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="REDIR2"
+></A
+><P
+><B
+>例子 16-5. <EM
+>while</EM
+>循环的重定向</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# redir2.sh
+  3&nbsp;
+  4&nbsp;if [ -z "$1" ]
+  5&nbsp;then
+  6&nbsp;  Filename=names.data       # 如果没有指定文件名, 则使用这个默认值. 
+  7&nbsp;else
+  8&nbsp;  Filename=$1
+  9&nbsp;fi  
+ 10&nbsp;#+ Filename=${1:-names.data}
+ 11&nbsp;#  这句可代替上面的测试(参数替换).
+ 12&nbsp;
+ 13&nbsp;count=0
+ 14&nbsp;
+ 15&nbsp;echo
+ 16&nbsp;
+ 17&nbsp;while [ "$name" != Smith ]  # 为什么变量$name要用引号?
+ 18&nbsp;do
+ 19&nbsp;  read name                 # 从$Filename文件中读取输入, 而不是在stdin中读取输入. 
+ 20&nbsp;  echo $name
+ 21&nbsp;  let "count += 1"
+ 22&nbsp;done &#60;"$Filename"           # 重定向stdin到文件$Filename. 
+ 23&nbsp;#    ^^^^^^^^^^^^
+ 24&nbsp;
+ 25&nbsp;echo; echo "$count names read"; echo
+ 26&nbsp;
+ 27&nbsp;exit 0
+ 28&nbsp;
+ 29&nbsp;#  注意在一些比较老的shell脚本编程语言中, 
+ 30&nbsp;#+ 重定向的循环是放在子shell里运行的. 
+ 31&nbsp;#  因此, $count 值返回后会是 0, 此值是在循环开始前的初始值. 
+ 32&nbsp;#  *如果可能的话*, 尽量避免在Bash或ksh中使用子shell,
+ 33&nbsp;#+ 所以这个脚本能够正确的运行. 
+ 34&nbsp;#  (多谢Heiner Steven指出这个问题.)
+ 35&nbsp;
+ 36&nbsp;#  然而 . . .
+ 37&nbsp;#  Bash有时还是*会*在一个使用管道的"while-read"循环中启动一个子shell, 
+ 38&nbsp;#+ 与重定向的"while"循环还是有区别的. 
+ 39&nbsp;
+ 40&nbsp;abc=hi
+ 41&nbsp;echo -e "1\n2\n3" | while read l
+ 42&nbsp;     do abc="$l"
+ 43&nbsp;        echo $abc
+ 44&nbsp;     done
+ 45&nbsp;echo $abc
+ 46&nbsp;
+ 47&nbsp;#  感谢, Bruno de Oliveira Schneider
+ 48&nbsp;#+ 给出上面的代码片段来演示此问题. 
+ 49&nbsp;#  同时, 感谢, Brian Onn, 修正了一个注释错误. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="REDIR2A"
+></A
+><P
+><B
+>例子 16-6. 重定向<EM
+>while</EM
+>循环的另一种形式</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# 这是上个脚本的另一个版本. 
+  4&nbsp;
+  5&nbsp;#  Heiner Steven建议, 
+  6&nbsp;#+ 为了避免重定向循环运行在子shell中(老版本的shell会这么做), 最好让重定向循环运行在当前工作区内, 
+  7&nbsp;#+ 这样的话, 需要提前进行文件描述符重定向, 
+  8&nbsp;#+ 因为变量如果在(子shell上运行的)循环中被修改的话, 循环结束后并不会保存修改后的值. 
+  9&nbsp;
+ 10&nbsp;
+ 11&nbsp;if [ -z "$1" ]
+ 12&nbsp;then
+ 13&nbsp;  Filename=names.data     # 如果没有指定文件名则使用默认值. 
+ 14&nbsp;else
+ 15&nbsp;  Filename=$1
+ 16&nbsp;fi  
+ 17&nbsp;
+ 18&nbsp;
+ 19&nbsp;exec 3&#60;&#38;0                 # 将stdin保存到文件描述符3. 
+ 20&nbsp;exec 0&#60;"$Filename"        # 重定向标准输入. 
+ 21&nbsp;
+ 22&nbsp;count=0
+ 23&nbsp;echo
+ 24&nbsp;
+ 25&nbsp;
+ 26&nbsp;while [ "$name" != Smith ]
+ 27&nbsp;do
+ 28&nbsp;  read name               # 从stdin(现在已经是$Filename了)中读取. 
+ 29&nbsp;  echo $name
+ 30&nbsp;  let "count += 1"
+ 31&nbsp;done                      #  从文件$Filename中循环读取
+ 32&nbsp;                          #+ 因为文件(译者注：指默认文件, 在本节最后)有20行. 
+ 33&nbsp;
+ 34&nbsp;#  这个脚本原先在"while"循环的结尾还有一句: 
+ 35&nbsp;#+      done &#60;"$Filename" 
+ 36&nbsp;#  练习:
+ 37&nbsp;#  为什么不需要这句了? 
+ 38&nbsp;
+ 39&nbsp;
+ 40&nbsp;exec 0&#60;&#38;3                 # 恢复保存的stdin. 
+ 41&nbsp;exec 3&#60;&#38;-                 # 关闭临时文件描述符3. 
+ 42&nbsp;
+ 43&nbsp;echo; echo "$count names read"; echo
+ 44&nbsp;
+ 45&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="REDIR3"
+></A
+><P
+><B
+>例子 16-7. 重定向<EM
+>until</EM
+>循环</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 和前面的例子相同, 但使用的是"until"循环. 
+  3&nbsp;
+  4&nbsp;if [ -z "$1" ]
+  5&nbsp;then
+  6&nbsp;  Filename=names.data         # 如果没有指定文件名那就使用默认值. 
+  7&nbsp;else
+  8&nbsp;  Filename=$1
+  9&nbsp;fi  
+ 10&nbsp;
+ 11&nbsp;# while [ "$name" != Smith ]
+ 12&nbsp;until [ "$name" = Smith ]     # 把!=改为=.
+ 13&nbsp;do
+ 14&nbsp;  read name                   # 从$Filename中读取, 而不是从stdin中读取. 
+ 15&nbsp;  echo $name
+ 16&nbsp;done &#60;"$Filename"             # 重定向stdin到文件$Filename. 
+ 17&nbsp;#    ^^^^^^^^^^^^
+ 18&nbsp;
+ 19&nbsp;# 结果和前面例子的"while"循环相同. 
+ 20&nbsp;
+ 21&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="REDIR4"
+></A
+><P
+><B
+>例子 16-8. 重定向<EM
+>for</EM
+>循环</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;if [ -z "$1" ]
+  4&nbsp;then
+  5&nbsp;  Filename=names.data          # 如果没有指定文件名就使用默认值. 
+  6&nbsp;else
+  7&nbsp;  Filename=$1
+  8&nbsp;fi  
+  9&nbsp;
+ 10&nbsp;line_count=`wc $Filename | awk '{ print $1 }'`
+ 11&nbsp;#           目标文件的行数. 
+ 12&nbsp;#
+ 13&nbsp;#  此处的代码太过做作, 并且写得很难看, 
+ 14&nbsp;#+ 但至少展示了"for"循环的stdin可以重定向...
+ 15&nbsp;#+ 当然, 你得足够聪明, 才能看得出来. 
+ 16&nbsp;#
+ 17&nbsp;# 更简洁的写法是     line_count=$(wc -l &#60; "$Filename")
+ 18&nbsp;
+ 19&nbsp;
+ 20&nbsp;for name in `seq $line_count`  # "seq"打印出数字序列. 
+ 21&nbsp;# while [ "$name" != Smith ]   --   比"while"循环更复杂   --
+ 22&nbsp;do
+ 23&nbsp;  read name                    # 从$Filename中, 而非从stdin中读取. 
+ 24&nbsp;  echo $name
+ 25&nbsp;  if [ "$name" = Smith ]       # 因为用for循环, 所以需要这个多余测试. 
+ 26&nbsp;  then
+ 27&nbsp;    break
+ 28&nbsp;  fi  
+ 29&nbsp;done &#60;"$Filename"              # 重定向stdin到文件$Filename. 
+ 30&nbsp;#    ^^^^^^^^^^^^
+ 31&nbsp;
+ 32&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>我们也可以修改前面的例子使其能重定向循环的标准输出. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="REDIR4A"
+></A
+><P
+><B
+>例子 16-9. 重定向<EM
+>for</EM
+>循环(<TT
+CLASS="FILENAME"
+>stdin</TT
+>和<TT
+CLASS="FILENAME"
+>stdout</TT
+>都进行重定向)</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;if [ -z "$1" ]
+  4&nbsp;then
+  5&nbsp;  Filename=names.data          # 如果没有指定文件名, 则使用默认值. 
+  6&nbsp;else
+  7&nbsp;  Filename=$1
+  8&nbsp;fi  
+  9&nbsp;
+ 10&nbsp;Savefile=$Filename.new         # 保存最终结果的文件名. 
+ 11&nbsp;FinalName=Jonah                # 终止"read"时的名称. 
+ 12&nbsp;
+ 13&nbsp;line_count=`wc $Filename | awk '{ print $1 }'`  # 目标文件的行数. 
+ 14&nbsp;
+ 15&nbsp;
+ 16&nbsp;for name in `seq $line_count`
+ 17&nbsp;do
+ 18&nbsp;  read name
+ 19&nbsp;  echo "$name"
+ 20&nbsp;  if [ "$name" = "$FinalName" ]
+ 21&nbsp;  then
+ 22&nbsp;    break
+ 23&nbsp;  fi  
+ 24&nbsp;done &#60; "$Filename" &#62; "$Savefile"     # 重定向stdin到文件$Filename, 
+ 25&nbsp;#    ^^^^^^^^^^^^^^^^^^^^^^^^^^^       并且将它保存到备份文件中. 
+ 26&nbsp;
+ 27&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="REDIR5"
+></A
+><P
+><B
+>例子 16-10. 重定向<EM
+>if/then</EM
+>测试结构</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;if [ -z "$1" ]
+  4&nbsp;then
+  5&nbsp;  Filename=names.data   # 如果文件名没有指定, 使用默认值. 
+  6&nbsp;else
+  7&nbsp;  Filename=$1
+  8&nbsp;fi  
+  9&nbsp;
+ 10&nbsp;TRUE=1
+ 11&nbsp;
+ 12&nbsp;if [ "$TRUE" ]          # if true    和   if :   都可以. 
+ 13&nbsp;then
+ 14&nbsp; read name
+ 15&nbsp; echo $name
+ 16&nbsp;fi &#60;"$Filename"
+ 17&nbsp;#  ^^^^^^^^^^^^
+ 18&nbsp;
+ 19&nbsp;# 只读取了文件的第一行. 
+ 20&nbsp;# An "if/then"测试结构不能自动地反复地执行, 除非把它们嵌到循环里. 
+ 21&nbsp;
+ 22&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="NAMESDATA"
+></A
+><P
+><B
+>例子 16-11. 用于上面例子的<SPAN
+CLASS="QUOTE"
+>"names.data"</SPAN
+>数据文件</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;Aristotle
+  2&nbsp;Belisarius
+  3&nbsp;Capablanca
+  4&nbsp;Euler
+  5&nbsp;Goethe
+  6&nbsp;Hamurabi
+  7&nbsp;Jonah
+  8&nbsp;Laplace
+  9&nbsp;Maroczy
+ 10&nbsp;Purcell
+ 11&nbsp;Schmidt
+ 12&nbsp;Semmelweiss
+ 13&nbsp;Smith
+ 14&nbsp;Turing
+ 15&nbsp;Venn
+ 16&nbsp;Wilson
+ 17&nbsp;Znosko-Borowski
+ 18&nbsp;
+ 19&nbsp;#  此数据文件用于: 
+ 20&nbsp;#+ "redir2.sh", "redir3.sh", "redir4.sh", "redir4a.sh", "redir5.sh".</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>重定向代码块的<TT
+CLASS="FILENAME"
+>stdout</TT
+>, 
+	与"将代码块的输出保存到文件中"具有相同的效果. 请参考<A
+HREF="special-chars.html#RPMCHECK"
+>例子 3-2</A
+>. </P
+><P
+><A
+HREF="here-docs.html#HEREDOCREF"
+>here document</A
+>
+        是重定向代码块的一个特例. </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x13380.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="redirapps.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>使用<B
+CLASS="COMMAND"
+>exec</B
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="io-redirection.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>重定向的应用</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

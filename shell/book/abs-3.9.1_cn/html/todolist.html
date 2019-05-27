@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>To Do列表</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="镜像站点"
+HREF="mirrorsites.html"><LINK
+REL="NEXT"
+TITLE="版权"
+HREF="copyright.html"></HEAD
+><BODY
+CLASS="APPENDIX"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="mirrorsites.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="copyright.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="APPENDIX"
+><H1
+><A
+NAME="TODOLIST"
+></A
+>Appendix Q. To Do列表</H1
+><P
+></P
+><UL
+><LI
+><P
+>全面调查Bash与经典的Bourne shell之间的兼容性. 
+		  </P
+></LI
+><LI
+><P
+>同上, 但需要调查的是Korn shell (ksh).</P
+></LI
+><LI
+><P
+>一个使用Bash来进行CGI编程的初级读本. </P
+><P
+>下面是一个简单的CGI脚本, 你可以从这里开始. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="TESTCGI"
+></A
+><P
+><B
+>例子 Q-1. 打印服务器环境</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 可能需要修改你的站点位置. 
+  3&nbsp;# (在ISP的服务器上, Bash可能不在标准位置/bin.)
+  4&nbsp;# 其他可能出现的地方: /usr/bin或/usr/local/bin
+  5&nbsp;# 甚至可以不带任何路径信息来尝试使用#!. 
+  6&nbsp;
+  7&nbsp;# test-cgi.sh
+  8&nbsp;# 由Michael Zick编写
+  9&nbsp;# 经过授权在此使用
+ 10&nbsp;
+ 11&nbsp;
+ 12&nbsp;# 禁用文件名匹配. 
+ 13&nbsp;set -f
+ 14&nbsp;
+ 15&nbsp;# 头信息将会给浏览器需要的东西. 
+ 16&nbsp;echo Content-type: text/plain
+ 17&nbsp;echo
+ 18&nbsp;
+ 19&nbsp;echo CGI/1.0 test script report:
+ 20&nbsp;echo
+ 21&nbsp;
+ 22&nbsp;echo environment settings:
+ 23&nbsp;set
+ 24&nbsp;echo
+ 25&nbsp;
+ 26&nbsp;echo whereis bash?
+ 27&nbsp;whereis bash
+ 28&nbsp;echo
+ 29&nbsp;
+ 30&nbsp;
+ 31&nbsp;echo who are we?
+ 32&nbsp;echo ${BASH_VERSINFO[*]}
+ 33&nbsp;echo
+ 34&nbsp;
+ 35&nbsp;echo argc is $#. argv is "$*".
+ 36&nbsp;echo
+ 37&nbsp;
+ 38&nbsp;# CGI/1.0需要的环境变量. 
+ 39&nbsp;
+ 40&nbsp;echo SERVER_SOFTWARE = $SERVER_SOFTWARE
+ 41&nbsp;echo SERVER_NAME = $SERVER_NAME
+ 42&nbsp;echo GATEWAY_INTERFACE = $GATEWAY_INTERFACE
+ 43&nbsp;echo SERVER_PROTOCOL = $SERVER_PROTOCOL
+ 44&nbsp;echo SERVER_PORT = $SERVER_PORT
+ 45&nbsp;echo REQUEST_METHOD = $REQUEST_METHOD
+ 46&nbsp;echo HTTP_ACCEPT = "$HTTP_ACCEPT"
+ 47&nbsp;echo PATH_INFO = "$PATH_INFO"
+ 48&nbsp;echo PATH_TRANSLATED = "$PATH_TRANSLATED"
+ 49&nbsp;echo SCRIPT_NAME = "$SCRIPT_NAME"
+ 50&nbsp;echo QUERY_STRING = "$QUERY_STRING"
+ 51&nbsp;echo REMOTE_HOST = $REMOTE_HOST
+ 52&nbsp;echo REMOTE_ADDR = $REMOTE_ADDR
+ 53&nbsp;echo REMOTE_USER = $REMOTE_USER
+ 54&nbsp;echo AUTH_TYPE = $AUTH_TYPE
+ 55&nbsp;echo CONTENT_TYPE = $CONTENT_TYPE
+ 56&nbsp;echo CONTENT_LENGTH = $CONTENT_LENGTH
+ 57&nbsp;
+ 58&nbsp;exit 0
+ 59&nbsp;
+ 60&nbsp;# Here document可以给出简要的使用说明. 
+ 61&nbsp;:&#60;&#60;-'_test_CGI_'
+ 62&nbsp;
+ 63&nbsp;1) Drop this in your http://domain.name/cgi-bin directory.
+ 64&nbsp;2) Then, open http://domain.name/cgi-bin/test-cgi.sh.
+ 65&nbsp;
+ 66&nbsp;_test_CGI_</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></LI
+></UL
+><P
+>有志愿者么? </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="mirrorsites.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="copyright.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>镜像站点</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>版权</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

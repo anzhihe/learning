@@ -1,0 +1,853 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>特殊的变量类型</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="变量和参数的介绍"
+HREF="variables.html"><LINK
+REL="PREVIOUS"
+TITLE="Bash变量是不区分类型的"
+HREF="untyped.html"><LINK
+REL="NEXT"
+TITLE="引用"
+HREF="quoting.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="untyped.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>4. 变量和参数的介绍</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="quoting.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="OTHERTYPESV"
+>4.4. 特殊的变量类型</A
+></H1
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="REPLACEABLE"
+><I
+>局部变量</I
+></TT
+></DT
+><DD
+><P
+>这种变量只有在<A
+HREF="special-chars.html#CODEBLOCKREF"
+>代码块</A
+>或者函数中(参见<A
+HREF="functions.html#FUNCTIONREF"
+>函数</A
+>中的<A
+HREF="localvar.html#LOCALREF"
+>局部变量</A
+>)才可见. </P
+></DD
+><DT
+><A
+NAME="ENVREF"
+></A
+><TT
+CLASS="REPLACEABLE"
+><I
+>环境变量</I
+></TT
+></DT
+><DD
+><P
+>这种变量将影响用户接口和shell的行为</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在通常情况下, 每个进程都有自己的<SPAN
+CLASS="QUOTE"
+>"环境"</SPAN
+>, 
+				  这个环境是由一组变量组成的, 这些变量中存有进程可能需要引用的信息.
+		在这种情况下, shell与一个一般的进程没什么区别. </P
+><P
+>每次当一个shell启动时, 它都将创建适合于自己环境变量的shell变量.
+			  更新或者添加一个新的环境变量的话, 这个shell都会立刻更新它自己的环境(译者注: 换句话说, 更改或增加的变量会立即生效), 
+			  并且所有的shell子进程(即这个shell所执行的命令)都会继承这个环境.
+			  (译者注: 准确地说, 应该是后继生成的子进程才会继承Shell的新环境变量, 已经运行的子进程并不会得到它的新环境变量). </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>分配给环境变量的空间是有限的.
+	        创建太多环境变量, 或者给一个环境变量分配太多的空间都会引起错误. </P
+><P
+>	          <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>eval "`seq 10000 | sed -e 's/.*/export var&#38;=ZZZZZZZZZZZZZZ/'`"</KBD
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>du</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bash: /usr/bin/du: Argument list too long</SAMP
+>
+	          </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><P
+>(感谢 Stephane Chazelas 对这个问题的澄清, 
+	        并且提供了上边的例子程序.)</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>如果一个脚本要设置一个环境变量, 
+			  那么需要将这些变量<SPAN
+CLASS="QUOTE"
+>"export"</SPAN
+>出来, 
+			  也就是需要通知到脚本本地的环境. 
+	      这是<A
+HREF="internal.html#EXPORTREF"
+>export</A
+>命令的功能. </P
+><A
+NAME="CHILDREF"
+></A
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>一个脚本只能够<B
+CLASS="COMMAND"
+>export</B
+>变量到这个脚本所产生的子进程, 
+	      也就是说只能够对这个脚本所产生的命令和进程起作用.
+		  如果脚本是从命令行中调用的, 
+		  那么这个脚本所export的变量是<TT
+CLASS="REPLACEABLE"
+><I
+>不能</I
+></TT
+>影响命令行环境的. 
+		  也就是说, 
+		  <EM
+><A
+HREF="internal.html#FORKREF"
+>子进程</A
+>是不能够export变量来影响产生自己的父进程的环境的. </EM
+></P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>---</P
+></DD
+><DT
+><A
+NAME="POSPARAMREF1"
+></A
+><TT
+CLASS="REPLACEABLE"
+><I
+>位置参数</I
+></TT
+></DT
+><DD
+><P
+>从命令行传递到脚本的参数: <CODE
+CLASS="VARNAME"
+>$0</CODE
+>, <CODE
+CLASS="VARNAME"
+>$1</CODE
+>,
+	      <CODE
+CLASS="VARNAME"
+>$2</CODE
+>, <CODE
+CLASS="VARNAME"
+>$3</CODE
+> . . .</P
+><P
+><CODE
+CLASS="VARNAME"
+>$0</CODE
+>就是脚本文件自身的名字, 
+	      <CODE
+CLASS="VARNAME"
+>$1</CODE
+> 是第一个参数,
+		  <CODE
+CLASS="VARNAME"
+>$2</CODE
+>是第二个参数, 
+		  <CODE
+CLASS="VARNAME"
+>$3</CODE
+>是第三个参数, 然后是第四个.
+
+		  <A
+NAME="AEN1957"
+HREF="#FTN.AEN1957"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+
+	      <A
+NAME="BRACKETNOTATION"
+></A
+>
+	      <CODE
+CLASS="VARNAME"
+>$9</CODE
+>之后的位置参数就必须用大括号括起来了, 
+	      比如, <CODE
+CLASS="VARNAME"
+>${10}</CODE
+>,
+	      <CODE
+CLASS="VARNAME"
+>${11}</CODE
+>, <CODE
+CLASS="VARNAME"
+>${12}</CODE
+>. </P
+><P
+>两个比较特殊的变量<A
+HREF="internalvariables.html#APPREF"
+>$*和$@</A
+>
+	      表示<EM
+>所有的</EM
+>位置参数. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX17"
+></A
+><P
+><B
+>例子 4-5. 位置参数</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# 作为用例, 调用这个脚本至少需要10个参数, 比如:
+  4&nbsp;# ./scriptname 1 2 3 4 5 6 7 8 9 10
+  5&nbsp;MINPARAMS=10
+  6&nbsp;
+  7&nbsp;echo
+  8&nbsp;
+  9&nbsp;echo "The name of this script is \"$0\"."
+ 10&nbsp;# 添加./是表示当前目录
+ 11&nbsp;echo "The name of this script is \"`basename $0`\"."
+ 12&nbsp;# 去掉路径名, 剩下文件名, (参见'basename')
+ 13&nbsp;
+ 14&nbsp;echo
+ 15&nbsp;
+ 16&nbsp;if [ -n "$1" ]              # 测试变量被引用.
+ 17&nbsp;then
+ 18&nbsp; echo "Parameter #1 is $1"  # 需要引用才能够转义"#"
+ 19&nbsp;fi 
+ 20&nbsp;
+ 21&nbsp;if [ -n "$2" ]
+ 22&nbsp;then
+ 23&nbsp; echo "Parameter #2 is $2"
+ 24&nbsp;fi 
+ 25&nbsp;
+ 26&nbsp;if [ -n "$3" ]
+ 27&nbsp;then
+ 28&nbsp; echo "Parameter #3 is $3"
+ 29&nbsp;fi 
+ 30&nbsp;
+ 31&nbsp;# ...
+ 32&nbsp;
+ 33&nbsp;
+ 34&nbsp;if [ -n "${10}" ]  # 大于$9的参数必须用{}括起来.
+ 35&nbsp;then
+ 36&nbsp; echo "Parameter #10 is ${10}"
+ 37&nbsp;fi 
+ 38&nbsp;
+ 39&nbsp;echo "-----------------------------------"
+ 40&nbsp;echo "All the command-line parameters are: "$*""
+ 41&nbsp;
+ 42&nbsp;if [ $# -lt "$MINPARAMS" ]
+ 43&nbsp;then
+ 44&nbsp;  echo
+ 45&nbsp;  echo "This script needs at least $MINPARAMS command-line arguments!"
+ 46&nbsp;fi  
+ 47&nbsp;
+ 48&nbsp;echo
+ 49&nbsp;
+ 50&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><I
+CLASS="FIRSTTERM"
+>{}标记法</I
+>提供了一种提取从命令行传递到脚本的<EM
+>最后</EM
+>一个位置参数的简单办法.
+	      但是这种方法同时还需要使用<A
+HREF="bashver2.html#VARREFNEW"
+>间接引用</A
+>.</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;args=$#           # 位置参数的个数.
+  2&nbsp;lastarg=${!args}
+  3&nbsp;# 或:       lastarg=${!#}
+  4&nbsp;#           (感谢, Chris Monson.)
+  5&nbsp;# 注意, 不能直接使用 lastarg=${!$#} , 这会产生错误.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>一些脚本可能会依赖于使用不同的调用名字, 来表现出不同的行为. 
+	如果想要达到这种目的, 一般都需要在脚本中检查<CODE
+CLASS="VARNAME"
+>$0</CODE
+>.
+	      因为脚本只能够有一个真正的文件名, 如果要产生多个名字, 必须使用符号链接.
+	      参见<A
+HREF="basic.html#HELLOL"
+>例子 12-2</A
+>. </P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果脚本需要一个命令行参数, 而在调用的时候, 这个参数没被提供, 
+				  那么这就可能造成给这个参数赋一个null变量, 通常情况下, 这都会产生问题.
+				  一种解决这个问题的办法就是使用添加额外字符的方法, 
+				  在使用这个位置参数的变量和位置参数本身的后边全部添加同样的额外字符.
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;variable1_=$1_  # 而不是 variable1=$1
+  2&nbsp;# 这将阻止报错, 即使在调用时没提供这个位置参数.
+  3&nbsp;
+  4&nbsp;critical_argument01=$variable1_
+  5&nbsp;
+  6&nbsp;# 这个扩展的字符是可以被消除掉的, 就像这样.
+  7&nbsp;variable1=${variable1_/_/}
+  8&nbsp;# 副作用就是$variable1_多了一个下划线.
+  9&nbsp;# 这里使用了参数替换模版的一种形式(后边会有具体的讨论).
+ 10&nbsp;# (在一个删除动作中, 节省了一个替换模式.)
+ 11&nbsp;
+ 12&nbsp;#  处理这个问题的一个更简单的办法就是
+ 13&nbsp;#+ 判断一下这个位置参数是否传递下来了. 
+ 14&nbsp;if [ -z $1 ]
+ 15&nbsp;then
+ 16&nbsp;  exit $E_MISSING_POS_PARAM
+ 17&nbsp;fi
+ 18&nbsp;
+ 19&nbsp;
+ 20&nbsp;#  然而, 象Fabian Kreutz所指出的那样,
+ 21&nbsp;#+ 上边的方法将可能产生一个意外的副作用.
+ 22&nbsp;#  参数替换才是更好的方法:
+ 23&nbsp;#         ${1:-$DefaultVal}
+ 24&nbsp;#  具体参见"参数替换"的相关章节
+ 25&nbsp;#+ 在"变量重游"那章.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>---</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX18"
+></A
+><P
+><B
+>例子 4-6. <B
+CLASS="COMMAND"
+>wh</B
+>, <A
+HREF="communications.html#WHOISREF"
+>whois</A
+>节点名字查询</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# ex18.sh
+  3&nbsp;
+  4&nbsp;# 是否'whois domain-name'能够找到如下3个服务之一: 
+  5&nbsp;#                    ripe.net, cw.net, radb.net
+  6&nbsp;
+  7&nbsp;# 把这个脚本重命名为'wh', 然后放到/usr/local/bin目录下.
+  8&nbsp;
+  9&nbsp;# 需要符号链接:
+ 10&nbsp;# ln -s /usr/local/bin/wh /usr/local/bin/wh-ripe
+ 11&nbsp;# ln -s /usr/local/bin/wh /usr/local/bin/wh-cw
+ 12&nbsp;# ln -s /usr/local/bin/wh /usr/local/bin/wh-radb
+ 13&nbsp;
+ 14&nbsp;E_NOARGS=65
+ 15&nbsp;
+ 16&nbsp;
+ 17&nbsp;if [ -z "$1" ]
+ 18&nbsp;then
+ 19&nbsp;  echo "Usage: `basename $0` [domain-name]"
+ 20&nbsp;  exit $E_NOARGS
+ 21&nbsp;fi
+ 22&nbsp;
+ 23&nbsp;# 检查脚本名字, 然后调用合适的服务.
+ 24&nbsp;case `basename $0` in    # Or:    case ${0##*/} in
+ 25&nbsp;    "wh"     ) whois $1@whois.ripe.net;;
+ 26&nbsp;    "wh-ripe") whois $1@whois.ripe.net;;
+ 27&nbsp;    "wh-radb") whois $1@whois.radb.net;;
+ 28&nbsp;    "wh-cw"  ) whois $1@whois.cw.net;;
+ 29&nbsp;    *        ) echo "Usage: `basename $0` [domain-name]";;
+ 30&nbsp;esac 
+ 31&nbsp;
+ 32&nbsp;exit $?</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>---</P
+><P
+><A
+NAME="SHIFTREF"
+></A
+></P
+><P
+>	      
+	      
+	      <B
+CLASS="COMMAND"
+>shift</B
+>命令会重新分配位置参数, 
+	      其实就是把所有的位置参数都向左移动一个位置. </P
+><P
+><CODE
+CLASS="VARNAME"
+>$1</CODE
+> &#60;--- <CODE
+CLASS="VARNAME"
+>$2</CODE
+>, <CODE
+CLASS="VARNAME"
+>$2</CODE
+> &#60;--- <CODE
+CLASS="VARNAME"
+>$3</CODE
+>, <CODE
+CLASS="VARNAME"
+>$3</CODE
+> &#60;--- <CODE
+CLASS="VARNAME"
+>$4</CODE
+>, 等等.</P
+><P
+>原来的<CODE
+CLASS="VARNAME"
+>$1</CODE
+>就消失了, 
+			但是<EM
+><CODE
+CLASS="VARNAME"
+>$0</CODE
+> (脚本名)是不会改变的</EM
+>. 
+			如果传递了大量的位置参数到脚本中, 那么<B
+CLASS="COMMAND"
+>shift</B
+>命令允许你访问的位置参数的数量超过<TT
+CLASS="LITERAL"
+>10</TT
+>个,
+	      当然<A
+HREF="othertypesv.html#BRACKETNOTATION"
+>{}标记法</A
+>也提供了这样的功能. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX19"
+></A
+><P
+><B
+>例子 4-7. 使用<B
+CLASS="COMMAND"
+>shift</B
+>命令</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 使用'shift'来逐步存取所有的位置参数. 
+  3&nbsp;
+  4&nbsp;#  给脚本命个名, 比如shft,
+  5&nbsp;#+ 然后给脚本传递一些位置参数, 比如: 
+  6&nbsp;#          ./shft a b c def 23 skidoo
+  7&nbsp;
+  8&nbsp;until [ -z "$1" ]  # 直到所有的位置参数都被存取完...
+  9&nbsp;do
+ 10&nbsp;  echo -n "$1 "
+ 11&nbsp;  shift
+ 12&nbsp;done
+ 13&nbsp;
+ 14&nbsp;echo               # 额外的换行.
+ 15&nbsp;
+ 16&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在将参数传递到<A
+HREF="functions.html#FUNCTIONREF"
+>函数</A
+>中的时候, 
+				 <B
+CLASS="COMMAND"
+>shift</B
+>命令的工作方式也差不多. 
+	    参考<A
+HREF="assortedtips.html#MULTIPLICATION"
+>例子 33-15</A
+>. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+></DL
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1957"
+HREF="othertypesv.html#AEN1957"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><CODE
+CLASS="VARNAME"
+>$0</CODE
+>参数是由调用这个脚本的进程所设置的. 
+				  按照约定, 这个参数一般就是脚本的名字. 
+				  具体请参考<B
+CLASS="COMMAND"
+>execv</B
+>的man页.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="untyped.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="quoting.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Bash变量是不区分类型的</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="variables.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>引用</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

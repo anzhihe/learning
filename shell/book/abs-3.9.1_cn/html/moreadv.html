@@ -1,0 +1,1471 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>复杂命令</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="外部过滤器, 程序和命令"
+HREF="external.html"><LINK
+REL="PREVIOUS"
+TITLE="基本命令"
+HREF="basic.html"><LINK
+REL="NEXT"
+TITLE="时间/日期 命令"
+HREF="timedate.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="basic.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>12. 外部过滤器, 程序和命令</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="timedate.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="MOREADV"
+>12.2. 复杂命令</A
+></H1
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="CCLISTING1"
+></A
+>更高级的用户命令</B
+></P
+><DL
+><DT
+><A
+NAME="FINDREF"
+></A
+><B
+CLASS="COMMAND"
+>find</B
+></DT
+><DD
+><P
+>-exec <TT
+CLASS="REPLACEABLE"
+><I
+>COMMAND</I
+></TT
+> \;</P
+><P
+>在每一个<B
+CLASS="COMMAND"
+>find</B
+>匹配到的文件执行<TT
+CLASS="REPLACEABLE"
+><I
+>COMMAND</I
+></TT
+>命令. 
+			命令序列以<SPAN
+CLASS="TOKEN"
+>;</SPAN
+>结束(<SPAN
+CLASS="QUOTE"
+>";"</SPAN
+>是<A
+HREF="escapingsection.html#ESCP"
+>转义符</A
+>以保证shll传递到<B
+CLASS="COMMAND"
+>find</B
+>命令中的字符不会被解释为其他的特殊字符). </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>find ~/ -name '*.txt'</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/home/bozo/.kde/share/apps/karm/karmdata.txt
+ /home/bozo/misc/irmeyc.txt
+ /home/bozo/test-scripts/1.txt</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+><P
+><A
+NAME="CURLYBRACKETSREF"
+></A
+></P
+><P
+>如果<TT
+CLASS="REPLACEABLE"
+><I
+>COMMAND</I
+></TT
+>中包含<SPAN
+CLASS="TOKEN"
+>{}</SPAN
+>, 
+				那么<B
+CLASS="COMMAND"
+>find</B
+>命令将会用所有匹配文件的路径名来替换<SPAN
+CLASS="QUOTE"
+>"{}"</SPAN
+>. </P
+><P
+>          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;find ~/ -name 'core*' -exec rm {} \;
+  2&nbsp;# 从用户的 home 目录中删除所有的 core dump文件. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+><P
+>	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;find /home/bozo/projects -mtime 1
+  2&nbsp;#  列出最后一天被修改的
+  3&nbsp;#+ 在/home/bozo/projects目录树下的所有文件.
+  4&nbsp;#
+  5&nbsp;#  mtime = 目标文件最后修改的时间
+  6&nbsp;#  ctime = 修改后的最后状态(通过'chmod'或其他方法)
+  7&nbsp;#  atime = 最后访问时间
+  8&nbsp;
+  9&nbsp;DIR=/home/bozo/junk_files
+ 10&nbsp;find "$DIR" -type f -atime +5 -exec rm {} \;
+ 11&nbsp;#                                      ^^
+ 12&nbsp;#  大括号就是"find"命令用来替换目录的地方.
+ 13&nbsp;#
+ 14&nbsp;#  删除至少5天内没被访问过的
+ 15&nbsp;#+ "/home/bozo/junk_files" 中的所有文件.
+ 16&nbsp;#
+ 17&nbsp;#  "-type filetype", where
+ 18&nbsp;#  f = regular file
+ 19&nbsp;#  d = directory, etc.
+ 20&nbsp;#  ('find' 命令的man页包含有完整的选项列表.) </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;find /etc -exec grep '[0-9][0-9]*[.][0-9][0-9]*[.][0-9][0-9]*[.][0-9][0-9]*' {} \;
+  2&nbsp;
+  3&nbsp;# 在 /etc 目录中的文件找到所所有包含 IP 地址(xxx.xxx.xxx.xxx) 的文件.
+  4&nbsp;# 可能会查找到一些多余的匹配. 我们如何去掉它们呢?
+  5&nbsp;
+  6&nbsp;# 或许可以使用如下方法:
+  7&nbsp;
+  8&nbsp;find /etc -type f -exec cat '{}' \; | tr -c '.[:digit:]' '\n' \
+  9&nbsp;| grep '^[^.][^.]*\.[^.][^.]*\.[^.][^.]*\.[^.][^.]*$'
+ 10&nbsp;#
+ 11&nbsp;#  [:digit:] 是一种字符类.
+ 12&nbsp;#+ 关于字符类的介绍请参考 POSIX 1003.2 标准化文档. 
+ 13&nbsp;
+ 14&nbsp;# 感谢, Stephane Chazelas. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>find</B
+>命令的<CODE
+CLASS="OPTION"
+>-exec</CODE
+>选项不应该与shell中的内建命令<A
+HREF="internal.html#EXECREF"
+>exec</A
+>相混淆. </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX57"
+></A
+><P
+><B
+>例子 12-3. <B
+CLASS="COMMAND"
+>糟糕的文件名</B
+>, 删除当前目录下文件名中包含一些糟糕字符(包括<A
+HREF="special-chars.html#WHITESPACEREF"
+>空白</A
+>的文件.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# badname.sh
+  3&nbsp;# 删除当前目录下文件名中包含一些特殊字符的文件.(这些特殊字符指的是不应该出现在文件名中的字符)
+  4&nbsp;
+  5&nbsp;for filename in *
+  6&nbsp;do
+  7&nbsp;  badname=`echo "$filename" | sed -n /[\+\{\;\"\\\=\?~\(\)\&#60;\&#62;\&#38;\*\|\$]/p`
+  8&nbsp;# badname=`echo "$filename" | sed -n '/[+{;"\=?~()&#60;&#62;&#38;*|$]/p'`  这句也行.
+  9&nbsp;# 删除文件名包含这些字符的文件:     + { ; " \ = ? ~ ( ) &#60; &#62; &#38; * | $
+ 10&nbsp;#
+ 11&nbsp;  rm $badname 2&#62;/dev/null
+ 12&nbsp;#             ^^^^^^^^^^^ 错误消息将被抛弃.
+ 13&nbsp;done
+ 14&nbsp;
+ 15&nbsp;# 现在, 处理文件名中以任何方式包含空白的文件.
+ 16&nbsp;find . -name "* *" -exec rm -f {} \;
+ 17&nbsp;# "find"命令匹配到的目录名将替换到"{}"的位置.
+ 18&nbsp;# '\'是为了保证';'被正确的转义, 并且放到命令的结尾.
+ 19&nbsp;
+ 20&nbsp;exit 0
+ 21&nbsp;
+ 22&nbsp;#---------------------------------------------------------------------
+ 23&nbsp;# 这行下边的命令将不会运行, 因为有 "exit" 命令.
+ 24&nbsp;
+ 25&nbsp;# 下边这句可以用来替换上边的脚本: 
+ 26&nbsp;find . -name '*[+{;"\\=?~()&#60;&#62;&#38;*|$ ]*' -exec rm -f '{}' \;
+ 27&nbsp;# (感谢, S.C.)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="IDELETE"
+></A
+><P
+><B
+>例子 12-4. 通过文件的<EM
+>inode</EM
+>号来删除文件</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# idelete.sh: 通过文件的inode号来删除文件.
+  3&nbsp;
+  4&nbsp;#  当文件名以一个非法字符开头的时候, 这就非常有用了,
+  5&nbsp;#+ 比如 ? 或 -.
+  6&nbsp;
+  7&nbsp;ARGCOUNT=1                      # 文件名参数必须被传递到脚本中.
+  8&nbsp;E_WRONGARGS=70
+  9&nbsp;E_FILE_NOT_EXIST=71
+ 10&nbsp;E_CHANGED_MIND=72
+ 11&nbsp;
+ 12&nbsp;if [ $# -ne "$ARGCOUNT" ]
+ 13&nbsp;then
+ 14&nbsp;  echo "Usage: `basename $0` filename"
+ 15&nbsp;  exit $E_WRONGARGS
+ 16&nbsp;fi  
+ 17&nbsp;
+ 18&nbsp;if [ ! -e "$1" ]
+ 19&nbsp;then
+ 20&nbsp;  echo "File \""$1"\" does not exist."
+ 21&nbsp;  exit $E_FILE_NOT_EXIST
+ 22&nbsp;fi  
+ 23&nbsp;
+ 24&nbsp;inum=`ls -i | grep "$1" | awk '{print $1}'`
+ 25&nbsp;# inum = inode 文件的(索引节点)号.
+ 26&nbsp;# --------------------------------------------------------
+ 27&nbsp;# 每个文件都有一个inode号, 这个号用来记录文件物理地址信息.
+ 28&nbsp;# --------------------------------------------------------
+ 29&nbsp;
+ 30&nbsp;echo; echo -n "Are you absolutely sure you want to delete \"$1\" (y/n)? "
+ 31&nbsp;# 'rm' 命令的 '-v' 选项得询问也会出现这句话.
+ 32&nbsp;read answer
+ 33&nbsp;case "$answer" in
+ 34&nbsp;[nN]) echo "Changed your mind, huh?"
+ 35&nbsp;      exit $E_CHANGED_MIND
+ 36&nbsp;      ;;
+ 37&nbsp;*)    echo "Deleting file \"$1\".";;
+ 38&nbsp;esac
+ 39&nbsp;
+ 40&nbsp;find . -inum $inum -exec rm {} \;
+ 41&nbsp;#                           ^^
+ 42&nbsp;#        大括号就是"find"命令
+ 43&nbsp;#+       用来替换文本输出的地方.
+ 44&nbsp;echo "File "\"$1"\" deleted!"
+ 45&nbsp;
+ 46&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>请参考<A
+HREF="filearchiv.html#EX48"
+>例子 12-27</A
+>, <A
+HREF="special-chars.html#EX58"
+>例子 3-4</A
+>,
+		和<A
+HREF="loops1.html#FINDSTRING"
+>例子 10-9</A
+> 这些例子展示了如何使用<B
+CLASS="COMMAND"
+>find</B
+>命令. 
+		对于这个强大而又复杂的命令来说, 查看man页可以获得更多的细节. 
+	      </P
+></DD
+><DT
+><A
+NAME="XARGSREF"
+></A
+><B
+CLASS="COMMAND"
+>xargs</B
+></DT
+><DD
+><P
+>这是给命令传递参数的一个过滤器, 也是组合多个命令的一个工具. 
+			  它把一个数据流分割为一些足够小的块, 
+			  以方便过滤器和命令进行处理. 
+			  由此这个命令也是<A
+HREF="commandsub.html#BACKQUOTESREF"
+>后置引用</A
+>的一个强有力的替换. 
+			  当在一般情况下使用<SPAN
+CLASS="ERRORNAME"
+>过多参数</SPAN
+>的<A
+HREF="commandsub.html#COMMANDSUBREF"
+>命令替换</A
+>都会产生失败的现象, 
+			  这时候使用<B
+CLASS="COMMAND"
+>xargs</B
+>命令来替换, 一般都能成功. 
+			  <A
+NAME="AEN7492"
+HREF="#FTN.AEN7492"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+	      一般的, <B
+CLASS="COMMAND"
+>xargs</B
+>从<TT
+CLASS="FILENAME"
+>stdin</TT
+>或者管道中读取数据, 
+	      但是它也能够从文件的输出中读取数据. </P
+><P
+><B
+CLASS="COMMAND"
+>xargs</B
+>的默认命令是<A
+HREF="internal.html#ECHOREF"
+>echo</A
+>. 
+		  这意味着通过管道传递给<B
+CLASS="COMMAND"
+>xargs</B
+>的输入将会包含换行和空白, 
+		  不过通过<B
+CLASS="COMMAND"
+>xargs</B
+>的处理, 
+		  换行和空白将被空格取代.
+	      
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -l</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 0
+ -rw-rw-r--    1 bozo  bozo         0 Jan 29 23:58 file1
+ -rw-rw-r--    1 bozo  bozo         0 Jan 29 23:58 file2</SAMP
+>
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -l | xargs</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 0 -rw-rw-r-- 1 bozo bozo 0 Jan 29 23:58 file1 -rw-rw-r-- 1 bozo bozo 0 Jan 29 23:58 file2</SAMP
+>
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>find ~/mail -type f | xargs grep "Linux"</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>./misc:User-Agent: slrn/0.9.8.1 (Linux)
+ ./sent-mail-jul-2005: hosted by the Linux Documentation Project.
+ ./sent-mail-jul-2005: (Linux Documentation Project Site, rtf version)
+ ./sent-mail-jul-2005: Subject: Criticism of Bozo's Windows/Linux article
+ ./sent-mail-jul-2005: while mentioning that the Linux ext2/ext3 filesystem
+ . . .</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      
+	      </P
+><P
+><KBD
+CLASS="USERINPUT"
+>ls | xargs -p -l gzip</KBD
+> 使用<A
+HREF="filearchiv.html#GZIPREF"
+>gzips</A
+>压缩当前目录下的每个文件, 
+		   每次压缩一个, 并且在每次压缩前都提示用户. </P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>一个有趣的<B
+CLASS="COMMAND"
+>xargs</B
+>选项是<CODE
+CLASS="OPTION"
+>-n <TT
+CLASS="REPLACEABLE"
+><I
+>NN</I
+></TT
+></CODE
+>,
+	      <TT
+CLASS="REPLACEABLE"
+><I
+>NN</I
+></TT
+>用来限制每次传递进来参数的个数. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>ls | xargs -n 8 echo</KBD
+>以每行<TT
+CLASS="LITERAL"
+>8</TT
+>列的形式列出当前目录下的所有文件. </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>另一个有用的选项是<CODE
+CLASS="OPTION"
+>-0</CODE
+>, 
+			使用<B
+CLASS="COMMAND"
+>find -print0</B
+><B
+CLASS="COMMAND"
+>grep -lZ</B
+>这两种组合方式. 这允许处理包含空白或引号的参数. </P
+><P
+>	    <KBD
+CLASS="USERINPUT"
+>find / -type f -print0 | xargs -0 grep -liwZ GUI | xargs -0 rm -f</KBD
+>
+	    </P
+><P
+>	    <KBD
+CLASS="USERINPUT"
+>grep -rliwZ GUI / | xargs -0 rm -f</KBD
+>
+	    </P
+><P
+>上边两行都可用来删除任何包含<SPAN
+CLASS="QUOTE"
+>"GUI"</SPAN
+>的文件.
+	      <EM
+>(感谢, S.C.)</EM
+></P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX41"
+></A
+><P
+><B
+>例子 12-5. Logfile: 使用<B
+CLASS="COMMAND"
+>xargs</B
+>来监控系统log</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# 从/var/log/messagesGenerates的尾部开始
+  4&nbsp;# 产生当前目录下的一个lof文件.
+  5&nbsp;
+  6&nbsp;# 注意: 如果这个脚本被一个一般用户调用的话,
+  7&nbsp;# /var/log/messages 必须是全部可读的.
+  8&nbsp;#         #root chmod 644 /var/log/messages
+  9&nbsp;
+ 10&nbsp;LINES=5
+ 11&nbsp;
+ 12&nbsp;( date; uname -a ) &#62;&#62;logfile
+ 13&nbsp;# 时间和机器名
+ 14&nbsp;echo --------------------------------------------------------------------- &#62;&#62;logfile
+ 15&nbsp;tail -$LINES /var/log/messages | xargs |  fmt -s &#62;&#62;logfile
+ 16&nbsp;echo &#62;&#62;logfile
+ 17&nbsp;echo &#62;&#62;logfile
+ 18&nbsp;
+ 19&nbsp;exit 0
+ 20&nbsp;
+ 21&nbsp;#  注意:
+ 22&nbsp;#  -----
+ 23&nbsp;#  像 Frank Wang 所指出,
+ 24&nbsp;#+ 在原文件中的任何不匹配的引号(包括单引号和双引号)
+ 25&nbsp;#+ 都会给xargs造成麻烦.
+ 26&nbsp;#                                                                             
+ 27&nbsp;#  他建议使用下边的这行来替换上边的第15行:
+ 28&nbsp;#     tail -$LINES /var/log/messages | tr -d "\"'" | xargs | fmt -s &#62;&#62;logfile
+ 29&nbsp;
+ 30&nbsp;
+ 31&nbsp;
+ 32&nbsp;#  练习:
+ 33&nbsp;#  -----
+ 34&nbsp;#  修改这个脚本, 使得这个脚本每个20分钟
+ 35&nbsp;#+ 就跟踪一下 /var/log/messages 的修改记录.
+ 36&nbsp;#  提示: 使用 "watch" 命令. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><A
+HREF="moreadv.html#CURLYBRACKETSREF"
+>As in
+	      <B
+CLASS="COMMAND"
+>find</B
+></A
+>, a curly bracket
+	      pair serves as a placeholder for replacement text.</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX42"
+></A
+><P
+><B
+>例子 12-6. 把当前目录下的文件拷贝到另一个文件中</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# copydir.sh
+  3&nbsp;
+  4&nbsp;#  将当前目录下($PWD)的所有文件都拷贝到
+  5&nbsp;#+ 命令行所指定的另一个目录中去.
+  6&nbsp;
+  7&nbsp;E_NOARGS=65
+  8&nbsp;
+  9&nbsp;if [ -z "$1" ]   # 如果没有参数传递进来那就退出.
+ 10&nbsp;then
+ 11&nbsp;  echo "Usage: `basename $0` directory-to-copy-to"
+ 12&nbsp;  exit $E_NOARGS
+ 13&nbsp;fi  
+ 14&nbsp;
+ 15&nbsp;ls . | xargs -i -t cp ./{} $1
+ 16&nbsp;#            ^^ ^^      ^^
+ 17&nbsp;#  -t 是 "verbose" (输出命令行到stderr) 选项.
+ 18&nbsp;#  -i 是"替换字符串"选项.
+ 19&nbsp;#  {} 是输出文本的替换点.
+ 20&nbsp;#  这与在"find"命令中使用{}的情况很相像.
+ 21&nbsp;#                                                       
+ 22&nbsp;#  列出当前目录下的所有文件(ls .),
+ 23&nbsp;#+ 将 "ls" 的输出作为参数传递到 "xargs"(-i -t 选项) 中,
+ 24&nbsp;#+ 然后拷贝(cp)这些参数({})到一个新目录中($1).
+ 25&nbsp;#                                                       
+ 26&nbsp;#  最终的结果和下边的命令等价,
+ 27&nbsp;#+   cp * $1
+ 28&nbsp;#+ 除非有文件名中嵌入了"空白"字符.
+ 29&nbsp;
+ 30&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="KILLBYNAME"
+></A
+><P
+><B
+>例子 12-7. 通过名字kill进程</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# kill-byname.sh: 通过名字kill进程.
+  3&nbsp;# 与脚本kill-process.sh相比较.
+  4&nbsp;
+  5&nbsp;#  例如,
+  6&nbsp;#+ 试一下 "./kill-byname.sh xterm" --
+  7&nbsp;#+ 并且查看你系统上的所有xterm都将消失.
+  8&nbsp;                                                               
+  9&nbsp;#  警告:
+ 10&nbsp;#  -----
+ 11&nbsp;#  这是一个非常危险的脚本.
+ 12&nbsp;#  运行它的时候一定要小心. (尤其是以root身份运行时)
+ 13&nbsp;#+ 因为运行这个脚本可能会引起数据丢失或产生其他一些不好的效果.
+ 14&nbsp;
+ 15&nbsp;E_BADARGS=66
+ 16&nbsp;
+ 17&nbsp;if test -z "$1"  # 没有参数传递进来?
+ 18&nbsp;then
+ 19&nbsp;  echo "Usage: `basename $0` Process(es)_to_kill"
+ 20&nbsp;  exit $E_BADARGS
+ 21&nbsp;fi
+ 22&nbsp;
+ 23&nbsp;
+ 24&nbsp;PROCESS_NAME="$1"
+ 25&nbsp;ps ax | grep "$PROCESS_NAME" | awk '{print $1}' | xargs -i kill {} 2&#38;&#62;/dev/null
+ 26&nbsp;#                                                       ^^      ^^
+ 27&nbsp;
+ 28&nbsp;# -----------------------------------------------------------
+ 29&nbsp;# 注意:
+ 30&nbsp;# -i 参数是xargs命令的"替换字符串"选项.
+ 31&nbsp;# 大括号对的地方就是替换点.
+ 32&nbsp;# 2&#38;&#62;/dev/null 将会丢弃不需要的错误消息.
+ 33&nbsp;# -----------------------------------------------------------
+ 34&nbsp;
+ 35&nbsp;exit $?
+ 36&nbsp;
+ 37&nbsp;#  在这个脚本中, "killall"命令具有相同的效果, 
+ 38&nbsp;#+ 但是这么做就没有教育意义了.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="WF2"
+></A
+><P
+><B
+>例子 12-8. 使用<B
+CLASS="COMMAND"
+>xargs</B
+><B
+CLASS="COMMAND"
+>分析单词出现的频率</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# wf2.sh: 分析一个文本文件中单词出现的频率. 
+  3&nbsp;
+  4&nbsp;# 使用 'xargs' 将文本行分解为单词.
+  5&nbsp;# 与后边的 "wf.sh" 脚本相比较.
+  6&nbsp;
+  7&nbsp;
+  8&nbsp;# 检查命令行上输入的文件.
+  9&nbsp;ARGS=1
+ 10&nbsp;E_BADARGS=65
+ 11&nbsp;E_NOFILE=66
+ 12&nbsp;
+ 13&nbsp;if [ $# -ne "$ARGS" ]
+ 14&nbsp;# 纠正传递到脚本中的参数个数?
+ 15&nbsp;then
+ 16&nbsp;  echo "Usage: `basename $0` filename"
+ 17&nbsp;  exit $E_BADARGS
+ 18&nbsp;fi
+ 19&nbsp;
+ 20&nbsp;if [ ! -f "$1" ]       # 检查文件是否存在.
+ 21&nbsp;then
+ 22&nbsp;  echo "File \"$1\" does not exist."
+ 23&nbsp;  exit $E_NOFILE
+ 24&nbsp;fi
+ 25&nbsp;
+ 26&nbsp;
+ 27&nbsp;
+ 28&nbsp;#####################################################################
+ 29&nbsp;cat "$1" | xargs -n1 | \
+ 30&nbsp;#  列出文件, 每行一个单词.
+ 31&nbsp;tr A-Z a-z | \
+ 32&nbsp;#  将字符转换为小写.
+ 33&nbsp;sed -e 's/\.//g'  -e 's/\,//g' -e 's/ /\
+ 34&nbsp;/g' | \
+ 35&nbsp;#  过滤掉句号和逗号,
+ 36&nbsp;#+ 并且将单词间的空格修改为换行,
+ 37&nbsp;sort | uniq -c | sort -nr
+ 38&nbsp;#  最后统计出现次数, 把数字显示在第一列, 然后显示单词, 并按数字排序.
+ 39&nbsp;#####################################################################
+ 40&nbsp;
+ 41&nbsp;#  这个例子的作用与"wf.sh"的作用是一样的,
+ 42&nbsp;#+ 但是这个例子比较臃肿, 并且运行起来更慢一些(为什么?).
+ 43&nbsp;
+ 44&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><A
+NAME="EXPRREF"
+></A
+><KBD
+CLASS="USERINPUT"
+>expr</KBD
+></DT
+><DD
+><P
+>通用求值表达式: 
+			  通过给定的操作(参数必须以空格分开)连接参数, 
+			  并对参数求值. 可以使算术操作, 比较操作, 
+			  字符串操作或者是逻辑操作. 
+	      </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><KBD
+CLASS="USERINPUT"
+>expr 3 + 5</KBD
+></DT
+><DD
+><P
+>返回<TT
+CLASS="LITERAL"
+>8</TT
+></P
+></DD
+><DT
+><KBD
+CLASS="USERINPUT"
+>expr 5 % 3</KBD
+></DT
+><DD
+><P
+>返回2</P
+></DD
+><DT
+><KBD
+CLASS="USERINPUT"
+>expr 1 / 0</KBD
+></DT
+><DD
+><P
+>返回错误消息, <EM
+>expr: division by
+		    zero</EM
+></P
+><P
+>不允许非法的算术操作. </P
+></DD
+><DT
+><KBD
+CLASS="USERINPUT"
+>expr 5 \* 3</KBD
+></DT
+><DD
+><P
+>返回15</P
+><P
+>在算术表达式<B
+CLASS="COMMAND"
+>expr</B
+>中使用乘法操作时, 
+			乘法符号必须被转义.
+		  </P
+></DD
+><DT
+><KBD
+CLASS="USERINPUT"
+>y=`expr $y + 1`</KBD
+></DT
+><DD
+><P
+>增加变量的值, 
+				与<KBD
+CLASS="USERINPUT"
+>let y=y+1</KBD
+>和<KBD
+CLASS="USERINPUT"
+>y=$(($y+1))</KBD
+>的效果相同. 
+				这是使用<A
+HREF="arithexp.html#ARITHEXPREF"
+>算术表达式</A
+>的一个例子. </P
+></DD
+><DT
+><A
+NAME="EXPEXTRSUB"
+></A
+><KBD
+CLASS="USERINPUT"
+>z=`expr substr
+		$string $position $length`</KBD
+></DT
+><DD
+><P
+>在位置$position上提取$length长度的子串. </P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX45"
+></A
+><P
+><B
+>例子 12-9. 使用<B
+CLASS="COMMAND"
+>expr</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# 展示一些使用'expr'的例子
+  4&nbsp;# ========================
+  5&nbsp;
+  6&nbsp;echo
+  7&nbsp;
+  8&nbsp;# 算术 操作
+  9&nbsp;# ---- ----
+ 10&nbsp;
+ 11&nbsp;echo "Arithmetic Operators"
+ 12&nbsp;echo
+ 13&nbsp;a=`expr 5 + 3`
+ 14&nbsp;echo "5 + 3 = $a"
+ 15&nbsp;
+ 16&nbsp;a=`expr $a + 1`
+ 17&nbsp;echo
+ 18&nbsp;echo "a + 1 = $a"
+ 19&nbsp;echo "(incrementing a variable)"
+ 20&nbsp;
+ 21&nbsp;a=`expr 5 % 3`
+ 22&nbsp;# 取模操作
+ 23&nbsp;echo
+ 24&nbsp;echo "5 mod 3 = $a"
+ 25&nbsp;
+ 26&nbsp;echo
+ 27&nbsp;echo
+ 28&nbsp;
+ 29&nbsp;# 逻辑 操作
+ 30&nbsp;# ---- ----
+ 31&nbsp;
+ 32&nbsp;#  true返回1, false返回0,
+ 33&nbsp;#+ 而Bash的使用惯例则相反.
+ 34&nbsp;
+ 35&nbsp;echo "Logical Operators"
+ 36&nbsp;echo
+ 37&nbsp;
+ 38&nbsp;x=24
+ 39&nbsp;y=25
+ 40&nbsp;b=`expr $x = $y`         # 测试相等.
+ 41&nbsp;echo "b = $b"            # 0  ( $x -ne $y )
+ 42&nbsp;echo
+ 43&nbsp;
+ 44&nbsp;a=3
+ 45&nbsp;b=`expr $a \&#62; 10`
+ 46&nbsp;echo 'b=`expr $a \&#62; 10`, therefore...'
+ 47&nbsp;echo "If a &#62; 10, b = 0 (false)"
+ 48&nbsp;echo "b = $b"            # 0  ( 3 ! -gt 10 )
+ 49&nbsp;echo
+ 50&nbsp;
+ 51&nbsp;b=`expr $a \&#60; 10`
+ 52&nbsp;echo "If a &#60; 10, b = 1 (true)"
+ 53&nbsp;echo "b = $b"            # 1  ( 3 -lt 10 )
+ 54&nbsp;echo
+ 55&nbsp;# 注意转义操作.
+ 56&nbsp;
+ 57&nbsp;b=`expr $a \&#60;= 3`
+ 58&nbsp;echo "If a &#60;= 3, b = 1 (true)"
+ 59&nbsp;echo "b = $b"            # 1  ( 3 -le 3 )
+ 60&nbsp;# 也有 "\&#62;=" 操作 (大于等于).
+ 61&nbsp;
+ 62&nbsp;
+ 63&nbsp;echo
+ 64&nbsp;echo
+ 65&nbsp;
+ 66&nbsp;
+ 67&nbsp;
+ 68&nbsp;# 字符串 操作
+ 69&nbsp;# ------ ----
+ 70&nbsp;
+ 71&nbsp;echo "String Operators"
+ 72&nbsp;echo
+ 73&nbsp;
+ 74&nbsp;a=1234zipper43231
+ 75&nbsp;echo "The string being operated upon is \"$a\"."
+ 76&nbsp;
+ 77&nbsp;# 长度: 字符串长度
+ 78&nbsp;b=`expr length $a`
+ 79&nbsp;echo "Length of \"$a\" is $b."
+ 80&nbsp;
+ 81&nbsp;# 索引: 从字符串的开头查找匹配的子串,
+ 82&nbsp;#       并取得第一个匹配子串的位置.
+ 83&nbsp;b=`expr index $a 23`
+ 84&nbsp;echo "Numerical position of first \"2\" in \"$a\" is \"$b\"."
+ 85&nbsp;
+ 86&nbsp;# substr: 从指定位置提取指定长度的字串.
+ 87&nbsp;b=`expr substr $a 2 6`
+ 88&nbsp;echo "Substring of \"$a\", starting at position 2,\
+ 89&nbsp;and 6 chars long is \"$b\"."
+ 90&nbsp;
+ 91&nbsp;
+ 92&nbsp;#  'match' 操作的默认行为就是从字符串的开始进行搜索,
+ 93&nbsp;#+  并匹配第一个匹配的字符串.
+ 94&nbsp;#
+ 95&nbsp;#        使用正则表达式
+ 96&nbsp;b=`expr match "$a" '[0-9]*'`               #  数字的个数.
+ 97&nbsp;echo Number of digits at the beginning of \"$a\" is $b.
+ 98&nbsp;b=`expr match "$a" '\([0-9]*\)'`           #  注意, 需要转义括号
+ 99&nbsp;#                   ==      ==              + 这样才能触发子串的匹配.
+100&nbsp;echo "The digits at the beginning of \"$a\" are \"$b\"."
+101&nbsp;
+102&nbsp;echo
+103&nbsp;
+104&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="IMPORTANT"
+><P
+></P
+><TABLE
+CLASS="IMPORTANT"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/important.gif"
+HSPACE="5"
+ALT="Important"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><A
+HREF="special-chars.html#NULLREF"
+>:</A
+>操作可以替换<B
+CLASS="COMMAND"
+>match</B
+>命令. 
+			比如, <KBD
+CLASS="USERINPUT"
+>b=`expr $a : [0-9]*`</KBD
+>与上边所使用的<KBD
+CLASS="USERINPUT"
+>b=`expr match $a
+	      [0-9]*`</KBD
+>完全等价. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;echo
+  4&nbsp;echo "String operations using \"expr \$string : \" construct"
+  5&nbsp;echo "==================================================="
+  6&nbsp;echo
+  7&nbsp;
+  8&nbsp;a=1234zipper5FLIPPER43231
+  9&nbsp;
+ 10&nbsp;echo "The string being operated upon is \"`expr "$a" : '\(.*\)'`\"."
+ 11&nbsp;#     转义括号对的操作.						            ==  ==
+ 12&nbsp;
+ 13&nbsp;#       ***************************
+ 14&nbsp;#+				转义括号对
+ 15&nbsp;#+           用来匹配一个子串
+ 16&nbsp;#       ***************************
+ 17&nbsp;
+ 18&nbsp;
+ 19&nbsp;#  如果不转义括号的话...
+ 20&nbsp;#+ 那么'expr'将把string操作转换为一个整数.
+ 21&nbsp;
+ 22&nbsp;echo "Length of \"$a\" is `expr "$a" : '.*'`."   # 字符串长度
+ 23&nbsp;
+ 24&nbsp;echo "Number of digits at the beginning of \"$a\" is `expr "$a" : '[0-9]*'`."
+ 25&nbsp;
+ 26&nbsp;# ------------------------------------------------------------------------- #
+ 27&nbsp;
+ 28&nbsp;echo
+ 29&nbsp;
+ 30&nbsp;echo "The digits at the beginning of \"$a\" are `expr "$a" : '\([0-9]*\)'`."
+ 31&nbsp;#                                                             ==      ==
+ 32&nbsp;echo "The first 7 characters of \"$a\" are `expr "$a" : '\(.......\)'`."
+ 33&nbsp;#         =====                                          ==       ==
+ 34&nbsp;# 再来一个, 转义括号对强制一个子串匹配.
+ 35&nbsp;#
+ 36&nbsp;echo "The last 7 characters of \"$a\" are `expr "$a" : '.*\(.......\)'`."
+ 37&nbsp;#         ====                  字符串操作的结尾		^^
+ 38&nbsp;#  (最后这个模式的意思是忽略前边的任何字符,直到最后7个字符,
+ 39&nbsp;#+  最后7个点就是需要匹配的任意7个字符的字串)
+ 40&nbsp;
+ 41&nbsp;echo
+ 42&nbsp;
+ 43&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+></DL
+></DIV
+><P
+>上边的脚本展示了<B
+CLASS="COMMAND"
+>expr</B
+>如何使用<EM
+>转义括号对-- \( ... \) --</EM
+> 
+		   和<A
+HREF="regexp.html#REGEXREF"
+>正则表达式</A
+>一起来分析和匹配子串. 
+	      下边是另外一个例子, 这次的例子是真正的<SPAN
+CLASS="QUOTE"
+>"应用用例"</SPAN
+>. 
+
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 去掉字符串开头和结尾的空白. 
+  2&nbsp;LRFDATE=`expr "$LRFDATE" : '[[:space:]]*\(.*\)[[:space:]]*$'`
+  3&nbsp;
+  4&nbsp;#  来自于Peter Knowle的"booklistgen.sh"脚本
+  5&nbsp;#+ 用来将文件转换为Sony Librie格式.
+  6&nbsp;#  (http://booklistgensh.peterknowles.com)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+	      </P
+><P
+><A
+HREF="wrapper.html#PERLREF"
+>Perl</A
+>,
+	      <A
+HREF="sedawk.html#SEDREF"
+>sed</A
+>, 和<A
+HREF="awk.html#AWKREF"
+>awk</A
+>是更强大的字符串分析工具. 
+	  在脚本中加入一段比较短的<B
+CLASS="COMMAND"
+>sed</B
+>或者<B
+CLASS="COMMAND"
+>awk</B
+><SPAN
+CLASS="QUOTE"
+>"子程序"</SPAN
+>(参考<A
+HREF="wrapper.html"
+>Section 33.2</A
+>), 
+		  比使用<B
+CLASS="COMMAND"
+>expr</B
+>更有吸引力. 
+	      </P
+><P
+>参考<A
+HREF="string-manipulation.html"
+>Section 9.2</A
+>可以了解到更多使用<B
+CLASS="COMMAND"
+>expr</B
+>进行字符串操作的例子. </P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN7492"
+HREF="moreadv.html#AEN7492"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>即使在某些不必非得强制使用<I
+CLASS="FIRSTTERM"
+>xargs</I
+>的情况下, 
+		使用这个命令也会明显的提高多文件批处理执行命令的速度. </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="basic.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="timedate.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>基本命令</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="external.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>时间/日期 命令</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

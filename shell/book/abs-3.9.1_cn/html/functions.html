@@ -1,0 +1,437 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>函数</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="高级主题"
+HREF="part4.html"><LINK
+REL="PREVIOUS"
+TITLE="进程替换"
+HREF="process-sub.html"><LINK
+REL="NEXT"
+TITLE="复杂函数和函数复杂性"
+HREF="complexfunct.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="process-sub.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="complexfunct.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="FUNCTIONS"
+></A
+>23. 函数</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>目录</B
+></DT
+><DT
+>23.1. <A
+HREF="complexfunct.html"
+>复杂函数和函数复杂性</A
+></DT
+><DT
+>23.2. <A
+HREF="localvar.html"
+>局部变量</A
+></DT
+><DT
+>23.3. <A
+HREF="recurnolocvar.html"
+>不使用局部变量的递归</A
+></DT
+></DL
+></DIV
+><P
+><A
+NAME="FUNCTIONREF"
+></A
+></P
+><P
+>与<SPAN
+CLASS="QUOTE"
+>"真正的"</SPAN
+>编程语言一样, 
+	Bash也有函数, 虽然在某些实现方面稍有限制. 
+	一个函数就是一个子程序, 
+	用于实现一系列操作的<A
+HREF="special-chars.html#CODEBLOCKREF"
+>代码块</A
+>, 
+	它是完成特定任务的<SPAN
+CLASS="QUOTE"
+>"黑盒子"</SPAN
+>. 
+	当存在重复代码的时候, 或者当一个任务只需要轻微修改就被重复使用的时候, 
+	你就需要考虑使用函数了. 
+	</P
+><P
+><P
+><B
+CLASS="COMMAND"
+>function</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>function_name</I
+></TT
+>   { <BR>  <TT
+CLASS="REPLACEABLE"
+><I
+>command</I
+></TT
+>... <BR>  } <BR></P
+>
+	或
+	<P
+> <TT
+CLASS="REPLACEABLE"
+><I
+>function_name</I
+></TT
+>   ()   { <BR>  <TT
+CLASS="REPLACEABLE"
+><I
+>command</I
+></TT
+>... <BR>  } <BR></P
+>
+      </P
+><P
+>C程序员肯定会更加喜欢第二中格式的写法(并且这种写法可移植性更好). </P
+><P
+>在C中, 函数的左大括号也可以写在下一行中. </P
+><P
+><P
+> <TT
+CLASS="REPLACEABLE"
+><I
+>function_name</I
+></TT
+>   () <BR>  { <BR>  <TT
+CLASS="REPLACEABLE"
+><I
+>command</I
+></TT
+>... <BR>  } <BR></P
+>
+      </P
+><P
+>只需要简单的调用函数名, 函数就会被调用或<I
+CLASS="FIRSTTERM"
+>触发</I
+>. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX59"
+></A
+><P
+><B
+>例子 23-1. 简单函数</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;JUST_A_SECOND=1
+  4&nbsp;
+  5&nbsp;funky ()
+  6&nbsp;{ # 这是一个最简单的函数. 
+  7&nbsp;  echo "This is a funky function."
+  8&nbsp;  echo "Now exiting funky function."
+  9&nbsp;} # 函数必须在调用前声明. 
+ 10&nbsp;
+ 11&nbsp;
+ 12&nbsp;fun ()
+ 13&nbsp;{ # 一个稍微复杂一些的函数. 
+ 14&nbsp;  i=0
+ 15&nbsp;  REPEATS=30
+ 16&nbsp;
+ 17&nbsp;  echo
+ 18&nbsp;  echo "And now the fun really begins."
+ 19&nbsp;  echo
+ 20&nbsp;
+ 21&nbsp;  sleep $JUST_A_SECOND    # 嘿, 暂停一秒! 
+ 22&nbsp;  while [ $i -lt $REPEATS ]
+ 23&nbsp;  do
+ 24&nbsp;    echo "----------FUNCTIONS----------&#62;"
+ 25&nbsp;    echo "&#60;------------ARE-------------"
+ 26&nbsp;    echo "&#60;------------FUN------------&#62;"
+ 27&nbsp;    echo
+ 28&nbsp;    let "i+=1"
+ 29&nbsp;  done
+ 30&nbsp;}
+ 31&nbsp;
+ 32&nbsp;  # 现在, 调用这两个函数. 
+ 33&nbsp;
+ 34&nbsp;funky
+ 35&nbsp;fun
+ 36&nbsp;
+ 37&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>函数定义必须在第一次调用函数之前完成. 
+	没有像C中函数<SPAN
+CLASS="QUOTE"
+>"声明"</SPAN
+>的方法. 
+	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;f1
+  2&nbsp;# 因为函数"f1"还没有被定义, 这会产生一个错误. 
+  3&nbsp;
+  4&nbsp;declare -f f1      # 这样也没用. 
+  5&nbsp;f1                 # 仍然会引起错误. 
+  6&nbsp;
+  7&nbsp;# 然而...
+  8&nbsp;
+  9&nbsp;	  
+ 10&nbsp;f1 ()
+ 11&nbsp;{
+ 12&nbsp;  echo "Calling function \"f2\" from within function \"f1\"."
+ 13&nbsp;  f2
+ 14&nbsp;}
+ 15&nbsp;
+ 16&nbsp;f2 ()
+ 17&nbsp;{
+ 18&nbsp;  echo "Function \"f2\"."
+ 19&nbsp;}
+ 20&nbsp;
+ 21&nbsp;f1  #  虽然在f2在定义前被引用过, 
+ 22&nbsp;    #+ 实际上f2到这儿才被调用. 
+ 23&nbsp;    #  所以这么做是正常的. 
+ 24&nbsp;    
+ 25&nbsp;    # 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>甚至可以在一个函数内嵌套另一个函数, 虽然这么做并没有多大用处. 
+	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;f1 ()
+  2&nbsp;{
+  3&nbsp;
+  4&nbsp;  f2 () # nested
+  5&nbsp;  {
+  6&nbsp;    echo "Function \"f2\", inside \"f1\"."
+  7&nbsp;  }
+  8&nbsp;
+  9&nbsp;}  
+ 10&nbsp;
+ 11&nbsp;f2  #  产生一个错误. 
+ 12&nbsp;    #  即使你先写出"declare -f f2"也没用. 
+ 13&nbsp;
+ 14&nbsp;echo    
+ 15&nbsp;
+ 16&nbsp;f1  #  什么事都没干, 因为调用"f1"并不会自动调用"f2". 
+ 17&nbsp;f2  #  现在, 可以正确的调用"f2"了, 
+ 18&nbsp;    #+ 因为之前调用"f1"使"f2"在脚本中变得可见了. 
+ 19&nbsp;
+ 20&nbsp;    # 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>函数声明可以出现在看上去不可能出现的地方, 
+		  比如说本应出现命令的地方, 也可以出现函数声明. 
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;ls -l | foo() { echo "foo"; }  # 可以这么做, 但没什么用. 
+  2&nbsp;
+  3&nbsp;
+  4&nbsp;
+  5&nbsp;if [ "$USER" = bozo ]
+  6&nbsp;then
+  7&nbsp;  bozo_greet ()   # 在if/then结构中定义了函数. 
+  8&nbsp;  {
+  9&nbsp;    echo "Hello, Bozo."
+ 10&nbsp;  }
+ 11&nbsp;fi  
+ 12&nbsp;
+ 13&nbsp;bozo_greet        # 只能由Bozo运行, 其他用户使用的话, 会引起错误. 
+ 14&nbsp;
+ 15&nbsp;
+ 16&nbsp;
+ 17&nbsp;# 在某些上下文中, 这样做可能会有用. 
+ 18&nbsp;NO_EXIT=1   # 将会打开下面的函数定义. 
+ 19&nbsp;
+ 20&nbsp;[[ $NO_EXIT -eq 1 ]] &#38;&#38; exit() { true; }     # 在"与列表"中定义函数. 
+ 21&nbsp;# 如果$NO_EXIT为1, 那就声明"exit ()". 
+ 22&nbsp;# 把"exit"化名为"true", 将会禁用内建的"exit"命令. 
+ 23&nbsp;
+ 24&nbsp;exit  # 这里调用的是"exit ()"函数, 而不是"exit"内建命令. 
+ 25&nbsp;
+ 26&nbsp;# 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="process-sub.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="complexfunct.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>进程替换</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part4.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>复杂函数和函数复杂性</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

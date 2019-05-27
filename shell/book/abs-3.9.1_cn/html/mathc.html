@@ -1,0 +1,1079 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>数学计算命令</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="外部过滤器, 程序和命令"
+HREF="external.html"><LINK
+REL="PREVIOUS"
+TITLE="终端控制命令"
+HREF="terminalccmds.html"><LINK
+REL="NEXT"
+TITLE="混杂命令"
+HREF="extmisc.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="terminalccmds.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>12. 外部过滤器, 程序和命令</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="extmisc.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="MATHC"
+>12.8. 数学计算命令</A
+></H1
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="MATHCOMMANDLISTING1"
+></A
+><SPAN
+CLASS="QUOTE"
+>"操作数字"</SPAN
+></B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>factor</B
+></DT
+><DD
+><P
+>将一个正数分解为多个素数. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>factor 27417</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>27417: 3 13 19 37</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><A
+NAME="BCREF"
+></A
+><B
+CLASS="COMMAND"
+>bc</B
+></DT
+><DD
+><P
+>Bash不能处理浮点运算, 并且缺乏特定的一些操作, 
+			  这些操作都是一些重要的计算功能. 幸运的是, 
+	      <B
+CLASS="COMMAND"
+>bc</B
+>可以解决这个问题. </P
+><P
+><B
+CLASS="COMMAND"
+>bc</B
+>不仅仅是个多功能灵活的精确计算工具, 
+	      且它还提供许多编程语言才具备的一些方便功能. </P
+><P
+><B
+CLASS="COMMAND"
+>bc</B
+>比较类似于C语言的语法. </P
+><P
+>因为它是一个完整的UNIX工具, 所以它可以用在<A
+HREF="special-chars.html#PIPEREF"
+>pipe</A
+>中, 
+	       <B
+CLASS="COMMAND"
+>bc</B
+>在脚本中也是很常用的. </P
+><P
+>这里有一个简单的使用<B
+CLASS="COMMAND"
+>bc</B
+>命令的模版, 可以用来计算脚本中的变量. 
+	      这个模版经常用于<A
+HREF="commandsub.html#COMMANDSUBREF"
+>命令替换</A
+>中. </P
+><P
+>              <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+>	      <KBD
+CLASS="USERINPUT"
+>variable=$(echo "OPTIONS; OPERATIONS" | bc)</KBD
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="MONTHLYPMT"
+></A
+><P
+><B
+>例子 12-42. 按月偿还贷款</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# monthlypmt.sh: 计算按月偿还贷款的数量. 
+  3&nbsp;
+  4&nbsp;
+  5&nbsp;#  这份代码是一份修改版本, 原始版本在"mcalc"(贷款计算)包中, 
+  6&nbsp;#+ 这个包的作者是Jeff Schmidt和Mendel Cooper(本书作者). 
+  7&nbsp;#   http://www.ibiblio.org/pub/Linux/apps/financial/mcalc-1.6.tar.gz  [15k]
+  8&nbsp;
+  9&nbsp;echo
+ 10&nbsp;echo "Given the principal, interest rate, and term of a mortgage,"
+ 11&nbsp;echo "calculate the monthly payment."
+ 12&nbsp;
+ 13&nbsp;bottom=1.0
+ 14&nbsp;
+ 15&nbsp;echo
+ 16&nbsp;echo -n "Enter principal (no commas) "
+ 17&nbsp;read principal
+ 18&nbsp;echo -n "Enter interest rate (percent) "  # 如果是12%, 那就键入"12", 而不是".12". 
+ 19&nbsp;read interest_r
+ 20&nbsp;echo -n "Enter term (months) "
+ 21&nbsp;read term
+ 22&nbsp;
+ 23&nbsp;
+ 24&nbsp; interest_r=$(echo "scale=9; $interest_r/100.0" | bc) # 转换成小数. 
+ 25&nbsp;                 # "scale"指定了有效数字的个数.
+ 26&nbsp;  
+ 27&nbsp;
+ 28&nbsp; interest_rate=$(echo "scale=9; $interest_r/12 + 1.0" | bc)
+ 29&nbsp; 
+ 30&nbsp;
+ 31&nbsp; top=$(echo "scale=9; $principal*$interest_rate^$term" | bc)
+ 32&nbsp;
+ 33&nbsp; echo; echo "Please be patient. This may take a while."
+ 34&nbsp;
+ 35&nbsp; let "months = $term - 1"
+ 36&nbsp;# ==================================================================== 
+ 37&nbsp; for ((x=$months; x &#62; 0; x--))
+ 38&nbsp; do
+ 39&nbsp;   bot=$(echo "scale=9; $interest_rate^$x" | bc)
+ 40&nbsp;   bottom=$(echo "scale=9; $bottom+$bot" | bc)
+ 41&nbsp;#  bottom = $(($bottom + $bot"))
+ 42&nbsp; done
+ 43&nbsp;# ==================================================================== 
+ 44&nbsp;
+ 45&nbsp;# -------------------------------------------------------------------- 
+ 46&nbsp;#  Rick Boivie给出了一个对上边循环的修改方案, 
+ 47&nbsp;#+ 这个修改更加有效率, 将会节省大概2/3的时间. 
+ 48&nbsp;
+ 49&nbsp;# for ((x=1; x &#60;= $months; x++))
+ 50&nbsp;# do
+ 51&nbsp;#   bottom=$(echo "scale=9; $bottom * $interest_rate + 1" | bc)
+ 52&nbsp;# done
+ 53&nbsp;
+ 54&nbsp;
+ 55&nbsp;#  然后他又想出了一个更加有效率的版本, 
+ 56&nbsp;#+ 将会节省95%的时间! 
+ 57&nbsp;
+ 58&nbsp;# bottom=`{
+ 59&nbsp;#     echo "scale=9; bottom=$bottom; interest_rate=$interest_rate"
+ 60&nbsp;#     for ((x=1; x &#60;= $months; x++))
+ 61&nbsp;#     do
+ 62&nbsp;#          echo 'bottom = bottom * interest_rate + 1'
+ 63&nbsp;#     done
+ 64&nbsp;#     echo 'bottom'
+ 65&nbsp;#     } | bc`       # 在命令替换中嵌入一个'for循环'. 
+ 66&nbsp;# --------------------------------------------------------------------------
+ 67&nbsp;#  另一方面, Frank Wang建议: 
+ 68&nbsp;#  bottom=$(echo "scale=9; ($interest_rate^$term-1)/($interest_rate-1)" | bc)
+ 69&nbsp;
+ 70&nbsp;#  因为 . . .
+ 71&nbsp;#  在循环后边的算法
+ 72&nbsp;#+ 事实上是一个等比数列的求和公式. 
+ 73&nbsp;#  求和公式是 e0(1-q^n)/(1-q), 
+ 74&nbsp;#+ e0是第一个元素, q=e(n+1)/e(n), 
+ 75&nbsp;#+ n是元素数量.
+ 76&nbsp;# --------------------------------------------------------------------------
+ 77&nbsp;
+ 78&nbsp;
+ 79&nbsp; # let "payment = $top/$bottom"
+ 80&nbsp; payment=$(echo "scale=2; $top/$bottom" | bc)
+ 81&nbsp; # 使用2位有效数字来表示美元和美分. 
+ 82&nbsp; 
+ 83&nbsp; echo
+ 84&nbsp; echo "monthly payment = \$$payment"  # 在总和的前边显示美元符号. 
+ 85&nbsp; echo
+ 86&nbsp;
+ 87&nbsp;
+ 88&nbsp; exit 0
+ 89&nbsp;
+ 90&nbsp;
+ 91&nbsp; # 练习: 
+ 92&nbsp; #   1) 处理输入允许本金总数中的逗号. 
+ 93&nbsp; #   2) 处理输入允许按照百分号和小数点的形式输入利率. 
+ 94&nbsp; #   3) 如果你真正想好好编写这个脚本, 
+ 95&nbsp; #      那么就扩展这个脚本让它能够打印出完整的分期付款表. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="BASE"
+></A
+><P
+><B
+>例子 12-43. 数制转换</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;##########################################################################
+  3&nbsp;# 脚本       :	base.sh - 用不同的数制来打印数字 (Bourne Shell)
+  4&nbsp;# 作者       :	Heiner Steven (heiner.steven@odn.de)
+  5&nbsp;# 日期       :	07-03-95
+  6&nbsp;# 类型       :	桌面
+  7&nbsp;# $Id: base.sh,v 1.2 2000/02/06 19:55:35 heiner Exp $
+  8&nbsp;# ==&#62; 上边这行是RCS ID信息. 
+  9&nbsp;##########################################################################
+ 10&nbsp;# 描述
+ 11&nbsp;#
+ 12&nbsp;# 修改纪录
+ 13&nbsp;# 21-03-95 stv	fixed error occuring with 0xb as input (0.2)
+ 14&nbsp;##########################################################################
+ 15&nbsp;
+ 16&nbsp;# ==&#62; 在本书中使用这个脚本通过了原作者的授权. 
+ 17&nbsp;# ==&#62; 注释是本书作者添加的. 
+ 18&nbsp;
+ 19&nbsp;NOARGS=65
+ 20&nbsp;PN=`basename "$0"`			       # 程序名
+ 21&nbsp;VER=`echo '$Revision: 1.2 $' | cut -d' ' -f2`  # ==&#62; VER=1.2
+ 22&nbsp;
+ 23&nbsp;Usage () {
+ 24&nbsp;    echo "$PN - print number to different bases, $VER (stv '95)
+ 25&nbsp;usage: $PN [number ...]
+ 26&nbsp;
+ 27&nbsp;If no number is given, the numbers are read from standard input.
+ 28&nbsp;A number may be
+ 29&nbsp;    binary (base 2)		starting with 0b (i.e. 0b1100)
+ 30&nbsp;    octal (base 8)		starting with 0  (i.e. 014)
+ 31&nbsp;    hexadecimal (base 16)	starting with 0x (i.e. 0xc)
+ 32&nbsp;    decimal			otherwise (i.e. 12)" &#62;&#38;2
+ 33&nbsp;    exit $NOARGS 
+ 34&nbsp;}   # ==&#62; 打印出用法信息的函数. 
+ 35&nbsp;
+ 36&nbsp;Msg () {
+ 37&nbsp;    for i   # ==&#62; 省略[list].
+ 38&nbsp;    do echo "$PN: $i" &#62;&#38;2
+ 39&nbsp;    done
+ 40&nbsp;}
+ 41&nbsp;
+ 42&nbsp;Fatal () { Msg "$@"; exit 66; }
+ 43&nbsp;
+ 44&nbsp;PrintBases () {
+ 45&nbsp;    # 决定数字的数制
+ 46&nbsp;    for i      # ==&#62; 省略[list]...
+ 47&nbsp;    do         # ==&#62; 所以是对命令行参数进行操作. 
+ 48&nbsp;	case "$i" in
+ 49&nbsp;	    0b*)		ibase=2;;	# 2进制
+ 50&nbsp;	    0x*|[a-f]*|[A-F]*)	ibase=16;;	# 16进制
+ 51&nbsp;	    0*)			ibase=8;;	# 8进制
+ 52&nbsp;	    [1-9]*)		ibase=10;;	# 10进制
+ 53&nbsp;	    *)
+ 54&nbsp;		Msg "illegal number $i - ignored"
+ 55&nbsp;		continue;;
+ 56&nbsp;	esac
+ 57&nbsp;
+ 58&nbsp;	# 去掉前缀, 将16进制数字转换为大写(bc命令需要这么做)
+ 59&nbsp;	number=`echo "$i" | sed -e 's:^0[bBxX]::' | tr '[a-f]' '[A-F]'`
+ 60&nbsp;	# ==&#62; 使用":" 作为sed分隔符, 而不使用"/".
+ 61&nbsp;
+ 62&nbsp;	# 将数字转换为10进制
+ 63&nbsp;	dec=`echo "ibase=$ibase; $number" | bc`  # ==&#62; 'bc'是个计算工具.
+ 64&nbsp;	case "$dec" in
+ 65&nbsp;	    [0-9]*)	;;			 # 数字没问题
+ 66&nbsp;	    *)		continue;;		 # 错误: 忽略
+ 67&nbsp;	esac
+ 68&nbsp;
+ 69&nbsp;	# 在一行上打印所有转换后的数字. 
+ 70&nbsp;	# ==&#62; 'here document'提供命令列表给'bc'. 
+ 71&nbsp;	echo `bc &#60;&#60;!
+ 72&nbsp;	    obase=16; "hex="; $dec
+ 73&nbsp;	    obase=10; "dec="; $dec
+ 74&nbsp;	    obase=8;  "oct="; $dec
+ 75&nbsp;	    obase=2;  "bin="; $dec
+ 76&nbsp;!
+ 77&nbsp;    ` | sed -e 's: :	:g'
+ 78&nbsp;
+ 79&nbsp;    done
+ 80&nbsp;}
+ 81&nbsp;
+ 82&nbsp;while [ $# -gt 0 ]
+ 83&nbsp;# ==&#62;  这里必须使用一个"while循环", 
+ 84&nbsp;# ==&#62;+ 因为所有的case都可能退出循环或者
+ 85&nbsp;# ==&#62;+ 结束脚本. 
+ 86&nbsp;# ==&#62; (感谢, Paulo Marcel Coelho Aragao.)
+ 87&nbsp;do
+ 88&nbsp;    case "$1" in
+ 89&nbsp;	--)     shift; break;;
+ 90&nbsp;	-h)     Usage;;                 # ==&#62; 帮助信息. 
+ 91&nbsp;	-*)     Usage;;
+ 92&nbsp;         *)     break;;			# 第一个数字
+ 93&nbsp;    esac   # ==&#62; 对于非法输入进行更严格检查是非常有用的. 
+ 94&nbsp;    shift
+ 95&nbsp;done
+ 96&nbsp;
+ 97&nbsp;if [ $# -gt 0 ]
+ 98&nbsp;then
+ 99&nbsp;    PrintBases "$@"
+100&nbsp;else					# 从stdin中读取
+101&nbsp;    while read line
+102&nbsp;    do
+103&nbsp;	PrintBases $line
+104&nbsp;    done
+105&nbsp;fi
+106&nbsp;
+107&nbsp;
+108&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>调用<B
+CLASS="COMMAND"
+>bc</B
+>的另一种方法就是<A
+HREF="here-docs.html#HEREDOCREF"
+>here
+		document</A
+>, 并把它嵌入到<A
+HREF="commandsub.html#COMMANDSUBREF"
+>命令替换</A
+>块中. 
+	当一个脚本需要将一个选项列表和多个命令传递到<B
+CLASS="COMMAND"
+>bc</B
+>中时, 
+	这种方法就显得非常合适了. </P
+><P
+>	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;variable=`bc &#60;&#60; LIMIT_STRING
+  2&nbsp;options
+  3&nbsp;statements
+  4&nbsp;operations
+  5&nbsp;LIMIT_STRING
+  6&nbsp;`
+  7&nbsp;
+  8&nbsp;...or...
+  9&nbsp;
+ 10&nbsp;
+ 11&nbsp;variable=$(bc &#60;&#60; LIMIT_STRING
+ 12&nbsp;options
+ 13&nbsp;statements
+ 14&nbsp;operations
+ 15&nbsp;LIMIT_STRING
+ 16&nbsp;)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+              </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ALTBC"
+></A
+><P
+><B
+>例子 12-44. 使用<SPAN
+CLASS="QUOTE"
+>"here document"</SPAN
+>来调用<B
+CLASS="COMMAND"
+>bc</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 使用命令替换来调用'bc'
+  3&nbsp;# 并与'here document'相结合. 
+  4&nbsp;
+  5&nbsp;
+  6&nbsp;var1=`bc &#60;&#60; EOF
+  7&nbsp;18.33 * 19.78
+  8&nbsp;EOF
+  9&nbsp;`
+ 10&nbsp;echo $var1       # 362.56
+ 11&nbsp;
+ 12&nbsp;
+ 13&nbsp;#  使用$( ... )这种标记法也可以. 
+ 14&nbsp;v1=23.53
+ 15&nbsp;v2=17.881
+ 16&nbsp;v3=83.501
+ 17&nbsp;v4=171.63
+ 18&nbsp;
+ 19&nbsp;var2=$(bc &#60;&#60; EOF
+ 20&nbsp;scale = 4
+ 21&nbsp;a = ( $v1 + $v2 )
+ 22&nbsp;b = ( $v3 * $v4 )
+ 23&nbsp;a * b + 15.35
+ 24&nbsp;EOF
+ 25&nbsp;)
+ 26&nbsp;echo $var2       # 593487.8452
+ 27&nbsp;
+ 28&nbsp;
+ 29&nbsp;var3=$(bc -l &#60;&#60; EOF
+ 30&nbsp;scale = 9
+ 31&nbsp;s ( 1.7 )
+ 32&nbsp;EOF
+ 33&nbsp;)
+ 34&nbsp;# 返回弧度为1.7的正弦. 
+ 35&nbsp;# "-l"选项将会调用'bc'算数库. 
+ 36&nbsp;echo $var3       # .991664810
+ 37&nbsp;
+ 38&nbsp;
+ 39&nbsp;# 现在, 在函数中试一下...
+ 40&nbsp;hyp=             # 声明全局变量. 
+ 41&nbsp;hypotenuse ()    # 计算直角三角形的斜边. 
+ 42&nbsp;{
+ 43&nbsp;hyp=$(bc -l &#60;&#60; EOF
+ 44&nbsp;scale = 9
+ 45&nbsp;sqrt ( $1 * $1 + $2 * $2 )
+ 46&nbsp;EOF
+ 47&nbsp;)
+ 48&nbsp;# 不幸的是, 不能从bash函数中返回浮点值. 
+ 49&nbsp;}
+ 50&nbsp;
+ 51&nbsp;hypotenuse 3.68 7.31
+ 52&nbsp;echo "hypotenuse = $hyp"    # 8.184039344
+ 53&nbsp;
+ 54&nbsp;
+ 55&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="CANNON"
+></A
+><P
+><B
+>例子 12-45. 计算圆周率</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# cannon.sh: Approximating PI by firing cannonballs.
+  3&nbsp;
+  4&nbsp;# 这事实上是一个"Monte Carlo"蒙特卡洛模拟的非常简单的实例:
+  5&nbsp;#+ 蒙特卡洛模拟是一种由现实事件抽象出来的数学模型,
+  6&nbsp;#+ 由于要使用随机抽样统计来估算数学函数, 所以使用伪随机数来模拟真正的随机数.
+  7&nbsp;
+  8&nbsp;#  想象有一个完美的正方形土地, 边长为10000个单位.
+  9&nbsp;#  在这块土地的中间有一个完美的圆形湖,
+ 10&nbsp;#+ 这个湖的直径是10000个单位.
+ 11&nbsp;#  这块土地的绝大多数面积都是水, 当然只有4个角上有一些土地.
+ 12&nbsp;#  (可以把这个湖想象成为这个正方形的内接圆.)
+ 13&nbsp;#
+ 14&nbsp;#  我们将使用老式的大炮和铁炮弹
+ 15&nbsp;#+ 向这块正方形的土地上开炮.
+ 16&nbsp;#  所有的炮弹都会击中这块正方形土地的某个地方.
+ 17&nbsp;#+ 或者是打到湖上, 或者是打到4个角的土地上.
+ 18&nbsp;#  因为这个湖占据了这个区域大部分地方,
+ 19&nbsp;#+ 所以大部分的炮弹都会"扑通"一声落到水里.
+ 20&nbsp;#  而只有很少的炮弹会"砰"的一声落到4个
+ 21&nbsp;#+ 角的土地上.
+ 22&nbsp;#
+ 23&nbsp;#  如果我们发出的炮弹足够随机的落到这块正方形区域中的话,
+ 24&nbsp;#+ 那么落到水里的炮弹与打出炮弹总数的比率,
+ 25&nbsp;#+ 大概非常接近于PI/4.
+ 26&nbsp;#
+ 27&nbsp;#  原因是所有的炮弹事实上都
+ 28&nbsp;#+ 打在了这个土地的右上角,
+ 29&nbsp;#+ 也就是, 笛卡尔坐标系的第一象限.
+ 30&nbsp;#  (之前的解释只是一个简化.)
+ 31&nbsp;#
+ 32&nbsp;#  理论上来说, 如果打出的炮弹越多, 就越接近这个数字.
+ 33&nbsp;#  然而, 对于shell 脚本来说一定会做些让步的,
+ 34&nbsp;#+ 因为它肯定不能和那些内建就支持浮点运算的编译语言相比.
+ 35&nbsp;#  当然就会降低精度.
+ 36&nbsp;
+ 37&nbsp;
+ 38&nbsp;DIMENSION=10000  # 这块土地的边长.
+ 39&nbsp;                 # 这也是所产生随机整数的上限.
+ 40&nbsp;                                                                         
+ 41&nbsp;MAXSHOTS=1000    # 开炮次数.
+ 42&nbsp;                 # 10000或更多次的话, 效果应该更好, 但有点太浪费时间了.
+ 43&nbsp;PMULTIPLIER=4.0  # 接近于PI的比例因子.
+ 44&nbsp;
+ 45&nbsp;get_random ()
+ 46&nbsp;{
+ 47&nbsp;SEED=$(head -1 /dev/urandom | od -N 1 | awk '{ print $2 }')
+ 48&nbsp;RANDOM=$SEED                                  #  来自于"seeding-random.sh"
+ 49&nbsp;                                              #+ 的例子脚本.
+ 50&nbsp;let "rnum = $RANDOM % $DIMENSION"             #  范围小于10000.
+ 51&nbsp;echo $rnum
+ 52&nbsp;}
+ 53&nbsp;
+ 54&nbsp;distance=        # 声明全局变量.
+ 55&nbsp;hypotenuse ()    # 从"alt-bc.sh"例子来的,
+ 56&nbsp;{                # 计算直角三角形的斜边的函数.
+ 57&nbsp;distance=$(bc -l &#60;&#60; EOF
+ 58&nbsp;scale = 0
+ 59&nbsp;sqrt ( $1 * $1 + $2 * $2 )
+ 60&nbsp;EOF
+ 61&nbsp;)
+ 62&nbsp;#  设置 "scale" 为 0 , 好让结果四舍五入为整数值,
+ 63&nbsp;#+ 这也是这个脚本中必须折中的一个地方.
+ 64&nbsp;#  不幸的是, 这将降低模拟的精度.
+ 65&nbsp;}
+ 66&nbsp;
+ 67&nbsp;
+ 68&nbsp;# main() {
+ 69&nbsp;
+ 70&nbsp;# 初始化变量. 
+ 71&nbsp;shots=0
+ 72&nbsp;splashes=0
+ 73&nbsp;thuds=0
+ 74&nbsp;Pi=0
+ 75&nbsp;
+ 76&nbsp;while [ "$shots" -lt  "$MAXSHOTS" ]           # 主循环.
+ 77&nbsp;do                                                                      
+ 78&nbsp;                                                                        
+ 79&nbsp;  xCoord=$(get_random)                        # 取得随机的 X 与 Y 坐标.
+ 80&nbsp;  yCoord=$(get_random)                                                  
+ 81&nbsp;  hypotenuse $xCoord $yCoord                  #  直角三角形斜边 =
+ 82&nbsp;                                              #+ distance.
+ 83&nbsp;  ((shots++))                                                           
+ 84&nbsp;                                                                        
+ 85&nbsp;  printf "#%4d   " $shots                                               
+ 86&nbsp;  printf "Xc = %4d  " $xCoord                                           
+ 87&nbsp;  printf "Yc = %4d  " $yCoord                                           
+ 88&nbsp;  printf "Distance = %5d  " $distance         #  到湖中心的
+ 89&nbsp;                                              #+ 距离 --
+ 90&nbsp;                                              #  起始坐标点 --
+ 91&nbsp;                                              #+  (0,0).
+ 92&nbsp;
+ 93&nbsp;  if [ "$distance" -le "$DIMENSION" ]
+ 94&nbsp;  then
+ 95&nbsp;    echo -n "SPLASH!  "
+ 96&nbsp;    ((splashes++))
+ 97&nbsp;  else
+ 98&nbsp;    echo -n "THUD!    "
+ 99&nbsp;    ((thuds++))
+100&nbsp;  fi
+101&nbsp;
+102&nbsp;  Pi=$(echo "scale=9; $PMULTIPLIER*$splashes/$shots" | bc)
+103&nbsp;  # 将比例乘以4.0.
+104&nbsp;  echo -n "PI ~ $Pi"
+105&nbsp;  echo
+106&nbsp;
+107&nbsp;done
+108&nbsp;
+109&nbsp;echo
+110&nbsp;echo "After $shots shots, PI looks like approximately $Pi."
+111&nbsp;# 如果不太准的话, 那么就提高一下运行的次数. . .
+112&nbsp;# 可能是由于运行错误和随机数随机程度不高造成的.
+113&nbsp;echo
+114&nbsp;
+115&nbsp;# }
+116&nbsp;
+117&nbsp;exit 0
+118&nbsp;
+119&nbsp;#  要想知道一个shell脚本到底适不适合对计算应用进行模拟的话?
+120&nbsp;#+ (一种需要对复杂度和精度都有要求的计算应用).
+121&nbsp;#
+122&nbsp;#  一般至少需要两个判断条件.
+123&nbsp;#  1) 作为一种概念的验证: 来显示它可以做到. 
+124&nbsp;#  2) 在使用真正的编译语言来实现一个算法之前, 
+125&nbsp;#+    使用脚本来测试和验证这个算法. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><A
+NAME="DCREF"
+></A
+><B
+CLASS="COMMAND"
+>dc</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>dc</B
+>(桌面计算器<B
+CLASS="COMMAND"
+>d</B
+>esk
+			<B
+CLASS="COMMAND"
+>c</B
+>alculator)工具是面向栈的, 
+			并且使用RPN(逆波兰表达式<SPAN
+CLASS="QUOTE"
+>"Reverse Polish Notation"</SPAN
+>又叫<SPAN
+CLASS="QUOTE"
+>"后缀表达式"</SPAN
+>). 
+			与<B
+CLASS="COMMAND"
+>bc</B
+>命令很相似, 
+			但是这个工具具备好多只有编程语言才具备的能力. </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;(
+  2&nbsp;译者注: 正常表达式      逆波兰表达式
+  3&nbsp;        a+b             a,b,+
+  4&nbsp;        a+(b-c)         a,b,c,-,+
+  5&nbsp;        a+(b-c)*d       a,d,b,c,-,*,+
+  6&nbsp;)
+  7&nbsp;		</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>绝大多数人都避免使用这个工具, 
+			因为它需要非直观的RPN输入, 
+	        但是, 它却有特定的用途. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="HEXCONVERT"
+></A
+><P
+><B
+>例子 12-46. 将10进制数字转换为16进制数字</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# hexconvert.sh: 将10进制数字转换为16进制数字.
+  3&nbsp;
+  4&nbsp;E_NOARGS=65 # 缺少命令行参数错误.
+  5&nbsp;BASE=16     # 16进制.
+  6&nbsp;
+  7&nbsp;if [ -z "$1" ]
+  8&nbsp;then
+  9&nbsp;  echo "Usage: $0 number"
+ 10&nbsp;  exit $E_NOARGS
+ 11&nbsp;  # 需要一个命令行参数. 
+ 12&nbsp;fi
+ 13&nbsp;# 练习: 添加命令行参数检查. 
+ 14&nbsp;
+ 15&nbsp;
+ 16&nbsp;hexcvt ()
+ 17&nbsp;{
+ 18&nbsp;if [ -z "$1" ]
+ 19&nbsp;then
+ 20&nbsp;  echo 0
+ 21&nbsp;  return    # 如果没有参数传递到这个函数中的话就"return" 0.
+ 22&nbsp;fi
+ 23&nbsp;
+ 24&nbsp;echo ""$1" "$BASE" o p" | dc
+ 25&nbsp;#                 "o" 设置输出的基数(数制).
+ 26&nbsp;#                   "p" 打印栈顶.
+ 27&nbsp;# 参考dc的man页来了解其他的选项. 
+ 28&nbsp;return
+ 29&nbsp;}
+ 30&nbsp;
+ 31&nbsp;hexcvt "$1"
+ 32&nbsp;
+ 33&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>通过仔细学习<B
+CLASS="COMMAND"
+>dc</B
+>的<I
+CLASS="FIRSTTERM"
+>info</I
+>页, 
+				可以更深入的理解这个复杂的命令. 
+				但是, 有一些精通<EM
+>dc巫术</EM
+>小组经常会炫耀他们使用这个强大而又晦涩难懂的工具时的一些技巧,
+				并以此为乐. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo "16i[q]sa[ln0=aln100%Pln100/snlbx]sbA0D68736142snlbxq" | dc"</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Bash</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="FACTR"
+></A
+><P
+><B
+>例子 12-47. 因子分解</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# factr.sh: 分解约数
+  3&nbsp;
+  4&nbsp;MIN=2       # 如果比这个数小就不行了.
+  5&nbsp;E_NOARGS=65
+  6&nbsp;E_TOOSMALL=66
+  7&nbsp;
+  8&nbsp;if [ -z $1 ]
+  9&nbsp;then
+ 10&nbsp;  echo "Usage: $0 number"
+ 11&nbsp;  exit $E_NOARGS
+ 12&nbsp;fi
+ 13&nbsp;
+ 14&nbsp;if [ "$1" -lt "$MIN" ]
+ 15&nbsp;then
+ 16&nbsp;  echo "Number to factor must be $MIN or greater."
+ 17&nbsp;  exit $E_TOOSMALL
+ 18&nbsp;fi  
+ 19&nbsp;
+ 20&nbsp;# 练习: 添加类型检查(防止非整型的参数).
+ 21&nbsp;
+ 22&nbsp;echo "Factors of $1:"
+ 23&nbsp;# ---------------------------------------------------------------------------------
+ 24&nbsp;echo "$1[p]s2[lip/dli%0=1dvsr]s12sid2%0=13sidvsr[dli%0=1lrli2+dsi!&#62;.]ds.xd1&#60;2" | dc
+ 25&nbsp;# ---------------------------------------------------------------------------------
+ 26&nbsp;# 上边这行代码是Michel Charpentier编写的&#60;charpov@cs.unh.edu&#62;.
+ 27&nbsp;# 在此使用经过授权(感谢). 
+ 28&nbsp;
+ 29&nbsp; exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><A
+NAME="AWKMATH"
+></A
+><B
+CLASS="COMMAND"
+>awk</B
+></DT
+><DD
+><P
+>在脚本中使用浮点运算的另一种方法是使用<A
+HREF="awk.html#AWKREF"
+>awk</A
+>内建的数学运算函数, 
+	      可以用在<A
+HREF="wrapper.html#SHWRAPPER"
+>shell包装</A
+>中. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="HYPOT"
+></A
+><P
+><B
+>例子 12-48. 计算直角三角形的斜边</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# hypotenuse.sh: 返回直角三角形的斜边. 
+  3&nbsp;#               (直角边长的平方和,然后对和取平方根)
+  4&nbsp;
+  5&nbsp;ARGS=2                # 需要将2个直角边作为参数传递进来. 
+  6&nbsp;E_BADARGS=65          # 错误的参数值.
+  7&nbsp;
+  8&nbsp;if [ $# -ne "$ARGS" ] # 测试传递到脚本中的参数值.
+  9&nbsp;then
+ 10&nbsp;  echo "Usage: `basename $0` side_1 side_2"
+ 11&nbsp;  exit $E_BADARGS
+ 12&nbsp;fi
+ 13&nbsp;
+ 14&nbsp;
+ 15&nbsp;AWKSCRIPT=' { printf( "%3.7f\n", sqrt($1*$1 + $2*$2) ) } '
+ 16&nbsp;#             命令 / 传递给awk的参数
+ 17&nbsp;
+ 18&nbsp;
+ 19&nbsp;# 现在, 将参数通过管道传递给awk. 
+ 20&nbsp;echo -n "Hypotenuse of $1 and $2 = "
+ 21&nbsp;echo $1 $2 | awk "$AWKSCRIPT"
+ 22&nbsp;
+ 23&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="terminalccmds.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="extmisc.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>终端控制命令</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="external.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>混杂命令</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

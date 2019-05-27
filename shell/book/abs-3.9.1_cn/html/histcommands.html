@@ -1,0 +1,331 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>历史命令</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="本地化"
+HREF="localization.html"><LINK
+REL="NEXT"
+TITLE="一个简单的.bashrc文件"
+HREF="sample-bashrc.html"></HEAD
+><BODY
+CLASS="APPENDIX"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="localization.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sample-bashrc.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="APPENDIX"
+><H1
+><A
+NAME="HISTCOMMANDS"
+></A
+>Appendix J. 历史命令</H1
+><P
+>Bash shell提供命令行工具用于编辑和操作用户的<EM
+>命令历史</EM
+>. 
+		  这其实主要就是为了方便, 节省用户的重复按键. </P
+><P
+>Bash历史命令: 
+       <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><B
+CLASS="COMMAND"
+>history</B
+></P
+></LI
+><LI
+><P
+><B
+CLASS="COMMAND"
+>fc</B
+></P
+></LI
+></OL
+>
+     </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>history</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>   1  mount /mnt/cdrom
+    2  cd /mnt/cdrom
+    3  ls
+     ...</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>与Bash历史命令相关的内部变量: 
+       <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>$HISTCMD</P
+></LI
+><LI
+><P
+>$HISTCONTROL</P
+></LI
+><LI
+><P
+>$HISTIGNORE</P
+></LI
+><LI
+><P
+>$HISTFILE</P
+></LI
+><LI
+><P
+>$HISTFILESIZE</P
+></LI
+><LI
+><P
+>$HISTSIZE</P
+></LI
+><LI
+><P
+>$HISTTIMEFORMAT (Bash 3.0或后续版本)</P
+></LI
+><LI
+><P
+>!!</P
+></LI
+><LI
+><P
+>!$</P
+></LI
+><LI
+><P
+>!#</P
+></LI
+><LI
+><P
+>!N</P
+></LI
+><LI
+><P
+>!-N</P
+></LI
+><LI
+><P
+>!STRING</P
+></LI
+><LI
+><P
+>!?STRING?</P
+></LI
+><LI
+><P
+>^STRING^string^</P
+></LI
+></OL
+>
+     </P
+><P
+>不幸的是, Bash历史工具在脚本中没用. 
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# history.sh
+  3&nbsp;# 尝试在脚本中使用'history'命令. 
+  4&nbsp;
+  5&nbsp;history
+  6&nbsp;
+  7&nbsp;# 脚本没产生输出. 
+  8&nbsp;# 历史命令不能工作在脚本中. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+     </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>./history.sh</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>(no output)</SAMP
+>	      
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+><P
+>站点<A
+HREF="http://www.deadman.org/bash.html"
+TARGET="_top"
+>Advancing in the
+       Bash Shell</A
+>给出了一份关于如何在Bash中使用历史命令的详细介绍. 
+       </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="localization.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sample-bashrc.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>本地化</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>一个简单的<TT
+CLASS="FILENAME"
+>.bashrc</TT
+>文件</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

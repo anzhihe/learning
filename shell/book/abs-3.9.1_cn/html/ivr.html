@@ -1,0 +1,495 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>变量的间接引用</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="变量重游"
+HREF="variables2.html"><LINK
+REL="PREVIOUS"
+TITLE="指定变量的类型: 使用declare或者typeset"
+HREF="declareref.html"><LINK
+REL="NEXT"
+TITLE="$RANDOM: 产生随机整数"
+HREF="randomvar.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="declareref.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>9. 变量重游</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="randomvar.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="IVR"
+>9.5. 变量的间接引用</A
+></H1
+><P
+><A
+NAME="IVRREF"
+></A
+></P
+><P
+>假设一个变量的值是第二个变量的名字. 
+			那么我们如何从第一个变量中取得第二个变量的值呢?
+		比如, 如果<TT
+CLASS="REPLACEABLE"
+><I
+>a=letter_of_alphabet</I
+></TT
+>并且<TT
+CLASS="REPLACEABLE"
+><I
+>letter_of_alphabet=z</I
+></TT
+>,
+		那么我们能够通过引用变量<TT
+CLASS="REPLACEABLE"
+><I
+>a</I
+></TT
+>来获得<TT
+CLASS="REPLACEABLE"
+><I
+>z</I
+></TT
+>么? 
+		这确实是可以做到的, 它被称为<EM
+>间接引用</EM
+>. 
+		它使用<TT
+CLASS="REPLACEABLE"
+><I
+>eval var1=\$$var2</I
+></TT
+>这种不平常的形式. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="INDREF"
+></A
+><P
+><B
+>例子 9-23. 间接引用</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# ind-ref.sh: 间接变量引用.
+  3&nbsp;# 访问一个以另一个变量内容作为名字的变量的值.(译者注: 怎么译都不顺)
+  4&nbsp;
+  5&nbsp;a=letter_of_alphabet   # 变量"a"的值是另一个变量的名字. 
+  6&nbsp;letter_of_alphabet=z
+  7&nbsp;
+  8&nbsp;echo
+  9&nbsp;
+ 10&nbsp;# 直接引用.
+ 11&nbsp;echo "a = $a"          # a = letter_of_alphabet
+ 12&nbsp;
+ 13&nbsp;# 间接引用.
+ 14&nbsp;eval a=\$$a
+ 15&nbsp;echo "Now a = $a"      # 现在 a = z
+ 16&nbsp;
+ 17&nbsp;echo
+ 18&nbsp;
+ 19&nbsp;
+ 20&nbsp;# 现在, 让我们试试修改第二个引用的值.
+ 21&nbsp;
+ 22&nbsp;t=table_cell_3
+ 23&nbsp;table_cell_3=24
+ 24&nbsp;echo "\"table_cell_3\" = $table_cell_3"            # "table_cell_3" = 24
+ 25&nbsp;echo -n "dereferenced \"t\" = "; eval echo \$$t    # 解引用 "t" = 24
+ 26&nbsp;# 在这个简单的例子中, 下面的表达式也能正常工作么(为什么?).
+ 27&nbsp;#         eval t=\$$t; echo "\"t\" = $t"
+ 28&nbsp;
+ 29&nbsp;echo
+ 30&nbsp;
+ 31&nbsp;t=table_cell_3
+ 32&nbsp;NEW_VAL=387
+ 33&nbsp;table_cell_3=$NEW_VAL
+ 34&nbsp;echo "Changing value of \"table_cell_3\" to $NEW_VAL."
+ 35&nbsp;echo "\"table_cell_3\" now $table_cell_3"
+ 36&nbsp;echo -n "dereferenced \"t\" now "; eval echo \$$t
+ 37&nbsp;# "eval" 带有两个参数 "echo" 和 "\$$t" (与$table_cell_3等价)
+ 38&nbsp;
+ 39&nbsp;echo
+ 40&nbsp;
+ 41&nbsp;# (感谢, Stephane Chazelas, 澄清了上边语句的行为.)
+ 42&nbsp;
+ 43&nbsp;
+ 44&nbsp;# 另一个方法是使用${!t}符号, 见"Bash, 版本2"小节的讨论.
+ 45&nbsp;# 也请参考 ex78.sh.
+ 46&nbsp;
+ 47&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>变量的间接引用到底有什么应用价值?
+		  它给Bash添加了一种类似于<I
+CLASS="FIRSTTERM"
+>C</I
+>语言<I
+CLASS="FIRSTTERM"
+>指针</I
+>的功能,
+	  比如, 在<A
+HREF="bashver2.html#RESISTOR"
+>表格查找</A
+>中的用法.
+	  另外, 还有一些其他非常有趣的应用. . . .</P
+><P
+>			Nils Radtke展示了如何建立<SPAN
+CLASS="QUOTE"
+>"动态"</SPAN
+>变量名并取出它们的值. 
+		当使用<A
+HREF="internal.html#SOURCEREF"
+>source</A
+>命令加载配置文件的时候, 很有用.
+           
+	   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;
+  4&nbsp;# --------------------------------------------------------
+  5&nbsp;# 这部分内容可以用单独文件通过使用"source"命令来单独加载. 
+  6&nbsp;isdnMyProviderRemoteNet=172.16.0.100
+  7&nbsp;isdnYourProviderRemoteNet=10.0.0.10
+  8&nbsp;isdnOnlineService="MyProvider"
+  9&nbsp;# --------------------------------------------------------
+ 10&nbsp;      
+ 11&nbsp;
+ 12&nbsp;remoteNet=$(eval "echo \$$(echo isdn${isdnOnlineService}RemoteNet)")
+ 13&nbsp;remoteNet=$(eval "echo \$$(echo isdnMyProviderRemoteNet)")
+ 14&nbsp;remoteNet=$(eval "echo \$isdnMyProviderRemoteNet")
+ 15&nbsp;remoteNet=$(eval "echo $isdnMyProviderRemoteNet")
+ 16&nbsp;
+ 17&nbsp;echo "$remoteNet"    # 172.16.0.100
+ 18&nbsp;
+ 19&nbsp;# ================================================================
+ 20&nbsp;
+ 21&nbsp;#  能够做得更好.
+ 22&nbsp;
+ 23&nbsp;#  注意下面的脚本, 给出了变量getSparc,
+ 24&nbsp;#+ 但是没有变量getIa64:
+ 25&nbsp;
+ 26&nbsp;chkMirrorArchs () { 
+ 27&nbsp;  arch="$1";
+ 28&nbsp;  if [ "$(eval "echo \${$(echo get$(echo -ne $arch |
+ 29&nbsp;       sed 's/^\(.\).*/\1/g' | tr 'a-z' 'A-Z'; echo $arch |
+ 30&nbsp;       sed 's/^.\(.*\)/\1/g')):-false}")" = true ]
+ 31&nbsp;  then
+ 32&nbsp;     return 0;
+ 33&nbsp;  else
+ 34&nbsp;     return 1;
+ 35&nbsp;  fi;
+ 36&nbsp;}
+ 37&nbsp;
+ 38&nbsp;getSparc="true"
+ 39&nbsp;unset getIa64
+ 40&nbsp;chkMirrorArchs sparc
+ 41&nbsp;echo $?        # 0
+ 42&nbsp;               # True
+ 43&nbsp;
+ 44&nbsp;chkMirrorArchs Ia64
+ 45&nbsp;echo $?        # 1
+ 46&nbsp;               # False
+ 47&nbsp;
+ 48&nbsp;# 注意:
+ 49&nbsp;# -----
+ 50&nbsp;# 变量名中由替换命令产生的部分被准确地生成了. 
+ 51&nbsp;# chkMirrorArchs函数的参数全都是小写字母. 
+ 52&nbsp;# 新产生的变量名由两部分组成: "get"和"Sparc" . . .
+ 53&nbsp;# (译者注: 此处是将chkMirrorArchs函数参数的第一个字母转为大写, 然后与"get"组合形成新的变量名. )</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+        </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="COLTOTALER2"
+></A
+><P
+><B
+>例子 9-24. 传递一个间接引用给<TT
+CLASS="REPLACEABLE"
+><I
+>awk</I
+></TT
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;#  这是"求文件中指定列的总和"脚本的另一个版本,
+  4&nbsp;#+ 这个脚本可以计算目标文件中指定列(此列的内容必须都是数字)的所有数字的和.
+  5&nbsp;#  这个脚本使用了间接引用.
+  6&nbsp;
+  7&nbsp;ARGS=2
+  8&nbsp;E_WRONGARGS=65
+  9&nbsp;
+ 10&nbsp;if [ $# -ne "$ARGS" ] # 检查命令行参数的个数是否合适.
+ 11&nbsp;then
+ 12&nbsp;   echo "Usage: `basename $0` filename column-number"
+ 13&nbsp;   exit $E_WRONGARGS
+ 14&nbsp;fi
+ 15&nbsp;
+ 16&nbsp;filename=$1
+ 17&nbsp;column_number=$2
+ 18&nbsp;
+ 19&nbsp;#===== 在这一行上边的部分, 与原始脚本是相同的 =====#
+ 20&nbsp;
+ 21&nbsp;
+ 22&nbsp;# 多行的awk脚本的调用方法为: awk ' ..... '
+ 23&nbsp;
+ 24&nbsp;
+ 25&nbsp;# awk脚本开始.
+ 26&nbsp;# ------------------------------------------------
+ 27&nbsp;awk "
+ 28&nbsp;
+ 29&nbsp;{ total += \$${column_number} # 间接引用
+ 30&nbsp;}
+ 31&nbsp;END {
+ 32&nbsp;     print total
+ 33&nbsp;     }
+ 34&nbsp;
+ 35&nbsp;     " "$filename"
+ 36&nbsp;# ------------------------------------------------
+ 37&nbsp;# awk脚本结束.
+ 38&nbsp;
+ 39&nbsp;#  间接变量引用避免了在一个内嵌awk脚本中引用shell变量的混乱行为.
+ 40&nbsp;#  感谢, Stephane Chazelas.
+ 41&nbsp;
+ 42&nbsp;
+ 43&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>这种使用间接引用的方法是一个小技巧.
+			  如果第二个变量更改了它的值, 那么第一个变量必须被适当的解除引用(就像上边的例子一样). 
+			  <A
+NAME="IVR2"
+></A
+>幸运的是, 
+			  在Bash<A
+HREF="bashver2.html#BASH2REF"
+>版本2</A
+>中引入的<TT
+CLASS="REPLACEABLE"
+><I
+>${!variable}</I
+></TT
+>形式使得使用间接引用更加直观了. 
+			  (参考<A
+HREF="bashver2.html#EX78"
+>例子 34-2</A
+>和<A
+HREF="contributed-scripts.html#HASHEX2"
+>例子 A-23</A
+>). 
+	 </P
+></TD
+></TR
+></TABLE
+></DIV
+><TABLE
+CLASS="SIDEBAR"
+BORDER="1"
+CELLPADDING="5"
+><TR
+><TD
+><DIV
+CLASS="SIDEBAR"
+><P
+></P
+><A
+NAME="AEN5263"
+></A
+><P
+>Bash并不支持指针运算操作, 因此这极大的限制了间接引用的使用. 
+			 事实上, 在脚本语言中, 间接引用是一个蹩脚的东西. </P
+><P
+></P
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="declareref.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="randomvar.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>指定变量的类型: 使用<B
+CLASS="COMMAND"
+>declare</B
+>或者<B
+CLASS="COMMAND"
+>typeset</B
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="variables2.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>$RANDOM: 产生随机整数</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

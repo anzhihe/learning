@@ -1,0 +1,471 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Bash, 版本3</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Bash, 版本2与版本3"
+HREF="bash2.html"><LINK
+REL="PREVIOUS"
+TITLE="Bash, 版本2"
+HREF="bashver2.html"><LINK
+REL="NEXT"
+TITLE="后记"
+HREF="endnotes.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="bashver2.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>34. Bash, 版本2与版本3</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="endnotes.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="BASHVER3"
+>34.2. Bash, 版本3</A
+></H1
+><P
+><A
+NAME="BASH3REF"
+></A
+></P
+><P
+>2004年7月27日, Chet Ramey发布了Bash版本3. 
+			  这一版本修复了相当多的bug, 并加入了一些新特性. 
+	</P
+><P
+>新增加的一些属性有: 
+
+      <P
+></P
+><UL
+><LI
+><P
+>一个新的, 更加通用的<B
+CLASS="COMMAND"
+>{a..z}</B
+><A
+HREF="special-chars.html#BRACEEXPREF"
+>大括号扩展</A
+>操作符. 
+               <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;for i in {1..10}
+  4&nbsp;#  比下面的方式更简单, 更直接
+  5&nbsp;#+ for i in $(seq 10)
+  6&nbsp;do
+  7&nbsp;  echo -n "$i "
+  8&nbsp;done
+  9&nbsp;
+ 10&nbsp;echo
+ 11&nbsp;
+ 12&nbsp;# 1 2 3 4 5 6 7 8 9 10</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+         </P
+></LI
+><LI
+><P
+><B
+CLASS="COMMAND"
+>${!array[@]}</B
+>操作符, 
+			用于扩展给定<A
+HREF="arrays.html#ARRAYREF"
+>数组</A
+>所有元素索引. 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;Array=(element-zero element-one element-two element-three)
+  4&nbsp;
+  5&nbsp;echo ${Array[0]}   # 元素0
+  6&nbsp;                   # 数组的第一个元素. 
+  7&nbsp;
+  8&nbsp;echo ${!Array[@]}  # 0 1 2 3
+  9&nbsp;                   # 数组的全部索引. 
+ 10&nbsp;
+ 11&nbsp;for i in ${!Array[@]}
+ 12&nbsp;do
+ 13&nbsp;  echo ${Array[i]} # 元素0
+ 14&nbsp;                   # 元素1
+ 15&nbsp;                   # 元素2
+ 16&nbsp;                   # 元素3
+ 17&nbsp;                   #
+ 18&nbsp;                   # 数组的全部元素. 
+ 19&nbsp;done</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+         </P
+></LI
+><LI
+><P
+><A
+NAME="REGEXMATCHREF"
+></A
+></P
+><P
+><B
+CLASS="COMMAND"
+>=~</B
+> <A
+HREF="regexp.html#REGEXREF"
+>正则表达式</A
+>匹配操作符, 在<A
+HREF="testconstructs.html#DBLBRACKETS"
+>双中括号</A
+>测试表达式中的应用. 
+	    (Perl也有一个类似的操作符. )</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;variable="This is a fine mess."
+  4&nbsp;
+  5&nbsp;echo "$variable"
+  6&nbsp;
+  7&nbsp;if [[ "$variable" =~ "T*fin*es*" ]]
+  8&nbsp;# 在[[ 双中括号 ]]中使用=~操作符进行正则匹配. 
+  9&nbsp;then
+ 10&nbsp;  echo "match found"
+ 11&nbsp;      # match found
+ 12&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>或者, 更有用的用法: </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;input=$1
+  4&nbsp;
+  5&nbsp;
+  6&nbsp;if [[ "$input" =~ "[1-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]" ]]
+  7&nbsp;# NNN-NN-NNNN
+  8&nbsp;# 每个N都是一个数字. 
+  9&nbsp;# 但是, 第一个数字不能为0. 
+ 10&nbsp;then
+ 11&nbsp;  echo "Social Security number."
+ 12&nbsp;  # 处理SSN.
+ 13&nbsp;else
+ 14&nbsp;  echo "Not a Social Security number!"
+ 15&nbsp;  # 或者, 要求正确的输入. 
+ 16&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>还有一个使用<B
+CLASS="COMMAND"
+>=~</B
+>操作符的例子, 
+				  请参考<A
+HREF="contributed-scripts.html#WHX"
+>例子 A-29</A
+>和<A
+HREF="x13628.html#MAILBOXGREP"
+>例子 17-14</A
+>. </P
+></LI
+></UL
+>
+      </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Bash 3.0版本的更新, 将会导致一小部分为早期Bash版本编写的脚本不能工作. 
+        <EM
+>对于一些重要的早期脚本来说, 需要进行测试, 以保证它们在新版本的Bash中也可以正常工作!</EM
+></P
+><P
+>如果发生确实不能正常工作的情况, 
+        那么<EM
+>高级Bash脚本编程指南</EM
+>中的某些脚本就必须被修复(请参考<A
+HREF="contributed-scripts.html#OBJORIENTED"
+>例子 A-20</A
+>和<A
+HREF="internalvariables.html#TOUT"
+>例子 9-4</A
+>). </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN16211"
+>34.2.1. Bash, 版本3.1</A
+></H2
+><P
+>Bash3.1版本的更新修复了一部分bug, 
+			 并且在其他方面也做了一些小的修改. </P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="TOKEN"
+>+=</SPAN
+>操作符是新添加的, 
+			可以放在之前只能有<SPAN
+CLASS="TOKEN"
+>=</SPAN
+>赋值操作符出现的地方. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;a=1
+  2&nbsp;echo $a        # 1
+  3&nbsp;
+  4&nbsp;a+=5           # 在Bash的早期版本中就不行, 只能运行在Bash3.1或更新的版本上. 
+  5&nbsp;echo $a        # 15
+  6&nbsp;
+  7&nbsp;a+=Hello
+  8&nbsp;echo $a        # 15Hello</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><P
+>在这里, <SPAN
+CLASS="TOKEN"
+>+=</SPAN
+>是作为<I
+CLASS="FIRSTTERM"
+>字符串连接</I
+>操作符. 
+		注意, 它在这种特定的上下文中所表现出来的行为, 
+		与在<A
+HREF="internal.html#LETREF"
+>let</A
+>结构中所表现出来的行为是不同的. 
+		</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;a=1
+  2&nbsp;echo $a        # 1
+  3&nbsp;
+  4&nbsp;let a+=5       # 整数的算术运算, 而不是字符串连接. 
+  5&nbsp;echo $a        # 6
+  6&nbsp;
+  7&nbsp;let a+=Hello   # 不会给a"添加"任何东西.  
+  8&nbsp;echo $a        # 6</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="bashver2.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="endnotes.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Bash, 版本2</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="bash2.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>后记</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

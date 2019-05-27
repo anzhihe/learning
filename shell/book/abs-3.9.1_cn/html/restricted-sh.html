@@ -1,0 +1,347 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>受限shell</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="高级主题"
+HREF="part4.html"><LINK
+REL="PREVIOUS"
+TITLE="子shell"
+HREF="subshells.html"><LINK
+REL="NEXT"
+TITLE="进程替换"
+HREF="process-sub.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="subshells.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="process-sub.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="RESTRICTED-SH"
+></A
+>21. 受限shell</H1
+><P
+><A
+NAME="RESTRICTEDSHREF"
+></A
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="DISABLEDCOMMREF"
+></A
+>在受限shell中禁用的命令</B
+></P
+><DL
+><DT
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+> </B
+>在<EM
+>受限</EM
+>模式下运行一个脚本或脚本片断, 
+			  将会禁用某些命令, 这些命令在正常模式下都可以运行. 
+			  这是一种安全策略, 目的是为了限制脚本用户的权限, 
+			  并且能够让运行脚本所导致的危害降低到最小. 
+      </P
+></DIV
+></DD
+><DT
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+> </B
+>使用<TT
+CLASS="REPLACEABLE"
+><I
+>cd</I
+></TT
+>命令更改工作目录. </P
+></DIV
+></DD
+><DT
+></DT
+><DD
+><P
+>更改<A
+HREF="othertypesv.html#ENVREF"
+>环境变量</A
+><TT
+CLASS="REPLACEABLE"
+><I
+>$PATH</I
+></TT
+>, 
+	  <TT
+CLASS="REPLACEABLE"
+><I
+>$SHELL</I
+></TT
+>,
+	  <TT
+CLASS="REPLACEABLE"
+><I
+>$BASH_ENV</I
+></TT
+>,
+	  或<TT
+CLASS="REPLACEABLE"
+><I
+>$ENV</I
+></TT
+>的值. </P
+></DD
+><DT
+></DT
+><DD
+><P
+>读取或修改环境变量<TT
+CLASS="REPLACEABLE"
+><I
+>$SHELLOPTS</I
+></TT
+>的值. 
+	  </P
+></DD
+><DT
+></DT
+><DD
+><P
+>输出重定向. </P
+></DD
+><DT
+></DT
+><DD
+><P
+>调用的命令路径中包括有一个或多个斜杠(<SPAN
+CLASS="TOKEN"
+>/</SPAN
+>). </P
+></DD
+><DT
+></DT
+><DD
+><P
+>调用<EM
+>exec</EM
+>, 
+			把当前的受限shell替换成另外一个进程. 
+	  </P
+></DD
+><DT
+></DT
+><DD
+><P
+>能够在无意中破坏脚本的命令. </P
+></DD
+><DT
+></DT
+><DD
+><P
+>在脚本中企图脱离受限模式的操作. </P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="RESTRICTED"
+></A
+><P
+><B
+>例子 21-1. 在受限模式下运行脚本</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;#  脚本开头以"#!/bin/bash -r"来调用, 
+  4&nbsp;#+ 会使整个脚本在受限模式下运行. 
+  5&nbsp;
+  6&nbsp;echo
+  7&nbsp;
+  8&nbsp;echo "Changing directory."
+  9&nbsp;cd /usr/local
+ 10&nbsp;echo "Now in `pwd`"
+ 11&nbsp;echo "Coming back home."
+ 12&nbsp;cd
+ 13&nbsp;echo "Now in `pwd`"
+ 14&nbsp;echo
+ 15&nbsp;
+ 16&nbsp;# 非受限的模式下，所有操作都正常. 
+ 17&nbsp;
+ 18&nbsp;set -r
+ 19&nbsp;# set --restricted    也具有相同的效果. 
+ 20&nbsp;echo "==&#62; Now in restricted mode. &#60;=="
+ 21&nbsp;
+ 22&nbsp;echo
+ 23&nbsp;echo
+ 24&nbsp;
+ 25&nbsp;echo "Attempting directory change in restricted mode."
+ 26&nbsp;cd ..
+ 27&nbsp;echo "Still in `pwd`"
+ 28&nbsp;
+ 29&nbsp;echo
+ 30&nbsp;echo
+ 31&nbsp;
+ 32&nbsp;echo "\$SHELL = $SHELL"
+ 33&nbsp;echo "Attempting to change shell in restricted mode."
+ 34&nbsp;SHELL="/bin/ash"
+ 35&nbsp;echo
+ 36&nbsp;echo "\$SHELL= $SHELL"
+ 37&nbsp;
+ 38&nbsp;echo
+ 39&nbsp;echo
+ 40&nbsp;
+ 41&nbsp;echo "Attempting to redirect output in restricted mode."
+ 42&nbsp;ls -l /usr/bin &#62; bin.files
+ 43&nbsp;ls -l bin.files    # 尝试列出刚才创建的文件. 
+ 44&nbsp;
+ 45&nbsp;echo
+ 46&nbsp;
+ 47&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="subshells.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="process-sub.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>子shell</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part4.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>进程替换</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

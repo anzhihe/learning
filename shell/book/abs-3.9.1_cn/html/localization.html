@@ -1,0 +1,554 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>本地化</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="重要的系统目录"
+HREF="systemdirs.html"><LINK
+REL="NEXT"
+TITLE="历史命令"
+HREF="histcommands.html"></HEAD
+><BODY
+CLASS="APPENDIX"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="systemdirs.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="histcommands.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="APPENDIX"
+><H1
+><A
+NAME="LOCALIZATION"
+></A
+>Appendix I. 本地化</H1
+><P
+>本地化是Bash的一个未文档化的特征. </P
+><P
+>对于一个本地化的shell脚本来说, 
+		  它的输出都会使用本地系统所定义的语言. 
+        对于一个德国柏林的Linux用户来说, 他的脚本会输出德文, 
+        而对于他在马里兰的堂兄来说, 同样运行这个脚本, 输出就是英文. 
+        </P
+><P
+>为了创建一个本地化的脚本, 
+			可以使用下面的模版来编写所有的用户消息(错误消息, 
+			提示符, 等等.). 
+        </P
+><P
+>      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# localized.sh
+  3&nbsp;#  此脚本由Stephane Chazelas编写, 
+  4&nbsp;#+ Bruno Haible进行了修改, Alfredo Pironti修正了bug. 
+  5&nbsp;
+  6&nbsp;. gettext.sh
+  7&nbsp;
+  8&nbsp;E_CDERROR=65
+  9&nbsp;
+ 10&nbsp;error()
+ 11&nbsp;{
+ 12&nbsp;  printf "$@" &#62;&#38;2
+ 13&nbsp;  exit $E_CDERROR
+ 14&nbsp;}
+ 15&nbsp;
+ 16&nbsp;cd $var || error "`eval_gettext \"Can\'t cd to \\\$var.\"`"
+ 17&nbsp;#  $var前面之所以需要三个反斜线(转义)
+ 18&nbsp;#+ "因为在变量值还没被替换之前, 
+ 19&nbsp;#+ eval_gettext需要一个字符串."
+ 20&nbsp;#    -- per Bruno Haible
+ 21&nbsp;read -p "`gettext \"Enter the value: \"`" var
+ 22&nbsp;#  ...
+ 23&nbsp;
+ 24&nbsp;
+ 25&nbsp;#  ------------------------------------------------------------------
+ 26&nbsp;#  Alfredo Pironti注释: 
+ 27&nbsp;
+ 28&nbsp;#  这个脚本已经被修改, 
+ 29&nbsp;#+ 使用"`gettext \"...\"`"语法形式替换了$"..."语法形式. 
+ 30&nbsp;#  这么做没问题, 但是在新的localized.sh程序中, 
+ 31&nbsp;#+ 命令"bash -D filename" and "bash --dump-po-string filename"
+ 32&nbsp;#+ 将不会产生输出
+ 33&nbsp;#+ (因为那些命令只会搜索$"..."字符串)!
+ 34&nbsp;#  从新文件中提取字符串的唯一方法就是使用'xgettext'程序. 
+ 35&nbsp;#  然而, xgettext程序存在许多bug. 
+ 36&nbsp;
+ 37&nbsp;# 注意'xgettext'还有一个bug. 
+ 38&nbsp;#
+ 39&nbsp;# shell片断: 
+ 40&nbsp;#    gettext -s "I like Bash"
+ 41&nbsp;# 将会被正确的提取, 但是 . . .
+ 42&nbsp;#    xgettext -s "I like Bash"
+ 43&nbsp;# . . . 失败!
+ 44&nbsp;#  'xgettext'将会提取"-s"
+ 45&nbsp;#+ 因为这个命令仅仅会提取
+ 46&nbsp;#+ 'gettext'后边的第一个参数. 
+ 47&nbsp;
+ 48&nbsp;
+ 49&nbsp;#  转义字符:
+ 50&nbsp;#
+ 51&nbsp;#  为了本地化一个句子, 就像
+ 52&nbsp;#     echo -e "Hello\tworld!"
+ 53&nbsp;#+ 你必须使用
+ 54&nbsp;#     echo -e "`gettext \"Hello\\tworld\"`"
+ 55&nbsp;#  `t'前边的"双转义字符"是必须的, 
+ 56&nbsp;#+ 因为'gettext'将会搜索那些字符串(就像'Hello\tworld')
+ 57&nbsp;#  这是因为gettext将会读取一个字符`\')
+ 58&nbsp;#+ 并将输出一个字符串(就像"Bonjour\tmonde"), 
+ 59&nbsp;#+ 所以'echo'命令将会正确的显示消息. 
+ 60&nbsp;#
+ 61&nbsp;#  你可能不想使用
+ 62&nbsp;#     echo "`gettext -e \"Hello\tworld\"`"
+ 63&nbsp;#+ 因为我们上面解释的xgettext的bug. 
+ 64&nbsp;
+ 65&nbsp;
+ 66&nbsp;
+ 67&nbsp;# 让我们本地化下面的shell片断:
+ 68&nbsp;#     echo "-h display help and exit"
+ 69&nbsp;#
+ 70&nbsp;# 首先, 可以用:
+ 71&nbsp;#     echo "`gettext \"-h display help and exit\"`"
+ 72&nbsp;#  这样'xgettext'工作正常, 
+ 73&nbsp;#+ 但是'gettext'程序将会把"-h"当作选项来读取! 
+ 74&nbsp;#
+ 75&nbsp;# 一个解决方法是
+ 76&nbsp;#     echo "`gettext -- \"-h display help and exit\"`"
+ 77&nbsp;#  这样'gettext'工作正常, 
+ 78&nbsp;#+ 但是'xgettext'将会提取"--", 就像上边那样. 
+ 79&nbsp;#
+ 80&nbsp;# 为了获得这个本地化的字符串, 你可能使用的变通方法就是: 
+ 81&nbsp;#     echo -e "`gettext \"\\0-h display help and exit\"`"
+ 82&nbsp;#  我们已经在这句的开头添加了\0 (NULL). 
+ 83&nbsp;#  这样'gettext'能够正确工作, 就像'xgettext'一样.
+ 84&nbsp;#  此外, NULL字符将不会修改
+ 85&nbsp;#+ 'echo'命令的行为. 
+ 86&nbsp;#  ------------------------------------------------------------------</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>bash -D localized.sh</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>"Can't cd to %s."
+ "Enter the value: "</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+	  这将列出所有的本地化文本. 
+	  (<CODE
+CLASS="OPTION"
+>-D</CODE
+>选项将会列出以<SPAN
+CLASS="TOKEN"
+>$</SPAN
+>为前缀, 
+	 并且使用双引号引用起来的字符串, 而不会执行这个脚本.)</P
+><P
+>      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>bash --dump-po-strings localized.sh</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>#: a:6
+ msgid "Can't cd to %s."
+ msgstr ""
+ #: a:7
+ msgid "Enter the value: "
+ msgstr ""</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      
+	  Bash的<CODE
+CLASS="OPTION"
+>--dump-po-strings</CODE
+>选项与<CODE
+CLASS="OPTION"
+>-D</CODE
+>选项很相似, 
+	 但使用<A
+HREF="textproc.html#GETTEXTREF"
+>gettext</A
+> <SPAN
+CLASS="QUOTE"
+>"po"</SPAN
+>格式. 
+
+      </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Bruno Haible指出:</P
+><P
+>以gettext-0.12.2开始, <B
+CLASS="COMMAND"
+>xgettext -o - 
+		localized.sh</B
+>被推荐代替<B
+CLASS="COMMAND"
+>bash --dump-po-strings
+      localized.sh</B
+>, 因为<B
+CLASS="COMMAND"
+>xgettext</B
+> . . .</P
+><P
+>1. 了解命令gettext和eval_gettext(而bash --dump-po-strings只认识它的$"..."语法)</P
+><P
+>2. 可以提取程序中的注释, 进而可以被翻译者读取. </P
+><P
+>这个脚本将不再被特定于Bash,  它与Bash 1.x和其他的/bin/sh实现, 都使用相同的方式工作. 
+      </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>现在, 为每种脚本需要被转换的语言都建立一个<TT
+CLASS="FILENAME"
+>language.po</TT
+>文件, 
+		  指定<TT
+CLASS="REPLACEABLE"
+><I
+>msgstr</I
+></TT
+>. 
+		  Alfredo Pironti给出了下面的例子: </P
+><P
+>fr.po:
+
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#: a:6
+  2&nbsp;msgid "Can't cd to $var."
+  3&nbsp;msgstr "Impossible de se positionner dans le repertoire $var."
+  4&nbsp;#: a:7
+  5&nbsp;msgid "Enter the value: "
+  6&nbsp;msgstr "Entrez la valeur : "
+  7&nbsp;
+  8&nbsp;#  这个字符串和变量名被打印, 没有%s语法, 
+  9&nbsp;#+ 与C程序很像. 
+ 10&nbsp;#+ 如果程序员使用有意义的变量名, 
+ 11&nbsp;#+ 那么这将会是一个非常酷的特点!</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>然后, 运行<A
+HREF="textproc.html#MSGFMTREF"
+>msgfmt</A
+>.</P
+><P
+><KBD
+CLASS="USERINPUT"
+>msgfmt -o localized.sh.mo fr.po</KBD
+></P
+><P
+>将文件<TT
+CLASS="FILENAME"
+>localized.sh.mo</TT
+>的结果放到<TT
+CLASS="FILENAME"
+>/usr/local/share/locale/fr/LC_MESSAGES</TT
+>目录下, 
+       并且在脚本的开头插入如下行: 
+
+	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;TEXTDOMAINDIR=/usr/local/share/locale
+  2&nbsp;TEXTDOMAIN=localized.sh</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>如果法文系统上的用户运行这个脚本, 那么她将得到法文消息. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在老本的Bash或其他shell中, 
+			  本地化需要使用<CODE
+CLASS="OPTION"
+>-s</CODE
+>选项的命令<A
+HREF="textproc.html#GETTEXTREF"
+>gettext</A
+>. 
+	在这种情况下, 脚本为:</P
+><P
+><A
+NAME="GETTEXTEXAMPLE"
+></A
+>
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# localized.sh
+  3&nbsp;
+  4&nbsp;E_CDERROR=65
+  5&nbsp;
+  6&nbsp;error() {
+  7&nbsp;  local format=$1
+  8&nbsp;  shift
+  9&nbsp;  printf "$(gettext -s "$format")" "$@" &#62;&#38;2
+ 10&nbsp;  exit $E_CDERROR
+ 11&nbsp;}
+ 12&nbsp;cd $var || error "Can't cd to %s." "$var"
+ 13&nbsp;read -p "$(gettext -s "Enter the value: ")" var
+ 14&nbsp;# ...</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>变量<CODE
+CLASS="VARNAME"
+>TEXTDOMAIN</CODE
+>和<CODE
+CLASS="VARNAME"
+>TEXTDOMAINDIR</CODE
+>需要被设置, 
+		 并且需要export到环境变量中. 
+	这应该在脚本中完成. </P
+><P
+>---</P
+><P
+>此附录由Stephane Chazelas编写,
+	Alfredo Pironti, 和Bruno Haible给出了一些建议, 是GNU<A
+HREF="textproc.html#GETTEXTREF"
+>gettext</A
+>的维护者. </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="systemdirs.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="histcommands.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>重要的系统目录</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>历史命令</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

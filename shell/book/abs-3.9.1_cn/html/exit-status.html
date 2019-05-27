@@ -1,0 +1,582 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>退出和退出状态码</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="基本"
+HREF="part2.html"><LINK
+REL="PREVIOUS"
+TITLE="转义"
+HREF="escapingsection.html"><LINK
+REL="NEXT"
+TITLE="条件判断"
+HREF="tests.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="escapingsection.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="tests.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="EXIT-STATUS"
+></A
+>6. 退出和退出状态码</H1
+><TABLE
+BORDER="0"
+WIDTH="100%"
+CELLSPACING="0"
+CELLPADDING="0"
+CLASS="EPIGRAPH"
+><TR
+><TD
+WIDTH="45%"
+>&nbsp;</TD
+><TD
+WIDTH="45%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+><P
+><I
+>...在Bourne shell中有许多黑暗的角落, 但是人们也会利用它们.</I
+></P
+></I
+></TD
+></TR
+><TR
+><TD
+WIDTH="45%"
+>&nbsp;</TD
+><TD
+WIDTH="45%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><I
+><SPAN
+CLASS="ATTRIBUTION"
+>Chet Ramey</SPAN
+></I
+></TD
+></TR
+></TABLE
+><P
+><A
+NAME="EXITCOMMANDREF"
+></A
+> 
+	<B
+CLASS="COMMAND"
+>	  
+	  
+	  exit
+	</B
+> 
+	被用来结束一个脚本, 
+	就像在<EM
+>C</EM
+>语言中一样. 它也返回一个值, 
+	并且这个值会传递给脚本的父进程, 父进程会使用这个值做下一步的处理. </P
+><P
+><A
+NAME="EXITSTATUSREF"
+></A
+>每个命令都会返回一个
+	<I
+CLASS="FIRSTTERM"
+>	  
+	  退出状态码
+	</I
+> 
+	(有时候也被称为
+	<I
+CLASS="FIRSTTERM"
+>	  
+	  返回状态
+  </I
+>). 成功的命令返回<SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>, 
+  而不成功的命令返回<SPAN
+CLASS="RETURNVALUE"
+>非零</SPAN
+>值, 非零值通常都被解释成一个错误码. 
+  行为良好的UNIX命令, 程序, 和工具都会返回<SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>作为退出码来表示成功, 
+  虽然偶尔也会有例外. </P
+><P
+>同样的, 脚本中的函数和脚本本身也会返回退出状态码. 
+		  在脚本或者是脚本函数中执行的最后的命令会决定退出状态码.
+		  在脚本中, <KBD
+CLASS="USERINPUT"
+>exit <TT
+CLASS="REPLACEABLE"
+><I
+>nnn</I
+></TT
+></KBD
+>命令将会把<SPAN
+CLASS="RETURNVALUE"
+>			  <TT
+CLASS="REPLACEABLE"
+><I
+>nnn</I
+></TT
+></SPAN
+>退出码传递给shell(<SPAN
+CLASS="RETURNVALUE"
+>			  <TT
+CLASS="REPLACEABLE"
+><I
+>nnn</I
+></TT
+></SPAN
+>必须是十进制数, 
+		 范围必须是<SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> -
+	<SPAN
+CLASS="RETURNVALUE"
+>255</SPAN
+>).</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>当脚本以不带参数的<B
+CLASS="COMMAND"
+>exit</B
+>命令来结束时, 
+			  脚本的退出状态码就由脚本中最后执行的命令来决定(就是<B
+CLASS="COMMAND"
+>exit</B
+>之前的命令).</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;COMMAND_1
+  4&nbsp;
+  5&nbsp;. . .
+  6&nbsp;
+  7&nbsp;# 将以最后的命令来决定退出状态码.
+  8&nbsp;COMMAND_LAST
+  9&nbsp;
+ 10&nbsp;exit</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>不带参数的<B
+CLASS="COMMAND"
+>exit</B
+>命令与
+		  <B
+CLASS="COMMAND"
+>exit $?</B
+>的效果是一样的, 
+		  甚至脚本的结尾不写<B
+CLASS="COMMAND"
+>exit</B
+>, 也与前两者的效果相同. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;COMMAND_1
+  4&nbsp;
+  5&nbsp;. . .
+  6&nbsp;
+  7&nbsp;# 将以最后的命令来决定退出状态码.
+  8&nbsp;COMMAND_LAST
+  9&nbsp;
+ 10&nbsp;exit $?</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;COMMAND1
+  4&nbsp;
+  5&nbsp;. . . 
+  6&nbsp;
+  7&nbsp;# 将以最后的命令来决定退出状态码.
+  8&nbsp;COMMAND_LAST</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+><A
+NAME="EXSREF"
+></A
+></P
+><P
+>	<CODE
+CLASS="VARNAME"
+>	    $?</CODE
+>保存了最后所执行的命令的退出状态码. 
+	    当函数返回之后, 
+	    <CODE
+CLASS="VARNAME"
+>$?</CODE
+>保存函数中最后所执行的命令的退出状态码. 
+		这就是bash对函数<SPAN
+CLASS="QUOTE"
+>"返回值"</SPAN
+>的处理方法. 
+		当一个脚本退出, <CODE
+CLASS="VARNAME"
+>$?</CODE
+>保存了脚本的退出状态码, 
+	    这个退出状态码也就是脚本中最后一个执行命令的退出状态码. 
+	    一般情况下, <KBD
+CLASS="USERINPUT"
+>0</KBD
+>表示成功, 
+	    在范围<SPAN
+CLASS="RETURNVALUE"
+>1 - 255</SPAN
+>的整数表示错误. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX5"
+></A
+><P
+><B
+>例子 6-1. 退出/退出状态码</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;echo hello
+  4&nbsp;echo $?    # 退出状态为0, 因为命令执行成功.
+  5&nbsp;
+  6&nbsp;lskdf      # 无效命令.
+  7&nbsp;echo $?    # 非零的退出状态, 因为命令执行失败.
+  8&nbsp;
+  9&nbsp;echo
+ 10&nbsp;
+ 11&nbsp;exit 113   # 返回113退出状态给shell.
+ 12&nbsp;           # 为了验证这个结果, 可以在脚本结束的地方使用"echo $?". 
+ 13&nbsp;
+ 14&nbsp;#  一般的, 'exit 0' 表示成功,
+ 15&nbsp;#+ 而一个非零的退出码表示一个错误, 或者是反常的条件.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><A
+HREF="internalvariables.html#XSTATVARREF"
+>$?</A
+>用于测试脚本中的命令结果的时候, 往往显得特别有用(见<A
+HREF="filearchiv.html#FILECOMP"
+>例子 12-32</A
+>和<A
+HREF="textproc.html#LOOKUP"
+>例子 12-17</A
+>).</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><A
+HREF="special-chars.html#NOTREF"
+>!</A
+>, 逻辑
+		  <SPAN
+CLASS="QUOTE"
+>"非"</SPAN
+>操作符, 将会反转命令或条件测试的结果, 
+		  并且这会影响<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>.
+
+	<DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="NEGCOND"
+></A
+><P
+><B
+>例子 6-2. 反转一个条件的用法<SPAN
+CLASS="TOKEN"
+>!</SPAN
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;true  # "true" 是内建命令.
+  2&nbsp;echo "exit status of \"true\" = $?"     # 0
+  3&nbsp;
+  4&nbsp;! true
+  5&nbsp;echo "exit status of \"! true\" = $?"   # 1
+  6&nbsp;# 注意: "!" 需要一个空格.
+  7&nbsp;#    !true   将导致"command not found"错误
+  8&nbsp;#
+  9&nbsp;# 如果一个命令以'!'开头, 那么会启用Bash的历史机制. 
+ 10&nbsp;
+ 11&nbsp;true
+ 12&nbsp;!true
+ 13&nbsp;# 这次就没有错误了, 也没有反转结果.
+ 14&nbsp;# 它只是重复了之前的命令(true).
+ 15&nbsp;
+ 16&nbsp;# 感谢, Stephane Chazelas和Kristopher Newsome.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+>
+
+      </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>特定的退出状态码具有<A
+HREF="exitcodes.html#EXITCODESREF"
+>保留含义</A
+>, 
+			 所以用户不应该在脚本中指定它. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="escapingsection.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="tests.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>转义</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part2.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>条件判断</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

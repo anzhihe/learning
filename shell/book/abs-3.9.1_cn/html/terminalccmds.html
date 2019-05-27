@@ -1,0 +1,329 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>终端控制命令</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="外部过滤器, 程序和命令"
+HREF="external.html"><LINK
+REL="PREVIOUS"
+TITLE="通讯命令"
+HREF="communications.html"><LINK
+REL="NEXT"
+TITLE="数学计算命令"
+HREF="mathc.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="communications.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>12. 外部过滤器, 程序和命令</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="mathc.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="TERMINALCCMDS"
+>12.7. 终端控制命令</A
+></H1
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="TERMCOMMANDLISTING1"
+></A
+>影响控制台或终端的命令</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>tput</B
+></DT
+><DD
+><P
+>初始化终端或者从<TT
+CLASS="FILENAME"
+>terminfo</TT
+>数据中取得终端信息. 
+			  这个命令有许多选项, 每个选项都允许特定操作. 
+	      <B
+CLASS="COMMAND"
+>tput clear</B
+>与后边所介绍的<B
+CLASS="COMMAND"
+>clear</B
+>命令等价, 
+		  <B
+CLASS="COMMAND"
+>tput reset</B
+>与后边所介绍的<B
+CLASS="COMMAND"
+>reset</B
+>命令等价, 
+		  <B
+CLASS="COMMAND"
+>tput sgr0</B
+>可以复位终端, 但是并不清除屏幕. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>tput longname</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>xterm terminal emulator (XFree86 4.0 Window System)</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>使用<B
+CLASS="COMMAND"
+>tput cup X Y</B
+>将会把光标移动到当前终端的(X,Y)坐标上, 
+	      使用这个命令之前一般都要先用<B
+CLASS="COMMAND"
+>clear</B
+>命令清屏. </P
+><P
+>注意: <A
+HREF="system.html#STTYREF"
+>stty</A
+>提供了一个更强大的命令专门用来设置如何控制终端. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>infocmp</B
+></DT
+><DD
+><P
+>这个命令会打印出大量当前终端的信息. 
+			  事实上它是引用了<EM
+>terminfo</EM
+>数据库的内容. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>infocmp</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>#       通过infocmp显示出来, 内容都来自于文件:
+ /usr/share/terminfo/r/rxvt
+ rxvt|rxvt terminal emulator (X Window System), 
+         am, bce, eo, km, mir, msgr, xenl, xon, 
+         colors#8, cols#80, it#8, lines#24, pairs#64, 
+         acsc=``aaffggjjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~, 
+         bel=^G, blink=\E[5m, bold=\E[1m,
+         civis=\E[?25l, 
+         clear=\E[H\E[2J, cnorm=\E[?25h, cr=^M, 
+         ...</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>reset</B
+></DT
+><DD
+><P
+>复位终端参数并且清除屏幕. 与<B
+CLASS="COMMAND"
+>clear</B
+>命令一样, 
+			  光标和提示符将会重新出现在终端的左上角. </P
+></DD
+><DT
+><A
+NAME="CLEARREF"
+></A
+><B
+CLASS="COMMAND"
+>clear</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>clear</B
+>命令只不过是简单的清除控制台或者<I
+CLASS="FIRSTTERM"
+>xterm</I
+>的屏幕. 
+			  光标和提示符将会重新出现在屏幕或者xterm window的左上角. 
+			  这个命令既可以用在命令行中也可以用在脚本中. 
+	      请参考<A
+HREF="testbranch.html#EX30"
+>例子 10-25</A
+>. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>script</B
+></DT
+><DD
+><P
+>这个工具将会记录(保存到一个文件中)所有的用户按键信息(在控制台下的或在xterm window下的按键信息).
+	      这其实就是创建了一个会话记录. </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="communications.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="mathc.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>通讯命令</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="external.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>数学计算命令</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

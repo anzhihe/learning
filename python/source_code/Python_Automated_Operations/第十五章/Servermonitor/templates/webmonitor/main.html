@@ -1,0 +1,143 @@
+{% load AppFilter %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{{system_name}}-监控清单</title>
+<link href="/site_media/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/site_media/css/skin/black/ymPrompt.css" rel="stylesheet" type="text/css"> 
+<link href="/site_media/css/base.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" type="text/javascript" src="/site_media/js/My97DatePicker/WdatePicker.js"></script>
+<script language="JavaScript" type="text/javascript" src="/site_media/js/prototype.js"></script>
+<script language="JavaScript" type="text/javascript" src="/site_media/js/ymPrompt.js"></script>
+<script language="JavaScript" type="text/javascript" src="/site_media/js/bash.js"></script>
+</head>
+
+<body>
+<table class="top_bottom" cellpadding="3" cellspacing="1">
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right" width="45%"><div align="center"><font class="baner_font">业务质量监控</font>
+    </div></td>
+    <td align="left">	</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table width="1014" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" class="searchtable">
+<form id="SearchForm" name="SearchForm" method="get" action="/webmonitor/">
+  <tr>
+    <td height="88" align="right"><label>
+      选择业务：<select name="AppId" id="AppId" onchange="Reloaddate();">
+	{% for app in Hostinfoobj %}
+		{% if Hostinforow %}
+			{% ifequal app.ID Hostinforow.ID %}
+				<option value="{{app.ID}}" selected>{{app.AppName}}({{app.IDC|result_idcname}})</option>
+			{% else %}
+				<option value="{{app.ID}}" >{{app.AppName}}({{app.IDC|result_idcname}})</option>
+			{% endifequal %}
+		{% else %}
+			<option value="{{app.ID}}" >{{app.AppName}}({{app.IDC|result_idcname}})</option>
+		{% endif %}
+	{% endfor %}
+      </select><font color="#FF0000">*</font>
+    </label></td>
+    <td align="center">
+起始时间：<input readonly="true" name="StartTime" type="text" id="StartTime" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'2010-11-18 00:00:00'})" value="{%  ifequal UserFind '1' %}{{StartTime|result_datetime}}{%endifequal%}">
+&nbsp;&nbsp;结束时间：<input readonly="true" name="EndTime" type="text" id="EndTime" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'2010-11-18 00:00:00'})" value="{%  ifequal UserFind '1' %}{{EndTime|result_datetime}}{%endifequal%}">
+&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="Submit" id="sys_run_button" value=" 提    交 "  onclick="javascript:CheckSearchForm();"/>
+<input type="button" name="Submit2" id="sys_run_button" value=" 添加应用 "  onClick="javascript:window.location.href='/webmonitor/add/';"></td>
+    </tr>
+</form>
+</table>
+{% if Hostinforow %}
+	{% ifequal UserFind '1'%}
+	<table width="900" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#808080">
+  <tr>
+    <td height="26" colspan="2" bgcolor="#808080"><span class="TitleText">  <img src="/site_media/images/pie-chart_graph.png" width="30" height="30" align="absmiddle" />{{Hostinforow.AppName}} - 监测数据图表 [自定义]</span></td>
+  </tr>
+  <tr>
+    <td width="597" rowspan="2"><img src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/{{Hostinforow.ID}}_time.png?,Math.random();" width="597" /></td>
+    <td width="295"><img src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/{{Hostinforow.ID}}_download.png?,Math.random();" width="417" /></td>
+  </tr>
+  <tr>
+    <td><img  src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/{{Hostinforow.ID}}_unavailable.png?,Math.random();" width="417" /></td>
+  </tr>
+</table>
+<br>
+	{%else%}
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#808080">
+  <tr>
+    <td height="26" colspan="2" bgcolor="#808080"><span class="TitleText">   <img src="/site_media/images/pie-chart_graph.png" width="30" height="30" align="absmiddle" /> {{Hostinforow.AppName}} - 监测数据图表 [当前]</span></td>
+  </tr>
+  <tr>
+    <td width="597" rowspan="2"><img src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/current_{{Hostinforow.ID}}_time.png?,Math.random();" width="597" /></td>
+    <td width="295"><img src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/current_{{Hostinforow.ID}}_download.png?,Math.random();" width="417" /></td>
+  </tr>
+  <tr>
+    <td><img  src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/current_{{Hostinforow.ID}}_unavailable.png?,Math.random();" width="417" /></td>
+  </tr>
+</table>
+<br>
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#808080">
+  <tr>
+    <td height="26" colspan="2" bgcolor="#808080"><span class="TitleText">   <img src="/site_media/images/pie-chart_graph.png" width="30" height="30" align="absmiddle" /> {{Hostinforow.AppName}}- 监测数据图表 [日]</span></td>
+  </tr>
+  <tr>
+    <td width="597" rowspan="2"><img src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/day_{{Hostinforow.ID}}_time.png?,Math.random();" width="597" /></td>
+    <td width="295"><img src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/day_{{Hostinforow.ID}}_download.png?,Math.random();" width="417" /></td>
+  </tr>
+  <tr>
+    <td><img  src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/day_{{Hostinforow.ID}}_unavailable.png?,Math.random();" width="417" /></td>
+  </tr>
+</table>
+<br>
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#808080">
+  <tr>
+    <td height="26" colspan="2" bgcolor="#808080"><span class="TitleText">   <img src="/site_media/images/pie-chart_graph.png" width="30" height="30" align="absmiddle" /> {{Hostinforow.AppName}} - 应用监测数据图表 [月]</span></td>
+  </tr>
+  <tr>
+    <td width="597" rowspan="2"><img src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/month_{{Hostinforow.ID}}_time.png?,Math.random();" width="597" /></td>
+    <td width="295"><img src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/month_{{Hostinforow.ID}}_download.png?,Math.random();" width="417" /></td>
+  </tr>
+  <tr>
+    <td><img  src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/month_{{Hostinforow.ID}}_unavailable.png?,Math.random();" width="417" /></td>
+  </tr>
+</table>
+<br>
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#808080">
+  <tr>
+    <td height="26" colspan="2" bgcolor="#808080"><span class="TitleText">   <img src="/site_media/images/pie-chart_graph.png" width="30" height="30" align="absmiddle" /> {{Hostinforow.AppName}} - 应用监测数据图表 [年]</span></td>
+  </tr>
+  <tr>
+    <td width="597" rowspan="2"><img src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/year_{{Hostinforow.ID}}_time.png?,Math.random();" width="597" /></td>
+    <td width="295"><img src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/year_{{Hostinforow.ID}}_download.png?,Math.random();" width="417" /></td>
+  </tr>
+  <tr>
+    <td><img  src="/site_media/rrdtool/{{Hostinforow.URL|result_domain}}/year_{{Hostinforow.ID}}_unavailable.png?,Math.random();" width="417" /></td>
+  </tr>
+</table>
+{% endifequal %}
+<br />
+<iframe src="/webmonitor/monitorlist/?AppId={{Hostinforow.ID}}&StartTime={{StartTime}}&EndTime={{EndTime}}" width="100%" height="550" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes" align="center"></iframe>
+{% endif %}
+<table width="600" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table class="down_bottom" cellpadding="3" cellspacing="1">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

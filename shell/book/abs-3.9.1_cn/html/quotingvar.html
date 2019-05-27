@@ -1,0 +1,554 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>引用变量</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="引用"
+HREF="quoting.html"><LINK
+REL="PREVIOUS"
+TITLE="引用"
+HREF="quoting.html"><LINK
+REL="NEXT"
+TITLE="转义"
+HREF="escapingsection.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="quoting.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>5. 引用</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="escapingsection.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="QUOTINGVAR"
+>5.1. 引用变量</A
+></H1
+><P
+>在一个双引号中通过直接使用变量名的方法来引用变量, 一般情况下都是没问题的. 
+	这么做将阻止所有在引号中的特殊字符被重新解释 -- 包括变量名
+	    <A
+NAME="AEN2090"
+HREF="#FTN.AEN2090"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+		-- 但是<SPAN
+CLASS="TOKEN"
+>$</SPAN
+>,<SPAN
+CLASS="TOKEN"
+>`</SPAN
+>(后置引用), 
+		和<SPAN
+CLASS="TOKEN"
+>\</SPAN
+>(转义符)除外.
+
+	    <A
+NAME="AEN2096"
+HREF="#FTN.AEN2096"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+	
+		  保留<SPAN
+CLASS="TOKEN"
+>$</SPAN
+>作为特殊字符的意义是为了能够在双引号中也能够正常的引用变量(<TT
+CLASS="REPLACEABLE"
+><I
+>"$variable"</I
+></TT
+>), 
+		  也就是说, 这个变量将被它的值所取代(参见上边的<A
+HREF="varsubn.html#EX9"
+>例子 4-1</A
+>).</P
+><P
+>使用双引号还能够阻止单词分割(word splitting).
+		  <A
+NAME="AEN2120"
+HREF="#FTN.AEN2120"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+>
+	如果一个参数被双引号扩起来的话, 那么这个参数将认为是一个单元, 
+	即使这个参数包含有<A
+HREF="special-chars.html#WHITESPACEREF"
+>空白</A
+>, 那里面的单词也不会被分隔开. 
+
+	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;variable1="a variable containing five words"
+  2&nbsp;COMMAND This is $variable1    # 用下面7个参数执行COMMAND命令: 
+  3&nbsp;# "This" "is" "a" "variable" "containing" "five" "words"
+  4&nbsp;
+  5&nbsp;COMMAND "This is $variable1"  # 用下面1个参数执行COMMAND命令:
+  6&nbsp;# "This is a variable containing five words"
+  7&nbsp;
+  8&nbsp;
+  9&nbsp;variable2=""    # Empty.
+ 10&nbsp;
+ 11&nbsp;COMMAND $variable2 $variable2 $variable2        # COMMAND将不带参数执行. 
+ 12&nbsp;COMMAND "$variable2" "$variable2" "$variable2"  # COMMAND将以3个空参数来执行. 
+ 13&nbsp;COMMAND "$variable2 $variable2 $variable2"      # COMMAND将以1个参数来执行(2空格). 
+ 14&nbsp;
+ 15&nbsp;# 感谢, Stephane Chazelas.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在<B
+CLASS="COMMAND"
+>echo</B
+>语句中, 
+		只有在单词分割(word splitting)或者需要保留<A
+HREF="special-chars.html#WHITESPACEREF"
+>空白</A
+>的时候, 
+		才需要把参数用双引号括起来. </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="WEIRDVARS"
+></A
+><P
+><B
+>例子 5-1. echo出一些诡异变量</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# weirdvars.sh: echo出一些诡异变量.
+  3&nbsp;
+  4&nbsp;var="'(]\\{}\$\""
+  5&nbsp;echo $var        # '(]\{}$"
+  6&nbsp;echo "$var"      # '(]\{}$"     和上一句没什么区别.Doesn't make a difference.
+  7&nbsp;
+  8&nbsp;echo
+  9&nbsp;
+ 10&nbsp;IFS='\'
+ 11&nbsp;echo $var        # '(] {}$"     \ 字符被空白符替换了, 为什么?
+ 12&nbsp;echo "$var"      # '(]\{}$"
+ 13&nbsp;
+ 14&nbsp;# 这个例子由Stephane Chazelas提供.
+ 15&nbsp;
+ 16&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>单引号(<SPAN
+CLASS="TOKEN"
+>' '</SPAN
+>)操作与双引号基本一样, 
+		  但是不允许引用变量, 
+		  因为<SPAN
+CLASS="TOKEN"
+>$</SPAN
+>的特殊意义被关闭了.
+		  在单引号中, <EM
+>任何</EM
+>特殊字符都按照字面的意思进行解释, 
+		 除了<SPAN
+CLASS="TOKEN"
+>'</SPAN
+>. 
+	所以说单引号(<SPAN
+CLASS="QUOTE"
+>"全引用"</SPAN
+>)是一种比双引号(<SPAN
+CLASS="QUOTE"
+>"部分引用"</SPAN
+>)更严格的引用方法. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>因为即使是转义符(<SPAN
+CLASS="TOKEN"
+>\</SPAN
+>)在单引号中也是按照字面意思解释的,
+	所以如果想在一对单引号中显示一个单引号是不行的(译者注: 因为单引号对是按照就近原则完成的).
+	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo "Why can't I write 's between single quotes"
+  2&nbsp;
+  3&nbsp;echo
+  4&nbsp;
+  5&nbsp;# 一种绕弯的方法.
+  6&nbsp;echo 'Why can'\''t I write '"'"'s between single quotes'
+  7&nbsp;#    |-------|  |----------|   |-----------------------|
+  8&nbsp;# 三个被单引号引用的字符串, 在这三个字符串之间有一个用转义符转义的单引号, 和一个用双引号括起来的单引号.
+  9&nbsp;
+ 10&nbsp;# 这个例子由Stephane Chazelas所捐赠.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN2090"
+HREF="quotingvar.html#AEN2090"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>即使是变量的<I
+CLASS="FIRSTTERM"
+>值</I
+>也会有副作用的(见下边)</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN2096"
+HREF="quotingvar.html#AEN2096"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><EM
+>当在命令行中使用时</EM
+>, 如果在双引号中包含<SPAN
+CLASS="QUOTE"
+>"!"</SPAN
+>的话, 
+	      那么会产生一个错误(译者注: 比如, echo "hello!"). 这是因为感叹号被解释成<A
+HREF="histcommands.html"
+>历史命令</A
+>了. 但是如果在脚本中,
+	      就不会存在这个问题, 因为在脚本中Bash历史机制是被禁用的. </P
+><P
+>在双引号中使用<SPAN
+CLASS="QUOTE"
+>"\"</SPAN
+>也可能会出现一些不一致的行为. 
+
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo hello\!</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>hello!</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo "hello\!"</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>hello\!</SAMP
+>
+
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo -e x\ty</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>xty</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo -e "x\ty"</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>x       y</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+              (感谢, Wayne Pollock, 指出这个问题.)
+            </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN2120"
+HREF="quotingvar.html#AEN2120"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><SPAN
+CLASS="QUOTE"
+>"单词分割(Word splitting)"</SPAN
+>, 在这种上下文中, 
+			意味着将一个字符串分隔成一些不连续的, 分离的参数. </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="quoting.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="escapingsection.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>引用</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="quoting.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>转义</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

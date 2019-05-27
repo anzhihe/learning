@@ -1,0 +1,580 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Bash, 版本2</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Bash, 版本2与版本3"
+HREF="bash2.html"><LINK
+REL="PREVIOUS"
+TITLE="Bash, 版本2与版本3"
+HREF="bash2.html"><LINK
+REL="NEXT"
+TITLE="Bash, 版本3"
+HREF="bashver3.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="bash2.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>34. Bash, 版本2与版本3</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="bashver3.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="BASHVER2"
+>34.1. Bash, 版本2</A
+></H1
+><P
+><A
+NAME="BASH2REF"
+></A
+></P
+><P
+>当前比较流行的<EM
+>Bash</EM
+>版本有两个, 
+			  版本2.xx.y或版本3.xx.y, 
+			  这两个中的某一个估计就运行在你的机器上. 
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo $BASH_VERSION</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>2.05.b.0(1)-release</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	经典Bash脚本语言版本2的主要升级内容, 增加了数组变量, 
+
+	<A
+NAME="AEN16155"
+HREF="#FTN.AEN16155"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+
+	字符串和参数扩展, 还添加了间接变量引用的一种更好的方法, 以及其他特性. 
+	</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX77"
+></A
+><P
+><B
+>例子 34-1. 字符串扩展</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# 字符串扩展. 
+  4&nbsp;# Bash版本2中引入的特性. 
+  5&nbsp;
+  6&nbsp;#  $'xxx'格式的字符串
+  7&nbsp;#+ 具备解释里面标准转义字符的能力. 
+  8&nbsp;
+  9&nbsp;echo $'Ringing bell 3 times \a \a \a'
+ 10&nbsp;     # 可能在某些终端中, 只会响一次铃. 
+ 11&nbsp;echo $'Three form feeds \f \f \f'
+ 12&nbsp;echo $'10 newlines \n\n\n\n\n\n\n\n\n\n'
+ 13&nbsp;echo $'\102\141\163\150'   # Bash
+ 14&nbsp;                           # 8进制的等价字符. 
+ 15&nbsp;
+ 16&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><A
+NAME="VARREFNEW"
+></A
+></P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX78"
+></A
+><P
+><B
+>例子 34-2. 间接变量引用 - 新方法</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# 间接变量引用. 
+  4&nbsp;# 这种方法比较像C++中的引用特性. 
+  5&nbsp;
+  6&nbsp;
+  7&nbsp;a=letter_of_alphabet
+  8&nbsp;letter_of_alphabet=z
+  9&nbsp;
+ 10&nbsp;echo "a = $a"           # 直接引用. 
+ 11&nbsp;
+ 12&nbsp;echo "Now a = ${!a}"    # 间接引用. 
+ 13&nbsp;# ${!variable}表示法比老式的"eval var1=\$$var2"表示法高级的多. 
+ 14&nbsp;
+ 15&nbsp;echo
+ 16&nbsp;
+ 17&nbsp;t=table_cell_3
+ 18&nbsp;table_cell_3=24
+ 19&nbsp;echo "t = ${!t}"                      # t = 24
+ 20&nbsp;table_cell_3=387
+ 21&nbsp;echo "Value of t changed to ${!t}"    # 387
+ 22&nbsp;
+ 23&nbsp;#  在引用数组成员或者引用表的时候, 这种方法非常有用, 
+ 24&nbsp;#+ 还可以用来模拟多维数组. 
+ 25&nbsp;#  如果有能够索引的选项(类似于指针的算术运算)
+ 26&nbsp;#+ 就更好了. 可惜. 
+ 27&nbsp;
+ 28&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="RESISTOR"
+></A
+><P
+><B
+>例子 34-3. 使用间接变量引用的简单数据库应用</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# resistor-inventory.sh
+  3&nbsp;# 使用间接变量引用的简单数据库应用. 
+  4&nbsp;
+  5&nbsp;# ============================================================== #
+  6&nbsp;# 数据
+  7&nbsp;
+  8&nbsp;B1723_value=470                                   # 欧姆
+  9&nbsp;B1723_powerdissip=.25                             # 瓦特
+ 10&nbsp;B1723_colorcode="yellow-violet-brown"             # 颜色
+ 11&nbsp;B1723_loc=173                                     # 位置
+ 12&nbsp;B1723_inventory=78                                # 数量
+ 13&nbsp;
+ 14&nbsp;B1724_value=1000
+ 15&nbsp;B1724_powerdissip=.25
+ 16&nbsp;B1724_colorcode="brown-black-red"
+ 17&nbsp;B1724_loc=24N
+ 18&nbsp;B1724_inventory=243
+ 19&nbsp;
+ 20&nbsp;B1725_value=10000
+ 21&nbsp;B1725_powerdissip=.25
+ 22&nbsp;B1725_colorcode="brown-black-orange"
+ 23&nbsp;B1725_loc=24N
+ 24&nbsp;B1725_inventory=89
+ 25&nbsp;
+ 26&nbsp;# ============================================================== #
+ 27&nbsp;
+ 28&nbsp;
+ 29&nbsp;echo
+ 30&nbsp;
+ 31&nbsp;PS3='Enter catalog number: '
+ 32&nbsp;
+ 33&nbsp;echo
+ 34&nbsp;
+ 35&nbsp;select catalog_number in "B1723" "B1724" "B1725"
+ 36&nbsp;do
+ 37&nbsp;  Inv=${catalog_number}_inventory
+ 38&nbsp;  Val=${catalog_number}_value
+ 39&nbsp;  Pdissip=${catalog_number}_powerdissip
+ 40&nbsp;  Loc=${catalog_number}_loc
+ 41&nbsp;  Ccode=${catalog_number}_colorcode
+ 42&nbsp;
+ 43&nbsp;  echo
+ 44&nbsp;  echo "Catalog number $catalog_number:"
+ 45&nbsp;  echo "There are ${!Inv} of [${!Val} ohm / ${!Pdissip} watt] resistors in stock."
+ 46&nbsp;  echo "These are located in bin # ${!Loc}."
+ 47&nbsp;  echo "Their color code is \"${!Ccode}\"."
+ 48&nbsp;
+ 49&nbsp;  break
+ 50&nbsp;done
+ 51&nbsp;
+ 52&nbsp;echo; echo
+ 53&nbsp;
+ 54&nbsp;# 练习:
+ 55&nbsp;# -----
+ 56&nbsp;# 1) 重写脚本, 使其从外部文件读取数据. 
+ 57&nbsp;# 2) 重写脚本, 
+ 58&nbsp;#+   用数组来代替间接变量引用, 
+ 59&nbsp;#    因为使用数组更简单, 更易懂. 
+ 60&nbsp;
+ 61&nbsp;
+ 62&nbsp;# 注:
+ 63&nbsp;# ---
+ 64&nbsp;#  除了最简单的数据库应用, 事实上, Shell脚本本身并不适合于数据库应用. 
+ 65&nbsp;#+ 因为它太依赖于工作环境和机器的运算能力. 
+ 66&nbsp;#  更好的办法还是使用支持数据结构的本地语言, 
+ 67&nbsp;#+ 比如C++或者Java(或者甚至可以是Perl). 
+ 68&nbsp;
+ 69&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX79"
+></A
+><P
+><B
+>例子 34-4. 使用数组和其他的小技巧来处理4人随机打牌</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# 纸牌: 
+  4&nbsp;# 处理4人打牌. 
+  5&nbsp;
+  6&nbsp;UNPICKED=0
+  7&nbsp;PICKED=1
+  8&nbsp;
+  9&nbsp;DUPE_CARD=99
+ 10&nbsp;
+ 11&nbsp;LOWER_LIMIT=0
+ 12&nbsp;UPPER_LIMIT=51
+ 13&nbsp;CARDS_IN_SUIT=13
+ 14&nbsp;CARDS=52
+ 15&nbsp;
+ 16&nbsp;declare -a Deck
+ 17&nbsp;declare -a Suits
+ 18&nbsp;declare -a Cards
+ 19&nbsp;#  使用一个3维数组来代替这3个一维数组来描述数据, 
+ 20&nbsp;#+ 可以更容易实现, 而且可以增加可读性. 
+ 21&nbsp;#  或许在Bash未来的版本上会支持多维数组. 
+ 22&nbsp;
+ 23&nbsp;
+ 24&nbsp;initialize_Deck ()
+ 25&nbsp;{
+ 26&nbsp;i=$LOWER_LIMIT
+ 27&nbsp;until [ "$i" -gt $UPPER_LIMIT ]
+ 28&nbsp;do
+ 29&nbsp;  Deck[i]=$UNPICKED   # 将整副"牌"的每一张都设置为无人持牌的状态. 
+ 30&nbsp;  let "i += 1"
+ 31&nbsp;done
+ 32&nbsp;echo
+ 33&nbsp;}
+ 34&nbsp;
+ 35&nbsp;initialize_Suits ()
+ 36&nbsp;{
+ 37&nbsp;Suits[0]=C #梅花
+ 38&nbsp;Suits[1]=D #方块
+ 39&nbsp;Suits[2]=H #红心
+ 40&nbsp;Suits[3]=S #黑桃
+ 41&nbsp;}
+ 42&nbsp;
+ 43&nbsp;initialize_Cards ()
+ 44&nbsp;{
+ 45&nbsp;Cards=(2 3 4 5 6 7 8 9 10 J Q K A)
+ 46&nbsp;# 另一种初始化数组的方法. 
+ 47&nbsp;}
+ 48&nbsp;
+ 49&nbsp;pick_a_card ()
+ 50&nbsp;{
+ 51&nbsp;card_number=$RANDOM
+ 52&nbsp;let "card_number %= $CARDS"
+ 53&nbsp;if [ "${Deck[card_number]}" -eq $UNPICKED ]
+ 54&nbsp;then
+ 55&nbsp;  Deck[card_number]=$PICKED
+ 56&nbsp;  return $card_number
+ 57&nbsp;else  
+ 58&nbsp;  return $DUPE_CARD
+ 59&nbsp;fi
+ 60&nbsp;}
+ 61&nbsp;
+ 62&nbsp;parse_card ()
+ 63&nbsp;{
+ 64&nbsp;number=$1
+ 65&nbsp;let "suit_number = number / CARDS_IN_SUIT"
+ 66&nbsp;suit=${Suits[suit_number]}
+ 67&nbsp;echo -n "$suit-"
+ 68&nbsp;let "card_no = number % CARDS_IN_SUIT"
+ 69&nbsp;Card=${Cards[card_no]}
+ 70&nbsp;printf %-4s $Card
+ 71&nbsp;# 使用整洁的列形式来打印每张牌. 
+ 72&nbsp;}
+ 73&nbsp;
+ 74&nbsp;seed_random ()  # 种子随机数产生器. 
+ 75&nbsp;{               # 如果不这么做, 会发生什么? 
+ 76&nbsp;seed=`eval date +%s`
+ 77&nbsp;let "seed %= 32766"
+ 78&nbsp;RANDOM=$seed
+ 79&nbsp;#  还有其他的方法
+ 80&nbsp;#+ 能够产生种子随机数么? 
+ 81&nbsp;}
+ 82&nbsp;
+ 83&nbsp;deal_cards ()
+ 84&nbsp;{
+ 85&nbsp;echo
+ 86&nbsp;
+ 87&nbsp;cards_picked=0
+ 88&nbsp;while [ "$cards_picked" -le $UPPER_LIMIT ]
+ 89&nbsp;do
+ 90&nbsp;  pick_a_card
+ 91&nbsp;  t=$?
+ 92&nbsp;
+ 93&nbsp;  if [ "$t" -ne $DUPE_CARD ]
+ 94&nbsp;  then
+ 95&nbsp;    parse_card $t
+ 96&nbsp;
+ 97&nbsp;    u=$cards_picked+1
+ 98&nbsp;    # 将数组索引改为从1(译者注: 数组都是从0开始索引的)开始(临时的). 为什么? 
+ 99&nbsp;    let "u %= $CARDS_IN_SUIT"
+100&nbsp;    if [ "$u" -eq 0 ]   # 内嵌的if/then条件测试. 
+101&nbsp;    then
+102&nbsp;     echo
+103&nbsp;     echo
+104&nbsp;    fi
+105&nbsp;    # 分手. 
+106&nbsp;
+107&nbsp;    let "cards_picked += 1"
+108&nbsp;  fi  
+109&nbsp;done  
+110&nbsp;
+111&nbsp;echo
+112&nbsp;
+113&nbsp;return 0
+114&nbsp;}
+115&nbsp;
+116&nbsp;
+117&nbsp;# 结构化编程: 
+118&nbsp;# 将函数中的整个程序逻辑模块化. 
+119&nbsp;
+120&nbsp;#================
+121&nbsp;seed_random
+122&nbsp;initialize_Deck
+123&nbsp;initialize_Suits
+124&nbsp;initialize_Cards
+125&nbsp;deal_cards
+126&nbsp;#================
+127&nbsp;
+128&nbsp;exit 0
+129&nbsp;
+130&nbsp;
+131&nbsp;
+132&nbsp;# 练习1:
+133&nbsp;# 完整的注释这个脚本. 
+134&nbsp;
+135&nbsp;# 练习2:
+136&nbsp;# 添加一个例程(函数)按照花色打印出每手牌. 
+137&nbsp;# 如果你喜欢, 可以添加任何你想要添加的代码. 
+138&nbsp;
+139&nbsp;# 练习3:
+140&nbsp;# 简化并理顺脚本逻辑. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN16155"
+HREF="bashver2.html#AEN16155"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Chet Ramey承诺会在Bash未来的版本中支持关联数组(一个Perl特性). 
+			但是到了版本3, 他的承诺还没兑现. 
+	  </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="bash2.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="bashver3.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Bash, 版本2与版本3</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="bash2.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Bash, 版本3</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

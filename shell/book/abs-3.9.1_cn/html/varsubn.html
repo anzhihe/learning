@@ -1,0 +1,516 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>变量替换</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="变量和参数的介绍"
+HREF="variables.html"><LINK
+REL="PREVIOUS"
+TITLE="变量和参数的介绍"
+HREF="variables.html"><LINK
+REL="NEXT"
+TITLE="变量赋值"
+HREF="varassignment.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="variables.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>4. 变量和参数的介绍</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="varassignment.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="VARSUBN"
+>4.1. 变量替换</A
+></H1
+><P
+>变量的<EM
+>名字</EM
+>就是变量保存<EM
+>值</EM
+>的地方. 
+        引用变量的值就叫做<EM
+>变量替换</EM
+>. </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><SPAN
+CLASS="TOKEN"
+>$</SPAN
+></DT
+><DD
+><P
+>让我们仔细的区别变量的<EM
+>名字</EM
+>和变量的<EM
+>值</EM
+>. 
+			  如果<KBD
+CLASS="USERINPUT"
+>variable1</KBD
+>是一个变量的名字, 
+			  那么<KBD
+CLASS="USERINPUT"
+>$variable1</KBD
+>就是引用这变量的<EM
+>值</EM
+>,
+			  即这边变量所包含的数据. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>variable=23</KBD
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo variable</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>variable</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo $variable</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>23</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>	      
+	      </P
+><P
+>当变量<SPAN
+CLASS="QUOTE"
+>"裸体"</SPAN
+>出现的时候
+				  -- 也就是说没有<SPAN
+CLASS="TOKEN"
+>$</SPAN
+>前缀的时候 
+				  -- 那么变量可能存在如下几种情况.
+		变量被声明或被赋值, 变量被<EM
+>unset</EM
+>, 
+		变量被<A
+HREF="internal.html#EXPORTREF"
+>exporte</A
+>,
+		或者是变量处在一种特殊的情况 -- 
+		变量代表一种<A
+HREF="debugging.html#SIGNALD"
+>信号</A
+>(参见 <A
+HREF="debugging.html#EX76"
+>例子 29-5</A
+>). 
+		变量赋值可以使用<SPAN
+CLASS="TOKEN"
+>=</SPAN
+>(比如 <EM
+>var1=27</EM
+>), 
+		也可以在<A
+HREF="internal.html#READREF"
+>read</A
+>命令中或者循环头进行赋值
+		(<EM
+>for var2 in 1 2 3</EM
+>).</P
+><P
+><A
+NAME="DBLQUO"
+></A
+>被一对<I
+CLASS="FIRSTTERM"
+>双引号</I
+>(<SPAN
+CLASS="TOKEN"
+>" "</SPAN
+>)括起来的变量替换是不会被阻止的.
+			所以双引号被称为<I
+CLASS="FIRSTTERM"
+>部分引用</I
+>, 
+			有时候又被称为<SPAN
+CLASS="QUOTE"
+>"弱引用"</SPAN
+>. 
+			<A
+NAME="SNGLQUO"
+></A
+>但是如果使用单引号的话(<SPAN
+CLASS="TOKEN"
+>' '</SPAN
+>), 
+			那么变量替换就会被禁止了, 变量名只会被解释成字面的意思, 不会发生变量替换. 
+			所以单引号被称为<I
+CLASS="FIRSTTERM"
+>全引用</I
+>, 有时候也被称为<SPAN
+CLASS="QUOTE"
+>"强引用"</SPAN
+>. 
+			详细讨论参见<A
+HREF="quoting.html"
+> 5</A
+>. </P
+><P
+>注意<KBD
+CLASS="USERINPUT"
+>$variable</KBD
+>事实上只是<KBD
+CLASS="USERINPUT"
+>${variable}</KBD
+>的简写形式. 
+				在某些上下文中<KBD
+CLASS="USERINPUT"
+>$variable</KBD
+>可能会引起错误, 
+				这时候你就需要用<KBD
+CLASS="USERINPUT"
+>${variable}</KBD
+>了(参见下边的<A
+HREF="parameter-substitution.html"
+>Section 9.3</A
+>). </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX9"
+></A
+><P
+><B
+>例子 4-1. 变量赋值和替换</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# 变量赋值和替换
+  4&nbsp;
+  5&nbsp;a=375
+  6&nbsp;hello=$a
+  7&nbsp;
+  8&nbsp;#-------------------------------------------------------------------------
+  9&nbsp;# 强烈注意, 在赋值的的时候, 等号前后一定不要有空格.
+ 10&nbsp;# 如果出现空格会怎么样?
+ 11&nbsp;
+ 12&nbsp;#  "VARIABLE =value"
+ 13&nbsp;#           ^
+ 14&nbsp;#% 脚本将尝试运行一个"VARIABLE"的命令, 带着一个"=value"参数.
+ 15&nbsp;
+ 16&nbsp;#  "VARIABLE= value"
+ 17&nbsp;#            ^
+ 18&nbsp;#% 脚本将尝试运行一个"value"的命令, 
+ 19&nbsp;#+ 并且带着一个被赋值成""的环境变量"VARIABLE". 
+ 20&nbsp;#-------------------------------------------------------------------------
+ 21&nbsp;
+ 22&nbsp;
+ 23&nbsp;echo hello    # 没有变量引用, 只是个hello字符串.
+ 24&nbsp;
+ 25&nbsp;echo $hello
+ 26&nbsp;echo ${hello} # 同上.
+ 27&nbsp;
+ 28&nbsp;echo "$hello"
+ 29&nbsp;echo "${hello}"
+ 30&nbsp;
+ 31&nbsp;echo
+ 32&nbsp;
+ 33&nbsp;hello="A B  C   D"
+ 34&nbsp;echo $hello   # A B C D
+ 35&nbsp;echo "$hello" # A B  C   D
+ 36&nbsp;# 就象你看到的echo $hello   和    echo "$hello"   将给出不同的结果.
+ 37&nbsp;# ===============================================================
+ 38&nbsp;# 引用一个变量将保留其中的空白, 当然, 如果是变量替换就不会保留了.
+ 39&nbsp;# ===============================================================
+ 40&nbsp;
+ 41&nbsp;echo
+ 42&nbsp;
+ 43&nbsp;echo '$hello'  # $hello
+ 44&nbsp;#    ^      ^
+ 45&nbsp;#  全引用的作用将会导致"$"被解释为单独的字符,
+ 46&nbsp;#+ 而不是变量前缀. 
+ 47&nbsp;
+ 48&nbsp;# 注意这两种引用所产生的不同的效果.
+ 49&nbsp;
+ 50&nbsp;
+ 51&nbsp;hello=    # 设置为空值.
+ 52&nbsp;echo "\$hello (null value) = $hello"
+ 53&nbsp;#  注意设置一个变量为null, 与unset这个变量, 并不是一回事
+ 54&nbsp;#+ 虽然最终的结果相同(具体见下边).
+ 55&nbsp;
+ 56&nbsp;# --------------------------------------------------------------
+ 57&nbsp;
+ 58&nbsp;#  可以在同一行上设置多个变量, 
+ 59&nbsp;#+ 但是必须以空白进行分隔.
+ 60&nbsp;#  慎用, 这么做会降低可读性, 并且不可移植.
+ 61&nbsp;
+ 62&nbsp;var1=21  var2=22  var3=$V3
+ 63&nbsp;echo
+ 64&nbsp;echo "var1=$var1   var2=$var2   var3=$var3"
+ 65&nbsp;
+ 66&nbsp;# 在老版本的"sh"上可能会引起问题.
+ 67&nbsp;
+ 68&nbsp;# --------------------------------------------------------------
+ 69&nbsp;
+ 70&nbsp;echo; echo
+ 71&nbsp;
+ 72&nbsp;numbers="one two three"
+ 73&nbsp;#           ^   ^
+ 74&nbsp;other_numbers="1 2 3"
+ 75&nbsp;#               ^ ^
+ 76&nbsp;#  如果在变量中存在空白, If there is whitespace embedded within a variable,
+ 77&nbsp;#+ 那么就必须加上引用.
+ 78&nbsp;#  other_numbers=1 2 3                  # 给出一个错误消息. 
+ 79&nbsp;echo "numbers = $numbers"
+ 80&nbsp;echo "other_numbers = $other_numbers"   # other_numbers = 1 2 3
+ 81&nbsp;#  不过也可以采用将空白转义的方法.
+ 82&nbsp;mixed_bag=2\ ---\ Whatever
+ 83&nbsp;#           ^    ^ 在转义符后边的空格(\).
+ 84&nbsp;
+ 85&nbsp;echo "$mixed_bag"         # 2 --- Whatever
+ 86&nbsp;
+ 87&nbsp;echo; echo
+ 88&nbsp;
+ 89&nbsp;echo "uninitialized_variable = $uninitialized_variable"
+ 90&nbsp;# Uninitialized变量为null(就是没有值). 
+ 91&nbsp;uninitialized_variable=   #  声明, 但是没有初始化这个变量, 
+ 92&nbsp;                          #+ 其实和前边设置为空值的作用是一样的. 
+ 93&nbsp;echo "uninitialized_variable = $uninitialized_variable"
+ 94&nbsp;                          # 还是一个空值.
+ 95&nbsp;
+ 96&nbsp;uninitialized_variable=23       # 赋值.
+ 97&nbsp;unset uninitialized_variable    # Unset这个变量.
+ 98&nbsp;echo "uninitialized_variable = $uninitialized_variable"
+ 99&nbsp;                                # 还是一个空值.
+100&nbsp;echo
+101&nbsp;
+102&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>一个未初始化的变量将会是<SPAN
+CLASS="QUOTE"
+>"null"</SPAN
+>值 
+				- 就是未赋值(但并不是代表值是0!). 
+			   	在给变量赋值之前就使用这个变量通常都会引起问题. </P
+><P
+>但是在执行算术操作的时候, 仍然有可能使用未初始化过的变量. 
+
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo "$uninitialized"                                # (blank line)
+  2&nbsp;let "uninitialized += 5"                             # Add 5 to it.
+  3&nbsp;echo "$uninitialized"                                # 5
+  4&nbsp;
+  5&nbsp;#  结论:
+  6&nbsp;#  一个未初始化的变量是没有值的, 
+  7&nbsp;#+ 但是在做算术操作的时候, 这个未初始化的变量看起来值为0. 
+  8&nbsp;#  这是一个未文档化(并且可能不具可移植性)的行为. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+              参见<A
+HREF="internal.html#SELFSOURCE"
+>例子 11-22</A
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="variables.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="varassignment.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>变量和参数的介绍</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="variables.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>变量赋值</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

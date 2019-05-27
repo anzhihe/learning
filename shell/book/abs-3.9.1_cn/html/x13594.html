@@ -1,0 +1,370 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Here String</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Here Document"
+HREF="here-docs.html"><LINK
+REL="PREVIOUS"
+TITLE="Here Document"
+HREF="here-docs.html"><LINK
+REL="NEXT"
+TITLE="休息片刻"
+HREF="recess-time.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="here-docs.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>17. Here Document</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="recess-time.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN13594"
+>17.1. Here String</A
+></H1
+><P
+><A
+NAME="HERESTRINGSREF"
+></A
+></P
+><P
+><I
+CLASS="FIRSTTERM"
+>here string</I
+>可以看成是<I
+CLASS="FIRSTTERM"
+>here document</I
+>的一种定制形式. 
+			 除了<B
+CLASS="COMMAND"
+>COMMAND &#60;&#60;&#60;$WORD</B
+>, 就什么都没有了, 
+			<CODE
+CLASS="VARNAME"
+>$WORD</CODE
+>将被扩展并且被送入<CODE
+CLASS="VARNAME"
+>COMMAND</CODE
+>的<TT
+CLASS="FILENAME"
+>stdin</TT
+>中. </P
+><P
+>	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>String="This is a string of words."
+
+read -r -a Words &#60;&#60;&#60; "$String"
+#  "read"命令的-a选项
+#+ 将会把结果值按顺序的分配给数组中的每一项. 
+
+echo "First word in String is:    ${Words[0]}"   # This
+echo "Second word in String is:   ${Words[1]}"   # is
+echo "Third word in String is:    ${Words[2]}"   # a
+echo "Fourth word in String is:   ${Words[3]}"   # string
+echo "Fifth word in String is:    ${Words[4]}"   # of
+echo "Sixth word in String is:    ${Words[5]}"   # words.
+echo "Seventh word in String is:  ${Words[6]}"   # (null)
+                                                 # $String的结尾. 
+
+# 感谢, Francisco Lobo的这个建议. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+        </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="PREPENDEX"
+></A
+><P
+><B
+>例子 17-13. 在一个文件的开头添加文本</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/bash
+# prepend.sh: 在文件的开头添加文本. 
+#
+#  Kenny Stauffer所捐助的脚本例子, 
+#+ 本文作者对这个脚本进行了少量修改. 
+
+
+E_NOSUCHFILE=65
+
+read -p "File: " file   #  'read'命令的-p参数用来显示提示符. 
+if [ ! -e "$file" ]
+then   # 如果这个文件不存在, 那就进来. 
+  echo "File $file not found."
+  exit $E_NOSUCHFILE
+fi
+
+read -p "Title: " title
+cat - $file &#60;&#60;&#60;$title &#62; $file.new
+
+echo "Modified file is $file.new"
+
+exit 0
+
+# 下边是'man bash'中的一段: 
+# Here String
+# 	here document的一种变形，形式如下: 
+# 
+# 		&#60;&#60;&#60;word
+# 
+# 	word被扩展并且被提供到command的标准输入中. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="MAILBOXGREP"
+></A
+><P
+><B
+>例子 17-14. 分析一个邮箱</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/bash
+#  由Francisco Lobo所提供的脚本, 
+#+ 本文作者进行了少量修改和注释. 
+#  并且经过授权, 可以使用在本书中.(感谢你!)
+
+# 这个脚本不能运行于比Bash version 3.0更低的版本中. 
+
+
+E_MISSING_ARG=67
+if [ -z "$1" ]
+then
+  echo "Usage: $0 mailbox-file"
+  exit $E_MISSING_ARG
+fi
+
+mbox_grep()  # 分析邮箱文件.
+{
+    declare -i body=0 match=0
+    declare -a date sender
+    declare mail header value
+
+
+    while IFS= read -r mail
+#         ^^^^                 重新设置$IFS.
+#  否则"read"会从它的输入中截去开头和结尾的空格. 
+
+   do
+       if [[ $mail =~ "^From " ]]   # 匹配消息中的"From"域. 
+       then
+          (( body  = 0 ))           # 取消("Zero out"俚语)变量. 
+          (( match = 0 ))
+          unset date
+
+       elif (( body ))
+       then
+            (( match ))
+            # echo "$mail"
+            # 如果你想显示整个消息体的话, 那么就打开上面的注释行. 
+
+       elif [[ $mail ]]; then
+          IFS=: read -r header value &#60;&#60;&#60; "$mail"
+          #                          ^^^  "here string"
+
+          case "$header" in
+          [Ff][Rr][Oo][Mm] ) [[ $value =~ "$2" ]] &#38;&#38; (( match++ )) ;;
+          # 匹配"From"行. 
+          [Dd][Aa][Tt][Ee] ) read -r -a date &#60;&#60;&#60; "$value" ;;
+          #                                  ^^^
+          # 匹配"Date"行. 
+          [Rr][Ee][Cc][Ee][Ii][Vv][Ee][Dd] ) read -r -a sender &#60;&#60;&#60; "$value" ;;
+          #                                                    ^^^
+          # 匹配IP地址(可能被欺骗). 
+          esac
+
+       else
+          (( body++ ))
+          (( match  )) &#38;&#38;
+          echo "MESSAGE ${date:+of: ${date[*]} }"
+       #    整个$date数组                  ^
+          echo "IP address of sender: ${sender[1]}"
+       #    "Received"行的第二个域             ^
+
+       fi
+
+
+    done &#60; "$1" # 将文件的stdout重定向到循环中. 
+}
+
+
+mbox_grep "$1"  # 将邮箱文件发送到函数中. 
+
+exit $?
+
+# 练习:
+# -----
+# 1) 拆开上面的这个函数, 把它分成多个函数, 
+#+   这样可以提高代码的可读性. 
+# 2) 对这个脚本添加额外的分析, 可以分析不同的关键字. 
+
+
+
+$ mailbox_grep.sh scam_mail
+--&#62; MESSAGE of Thu, 5 Jan 2006 08:00:56 -0500 (EST) 
+--&#62; IP address of sender: 196.3.62.4</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>练习: 找出<EM
+>here string</EM
+>的其他用法. </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="here-docs.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="recess-time.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Here Document</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="here-docs.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>休息片刻</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

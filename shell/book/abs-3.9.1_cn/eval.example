@@ -1,0 +1,22 @@
+In the Perl script "test.pl":
+        ...		
+        my $WEBROOT = &lt;WEBROOT_PATH&gt;;
+        ...
+
+To force variable substitution try:
+        $export WEBROOT_PATH=/usr/local/webroot
+        $sed 's/&lt;WEBROOT_PATH&gt;/$WEBROOT_PATH/' &lt; test.pl &gt; out
+
+But this just gives:
+        my $WEBROOT = $WEBROOT_PATH;
+
+However:
+        $export WEBROOT_PATH=/usr/local/webroot
+        $eval sed 's%\&lt;WEBROOT_PATH\&gt;%$WEBROOT_PATH%' &lt; test.pl &gt; out
+#        ====
+
+That works fine, and gives the expected substitution:
+        my $WEBROOT = /usr/local/webroot;
+
+
+### Paulo Marcel Coelho Aragao校正了这个原始例子.

@@ -1,0 +1,1203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>条件测试结构</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="条件判断"
+HREF="tests.html"><LINK
+REL="PREVIOUS"
+TITLE="条件判断"
+HREF="tests.html"><LINK
+REL="NEXT"
+TITLE="文件测试操作符"
+HREF="fto.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="tests.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>7. 条件判断</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="fto.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="TESTCONSTRUCTS"
+>7.1. 条件测试结构</A
+></H1
+><P
+><A
+NAME="TESTCONSTRUCTS1"
+></A
+></P
+><P
+></P
+><UL
+><LI
+><P
+><B
+CLASS="COMMAND"
+>if/then</B
+>结构用来判断命令列表的<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>是否为<SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>(因为在UNIX惯例, 0表示<SPAN
+CLASS="QUOTE"
+>"成功"</SPAN
+>), 
+			如果成功的话, 那么就执行接下来的一个或多个命令.	</P
+></LI
+><LI
+><P
+>有一个专有命令<B
+CLASS="COMMAND"
+>[</B
+> (<A
+HREF="special-chars.html#LEFTBRACKET"
+>左中括号</A
+>, 特殊字符). 
+			这个命令与<B
+CLASS="COMMAND"
+>test</B
+>命令等价,
+			并且出于效率上的考虑, 这是一个<A
+HREF="internal.html#BUILTINREF"
+>内建</A
+>命令. 
+			这个命令把它的参数作为比较表达式或者作为文件测试, 
+			并且根据比较的结果来返回一个退出状态码(0 表示真, 1表示假). </P
+></LI
+><LI
+><P
+>在版本2.02的Bash中, 引入了<A
+HREF="testconstructs.html#DBLBRACKETS"
+>[[ ... ]]</A
+><EM
+>扩展测试命令</EM
+>, 
+		因为这种表现形式可能对某些语言的程序员来说更容易熟悉一些. 
+		注意<B
+CLASS="COMMAND"
+>[[</B
+>是一个<A
+HREF="internal.html#KEYWORDREF"
+>关键字</A
+>, 并不是一个命令.</P
+><P
+>Bash把<KBD
+CLASS="USERINPUT"
+>[[ $a -lt $b ]]</KBD
+>看作一个单独的元素, 
+		并且返回一个退出状态码.</P
+><P
+><A
+HREF="dblparens.html"
+>(( ... ))</A
+>和<A
+HREF="internal.html#LETREF"
+>let ...</A
+>结构也能够返回退出状态码, 
+	  当它们所测试的算术表达式的结果为非零的时候, 将会返回退出状态码<SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>. 
+	  这些<A
+HREF="arithexp.html#ARITHEXPREF"
+>算术扩展</A
+>结构被用来做算术比较. 
+
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;let "1&#60;2" returns 0 (as "1&#60;2" expands to "1")
+  2&nbsp;(( 0 &#38;&#38; 1 )) returns 1 (as "0 &#38;&#38; 1" expands to "0")</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>	    
+	  </P
+></LI
+><LI
+><P
+><A
+NAME="IFGREPREF"
+></A
+></P
+><P
+><B
+CLASS="COMMAND"
+>if</B
+>命令能够测试任何命令, 并不仅仅是中括号中的条件. 
+
+
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if cmp a b &#38;&#62; /dev/null  # 禁止输出.
+  2&nbsp;then echo "Files a and b are identical."
+  3&nbsp;else echo "Files a and b differ."
+  4&nbsp;fi
+  5&nbsp;
+  6&nbsp;# 非常有用的"if-grep"结构:
+  7&nbsp;# ------------------------
+  8&nbsp;if grep -q Bash file
+  9&nbsp;then echo "File contains at least one occurrence of Bash."
+ 10&nbsp;fi
+ 11&nbsp;
+ 12&nbsp;word=Linux
+ 13&nbsp;letter_sequence=inu
+ 14&nbsp;if echo "$word" | grep -q "$letter_sequence"
+ 15&nbsp;# "-q" 选项是用来禁止输出的.
+ 16&nbsp;then
+ 17&nbsp;  echo "$letter_sequence found in $word"
+ 18&nbsp;else
+ 19&nbsp;  echo "$letter_sequence not found in $word"
+ 20&nbsp;fi
+ 21&nbsp;
+ 22&nbsp;
+ 23&nbsp;if COMMAND_WHOSE_EXIT_STATUS_IS_0_UNLESS_ERROR_OCCURRED
+ 24&nbsp;then echo "Command succeeded."
+ 25&nbsp;else echo "Command failed."
+ 26&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+          </P
+></LI
+><LI
+><P
+>一个<B
+CLASS="COMMAND"
+>if/then</B
+>结构可以包含嵌套的比较操作和条件判断操作. 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if echo "Next *if* is part of the comparison for the first *if*."
+  2&nbsp;
+  3&nbsp;  if [[ $comparison = "integer" ]]
+  4&nbsp;    then (( a &#60; b ))
+  5&nbsp;  else
+  6&nbsp;    [[ $a &#60; $b ]]
+  7&nbsp;  fi
+  8&nbsp;
+  9&nbsp;then
+ 10&nbsp;  echo '$a is less than $b'
+ 11&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+><EM
+>谦虚的Stephane Chazelas解释了<SPAN
+CLASS="QUOTE"
+>"if-test"</SPAN
+>的详细细节.</EM
+></P
+></LI
+></UL
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX10"
+></A
+><P
+><B
+>例子 7-1. 什么是真?</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;#  小技巧:
+  4&nbsp;#  如果你不能够确定一个特定的条件该如何进行判断,
+  5&nbsp;#+ 那么就使用if-test结构. 
+  6&nbsp;
+  7&nbsp;echo
+  8&nbsp;
+  9&nbsp;echo "Testing \"0\""
+ 10&nbsp;if [ 0 ]      # zero
+ 11&nbsp;then
+ 12&nbsp;  echo "0 is true."
+ 13&nbsp;else
+ 14&nbsp;  echo "0 is false."
+ 15&nbsp;fi            # 0 为真.
+ 16&nbsp;
+ 17&nbsp;echo
+ 18&nbsp;
+ 19&nbsp;echo "Testing \"1\""
+ 20&nbsp;if [ 1 ]      # one
+ 21&nbsp;then
+ 22&nbsp;  echo "1 is true."
+ 23&nbsp;else
+ 24&nbsp;  echo "1 is false."
+ 25&nbsp;fi            # 1 为真.
+ 26&nbsp;
+ 27&nbsp;echo
+ 28&nbsp;
+ 29&nbsp;echo "Testing \"-1\""
+ 30&nbsp;if [ -1 ]     # 负1
+ 31&nbsp;then
+ 32&nbsp;  echo "-1 is true."
+ 33&nbsp;else
+ 34&nbsp;  echo "-1 is false."
+ 35&nbsp;fi            # -1 为真.
+ 36&nbsp;
+ 37&nbsp;echo
+ 38&nbsp;
+ 39&nbsp;echo "Testing \"NULL\""
+ 40&nbsp;if [ ]        # NULL (空状态)
+ 41&nbsp;then
+ 42&nbsp;  echo "NULL is true."
+ 43&nbsp;else
+ 44&nbsp;  echo "NULL is false."
+ 45&nbsp;fi            # NULL 为假.
+ 46&nbsp;
+ 47&nbsp;echo
+ 48&nbsp;
+ 49&nbsp;echo "Testing \"xyz\""
+ 50&nbsp;if [ xyz ]    # 字符串
+ 51&nbsp;then
+ 52&nbsp;  echo "Random string is true."
+ 53&nbsp;else
+ 54&nbsp;  echo "Random string is false."
+ 55&nbsp;fi            # 随便的一串字符为真.
+ 56&nbsp;
+ 57&nbsp;echo
+ 58&nbsp;
+ 59&nbsp;echo "Testing \"\$xyz\""
+ 60&nbsp;if [ $xyz ]   # 判断$xyz是否为null, 但是...
+ 61&nbsp;              # 这只是一个未初始化的变量.
+ 62&nbsp;then
+ 63&nbsp;  echo "Uninitialized variable is true."
+ 64&nbsp;else
+ 65&nbsp;  echo "Uninitialized variable is false."
+ 66&nbsp;fi            # 未定义的初始化为假.
+ 67&nbsp;
+ 68&nbsp;echo
+ 69&nbsp;
+ 70&nbsp;echo "Testing \"-n \$xyz\""
+ 71&nbsp;if [ -n "$xyz" ]            # 更加正规的条件检查.
+ 72&nbsp;then
+ 73&nbsp;  echo "Uninitialized variable is true."
+ 74&nbsp;else
+ 75&nbsp;  echo "Uninitialized variable is false."
+ 76&nbsp;fi            # 未初始化的变量为假.
+ 77&nbsp;
+ 78&nbsp;echo
+ 79&nbsp;
+ 80&nbsp;
+ 81&nbsp;xyz=          # 初始化了, 但是赋null值.
+ 82&nbsp;
+ 83&nbsp;echo "Testing \"-n \$xyz\""
+ 84&nbsp;if [ -n "$xyz" ]
+ 85&nbsp;then
+ 86&nbsp;  echo "Null variable is true."
+ 87&nbsp;else
+ 88&nbsp;  echo "Null variable is false."
+ 89&nbsp;fi            # null变量为假. 
+ 90&nbsp;
+ 91&nbsp;
+ 92&nbsp;echo
+ 93&nbsp;
+ 94&nbsp;
+ 95&nbsp;# 什么时候"false"为真?
+ 96&nbsp;
+ 97&nbsp;echo "Testing \"false\""
+ 98&nbsp;if [ "false" ]              #  看起来"false"只不过是一个字符串而已. 
+ 99&nbsp;then
+100&nbsp;  echo "\"false\" is true." #+ 并且条件判断的结果为真.
+101&nbsp;else
+102&nbsp;  echo "\"false\" is false."
+103&nbsp;fi            # "false" 为真.
+104&nbsp;
+105&nbsp;echo
+106&nbsp;
+107&nbsp;echo "Testing \"\$false\""  # 再来一个, 未初始化的变量.
+108&nbsp;if [ "$false" ]
+109&nbsp;then
+110&nbsp;  echo "\"\$false\" is true."
+111&nbsp;else
+112&nbsp;  echo "\"\$false\" is false."
+113&nbsp;fi            # "$false" 为假.
+114&nbsp;              # 现在, 我们得到了预期的结果.
+115&nbsp;
+116&nbsp;#  如果我们测试以下为初始化的变量"$true"会发生什么呢?
+117&nbsp;
+118&nbsp;echo
+119&nbsp;
+120&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>练习. </B
+>解释上边的<A
+HREF="testconstructs.html#EX10"
+>例子 7-1</A
+>的行为. </P
+></DIV
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if [ condition-true ]
+  2&nbsp;then
+  3&nbsp;   command 1
+  4&nbsp;   command 2
+  5&nbsp;   ...
+  6&nbsp;else
+  7&nbsp;   # 可选的(如果不需要可以省去).
+  8&nbsp;   # 如果原始的条件判断的结果为假, 那么在这里添加默认的代码块来执行.
+  9&nbsp;   command 3
+ 10&nbsp;   command 4
+ 11&nbsp;   ...
+ 12&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果<EM
+>if</EM
+>和<EM
+>then</EM
+>在条件判断的同一行上的话, 
+			  必须使用分号来结束<EM
+>if</EM
+>表达式. 
+			  <EM
+>if</EM
+>和<EM
+>then</EM
+>都是<A
+HREF="internal.html#KEYWORDREF"
+>关键字</A
+>. 关键字(或者命令)如果作为表达式的开头, 
+			  并且如果想在同一行上再写一个新的表达式的话, 
+	那么必须使用分号来结束上一句表达式.</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if [ -x "$filename" ]; then</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="ELIFREF1"
+></A
+>Else if和elif</B
+></P
+><DL
+><DT
+><SPAN
+CLASS="TOKEN"
+>elif</SPAN
+></DT
+><DD
+><P
+><KBD
+CLASS="USERINPUT"
+>elif</KBD
+>是<SPAN
+CLASS="TOKEN"
+>else if</SPAN
+>的缩写形式. 
+			 作用是在外部的判断结构中再嵌入一个内部的<SPAN
+CLASS="TOKEN"
+>if/then</SPAN
+>结构. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if [ condition1 ]
+  2&nbsp;then
+  3&nbsp;   command1
+  4&nbsp;   command2
+  5&nbsp;   command3
+  6&nbsp;elif [ condition2 ]
+  7&nbsp;# 与else if一样
+  8&nbsp;then
+  9&nbsp;   command4
+ 10&nbsp;   command5
+ 11&nbsp;else
+ 12&nbsp;   default-command
+ 13&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+></DD
+></DL
+></DIV
+><P
+>      
+      
+      
+      
+      
+      
+	
+	<KBD
+CLASS="USERINPUT"
+>if test condition-true</KBD
+>结构与<KBD
+CLASS="USERINPUT"
+>if [ condition-true ]</KBD
+>完全相同.
+	就像我们前面所看到的, 左中括号, <B
+CLASS="COMMAND"
+>[</B
+> , 
+	是调用<B
+CLASS="COMMAND"
+>test</B
+>命令的标识. 
+	而关闭条件判断用的的右中括号, <B
+CLASS="COMMAND"
+>]</B
+>, 在if/test结构中并不是严格必需的, 
+	但是在Bash的新版本中必须要求使用. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>test</B
+>命令在Bash中是<A
+HREF="internal.html#BUILTINREF"
+>内建</A
+>命令, 用来测试文件类型, 或者用来比较字符串. 
+	  因此, 在Bash脚本中, 
+	  <B
+CLASS="COMMAND"
+>test</B
+>命令并<EM
+>不会</EM
+>调用外部的<TT
+CLASS="FILENAME"
+>/usr/bin/test</TT
+>中的test命令,
+	  这是<EM
+>sh-utils</EM
+>工具包中的一部分. 
+	  同样的, <SPAN
+CLASS="TOKEN"
+>[</SPAN
+>也并不会调用<TT
+CLASS="FILENAME"
+>/usr/bin/[</TT
+>, 
+	  这是<TT
+CLASS="FILENAME"
+>/usr/bin/test</TT
+>的符号链接.</P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>type test</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>test is a shell builtin</SAMP
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>type '['</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>[ is a shell builtin</SAMP
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>type '[['</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>[[ is a shell keyword</SAMP
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>type ']]'</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>]] is a shell keyword</SAMP
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>type ']'</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bash: type: ]: not found</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX11"
+></A
+><P
+><B
+>例子 7-2. <SPAN
+CLASS="TOKEN"
+>test</SPAN
+>,
+	  <TT
+CLASS="FILENAME"
+>/usr/bin/test</TT
+>, <SPAN
+CLASS="TOKEN"
+>[ ]</SPAN
+>,
+	  和<TT
+CLASS="FILENAME"
+>/usr/bin/[</TT
+>都是等价命令</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;echo
+  4&nbsp;
+  5&nbsp;if test -z "$1"
+  6&nbsp;then
+  7&nbsp;  echo "No command-line arguments."
+  8&nbsp;else
+  9&nbsp;  echo "First command-line argument is $1."
+ 10&nbsp;fi
+ 11&nbsp;
+ 12&nbsp;echo
+ 13&nbsp;
+ 14&nbsp;if /usr/bin/test -z "$1"      # 与内建的"test"命令结果相同. 
+ 15&nbsp;then
+ 16&nbsp;  echo "No command-line arguments."
+ 17&nbsp;else
+ 18&nbsp;  echo "First command-line argument is $1."
+ 19&nbsp;fi
+ 20&nbsp;
+ 21&nbsp;echo
+ 22&nbsp;
+ 23&nbsp;if [ -z "$1" ]                # 与上边的代码块作用相同.
+ 24&nbsp;#   if [ -z "$1"                应该能够运行, 但是...
+ 25&nbsp;#+  Bash报错, 提示缺少关闭条件测试的右中括号. 
+ 26&nbsp;then
+ 27&nbsp;  echo "No command-line arguments."
+ 28&nbsp;else
+ 29&nbsp;  echo "First command-line argument is $1."
+ 30&nbsp;fi
+ 31&nbsp;
+ 32&nbsp;echo
+ 33&nbsp;
+ 34&nbsp;
+ 35&nbsp;if /usr/bin/[ -z "$1" ]       # 再来一个, 与上边的代码块作用相同.
+ 36&nbsp;# if /usr/bin/[ -z "$1"       # 能够工作, 但是还是给出一个错误消息.
+ 37&nbsp;#                             # 注意:
+ 38&nbsp;#                               在版本3.x的Bash中, 这个bug已经被修正了.
+ 39&nbsp;then
+ 40&nbsp;  echo "No command-line arguments."
+ 41&nbsp;else
+ 42&nbsp;  echo "First command-line argument is $1."
+ 43&nbsp;fi
+ 44&nbsp;
+ 45&nbsp;echo
+ 46&nbsp;
+ 47&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><A
+NAME="DBLBRACKETS"
+></A
+><SPAN
+CLASS="TOKEN"
+>[[  ]]</SPAN
+>结构比<SPAN
+CLASS="TOKEN"
+>[	]结构更加通用</SPAN
+>. 
+			这是一个<EM
+>扩展的test命令</EM
+>, 是从<EM
+>ksh88</EM
+>中引进的.</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在<SPAN
+CLASS="TOKEN"
+>[[</SPAN
+>和<SPAN
+CLASS="TOKEN"
+>]]</SPAN
+>之间所有的字符都不会发生文件名扩展或者单词分割,
+	但是会发生参数扩展和命令替换. </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;file=/etc/passwd
+  2&nbsp;
+  3&nbsp;if [[ -e $file ]]
+  4&nbsp;then
+  5&nbsp;  echo "Password file exists."
+  6&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>使用<B
+CLASS="COMMAND"
+>[[ ... ]]</B
+>条件判断结构,
+	而不是<B
+CLASS="COMMAND"
+>[ ... ]</B
+>, 能够防止脚本中的许多逻辑错误. 
+	比如, <SPAN
+CLASS="TOKEN"
+>&#38;&#38;</SPAN
+>,
+	<SPAN
+CLASS="TOKEN"
+>||</SPAN
+>, <SPAN
+CLASS="TOKEN"
+>&#60;</SPAN
+>, 和<SPAN
+CLASS="TOKEN"
+>&#62;</SPAN
+>
+	操作符能够正常存在于<SPAN
+CLASS="TOKEN"
+>[[  ]]</SPAN
+>条件判断结构中, 
+	但是如果出现在<SPAN
+CLASS="TOKEN"
+>[  ]</SPAN
+>结构中的话, 会报错.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在<B
+CLASS="COMMAND"
+>if</B
+>后面也不一定非得是<B
+CLASS="COMMAND"
+>test</B
+>命令或者是用于条件判断的中括号结构( [ ] 或 [[ ]] ).
+
+	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;dir=/home/bozo
+  2&nbsp;
+  3&nbsp;if cd "$dir" 2&#62;/dev/null; then   # "2&#62;/dev/null" 会隐藏错误信息.
+  4&nbsp;  echo "Now in $dir."
+  5&nbsp;else
+  6&nbsp;  echo "Can't change to $dir."
+  7&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+        "if COMMAND"结构将会返回COMMAND的退出状态码.</P
+><P
+>与此相似, 在中括号中的条件判断也不一定非得要<B
+CLASS="COMMAND"
+>if</B
+>不可, 
+	也可以使用<A
+HREF="list-cons.html#LISTCONSREF"
+>列表结构</A
+>.
+
+	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;var1=20
+  2&nbsp;var2=22
+  3&nbsp;[ "$var1" -ne "$var2" ] &#38;&#38; echo "$var1 is not equal to $var2"
+  4&nbsp;
+  5&nbsp;home=/home/bozo
+  6&nbsp;[ -d "$home" ] || echo "$home directory does not exist."</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+><A
+HREF="dblparens.html"
+>(( ))结构</A
+>扩展并计算一个算术表达式的值. 
+		  如果表达式的结果为0, 那么返回的<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>为<SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+>, 
+		  或者是<SPAN
+CLASS="QUOTE"
+>"假"</SPAN
+>. 
+		  而一个非零值的表达式所返回的退出状态码将为<SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>,
+		  或者是<SPAN
+CLASS="QUOTE"
+>"true"</SPAN
+>. 
+		  这种情况和先前所讨论的<B
+CLASS="COMMAND"
+>test</B
+>命令和<SPAN
+CLASS="TOKEN"
+>[ ]</SPAN
+>结构的行为正好相反. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ARITHTESTS"
+></A
+><P
+><B
+>例子 7-3. 算术测试需要使用<SPAN
+CLASS="TOKEN"
+>(( ))</SPAN
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 算术测试.
+  3&nbsp;
+  4&nbsp;# (( ... ))结构可以用来计算并测试算术表达式的结果. 
+  5&nbsp;# 退出状态将会与[ ... ]结构完全相反!
+  6&nbsp;
+  7&nbsp;(( 0 ))
+  8&nbsp;echo "Exit status of \"(( 0 ))\" is $?."         # 1
+  9&nbsp;
+ 10&nbsp;(( 1 ))
+ 11&nbsp;echo "Exit status of \"(( 1 ))\" is $?."         # 0
+ 12&nbsp;
+ 13&nbsp;(( 5 &#62; 4 ))                                      # 真
+ 14&nbsp;echo "Exit status of \"(( 5 &#62; 4 ))\" is $?."     # 0
+ 15&nbsp;
+ 16&nbsp;(( 5 &#62; 9 ))                                      # 假
+ 17&nbsp;echo "Exit status of \"(( 5 &#62; 9 ))\" is $?."     # 1
+ 18&nbsp;
+ 19&nbsp;(( 5 - 5 ))                                      # 0
+ 20&nbsp;echo "Exit status of \"(( 5 - 5 ))\" is $?."     # 1
+ 21&nbsp;
+ 22&nbsp;(( 5 / 4 ))                                      # 除法也可以.
+ 23&nbsp;echo "Exit status of \"(( 5 / 4 ))\" is $?."     # 0
+ 24&nbsp;
+ 25&nbsp;(( 1 / 2 ))                                      # 除法的计算结果 &#60; 1.
+ 26&nbsp;echo "Exit status of \"(( 1 / 2 ))\" is $?."     # 截取之后的结果为 0.
+ 27&nbsp;                                                 # 1
+ 28&nbsp;
+ 29&nbsp;(( 1 / 0 )) 2&#62;/dev/null                          # 除数为0, 非法计算. 
+ 30&nbsp;#           ^^^^^^^^^^^
+ 31&nbsp;echo "Exit status of \"(( 1 / 0 ))\" is $?."     # 1
+ 32&nbsp;
+ 33&nbsp;# "2&#62;/dev/null"起了什么作用?
+ 34&nbsp;# 如果这句被删除会怎样?
+ 35&nbsp;# 尝试删除这句, 然后在运行这个脚本. 
+ 36&nbsp;
+ 37&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="tests.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="fto.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>条件判断</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="tests.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>文件测试操作符</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resource>
+        <object class="wxPanel" name="panel">
+				<size>200,100</size>
+                <object class="wxStaticText" name="label1">
+                    <label>功能描述：重启目标服务器的指定的进程或服务。</label>
+                    <pos>30,20</pos>
+                 </object>
+            <object class="wxListBox" name="Parameter1_object_id">
+                <pos>30,50</pos>
+                <style>wxLB_SINGLE</style>
+                <content>
+                    <item>resin</item>
+                    <item>nginx</item>
+                    <item>haproxy</item>
+                    <item>apache</item>
+                    <item>mysql</item>
+                    <item>lighttpd</item>
+                </content>
+            </object>          
+       </object>
+</resource>

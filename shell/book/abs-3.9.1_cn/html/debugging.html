@@ -1,0 +1,1476 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>调试</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="高级主题"
+HREF="part4.html"><LINK
+REL="PREVIOUS"
+TITLE="Zero与Null"
+HREF="zeros.html"><LINK
+REL="NEXT"
+TITLE="选项"
+HREF="options.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="zeros.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="options.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="DEBUGGING"
+></A
+>29. 调试</H1
+><TABLE
+BORDER="0"
+WIDTH="100%"
+CELLSPACING="0"
+CELLPADDING="0"
+CLASS="EPIGRAPH"
+><TR
+><TD
+WIDTH="45%"
+>&nbsp;</TD
+><TD
+WIDTH="45%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+><P
+><I
+>首先, 调试要比编写代码困难得多, 
+		  因此, 如果你尽可能聪明的编写代码, 
+		  你就不会在调试的时候花费很多精力.</I
+></P
+></I
+></TD
+></TR
+><TR
+><TD
+WIDTH="45%"
+>&nbsp;</TD
+><TD
+WIDTH="45%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><I
+><SPAN
+CLASS="ATTRIBUTION"
+>Brian Kernighan</SPAN
+></I
+></TD
+></TR
+></TABLE
+><P
+>Bash并不包含调试器, 
+		甚至都没有包含任何用于调试目的的命令和结构. 
+	 
+	   <A
+NAME="AEN15038"
+HREF="#FTN.AEN15038"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+	
+	脚本中的语法错误, 或者拼写错误只会产生模糊的错误信息, 
+	当你调试一些非功能性脚本的时候, 
+	这些错误信息通常都不会提供有意义的帮助. 
+	</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX74"
+></A
+><P
+><B
+>例子 29-1. 一个错误脚本</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# ex74.sh
+  3&nbsp;
+  4&nbsp;# 这是一个错误脚本. 
+  5&nbsp;# 哪里出了错? 
+  6&nbsp;
+  7&nbsp;a=37
+  8&nbsp;
+  9&nbsp;if [$a -gt 27 ]
+ 10&nbsp;then
+ 11&nbsp;  echo $a
+ 12&nbsp;fi  
+ 13&nbsp;
+ 14&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>脚本的输出: 
+	<TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>./ex74.sh: [37: command not found</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+        上边的脚本究竟哪错了(提示: 注意<B
+CLASS="COMMAND"
+>if</B
+>的后边)? </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="MISSINGKEYWORD"
+></A
+><P
+><B
+>例子 29-2. 缺少<A
+HREF="internal.html#KEYWORDREF"
+>关键字</A
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# missing-keyword.sh: 这个脚本会产生什么错误? 
+  3&nbsp;
+  4&nbsp;for a in 1 2 3
+  5&nbsp;do
+  6&nbsp;  echo "$a"
+  7&nbsp;# done     # 第7行上的关键字done'被注释掉了. 
+  8&nbsp;
+  9&nbsp;exit 0  </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>脚本的输出: 
+	<TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>missing-keyword.sh: line 10: syntax error: unexpected end of file</SAMP
+>
+	</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	注意, 其实<EM
+>不</EM
+>必参考错误信息中指出的错误行号. 
+	这行只不过是Bash解释器最终认定错误的地方. 
+	</P
+><P
+>出错信息在报告产生语法错误的行号时, 
+		可能会忽略脚本的注释行. 
+        </P
+><P
+>如果脚本可以执行, 但并不如你所期望的那样工作, 怎么办? 
+	通常情况下, 这都是由常见的逻辑错误所产生的. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX75"
+></A
+><P
+><B
+>例子 29-3. test24, 另一个错误脚本</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;#  这个脚本的目的是删除当前目录下的某些文件, 
+  4&nbsp;#+ 这些文件特指那些文件名包含空格的文件. 
+  5&nbsp;#  但是不能如我们所愿的那样工作. 
+  6&nbsp;#  为什么? 
+  7&nbsp;
+  8&nbsp;
+  9&nbsp;badname=`ls | grep ' '`
+ 10&nbsp;
+ 11&nbsp;# 试试这个: 
+ 12&nbsp;# echo "$badname"
+ 13&nbsp;
+ 14&nbsp;rm "$badname"
+ 15&nbsp;
+ 16&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>为了找出<A
+HREF="debugging.html#EX75"
+>例子 29-3</A
+>中的错误, 
+		我们可以把<KBD
+CLASS="USERINPUT"
+>echo "$badname"</KBD
+>行的注释符去掉. 
+		echo出来的信息能够帮助你判断脚本是否按你期望的方式运行. 
+	</P
+><P
+>在这个特定的例子里, 
+	<KBD
+CLASS="USERINPUT"
+>rm "$badname"</KBD
+>之所以没有给出期望的结果, 
+	是因为<CODE
+CLASS="VARNAME"
+>$badname</CODE
+>不应该被引用起来. 
+	加上引号会保证<B
+CLASS="COMMAND"
+>rm</B
+>只有一个参数(这就只能匹配一个文件名). 
+	一种不完善的解决办法是去掉<CODE
+CLASS="VARNAME"
+>$badname</CODE
+>外面的引号, 
+	并且重新设置<CODE
+CLASS="VARNAME"
+>$IFS</CODE
+>, 
+	让<CODE
+CLASS="VARNAME"
+>$IFS</CODE
+>只包含一个换行符, 
+	<KBD
+CLASS="USERINPUT"
+>IFS=$'\n'</KBD
+>. 
+	但是, 下面这个方法更简单. 
+	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 删除文件名中包含空格的文件, 下面这才是正确的方法. 
+  2&nbsp;rm *\ *
+  3&nbsp;rm *" "*
+  4&nbsp;rm *' '*
+  5&nbsp;# 感谢. S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	
+	</P
+><P
+>总结一下这个脚本的症状, 
+	<P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>由于<SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="ERRORNAME"
+>syntax error</SPAN
+>"</SPAN
+>(语法错误)使得脚本停止运行, </P
+></LI
+><LI
+><P
+>或者脚本能够运行, 
+		但是并不是按照我们所期望的那样运行(<SPAN
+CLASS="ERRORNAME"
+>逻辑错误</SPAN
+>). </P
+></LI
+><LI
+><P
+>脚本能够按照我们所期望的那样运行, 
+		但是有烦人的副作用(<SPAN
+CLASS="ERRORNAME"
+>逻辑炸弹</SPAN
+>). </P
+></LI
+></OL
+>
+      </P
+><P
+>如果想调试不工作的脚本, 有如下工具可用: 
+	<P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><A
+HREF="internal.html#ECHOREF"
+>echo</A
+>语句可以放在脚本中存在疑问的位置上, 
+		来观察变量的值, 
+	    也可以了解脚本后续的动作. </P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>最好只在<EM
+>调试</EM
+>的时候才使用<B
+CLASS="COMMAND"
+>echo</B
+>语句. 
+
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;### debecho (debug-echo), 由Stefano Falsetto编写 ###
+  2&nbsp;### 只有在DEBUG变量被赋值的情况下, 才会打印传递进来的参数. ###
+  3&nbsp;debecho () {
+  4&nbsp;  if [ ! -z "$DEBUG" ]; then
+  5&nbsp;     echo "$1" &#62;&#38;2
+  6&nbsp;     #         ^^^ 打印到stderr
+  7&nbsp;  fi
+  8&nbsp;}
+  9&nbsp;
+ 10&nbsp;DEBUG=on
+ 11&nbsp;Whatever=whatnot
+ 12&nbsp;debecho $Whatever   # whatnot
+ 13&nbsp;
+ 14&nbsp;DEBUG=
+ 15&nbsp;Whatever=notwhat
+ 16&nbsp;debecho $Whatever   # (这里就不会打印.)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+            </P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+>使用过滤器<A
+HREF="extmisc.html#TEEREF"
+>tee</A
+>来检查临界点上的进程或数据流. 
+	      </P
+></LI
+><LI
+><P
+>设置选项<CODE
+CLASS="OPTION"
+>-n -v -x</CODE
+></P
+><P
+><KBD
+CLASS="USERINPUT"
+>sh -n scriptname</KBD
+>不会运行脚本, 只会检查脚本的语法错误. 
+		这等价于把<KBD
+CLASS="USERINPUT"
+>set -n</KBD
+>或<KBD
+CLASS="USERINPUT"
+>set -o noexec</KBD
+>插入脚本中. 
+			注意, 某些类型的语法错误不会被这种方式检查出来. 
+	      </P
+><P
+><KBD
+CLASS="USERINPUT"
+>sh -v scriptname</KBD
+>将会在运行脚本之前, 
+			 打印出每一个命令. 
+	      这等价于把<KBD
+CLASS="USERINPUT"
+>set -v</KBD
+>或<KBD
+CLASS="USERINPUT"
+>set
+	      -o verbose</KBD
+>插入到脚本中. </P
+><P
+>选项<CODE
+CLASS="OPTION"
+>-n</CODE
+>和<CODE
+CLASS="OPTION"
+>-v</CODE
+>可以同时使用. 
+		<KBD
+CLASS="USERINPUT"
+>sh -nv scriptname</KBD
+>将会给出详细的语法检查.  
+		</P
+><P
+><KBD
+CLASS="USERINPUT"
+>sh -x scriptname</KBD
+>会打印出每个命令执行的结果, 
+			但只使用缩写形式. 
+			这等价于在脚本中插入<KBD
+CLASS="USERINPUT"
+>set -x</KBD
+>或<KBD
+CLASS="USERINPUT"
+>set -o xtrace</KBD
+>. </P
+><P
+>把<KBD
+CLASS="USERINPUT"
+>set -u</KBD
+>或<KBD
+CLASS="USERINPUT"
+>set 
+				-o nounset</KBD
+>插入到脚本中, 并运行它, 
+		就会在每个试图使用未声明变量的地方给出一个<SPAN
+CLASS="ERRORNAME"
+>unbound variable</SPAN
+>错误信息. 
+		</P
+></LI
+><LI
+><P
+>使用<SPAN
+CLASS="QUOTE"
+>"assert"</SPAN
+>(断言)函数在脚本的临界点上测试变量或条件. (这是从C语言中引入的.)</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ASSERT"
+></A
+><P
+><B
+>例子 29-4. 使用<SPAN
+CLASS="QUOTE"
+>"assert"</SPAN
+>来测试条件</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# assert.sh
+  3&nbsp;
+  4&nbsp;assert ()                 #  如果条件为false, 
+  5&nbsp;{                         #+ 那么就打印错误信息并退出脚本. 
+  6&nbsp;  E_PARAM_ERR=98
+  7&nbsp;  E_ASSERT_FAILED=99
+  8&nbsp;
+  9&nbsp;
+ 10&nbsp;  if [ -z "$2" ]          # 传递进来的参数个数不够. 
+ 11&nbsp;  then
+ 12&nbsp;    return $E_PARAM_ERR   # 什么都不做就return. 
+ 13&nbsp;  fi
+ 14&nbsp;
+ 15&nbsp;  lineno=$2
+ 16&nbsp;
+ 17&nbsp;  if [ ! $1 ] 
+ 18&nbsp;  then
+ 19&nbsp;    echo "Assertion failed:  \"$1\""
+ 20&nbsp;    echo "File \"$0\", line $lineno"
+ 21&nbsp;    exit $E_ASSERT_FAILED
+ 22&nbsp;  # else
+ 23&nbsp;  #   返回
+ 24&nbsp;  #   然后继续执行脚本余下的代码. 
+ 25&nbsp;  fi  
+ 26&nbsp;}    
+ 27&nbsp;
+ 28&nbsp;
+ 29&nbsp;a=5
+ 30&nbsp;b=4
+ 31&nbsp;condition="$a -lt $b"     # 产生错误信息并退出脚本. 
+ 32&nbsp;                          #  尝试把这个"条件"放到其他的地方, 
+ 33&nbsp;                          #+ 然后看看发生了什么. 
+ 34&nbsp;
+ 35&nbsp;assert "$condition" $LINENO
+ 36&nbsp;# 只有在"assert"成功时, 脚本余下的代码才会继续执行. 
+ 37&nbsp;
+ 38&nbsp;
+ 39&nbsp;# 这里放置的是其他的一些命令. 
+ 40&nbsp;# ...
+ 41&nbsp;echo "This statement echoes only if the \"assert\" does not fail."
+ 42&nbsp;# ...
+ 43&nbsp;# 这里也放置其他一些命令. 
+ 44&nbsp;
+ 45&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></LI
+><LI
+><P
+>使用变量<A
+HREF="internalvariables.html#LINENOREF"
+>$LINENO</A
+>和内建命令<A
+HREF="internal.html#CALLERREF"
+>caller</A
+>. 
+	      </P
+></LI
+><LI
+><P
+>捕获exit. </P
+><P
+>脚本中的<B
+CLASS="COMMAND"
+>exit</B
+>命令会触发一个信号<SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>, 
+			这个信号终止进程, 也就是终止脚本本身. 
+
+			<A
+NAME="AEN15137"
+HREF="#FTN.AEN15137"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+
+		  捕获<B
+CLASS="COMMAND"
+>exit</B
+>在某些情况下很有用, 
+		  比如说强制<SPAN
+CLASS="QUOTE"
+>"打印"</SPAN
+>变量值. 
+	      <B
+CLASS="COMMAND"
+>trap</B
+>命令必须放在脚本中第一个命令的位置上. 
+	      </P
+></LI
+></OL
+>
+      </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="TRAPREF1"
+></A
+>捕获信号</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>trap</B
+></DT
+><DD
+><P
+>可以在收到一个信号的时候指定一个处理动作; 
+				在调试的时候, 这一点也非常有用. 
+
+	      <DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><A
+NAME="SIGNALD"
+></A
+>A
+			 <EM
+>signal</EM
+>就是发往进程的一个简单消息, 
+		这个消息即可以由内核发出, 也可以由另一个进程发出, 
+		发送这个消息的目的是为了通知目的进程采取一些指定动作(通常都是终止动作). 
+		比如说, 按下<B
+CLASS="KEYCAP"
+>Control</B
+>-<B
+CLASS="KEYCAP"
+>C</B
+>,
+		就会发送一个用户中断(即INT信号)到运行中的进程. </P
+></TD
+></TR
+></TABLE
+></DIV
+>
+
+		<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;trap '' 2
+  2&nbsp;# 忽略中断2(Control-C), 没有指定处理动作. 
+  3&nbsp;
+  4&nbsp;trap 'echo "Control-C disabled."' 2
+  5&nbsp;# 当Control-C按下时, 显示一行信息. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX76"
+></A
+><P
+><B
+>例子 29-5. 捕获exit</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 使用trap来捕捉变量值. 
+  3&nbsp;
+  4&nbsp;trap 'echo Variable Listing --- a = $a  b = $b' EXIT
+  5&nbsp;#  EXIT是脚本中exit命令所产生信号的名字. 
+  6&nbsp;#
+  7&nbsp;#  "trap"所指定的命令并不会马上执行, 
+  8&nbsp;#+ 只有接收到合适的信号, 这些命令才会执行. 
+  9&nbsp;
+ 10&nbsp;echo "This prints before the \"trap\" --"
+ 11&nbsp;echo "even though the script sees the \"trap\" first."
+ 12&nbsp;echo
+ 13&nbsp;
+ 14&nbsp;a=39
+ 15&nbsp;
+ 16&nbsp;b=36
+ 17&nbsp;
+ 18&nbsp;exit 0
+ 19&nbsp;#  注意, 即使注释掉上面的这行'exit'命令, 也不会产生什么不同的结果, 
+ 20&nbsp;#+ 这是因为所有命令都执行完毕后, 不管怎么样, 脚本都会退出的. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ONLINE"
+></A
+><P
+><B
+>例子 29-6. Control-C之后, 清除垃圾</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# logon.sh: 一个检查你是否在线的脚本, 这个脚本实现的很简陋. 
+  3&nbsp;
+  4&nbsp;umask 177  # 确保temp文件并不是所有用户都有权限访问. 
+  5&nbsp;
+  6&nbsp;
+  7&nbsp;TRUE=1
+  8&nbsp;LOGFILE=/var/log/messages
+  9&nbsp;#  注意: $LOGFILE必须是可读的
+ 10&nbsp;#+ (使用root身份来执行, chmod 644 /var/log/messages).
+ 11&nbsp;TEMPFILE=temp.$$
+ 12&nbsp;#  使用脚本的进程ID, 来创建一个"唯一"的临时文件名. 
+ 13&nbsp;#     也可以使用'mktemp'. 
+ 14&nbsp;#     比如: 
+ 15&nbsp;#     TEMPFILE=`mktemp temp.XXXXXX`
+ 16&nbsp;KEYWORD=address
+ 17&nbsp;#  登陆时, 把"remote IP address xxx.xxx.xxx.xxx"
+ 18&nbsp;#                      添加到/var/log/messages中. 
+ 19&nbsp;ONLINE=22
+ 20&nbsp;USER_INTERRUPT=13
+ 21&nbsp;CHECK_LINES=100
+ 22&nbsp;#  日志文件有多少行需要检查. 
+ 23&nbsp;
+ 24&nbsp;trap 'rm -f $TEMPFILE; exit $USER_INTERRUPT' TERM INT
+ 25&nbsp;#  如果脚本被control-c中途中断的话, 那么就清除掉临时文件. 
+ 26&nbsp;
+ 27&nbsp;echo
+ 28&nbsp;
+ 29&nbsp;while [ $TRUE ]  #死循环. 
+ 30&nbsp;do
+ 31&nbsp;  tail -$CHECK_LINES $LOGFILE&#62; $TEMPFILE
+ 32&nbsp;  #  将系统日志文件的最后100行保存到临时文件中. 
+ 33&nbsp;  #  这么做很有必要, 因为新版本的内核在登陆的时候, 会产生许多登陆信息. 
+ 34&nbsp;  search=`grep $KEYWORD $TEMPFILE`
+ 35&nbsp;  #  检查是否存在"IP address"片断, 
+ 36&nbsp;  #+ 它用来提示, 这是一次成功的网络登陆. 
+ 37&nbsp;
+ 38&nbsp;  if [ ! -z "$search" ] #  必须使用引号, 因为变量可能会包含一些空白符. 
+ 39&nbsp;  then
+ 40&nbsp;     echo "On-line"
+ 41&nbsp;     rm -f $TEMPFILE    #  清除临时文件. 
+ 42&nbsp;     exit $ONLINE
+ 43&nbsp;  else
+ 44&nbsp;     echo -n "."        #  echo的-n选项不会产生换行符. 
+ 45&nbsp;                        #+ 这样你就可以在一行上连续打印. 
+ 46&nbsp;  fi
+ 47&nbsp;
+ 48&nbsp;  sleep 1  
+ 49&nbsp;done  
+ 50&nbsp;
+ 51&nbsp;
+ 52&nbsp;#  注意: 如果你将变量KEYWORD的值改为"Exit", 
+ 53&nbsp;#+ 当在线时, 这个脚本就可以被用来检查
+ 54&nbsp;#+ 意外的掉线情况. 
+ 55&nbsp;
+ 56&nbsp;# 练习: 按照上面"注意"中所说的那样来修改这个脚本, 
+ 57&nbsp;#       让它表现的更好. 
+ 58&nbsp;
+ 59&nbsp;exit 0
+ 60&nbsp;
+ 61&nbsp;
+ 62&nbsp;# Nick Drage建议使用另一种方法: 
+ 63&nbsp;
+ 64&nbsp;while true
+ 65&nbsp;  do ifconfig ppp0 | grep UP 1&#62; /dev/null &#38;&#38; echo "connected" &#38;&#38; exit 0
+ 66&nbsp;  echo -n "."   # 不停的打印(.....), 用来提示用户等待, 直到连接上位置. 
+ 67&nbsp;  sleep 2
+ 68&nbsp;done
+ 69&nbsp;
+ 70&nbsp;# 问题: 使用Control-C来终止这个进程可能是不够的. 
+ 71&nbsp;#+         (可能还会继续打印"...")
+ 72&nbsp;# 练习: 修复这个问题. 
+ 73&nbsp;
+ 74&nbsp;
+ 75&nbsp;
+ 76&nbsp;# Stephane Chazelas提出了另一种方法: 
+ 77&nbsp;
+ 78&nbsp;CHECK_INTERVAL=1
+ 79&nbsp;
+ 80&nbsp;while ! tail -1 "$LOGFILE" | grep -q "$KEYWORD"
+ 81&nbsp;do echo -n .
+ 82&nbsp;   sleep $CHECK_INTERVAL
+ 83&nbsp;done
+ 84&nbsp;echo "On-line"
+ 85&nbsp;
+ 86&nbsp;# 练习: 讨论一下这几种不同方法
+ 87&nbsp;#       各自的优缺点. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果使用<B
+CLASS="COMMAND"
+>trap</B
+>命令的<CODE
+CLASS="OPTION"
+>DEBUG</CODE
+>参数, 
+	那么当脚本中每个命令执行完毕后, 都会执行指定的动作. 
+	比方说, 你可以跟踪某个变量的值. 
+
+      <DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="VARTRACE"
+></A
+><P
+><B
+>例子 29-7. 跟踪一个变量</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;trap 'echo "VARIABLE-TRACE&#62; \$variable = \"$variable\""' DEBUG
+  4&nbsp;# 当每个命令执行之后, 就会打印出$variable的值. 
+  5&nbsp;
+  6&nbsp;variable=29
+  7&nbsp;
+  8&nbsp;echo "Just initialized \"\$variable\" to $variable."
+  9&nbsp;
+ 10&nbsp;let "variable *= 3"
+ 11&nbsp;echo "Just multiplied \"\$variable\" by 3."
+ 12&nbsp;
+ 13&nbsp;exit $?
+ 14&nbsp;
+ 15&nbsp;#  "trap 'command1 . . . command2 . . .' DEBUG"结构更适合于
+ 16&nbsp;#+ 使用在复杂脚本的上下文中, 
+ 17&nbsp;#+ 如果在这种情况下大量使用"echo $variable"语句的话, 
+ 18&nbsp;#+ 将会非常笨拙, 而且很耗时. 
+ 19&nbsp;
+ 20&nbsp;# 感谢, Stephane Chazelas指出这点. 
+ 21&nbsp;
+ 22&nbsp;
+ 23&nbsp;脚本的输出: 
+ 24&nbsp;
+ 25&nbsp;VARIABLE-TRACE&#62; $variable = ""
+ 26&nbsp;VARIABLE-TRACE&#62; $variable = "29"
+ 27&nbsp;Just initialized "$variable" to 29.
+ 28&nbsp;VARIABLE-TRACE&#62; $variable = "29"
+ 29&nbsp;VARIABLE-TRACE&#62; $variable = "87"
+ 30&nbsp;Just multiplied "$variable" by 3.
+ 31&nbsp;VARIABLE-TRACE&#62; $variable = "87"</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+>
+
+      </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>当然, 除了调试之外, 
+		  <B
+CLASS="COMMAND"
+>trap</B
+>命令还有其他的用途. 
+        </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="MULTIPLEPROC"
+></A
+><P
+><B
+>例子 29-8. 运行多进程(在对称多处理器(SMP box)的机器上)</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# parent.sh
+  3&nbsp;# 在多处理器(SMP box)的机器里运行多进程. 
+  4&nbsp;# 作者: Tedman Eng
+  5&nbsp;
+  6&nbsp;#  我们下面要介绍两个脚本, 这是第一个, 
+  7&nbsp;#+ 这两个脚本都要放到当前工作目录下. 
+  8&nbsp;
+  9&nbsp;
+ 10&nbsp;
+ 11&nbsp;
+ 12&nbsp;LIMIT=$1         # 想要启动的进程总数
+ 13&nbsp;NUMPROC=4        # 并发的线程数量(forks?)
+ 14&nbsp;PROCID=1         # 启动的进程ID
+ 15&nbsp;echo "My PID is $$"
+ 16&nbsp;
+ 17&nbsp;function start_thread() {
+ 18&nbsp;        if [ $PROCID -le $LIMIT ] ; then
+ 19&nbsp;                ./child.sh $PROCID&#38;
+ 20&nbsp;                let "PROCID++"
+ 21&nbsp;        else
+ 22&nbsp;           echo "Limit reached."
+ 23&nbsp;           wait
+ 24&nbsp;           exit
+ 25&nbsp;        fi
+ 26&nbsp;}
+ 27&nbsp;
+ 28&nbsp;while [ "$NUMPROC" -gt 0 ]; do
+ 29&nbsp;        start_thread;
+ 30&nbsp;        let "NUMPROC--"
+ 31&nbsp;done
+ 32&nbsp;
+ 33&nbsp;
+ 34&nbsp;while true
+ 35&nbsp;do
+ 36&nbsp;
+ 37&nbsp;trap "start_thread" SIGRTMIN
+ 38&nbsp;
+ 39&nbsp;done
+ 40&nbsp;
+ 41&nbsp;exit 0
+ 42&nbsp;
+ 43&nbsp;
+ 44&nbsp;
+ 45&nbsp;# ======== 下面是第二个脚本 ========
+ 46&nbsp;
+ 47&nbsp;
+ 48&nbsp;#!/bin/bash
+ 49&nbsp;# child.sh
+ 50&nbsp;# 在SMP box上运行多进程. 
+ 51&nbsp;# 这个脚本会被parent.sh调用. 
+ 52&nbsp;# 作者: Tedman Eng
+ 53&nbsp;
+ 54&nbsp;temp=$RANDOM
+ 55&nbsp;index=$1
+ 56&nbsp;shift
+ 57&nbsp;let "temp %= 5"
+ 58&nbsp;let "temp += 4"
+ 59&nbsp;echo "Starting $index  Time:$temp" "$@"
+ 60&nbsp;sleep ${temp}
+ 61&nbsp;echo "Ending $index"
+ 62&nbsp;kill -s SIGRTMIN $PPID
+ 63&nbsp;
+ 64&nbsp;exit 0
+ 65&nbsp;
+ 66&nbsp;
+ 67&nbsp;# ======================= 脚本作者注 ======================= #
+ 68&nbsp;#  这个脚本并不是一点bug都没有. 
+ 69&nbsp;#  我使用limit = 500来运行这个脚本, 但是在过了开头的一两百个循环后, 
+ 70&nbsp;#+ 有些并发线程消失了! 
+ 71&nbsp;#  还不能确定这是否是由捕捉信号的冲突引起的, 或者是其他什么原因. 
+ 72&nbsp;#  一旦接收到捕捉的信号, 那么在下一次捕捉到来之前, 
+ 73&nbsp;#+ 会有一段短暂的时间来执行信号处理程序, 
+ 74&nbsp;#+ 在信号处理程序处理的过程中, 很有可能会丢失一个想要捕捉的信号, 因此失去一个产生子进程的机会. 
+ 75&nbsp;
+ 76&nbsp;#  毫无疑问的, 肯定有人能够找出产生这个bug的原因, 
+ 77&nbsp;#+ 并且在将来的某个时候. . . 修正它.
+ 78&nbsp;
+ 79&nbsp;
+ 80&nbsp;
+ 81&nbsp;# ===================================================================== #
+ 82&nbsp;
+ 83&nbsp;
+ 84&nbsp;
+ 85&nbsp;# ----------------------------------------------------------------------#
+ 86&nbsp;
+ 87&nbsp;
+ 88&nbsp;
+ 89&nbsp;#################################################################
+ 90&nbsp;# 下面的脚本是由Vernia Damiano原创. 
+ 91&nbsp;# 不幸的是, 它并不能正常工作. 
+ 92&nbsp;#################################################################
+ 93&nbsp;
+ 94&nbsp;#!/bin/bash
+ 95&nbsp;
+ 96&nbsp;#  要想调用这个脚本, 至少需要一个整形参数
+ 97&nbsp;#+ (并发的进程数). 
+ 98&nbsp;#  所有的其他参数都传递给要启动的进程. 
+ 99&nbsp;
+100&nbsp;
+101&nbsp;INDICE=8        # 想要启动的进程数目
+102&nbsp;TEMPO=5         # 每个进程最大的睡眠时间
+103&nbsp;E_BADARGS=65    # 如果没有参数传到脚本中, 那么就返回这个错误码. 
+104&nbsp;
+105&nbsp;if [ $# -eq 0 ] # 检查一下, 至少要传递一个参数给脚本. 
+106&nbsp;then
+107&nbsp;  echo "Usage: `basename $0` number_of_processes [passed params]"
+108&nbsp;  exit $E_BADARGS
+109&nbsp;fi
+110&nbsp;
+111&nbsp;NUMPROC=$1              # 并发进程数
+112&nbsp;shift
+113&nbsp;PARAMETRI=( "$@" )      # 每个进程的参数
+114&nbsp;
+115&nbsp;function avvia() {
+116&nbsp;         local temp
+117&nbsp;         local index
+118&nbsp;         temp=$RANDOM
+119&nbsp;         index=$1
+120&nbsp;         shift
+121&nbsp;         let "temp %= $TEMPO"
+122&nbsp;         let "temp += 1"
+123&nbsp;         echo "Starting $index Time:$temp" "$@"
+124&nbsp;         sleep ${temp}
+125&nbsp;         echo "Ending $index"
+126&nbsp;         kill -s SIGRTMIN $$
+127&nbsp;}
+128&nbsp;
+129&nbsp;function parti() {
+130&nbsp;         if [ $INDICE -gt 0 ] ; then
+131&nbsp;              avvia $INDICE "${PARAMETRI[@]}" &#38;
+132&nbsp;                let "INDICE--"
+133&nbsp;         else
+134&nbsp;                trap : SIGRTMIN
+135&nbsp;         fi
+136&nbsp;}
+137&nbsp;
+138&nbsp;trap parti SIGRTMIN
+139&nbsp;
+140&nbsp;while [ "$NUMPROC" -gt 0 ]; do
+141&nbsp;         parti;
+142&nbsp;         let "NUMPROC--"
+143&nbsp;done
+144&nbsp;
+145&nbsp;wait
+146&nbsp;trap - SIGRTMIN
+147&nbsp;
+148&nbsp;exit $?
+149&nbsp;
+150&nbsp;: &#60;&#60;SCRIPT_AUTHOR_COMMENTS
+151&nbsp;我需要使用指定的选项来运行一个程序, 
+152&nbsp;并且能够接受不同的文件, 而且要运行在一个多处理器(SMP)的机器上. 
+153&nbsp;所以我想(我也会)运行指定数目个进程, 
+154&nbsp;并且每个进程终止之后, 都要启动一个新进程. 
+155&nbsp;
+156&nbsp;"wait"命令并没有提供什么帮助, 因为它需要等待一个指定的后台进程, 
+157&nbsp;或者等待*全部*的后台进程. 所以我编写了[这个]bash脚本程序来完成这个工作, 
+158&nbsp;并且使用了"trap"指令. 
+159&nbsp;  --Vernia Damiano
+160&nbsp;SCRIPT_AUTHOR_COMMENTS</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><KBD
+CLASS="USERINPUT"
+>trap '' SIGNAL</KBD
+>(两个引号之间为空)在剩余的脚本中禁用了SIGNAL信号的动作. 
+	<KBD
+CLASS="USERINPUT"
+>trap SIGNAL</KBD
+>则会恢复处理SIGNAL的动作. 
+	当你想保护脚本的临界部分不受意外的中断骚扰, 
+	那么上面讲的这种办法就非常有用了. 
+	</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;	trap '' 2  # 信号2就是Control-C, 现在被禁用了. 
+  2&nbsp;	command
+  3&nbsp;	command
+  4&nbsp;	command
+  5&nbsp;	trap 2     # 重新恢复Control-C
+  6&nbsp;	</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><TABLE
+CLASS="SIDEBAR"
+BORDER="1"
+CELLPADDING="5"
+><TR
+><TD
+><DIV
+CLASS="SIDEBAR"
+><P
+></P
+><A
+NAME="AEN15184"
+></A
+><P
+>Bash<A
+HREF="bashver3.html#BASH3REF"
+>3.0</A
+>之后增加了如下这些特殊变量用于调试. 
+
+       <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>$BASH_ARGC</P
+></LI
+><LI
+><P
+>$BASH_ARGV</P
+></LI
+><LI
+><P
+>$BASH_COMMAND</P
+></LI
+><LI
+><P
+>$BASH_EXECUTION_STRING</P
+></LI
+><LI
+><P
+>$BASH_LINENO</P
+></LI
+><LI
+><P
+>$BASH_SOURCE</P
+></LI
+><LI
+><P
+><A
+HREF="internalvariables.html#BASHSUBSHELLREF"
+>$BASH_SUBSHELL</A
+></P
+></LI
+></OL
+></P
+><P
+></P
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN15038"
+HREF="debugging.html#AEN15038"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>事实上, Rocky Bernstein的<A
+HREF="http://bashdb.sourceforge.net"
+TARGET="_top"
+>Bash debugger</A
+>填补了这项空白. </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN15137"
+HREF="debugging.html#AEN15137"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>根据惯例, 
+			<TT
+CLASS="REPLACEABLE"
+><I
+>信号0</I
+></TT
+>被指定为<A
+HREF="exit-status.html#EXITCOMMANDREF"
+>exit</A
+>.  </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="zeros.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="options.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Zero与Null</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part4.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>选项</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

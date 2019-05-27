@@ -1,0 +1,4515 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>特殊字符</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="基本"
+HREF="part2.html"><LINK
+REL="PREVIOUS"
+TITLE="基本"
+HREF="part2.html"><LINK
+REL="NEXT"
+TITLE="变量和参数的介绍"
+HREF="variables.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="part2.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="variables.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="SPECIAL-CHARS"
+></A
+>3. 特殊字符</H1
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="SCHARLIST1"
+></A
+>用在脚本和其他地方的特殊字符</B
+></P
+><DL
+><DT
+><SPAN
+CLASS="TOKEN"
+>#</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>注释. </B
+>行首以<SPAN
+CLASS="TOKEN"
+>#</SPAN
+>(<A
+HREF="sha-bang.html#MAGNUMREF"
+><SPAN
+CLASS="TOKEN"
+>#!</SPAN
+>是个例外</A
+>)开头是注释. </P
+></DIV
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# This line is a comment.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>注释也可以放在于本行命令的后边. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo "A comment will follow." # 注释在这里.
+  2&nbsp;#                            ^ 注意#前边的空白</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>注释也可以放在本行行首<A
+HREF="special-chars.html#WHITESPACEREF"
+>空白</A
+>的后面. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;	# A tab precedes this comment.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>命令是不能放在同一行上注释的后边的. 因为没有办法把注释结束掉, 
+				好让同一行上后边的<SPAN
+CLASS="QUOTE"
+>"代码生效"</SPAN
+>. 
+				只能够另起一行来使用下一个命令. </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>当然, 在<B
+CLASS="COMMAND"
+>echo</B
+>中转义的<SPAN
+CLASS="TOKEN"
+>#</SPAN
+>是<EM
+>不能</EM
+>作为注释的. 
+				同样的, <SPAN
+CLASS="TOKEN"
+>#</SPAN
+>也可以出现在<A
+HREF="parameter-substitution.html#PSUB2"
+>特定的参数替换结构</A
+>中, 
+			   	或者是出现在<A
+HREF="numerical-constants.html#NUMCONSTANTS"
+>数字常量表达式</A
+>中.
+
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo "The # here does not begin a comment."
+  2&nbsp;echo 'The # here does not begin a comment.'
+  3&nbsp;echo The \# here does not begin a comment.
+  4&nbsp;echo The # 这里开始一个注释.
+  5&nbsp;
+  6&nbsp;echo ${PATH#*:}       # 参数替换, 不是一个注释.
+  7&nbsp;echo $(( 2#101011 ))  # 数制转换, 不是一个注释.
+  8&nbsp;
+  9&nbsp;# 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+	  标准的<A
+HREF="quoting.html#QUOTINGREF"
+>引用和转义</A
+>字符(" ' \)可以用来转义#. </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>某些特定的<A
+HREF="parameter-substitution.html#PSOREX1"
+>模式匹配操作</A
+>也可以使用<SPAN
+CLASS="TOKEN"
+>#</SPAN
+>.</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>;</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>命令分隔符[分号, 即;]. </B
+>可以在同一行上写两个或两个以上的命令. </P
+></DIV
+><P
+>	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo hello; echo there
+  2&nbsp;
+  3&nbsp;
+  4&nbsp;if [ -x "$filename" ]; then    # 注意: "if"和"then"需要分隔. 
+  5&nbsp;                               # 为什么?
+  6&nbsp;  echo "File $filename exists."; cp $filename $filename.bak
+  7&nbsp;else
+  8&nbsp;  echo "File $filename not found."; touch $filename
+  9&nbsp;fi; echo "File test complete."</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>注意一下<SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="TOKEN"
+>;</SPAN
+>"</SPAN
+>某些情况下需要<A
+HREF="escapingsection.html#ESCP"
+>转义</A
+>.</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>;;</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>终止<A
+HREF="testbranch.html#CASEESAC1"
+>case</A
+>选项[双分号, 即;;]. </B
+><A
+NAME="DOUBLESEMICOLON"
+></A
+></P
+></DIV
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;case "$variable" in
+  2&nbsp;abc)  echo "\$variable = abc" ;;
+  3&nbsp;xyz)  echo "\$variable = xyz" ;;
+  4&nbsp;esac</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>.</SPAN
+></DT
+><DD
+><P
+><A
+NAME="DOTREF"
+></A
+></P
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><SPAN
+CLASS="QUOTE"
+>"点"</SPAN
+>命令[句点, 即.]. </B
+>等价于<A
+HREF="internal.html#SOURCEREF"
+>source</A
+>命令(参见 <A
+HREF="internal.html#EX38"
+>例子 11-21</A
+>). 
+					这是一个bash的<A
+HREF="internal.html#BUILTINREF"
+>内建命令</A
+>.</P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>.</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><SPAN
+CLASS="QUOTE"
+>"点"</SPAN
+>作为文件名的一部分. </B
+>如果点放在文件名的开头的话, 那么这个文件将会成为<SPAN
+CLASS="QUOTE"
+>"隐藏"</SPAN
+>文件, 
+				并且<A
+HREF="basic.html#LSREF"
+>ls</A
+>命令将不会正常的显示出这个文件. 
+	        <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>touch .hidden-file</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -l</KBD
+>	      
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 10
+ -rw-r--r--    1 bozo      4034 Jul 18 22:04 data1.addressbook
+ -rw-r--r--    1 bozo      4602 May 25 13:58 data1.addressbook.bak
+ -rw-r--r--    1 bozo       877 Dec 17  2000 employment.addressbook</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -al</KBD
+>	      
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 14
+ drwxrwxr-x    2 bozo  bozo      1024 Aug 29 20:54 ./
+ drwx------   52 bozo  bozo      3072 Aug 29 20:51 ../
+ -rw-r--r--    1 bozo  bozo      4034 Jul 18 22:04 data1.addressbook
+ -rw-r--r--    1 bozo  bozo      4602 May 25 13:58 data1.addressbook.bak
+ -rw-r--r--    1 bozo  bozo       877 Dec 17  2000 employment.addressbook
+ -rw-rw-r--    1 bozo  bozo         0 Aug 29 20:54 .hidden-file</SAMP
+>
+	        </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+></DIV
+><P
+>如果作为目录名的话, <EM
+>一个单独的点</EM
+>代表当前的工作目录, 
+		而<EM
+>两个点</EM
+>表示上一级目录. </P
+><P
+>	        <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>pwd</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/home/bozo/projects</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cd .</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>pwd</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/home/bozo/projects</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cd ..</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>pwd</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/home/bozo/</SAMP
+>
+	        </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><P
+><EM
+>点</EM
+>经常会出现在文件移动命令的目的参数(目录)的位置上. </P
+><P
+>	        <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cp /home/bozo/current_work/junk/* .</KBD
+>
+	        </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>.</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><SPAN
+CLASS="QUOTE"
+>"点"</SPAN
+>字符匹配. </B
+>当用作<A
+HREF="x13673.html#REGEXDOT"
+>匹配字符</A
+>的作用时, 
+				通常都是作为<A
+HREF="regexp.html#REGEXREF"
+>正则表达式</A
+>的一部分来使用,
+			   	<SPAN
+CLASS="QUOTE"
+>"点"</SPAN
+>用来匹配任何的单个字符. </P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>"</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="varsubn.html#DBLQUO"
+>部分引用</A
+>[双引号, 即"]. </B
+><EM
+>"STRING"</EM
+>将会阻止(解释)<EM
+>STRING</EM
+>中大部分特殊的字符. 
+	      参见<A
+HREF="quoting.html"
+> 5</A
+>.</P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>'</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="varsubn.html#SNGLQUO"
+>全引用</A
+>[单引号, 即']. </B
+><EM
+>'STRING'</EM
+>将会阻止<EM
+>STRING</EM
+>中所有特殊字符的解释. 
+	      这是一种比使用<SPAN
+CLASS="TOKEN"
+>"</SPAN
+>更强烈的形式.
+	      参见<A
+HREF="quoting.html"
+> 5</A
+>.</P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>,</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="ops.html#COMMAOP"
+>逗号操作符</A
+>. </B
+><B
+CLASS="COMMAND"
+>逗号操作符</B
+>链接了一系列的算术操作. 
+	      虽然里边所有的内容都被运行了,但只有最后一项被返回. 
+               <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;let "t2 = ((a = 9, 15 / 3))"  # Set "a = 9" and "t2 = 15 / 3"</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>\</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="escapingsection.html#ESCP"
+>转义符</A
+>[反斜线, 即\]. </B
+>一种对单字符的引用机制. </P
+></DIV
+><P
+><KBD
+CLASS="USERINPUT"
+>\X</KBD
+>将会<SPAN
+CLASS="QUOTE"
+>"转义"</SPAN
+>字符<EM
+>X</EM
+>. 
+			这等价于<EM
+><SPAN
+CLASS="QUOTE"
+>"X"</SPAN
+></EM
+>, 也等价于<EM
+>'X'</EM
+>. 
+		   	<SPAN
+CLASS="TOKEN"
+>\</SPAN
+>通常用来转义<SPAN
+CLASS="TOKEN"
+>"</SPAN
+>和<SPAN
+CLASS="TOKEN"
+>'</SPAN
+>, 
+			这样双引号和但引号就不会被解释成特殊含义了. </P
+><P
+>参见<A
+HREF="quoting.html"
+> 5</A
+>来深入地了解转义符的详细解释. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>/</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>文件名路径分隔符[斜线, 即/]. </B
+>分隔文件名不同的部分(比如 <TT
+CLASS="FILENAME"
+>/home/bozo/projects/Makefile</TT
+>). </P
+></DIV
+><P
+>也可以用来作为除法<A
+HREF="ops.html#AROPS1"
+>算术操作符</A
+>. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>`</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="commandsub.html#COMMANDSUBREF"
+>命令替换</A
+>. </B
+><B
+CLASS="COMMAND"
+>`command`</B
+>结构可以将<B
+CLASS="COMMAND"
+>命令</B
+>的输出赋值到一个变量中去. 
+		 我们在后边的<A
+HREF="commandsub.html#BACKQUOTESREF"
+>后置引用(backquotes)</A
+>或后置标记(backticks)中也会讲解. 
+	  </P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>:</SPAN
+></DT
+><DD
+><P
+><A
+NAME="NULLREF"
+></A
+></P
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>空命令[冒号, 即:]. </B
+>等价于<SPAN
+CLASS="QUOTE"
+>"NOP"</SPAN
+> (<TT
+CLASS="REPLACEABLE"
+><I
+>no op</I
+></TT
+>, 
+		一个什么也不干的命令). 也可以被认为与shell的内建命令<A
+HREF="internal.html#TRUEREF"
+>true</A
+>作用相同. 
+		<SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="TOKEN"
+>:</SPAN
+>"</SPAN
+>命令是一个bash的<A
+HREF="internal.html#BUILTINREF"
+>内建命令</A
+>, 
+		它的<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出码(exit status)</A
+>是<SPAN
+CLASS="QUOTE"
+>"true"</SPAN
+>(<SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>). 
+	    </P
+></DIV
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;:
+  2&nbsp;echo $?   # 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>死循环:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;while :
+  2&nbsp;do
+  3&nbsp;   operation-1
+  4&nbsp;   operation-2
+  5&nbsp;   ...
+  6&nbsp;   operation-n
+  7&nbsp;done
+  8&nbsp;
+  9&nbsp;# 与下边相同:
+ 10&nbsp;#    while true
+ 11&nbsp;#    do
+ 12&nbsp;#      ...
+ 13&nbsp;#    done</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>在if/then中的占位符:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if condition
+  2&nbsp;then :   # 什么都不做,引出分支. 
+  3&nbsp;else
+  4&nbsp;   take-some-action
+  5&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>在一个二元命令中提供一个占位符, 具体参见<A
+HREF="ops.html#ARITHOPS"
+>例子 8-2</A
+>, 
+		和<A
+HREF="parameter-substitution.html#DEFPARAM"
+>默认参数</A
+>.</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;: ${username=`whoami`}
+  2&nbsp;# ${username=`whoami`}   如果没有开头的":"的话, 将会给出一个错误, 
+  3&nbsp;#                        除非"username"是一个命令或者内建命令...</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>在<A
+HREF="here-docs.html#HEREDOCREF"
+>here document</A
+>中提供一个命令所需的占位符. 
+		参见<A
+HREF="here-docs.html#ANONHEREDOC"
+>例子 17-10</A
+>. </P
+><P
+>使用<A
+HREF="parameter-substitution.html#PARAMSUBREF"
+>参数替换</A
+>来评估字符串变量
+		(参见<A
+HREF="parameter-substitution.html#EX6"
+>例子 9-15</A
+>).
+
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;: ${HOSTNAME?} ${USER?} ${MAIL?}
+  2&nbsp;#  如果一个或多个必要的环境变量没被设置的话, 
+  3&nbsp;#+ 就打印错误信息. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+		</P
+><P
+><B
+CLASS="COMMAND"
+><A
+HREF="parameter-substitution.html#EXPREPL1"
+>变量扩展/子串替换</A
+></B
+>. </P
+><P
+>在与<SPAN
+CLASS="TOKEN"
+>&#62;</SPAN
+><A
+HREF="io-redirection.html#IOREDIRREF"
+>重定向操作符</A
+>结合使用时,
+	      将会把一个文件清空, 但是并不会修改这个文件的权限. 
+	      如果之前这个文件并不存在, 那么就创建这个文件. 
+
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;: &#62; data.xxx   # 文件"data.xxx"现在被清空了. 
+  2&nbsp;
+  3&nbsp;# 与 cat /dev/null &#62;data.xxx 的作用相同 
+  4&nbsp;# 然而,这并不会产生一个新的进程, 因为":"是一个内建命令. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+              参见<A
+HREF="textproc.html#EX12"
+>例子 12-14</A
+>.</P
+><P
+>在与<SPAN
+CLASS="TOKEN"
+>&#62;&#62;</SPAN
+>重定向操作符结合使用时, 
+				  将不会对预先存在的目标文件(<KBD
+CLASS="USERINPUT"
+>: &#62;&#62; target_file</KBD
+>)产生任何影响. 
+	      如果这个文件之前并不存在, 那么就创建它. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>这只适用于正规文件, 而不适用于管道, 
+			  符号连接, 和某些特殊文件. </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>也可能用来作为注释行, 虽然我们不推荐这么做.
+		使用<SPAN
+CLASS="TOKEN"
+>#</SPAN
+>来注释的话, 将关闭剩余行的错误检查, 
+		所以可以在注释行中写任何东西. 
+	    然而, 使用<SPAN
+CLASS="TOKEN"
+>:</SPAN
+>的话将不会这样.
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;: This is a comment that generates an error, ( if [ $x -eq 3] ).</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+><SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="TOKEN"
+>:</SPAN
+>"</SPAN
+>还用来在<TT
+CLASS="FILENAME"
+>/etc/passwd</TT
+>和<A
+HREF="internalvariables.html#PATHREF"
+>$PATH</A
+>变量中做分隔符.
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo $PATH</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin:/sbin:/usr/sbin:/usr/games</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>!</SPAN
+></DT
+><DD
+><P
+><A
+NAME="NOTREF"
+></A
+></P
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>取反操作符[叹号, 即!]. </B
+><SPAN
+CLASS="TOKEN"
+>!</SPAN
+>操作符将会反转命令的<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出码</A
+>的结果, 
+		(具体参见<A
+HREF="exit-status.html#NEGCOND"
+>例子 6-2</A
+>). 也会反转测试操作符的意义, 
+			比如修改<SPAN
+CLASS="QUOTE"
+>"等号"</SPAN
+>( <A
+HREF="comparison-ops.html#EQUALSIGNREF"
+>=</A
+> )为<SPAN
+CLASS="QUOTE"
+>"不等号"</SPAN
+>( != ). 
+			<SPAN
+CLASS="TOKEN"
+>!</SPAN
+>操作符是Bash的<A
+HREF="internal.html#KEYWORDREF"
+>关键字</A
+>. </P
+></DIV
+><P
+>在一个不同的上下文中, 
+			<SPAN
+CLASS="TOKEN"
+>!</SPAN
+>也会出现在<A
+HREF="ivr.html#IVRREF"
+>变量的间接引用</A
+>中. </P
+><P
+>在另一种上下文中, 如<EM
+>命令行</EM
+>模式下, 
+		<SPAN
+CLASS="TOKEN"
+>!</SPAN
+>还能反转bash的<EM
+>历史机制</EM
+> (参见<A
+HREF="histcommands.html"
+>Appendix J</A
+>). 
+			需要注意的是, 在一个脚本中, <EM
+>历史机制</EM
+>是被禁用的. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>*</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>通配符[星号, 即*]. </B
+><SPAN
+CLASS="TOKEN"
+>*</SPAN
+>可以用来做文件名匹配(这个东西有个专有名词叫<A
+HREF="globbingref.html"
+>globbing</A
+>)的<SPAN
+CLASS="QUOTE"
+>"通配符"</SPAN
+>. 
+		含义是, 可以用来匹配给定目录下的任何文件名. </P
+></DIV
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo *</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>abs-book.sgml add-drive.sh agram.sh alias.sh</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+><SPAN
+CLASS="TOKEN"
+>*</SPAN
+>也可以用在<A
+HREF="regexp.html#REGEXREF"
+>正则表达式</A
+>中, 用来匹配任意个数(包含0个)的字符. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>*</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="ops.html#AROPS1"
+>算术操作符</A
+>. </B
+>在算术操作符的上下文中, <SPAN
+CLASS="TOKEN"
+>*</SPAN
+>号表示乘法运算. </P
+></DIV
+><P
+>如果要做求幂运算, 使用<SPAN
+CLASS="TOKEN"
+>**</SPAN
+>, 
+			这是<A
+HREF="ops.html#EXPONENTIATIONREF"
+>求幂操作符</A
+>. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>?</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>测试操作符. </B
+>在一个特定的表达式中, <SPAN
+CLASS="TOKEN"
+>?</SPAN
+>用来测试一个条件的结果. </P
+></DIV
+><P
+>在一个<A
+HREF="dblparens.html"
+>双括号结构</A
+>中, 
+		<SPAN
+CLASS="TOKEN"
+>?</SPAN
+>就是C语言的三元操作符. 参见<A
+HREF="dblparens.html#CVARS"
+>例子 9-31</A
+>.</P
+><P
+>在<A
+HREF="parameter-substitution.html#PARAMSUBREF"
+>参数替换</A
+>表达式中, 
+			<SPAN
+CLASS="TOKEN"
+>?</SPAN
+><A
+HREF="parameter-substitution.html#QERRMSG"
+>用来测试一个变量是否被set了. </A
+>.</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>?</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>通配符. </B
+><SPAN
+CLASS="TOKEN"
+>?</SPAN
+>在<A
+HREF="globbingref.html"
+>通配(globbing)</A
+>中, 
+				  用来做匹配单个字符的<SPAN
+CLASS="QUOTE"
+>"通配符"</SPAN
+>, 
+				  在<A
+HREF="x13673.html#EXTREGEX"
+>正则表达式</A
+>中, 
+			也是用来<A
+HREF="x13673.html#QUEXREGEX"
+>表示一个字符</A
+>. </P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>$</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="varsubn.html"
+>变量替换</A
+>(引用变量的内容). </B
+>	       <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;var1=5
+  2&nbsp;var2=23skidoo
+  3&nbsp;
+  4&nbsp;echo $var1     # 5
+  5&nbsp;echo $var2     # 23skidoo</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	       </P
+></DIV
+><P
+>在一个变量前面加上<SPAN
+CLASS="TOKEN"
+>$</SPAN
+>用来引用这个变量的<EM
+>值</EM
+>. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>$</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>行结束符. </B
+>在<A
+HREF="regexp.html#REGEXREF"
+>正则表达式中</A
+>, 
+		<SPAN
+CLASS="QUOTE"
+>"$"</SPAN
+>表示行结束符. </P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>${}</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="parameter-substitution.html#PARAMSUBREF"
+>参数替换</A
+>. </B
+></P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>$*</SPAN
+>, <SPAN
+CLASS="TOKEN"
+>$@</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="internalvariables.html#APPREF"
+>位置参数</A
+>. </B
+></P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>$?</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>退出状态码变量. </B
+><A
+HREF="exit-status.html#EXSREF"
+>$? 变量</A
+>
+			  保存了一个命令, 一个<A
+HREF="functions.html#FUNCTIONREF"
+>函数</A
+>, 
+			  或者是脚本本身的<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>. </P
+></DIV
+></DD
+><DT
+><A
+NAME="PROCESSIDREF"
+></A
+><SPAN
+CLASS="TOKEN"
+>$$</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>进程ID变量. </B
+>这个<A
+HREF="internalvariables.html#PROCCID"
+>$$ 变量</A
+>
+	        保存了它所在脚本的<EM
+>进程 ID</EM
+>
+		  <A
+NAME="AEN907"
+HREF="#FTN.AEN907"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>()</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>命令组. </B
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;(a=hello; echo $a)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DIV
+><DIV
+CLASS="IMPORTANT"
+><P
+></P
+><TABLE
+CLASS="IMPORTANT"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/important.gif"
+HSPACE="5"
+ALT="Important"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在<TT
+CLASS="REPLACEABLE"
+><I
+>括号</I
+></TT
+>中的命令列表, 
+		 将会作为一个<A
+HREF="subshells.html#SUBSHELLSREF"
+>子shell</A
+>来运行.</P
+><P
+>在括号中的变量,由于是在子shell中,所以对于脚本剩下的部分是不可用的.
+	      父进程, 也就是脚本本身, 
+	      <A
+HREF="subshells.html#PARVIS"
+>将不能够读取在子进程中创建的变量</A
+>, 也就是在子shell中创建的变量.
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;a=123
+  2&nbsp;( a=321; )	      
+  3&nbsp;
+  4&nbsp;echo "a = $a"   # a = 123
+  5&nbsp;# 在圆括号中a变量, 更像是一个局部变量. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>初始化数组. </B
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;Array=(element1 element2 element3)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>{xxx,yyy,zzz,...}</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>大括号扩展. </B
+><A
+NAME="BRACEEXPREF"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;cat {file1,file2,file3} &#62; combined_file
+  2&nbsp;# 把file1, file2, file3连接在一起, 并且重定向到combined_file中.
+  3&nbsp;
+  4&nbsp;
+  5&nbsp;cp file22.{txt,backup}
+  6&nbsp;# 拷贝"file22.txt"到"file22.backup"中</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DIV
+><P
+>一个命令可能会对<TT
+CLASS="REPLACEABLE"
+><I
+>大括号</I
+></TT
+>
+
+	     <A
+NAME="AEN950"
+HREF="#FTN.AEN950"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+	  
+   	  中的以逗号分割的文件列表起作用. 
+	  (<A
+HREF="globbingref.html"
+>通配(globbing)</A
+>)将对大括号中的文件名做扩展. </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在大括号中, 不允许有空白, <EM
+>除非</EM
+>这个空白被引用或转义. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>echo {file1,file2}\ :{\ A," B",' C'}</KBD
+></P
+><P
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>file1 : A file1 : B file1 : C file2 : A file2 : B file2 : C</SAMP
+></P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>{}</SPAN
+></DT
+><DD
+><P
+><A
+NAME="CODEBLOCKREF"
+></A
+></P
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>代码块[大括号, 即{}]. </B
+>又被称为<I
+CLASS="FIRSTTERM"
+>内部组</I
+>,
+		这个结构事实上创建了一个<I
+CLASS="FIRSTTERM"
+>匿名函数</I
+>(一个没有名字的函数). 
+		然而, 与<SPAN
+CLASS="QUOTE"
+>"标准"</SPAN
+><A
+HREF="functions.html#FUNCTIONREF"
+>函数</A
+>不同的是, 
+		在其中声明的变量,对于脚本其他部分的代码来说还是可见的. </P
+></DIV
+><P
+> <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>{ local a;
+	      a=123; }</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bash: local: can only be used in a
+function</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+> </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;a=123
+  2&nbsp;{ a=321; }
+  3&nbsp;echo "a = $a"   # a = 321   (说明在代码块中对变量a所作的修改, 影响了外边的变量)
+  4&nbsp;
+  5&nbsp;# 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>下边的代码展示了在大括号结构中代码的<A
+HREF="io-redirection.html#IOREDIRREF"
+>I/O 重定向</A
+>. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX8"
+></A
+><P
+><B
+>例子 3-1. 代码块和I/O重定向</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 从/etc/fstab中读行.
+  3&nbsp;
+  4&nbsp;File=/etc/fstab
+  5&nbsp;
+  6&nbsp;{
+  7&nbsp;read line1
+  8&nbsp;read line2
+  9&nbsp;} &#60; $File
+ 10&nbsp;
+ 11&nbsp;echo "First line in $File is:"
+ 12&nbsp;echo "$line1"
+ 13&nbsp;echo
+ 14&nbsp;echo "Second line in $File is:"
+ 15&nbsp;echo "$line2"
+ 16&nbsp;
+ 17&nbsp;exit 0
+ 18&nbsp;
+ 19&nbsp;# 现在, 你怎么分析每行的分割域?
+ 20&nbsp;# 小提示: 使用awk.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="RPMCHECK"
+></A
+><P
+><B
+>例子 3-2. 将一个代码块的结果保存到文件</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# rpm-check.sh
+  3&nbsp;
+  4&nbsp;# 这个脚本的目的是为了描述, 列表, 和确定是否可以安装一个rpm包.
+  5&nbsp;# 在一个文件中保存输出.
+  6&nbsp;# 
+  7&nbsp;# 这个脚本使用一个代码块来展示.
+  8&nbsp;
+  9&nbsp;SUCCESS=0
+ 10&nbsp;E_NOARGS=65
+ 11&nbsp;
+ 12&nbsp;if [ -z "$1" ]
+ 13&nbsp;then
+ 14&nbsp;  echo "Usage: `basename $0` rpm-file"
+ 15&nbsp;  exit $E_NOARGS
+ 16&nbsp;fi  
+ 17&nbsp;
+ 18&nbsp;{ 
+ 19&nbsp;  echo
+ 20&nbsp;  echo "Archive Description:"
+ 21&nbsp;  rpm -qpi $1       # 查询说明.
+ 22&nbsp;  echo
+ 23&nbsp;  echo "Archive Listing:"
+ 24&nbsp;  rpm -qpl $1       # 查询列表.
+ 25&nbsp;  echo
+ 26&nbsp;  rpm -i --test $1  # 查询rpm包是否可以被安装.
+ 27&nbsp;  if [ "$?" -eq $SUCCESS ]
+ 28&nbsp;  then
+ 29&nbsp;    echo "$1 can be installed."
+ 30&nbsp;  else
+ 31&nbsp;    echo "$1 cannot be installed."
+ 32&nbsp;  fi  
+ 33&nbsp;  echo
+ 34&nbsp;} &#62; "$1.test"       # 把代码块中的所有输出都重定向到文件中.
+ 35&nbsp;
+ 36&nbsp;echo "Results of rpm test in file $1.test"
+ 37&nbsp;
+ 38&nbsp;# 查看rpm的man页来查看rpm的选项.
+ 39&nbsp;
+ 40&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>与上面所讲到的()中的命令组不同的是, 
+		{大括号}中的代码块将<EM
+>不会</EM
+>开启一个新的<A
+HREF="subshells.html#SUBSHELLSREF"
+>子shell</A
+>.
+
+		<A
+NAME="AEN1001"
+HREF="#FTN.AEN1001"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+>
+
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>{} \;</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>路径名. </B
+>一般都在<A
+HREF="moreadv.html#FINDREF"
+>find</A
+>命令中使用. 
+		这<EM
+>不是</EM
+>一个shell<A
+HREF="internal.html#BUILTINREF"
+>内建命令</A
+>. </P
+></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="TOKEN"
+>;</SPAN
+>"</SPAN
+>用来结束<B
+CLASS="COMMAND"
+>find</B
+>命令序列的<CODE
+CLASS="OPTION"
+>-exec</CODE
+>选项. 
+		 它需要被保护以防止被shell所解释. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>[ ]</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>条件测试. </B
+></P
+></DIV
+><P
+><A
+NAME="LEFTBRACKET"
+></A
+><A
+HREF="tests.html#IFTHEN"
+>条件测试</A
+>表达式放在<B
+CLASS="COMMAND"
+>[ ]</B
+>中. 
+		值得注意的是<B
+CLASS="COMMAND"
+>[</B
+>是shell内建<B
+CLASS="COMMAND"
+>test</B
+>命令的一部分, 
+		<EM
+>并不是</EM
+><TT
+CLASS="FILENAME"
+>/usr/bin/test</TT
+>中的外部命令的一个链接.</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>[[ ]]</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>测试. </B
+></P
+></DIV
+><P
+>测试表达式放在<SPAN
+CLASS="TOKEN"
+>[[ ]]</SPAN
+>中. (shell<A
+HREF="internal.html#KEYWORDREF"
+>关键字</A
+>). </P
+><P
+>具体参见关于<A
+HREF="testconstructs.html#DBLBRACKETS"
+>[[ ... ]]结构的讨论</A
+>.</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>[ ]</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>数组元素. </B
+></P
+></DIV
+><P
+>在一个<A
+HREF="arrays.html#ARRAYREF"
+>array</A
+>结构的上下文中,
+	       中括号用来引用数组中每个元素的编号. 
+	         <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;Array[1]=slot_1
+  2&nbsp;echo ${Array[1]}</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>[ ]</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>字符范围. </B
+></P
+></DIV
+><P
+>用作<A
+HREF="regexp.html#REGEXREF"
+>正则表达式</A
+>的一部分, 
+	       方括号描述一个匹配的<A
+HREF="x13673.html#BRACKETSREF"
+>字符范围</A
+>. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>(( ))</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>整数扩展. </B
+></P
+></DIV
+><P
+>扩展并计算在<SPAN
+CLASS="TOKEN"
+>(( ))</SPAN
+>中的整数表达式. </P
+><P
+>请参考关于<A
+HREF="dblparens.html"
+>(( ... )) 结构</A
+>的讨论.</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>&#62;</SPAN
+> <SPAN
+CLASS="TOKEN"
+>&#38;&#62;</SPAN
+> <SPAN
+CLASS="TOKEN"
+>&#62;&#38;</SPAN
+> <SPAN
+CLASS="TOKEN"
+>&#62;&#62;</SPAN
+> <SPAN
+CLASS="TOKEN"
+>&#60;</SPAN
+> <SPAN
+CLASS="TOKEN"
+>&#60;&#62;</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="io-redirection.html#IOREDIRREF"
+>重定向</A
+>. </B
+></P
+></DIV
+><P
+>			<KBD
+CLASS="USERINPUT"
+>scriptname &#62;filename</KBD
+> 
+			重定向<TT
+CLASS="FILENAME"
+>scriptname</TT
+>的输出到文件<TT
+CLASS="FILENAME"
+>filename</TT
+>中. 
+			如果<TT
+CLASS="FILENAME"
+>filename</TT
+>存在的话, 那么将会被覆盖. </P
+><P
+>			<KBD
+CLASS="USERINPUT"
+>command &#38;&#62;filename</KBD
+> 
+			重定向<TT
+CLASS="FILENAME"
+>command</TT
+>的<TT
+CLASS="FILENAME"
+>stdout</TT
+>和<TT
+CLASS="FILENAME"
+>stderr</TT
+>到<TT
+CLASS="FILENAME"
+>filename</TT
+>中. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>command &#62;&#38;2</KBD
+> 重定向<TT
+CLASS="FILENAME"
+>command</TT
+>的<TT
+CLASS="FILENAME"
+>stdout</TT
+>到<TT
+CLASS="FILENAME"
+>stderr</TT
+>中. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>scriptname &#62;&#62;filename</KBD
+> 
+			把<TT
+CLASS="FILENAME"
+>scriptname</TT
+>的输出追加到文件<TT
+CLASS="FILENAME"
+>filename</TT
+>中. 
+			如果<TT
+CLASS="FILENAME"
+>filename</TT
+>不存在的话, 
+	      将会被创建. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>[i]&#60;&#62;filename</KBD
+>
+			打开文件<TT
+CLASS="FILENAME"
+>filename</TT
+>用来读写, 
+			并且分配<A
+HREF="io-redirection.html#FDREF"
+>文件描述符</A
+><SPAN
+CLASS="TOKEN"
+>i</SPAN
+>给这个文件. 
+			如果<TT
+CLASS="FILENAME"
+>filename</TT
+>不存在, 这个文件将会被创建. </P
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="process-sub.html#PROCESSSUBREF"
+>进程替换</A
+>. </B
+></P
+></DIV
+><P
+><KBD
+CLASS="USERINPUT"
+>(command)&#62;</KBD
+></P
+><P
+><KBD
+CLASS="USERINPUT"
+>&#60;(command)</KBD
+></P
+><P
+><A
+HREF="comparison-ops.html#LTREF"
+>在一种不同的上下文中</A
+>,
+			<SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="TOKEN"
+>&#60;</SPAN
+>"</SPAN
+>和<SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="TOKEN"
+>&#62;</SPAN
+>"</SPAN
+>可用来做
+			<A
+HREF="comparison-ops.html#SCOMPARISON1"
+>字符串比较操作</A
+>. </P
+><P
+><A
+HREF="comparison-ops.html#INTLT"
+>在另一种上下文中</A
+>,
+			<SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="TOKEN"
+>&#60;</SPAN
+>"</SPAN
+>和<SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="TOKEN"
+>&#62;</SPAN
+>"</SPAN
+>可用来做
+			<A
+HREF="comparison-ops.html#ICOMPARISON1"
+>整数比较操作</A
+>. 
+			参见<A
+HREF="moreadv.html#EX45"
+>例子 12-9</A
+>. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>&#60;&#60;</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>用在<A
+HREF="here-docs.html#HEREDOCREF"
+>here document</A
+>中的重定向. </B
+></P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>&#60;&#60;&#60;</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>用在<A
+HREF="x13628.html#HERESTRINGSREF"
+>here string</A
+>中的重定向. </B
+></P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>&#60;</SPAN
+>, <SPAN
+CLASS="TOKEN"
+>&#62;</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="comparison-ops.html#LTREF"
+>ASCII
+	    comparison</A
+>. </B
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;veg1=carrots
+  2&nbsp;veg2=tomatoes
+  3&nbsp;
+  4&nbsp;if [[ "$veg1" &#60; "$veg2" ]]
+  5&nbsp;then
+  6&nbsp;  echo "Although $veg1 precede $veg2 in the dictionary,"
+  7&nbsp;  echo "this implies nothing about my culinary preferences."
+  8&nbsp;else
+  9&nbsp;  echo "What kind of dictionary are you using, anyhow?"
+ 10&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>\&#60;</SPAN
+>, <SPAN
+CLASS="TOKEN"
+>\&#62;</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>				  <A
+HREF="regexp.html#REGEXREF"
+>正则表达式</A
+>中的<A
+HREF="x13673.html#ANGLEBRAC"
+>单词边界</A
+>
+			  . </B
+></P
+></DIV
+><P
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>grep '\&#60;the\&#62;' textfile</KBD
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>|</SPAN
+></DT
+><DD
+><P
+><A
+NAME="PIPEREF"
+></A
+></P
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>管道. </B
+>分析前边命令的输出, 
+			  并将输出作为后边命令的输入. 
+			  这是一种产生命令链的好方法. </P
+></DIV
+><P
+>              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo ls -l | sh
+  2&nbsp;#  传递"echo ls -l"的输出到shell中,
+  3&nbsp;#+ 与一个简单的"ls -l"结果相同.
+  4&nbsp;
+  5&nbsp;
+  6&nbsp;cat *.lst | sort | uniq
+  7&nbsp;# 合并和排序所有的".lst"文件, 然后删除所有重复的行. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><TABLE
+CLASS="SIDEBAR"
+BORDER="1"
+CELLPADDING="5"
+><TR
+><TD
+><DIV
+CLASS="SIDEBAR"
+><P
+></P
+><A
+NAME="AEN1279"
+></A
+><P
+>管道是进程间通讯的一个典型办法, 
+				将一个进程的<TT
+CLASS="FILENAME"
+>stdout</TT
+>放到另一个进程的<TT
+CLASS="FILENAME"
+>stdin</TT
+>中. 
+	      标准的方法是将一个一般命令的输出, 
+	      比如<A
+HREF="basic.html#CATREF"
+>cat</A
+>或者<A
+HREF="internal.html#ECHOREF"
+>echo</A
+>, 传递到一个
+	      <SPAN
+CLASS="QUOTE"
+>"过滤命令"</SPAN
+>(在这个过滤命令中将处理输入)中, 然后得到结果. </P
+><P
+>  
+	      <KBD
+CLASS="USERINPUT"
+>cat $filename1 $filename2 | grep $search_word</KBD
+>
+            </P
+><P
+></P
+></DIV
+></TD
+></TR
+></TABLE
+><P
+><A
+NAME="UCREF"
+></A
+>当然输出的命令也可以传递到脚本中. 
+
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# uppercase.sh : 修改输入, 全部转换为大写.
+  3&nbsp;
+  4&nbsp;tr 'a-z' 'A-Z'
+  5&nbsp;#  字符范围必须被""引用起来
+  6&nbsp;#+ 来阻止产生单字符的文件名.
+  7&nbsp;
+  8&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+              现在让我们输送<B
+CLASS="COMMAND"
+>ls -l</B
+>的输出到一个脚本中. 
+
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -l | ./uppercase.sh</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-RW-RW-R--    1 BOZO  BOZO       109 APR  7 19:49 1.TXT
+ -RW-RW-R--    1 BOZO  BOZO       109 APR 14 16:48 2.TXT
+ -RW-R--R--    1 BOZO  BOZO       725 APR 20 20:56 DATA-FILE</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>管道中的每个进程的<TT
+CLASS="FILENAME"
+>stdout</TT
+>比须被下一个进程作为<TT
+CLASS="FILENAME"
+>stdin</TT
+>来读入. 
+			 否则, 数据流会<EM
+>阻塞</EM
+>, 
+			 并且管道将产生一些非预期的行为. 
+	         <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;cat file1 file2 | ls -l | sort
+  2&nbsp;# 从"cat file1 file2"中的输出并没出现. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+             </P
+><P
+>作为<A
+HREF="othertypesv.html#CHILDREF"
+>子进程</A
+>的运行的管道, 
+				 不能够改变脚本的变量.
+	         <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;variable="initial_value"
+  2&nbsp;echo "new_value" | read variable
+  3&nbsp;echo "variable = $variable"     # variable = initial_value</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+             </P
+><P
+>如果管道中的某个命令产生了一个异常,并中途失败,那么这个管道将过早的终止.
+			 这种行为被叫做<EM
+>broken pipe</EM
+>, 
+			 并且这种状态下将发送一个<EM
+>SIGPIPE</EM
+> <A
+HREF="debugging.html#SIGNALD"
+>信号</A
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>&#62;|</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>强制重定向(即使设置了<A
+HREF="options.html#NOCLOBBERREF"
+>noclobber选项</A
+>
+		-- 就是-C选项). </B
+>这将强制的覆盖一个现存文件. </P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>||</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="ops.html#ORREF"
+>或-逻辑操作</A
+>. </B
+>在一个<A
+HREF="testconstructs.html#TESTCONSTRUCTS1"
+>条件测试结构</A
+>中, 
+				如果条件测试结构两边中的<EM
+>任意一边</EM
+>结果为true的话, 
+				<SPAN
+CLASS="TOKEN"
+>||</SPAN
+>操作就会返回<SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>(代表执行成功). 
+			</P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>&#38;</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>后台运行命令. </B
+>一个命令后边跟一个<SPAN
+CLASS="TOKEN"
+>&#38;</SPAN
+>
+	        表示在后台运行. </P
+></DIV
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>sleep 10 &#38;</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>[1] 850</SAMP
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>[1]+  Done                    sleep 10</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>在一个脚本中,命令和<A
+HREF="loops1.html#FORLOOPREF1"
+>循环</A
+>都可能运行在后台. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="BGLOOP"
+></A
+><P
+><B
+>例子 3-3. 在后台运行一个循环</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# background-loop.sh
+  3&nbsp;
+  4&nbsp;for i in 1 2 3 4 5 6 7 8 9 10            # 第一个循环.
+  5&nbsp;do
+  6&nbsp;  echo -n "$i "
+  7&nbsp;done &#38; # 在后台运行这个循环.
+  8&nbsp;       # 在第2个循环之后, 将在某些时候执行. 
+  9&nbsp;
+ 10&nbsp;echo   # 这个'echo'某些时候将不会显示. 
+ 11&nbsp;
+ 12&nbsp;for i in 11 12 13 14 15 16 17 18 19 20   # 第二个循环.
+ 13&nbsp;do
+ 14&nbsp;  echo -n "$i "
+ 15&nbsp;done  
+ 16&nbsp;
+ 17&nbsp;echo   # 这个'echo'某些时候将不会显示. 
+ 18&nbsp;
+ 19&nbsp;# ======================================================
+ 20&nbsp;
+ 21&nbsp;# 期望的输出应该是:
+ 22&nbsp;# 1 2 3 4 5 6 7 8 9 10 
+ 23&nbsp;# 11 12 13 14 15 16 17 18 19 20 
+ 24&nbsp;
+ 25&nbsp;# 然而实际的结果有可能是:
+ 26&nbsp;# 11 12 13 14 15 16 17 18 19 20 
+ 27&nbsp;# 1 2 3 4 5 6 7 8 9 10 bozo $
+ 28&nbsp;# (第2个'echo'没执行, 为什么?)
+ 29&nbsp;
+ 30&nbsp;# 也可能是: 
+ 31&nbsp;# 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+ 32&nbsp;# (第1个'echo'没执行, 为什么?)
+ 33&nbsp;
+ 34&nbsp;# 非常少见的执行结果, 也有可能是: 
+ 35&nbsp;# 11 12 13 1 2 3 4 5 6 7 8 9 10 14 15 16 17 18 19 20 
+ 36&nbsp;# 前台的循环先于后台的执行.
+ 37&nbsp;
+ 38&nbsp;exit 0
+ 39&nbsp;
+ 40&nbsp;#  Nasimuddin Ansari 建议加一句 sleep 1
+ 41&nbsp;#+ 在6行和14行的 echo -n "$i" 之后加这句.
+ 42&nbsp;#+ 为了真正的乐趣.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在一个脚本内后台运行一个命令,有可能造成这个脚本的挂起,等待一个按键
+			响应. 幸运的是, 我们有针对这个问题的<A
+HREF="x6756.html#WAITHANG"
+>解决办法</A
+>. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>&#38;&#38;</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="ops.html#LOGOPS1"
+>与-逻辑操作</A
+>. </B
+>在一个<A
+HREF="testconstructs.html#TESTCONSTRUCTS1"
+>条件测试结构</A
+>中, 
+			只有在条件测试结构的<EM
+>两边</EM
+>结果都为true的时候, 
+			<SPAN
+CLASS="TOKEN"
+>&#38;&#38;</SPAN
+>操作才会返回<SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>(代表sucess). 
+		</P
+></DIV
+></DD
+><DT
+><A
+NAME="DASHREF"
+></A
+><SPAN
+CLASS="TOKEN"
+>-</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>选项, 前缀. </B
+>在所有的命令内如果想使用选项参数的话,前边都要加上<SPAN
+CLASS="QUOTE"
+>"-"</SPAN
+>. </P
+></DIV
+><P
+><KBD
+CLASS="USERINPUT"
+>COMMAND -[Option1][Option2][...]</KBD
+></P
+><P
+><KBD
+CLASS="USERINPUT"
+>ls -al</KBD
+></P
+><P
+><KBD
+CLASS="USERINPUT"
+>sort -dfu $filename</KBD
+></P
+><P
+><KBD
+CLASS="USERINPUT"
+>set -- $variable</KBD
+></P
+><P
+>	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if [ $file1 -ot $file2 ]
+  2&nbsp;then
+  3&nbsp;  echo "File $file1 is older than $file2."
+  4&nbsp;fi
+  5&nbsp;
+  6&nbsp;if [ "$a" -eq "$b" ]
+  7&nbsp;then
+  8&nbsp;  echo "$a is equal to $b."
+  9&nbsp;fi
+ 10&nbsp;
+ 11&nbsp;if [ "$c" -eq 24 -a "$d" -eq 47 ]
+ 12&nbsp;then
+ 13&nbsp;  echo "$c equals 24 and $d equals 47."
+ 14&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>  
+	      </P
+></DD
+><DT
+><A
+NAME="DASHREF2"
+></A
+><SPAN
+CLASS="TOKEN"
+>-</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>用于重定向<TT
+CLASS="FILENAME"
+>stdin</TT
+>或<TT
+CLASS="FILENAME"
+>stdout</TT
+>[破折号, 即-]. </B
+><A
+NAME="COXEX"
+></A
+></P
+></DIV
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;(cd /source/directory &#38;&#38; tar cf - . ) | (cd /dest/directory &#38;&#38; tar xpvf -)
+  2&nbsp;# 从一个目录移动整个目录树到另一个目录
+  3&nbsp;# [感谢Alan Cox &#60;a.cox@swansea.ac.uk&#62;, 走出了部分修改]
+  4&nbsp;
+  5&nbsp;# 1) cd /source/directory    源目录
+  6&nbsp;# 2) &#38;&#38;                     "与列表": 如果'cd'命令成功了, 那么就执行下边的命令. 
+  7&nbsp;# 3) tar cf - .              'c'创建一个新文档, 'f'后边跟'-'指定目标文件作为stdout
+  8&nbsp;#                            '-'后边的'f'(file)选项, 指明作为stdout的目标文件. 
+  9&nbsp;#                            并且在当前目录('.')执行.
+ 10&nbsp;# 4) |                       管道...
+ 11&nbsp;# 5) ( ... )                 一个子shell
+ 12&nbsp;# 6) cd /dest/directory      改变当前目录到目标目录.
+ 13&nbsp;# 7) &#38;&#38;                     "与列表", 同上
+ 14&nbsp;# 8) tar xpvf -              'x'解档, 'p'保证所有权和文件属性,
+ 15&nbsp;#                            'v'发完整消息到stdout,
+ 16&nbsp;#                            'f'后边跟'-',从stdin读取数据. 
+ 17&nbsp;#
+ 18&nbsp;#                            注意:'x' 是一个命令, 'p', 'v', 'f' 是选项.
+ 19&nbsp;# Whew!
+ 20&nbsp;
+ 21&nbsp;
+ 22&nbsp;
+ 23&nbsp;# 更优雅的写法应该是:
+ 24&nbsp;#   cd source/directory
+ 25&nbsp;#   tar cf - . | (cd ../dest/directory; tar xpvf -)
+ 26&nbsp;#
+ 27&nbsp;#     当然也可以这么写:
+ 28&nbsp;# cp -a /source/directory/* /dest/directory
+ 29&nbsp;#     或者:
+ 30&nbsp;# cp -a /source/directory/* /source/directory/.[^.]* /dest/directory
+ 31&nbsp;#     如果在/source/directory中有隐藏文件的话.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;bunzip2 -c linux-2.6.16.tar.bz2 | tar xvf -
+  2&nbsp;#  --未解压的tar文件--    | --然后把它传递到"tar"中--
+  3&nbsp;#  如果 "tar" 没能够正常的处理"bunzip2",
+  4&nbsp;#+ 这就需要使用管道来执行2个单独的步骤来完成它.
+  5&nbsp;#  这个练习的目的是解档"bzipped"的kernel源文件.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>注意, 在这个上下文中<SPAN
+CLASS="QUOTE"
+>"-"</SPAN
+>本身并不是一个Bash操作, 
+	而是一个可以被特定的UNIX工具识别的选项, 
+	这些特定的UNIX工具特指那些可以写输出到<TT
+CLASS="FILENAME"
+>stdout</TT
+>的工具, 
+	    比如<B
+CLASS="COMMAND"
+>tar</B
+>, <B
+CLASS="COMMAND"
+>cat</B
+>, 等等.</P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo "whatever" | cat -</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>whatever</SAMP
+> </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>在需要一个文件名的位置, 
+			<TT
+CLASS="REPLACEABLE"
+><I
+>-</I
+></TT
+>重定向输出到<TT
+CLASS="FILENAME"
+>stdout</TT
+>(有时候会在<KBD
+CLASS="USERINPUT"
+>tar和cf</KBD
+>中出现), 
+			或者从<TT
+CLASS="FILENAME"
+>stdin</TT
+>接受输入, 而不是从一个文件中接受输入. 
+			这是在管道中使用文件导向(file-oriented)工具来作为过滤器的一种方法. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>file</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Usage: file [-bciknvzL] [-f namefile] [-m magicfiles] file...</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+	    在命令行上单独给出一个<A
+HREF="filearchiv.html#FILEREF"
+>file</A
+>, 会给出一个错误信息.
+	    </P
+><P
+>			添加一个<SPAN
+CLASS="QUOTE"
+>"-"</SPAN
+>将得到一个更有用的结果. 
+			这会使shell等待用户输入.
+
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>file -</KBD
+>
+<KBD
+CLASS="USERINPUT"
+>abc</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>standard input:              ASCII text</SAMP
+>
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>file -</KBD
+>
+<KBD
+CLASS="USERINPUT"
+>#!/bin/bash</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>standard input:              Bourne-Again shell script text executable</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+	      现在命令从<TT
+CLASS="FILENAME"
+>stdin</TT
+>中接受了输入, 并分析它.
+	    </P
+><P
+><SPAN
+CLASS="QUOTE"
+>"-"</SPAN
+>可以被用来将<TT
+CLASS="FILENAME"
+>stdout</TT
+>通过管道传递到其他命令中. 
+			这样就允许使用<A
+HREF="assortedtips.html#PREPENDREF"
+>在一个文件开头添加几行</A
+>的技巧. </P
+><P
+>使用<A
+HREF="filearchiv.html#DIFFREF"
+>diff</A
+>命令来和另一个文件的<EM
+>某一段</EM
+>进行比较: </P
+><P
+><KBD
+CLASS="USERINPUT"
+>grep Linux file1 | diff file2 -</KBD
+></P
+><P
+>最后, 来展示一个使用<TT
+CLASS="REPLACEABLE"
+><I
+>-</I
+></TT
+>的<A
+HREF="filearchiv.html#TARREF"
+>tar</A
+>命令的一个真实的例子.</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX58"
+></A
+><P
+><B
+>例子 3-4. 备份最后一天所有修改的文件</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;#  在一个"tarball"中(经过tar和gzip处理过的文件)
+  4&nbsp;#+ 备份最后24小时当前目录下d所有修改的文件. 
+  5&nbsp;
+  6&nbsp;BACKUPFILE=backup-$(date +%m-%d-%Y)
+  7&nbsp;#                 在备份文件中嵌入时间.
+  8&nbsp;#                 Thanks, Joshua Tschida, for the idea.
+  9&nbsp;archive=${1:-$BACKUPFILE}
+ 10&nbsp;#  如果在命令行中没有指定备份文件的文件名,
+ 11&nbsp;#+ 那么将默认使用"backup-MM-DD-YYYY.tar.gz".
+ 12&nbsp;
+ 13&nbsp;tar cvf - `find . -mtime -1 -type f -print` &#62; $archive.tar
+ 14&nbsp;gzip $archive.tar
+ 15&nbsp;echo "Directory $PWD backed up in archive file \"$archive.tar.gz\"."
+ 16&nbsp;
+ 17&nbsp;
+ 18&nbsp;#  Stephane Chazelas指出上边代码,
+ 19&nbsp;#+ 如果在发现太多的文件的时候, 或者是如果文件
+ 20&nbsp;#+ 名包括空格的时候, 将执行失败.
+ 21&nbsp;
+ 22&nbsp;# Stephane Chazelas建议使用下边的两种代码之一:
+ 23&nbsp;# -------------------------------------------------------------------
+ 24&nbsp;#   find . -mtime -1 -type f -print0 | xargs -0 tar rvf "$archive.tar"
+ 25&nbsp;#      使用gnu版本的"find".
+ 26&nbsp;
+ 27&nbsp;
+ 28&nbsp;#   find . -mtime -1 -type f -exec tar rvf "$archive.tar" '{}' \;
+ 29&nbsp;#         对于其他风格的UNIX便于移植, 但是比较慢.
+ 30&nbsp;# -------------------------------------------------------------------
+ 31&nbsp;
+ 32&nbsp;
+ 33&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>以<SPAN
+CLASS="QUOTE"
+>"-"</SPAN
+>开头的文件名在使用<SPAN
+CLASS="QUOTE"
+>"-"</SPAN
+>作为重定向操作符的时候, 
+				可能会产生问题. 应该写一个脚本来检查这个问题, 并给这个文件加上合适的前缀. 
+	      比如: <TT
+CLASS="FILENAME"
+>./-FILENAME</TT
+>, 
+	      <TT
+CLASS="FILENAME"
+>$PWD/-FILENAME</TT
+>, 或者 
+	      <TT
+CLASS="FILENAME"
+>$PATHNAME/-FILENAME</TT
+>. </P
+><P
+>如果变量以<TT
+CLASS="REPLACEABLE"
+><I
+>-</I
+></TT
+>开头进行命名, 可能也会引起问题. 
+		<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;var="-n"
+  2&nbsp;echo $var		
+  3&nbsp;# 具有"echo -n"的效果了,这样什么都不会输出的. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+              </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>先前的工作目录. </B
+><B
+CLASS="COMMAND"
+>cd -</B
+>将会回到先前的工作目录. 
+				 它使用了<A
+HREF="internalvariables.html#OLDPWD"
+>$OLDPWD</A
+> <A
+HREF="othertypesv.html#ENVREF"
+>环境变量</A
+>.</P
+></DIV
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>不要混淆这里所使用的<SPAN
+CLASS="QUOTE"
+>"-"</SPAN
+>和先前我们所讨论的<SPAN
+CLASS="QUOTE"
+>"-"</SPAN
+>重定向操作符. 
+		对于<SPAN
+CLASS="QUOTE"
+>"-"</SPAN
+>的具体解释只能依赖于具体的上下文. 
+		</P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>减号. </B
+>减号属于<A
+HREF="ops.html#AROPS1"
+>算术操作</A
+>. </P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>=</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>等号. </B
+><A
+HREF="varassignment.html#EQREF"
+>赋值操作</A
+>
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;a=28
+  2&nbsp;echo $a   # 28</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DIV
+><P
+>在<A
+HREF="comparison-ops.html#EQUALSIGNREF"
+>另一种上下文环境中</A
+>,
+	      <SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="TOKEN"
+>=</SPAN
+>"</SPAN
+>也用来做<A
+HREF="comparison-ops.html#SCOMPARISON1"
+>字符串比较</A
+>操作. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>+</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>加号. </B
+>加法<A
+HREF="ops.html#AROPS1"
+>算术操作</A
+>. </P
+></DIV
+><P
+>在<A
+HREF="x13673.html#PLUSREF"
+>另一种上下文环境中</A
+>, 
+	      <SPAN
+CLASS="TOKEN"
+>+</SPAN
+>也是一种<A
+HREF="regexp.html"
+>正则表达式</A
+>操作. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>+</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>选项. </B
+>一个命令或者过滤器的选项标记. </P
+></DIV
+><P
+>某些命令<A
+HREF="internal.html#BUILTINREF"
+>内建命令</A
+>使用<SPAN
+CLASS="TOKEN"
+>+</SPAN
+>来打开特定的选项,  
+	      用<SPAN
+CLASS="TOKEN"
+>-</SPAN
+>来禁用这些特定的选项. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>%</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="ops.html#MODULOREF"
+>取模</A
+>. </B
+>取模(一次除法的余数)<A
+HREF="ops.html#AROPS1"
+>算术操作</A
+>. </P
+></DIV
+><P
+>在<A
+HREF="parameter-substitution.html#PCTPATREF"
+>不同的上下文中</A
+>, 
+	      <SPAN
+CLASS="TOKEN"
+>%</SPAN
+>也是一种<A
+HREF="parameter-substitution.html#PSUB2"
+>模式匹配</A
+>操作. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>~</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>home目录[波浪号, 即~]. </B
+>相当于<A
+HREF="internalvariables.html#HOMEDIRREF"
+>$HOME</A
+>内部变量.
+
+	      <EM
+>~bozo</EM
+>是bozo的home目录,
+		并且<B
+CLASS="COMMAND"
+>ls ~bozo</B
+>将列出其中的内容.
+		<SPAN
+CLASS="TOKEN"
+>~/</SPAN
+>就是当前用户的home目录,
+		并且<B
+CLASS="COMMAND"
+>ls ~/</B
+>将列出其中的内容. 
+
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo ~bozo</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/home/bozo</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo ~</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/home/bozo</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo ~/</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/home/bozo/</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo ~:</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/home/bozo:</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo ~nonexistent-user</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>~nonexistent-user</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>~+</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>当前工作目录. </B
+>相当于<A
+HREF="internalvariables.html#PWDREF"
+>$PWD</A
+>内部变量. </P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>~-</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>先前的工作目录. </B
+>相当于<A
+HREF="internalvariables.html#OLDPWD"
+>$OLDPWD</A
+>内部变量. </P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>=~</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><A
+HREF="bashver3.html#REGEXMATCHREF"
+>正则表达式匹配</A
+>. </B
+>这个操作将会在<A
+HREF="bashver3.html#BASH3REF"
+>version 3</A
+>版本的Bash部分进行讲解. </P
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>^</SPAN
+></DT
+><DD
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>行首. </B
+>在<A
+HREF="regexp.html#REGEXREF"
+>正则表达式</A
+>中, 
+	        <SPAN
+CLASS="QUOTE"
+>"^"</SPAN
+>表示定位到文本行的行首. </P
+></DIV
+></DD
+><DT
+>控制字符</DT
+><DD
+><P
+><A
+NAME="CONTROLCHARREF"
+></A
+></P
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>修改终端或文本显示的行为. . </B
+>控制字符以<B
+CLASS="KEYCAP"
+>CONTROL</B
+>
+	      + <B
+CLASS="KEYCAP"
+>key</B
+>这种方式进行组合(同时按下). 
+	      
+	      控制字符也可以使用<I
+CLASS="FIRSTTERM"
+>8进制</I
+>或<I
+CLASS="FIRSTTERM"
+>16进制</I
+>表示法来进行表示, 
+	      但是前边必须要加上<I
+CLASS="FIRSTTERM"
+>转义符</I
+>. </P
+></DIV
+><P
+>控制字符在脚本中不能正常使用. </P
+><P
+></P
+><UL
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-B</KBD
+></P
+><P
+>退格(非破坏性的), 就是退格但是不删掉前面的字符.</P
+></LI
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-C</KBD
+></P
+><P
+>break. 终结一个前台作业.</P
+></LI
+><LI
+><P
+><A
+NAME="CTLDREF"
+></A
+></P
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-D</KBD
+></P
+><P
+>从一个shell中登出(与<A
+HREF="exit-status.html#EXITCOMMANDREF"
+>exit</A
+>很相像). </P
+><P
+><SPAN
+CLASS="QUOTE"
+>"EOF"</SPAN
+>(文件结束). 
+			这也能从<TT
+CLASS="FILENAME"
+>stdin</TT
+>中终止输入. </P
+><P
+>在console或者在<I
+CLASS="FIRSTTERM"
+>xterm</I
+>窗口中输入的时候, 
+					<KBD
+CLASS="USERINPUT"
+>Ctl-D</KBD
+>将删除光标下字符. 
+					当没有字符时, <KBD
+CLASS="USERINPUT"
+>Ctl-D</KBD
+>将退出当前会话, 
+		  在一个xterm窗口中, 则会产生关闭此窗口的效果. </P
+></LI
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-G</KBD
+></P
+><P
+><SPAN
+CLASS="QUOTE"
+>"哔"</SPAN
+> (beep). 在一些老式的打字机终端上, 它会响一下铃. </P
+></LI
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-H</KBD
+></P
+><P
+><SPAN
+CLASS="QUOTE"
+>"退格"</SPAN
+>(破坏性的), 就是在退格之后, 还要删掉前边的字符. </P
+><P
+>		<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# Embedding Ctl-H in a string.
+  3&nbsp;
+  4&nbsp;a="^H^H"                  # 两个 Ctl-H's (backspaces).
+  5&nbsp;echo "abcdef"             # abcdef
+  6&nbsp;echo -n "abcdef$a "       # abcd f
+  7&nbsp;#  Space at end  ^              ^ 两次退格.
+  8&nbsp;echo -n "abcdef$a"        # abcdef
+  9&nbsp;#  结尾没有空格                   没有 backspace 的效果了(why?).
+ 10&nbsp;                          # 结果并不像期望的那样.
+ 11&nbsp;echo; echo</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+                </P
+></LI
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-I</KBD
+></P
+><P
+>水平制表符.</P
+></LI
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-J</KBD
+></P
+><P
+>重起一行(换一行并到行首). 在脚本中, 也可以使用8进制表示法 
+				-- '\012' 或者16进制表示法 -- '\x0a' 来表示. </P
+></LI
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-K</KBD
+></P
+><P
+>垂直制表符.</P
+><P
+>当在console或者<EM
+>xterm</EM
+>窗口中输入文本时, 
+					<KBD
+CLASS="USERINPUT"
+>Ctl-K</KBD
+>将会删除从光标所在处到行为的全部字符. 
+					在脚本中, <KBD
+CLASS="USERINPUT"
+>Ctl-K</KBD
+>的行为有些不同, 
+		  具体请参见下边的Lee Maschmeyer的例子程序. </P
+></LI
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-L</KBD
+></P
+><P
+>清屏(清除终端的屏幕显示). 在终端中,
+			与<A
+HREF="terminalccmds.html#CLEARREF"
+>clear</A
+>命令的效果相同. 
+			当发送到打印机上时, <KBD
+CLASS="USERINPUT"
+>Ctl-L</KBD
+>会让打印机将打印纸卷到最后. </P
+></LI
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-M</KBD
+></P
+><P
+>回车.</P
+><P
+>		<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# Thank you, Lee Maschmeyer, for this example.
+  3&nbsp;
+  4&nbsp;read -n 1 -s -p $'Control-M leaves cursor at beginning of this line. Press Enter. \x0d'
+  5&nbsp;                                  # 当然, '0d'就是二进制的回车. 
+  6&nbsp;echo &#62;&#38;2   #  '-s'参数使得任何输入都不将回显出来.
+  7&nbsp;           #+ 所以, 明确的重起一行是必要的.
+  8&nbsp;
+  9&nbsp;read -n 1 -s -p $'Control-J leaves cursor on next line. \x0a'
+ 10&nbsp;           #  '0a' 等价于Control-J, 换行.
+ 11&nbsp;echo &#62;&#38;2
+ 12&nbsp;
+ 13&nbsp;###
+ 14&nbsp;
+ 15&nbsp;read -n 1 -s -p $'And Control-K\x0bgoes straight down.'
+ 16&nbsp;echo &#62;&#38;2   #  Control-K 是垂直制表符.
+ 17&nbsp;
+ 18&nbsp;# 关于垂直制表符效果的一个更好的例子见下边:
+ 19&nbsp;
+ 20&nbsp;var=$'\x0aThis is the bottom line\x0bThis is the top line\x0a'
+ 21&nbsp;echo "$var"
+ 22&nbsp;#  这句与上边的例子使用的是同样的办法, 然而:
+ 23&nbsp;echo "$var" | col
+ 24&nbsp;#  这将造成垂直制表符右边的部分比左边部分高. 
+ 25&nbsp;#  这也解释了为什么我们要在行首和行尾加上一个换行符 --
+ 26&nbsp;#+ 这样可以避免屏幕显示混乱. 
+ 27&nbsp;
+ 28&nbsp;# Lee Maschmeyer的解释:
+ 29&nbsp;# --------------------------
+ 30&nbsp;#  在这里[第一个垂直制表符的例子中] . . . 
+ 31&nbsp;#+ 这个垂直制表符使得还没回车就直接打印下来. 
+ 32&nbsp;#  这只能在那些不能"后退"的设备中才行, 
+ 33&nbsp;#+ 比如说Linux的console. 
+ 34&nbsp;#  垂直制表符的真正意义是向上移, 而不是向下. 
+ 35&nbsp;#  它可以用来让打印机打印上标. 
+ 36&nbsp;#  col工具可以模拟垂直制表符的正确行为. 
+ 37&nbsp;
+ 38&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+		</P
+></LI
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-Q</KBD
+></P
+><P
+>恢复(XON).</P
+><P
+>在一个终端中恢复<TT
+CLASS="FILENAME"
+>stdin</TT
+>. </P
+></LI
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-S</KBD
+></P
+><P
+>挂起(XOFF).</P
+><P
+>在一个终端中冻结<TT
+CLASS="FILENAME"
+>stdin</TT
+>. 
+		  (使用Ctl-Q可以恢复输入.)</P
+></LI
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-U</KBD
+></P
+><P
+>删除光标到行首的所有字符. 
+			在某些设置下, 
+			<EM
+>不管光标的所在位置</EM
+><KBD
+CLASS="USERINPUT"
+>Ctl-U</KBD
+>都将删除整行输入. </P
+></LI
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-V</KBD
+></P
+><P
+>当输入字符时, <KBD
+CLASS="USERINPUT"
+>Ctl-V</KBD
+>允许插入控制字符. 
+				比如, 下边的两个例子是等价的: 
+		    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo -e '\x0a'
+  2&nbsp;echo &#60;Ctl-V&#62;&#60;Ctl-J&#62;</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-V</KBD
+>主要用于文本编辑. </P
+></LI
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-W</KBD
+></P
+><P
+>当在控制台或一个xterm窗口敲入文本时,
+		  <KBD
+CLASS="USERINPUT"
+>Ctl-W</KBD
+>将会删除当前光标到左边最近一个空格间的全部字符. 
+		  在某些设置下, 
+		  <KBD
+CLASS="USERINPUT"
+>Ctl-W</KBD
+>将会删除当前光标到左边第一个非字母或数字之间的全部字符. </P
+></LI
+><LI
+><P
+><KBD
+CLASS="USERINPUT"
+>Ctl-Z</KBD
+></P
+><P
+>暂停前台作业.</P
+></LI
+></UL
+></DD
+><DT
+>空白</DT
+><DD
+><P
+><A
+NAME="WHITESPACEREF"
+></A
+></P
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>用来分隔函数, 命令或变量. . </B
+>空白包含<I
+CLASS="FIRSTTERM"
+>空格</I
+>,
+			  <I
+CLASS="FIRSTTERM"
+>tab</I
+>, 
+			  <I
+CLASS="FIRSTTERM"
+>空行</I
+>, 或者是它们之间任意的组合体.
+
+		  <A
+NAME="AEN1759"
+HREF="#FTN.AEN1759"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+>
+
+	在某些上下文中, 
+	比如<A
+HREF="gotchas.html#WSBAD"
+>变量赋值</A
+>, 
+	空白是不被允许的, 会产生语法错误. </P
+></DIV
+><P
+>空行不会影响脚本的行为, 因此使用空行可以很好的划分独立的函数段以增加可读性. </P
+><P
+>特殊变量<A
+HREF="internalvariables.html#IFSREF"
+>$IFS</A
+>用来做一些输入命令的分隔符, 默认情况下是空白. </P
+><P
+>如果想在字符串或变量中使用空白, 
+		  那么应该使用<A
+HREF="quoting.html#QUOTINGREF"
+>引用</A
+>.</P
+></DD
+></DL
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN907"
+HREF="special-chars.html#AEN907"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><I
+CLASS="FIRSTTERM"
+>PID</I
+>, 
+		    或<I
+CLASS="FIRSTTERM"
+>进程 ID</I
+>, 是分配给运行进程的一个数字. 
+		    要想察看所有运行进程的<EM
+>PID</EM
+>可以使用<A
+HREF="system.html#PPSSREF"
+>ps</A
+>命令. </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN950"
+HREF="special-chars.html#AEN950"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>The shell does the <EM
+>brace
+	       expansion</EM
+>. The command itself acts upon the
+	       <EM
+>result</EM
+> of the expansion.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1001"
+HREF="special-chars.html#AEN1001"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>例外: 在pipe中的一个大括号中的代码段<EM
+>可能</EM
+>运行在一个
+		  <A
+HREF="subshells.html#SUBSHELLSREF"
+>子shell</A
+>中.
+
+		<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;ls | { read firstline; read secondline; }
+  2&nbsp;#  错误. 在大括号中的代码段, 将运行到子shell中, 
+  3&nbsp;#+ 所以"ls"的输出将不能传递到代码块中. 
+  4&nbsp;echo "First line is $firstline; second line is $secondline"  # 不能工作.
+  5&nbsp;
+  6&nbsp;# 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1759"
+HREF="special-chars.html#AEN1759"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>一个换行符(<SPAN
+CLASS="QUOTE"
+>"重起一行"</SPAN
+>)也被认为是空白符. 
+			这也就解释了为什么一个只包含换行符的<EM
+>空行</EM
+>也被认为是空白. </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="part2.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="variables.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>基本</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part2.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>变量和参数的介绍</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

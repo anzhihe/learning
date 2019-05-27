@@ -1,0 +1,663 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>/dev</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="/dev和/proc"
+HREF="devproc.html"><LINK
+REL="PREVIOUS"
+TITLE="/dev和/proc"
+HREF="devproc.html"><LINK
+REL="NEXT"
+TITLE="/proc"
+HREF="procref1.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="devproc.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>27. /dev和/proc</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="procref1.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="DEVREF1"
+>27.1. <TT
+CLASS="FILENAME"
+>/dev</TT
+></A
+></H1
+><P
+><TT
+CLASS="FILENAME"
+>/dev</TT
+>目录包含物理<EM
+>设备</EM
+>的条目, 
+	这些设备可能会以硬件的形式出现, 也可能不会. 
+	   <A
+NAME="AEN14826"
+HREF="#FTN.AEN14826"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+	   包含有挂载文件系统的硬驱动器分区, 
+	   在<TT
+CLASS="FILENAME"
+>/dev</TT
+>目录中都有对应的条目, 
+	就像<A
+HREF="system.html#DFREF"
+>df</A
+>命令所展示的那样. 
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>df</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Filesystem           1k-blocks      Used Available Use%
+ Mounted on
+ /dev/hda6               495876    222748    247527  48% /
+ /dev/hda1                50755      3887     44248   9% /boot
+ /dev/hda8               367013     13262    334803   4% /home
+ /dev/hda5              1714416   1123624    503704  70% /usr</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+><A
+NAME="LOOPBACKREF"
+></A
+>在其他方面, <TT
+CLASS="FILENAME"
+>/dev</TT
+>目录也包含<EM
+>环回</EM
+>设备, 
+	比如<TT
+CLASS="FILENAME"
+>/dev/loop0</TT
+>. 
+	一个环回设备就是一种机制, 可以让一般文件访问起来就像块设备那样. 
+
+	  <A
+NAME="AEN14844"
+HREF="#FTN.AEN14844"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+
+	这使得我们可以挂载一个完整的文件系统, 这个文件系统是在一个大文件中所创建的. 
+	参考<A
+HREF="system.html#CREATEFS"
+>例子 13-8</A
+>和<A
+HREF="system.html#ISOMOUNTREF"
+>例子 13-7</A
+>. </P
+><P
+><TT
+CLASS="FILENAME"
+>/dev</TT
+>中还有少量的伪设备用于其它特殊目的, 
+	 比如<A
+HREF="zeros.html#ZEROSREF"
+><TT
+CLASS="FILENAME"
+>/dev/null</TT
+></A
+>, <A
+HREF="zeros.html#ZEROSREF1"
+><TT
+CLASS="FILENAME"
+>/dev/zero</TT
+></A
+>, <A
+HREF="randomvar.html#URANDOMREF"
+><TT
+CLASS="FILENAME"
+>/dev/urandom</TT
+></A
+>,
+	 <TT
+CLASS="FILENAME"
+>/dev/sda1</TT
+>, <TT
+CLASS="FILENAME"
+>/dev/udp</TT
+>,
+	 和<TT
+CLASS="FILENAME"
+>/dev/tcp</TT
+>. </P
+><P
+>举个例子: </P
+><P
+>为了<A
+HREF="system.html#MOUNTREF"
+>挂载(mount)</A
+>一个USB闪存驱动器, 
+         将下边一行附加到<TT
+CLASS="FILENAME"
+>/etc/fstab</TT
+>中. 
+
+	      <A
+NAME="AEN14865"
+HREF="#FTN.AEN14865"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+>
+
+	   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;/dev/sda1    /mnt/flashdrive    auto    noauto,user,noatime    0 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+         (也请参考<A
+HREF="contributed-scripts.html#USBINST"
+>例子 A-24</A
+>.)</P
+><P
+><A
+NAME="SOCKETREF"
+></A
+></P
+><P
+>当在<TT
+CLASS="FILENAME"
+>/dev/tcp/$host/$port</TT
+>伪设备文件上执行一个命令的时候, 
+			Bash会打开一个TCP连接, 也就是打开相关的<EM
+>socket</EM
+>. 
+	    
+			<A
+NAME="AEN14880"
+HREF="#FTN.AEN14880"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+>
+
+	 </P
+><P
+>从<TT
+CLASS="FILENAME"
+>nist.gov</TT
+>上获取时间: </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cat &#60;/dev/tcp/time.nist.gov/13</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>53082 04-03-18 04:26:54 68 0 0 502.3 UTC(NIST) *</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>[Mark贡献了上面的例子.]</P
+><P
+>下载一个URL: </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>exec 5&#60;&#62;/dev/tcp/www.net.cn/80</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo -e "GET / HTTP/1.0\n" &#62;&#38;5</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cat &#60;&#38;5</KBD
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>[感谢, Mark和Mihai Maties.]</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="DEVTCP"
+></A
+><P
+><B
+>例子 27-1. 利用<TT
+CLASS="FILENAME"
+>/dev/tcp</TT
+>来检修故障</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# dev-tcp.sh: 利用/dev/tcp重定向来检查Internet连接. 
+  3&nbsp;
+  4&nbsp;# 本脚本由Troy Engel编写. 
+  5&nbsp;# 经过授权在本书中使用. 
+  6&nbsp; 
+  7&nbsp;TCP_HOST=www.dns-diy.com   # 一个已知的对垃圾邮件友好的ISP. 
+  8&nbsp;TCP_PORT=80                # 端口80是http. 
+  9&nbsp;  
+ 10&nbsp;# 尝试连接. (有些像'ping' . . .) 
+ 11&nbsp;echo "HEAD / HTTP/1.0" &#62;/dev/tcp/${TCP_HOST}/${TCP_PORT}
+ 12&nbsp;MYEXIT=$?
+ 13&nbsp;
+ 14&nbsp;: &#60;&#60;EXPLANATION
+ 15&nbsp;If bash was compiled with --enable-net-redirections, it has the capability of
+ 16&nbsp;using a special character device for both TCP and UDP redirections. These
+ 17&nbsp;redirections are used identically as STDIN/STDOUT/STDERR. The device entries
+ 18&nbsp;are 30,36 for /dev/tcp:
+ 19&nbsp;
+ 20&nbsp;  mknod /dev/tcp c 30 36
+ 21&nbsp;
+ 22&nbsp;&#62;From the bash reference:
+ 23&nbsp;/dev/tcp/host/port
+ 24&nbsp;    If host is a valid hostname or Internet address, and port is an integer
+ 25&nbsp;port number or service name, Bash attempts to open a TCP connection to the
+ 26&nbsp;corresponding socket.
+ 27&nbsp;EXPLANATION
+ 28&nbsp;
+ 29&nbsp;   
+ 30&nbsp;if [ "X$MYEXIT" = "X0" ]; then
+ 31&nbsp;  echo "Connection successful. Exit code: $MYEXIT"
+ 32&nbsp;else
+ 33&nbsp;  echo "Connection unsuccessful. Exit code: $MYEXIT"
+ 34&nbsp;fi
+ 35&nbsp;
+ 36&nbsp;exit $MYEXIT</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>译者注: 由于上边例子的输出大部分都是英文, 
+			所以译者补充一下脚本输出的译文. 
+		</P
+><P
+>如果bash以--enable-net-redirections选项来编译, 
+			那么它就拥有了使用一个特殊字符设备的能力, 
+			这个特殊字符设备用于TCP和UDP重定向. 
+			这种重定向的能力就像STDIN/STDOUT/STDERR一样被使用. 
+			该设备/dev/tcp的主次设备号是30, 36: 
+		</P
+><P
+>		<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;mknod /dev/tcp c 30 36</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+		</P
+><P
+>&#62;摘自bash参考手册: </P
+><P
+>/dev/tcp/host/port</P
+><P
+>如果host是一个有效的主机名或Internet地址, 
+			并且port是一个整数端口号或者是服务器名称, 
+			Bash将会打开一个TCP连接, 到相应的socket上. 
+		</P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN14826"
+HREF="devref1.html#AEN14826"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><TT
+CLASS="FILENAME"
+>/dev</TT
+>目录中的条目为各种物理设备和虚拟设备提供挂载点. 
+	     这些条目占用非常少的硬盘空间. </P
+><P
+>某些设备, 比如<TT
+CLASS="FILENAME"
+>/dev/null</TT
+>,
+	   <TT
+CLASS="FILENAME"
+>/dev/zero</TT
+>,
+	   和<TT
+CLASS="FILENAME"
+>/dev/urandom</TT
+>都是虚拟的. 
+	   它们都不是真实的物理设备, 它们仅仅存在于软件中. 
+	   </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN14844"
+HREF="devref1.html#AEN14844"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><EM
+>块设备</EM
+>都是以块为单位进行读写的, 
+	    与之相对应的<EM
+>字符设备</EM
+>都是以字符为单位进行访问的. 
+		典型的块设备比如硬盘和CD ROM驱动器. 
+		典型的字符设备例如键盘. 
+	</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN14865"
+HREF="devref1.html#AEN14865"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>当然, 挂载点<TT
+CLASS="FILENAME"
+>/mnt/flashdrive</TT
+>必须存在. 
+				  如果不存在, 
+				  请使用root用户来执行<B
+CLASS="COMMAND"
+>mkdir /mnt/flashdrive</B
+>. </P
+><P
+>为了能够真正的挂载驱动器, 请使用下面的命令: 
+	       <B
+CLASS="COMMAND"
+>mount /mnt/flashdrive</B
+></P
+><P
+>对于现在比较新的Linux发行版来说, 
+		   都会自动把闪存驱动器设备挂载到<TT
+CLASS="FILENAME"
+>/media</TT
+>目录上. </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN14880"
+HREF="devref1.html#AEN14880"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><EM
+>socket</EM
+>是一个通讯节点, 
+			这个通讯节点与一个特殊的I/O端口相关联. 
+	      它允许数据传输, 可以在同一台机器的不同硬件设备间传输, 
+		  可以在同一个网络中的不同主机之间传输, 
+		  可以在不同网络的不同主机间传输, 
+		  当然, 也可以在Internet上的不同地区之间的不同主机之间传输. 
+	      </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="devproc.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="procref1.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>/dev和/proc</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="devproc.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><TT
+CLASS="FILENAME"
+>/proc</TT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

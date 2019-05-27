@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{{system_name}}</title>
+<meta  name="keywords" content="{{system_name}} " />
+<link href="/static/css/common.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="/static/js/prototype.js"></script>
+<script language="javascript" charset="utf-8" src="/static/js/ymPrompt.js"></script>
+<link href="/static/css/skin/black/ymPrompt.css" rel="stylesheet" type="text/css">
+<script language="javascript" charset="utf-8" src="/static/js/bash.js"></script>
+</head>
+<body onload="hiddenDIV('operate');">
+<div id="systemWorking" style="z-index:100; position:absolute;display:none;left:40%;top:40%"><table width="250" height="20" border="0" cellpadding="0" cellspacing="1" ><tr><td align="center" valign="middle"><img src="/static/images/loading.gif" align=center></td></tr></table></div>
+<table class="top_bottom" cellpadding="3" cellspacing="1">
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center" width="35%"><div align="center"><font class="baner_font">OMServer</font>
+    </div></td>
+    <td align="left" width="65%">
+	<div class="select_border"> 
+	<div class="container">
+	  <select name="modules" id="modules" onChange="loadmoduleinfo(this.value)" class="select">
+        <option value="-1">正在加载...</option>
+      </select>
+	</div>
+	 </div>
+	</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+</table>
+
+<table width="200" height="64" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+<table height="500" width="500" border="0" align="center" cellpadding="3" cellspacing="0" id="maintables">
+ <form action="" method="get" name="systemForm">
+  <tr bgcolor="#eeeeee">
+  <td width="150" rowspan="3" valign="top" bgcolor="#eeeeee">
+
+  <table width="99%"  border="0" cellspacing="1" cellpadding="0">
+    <tr>
+      <td>
+	  <select name="serverclass" id="serverclass" onChange="submitleave2(this.value)" class="sys_server_select" size="8" multiple>
+	  	<option value="-1">正在加载...</option>
+      </select>
+	  </td>
+    </tr>
+    <tr>
+      <td>
+  
+	  <select name="serverAppclass" id="serverAppclass" onChange="submitleave3(this.value)" class="sys_server_select" size="8" multiple>
+	  <option value="-1">请选择应用类别</option>
+      </select>
+	  </td>
+    </tr>
+    <tr>
+      <td>
+	    <br>
+	    <select name="serverApplist" size="15" multiple class="sys_server_select" id="serverApplist" style="font-weight:bold; ">
+      </select>
+	  </td>
+    </tr>
+  </table>
+  
+  </td>
+  <td height="60" align="center" bgcolor="#eeeeee"><table width="95%"  border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="center">
+		<fieldset> 
+			<legend><span id="module_name"> ---模块操作区--- </span>[<img src='/static/images/02461211.gif' align='absmiddle' onmouseover="displayDIV('operate'); return false" onmouseout="hiddenDIV('operate'); return false">]
+			<div id="operate" style="filter:Alpha(opacity=90);display:none;position:absolute; top:155px; left:auto; width:400px;BORDER-RIGHT: 2px outset; BORDER-TOP: 1px outset; BACKGROUND: #eeeeee; BORDER-LEFT: 1px outset; BORDER-BOTTOM: 2px outset; text-align:left;"><table cellpadding="3" cellspacing="1"><tr><td id="module_caption"></td></tr></table></div>
+			</legend>
+			  <table width="90%" height="30"  border="0" cellpadding="3" cellspacing="0">
+    			<tr>
+			      <td width="50%"><div id="module_extend"></div></td>
+			      <td align="center">
+				  <input type="button" name="Submit_run" value="运  行" id="sys_run_button" onClick="return submitmodule();"> 
+				  <input type="button" name="Submit_ref" value="刷  屏" id="sys_run_button" onClick="javascript:$('placeholder').innerHTML ='';">
+				  <input type="button" name="Submit_add" value="添加模块" id="sys_add_button" onClick="javascript:window.location.href='/autoadmin/module_add/';">
+				  <input type="button" name="Submit_add" value="安全审计" id="sys_add_button" onClick="javascript:window.location.href='/omaudit/';">
+				  </td>
+    			</tr>
+			  </table>
+		</fieldset>  	  
+	  </td>
+    </tr>
+  </table>
+
+  </td>
+  </tr>
+  <tr>
+    <td height="1" valign="top" bgcolor="#eeeeee"></td>
+  </tr>
+  <tr>
+    <td valign="top" align="center" bgcolor="#eeeeee">
+	<table width="95%" border="0" cellspacing="3" cellpadding="0" bgcolor="#000000">
+	  <tr>
+    	<td align="left">
+		<font class="ajaxmodulerunresult">[user@omserver]# <img src='/static/images/cursor_f01.gif' align='absmiddle'></font><br>
+		<div class="ajaxmodulerunresult" id="placeholder" style="height:430px;OVERFLOW-y:auto;font-family: Verdana, Arial,Vrinda,Tahoma;"></div>	
+		</td>
+	  </tr>
+	</table>
+	</td>
+  </tr>
+  <input type="hidden" name="ModuleID" id="ModuleID" value="">
+  <input type="hidden" name="ModuleName" id="ModuleName" value="">
+  </form>
+</table>
+<br>
+<table class="down_bottom" cellpadding="3" cellspacing="1">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</body>
+ <script language="javascript">
+	submitleavel();
+	loadmodule();
+ </script>
+</html>

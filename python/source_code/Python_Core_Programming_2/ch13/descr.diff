@@ -1,0 +1,32 @@
+--- descr.py   2006-04-10 17:42:53.000000000 -0700
++++ descr-fix.py	2006-10-11 22:27:10.000000000 -0700
+@@ -6,7 +6,7 @@
+ class FileDescr(object):
+     saved = []
+ 
+-    def __init__(self, name=None):
++    def __init__(self, name):
+         self.name = name
+ 
+     def __get__(self, obj, typ=None):
+@@ -26,14 +26,13 @@
+                 "could not read %r: %s" % self.name
+ 
+     def __set__(self, obj, val):
+-        f = open(self.name, 'w')
+         try:
+-            try:
+-                pickle.dump(val, f)
+-                FileDescr.saved.append(self.name)
+-        except (TypeError, pickle.PicklingError), e:
+-                raise AttributeError, \
+-                    "could not pickle %r" % self.name
++            f = open(self.name, 'w')
++            pickle.dump(val, f)
++            FileDescr.saved.append(self.name)
++        except (IOError, TypeError, pickle.PicklingError), e:
++            raise AttributeError, \
++                "could not pickle %r" % self.name
+         finally:
+             f.close()
+ 

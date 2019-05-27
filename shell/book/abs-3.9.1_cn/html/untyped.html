@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Bash变量是不区分类型的</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="变量和参数的介绍"
+HREF="variables.html"><LINK
+REL="PREVIOUS"
+TITLE="变量赋值"
+HREF="varassignment.html"><LINK
+REL="NEXT"
+TITLE="特殊的变量类型"
+HREF="othertypesv.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="varassignment.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>4. 变量和参数的介绍</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="othertypesv.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="UNTYPED"
+>4.3. Bash变量是不区分类型的</A
+></H1
+><P
+><A
+NAME="BVUNTYPED"
+></A
+></P
+><P
+>不像其他程序语言一样, Bash并不对变量区分<SPAN
+CLASS="QUOTE"
+>"类型"</SPAN
+>. 
+		本质上, Bash变量都是字符串.
+		但是依赖于具体的上下文, Bash也允许比较操作和整数操作.
+		其中的关键因素就是, 变量中的值是否只有数字. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="INTORSTRING"
+></A
+><P
+><B
+>例子 4-4. 整型还是字符串?</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# int-or-string.sh: 整型还是字符串?
+  3&nbsp;
+  4&nbsp;a=2334                   # 整型.
+  5&nbsp;let "a += 1"
+  6&nbsp;echo "a = $a "           # a = 2335
+  7&nbsp;echo                     # 还是整型.
+  8&nbsp;
+  9&nbsp;
+ 10&nbsp;b=${a/23/BB}             # 将"23"替换成"BB".
+ 11&nbsp;                         # 这将把变量b从整型变为字符串.
+ 12&nbsp;echo "b = $b"            # b = BB35
+ 13&nbsp;declare -i b             # 即使使用declare命令也不会对此有任何帮助.
+ 14&nbsp;echo "b = $b"            # b = BB35
+ 15&nbsp;
+ 16&nbsp;let "b += 1"             # BB35 + 1 =
+ 17&nbsp;echo "b = $b"            # b = 1
+ 18&nbsp;echo
+ 19&nbsp;
+ 20&nbsp;c=BB34
+ 21&nbsp;echo "c = $c"            # c = BB34
+ 22&nbsp;d=${c/BB/23}             # 将"BB"替换成"23".
+ 23&nbsp;                         # 这使得变量$d变为一个整形.
+ 24&nbsp;echo "d = $d"            # d = 2334
+ 25&nbsp;let "d += 1"             # 2334 + 1 =
+ 26&nbsp;echo "d = $d"            # d = 2335
+ 27&nbsp;echo
+ 28&nbsp;
+ 29&nbsp;# null变量会如何呢?
+ 30&nbsp;e=""
+ 31&nbsp;echo "e = $e"            # e =
+ 32&nbsp;let "e += 1"             # 算术操作允许一个null变量?
+ 33&nbsp;echo "e = $e"            # e = 1
+ 34&nbsp;echo                     # null变量将被转换成一个整型变量.
+ 35&nbsp;
+ 36&nbsp;# 如果没有声明变量会怎样?
+ 37&nbsp;echo "f = $f"            # f =
+ 38&nbsp;let "f += 1"             # 算术操作能通过么?
+ 39&nbsp;echo "f = $f"            # f = 1
+ 40&nbsp;echo                     # 未声明的变量将转换成一个整型变量.
+ 41&nbsp;
+ 42&nbsp;
+ 43&nbsp;
+ 44&nbsp;# 所以说Bash中的变量都是不区分类型的.
+ 45&nbsp;
+ 46&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>不区分变量的类型既是幸运的事情也是悲惨的事情. 
+			它允许你在编写脚本的时候更加的灵活(但是也足够把你搞晕!), 
+			并且可以让你能够更容易的编写代码.
+			然而, 这也很容易产生错误, 并且让你养成糟糕的编程习惯.</P
+><P
+>这样的话, 程序员就承担了区分脚本中变量类型的责任. 
+        Bash是不会为你区分变量类型的. </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="varassignment.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="othertypesv.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>变量赋值</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="variables.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>特殊的变量类型</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
