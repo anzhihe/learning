@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>分析一个系统脚本</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="系统与管理命令"
+HREF="system.html"><LINK
+REL="PREVIOUS"
+TITLE="系统与管理命令"
+HREF="system.html"><LINK
+REL="NEXT"
+TITLE="命令替换"
+HREF="commandsub.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="system.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>13. 系统与管理命令</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="commandsub.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SYSSCRIPTS"
+>13.1. 分析一个系统脚本</A
+></H1
+><P
+><A
+NAME="KILLALL2REF"
+></A
+></P
+><P
+>利用我们所学到的关于管理命令的知识, 让我们一起来练习分析一个系统脚本. 
+			  最简单并且最短的系统脚本之一是<SPAN
+CLASS="QUOTE"
+>"killall"</SPAN
+>, 
+	   <A
+NAME="AEN13054"
+HREF="#FTN.AEN13054"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+	这个脚本被用来在系统关机时挂起运行的脚本. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX55"
+></A
+><P
+><B
+>例子 13-11. <B
+CLASS="COMMAND"
+>killall</B
+>, 来自于<TT
+CLASS="FILENAME"
+>/etc/rc.d/init.d</TT
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/sh
+  2&nbsp;
+  3&nbsp;# --&#62;  本书作者所做的注释全部以"# --&#62;"开头. 
+  4&nbsp;
+  5&nbsp;# --&#62; 这是由Miquel van Smoorenburg所编写的
+  6&nbsp;# --&#62; 'rc'脚本包的一部分, &#60;miquels@drinkel.nl.mugnet.org&#62;.
+  7&nbsp;
+  8&nbsp;# --&#62; 这个特殊的脚本看起来是Red Hat/FC专用的, 
+  9&nbsp;# --&#62; (在其它的发行版中可能不会出现). 
+ 10&nbsp;
+ 11&nbsp;#  停止所有正在运行的不必要的服务
+ 12&nbsp;#+ (不会有多少, 所以这是个合理性检查)
+ 13&nbsp;
+ 14&nbsp;for i in /var/lock/subsys/*; do
+ 15&nbsp;        # --&#62; 标准的for/in循环, 但是由于"do"在同一行上, 
+ 16&nbsp;        # --&#62; 所以必须添加";". 
+ 17&nbsp;        # 检查脚本是否在那里. 
+ 18&nbsp;        [ ! -f $i ] &#38;&#38; continue
+ 19&nbsp;        # --&#62; 这是一种使用"与列表"的聪明方法, 等价于: 
+ 20&nbsp;        # --&#62; if [ ! -f "$i" ]; then continue
+ 21&nbsp;
+ 22&nbsp;        # 取得子系统的名字. 
+ 23&nbsp;        subsys=${i#/var/lock/subsys/}
+ 24&nbsp;        # --&#62; 匹配变量名, 在这里就是文件名. 
+ 25&nbsp;        # --&#62; 与subsys=`basename $i`完全等价. 
+ 26&nbsp;	
+ 27&nbsp;        # --&#62;  从锁定文件名中获得
+ 28&nbsp;        # --&#62;+ (如果那里有锁定文件的话, 
+ 29&nbsp;        # --&#62;+ 那就证明进程正在运行). 
+ 30&nbsp;        # --&#62;  参考一下上边所讲的"锁定文件"的内容. 
+ 31&nbsp;
+ 32&nbsp;
+ 33&nbsp;        # 终止子系统. 
+ 34&nbsp;        if [ -f /etc/rc.d/init.d/$subsys.init ]; then
+ 35&nbsp;           /etc/rc.d/init.d/$subsys.init stop
+ 36&nbsp;        else
+ 37&nbsp;           /etc/rc.d/init.d/$subsys stop
+ 38&nbsp;        # --&#62;  挂起运行的作业和幽灵进程. 
+ 39&nbsp;        # --&#62;  注意"stop"只是一个位置参数, 
+ 40&nbsp;        # --&#62;+ 并不是shell内建命令. 
+ 41&nbsp;        fi
+ 42&nbsp;done</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>这个没有那么糟. 除了在变量匹配的地方玩了一点花样, 其它也没有别的材料了. </P
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>练习1. </B
+>在<TT
+CLASS="FILENAME"
+>/etc/rc.d/init.d</TT
+>中, 
+			分析<B
+CLASS="COMMAND"
+>halt</B
+>脚本. 
+			比脚本<B
+CLASS="COMMAND"
+>killall</B
+>长一些, 
+			但是概念上很相近. 对这个脚本做一个拷贝, 
+			放到你的home目录下并且用它练习一下, 
+			(<EM
+>不</EM
+>要以root身份运行它). 
+			使用<CODE
+CLASS="OPTION"
+>-vn</CODE
+>标志来模拟运行一下(<KBD
+CLASS="USERINPUT"
+>sh -vn scriptname</KBD
+>). 
+			添加详细的注释. 将<SPAN
+CLASS="QUOTE"
+>"action"</SPAN
+>命令修改为<SPAN
+CLASS="QUOTE"
+>"echo"</SPAN
+>. </P
+></DIV
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+>练习2. </B
+>察看<TT
+CLASS="FILENAME"
+>/etc/rc.d/init.d</TT
+>下的更多更复杂的脚本. 
+		  看看你是不是能够理解其中的一些脚本. 使用上边的过程来分析这些脚本. 为了更详细的理解, 你可能也需要分析在<TT
+CLASS="FILENAME"
+>/usr/share/doc/initscripts-?.??</TT
+>目录下的文件<TT
+CLASS="FILENAME"
+>sysvinitfiles</TT
+>, 
+			这些都是<SPAN
+CLASS="QUOTE"
+>"initscripts"</SPAN
+>文档的一部分. </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN13054"
+HREF="sysscripts.html#AEN13054"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>系统的<I
+CLASS="FIRSTTERM"
+>killall</I
+>脚本不应该与<TT
+CLASS="FILENAME"
+>/usr/bin</TT
+>中的<A
+HREF="x6756.html#KILLALLREF"
+>killall</A
+>命令相混淆. 
+	   </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="system.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="commandsub.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>系统与管理命令</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="system.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>命令替换</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

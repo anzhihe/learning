@@ -1,0 +1,644 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>I/O重定向</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="进阶"
+HREF="part3.html"><LINK
+REL="PREVIOUS"
+TITLE="算术扩展"
+HREF="arithexp.html"><LINK
+REL="NEXT"
+TITLE="使用exec"
+HREF="x13380.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="arithexp.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x13380.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="IO-REDIRECTION"
+></A
+>16. I/O重定向</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>目录</B
+></DT
+><DT
+>16.1. <A
+HREF="x13380.html"
+>使用<B
+CLASS="COMMAND"
+>exec</B
+></A
+></DT
+><DT
+>16.2. <A
+HREF="redircb.html"
+>代码块重定向</A
+></DT
+><DT
+>16.3. <A
+HREF="redirapps.html"
+>重定向的应用</A
+></DT
+></DL
+></DIV
+><P
+><A
+NAME="IOREDIRREF"
+></A
+></P
+><P
+>默认情况下始终有3个<SPAN
+CLASS="QUOTE"
+>"文件"</SPAN
+>处于打开状态, 
+	<TT
+CLASS="FILENAME"
+>stdin</TT
+>(键盘),
+	<TT
+CLASS="FILENAME"
+>stdout</TT
+>(屏幕), 
+	和<TT
+CLASS="FILENAME"
+>stderr</TT
+>(错误消息输出到屏幕上). 
+	这3个文件和其他打开的文件都可以被重定向. 
+	对于重定向简单的解释就是捕捉一个文件, 命令, 
+	程序, 脚本, 或者是脚本中的代码块(请参考<A
+HREF="special-chars.html#EX8"
+>例子 3-1</A
+>和<A
+HREF="special-chars.html#RPMCHECK"
+>例子 3-2</A
+>)的输出, 
+			然后将这些输出作为输入发送到另一个文件, 命令, 程序, 或脚本中. 
+	</P
+><P
+><A
+NAME="FDREF"
+></A
+>每个打开的文件都会被分配一个文件描述符. 
+
+               <A
+NAME="AEN13310"
+HREF="#FTN.AEN13310"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+
+	<TT
+CLASS="FILENAME"
+>stdin</TT
+>, <TT
+CLASS="FILENAME"
+>stdout</TT
+>, 
+	和<TT
+CLASS="FILENAME"
+>stderr</TT
+>的文件描述符分别是0, 1, 和 2. 
+	除了这3个文件, 对于其他那些需要打开的文件, 保留了文件描述符3到9. 
+	在某些情况下, 将这些额外的文件描述符分配给<TT
+CLASS="FILENAME"
+>stdin</TT
+>, 
+	<TT
+CLASS="FILENAME"
+>stdout</TT
+>, 或<TT
+CLASS="FILENAME"
+>stderr</TT
+>作为临时的副本链接是非常有用的. 
+		<A
+NAME="AEN13320"
+HREF="#FTN.AEN13320"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+	在经过复杂的重定向和刷新之后需要把它们恢复成正常状态(请参考<A
+HREF="x13380.html#REDIR1"
+>例子 16-1</A
+>). </P
+><P
+><A
+NAME="IOREDIRECTIONREF"
+></A
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;   COMMAND_OUTPUT &#62;
+  2&nbsp;      # 将stdout重定向到一个文件. 
+  3&nbsp;      # 如果这个文件不存在, 那就创建, 否则就覆盖. 
+  4&nbsp;
+  5&nbsp;      ls -lR &#62; dir-tree.list
+  6&nbsp;      # 创建一个包含目录树列表的文件. 
+  7&nbsp;
+  8&nbsp;   : &#62; filename
+  9&nbsp;      # &#62;操作, 将会把文件"filename"变为一个空文件(就是size为0). 
+ 10&nbsp;      # 如果文件不存在, 那么就创建一个0长度的文件(与'touch'的效果相同). 
+ 11&nbsp;      # :是一个占位符, 不产生任何输出. 
+ 12&nbsp;
+ 13&nbsp;   &#62; filename    
+ 14&nbsp;      # &#62;操作, 将会把文件"filename"变为一个空文件(就是size为0). 
+ 15&nbsp;      # 如果文件不存在, 那么就创建一个0长度的文件(与'touch'的效果相同). 
+ 16&nbsp;      # (与上边的": &#62;"效果相同, 但是某些shell可能不支持这种形式.)
+ 17&nbsp;
+ 18&nbsp;   COMMAND_OUTPUT &#62;&#62;
+ 19&nbsp;      # 将stdout重定向到一个文件. 
+ 20&nbsp;      # 如果文件不存在, 那么就创建它, 如果存在, 那么就追加到文件后边. 
+ 21&nbsp;
+ 22&nbsp;
+ 23&nbsp;      # 单行重定向命令(只会影响它们所在的行): 
+ 24&nbsp;      # --------------------------------------------------------------------
+ 25&nbsp;
+ 26&nbsp;   1&#62;filename
+ 27&nbsp;      # 重定向stdout到文件"filename". 
+ 28&nbsp;   1&#62;&#62;filename
+ 29&nbsp;      # 重定向并追加stdout到文件"filename". 
+ 30&nbsp;   2&#62;filename
+ 31&nbsp;      # 重定向stderr到文件"filename". 
+ 32&nbsp;   2&#62;&#62;filename
+ 33&nbsp;      # 重定向并追加stderr到文件"filename". 
+ 34&nbsp;   &#38;&#62;filename
+ 35&nbsp;      # 将stdout和stderr都重定向到文件"filename". 
+ 36&nbsp;
+ 37&nbsp;   M&#62;N
+ 38&nbsp;     # "M"是一个文件描述符, 如果没有明确指定的话默认为1. 
+ 39&nbsp;     # "N"是一个文件名. 
+ 40&nbsp;     # 文件描述符"M"被重定向到文件"N". 
+ 41&nbsp;   M&#62;&#38;N
+ 42&nbsp;     # "M"是一个文件描述符, 如果没有明确指定的话默认为1. 
+ 43&nbsp;     # "N"是另一个文件描述符. 
+ 44&nbsp;
+ 45&nbsp;      #==============================================================================
+ 46&nbsp;
+ 47&nbsp;      # 重定向stdout, 一次一行. 
+ 48&nbsp;      LOGFILE=script.log
+ 49&nbsp;
+ 50&nbsp;      echo "This statement is sent to the log file, \"$LOGFILE\"." 1&#62;$LOGFILE
+ 51&nbsp;      echo "This statement is appended to \"$LOGFILE\"." 1&#62;&#62;$LOGFILE
+ 52&nbsp;      echo "This statement is also appended to \"$LOGFILE\"." 1&#62;&#62;$LOGFILE
+ 53&nbsp;      echo "This statement is echoed to stdout, and will not appear in \"$LOGFILE\"."
+ 54&nbsp;      # 每行过后, 这些重定向命令会自动"reset". 
+ 55&nbsp;
+ 56&nbsp;
+ 57&nbsp;
+ 58&nbsp;      # 重定向stderr, 一次一行. 
+ 59&nbsp;      ERRORFILE=script.errors
+ 60&nbsp;
+ 61&nbsp;      bad_command1 2&#62;$ERRORFILE       #  Error message sent to $ERRORFILE.
+ 62&nbsp;      bad_command2 2&#62;&#62;$ERRORFILE      #  Error message appended to $ERRORFILE.
+ 63&nbsp;      bad_command3                    #  Error message echoed to stderr,
+ 64&nbsp;                                      #+ and does not appear in $ERRORFILE.
+ 65&nbsp;      # 每行过后, 这些重定向命令也会自动"reset". 
+ 66&nbsp;      #==============================================================================
+ 67&nbsp;
+ 68&nbsp;
+ 69&nbsp;
+ 70&nbsp;   2&#62;&#38;1
+ 71&nbsp;      # 重定向stderr到stdout. 
+ 72&nbsp;      # 将错误消息的输出, 发送到与标准输出所指向的地方. 
+ 73&nbsp;
+ 74&nbsp;   i&#62;&#38;j
+ 75&nbsp;      # 重定向文件描述符<EM
+>i</EM
+>到<EM
+>j</EM
+>. 
+ 76&nbsp;      # 指向<EM
+>i</EM
+>文件的所有输出都发送到<EM
+>j</EM
+>. 
+ 77&nbsp;
+ 78&nbsp;   &#62;&#38;j
+ 79&nbsp;      # 默认的, 重定向文件描述符<EM
+>1</EM
+>(stdout)到<EM
+>j</EM
+>. 
+ 80&nbsp;      # 所有传递到stdout的输出都送到<EM
+>j</EM
+>中去. 
+ 81&nbsp;
+ 82&nbsp;   0&#60; FILENAME
+ 83&nbsp;    &#60; FILENAME
+ 84&nbsp;      # 从文件中接受输入. 
+ 85&nbsp;      # 与<SPAN
+CLASS="QUOTE"
+>"&#62;"</SPAN
+>是成对命令, 并且通常都是结合使用. 
+ 86&nbsp;      #
+ 87&nbsp;      # grep search-word &#60;filename
+ 88&nbsp;
+ 89&nbsp;
+ 90&nbsp;   [j]&#60;&#62;filename
+ 91&nbsp;      # 为了读写"filename", 把文件"filename"打开, 并且将文件描述符"j"分配给它. 
+ 92&nbsp;      # 如果文件"filename"不存在, 那么就创建它. 
+ 93&nbsp;      # 如果文件描述符"j"没指定, 那默认是fd 0, stdin. 
+ 94&nbsp;      #
+ 95&nbsp;      # 这种应用通常是为了写到一个文件中指定的地方. 
+ 96&nbsp;      echo 1234567890 &#62; File    # 写字符串到"File". 
+ 97&nbsp;      exec 3&#60;&#62; File             # 打开"File"并且将fd 3分配给它. 
+ 98&nbsp;      read -n 4 &#60;&#38;3             # 只读取4个字符. 
+ 99&nbsp;      echo -n . &#62;&#38;3             # 写一个小数点. 
+100&nbsp;      exec 3&#62;&#38;-                 # 关闭fd 3.
+101&nbsp;      cat File                  # ==&#62; 1234.67890
+102&nbsp;      # 随机访问. 
+103&nbsp;
+104&nbsp;
+105&nbsp;
+106&nbsp;   |
+107&nbsp;      # 管道. 
+108&nbsp;      # 通用目的处理和命令链工具. 
+109&nbsp;      # 与<SPAN
+CLASS="QUOTE"
+>"&#62;"</SPAN
+>, 很相似, 但是实际上更通用. 
+110&nbsp;      # 对于想将命令, 脚本, 文件和程序串连起来的时候很有用. 
+111&nbsp;      cat *.txt | sort | uniq &#62; result-file
+112&nbsp;      # 对所有.txt文件的输出进行排序, 并且删除重复行. 
+113&nbsp;      # 最后将结果保存到<SPAN
+CLASS="QUOTE"
+>"result-file"</SPAN
+>中. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>可以将输入输出重定向和(或)管道的多个实例结合到一起写在同一行上. 
+
+       <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;command &#60; input-file &#62; output-file
+  2&nbsp;
+  3&nbsp;command1 | command2 | command3 &#62; output-file</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+        请参考<A
+HREF="filearchiv.html#DERPM"
+>例子 12-28</A
+>和<A
+HREF="contributed-scripts.html#FIFO"
+>例子 A-15</A
+>. </P
+><P
+>可以将多个输出流重定向到一个文件上. 
+
+         <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;ls -yz &#62;&#62; command.log 2&#62;&#38;1
+  2&nbsp;#  将错误选项"yz"的结果放到文件"command.log"中. 
+  3&nbsp;#  因为stderr被重定向到这个文件中, 
+  4&nbsp;#+ 所有的错误消息也就都指向那里了. 
+  5&nbsp;
+  6&nbsp;#   注意, 下边这个例子就不会给出相同的结果. 
+  7&nbsp;ls -yz 2&#62;&#38;1 &#62;&#62; command.log
+  8&nbsp;#  输出一个错误消息, 但是并不写到文件中. 
+  9&nbsp;
+ 10&nbsp;#  如果将stdout和stderr都重定向, 
+ 11&nbsp;#+ 命令的顺序会有些不同. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="CFD"
+></A
+>关闭文件描述符</B
+></P
+><DL
+><DT
+><SPAN
+CLASS="TOKEN"
+>n&#60;&#38;-</SPAN
+></DT
+><DD
+><P
+>关闭输入文件描述符<TT
+CLASS="REPLACEABLE"
+><I
+>n</I
+></TT
+>. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>0&#60;&#38;-</SPAN
+>, <SPAN
+CLASS="TOKEN"
+>&#60;&#38;-</SPAN
+></DT
+><DD
+><P
+>关闭<TT
+CLASS="FILENAME"
+>stdin</TT
+>. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>n&#62;&#38;-</SPAN
+></DT
+><DD
+><P
+>关闭输出文件描述符<TT
+CLASS="REPLACEABLE"
+><I
+>n</I
+></TT
+>. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>1&#62;&#38;-</SPAN
+>, <SPAN
+CLASS="TOKEN"
+>&#62;&#38;-</SPAN
+></DT
+><DD
+><P
+>关闭<TT
+CLASS="FILENAME"
+>stdout</TT
+>. </P
+></DD
+></DL
+></DIV
+><P
+>子进程继承了打开的文件描述符. 这就是为什么管道可以工作. 
+		  如果想阻止fd被继承, 那么可以关掉它. 
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 只将stderr重定到一个管道. 
+  2&nbsp;
+  3&nbsp;exec 3&#62;&#38;1                              # 保存当前stdout的"值". 
+  4&nbsp;ls -l 2&#62;&#38;1 &#62;&#38;3 3&#62;&#38;- | grep bad 3&#62;&#38;-    # 对'grep'关闭fd 3(但不关闭'ls'). 
+  5&nbsp;#              ^^^^   ^^^^
+  6&nbsp;exec 3&#62;&#38;-                              # 对于剩余的脚本来说, 关闭它. 
+  7&nbsp;
+  8&nbsp;# 感谢, S.C. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>如果想了解关于I/O重定向更多的细节, 请参考<A
+HREF="ioredirintro.html"
+>Appendix E</A
+>. </P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN13310"
+HREF="io-redirection.html#AEN13310"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>一个<EM
+>文件描述符</EM
+>说白了就是文件系统为了跟踪这个打开的文件而分配给它的一个数字. 
+			也可以的将其理解为文件指针的一个简单版本. 
+		 与C语言中<EM
+>文件句柄</EM
+>的概念很相似. </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN13320"
+HREF="io-redirection.html#AEN13320"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>使用<TT
+CLASS="REPLACEABLE"
+><I
+>文件描述符5</I
+></TT
+>可能会引起问题. 
+		当Bash使用<A
+HREF="internal.html#EXECREF"
+>exec</A
+>创建一个子进程的时候, 
+		子进程会继承fd5(参考Chet Ramey的归档e-mail, 
+		<A
+HREF="http://www.geocrawler.com/archives/3/342/1996/1/0/1939805/"
+TARGET="_top"
+>	       SUBJECT: RE:  File descriptor 5 is held open</A
+>).
+	       最好还是不要去招惹这个特定的fd. </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="arithexp.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x13380.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>算术扩展</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part3.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>使用<B
+CLASS="COMMAND"
+>exec</B
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

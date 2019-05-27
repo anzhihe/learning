@@ -1,0 +1,522 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>通配(globbing)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="正则表达式"
+HREF="regexp.html"><LINK
+REL="PREVIOUS"
+TITLE="一份简要的正则表达式介绍"
+HREF="x13673.html"><LINK
+REL="NEXT"
+TITLE="子shell"
+HREF="subshells.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x13673.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>19. 正则表达式</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="subshells.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="GLOBBINGREF"
+>19.2. 通配(globbing)</A
+></H1
+><P
+>Bash本身并不会识别正则表达式. 
+		在脚本中, 使用RE的是命令和工具 -- 
+		比如<A
+HREF="sedawk.html#SEDREF"
+>sed</A
+>和<A
+HREF="awk.html#AWKREF"
+>awk</A
+> -- 这些工具能够解释RE. </P
+><P
+>Bash<EM
+>仅仅</EM
+>做的一件事是<I
+CLASS="FIRSTTERM"
+>文件名扩展</I
+>(译者注: 
+		作者在前面使用的名词是filename globbing, 这里又使用filename expansion, 
+		造成术语不统一, 希望读者不要产生误解.)
+
+	    <A
+NAME="AEN14088"
+HREF="#FTN.AEN14088"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+	  
+		-- 这就是所谓的<I
+CLASS="FIRSTTERM"
+>通配(globbing)</I
+> -- 
+		但是这里所使用的并<EM
+>不是</EM
+>标准的RE, 而是使用通配符. 
+		通配(globbing)解释标准通配符, 
+		<SPAN
+CLASS="TOKEN"
+>*</SPAN
+>, <SPAN
+CLASS="TOKEN"
+>?</SPAN
+>, 中括号扩起来的字符, 
+		还有其他一些特殊字符(比如<SPAN
+CLASS="TOKEN"
+>^</SPAN
+>用来表示取反匹配). 
+		然而通配(globbing)所使用的通配符有很大的局限性. 
+		包含<TT
+CLASS="REPLACEABLE"
+><I
+>*</I
+></TT
+>的字符串不能匹配以<SPAN
+CLASS="QUOTE"
+>"点"</SPAN
+>开头的文件, 
+	  比如, <TT
+CLASS="FILENAME"
+>.bashrc</TT
+>. 
+
+	    <A
+NAME="AEN14102"
+HREF="#FTN.AEN14102"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+	  
+		另外, RE中所使用的<TT
+CLASS="REPLACEABLE"
+><I
+>?</I
+></TT
+>, 
+		与通配(globbing)中所使用的<TT
+CLASS="REPLACEABLE"
+><I
+>?</I
+></TT
+>, 含义并不相同. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -l</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 2
+ -rw-rw-r--    1 bozo  bozo         0 Aug  6 18:42 a.1
+ -rw-rw-r--    1 bozo  bozo         0 Aug  6 18:42 b.1
+ -rw-rw-r--    1 bozo  bozo         0 Aug  6 18:42 c.1
+ -rw-rw-r--    1 bozo  bozo       466 Aug  6 17:48 t2.sh
+ -rw-rw-r--    1 bozo  bozo       758 Jul 30 09:02 test1.txt</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -l t?.sh</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-rw-r--    1 bozo  bozo       466 Aug  6 17:48 t2.sh</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -l [ab]*</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-rw-r--    1 bozo  bozo         0 Aug  6 18:42 a.1
+ -rw-rw-r--    1 bozo  bozo         0 Aug  6 18:42 b.1</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -l [a-c]*</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-rw-r--    1 bozo  bozo         0 Aug  6 18:42 a.1
+ -rw-rw-r--    1 bozo  bozo         0 Aug  6 18:42 b.1
+ -rw-rw-r--    1 bozo  bozo         0 Aug  6 18:42 c.1</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -l [^ab]*</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-rw-r--    1 bozo  bozo         0 Aug  6 18:42 c.1
+ -rw-rw-r--    1 bozo  bozo       466 Aug  6 17:48 t2.sh
+ -rw-rw-r--    1 bozo  bozo       758 Jul 30 09:02 test1.txt</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -l {b*,c*,*est*}</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-rw-r--    1 bozo  bozo         0 Aug  6 18:42 b.1
+ -rw-rw-r--    1 bozo  bozo         0 Aug  6 18:42 c.1
+ -rw-rw-r--    1 bozo  bozo       758 Jul 30 09:02 test1.txt</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><P
+>Bash只能对未用引号引用起来的命令行参数进行文件名扩展. 
+	    <A
+HREF="internal.html#ECHOREF"
+>echo</A
+>命令可以印证这一点. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo *</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>a.1 b.1 c.1 t2.sh test1.txt</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo t*</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>t2.sh test1.txt</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	   </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Bash在通配(globbing)中解释特殊字符的行为是可以修改的. 
+	    <B
+CLASS="COMMAND"
+>set -f</B
+>命令可以禁用通配(globbing), 
+	    而且<A
+HREF="internal.html#SHOPTREF"
+>shopt</A
+>命令的选项<CODE
+CLASS="OPTION"
+>nocaseglob</CODE
+>和<CODE
+CLASS="OPTION"
+>nullglob</CODE
+>可以修改通配(globbing)的行为. 
+	    </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>请参考<A
+HREF="loops1.html#LISTGLOB"
+>例子 10-4</A
+>. </P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN14088"
+HREF="globbingref.html#AEN14088"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><I
+CLASS="FIRSTTERM"
+>文件名扩展</I
+>意味着扩展包含有特殊字符的文件名模式或模版. 
+	    比如, <TT
+CLASS="FILENAME"
+>example.???</TT
+>可能会被扩展成<TT
+CLASS="FILENAME"
+>example.001</TT
+>或(和)<TT
+CLASS="FILENAME"
+>example.txt</TT
+>. </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN14102"
+HREF="globbingref.html#AEN14102"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>			文件名扩展<EM
+>能够</EM
+>匹配以<SPAN
+CLASS="QUOTE"
+>"点"</SPAN
+>开头的文件, 
+			但是, 你必须在模式字符串中明确的写上<SPAN
+CLASS="QUOTE"
+>"点"</SPAN
+>(.), 才能够扩展. 
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;~/[.]bashrc    #  不能扩展成~/.bashrc
+  2&nbsp;~/?bashrc      #  也不能扩展. 
+  3&nbsp;               #  通配(globbing)中所使用的通配符
+  4&nbsp;               #+ 和匹配字符串"不能"扩展"点". 
+  5&nbsp;
+  6&nbsp;~/.[b]ashrc    #  可以扩展成~/.bashrc
+  7&nbsp;~/.ba?hrc      #  也可以扩展.
+  8&nbsp;~/.bashr*      #  也可以扩展.
+  9&nbsp;
+ 10&nbsp;# 可以设置"dotglob"选项, 把这个特性关闭. 
+ 11&nbsp;
+ 12&nbsp;# 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x13673.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="subshells.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>一份简要的正则表达式介绍</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="regexp.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>子shell</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

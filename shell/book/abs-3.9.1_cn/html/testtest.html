@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>检测你对测试知识的掌握情况</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="条件判断"
+HREF="tests.html"><LINK
+REL="PREVIOUS"
+TITLE="嵌套的if/then条件测试"
+HREF="nestedifthen.html"><LINK
+REL="NEXT"
+TITLE="操作符与相关主题"
+HREF="operations.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="nestedifthen.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>7. 条件判断</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="operations.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="TESTTEST"
+>7.5. 检测你对测试知识的掌握情况</A
+></H1
+><P
+>系统范围的<TT
+CLASS="FILENAME"
+>xinitrc</TT
+>文件可以用来启动X server. 
+			这个文件包含了相当多的<EM
+>if/then</EM
+>条件测试, 
+			下面是这个文件的部分节选. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if [ -f $HOME/.Xclients ]; then
+  2&nbsp;  exec $HOME/.Xclients
+  3&nbsp;elif [ -f /etc/X11/xinit/Xclients ]; then
+  4&nbsp;  exec /etc/X11/xinit/Xclients
+  5&nbsp;else
+  6&nbsp;     # 失败后的安全设置. 虽然我们永远都不会走到这来.
+  7&nbsp;     # (我们在Xclients中也提供了相同的机制) 保证它不会被破坏.
+  8&nbsp;     xclock -geometry 100x100-5+5 &#38;
+  9&nbsp;     xterm -geometry 80x50-50+150 &#38;
+ 10&nbsp;     if [ -f /usr/bin/netscape -a -f /usr/share/doc/HTML/index.html ]; then
+ 11&nbsp;             netscape /usr/share/doc/HTML/index.html &#38;
+ 12&nbsp;     fi
+ 13&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>解释上边节选中<SPAN
+CLASS="QUOTE"
+>"条件测试"</SPAN
+>结构中的内容, 
+       然后检查整个文件, <TT
+CLASS="FILENAME"
+>/etc/X11/xinit/xinitrc</TT
+>,
+	   并且分析其中的<EM
+>if/then</EM
+>测试结构. 
+	   你可能需要查阅一下后边讲解的知识, 比如说<A
+HREF="textproc.html#GREPREF"
+>grep</A
+>, <A
+HREF="sedawk.html#SEDREF"
+>sed</A
+>,
+       和<A
+HREF="regexp.html#REGEXREF"
+>正则表达式</A
+>.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="nestedifthen.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="operations.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>嵌套的if/then条件测试</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="tests.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>操作符与相关主题</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

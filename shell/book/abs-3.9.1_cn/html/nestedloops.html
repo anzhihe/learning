@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>嵌套循环</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="循环与分支"
+HREF="loops.html"><LINK
+REL="PREVIOUS"
+TITLE="循环"
+HREF="loops1.html"><LINK
+REL="NEXT"
+TITLE="循环控制"
+HREF="loopcontrol.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="loops1.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>10. 循环与分支</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="loopcontrol.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="NESTEDLOOPS"
+>10.2. 嵌套循环</A
+></H1
+><P
+><I
+CLASS="FIRSTTERM"
+>嵌套循环</I
+>就是在一个循环中还有一个循环, 
+	  内部循环在外部循环体中. 在外部循环的每次执行过程中都会触发内部循环, 
+	  直到内部循环执行结束. 外部循环执行了多少次, 内部循环就完成多少次.
+	  当然, 无论是内部循环还是外部循环的<I
+CLASS="FIRSTTERM"
+>break</I
+>语句都会打断处理过程. 
+	  </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="NESTEDLOOP"
+></A
+><P
+><B
+>例子 10-19. 嵌套循环</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# nested-loop.sh: 嵌套的"for"循环. 
+  3&nbsp;
+  4&nbsp;outer=1             # 设置外部循环计数.
+  5&nbsp;
+  6&nbsp;# 开始外部循环.
+  7&nbsp;for a in 1 2 3 4 5
+  8&nbsp;do
+  9&nbsp;  echo "Pass $outer in outer loop."
+ 10&nbsp;  echo "---------------------"
+ 11&nbsp;  inner=1           # 重置内部循环计数.
+ 12&nbsp;
+ 13&nbsp;  # ===============================================
+ 14&nbsp;  # 开始内部循环.
+ 15&nbsp;  for b in 1 2 3 4 5
+ 16&nbsp;  do
+ 17&nbsp;    echo "Pass $inner in inner loop."
+ 18&nbsp;    let "inner+=1"  # 增加内部循环计数.
+ 19&nbsp;  done
+ 20&nbsp;  # 内部循环结束.
+ 21&nbsp;  # ===============================================
+ 22&nbsp;
+ 23&nbsp;  let "outer+=1"    # 增加外部循环的计数.
+ 24&nbsp;  echo              # 每次外部循环之间的间隔.
+ 25&nbsp;done               
+ 26&nbsp;# 外部循环结束.
+ 27&nbsp;
+ 28&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>关于嵌套的<A
+HREF="loops1.html#WHILELOOPREF"
+>while循环</A
+>请参考<A
+HREF="arrays.html#BUBBLE"
+>例子 26-11</A
+>, 
+			关于while循环中嵌套<A
+HREF="loops1.html#UNTILLOOPREF"
+>until循环</A
+>的例子请参考<A
+HREF="arrays.html#EX68"
+>例子 26-13</A
+>. </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="loops1.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="loopcontrol.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>循环</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="loops.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>循环控制</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

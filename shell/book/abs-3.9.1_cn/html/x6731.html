@@ -1,0 +1,1200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>作业控制命令</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="内部命令与内建命令"
+HREF="internal.html"><LINK
+REL="PREVIOUS"
+TITLE="内部命令与内建命令"
+HREF="internal.html"><LINK
+REL="NEXT"
+TITLE="外部过滤器, 程序和命令"
+HREF="external.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="internal.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>11. 内部命令与内建命令</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="external.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN6731"
+>11.1. 作业控制命令</A
+></H1
+><P
+>下边的作业控制命令需要一个<SPAN
+CLASS="QUOTE"
+>"作业标识符"</SPAN
+>作为参数. 
+		请参考本章结尾部分的<A
+HREF="x6731.html#JOBIDTABLE"
+>表格</A
+>. </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>jobs</B
+></DT
+><DD
+><P
+>在后台列出所有正在运行的作业, 给出作业号.
+		并不象<B
+CLASS="COMMAND"
+>ps</B
+>命令那么有用.</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><EM
+>作业</EM
+>和<EM
+>进程</EM
+>的概念太容易混淆了. 
+					 特定的<A
+HREF="internal.html#BUILTINREF"
+>内建命令</A
+>, 
+					 比如<B
+CLASS="COMMAND"
+>kill</B
+>, <B
+CLASS="COMMAND"
+>disown</B
+>, 
+					 和<B
+CLASS="COMMAND"
+>wait</B
+>命令即可以接受作业号为参数,
+					也可以接受进程号为参数. 
+					但是<B
+CLASS="COMMAND"
+>fg</B
+>, 
+					<B
+CLASS="COMMAND"
+>bg</B
+>和<B
+CLASS="COMMAND"
+>jobs</B
+>命令就只能接受作业号为参数. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>sleep 100 &#38;</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>[1] 1384</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash $ </SAMP
+><KBD
+CLASS="USERINPUT"
+>jobs</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>[1]+  Running                 sleep 100 &#38;</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><P
+><SPAN
+CLASS="QUOTE"
+>"1"</SPAN
+>是作业号(作业是被当前shell所维护的), 
+			  而<SPAN
+CLASS="QUOTE"
+>"1384"</SPAN
+>是进程号(进程是被系统维护的). 
+			  为了kill掉作业/进程, 或者使用<B
+CLASS="COMMAND"
+>kill
+		%1</B
+>或者使用<B
+CLASS="COMMAND"
+>kill 1384</B
+>. 这两个命令都行.</P
+><P
+><EM
+>感谢, S.C.</EM
+></P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>disown</B
+></DT
+><DD
+><P
+>从shell的激活作业表中删除作业. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>fg</B
+>, <B
+CLASS="COMMAND"
+>bg</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>fg</B
+>命令可以把一个在后台运行的作业放到前台来运行. 
+			而<B
+CLASS="COMMAND"
+>bg</B
+>命令将会重新启动一个挂起的作业, 
+		   并且在后台运行它.
+		   如果使用<B
+CLASS="COMMAND"
+>fg</B
+>或者<B
+CLASS="COMMAND"
+>bg</B
+>命令的时候没有指定作业号, 
+	      那么默认将对当前正在运行的作业进行操作. </P
+></DD
+><DT
+><A
+NAME="WAITREF"
+></A
+><B
+CLASS="COMMAND"
+>wait</B
+></DT
+><DD
+><P
+>停止脚本的运行, 
+				直到后台运行的所有作业都结束为止, 或者如果传递了作业号或进程号为参数的话, 
+				那么就直到指定作业结束为止. 
+	        返回等待命令的<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>. </P
+><P
+>你可以使用<B
+CLASS="COMMAND"
+>wait</B
+>命令来防止在后台作业没完成(这会产生一个孤儿进程)之前退出脚本. 
+		</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX39"
+></A
+><P
+><B
+>例子 11-25. 在继续处理之前, 等待一个进程的结束</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/bash
+
+ROOT_UID=0   # 只有$UID为0的用户才拥有root权限.
+E_NOTROOT=65
+E_NOPARAMS=66
+
+if [ "$UID" -ne "$ROOT_UID" ]
+then
+  echo "Must be root to run this script."
+  # "Run along kid, it's past your bedtime."
+  exit $E_NOTROOT
+fi  
+
+if [ -z "$1" ]
+then
+  echo "Usage: `basename $0` find-string"
+  exit $E_NOPARAMS
+fi
+
+
+echo "Updating 'locate' database..."
+echo "This may take a while."
+updatedb /usr &#38;     # 必须使用root身份来运行.
+
+wait
+# 将不会继续向下运行, 除非'updatedb'命令执行完成.
+# 你希望在查找文件名之前更新database.
+
+locate $1
+
+#  如果没有'wait'命令的话, 而且在比较糟的情况下,
+#+ 脚本可能在'updatedb'命令还在运行的时候退出,
+#+ 这将会导致'updatedb'成为一个孤儿进程.
+
+exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>可选的, <B
+CLASS="COMMAND"
+>wait</B
+>也可以接受一个作业标识符作为参数, 
+			  比如, <B
+CLASS="COMMAND"
+>wait%1</B
+>或者<B
+CLASS="COMMAND"
+>wait $PPID</B
+>. 
+			  请参考<A
+HREF="x6731.html#JOBIDTABLE"
+>作业标识符表</A
+>.</P
+><P
+><A
+NAME="WAITHANG"
+></A
+></P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在一个脚本中, 使用后台运行命令(&#38;)可能会使这个脚本挂起, 
+			  直到敲<B
+CLASS="KEYCAP"
+>ENTER</B
+>, 挂起的脚本才会被恢复. 
+			  看起来只有在这个命令的结果需要输出到<TT
+CLASS="FILENAME"
+>stdout</TT
+>的时候, 
+			  这种现象才会出现. 这是个很烦人的现象.
+		  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/bash
+# test.sh		  
+
+ls -l &#38;
+echo "Done."</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>./test.sh</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Done.
+ [bozo@localhost test-scripts]$ total 1
+ -rwxr-xr-x    1 bozo     bozo           34 Oct 11 15:09 test.sh
+ _</SAMP
+>
+               </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	       </P
+><P
+>看起来只要在后台运行命令的后边加上一个<B
+CLASS="COMMAND"
+>wait</B
+>命令就会解决这个问题. 
+		  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/bash
+# test.sh		  
+
+ls -l &#38;
+echo "Done."
+wait</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>./test.sh</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Done.
+ [bozo@localhost test-scripts]$ total 1
+ -rwxr-xr-x    1 bozo     bozo           34 Oct 11 15:09 test.sh</SAMP
+>
+               </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+			   如果将后台运行命令的输出<A
+HREF="io-redirection.html#IOREDIRREF"
+>重定向</A
+>到文件中或<TT
+CLASS="FILENAME"
+>/dev/null</TT
+>中, 
+		也能解决这个问题.
+              </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>suspend</B
+></DT
+><DD
+><P
+>这个命令的效果与<B
+CLASS="KEYCAP"
+>Control</B
+>-<B
+CLASS="KEYCAP"
+>Z</B
+>很相像, 
+		但是它挂起的是这个shell(这个shell的父进程应该在合适的时候重新恢复它). </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>logout</B
+></DT
+><DD
+><P
+>退出一个已经登陆上的shell, 也可以指定一个<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>. </P
+></DD
+><DT
+><A
+NAME="TIMESREF"
+></A
+><B
+CLASS="COMMAND"
+>times</B
+></DT
+><DD
+><P
+>给出执行命令所占用的时间, 使用如下的形式进行输出:
+		<TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>0m0.020s 0m0.020s</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+		这只能给出一个很有限的值, 因为它很少在shell脚本中出现.
+		</P
+></DD
+><DT
+><A
+NAME="KILLREF"
+></A
+><B
+CLASS="COMMAND"
+>kill</B
+></DT
+><DD
+><P
+>通过发送一个适当的<EM
+>结束</EM
+>信号, 
+				来强制结束一个进程(请参考<A
+HREF="system.html#KILLPROCESS"
+>例子 13-6</A
+>).</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="SELFDESTRUCT"
+></A
+><P
+><B
+>例子 11-26. 一个结束自身的脚本程序</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/bash
+# self-destruct.sh
+
+kill $$  # 脚本将在此处结束自己的进程.
+         # 回忆一下,"$$"就是脚本的PID.
+
+echo "This line will not echo."
+# 而且shell将会发送一个"Terminated"消息到stdout.
+
+exit 0
+
+#  在脚本结束自身进程之后,
+#+ 它返回的退出码是什么?
+#
+# sh self-destruct.sh
+# echo $?
+# 143
+#
+# 143 = 128 + 15
+#             结束信号</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><KBD
+CLASS="USERINPUT"
+>kill -l</KBD
+>将会列出所有<A
+HREF="debugging.html#SIGNALD"
+>信号</A
+>. 
+				<KBD
+CLASS="USERINPUT"
+>kill -9</KBD
+>是<SPAN
+CLASS="QUOTE"
+>"必杀"</SPAN
+>命令, 
+				这个命令将会结束顽固的不想被<B
+CLASS="COMMAND"
+>kill</B
+>掉的进程. 
+				有时候<KBD
+CLASS="USERINPUT"
+>kill -15</KBD
+>也能干这个活. 
+				一个<SPAN
+CLASS="QUOTE"
+>"僵尸进程"</SPAN
+>, 僵尸进程就是子进程已经结束了, 
+				但是<A
+HREF="internal.html#FORKREF"
+>父进程</A
+>还没kill掉这个子进程, 
+				不能被登陆的用户kill掉 -- 
+		因为你不能杀掉一些已经死了的东西 -- 
+		但是<B
+CLASS="COMMAND"
+>init</B
+>进程迟早会把它清除干净. 
+		</P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="KILLALLREF"
+></A
+><B
+CLASS="COMMAND"
+>killall</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>killall</B
+>命令将会通过<I
+CLASS="FIRSTTERM"
+>名字</I
+>来杀掉一个正在运行的进程, 
+            而不是通过<A
+HREF="special-chars.html#PROCESSIDREF"
+>进程ID</A
+>.
+	    如果某个特定的命令有多个实例正在运行, 
+	    那么执行一次<EM
+>killall</EM
+>命令就会把这些实例<EM
+>全部</EM
+>杀掉.
+	    </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>这里所指的<B
+CLASS="COMMAND"
+>killall</B
+>命令是在<TT
+CLASS="FILENAME"
+>/usr/bin</TT
+>中, 
+	      而<EM
+>不是</EM
+><TT
+CLASS="FILENAME"
+>/etc/rc.d/init.d</TT
+>中的<A
+HREF="sysscripts.html#KILLALL2REF"
+>killall脚本</A
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>command</B
+></DT
+><DD
+><P
+>对于命令<SPAN
+CLASS="QUOTE"
+>"COMMAND"</SPAN
+>, <B
+CLASS="COMMAND"
+>command COMMAND</B
+>会直接禁用别名和函数的查找. 
+	    </P
+><P
+>译者注, 注意一下Bash执行命令的优先级:
+				<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>1	别名
+2	关键字
+3	函数
+4	内建命令
+5	脚本或可执行程序($PATH)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>这是shell用来影响脚本命令处理效果的三个命令之一.
+	      另外两个分别是<A
+HREF="x6731.html#BLTREF"
+>builtin</A
+>和<A
+HREF="x6731.html#ENABLEREF"
+>enable</A
+>.
+		  (译者注: 当你想运行的命令或函数与内建命令同名时, 由于内建命令比外部命令的优先级高, 
+		  而函数比内建命令的优先级高, 所以Bash将总会执行优先级比较高的命令. 
+		  这样当你想执行优先级低的命令的时候, 就没有选择的余地了.
+		  这三个命令就是用来为你提供这样的机会. )</P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="BLTREF"
+></A
+><B
+CLASS="COMMAND"
+>builtin</B
+></DT
+><DD
+><P
+>当你使用<B
+CLASS="COMMAND"
+>builtin
+				  BUILTIN_COMMAND</B
+>的时候, 
+			  只会调用shell<A
+HREF="internal.html#BUILTINREF"
+>内建命令</A
+><SPAN
+CLASS="QUOTE"
+>"BUILTIN_COMMAND"</SPAN
+>, 
+			  而暂时禁用同名的函数, 或者是同名的扩展命令.
+	      </P
+></DD
+><DT
+><A
+NAME="ENABLEREF"
+></A
+><B
+CLASS="COMMAND"
+>enable</B
+></DT
+><DD
+><P
+>这个命令或者禁用内建命令或者恢复内建命令.
+	      比如, <B
+CLASS="COMMAND"
+>enable -n
+	      kill</B
+>将禁用内建命令<A
+HREF="x6731.html#KILLREF"
+>kill</A
+>, 
+	  所以当我们调用<B
+CLASS="COMMAND"
+>kill</B
+>命令时, 
+	  使用的将是<TT
+CLASS="FILENAME"
+>/bin/kill</TT
+>外部命令. </P
+><P
+><A
+NAME="ENABLEREF1"
+></A
+><CODE
+CLASS="OPTION"
+>-a</CODE
+>选项会<B
+CLASS="COMMAND"
+>enable</B
+>所有作为参数的shell内建命令, 
+				不管它们之前是否被enable了. (译者注: 如果不带参数的调用<B
+CLASS="COMMAND"
+>enable 
+					-a</B
+>, 那么会恢复所有内建命令.)
+	      <CODE
+CLASS="OPTION"
+>-f filename</CODE
+>选项将会从适当的编译过的目标文件
+	        <A
+NAME="AEN6992"
+HREF="#FTN.AEN6992"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+	      中, 让<B
+CLASS="COMMAND"
+>enable</B
+>命令以共享库的形式来加载<A
+HREF="internal.html#BUILTINREF"
+>内建命令</A
+>. 
+	     </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>autoload</B
+></DT
+><DD
+><P
+>这是从<EM
+>ksh</EM
+>中的autoloader命令移植过来的. 
+			  一个带有<SPAN
+CLASS="QUOTE"
+>"autoload"</SPAN
+>声明的函数, 在它第一次被调用的时候才会被加载. 
+	      <A
+NAME="AEN7012"
+HREF="#FTN.AEN7012"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+	    这样做是为了节省系统资源. </P
+><P
+>注意, <B
+CLASS="COMMAND"
+>autoload</B
+>命令并不是Bash核心安装时候的一部分. 
+	    这个命令需要使用命令<B
+CLASS="COMMAND"
+>enable -f</B
+>来加载(参考上边的enable命令).</P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="TABLE"
+><HR><A
+NAME="JOBIDTABLE"
+></A
+><P
+><B
+>表格 11-1. 作业标识符</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>记法</TH
+><TH
+>含义</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>%N</CODE
+></TD
+><TD
+>作业号[N]</TD
+></TR
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>%S</CODE
+></TD
+><TD
+>以字符串<EM
+>S</EM
+>开头的被(命令行)调用的作业</TD
+></TR
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>%?S</CODE
+></TD
+><TD
+>包含字符串<EM
+>S</EM
+>的被(命令行)调用的作业</TD
+></TR
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>%%</CODE
+></TD
+><TD
+><SPAN
+CLASS="QUOTE"
+>"当前"</SPAN
+>作业(前台最后结束的作业, 或后台最后启动的作业) </TD
+></TR
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>%+</CODE
+></TD
+><TD
+><SPAN
+CLASS="QUOTE"
+>"当前"</SPAN
+>作业(前台最后结束的作业, 或后台最后启动的作业) </TD
+></TR
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>%-</CODE
+></TD
+><TD
+>最后的作业</TD
+></TR
+><TR
+><TD
+><CODE
+CLASS="OPTION"
+>$!</CODE
+></TD
+><TD
+>最后的后台进程</TD
+></TR
+></TBODY
+></TABLE
+><HR></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN6992"
+HREF="x6731.html#AEN6992"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>一些可加载的内建命令的C源代码通常都放在<TT
+CLASS="FILENAME"
+>/usr/share/doc/bash-?.??/functions</TT
+>目录下.
+		    </P
+><P
+>注意, <B
+CLASS="COMMAND"
+>enable</B
+>的<CODE
+CLASS="OPTION"
+>-f</CODE
+>选项并不是所有系统都支持的. 
+		    </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN7012"
+HREF="x6731.html#AEN7012"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><B
+CLASS="COMMAND"
+>autoload</B
+>命令与<A
+HREF="declareref.html"
+>typeset -fu</A
+>效果相同.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="internal.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="external.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>内部命令与内建命令</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="internal.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>外部过滤器, 程序和命令</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

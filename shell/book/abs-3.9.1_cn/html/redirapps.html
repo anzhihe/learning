@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>重定向的应用</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="I/O重定向"
+HREF="io-redirection.html"><LINK
+REL="PREVIOUS"
+TITLE="代码块重定向"
+HREF="redircb.html"><LINK
+REL="NEXT"
+TITLE="Here Document"
+HREF="here-docs.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="redircb.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>16. I/O重定向</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="here-docs.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="REDIRAPPS"
+>16.3. 重定向的应用</A
+></H1
+><P
+>巧妙地运用I/O重定向, 能够解析和粘合命令输出的各个片断(请参考<A
+HREF="internal.html#READREDIR"
+>例子 11-7</A
+>). 这样就可以产生报告与日志文件. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="LOGEVENTS"
+></A
+><P
+><B
+>例子 16-12. 事件纪录</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# logevents.sh, 由Stephane Chazelas所编写. 
+  3&nbsp;
+  4&nbsp;# 把事件记录在一个文件中. 
+  5&nbsp;# 必须以root身份运行 (这样才有权限访问/var/log). 
+  6&nbsp;
+  7&nbsp;ROOT_UID=0     # 只有$UID值为0的用户才具有root权限.
+  8&nbsp;E_NOTROOT=67   # 非root用户的退出错误. 
+  9&nbsp;
+ 10&nbsp;
+ 11&nbsp;if [ "$UID" -ne "$ROOT_UID" ]
+ 12&nbsp;then
+ 13&nbsp;  echo "Must be root to run this script."
+ 14&nbsp;  exit $E_NOTROOT
+ 15&nbsp;fi  
+ 16&nbsp;
+ 17&nbsp;
+ 18&nbsp;FD_DEBUG1=3
+ 19&nbsp;FD_DEBUG2=4
+ 20&nbsp;FD_DEBUG3=5
+ 21&nbsp;
+ 22&nbsp;# 去掉下边两行注释中的一行, 来激活脚本. 
+ 23&nbsp;# LOG_EVENTS=1
+ 24&nbsp;# LOG_VARS=1
+ 25&nbsp;
+ 26&nbsp;
+ 27&nbsp;log()  # 把时间和日期写入日志文件. 
+ 28&nbsp;{
+ 29&nbsp;echo "$(date)  $*" &#62;&#38;7     # 这会把日期*附加*到文件中. 
+ 30&nbsp;                              # 参考下边的代码. 
+ 31&nbsp;}
+ 32&nbsp;
+ 33&nbsp;
+ 34&nbsp;
+ 35&nbsp;case $LOG_LEVEL in
+ 36&nbsp; 1) exec 3&#62;&#38;2         4&#62; /dev/null 5&#62; /dev/null;;
+ 37&nbsp; 2) exec 3&#62;&#38;2         4&#62;&#38;2         5&#62; /dev/null;;
+ 38&nbsp; 3) exec 3&#62;&#38;2         4&#62;&#38;2         5&#62;&#38;2;;
+ 39&nbsp; *) exec 3&#62; /dev/null 4&#62; /dev/null 5&#62; /dev/null;;
+ 40&nbsp;esac
+ 41&nbsp;
+ 42&nbsp;FD_LOGVARS=6
+ 43&nbsp;if [[ $LOG_VARS ]]
+ 44&nbsp;then exec 6&#62;&#62; /var/log/vars.log
+ 45&nbsp;else exec 6&#62; /dev/null               # 丢弃输出. 
+ 46&nbsp;fi
+ 47&nbsp;
+ 48&nbsp;FD_LOGEVENTS=7
+ 49&nbsp;if [[ $LOG_EVENTS ]]
+ 50&nbsp;then
+ 51&nbsp;  # then exec 7 &#62;(exec gawk '{print strftime(), $0}' &#62;&#62; /var/log/event.log)
+ 52&nbsp;  # 上面这行不能在2.04版本的Bash上运行. 
+ 53&nbsp;  exec 7&#62;&#62; /var/log/event.log        # 附加到"event.log". 
+ 54&nbsp;  log                                      # 记录日期与时间. 
+ 55&nbsp;else exec 7&#62; /dev/null                  # 丢弃输出. 
+ 56&nbsp;fi
+ 57&nbsp;
+ 58&nbsp;echo "DEBUG3: beginning" &#62;&#38;${FD_DEBUG3}
+ 59&nbsp;
+ 60&nbsp;ls -l &#62;&#38;5 2&#62;&#38;4                       # command1 &#62;&#38;5 2&#62;&#38;4
+ 61&nbsp;
+ 62&nbsp;echo "Done"                                # command2 
+ 63&nbsp;
+ 64&nbsp;echo "sending mail" &#62;&#38;${FD_LOGEVENTS}   # 将字符串"sending mail"写到文件描述符#7. 
+ 65&nbsp;
+ 66&nbsp;
+ 67&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="redircb.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="here-docs.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>代码块重定向</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="io-redirection.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Here Document</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,1330 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>复杂函数和函数复杂性</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="函数"
+HREF="functions.html"><LINK
+REL="PREVIOUS"
+TITLE="函数"
+HREF="functions.html"><LINK
+REL="NEXT"
+TITLE="局部变量"
+HREF="localvar.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="functions.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>23. 函数</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="localvar.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="COMPLEXFUNCT"
+>23.1. 复杂函数和函数复杂性</A
+></H1
+><P
+>函数可以处理传递给它的参数, 
+			并且能返回它的<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>给脚本, 以便后续处理. </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;function_name $arg1 $arg2</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>函数以位置来引用传递过来的参数(就好像它们是<A
+HREF="internalvariables.html#POSPARAMREF"
+>位置参数</A
+>), 
+	例如, <CODE
+CLASS="VARNAME"
+>$1</CODE
+>, <CODE
+CLASS="VARNAME"
+>$2</CODE
+>, 等等. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX60"
+></A
+><P
+><B
+>例子 23-2. 带参数的函数</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 函数和参数
+  3&nbsp;
+  4&nbsp;DEFAULT=default                             # 默认参数值. 
+  5&nbsp;
+  6&nbsp;func2 () {
+  7&nbsp;   if [ -z "$1" ]                           # 第一个参数是否长度为零? 
+  8&nbsp;   then
+  9&nbsp;     echo "-Parameter #1 is zero length.-"  # 或者没有参数被传递进来. 
+ 10&nbsp;   else
+ 11&nbsp;     echo "-Param #1 is \"$1\".-"
+ 12&nbsp;   fi
+ 13&nbsp;
+ 14&nbsp;   variable=${1-$DEFAULT}                   #  这里的参数替换
+ 15&nbsp;   echo "variable = $variable"              #+ 表示什么? 
+ 16&nbsp;                                            #  ---------------------------
+ 17&nbsp;                                            #  为了区分没有参数的情况, 
+ 18&nbsp;                                            #+ 和只有一个null参数的情况. 
+ 19&nbsp;
+ 20&nbsp;   if [ "$2" ]
+ 21&nbsp;   then
+ 22&nbsp;     echo "-Parameter #2 is \"$2\".-"
+ 23&nbsp;   fi
+ 24&nbsp;
+ 25&nbsp;   return 0
+ 26&nbsp;}
+ 27&nbsp;
+ 28&nbsp;echo
+ 29&nbsp;   
+ 30&nbsp;echo "Nothing passed."   
+ 31&nbsp;func2                          # 不带参数调用
+ 32&nbsp;echo
+ 33&nbsp;
+ 34&nbsp;
+ 35&nbsp;echo "Zero-length parameter passed."
+ 36&nbsp;func2 ""                       # 使用0长度的参数进行调用
+ 37&nbsp;echo
+ 38&nbsp;
+ 39&nbsp;echo "Null parameter passed."
+ 40&nbsp;func2 "$uninitialized_param"   # 使用未初始化的参数进行调用
+ 41&nbsp;echo
+ 42&nbsp;
+ 43&nbsp;echo "One parameter passed."   
+ 44&nbsp;func2 first           # 带一个参数调用
+ 45&nbsp;echo
+ 46&nbsp;
+ 47&nbsp;echo "Two parameters passed."   
+ 48&nbsp;func2 first second    # 带两个参数调用
+ 49&nbsp;echo
+ 50&nbsp;
+ 51&nbsp;echo "\"\" \"second\" passed."
+ 52&nbsp;func2 "" second       # 带两个参数调用, 
+ 53&nbsp;echo                  # 第一个参数长度为0, 第二个参数是由ASCII码组成的字符串. 
+ 54&nbsp;
+ 55&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="IMPORTANT"
+><P
+></P
+><TABLE
+CLASS="IMPORTANT"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/important.gif"
+HSPACE="5"
+ALT="Important"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>也可以使用<A
+HREF="othertypesv.html#SHIFTREF"
+>shift</A
+>命令来处理传递给函数的参数(请参考<A
+HREF="assortedtips.html#MULTIPLICATION"
+>例子 33-15</A
+>). </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>但是, 传给脚本的命令行参数怎么办? 
+		  在函数内部, 这些传给脚本的命令行参数也可见么? 
+		  好, 现在让我们弄清楚这个问题. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="FUNCCMDLINEARG"
+></A
+><P
+><B
+>例子 23-3. 函数与传递给脚本的命令行参数</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# func-cmdlinearg.sh
+  3&nbsp;#  调用这个脚本, 并且带一个命令行参数. 
+  4&nbsp;#+ 类似于 $0 arg1.
+  5&nbsp;
+  6&nbsp;
+  7&nbsp;func ()
+  8&nbsp;
+  9&nbsp;{
+ 10&nbsp;echo "$1"
+ 11&nbsp;}
+ 12&nbsp;
+ 13&nbsp;echo "First call to function: no arg passed."
+ 14&nbsp;echo "See if command-line arg is seen."
+ 15&nbsp;func
+ 16&nbsp;# 不行! 命令行参数不可见. 
+ 17&nbsp;
+ 18&nbsp;echo "============================================================"
+ 19&nbsp;echo
+ 20&nbsp;echo "Second call to function: command-line arg passed explicitly."
+ 21&nbsp;func $1
+ 22&nbsp;# 现在可见了! 
+ 23&nbsp;
+ 24&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>与别的编程语言相比, shell脚本一般只会传值给函数. 
+		  如果把变量名(事实上就是指针)作为参数传递给函数的话, 
+		  那将被解释为字面含义, 也就是被看作字符串. 
+	<EM
+>函数只会以字面含义来解释函数参数. </EM
+></P
+><P
+><A
+HREF="ivr.html#IVRREF"
+>变量的间接引用</A
+>(请参考<A
+HREF="bashver2.html#EX78"
+>例子 34-2</A
+>)提供了一种笨拙的机制, 来将变量指针传递给函数. 
+	    </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="INDFUNC"
+></A
+><P
+><B
+>例子 23-4. 将一个间接引用传递给函数</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# ind-func.sh: 将一个间接引用传递给函数. 
+  3&nbsp;
+  4&nbsp;echo_var ()
+  5&nbsp;{
+  6&nbsp;echo "$1"
+  7&nbsp;}
+  8&nbsp;
+  9&nbsp;message=Hello
+ 10&nbsp;Hello=Goodbye
+ 11&nbsp;
+ 12&nbsp;echo_var "$message"        # Hello
+ 13&nbsp;# 现在，让我们传递一个间接引用给函数. 
+ 14&nbsp;echo_var "${!message}"     # Goodbye
+ 15&nbsp;
+ 16&nbsp;echo "-------------"
+ 17&nbsp;
+ 18&nbsp;# 如果我们改变"hello"变量的值会发生什么? 
+ 19&nbsp;Hello="Hello, again!"
+ 20&nbsp;echo_var "$message"        # Hello
+ 21&nbsp;echo_var "${!message}"     # Hello, again!
+ 22&nbsp;
+ 23&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>接下来的一个逻辑问题就是, 
+			将参数传递给函数<EM
+>之后</EM
+>, 
+			参数能否被解除引用. 
+	  </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="DEREFERENCECL"
+></A
+><P
+><B
+>例子 23-5. 对一个传递给函数的参数进行解除引用的操作</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# dereference.sh
+  3&nbsp;# 对一个传递给函数的参数进行解除引用的操作. 
+  4&nbsp;# 此脚本由Bruce W. Clare所编写. 
+  5&nbsp;
+  6&nbsp;dereference ()
+  7&nbsp;{
+  8&nbsp;     y=\$"$1"   # 变量名. 
+  9&nbsp;     echo $y    # $Junk
+ 10&nbsp;
+ 11&nbsp;     x=`eval "expr \"$y\" "`
+ 12&nbsp;     echo $1=$x
+ 13&nbsp;     eval "$1=\"Some Different Text \""  # 赋新值. 
+ 14&nbsp;}
+ 15&nbsp;
+ 16&nbsp;Junk="Some Text"
+ 17&nbsp;echo $Junk "before"    # Some Text before
+ 18&nbsp;
+ 19&nbsp;dereference Junk
+ 20&nbsp;echo $Junk "after"     # Some Different Text after
+ 21&nbsp;
+ 22&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="REFPARAMS"
+></A
+><P
+><B
+>例子 23-6. 再来一次, 对一个传递给函数的参数进行解除引用的操作</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# ref-params.sh: 解除传递给函数的参数引用.
+  3&nbsp;#                (复杂的例子)
+  4&nbsp;
+  5&nbsp;ITERATIONS=3  # 取得输入的次数. 
+  6&nbsp;icount=1
+  7&nbsp;
+  8&nbsp;my_read () {
+  9&nbsp;  #  用my_read varname这种形式来调用, 
+ 10&nbsp;  #+ 将之前用括号括起的值作为默认值输出, 
+ 11&nbsp;  #+ 然后要求输入一个新值. 
+ 12&nbsp;
+ 13&nbsp;  local local_var
+ 14&nbsp;
+ 15&nbsp;  echo -n "Enter a value "
+ 16&nbsp;  eval 'echo -n "[$'$1'] "'  #  之前的值. 
+ 17&nbsp;# eval echo -n "[\$$1] "     #  更容易理解, 
+ 18&nbsp;                             #+ 但会丢失用户在尾部输入的空格. 
+ 19&nbsp;  read local_var
+ 20&nbsp;  [ -n "$local_var" ] &#38;&#38; eval $1=\$local_var
+ 21&nbsp;
+ 22&nbsp;  # "与列表": 如果"local_var"的测试结果为true, 则把变量"$1"的值赋给它. 
+ 23&nbsp;}
+ 24&nbsp;
+ 25&nbsp;echo
+ 26&nbsp;
+ 27&nbsp;while [ "$icount" -le "$ITERATIONS" ]
+ 28&nbsp;do
+ 29&nbsp;  my_read var
+ 30&nbsp;  echo "Entry #$icount = $var"
+ 31&nbsp;  let "icount += 1"
+ 32&nbsp;  echo
+ 33&nbsp;done  
+ 34&nbsp;
+ 35&nbsp;
+ 36&nbsp;# 感谢Stephane Chazelas提供这个例子. 
+ 37&nbsp;
+ 38&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="EXITRETURN1"
+></A
+>退出与返回</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>退出状态码</B
+></DT
+><DD
+><P
+>函数返回一个值, 被称为<I
+CLASS="FIRSTTERM"
+>退出状态码</I
+>. 
+			  退出状态码可以由<B
+CLASS="COMMAND"
+>return</B
+>命令明确指定, 
+	      也可以由函数中最后一条命令的退出状态码来指定(如果成功则返回<SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>, 
+		  否则返回非0值). 
+		  可以在脚本中使用<A
+HREF="internalvariables.html#XSTATVARREF"
+>$?</A
+>来引用<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>. 
+		  因为有了这种机制, 
+		  所以脚本函数也可以象C函数一样有<SPAN
+CLASS="QUOTE"
+>"返回值"</SPAN
+>. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>return</B
+></DT
+><DD
+><P
+><A
+NAME="RETURNREF"
+></A
+></P
+><P
+>终止一个函数. <B
+CLASS="COMMAND"
+>return</B
+>命令
+			<A
+NAME="AEN14444"
+HREF="#FTN.AEN14444"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+	      可选的允许带一个<EM
+>整型</EM
+>参数, 
+		  这个整数将作为函数的<SPAN
+CLASS="QUOTE"
+>"退出状态码"</SPAN
+>返回给调用这个函数的脚本, 
+		  并且这个整数也被赋值给变量<A
+HREF="internalvariables.html#XSTATVARREF"
+>$?</A
+>. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="MAX"
+></A
+><P
+><B
+>例子 23-7. 取两个数中的最大值</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# max.sh: 取两个整数中的最大值. 
+  3&nbsp;
+  4&nbsp;E_PARAM_ERR=-198    # 如果传给函数的参数少于2个时, 就返回这个值. 
+  5&nbsp;EQUAL=-199          # 如果两个整数相等时, 返回这个值. 
+  6&nbsp;#  任意超出范围的
+  7&nbsp;#+ 参数值都可能传递到函数中. 
+  8&nbsp;
+  9&nbsp;max2 ()             # 返回两个整数中的最大值. 
+ 10&nbsp;{                   # 注意: 参与比较的数必须小于257. 
+ 11&nbsp;if [ -z "$2" ]
+ 12&nbsp;then
+ 13&nbsp;  return $E_PARAM_ERR
+ 14&nbsp;fi
+ 15&nbsp;
+ 16&nbsp;if [ "$1" -eq "$2" ]
+ 17&nbsp;then
+ 18&nbsp;  return $EQUAL
+ 19&nbsp;else
+ 20&nbsp;  if [ "$1" -gt "$2" ]
+ 21&nbsp;  then
+ 22&nbsp;    return $1
+ 23&nbsp;  else
+ 24&nbsp;    return $2
+ 25&nbsp;  fi
+ 26&nbsp;fi
+ 27&nbsp;}
+ 28&nbsp;
+ 29&nbsp;max2 33 34
+ 30&nbsp;return_val=$?
+ 31&nbsp;
+ 32&nbsp;if [ "$return_val" -eq $E_PARAM_ERR ]
+ 33&nbsp;then
+ 34&nbsp;  echo "Need to pass two parameters to the function."
+ 35&nbsp;elif [ "$return_val" -eq $EQUAL ]
+ 36&nbsp;  then
+ 37&nbsp;    echo "The two numbers are equal."
+ 38&nbsp;else
+ 39&nbsp;    echo "The larger of the two numbers is $return_val."
+ 40&nbsp;fi  
+ 41&nbsp;
+ 42&nbsp;  
+ 43&nbsp;exit 0
+ 44&nbsp;
+ 45&nbsp;#  练习(简单):
+ 46&nbsp;#  -----------
+ 47&nbsp;#  把这个脚本转化为交互式脚本, 
+ 48&nbsp;#+ 也就是, 修改这个脚本, 让其要求调用者输入2个数. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>为了让函数可以返回字符串或是数组, 
+				可以使用一个在函数外可见的专用全局变量. 
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;count_lines_in_etc_passwd()
+  2&nbsp;{
+  3&nbsp;  [[ -r /etc/passwd ]] &#38;&#38; REPLY=$(echo $(wc -l &#60; /etc/passwd))
+  4&nbsp;  #  如果/etc/passwd是可读的, 那么就把REPLY设置为文件的行数. 
+  5&nbsp;  #  这样就可以同时返回参数值与状态信息. 
+  6&nbsp;  #  'echo'看上去没什么用, 可是 . . .
+  7&nbsp;  #+ 它的作用是删除输出中的多余空白字符. 
+  8&nbsp;}
+  9&nbsp;
+ 10&nbsp;if count_lines_in_etc_passwd
+ 11&nbsp;then
+ 12&nbsp;  echo "There are $REPLY lines in /etc/passwd."
+ 13&nbsp;else
+ 14&nbsp;  echo "Cannot count lines in /etc/passwd."
+ 15&nbsp;fi  
+ 16&nbsp;
+ 17&nbsp;# 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX61"
+></A
+><P
+><B
+>例子 23-8. 将阿拉伯数字转化为罗马数字</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# 将阿拉伯数字转化为罗马数字
+  4&nbsp;# 范围: 0 - 200
+  5&nbsp;# 比较粗糙, 但可以正常工作. 
+  6&nbsp;
+  7&nbsp;# 扩展范围, 并且完善这个脚本, 作为练习. 
+  8&nbsp;
+  9&nbsp;# 用法: roman number-to-convert
+ 10&nbsp;
+ 11&nbsp;LIMIT=200
+ 12&nbsp;E_ARG_ERR=65
+ 13&nbsp;E_OUT_OF_RANGE=66
+ 14&nbsp;
+ 15&nbsp;if [ -z "$1" ]
+ 16&nbsp;then
+ 17&nbsp;  echo "Usage: `basename $0` number-to-convert"
+ 18&nbsp;  exit $E_ARG_ERR
+ 19&nbsp;fi  
+ 20&nbsp;
+ 21&nbsp;num=$1
+ 22&nbsp;if [ "$num" -gt $LIMIT ]
+ 23&nbsp;then
+ 24&nbsp;  echo "Out of range!"
+ 25&nbsp;  exit $E_OUT_OF_RANGE
+ 26&nbsp;fi  
+ 27&nbsp;
+ 28&nbsp;to_roman ()   # 在第一次调用函数前必须先定义它. 
+ 29&nbsp;{
+ 30&nbsp;number=$1
+ 31&nbsp;factor=$2
+ 32&nbsp;rchar=$3
+ 33&nbsp;let "remainder = number - factor"
+ 34&nbsp;while [ "$remainder" -ge 0 ]
+ 35&nbsp;do
+ 36&nbsp;  echo -n $rchar
+ 37&nbsp;  let "number -= factor"
+ 38&nbsp;  let "remainder = number - factor"
+ 39&nbsp;done  
+ 40&nbsp;
+ 41&nbsp;return $number
+ 42&nbsp;       # 练习:
+ 43&nbsp;       # -----
+ 44&nbsp;       # 解释这个函数是如何工作的. 
+ 45&nbsp;       # 提示: 依靠不断的除, 来分割数字. 
+ 46&nbsp;}
+ 47&nbsp;   
+ 48&nbsp;
+ 49&nbsp;to_roman $num 100 C
+ 50&nbsp;num=$?
+ 51&nbsp;to_roman $num 90 LXXXX
+ 52&nbsp;num=$?
+ 53&nbsp;to_roman $num 50 L
+ 54&nbsp;num=$?
+ 55&nbsp;to_roman $num 40 XL
+ 56&nbsp;num=$?
+ 57&nbsp;to_roman $num 10 X
+ 58&nbsp;num=$?
+ 59&nbsp;to_roman $num 9 IX
+ 60&nbsp;num=$?
+ 61&nbsp;to_roman $num 5 V
+ 62&nbsp;num=$?
+ 63&nbsp;to_roman $num 4 IV
+ 64&nbsp;num=$?
+ 65&nbsp;to_roman $num 1 I
+ 66&nbsp;
+ 67&nbsp;echo
+ 68&nbsp;
+ 69&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>也请参考<A
+HREF="testbranch.html#ISALPHA"
+>例子 10-28</A
+>. </P
+><DIV
+CLASS="IMPORTANT"
+><P
+></P
+><TABLE
+CLASS="IMPORTANT"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/important.gif"
+HSPACE="5"
+ALT="Important"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>函数所能返回最大的正整数是255. 
+			<B
+CLASS="COMMAND"
+>return</B
+>命令与<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>的概念被紧密联系在一起, 并且退出状态码的值受此限制. 
+	      幸运的是, 如果想让函数返回大整数的话, 有好多种不同的<A
+HREF="assortedtips.html#RVT"
+>工作区</A
+>能够应付这个情况. 
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="RETURNTEST"
+></A
+><P
+><B
+>例子 23-9. 测试函数最大的返回值</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# return-test.sh
+  3&nbsp;
+  4&nbsp;# 函数所能返回的最大正整数为255. 
+  5&nbsp;
+  6&nbsp;return_test ()         # 传给函数什么值, 就返回什么值. 
+  7&nbsp;{
+  8&nbsp;  return $1
+  9&nbsp;}
+ 10&nbsp;
+ 11&nbsp;return_test 27         # o.k.
+ 12&nbsp;echo $?                # 返回27.
+ 13&nbsp;  
+ 14&nbsp;return_test 255        # 依然是o.k.
+ 15&nbsp;echo $?                # 返回255.
+ 16&nbsp;
+ 17&nbsp;return_test 257        # 错误!
+ 18&nbsp;echo $?                # 返回1 (对应各种错误的返回码). 
+ 19&nbsp;
+ 20&nbsp;# ======================================================
+ 21&nbsp;return_test -151896    # 能返回一个大负数么? 
+ 22&nbsp;echo $?                # 能否返回-151896?
+ 23&nbsp;                       # 显然不行! 只返回了168.
+ 24&nbsp;#  Bash 2.05b以前的版本
+ 25&nbsp;#+ 允许返回大负数. 
+ 26&nbsp;#  Bash的新版本(2.05b之后)修正了这个漏洞. 
+ 27&nbsp;#  这可能会影响以前所编写的脚本. 
+ 28&nbsp;#  一定要小心! 
+ 29&nbsp;# ======================================================
+ 30&nbsp;
+ 31&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>如果你想获得大整数<SPAN
+CLASS="QUOTE"
+>"返回值"</SPAN
+>的话, 
+			其实最简单的办法就是将<SPAN
+CLASS="QUOTE"
+>"要返回的值"</SPAN
+>保存到一个全局变量中.
+
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;Return_Val=   # 用于保存函数特大返回值的全局变量. 
+  2&nbsp;
+  3&nbsp;alt_return_test ()
+  4&nbsp;{
+  5&nbsp;  fvar=$1
+  6&nbsp;  Return_Val=$fvar
+  7&nbsp;  return   # 返回0 (成功). 
+  8&nbsp;}
+  9&nbsp;
+ 10&nbsp;alt_return_test 1
+ 11&nbsp;echo $?                              # 0
+ 12&nbsp;echo "return value = $Return_Val"    # 1
+ 13&nbsp;
+ 14&nbsp;alt_return_test 256
+ 15&nbsp;echo "return value = $Return_Val"    # 256
+ 16&nbsp;
+ 17&nbsp;alt_return_test 257
+ 18&nbsp;echo "return value = $Return_Val"    # 257
+ 19&nbsp;
+ 20&nbsp;alt_return_test 25701
+ 21&nbsp;echo "return value = $Return_Val"    #25701</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>一种更优雅的做法是在函数中使用<B
+CLASS="COMMAND"
+>echo</B
+>命令将<SPAN
+CLASS="QUOTE"
+>"返回值输出到<TT
+CLASS="FILENAME"
+>stdout</TT
+>"</SPAN
+>, 
+			然后使用<A
+HREF="commandsub.html#COMMANDSUBREF"
+>命令替换</A
+>来捕捉此值. 
+			请参考<A
+HREF="assortedtips.html"
+>Section 33.7</A
+>中<A
+HREF="assortedtips.html#RVT"
+>关于这种用法的讨论</A
+>. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="MAX2"
+></A
+><P
+><B
+>例子 23-10. 比较两个大整数</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# max2.sh: 取两个大整数中的最大值. 
+  3&nbsp;
+  4&nbsp;#  这是前一个例子"max.sh"的修改版, 
+  5&nbsp;#+ 这个版本可以比较两个大整数. 
+  6&nbsp;
+  7&nbsp;EQUAL=0             # 如果两个值相等, 那就返回这个值. 
+  8&nbsp;E_PARAM_ERR=-99999  # 没有足够多的参数传递给函数. 
+  9&nbsp;#           ^^^^^^    任意超出范围的参数都可以传递进来. 
+ 10&nbsp;
+ 11&nbsp;max2 ()             # "返回"两个整数中最大的那个. 
+ 12&nbsp;{
+ 13&nbsp;if [ -z "$2" ]
+ 14&nbsp;then
+ 15&nbsp;  echo $E_PARAM_ERR
+ 16&nbsp;  return
+ 17&nbsp;fi
+ 18&nbsp;
+ 19&nbsp;if [ "$1" -eq "$2" ]
+ 20&nbsp;then
+ 21&nbsp;  echo $EQUAL
+ 22&nbsp;  return
+ 23&nbsp;else
+ 24&nbsp;  if [ "$1" -gt "$2" ]
+ 25&nbsp;  then
+ 26&nbsp;    retval=$1
+ 27&nbsp;  else
+ 28&nbsp;    retval=$2
+ 29&nbsp;  fi
+ 30&nbsp;fi
+ 31&nbsp;
+ 32&nbsp;echo $retval        # 输出(到stdout), 而没有用返回值. 
+ 33&nbsp;                    # 为什么? 
+ 34&nbsp;}
+ 35&nbsp;
+ 36&nbsp;
+ 37&nbsp;return_val=$(max2 33001 33997)
+ 38&nbsp;#            ^^^^             函数名
+ 39&nbsp;#                 ^^^^^ ^^^^^ 传递进来的参数
+ 40&nbsp;#  这其实是命令替换的一种形式: 
+ 41&nbsp;#+ 可以把函数看作为一个命令, 
+ 42&nbsp;#+ 然后把函数的stdout赋值给变量"return_val." 
+ 43&nbsp;
+ 44&nbsp;
+ 45&nbsp;# ========================= OUTPUT ========================
+ 46&nbsp;if [ "$return_val" -eq "$E_PARAM_ERR" ]
+ 47&nbsp;  then
+ 48&nbsp;  echo "Error in parameters passed to comparison function!"
+ 49&nbsp;elif [ "$return_val" -eq "$EQUAL" ]
+ 50&nbsp;  then
+ 51&nbsp;    echo "The two numbers are equal."
+ 52&nbsp;else
+ 53&nbsp;    echo "The larger of the two numbers is $return_val."
+ 54&nbsp;fi
+ 55&nbsp;# =========================================================
+ 56&nbsp;  
+ 57&nbsp;exit 0
+ 58&nbsp;
+ 59&nbsp;#  练习:
+ 60&nbsp;#  -----
+ 61&nbsp;#  1) 找到一种更优雅的方法, 
+ 62&nbsp;#+    来测试传递给函数的参数. 
+ 63&nbsp;#  2) 简化"输出"段的if/then结构. 
+ 64&nbsp;#  3) 重写这个脚本, 使其能够从命令行参数中获得输入. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>这是另一个能够捕捉函数<SPAN
+CLASS="QUOTE"
+>"返回值"</SPAN
+>的例子. 
+			要想搞明白这个例子, 需要一些<A
+HREF="awk.html#AWKREF"
+>awk</A
+>的知识. 
+
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;month_length ()  # 把月份作为参数. 
+  2&nbsp;{                # 返回该月包含的天数. 
+  3&nbsp;monthD="31 28 31 30 31 30 31 31 30 31 30 31"  # 作为局部变量声明? 
+  4&nbsp;echo "$monthD" | awk '{ print $'"${1}"' }'    # 小技巧. 
+  5&nbsp;#                             ^^^^^^^^^
+  6&nbsp;# 传递给函数的参数($1 -- 月份号), 然后传给awk. 
+  7&nbsp;# Awk把参数解释为"print $1 . . . print $12"(这依赖于月份号)
+  8&nbsp;# 这是一个模版, 用于将参数传递给内嵌awk的脚本: 
+  9&nbsp;#                                 $'"${script_parameter}"'
+ 10&nbsp;
+ 11&nbsp;#  需要做一些错误检查, 来保证月份号正确, 在范围(1-12)之间, 
+ 12&nbsp;#+ 别忘了检查闰年的二月. 
+ 13&nbsp;}
+ 14&nbsp;
+ 15&nbsp;# ----------------------------------------------
+ 16&nbsp;# 用例:
+ 17&nbsp;month=4        # 以四月为例. 
+ 18&nbsp;days_in=$(month_length $month)
+ 19&nbsp;echo $days_in  # 30
+ 20&nbsp;# ----------------------------------------------</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>也请参考<A
+HREF="contributed-scripts.html#DAYSBETWEEN"
+>例子 A-7</A
+>. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>练习:</KBD
+> 使用目前我们已经学到的知识, 
+	      来扩展之前的例子<A
+HREF="complexfunct.html#EX61"
+>将阿拉伯数字转化为罗马数字</A
+>, 
+		 让它能够接受任意大的输入. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="REDSTDINFUNC1"
+></A
+>重定向</B
+></P
+><DL
+><DT
+><TT
+CLASS="REPLACEABLE"
+><I
+>重定向函数的stdin</I
+></TT
+></DT
+><DD
+><P
+>函数本质上其实就是一个<A
+HREF="special-chars.html#CODEBLOCKREF"
+>代码块</A
+>, 
+			这就意味着它的<TT
+CLASS="FILENAME"
+>stdin</TT
+>可以被重定向(比如<A
+HREF="special-chars.html#EX8"
+>例子 3-1</A
+>). </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="REALNAME"
+></A
+><P
+><B
+>例子 23-11. 从username中取得用户的真名</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# realname.sh
+  3&nbsp;#
+  4&nbsp;# 依靠username, 从/etc/passwd中获得"真名". 
+  5&nbsp;
+  6&nbsp;
+  7&nbsp;ARGCOUNT=1       # 需要一个参数. 
+  8&nbsp;E_WRONGARGS=65
+  9&nbsp;
+ 10&nbsp;file=/etc/passwd
+ 11&nbsp;pattern=$1
+ 12&nbsp;
+ 13&nbsp;if [ $# -ne "$ARGCOUNT" ]
+ 14&nbsp;then
+ 15&nbsp;  echo "Usage: `basename $0` USERNAME"
+ 16&nbsp;  exit $E_WRONGARGS
+ 17&nbsp;fi  
+ 18&nbsp;
+ 19&nbsp;file_excerpt ()  # 按照要求的模式来扫描文件, 然后打印文件相关的部分. 
+ 20&nbsp;{
+ 21&nbsp;while read line  # "while"并不一定非得有"[ condition ]"不可. 
+ 22&nbsp;do
+ 23&nbsp;  echo "$line" | grep $1 | awk -F":" '{ print $5 }'  # awk用":"作为界定符. 
+ 24&nbsp;done
+ 25&nbsp;} &#60;$file  # 重定向到函数的stdin. 
+ 26&nbsp;
+ 27&nbsp;file_excerpt $pattern
+ 28&nbsp;
+ 29&nbsp;# 是的, 整个脚本其实可以被缩减为
+ 30&nbsp;#       grep PATTERN /etc/passwd | awk -F":" '{ print $5 }'
+ 31&nbsp;# 或
+ 32&nbsp;#       awk -F: '/PATTERN/ {print $5}'
+ 33&nbsp;# 或
+ 34&nbsp;#       awk -F: '($1 == "username") { print $5 }' # 从username中获得真名. 
+ 35&nbsp;# 但是, 这些起不到示例的作用. 
+ 36&nbsp;
+ 37&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>还有一个办法, 或许能够更好的理解重定向函数的<TT
+CLASS="FILENAME"
+>stdin</TT
+>. 
+			它在函数内添加了一对大括号, 
+			并且将重定向<TT
+CLASS="FILENAME"
+>stdin</TT
+>的行为放在这对添加的大括号上. 
+
+	       <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 用下面的方法来代替它:
+  2&nbsp;Function ()
+  3&nbsp;{
+  4&nbsp; ...
+  5&nbsp; } &#60; file
+  6&nbsp;
+  7&nbsp;# 试试这个: 
+  8&nbsp;Function ()
+  9&nbsp;{
+ 10&nbsp;  {
+ 11&nbsp;    ...
+ 12&nbsp;   } &#60; file
+ 13&nbsp;}
+ 14&nbsp;
+ 15&nbsp;# 同样的,
+ 16&nbsp;
+ 17&nbsp;Function ()  # 没问题.
+ 18&nbsp;{
+ 19&nbsp;  {
+ 20&nbsp;   echo $*
+ 21&nbsp;  } | tr a b
+ 22&nbsp;}
+ 23&nbsp;
+ 24&nbsp;Function ()  # 不行. 
+ 25&nbsp;{
+ 26&nbsp;  echo $*
+ 27&nbsp;} | tr a b   # 这儿的内嵌代码块是被强制的. 
+ 28&nbsp;
+ 29&nbsp;
+ 30&nbsp;# 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+           </P
+></DD
+></DL
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN14444"
+HREF="complexfunct.html#AEN14444"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><B
+CLASS="COMMAND"
+>return</B
+>命令是Bash<A
+HREF="internal.html#BUILTINREF"
+>内建命令builtin</A
+>. 
+			</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="functions.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="localvar.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>函数</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="functions.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>局部变量</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

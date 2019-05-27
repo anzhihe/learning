@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>测试和比较: 一种可选的方法</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="杂项"
+HREF="miscellany.html"><LINK
+REL="PREVIOUS"
+TITLE="Shell包装"
+HREF="wrapper.html"><LINK
+REL="NEXT"
+TITLE="递归"
+HREF="recursionsct.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="wrapper.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>33. 杂项</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="recursionsct.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="TESTSANDCOMPARISONS"
+>33.3. 测试和比较: 一种可选的方法</A
+></H1
+><P
+>对于测试来说, <A
+HREF="testconstructs.html#DBLBRACKETS"
+>[[    ]]</A
+>结构可能比<KBD
+CLASS="USERINPUT"
+>[
+	  ]</KBD
+>结构更合适. 
+	  同样地, 在算术比较中, 使用<A
+HREF="dblparens.html"
+>((    ))</A
+>结构可能会更有用. 
+
+	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;a=8
+  2&nbsp;
+  3&nbsp;# 下面所有的比较都是等价的. 
+  4&nbsp;test "$a" -lt 16 &#38;&#38; echo "yes, $a &#60; 16"         # "与列表"
+  5&nbsp;/bin/test "$a" -lt 16 &#38;&#38; echo "yes, $a &#60; 16" 
+  6&nbsp;[ "$a" -lt 16 ] &#38;&#38; echo "yes, $a &#60; 16" 
+  7&nbsp;[[ $a -lt 16 ]] &#38;&#38; echo "yes, $a &#60; 16"          # 在[[ ]]和(( ))结构中, 
+  8&nbsp;(( a &#60; 16 )) &#38;&#38; echo "yes, $a &#60; 16"             # 不用将变量引用起来. 
+  9&nbsp;
+ 10&nbsp;city="New York"
+ 11&nbsp;# 同样地, 下面所有的比较都是等价的. 
+ 12&nbsp;test "$city" \&#60; Paris &#38;&#38; echo "Yes, Paris is greater than $city"  # 按照ASCII顺序比较. 
+ 13&nbsp;/bin/test "$city" \&#60; Paris &#38;&#38; echo "Yes, Paris is greater than $city" 
+ 14&nbsp;[ "$city" \&#60; Paris ] &#38;&#38; echo "Yes, Paris is greater than $city" 
+ 15&nbsp;[[ $city &#60; Paris ]] &#38;&#38; echo "Yes, Paris is greater than $city"    # 不需要引用$city. 
+ 16&nbsp;
+ 17&nbsp;# 感谢, S.C. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="wrapper.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="recursionsct.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Shell包装</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="miscellany.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>递归</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

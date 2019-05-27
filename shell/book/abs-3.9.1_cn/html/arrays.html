@@ -1,0 +1,2317 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>数组</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="高级主题"
+HREF="part4.html"><LINK
+REL="PREVIOUS"
+TITLE="列表结构"
+HREF="list-cons.html"><LINK
+REL="NEXT"
+TITLE="/dev和/proc"
+HREF="devproc.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="list-cons.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="devproc.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="ARRAYS"
+></A
+>26. 数组</H1
+><P
+><A
+NAME="ARRAYREF"
+></A
+></P
+><P
+>新版本的Bash支持一维数组. 
+	数组元素可以使用符号<KBD
+CLASS="USERINPUT"
+>variable[xx]</KBD
+>来初始化. 
+	另外, 脚本可以使用<KBD
+CLASS="USERINPUT"
+>declare -a variable</KBD
+>语句来指定一个数组. 
+	如果想解引用一个数组元素(也就是取值), 
+	可以使用<I
+CLASS="FIRSTTERM"
+>大括号</I
+>, 
+	访问形式为<KBD
+CLASS="USERINPUT"
+>${variable[xx]}</KBD
+>. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX66"
+></A
+><P
+><B
+>例子 26-1. 简单的数组使用</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;
+  4&nbsp;area[11]=23
+  5&nbsp;area[13]=37
+  6&nbsp;area[51]=UFOs
+  7&nbsp;
+  8&nbsp;#  数组成员不一定非得是相邻或连续的. 
+  9&nbsp;
+ 10&nbsp;#  数组的部分成员可以不被初始化. 
+ 11&nbsp;#  数组中允许空缺元素. 
+ 12&nbsp;#  实际上, 保存着稀疏数据的数组("稀疏数组")
+ 13&nbsp;#+ 在电子表格处理软件中是非常有用的. 
+ 14&nbsp;
+ 15&nbsp;
+ 16&nbsp;echo -n "area[11] = "
+ 17&nbsp;echo ${area[11]}    #  需要{大括号}. 
+ 18&nbsp;
+ 19&nbsp;echo -n "area[13] = "
+ 20&nbsp;echo ${area[13]}
+ 21&nbsp;
+ 22&nbsp;echo "Contents of area[51] are ${area[51]}."
+ 23&nbsp;
+ 24&nbsp;# 没被初始化的数组成员打印为空值(null变量). 
+ 25&nbsp;echo -n "area[43] = "
+ 26&nbsp;echo ${area[43]}
+ 27&nbsp;echo "(area[43] unassigned)"
+ 28&nbsp;
+ 29&nbsp;echo
+ 30&nbsp;
+ 31&nbsp;# 两个数组元素的和被赋值给另一个数组元素
+ 32&nbsp;area[5]=`expr ${area[11]} + ${area[13]}`
+ 33&nbsp;echo "area[5] = area[11] + area[13]"
+ 34&nbsp;echo -n "area[5] = "
+ 35&nbsp;echo ${area[5]}
+ 36&nbsp;
+ 37&nbsp;area[6]=`expr ${area[11]} + ${area[51]}`
+ 38&nbsp;echo "area[6] = area[11] + area[51]"
+ 39&nbsp;echo -n "area[6] = "
+ 40&nbsp;echo ${area[6]}
+ 41&nbsp;# 这里会失败, 是因为不允许整数与字符串相加. 
+ 42&nbsp;
+ 43&nbsp;echo; echo; echo
+ 44&nbsp;
+ 45&nbsp;# -----------------------------------------------------------------
+ 46&nbsp;# 另一个数组, "area2".
+ 47&nbsp;# 另一种给数组变量赋值的方法...
+ 48&nbsp;# array_name=( XXX YYY ZZZ ... )
+ 49&nbsp;
+ 50&nbsp;area2=( zero one two three four )
+ 51&nbsp;
+ 52&nbsp;echo -n "area2[0] = "
+ 53&nbsp;echo ${area2[0]}
+ 54&nbsp;# 阿哈, 从0开始计算数组下标(也就是数组的第一个元素为[0], 而不是[1]). 
+ 55&nbsp;
+ 56&nbsp;echo -n "area2[1] = "
+ 57&nbsp;echo ${area2[1]}    # [1]是数组的第2个元素. 
+ 58&nbsp;# -----------------------------------------------------------------
+ 59&nbsp;
+ 60&nbsp;echo; echo; echo
+ 61&nbsp;
+ 62&nbsp;# -----------------------------------------------
+ 63&nbsp;# 第3个数组, "area3".
+ 64&nbsp;# 第3种给数组元素赋值的方法...
+ 65&nbsp;# array_name=([xx]=XXX [yy]=YYY ...)
+ 66&nbsp;
+ 67&nbsp;area3=([17]=seventeen [24]=twenty-four)
+ 68&nbsp;
+ 69&nbsp;echo -n "area3[17] = "
+ 70&nbsp;echo ${area3[17]}
+ 71&nbsp;
+ 72&nbsp;echo -n "area3[24] = "
+ 73&nbsp;echo ${area3[24]}
+ 74&nbsp;# -----------------------------------------------
+ 75&nbsp;
+ 76&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Bash允许把变量当成数组来操作, 
+		即使这个变量没有明确地被声明为数组. 
+	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;string=abcABC123ABCabc
+  2&nbsp;echo ${string[@]}               # abcABC123ABCabc
+  3&nbsp;echo ${string[*]}               # abcABC123ABCabc 
+  4&nbsp;echo ${string[0]}               # abcABC123ABCabc
+  5&nbsp;echo ${string[1]}               # 没有输出! 
+  6&nbsp;                                # 为什么? 
+  7&nbsp;echo ${#string[@]}              # 1
+  8&nbsp;                                # 数组中只有一个元素. 
+  9&nbsp;                                # 就是这个字符串本身. 
+ 10&nbsp;
+ 11&nbsp;# 感谢, Michael Zick, 指出这一点. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      类似的示范可以参考<A
+HREF="untyped.html#BVUNTYPED"
+>Bash变量是无类型的</A
+>. 
+      </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="POEM"
+></A
+><P
+><B
+>例子 26-2. 格式化一首诗</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# poem.sh: 将本书作者非常喜欢的一首诗, 漂亮的打印出来. 
+  3&nbsp;
+  4&nbsp;# 诗的行数(单节). 
+  5&nbsp;Line[1]="I do not know which to prefer,"
+  6&nbsp;Line[2]="The beauty of inflections"
+  7&nbsp;Line[3]="Or the beauty of innuendoes,"
+  8&nbsp;Line[4]="The blackbird whistling"
+  9&nbsp;Line[5]="Or just after."
+ 10&nbsp;
+ 11&nbsp;# 出处. 
+ 12&nbsp;Attrib[1]=" Wallace Stevens"
+ 13&nbsp;Attrib[2]="\"Thirteen Ways of Looking at a Blackbird\""
+ 14&nbsp;# 这首诗已经是公共版权了(版权已经过期了). 
+ 15&nbsp;
+ 16&nbsp;echo
+ 17&nbsp;
+ 18&nbsp;for index in 1 2 3 4 5    # 5行. 
+ 19&nbsp;do
+ 20&nbsp;  printf "     %s\n" "${Line[index]}"
+ 21&nbsp;done
+ 22&nbsp;
+ 23&nbsp;for index in 1 2          # 出处为2行. 
+ 24&nbsp;do
+ 25&nbsp;  printf "          %s\n" "${Attrib[index]}"
+ 26&nbsp;done
+ 27&nbsp;
+ 28&nbsp;echo
+ 29&nbsp;
+ 30&nbsp;exit 0
+ 31&nbsp;
+ 32&nbsp;# 练习:
+ 33&nbsp;# -----
+ 34&nbsp;# 修改这个脚本, 使其能够从一个文本数据文件中提取出一首诗的内容, 然后将其漂亮的打印出来. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>数组元素有它们独特的语法, 
+	甚至标准Bash命令和操作符, 都有特殊的选项用以配合数组操作. 
+	</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ARRAYOPS"
+></A
+><P
+><B
+>例子 26-3. 多种数组操作</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# array-ops.sh: 更多有趣的数组用法. 
+  3&nbsp;
+  4&nbsp;
+  5&nbsp;array=( zero one two three four five )
+  6&nbsp;# 数组元素 0   1   2    3     4    5
+  7&nbsp;
+  8&nbsp;echo ${array[0]}       #  0
+  9&nbsp;echo ${array:0}        #  0
+ 10&nbsp;                       #  第一个元素的参数扩展, 
+ 11&nbsp;                       #+ 从位置0(#0)开始(即第一个字符). 
+ 12&nbsp;echo ${array:1}        #  ero
+ 13&nbsp;                       #  第一个元素的参数扩展, 
+ 14&nbsp;                       #+ 从位置1(#1)开始(即第2个字符). 
+ 15&nbsp;
+ 16&nbsp;echo "--------------"
+ 17&nbsp;
+ 18&nbsp;echo ${#array[0]}      #  4
+ 19&nbsp;                       #  第一个数组元素的长度. 
+ 20&nbsp;echo ${#array}         #  4
+ 21&nbsp;                       #  第一个数组元素的长度. 
+ 22&nbsp;                       #  (另一种表示形式)
+ 23&nbsp;
+ 24&nbsp;echo ${#array[1]}      #  3
+ 25&nbsp;                       #  第二个数组元素的长度. 
+ 26&nbsp;                       #  Bash中的数组是从0开始索引的. 
+ 27&nbsp;
+ 28&nbsp;echo ${#array[*]}      #  6
+ 29&nbsp;                       #  数组中的元素个数. 
+ 30&nbsp;echo ${#array[@]}      #  6
+ 31&nbsp;                       #  数组中的元素个数.
+ 32&nbsp;
+ 33&nbsp;echo "--------------"
+ 34&nbsp;
+ 35&nbsp;array2=( [0]="first element" [1]="second element" [3]="fourth element" )
+ 36&nbsp;
+ 37&nbsp;echo ${array2[0]}      # 第一个元素
+ 38&nbsp;echo ${array2[1]}      # 第二个元素
+ 39&nbsp;echo ${array2[2]}      #
+ 40&nbsp;                       # 因为并没有被初始化, 所以此值为null. 
+ 41&nbsp;echo ${array2[3]}      # 第四个元素
+ 42&nbsp;
+ 43&nbsp;
+ 44&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>大部分标准<A
+HREF="string-manipulation.html#STRINGMANIP"
+>字符串操作</A
+>都可以用于数组中. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ARRAYSTROPS"
+></A
+><P
+><B
+>例子 26-4. 用于数组的字符串操作</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# array-strops.sh: 用于数组的字符串操作. 
+  3&nbsp;# 本脚本由Michael Zick所编写. 
+  4&nbsp;# 授权使用在本书中. 
+  5&nbsp;
+  6&nbsp;#  一般来说, 任何类似于${name ... }(这种形式)的字符串操作
+  7&nbsp;#+ 都能够应用于数组中的所有字符串元素, 
+  8&nbsp;#+ 比如说${name[@] ... }或${name[*] ...}这两种形式. 
+  9&nbsp;
+ 10&nbsp;
+ 11&nbsp;arrayZ=( one two three four five five )
+ 12&nbsp;
+ 13&nbsp;echo
+ 14&nbsp;
+ 15&nbsp;# 提取尾部的子串
+ 16&nbsp;echo ${arrayZ[@]:0}     # one two three four five five
+ 17&nbsp;                        # 所有元素. 
+ 18&nbsp;
+ 19&nbsp;echo ${arrayZ[@]:1}     # two three four five five
+ 20&nbsp;                        # element[0]后边的所有元素. 
+ 21&nbsp;
+ 22&nbsp;echo ${arrayZ[@]:1:2}   # two three
+ 23&nbsp;                        # 只提取element[0]后边的两个元素. 
+ 24&nbsp;
+ 25&nbsp;echo "-----------------------"
+ 26&nbsp;
+ 27&nbsp;#  子串删除
+ 28&nbsp;#  从字符串的开头删除最短的匹配, 
+ 29&nbsp;#+ 匹配的子串也可以是正则表达式. 
+ 30&nbsp;
+ 31&nbsp;echo ${arrayZ[@]#f*r}   # one two three five five
+ 32&nbsp;                        # 匹配将应用于数组的所有元素. 
+ 33&nbsp;                        # 匹配到了"four", 并且将它删除. 
+ 34&nbsp;
+ 35&nbsp;# 从字符串的开头删除最长的匹配
+ 36&nbsp;echo ${arrayZ[@]##t*e}  # one two four five five
+ 37&nbsp;                        # 匹配将应用于数组的所有元素. 
+ 38&nbsp;                        # 匹配到了"three", 并且将它删除. 
+ 39&nbsp;
+ 40&nbsp;# 从字符串的结尾删除最短的匹配
+ 41&nbsp;echo ${arrayZ[@]%h*e}   # one two t four five five
+ 42&nbsp;                        # 匹配将应用于数组的所有元素. 
+ 43&nbsp;                        # 匹配到了"hree", 并且将它删除. 
+ 44&nbsp;
+ 45&nbsp;# 从字符串的结尾删除最长的匹配
+ 46&nbsp;echo ${arrayZ[@]%%t*e}  # one two four five five
+ 47&nbsp;                        # 匹配将应用于数组的所有元素. 
+ 48&nbsp;                        # 匹配到了"three", 并且将它删除. 
+ 49&nbsp;
+ 50&nbsp;echo "-----------------------"
+ 51&nbsp;
+ 52&nbsp;# 子串替换
+ 53&nbsp;
+ 54&nbsp;# 第一个匹配到的子串将会被替换
+ 55&nbsp;echo ${arrayZ[@]/fiv/XYZ}   # one two three four XYZe XYZe
+ 56&nbsp;                            # 匹配将应用于数组的所有元素. 
+ 57&nbsp;
+ 58&nbsp;# 所有匹配到的子串都会被替换
+ 59&nbsp;echo ${arrayZ[@]//iv/YY}    # one two three four fYYe fYYe
+ 60&nbsp;                            # 匹配将应用于数组的所有元素. 
+ 61&nbsp;
+ 62&nbsp;# 删除所有的匹配子串
+ 63&nbsp;# 如果没有指定替换字符串的话, 那就意味着'删除'
+ 64&nbsp;echo ${arrayZ[@]//fi/}      # one two three four ve ve
+ 65&nbsp;                            # 匹配将应用于数组的所有元素. 
+ 66&nbsp;
+ 67&nbsp;# 替换字符串前端子串
+ 68&nbsp;echo ${arrayZ[@]/#fi/XY}    # one two three four XYve XYve
+ 69&nbsp;                            # 匹配将应用于数组的所有元素. 
+ 70&nbsp;
+ 71&nbsp;# 替换字符串后端子串
+ 72&nbsp;echo ${arrayZ[@]/%ve/ZZ}    # one two three four fiZZ fiZZ
+ 73&nbsp;                            # 匹配将应用于数组的所有元素. 
+ 74&nbsp;
+ 75&nbsp;echo ${arrayZ[@]/%o/XX}     # one twXX three four five five
+ 76&nbsp;                            # 为什么? 
+ 77&nbsp;
+ 78&nbsp;echo "-----------------------"
+ 79&nbsp;
+ 80&nbsp;
+ 81&nbsp;# 在将处理后的结果发送到awk(或者其他的处理工具)之前 --
+ 82&nbsp;# 回忆一下:
+ 83&nbsp;#   $( ... )是命令替换. 
+ 84&nbsp;#   函数作为子进程运行. 
+ 85&nbsp;#   函数结果输出到stdout. 
+ 86&nbsp;#   用read来读取函数的stdout. 
+ 87&nbsp;#   使用name[@]表示法指定了一个"for-each"操作. 
+ 88&nbsp;
+ 89&nbsp;newstr() {
+ 90&nbsp;    echo -n "!!!"
+ 91&nbsp;}
+ 92&nbsp;
+ 93&nbsp;echo ${arrayZ[@]/%e/$(newstr)}
+ 94&nbsp;# on!!! two thre!!! four fiv!!! fiv!!!
+ 95&nbsp;# Q.E.D: 替换动作实际上是一个'赋值'. 
+ 96&nbsp;
+ 97&nbsp;#  使用"For-Each"形式的
+ 98&nbsp;echo ${arrayZ[@]//*/$(newstr optional_arguments)}
+ 99&nbsp;#  现在, 如果Bash只将匹配到的子串作为$0
+100&nbsp;#+ 传递给将被调用的函数 . . .
+101&nbsp;
+102&nbsp;echo
+103&nbsp;
+104&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><A
+HREF="commandsub.html#COMMANDSUBREF"
+>命令替换</A
+>可以构造数组的独立元素. 
+		  (译者注: 换句话说, 就是命令替换也能够给数组赋值.) </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="SCRIPTARRAY"
+></A
+><P
+><B
+>例子 26-5. 将脚本的内容赋值给数组</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# script-array.sh: 将这个脚本的内容赋值给数组. 
+  3&nbsp;# 这个脚本的灵感来自于Chris Martin的e-mail(感谢!). 
+  4&nbsp;
+  5&nbsp;script_contents=( $(cat "$0") )  #  将这个脚本的内容($0)
+  6&nbsp;                                 #+ 赋值给数组. 
+  7&nbsp;
+  8&nbsp;for element in $(seq 0 $((${#script_contents[@]} - 1)))
+  9&nbsp;  do                #  ${#script_contents[@]}
+ 10&nbsp;                    #+ 表示数组元素的个数. 
+ 11&nbsp;                    #
+ 12&nbsp;                    #  一个小问题:
+ 13&nbsp;                    #  为什么必须使用seq 0? 
+ 14&nbsp;                    #  用seq 1来试一下. 
+ 15&nbsp;  echo -n "${script_contents[$element]}"
+ 16&nbsp;                    # 在同一行上显示脚本中每个域的内容. 
+ 17&nbsp;  echo -n " -- "    # 使用 " -- " 作为域分割符. 
+ 18&nbsp;done
+ 19&nbsp;
+ 20&nbsp;echo
+ 21&nbsp;
+ 22&nbsp;exit 0
+ 23&nbsp;
+ 24&nbsp;# 练习:
+ 25&nbsp;# -----
+ 26&nbsp;#  修改这个脚本, 
+ 27&nbsp;#+ 让这个脚本能够按照它原本的格式输出, 
+ 28&nbsp;#+ 连同空白, 换行, 等等. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>在数组环境中, 某些Bash<A
+HREF="internal.html#BUILTINREF"
+>内建命令</A
+>的含义可能会有些轻微的改变. 
+	比如, <A
+HREF="internal.html#UNSETREF"
+>unset</A
+>命令可以删除数组元素, 
+	甚至能够删除整个数组. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX67"
+></A
+><P
+><B
+>例子 26-6. 一些数组专用的小道具</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;declare -a colors
+  4&nbsp;#  脚本中所有的后续命令都会把
+  5&nbsp;#+ 变量"colors"看作数组. 
+  6&nbsp;
+  7&nbsp;echo "Enter your favorite colors (separated from each other by a space)."
+  8&nbsp;
+  9&nbsp;read -a colors    # 至少需要键入3种颜色, 以便于后边的演示. 
+ 10&nbsp;#  'read'命令的特殊选项, 
+ 11&nbsp;#+ 允许给数组元素赋值. 
+ 12&nbsp;
+ 13&nbsp;echo
+ 14&nbsp;
+ 15&nbsp;element_count=${#colors[@]}
+ 16&nbsp;# 提取数组元素个数的特殊语法. 
+ 17&nbsp;#     用element_count=${#colors[*]}也一样. 
+ 18&nbsp;#
+ 19&nbsp;#  "@"变量允许在引用中存在单词分割(word splitting)
+ 20&nbsp;#+ (依靠空白字符来分隔变量). 
+ 21&nbsp;#
+ 22&nbsp;#  这就好像"$@"和"$*"
+ 23&nbsp;#+ 在位置参数中的所表现出来的行为一样. 
+ 24&nbsp;
+ 25&nbsp;index=0
+ 26&nbsp;
+ 27&nbsp;while [ "$index" -lt "$element_count" ]
+ 28&nbsp;do    # 列出数组中的所有元素. 
+ 29&nbsp;  echo ${colors[$index]}
+ 30&nbsp;  let "index = $index + 1"
+ 31&nbsp;  # 或:
+ 32&nbsp;  #    index+=1
+ 33&nbsp;  # 如果你运行的Bash版本是3.1以后的话, 才支持这种语法. 
+ 34&nbsp;done
+ 35&nbsp;# 每个数组元素被列为单独的一行. 
+ 36&nbsp;# 如果没有这种要求的话, 可以使用echo -n "${colors[$index]} "
+ 37&nbsp;#
+ 38&nbsp;# 也可以使用"for"循环来做: 
+ 39&nbsp;#   for i in "${colors[@]}"
+ 40&nbsp;#   do
+ 41&nbsp;#     echo "$i"
+ 42&nbsp;#   done
+ 43&nbsp;# (感谢, S.C.)
+ 44&nbsp;
+ 45&nbsp;echo
+ 46&nbsp;
+ 47&nbsp;# 再次列出数组中的所有元素, 不过这次的做法更优雅. 
+ 48&nbsp;  echo ${colors[@]}          # 用echo ${colors[*]}也行. 
+ 49&nbsp;
+ 50&nbsp;echo
+ 51&nbsp;
+ 52&nbsp;# "unset"命令即可以删除数组数据, 也可以删除整个数组. 
+ 53&nbsp;unset colors[1]              # 删除数组的第2个元素. 
+ 54&nbsp;                             # 作用等效于   colors[1]=
+ 55&nbsp;echo  ${colors[@]}           # 再次列出数组内容, 第2个元素没了. 
+ 56&nbsp;
+ 57&nbsp;unset colors                 # 删除整个数组. 
+ 58&nbsp;                             #  unset colors[*] 或
+ 59&nbsp;                             #+ unset colors[@] 都可以. 
+ 60&nbsp;echo; echo -n "Colors gone."			   
+ 61&nbsp;echo ${colors[@]}            # 再次列出数组内容, 内容为空. 
+ 62&nbsp;
+ 63&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>正如我们在前面例子中所看到的, 
+	<B
+CLASS="COMMAND"
+>${array_name[@]}</B
+>或<B
+CLASS="COMMAND"
+>${array_name[*]}</B
+>都与数组中的<EM
+>所有</EM
+>元素相关. 
+	同样的, 为了计算数组的元素个数, 
+	可以使用<B
+CLASS="COMMAND"
+>${#array_name[@]}</B
+>或<B
+CLASS="COMMAND"
+>${#array_name[*]}</B
+>. 
+	<B
+CLASS="COMMAND"
+>${#array_name}</B
+>是数组第一个元素的长度, 
+	也就是<B
+CLASS="COMMAND"
+>${array_name[0]}</B
+>的长度(字符个数). 
+	</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EMPTYARRAY"
+></A
+><P
+><B
+>例子 26-7. 空数组与包含空元素的数组</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# empty-array.sh
+  3&nbsp;
+  4&nbsp;#  感谢Stephane Chazelas制作这个例子的原始版本, 
+  5&nbsp;#+ 同时感谢Michael Zick对这个例子所作的扩展. 
+  6&nbsp;
+  7&nbsp;
+  8&nbsp;# 空数组与包含有空元素的数组, 这两个概念不同. 
+  9&nbsp;
+ 10&nbsp;array0=( first second third )
+ 11&nbsp;array1=( '' )   # "array1"包含一个空元素. 
+ 12&nbsp;array2=( )      # 没有元素 . . . "array2"为空. 
+ 13&nbsp;
+ 14&nbsp;echo
+ 15&nbsp;ListArray()
+ 16&nbsp;{
+ 17&nbsp;echo
+ 18&nbsp;echo "Elements in array0:  ${array0[@]}"
+ 19&nbsp;echo "Elements in array1:  ${array1[@]}"
+ 20&nbsp;echo "Elements in array2:  ${array2[@]}"
+ 21&nbsp;echo
+ 22&nbsp;echo "Length of first element in array0 = ${#array0}"
+ 23&nbsp;echo "Length of first element in array1 = ${#array1}"
+ 24&nbsp;echo "Length of first element in array2 = ${#array2}"
+ 25&nbsp;echo
+ 26&nbsp;echo "Number of elements in array0 = ${#array0[*]}"  # 3
+ 27&nbsp;echo "Number of elements in array1 = ${#array1[*]}"  # 1  (惊奇!)
+ 28&nbsp;echo "Number of elements in array2 = ${#array2[*]}"  # 0
+ 29&nbsp;}
+ 30&nbsp;
+ 31&nbsp;# ===================================================================
+ 32&nbsp;
+ 33&nbsp;ListArray
+ 34&nbsp;
+ 35&nbsp;# 尝试扩展这些数组. 
+ 36&nbsp;
+ 37&nbsp;# 添加一个元素到这个数组. 
+ 38&nbsp;array0=( "${array0[@]}" "new1" )
+ 39&nbsp;array1=( "${array1[@]}" "new1" )
+ 40&nbsp;array2=( "${array2[@]}" "new1" )
+ 41&nbsp;
+ 42&nbsp;ListArray
+ 43&nbsp;
+ 44&nbsp;# 或
+ 45&nbsp;array0[${#array0[*]}]="new2"
+ 46&nbsp;array1[${#array1[*]}]="new2"
+ 47&nbsp;array2[${#array2[*]}]="new2"
+ 48&nbsp;
+ 49&nbsp;ListArray
+ 50&nbsp;
+ 51&nbsp;# 如果你按照上边的方法对数组进行扩展的话; 数组比较象'栈' 
+ 52&nbsp;# 上边的操作就是'压栈' 
+ 53&nbsp;# 栈'高'为: 
+ 54&nbsp;height=${#array2[@]}
+ 55&nbsp;echo
+ 56&nbsp;echo "Stack height for array2 = $height"
+ 57&nbsp;
+ 58&nbsp;# '出栈'就是: 
+ 59&nbsp;unset array2[${#array2[@]}-1]	#  数组从0开始索引, 
+ 60&nbsp;height=${#array2[@]}            #+ 这意味着第一个数组下标为0. 
+ 61&nbsp;echo
+ 62&nbsp;echo "POP"
+ 63&nbsp;echo "New stack height for array2 = $height"
+ 64&nbsp;
+ 65&nbsp;ListArray
+ 66&nbsp;
+ 67&nbsp;# 只列出数组array0的第二个和第三个元素.
+ 68&nbsp;from=1		# 从0开始索引. 
+ 69&nbsp;to=2		#
+ 70&nbsp;array3=( ${array0[@]:1:2} )
+ 71&nbsp;echo
+ 72&nbsp;echo "Elements in array3:  ${array3[@]}"
+ 73&nbsp;
+ 74&nbsp;# 处理方式就像是字符串(字符数组). 
+ 75&nbsp;# 试试其他的"字符串"形式. 
+ 76&nbsp;
+ 77&nbsp;# 替换: 
+ 78&nbsp;array4=( ${array0[@]/second/2nd} )
+ 79&nbsp;echo
+ 80&nbsp;echo "Elements in array4:  ${array4[@]}"
+ 81&nbsp;
+ 82&nbsp;# 替换掉所有匹配通配符的字符串. 
+ 83&nbsp;array5=( ${array0[@]//new?/old} )
+ 84&nbsp;echo
+ 85&nbsp;echo "Elements in array5:  ${array5[@]}"
+ 86&nbsp;
+ 87&nbsp;# 当你开始觉得对此有把握的时候 . . .
+ 88&nbsp;array6=( ${array0[@]#*new} )
+ 89&nbsp;echo # 这个可能会让你感到惊奇. 
+ 90&nbsp;echo "Elements in array6:  ${array6[@]}"
+ 91&nbsp;
+ 92&nbsp;array7=( ${array0[@]#new1} )
+ 93&nbsp;echo # 数组array6之后就没有惊奇了. 
+ 94&nbsp;echo "Elements in array7:  ${array7[@]}"
+ 95&nbsp;
+ 96&nbsp;# 看起来非常像 . . .
+ 97&nbsp;array8=( ${array0[@]/new1/} )
+ 98&nbsp;echo
+ 99&nbsp;echo "Elements in array8:  ${array8[@]}"
+100&nbsp;
+101&nbsp;#  所以, 让我们怎么形容呢? 
+102&nbsp;
+103&nbsp;#  对数组var[@]中的每个元素
+104&nbsp;#+ 进行连续的字符串操作. 
+105&nbsp;#  因此: 如果结果是长度为0的字符串, 
+106&nbsp;#+ Bash支持字符串向量操作, 
+107&nbsp;#+ 元素会在结果赋值中消失不见. 
+108&nbsp;
+109&nbsp;#  一个问题, 这些字符串是强引用还是弱引用? 
+110&nbsp;
+111&nbsp;zap='new*'
+112&nbsp;array9=( ${array0[@]/$zap/} )
+113&nbsp;echo
+114&nbsp;echo "Elements in array9:  ${array9[@]}"
+115&nbsp;
+116&nbsp;# 当你还在考虑, 你身在Kansas州何处时 . . .
+117&nbsp;array10=( ${array0[@]#$zap} )
+118&nbsp;echo
+119&nbsp;echo "Elements in array10:  ${array10[@]}"
+120&nbsp;
+121&nbsp;# 比较array7和array10. 
+122&nbsp;# 比较array8和array9. 
+123&nbsp;
+124&nbsp;# 答案: 必须是弱引用. 
+125&nbsp;
+126&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><B
+CLASS="COMMAND"
+>${array_name[@]}</B
+>和<B
+CLASS="COMMAND"
+>${array_name[*]}</B
+>的关系非常类似于<A
+HREF="internalvariables.html#APPREF"
+>$@ and $*</A
+>. 
+		 这种数组用法用处非常广泛. </P
+><P
+>      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 复制一个数组. 
+  2&nbsp;array2=( "${array1[@]}" )
+  3&nbsp;# 或
+  4&nbsp;array2="${array1[@]}"
+  5&nbsp;#
+  6&nbsp;#  然而, 如果在"缺项"数组中使用的话, 将会失败, 
+  7&nbsp;#+ 也就是说数组中存在空洞(中间的某个元素没赋值), 
+  8&nbsp;#+ 这个问题由Jochen DeSmet指出. 
+  9&nbsp;# ------------------------------------------
+ 10&nbsp;  array1[0]=0
+ 11&nbsp;# array1[1]没赋值
+ 12&nbsp;  array1[2]=2
+ 13&nbsp;  array2=( "${array1[@]}" )       # 拷贝它? 
+ 14&nbsp;
+ 15&nbsp;echo ${array2[0]}      # 0
+ 16&nbsp;echo ${array2[2]}      # (null), 应该是2
+ 17&nbsp;# ------------------------------------------
+ 18&nbsp;
+ 19&nbsp;
+ 20&nbsp;
+ 21&nbsp;# 添加一个元素到数组. 
+ 22&nbsp;array=( "${array[@]}" "new element" )
+ 23&nbsp;# 或
+ 24&nbsp;array[${#array[*]}]="new element"
+ 25&nbsp;
+ 26&nbsp;# 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>array=( element1 element2 ... elementN 
+				  )</B
+>初始化操作, 
+			  如果有<A
+HREF="commandsub.html#COMMANDSUBREF"
+>命令替换</A
+>的帮助, 
+			  就可以将一个文本文件的内容加载到数组. 
+		  </P
+><P
+>  	
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;filename=sample_file
+  4&nbsp;
+  5&nbsp;#            cat sample_file
+  6&nbsp;#
+  7&nbsp;#            1 a b c
+  8&nbsp;#            2 d e fg
+  9&nbsp;
+ 10&nbsp;
+ 11&nbsp;declare -a array1
+ 12&nbsp;
+ 13&nbsp;array1=( `cat "$filename"`)                #  将$filename的内容
+ 14&nbsp;#         List file to stdout              #+ 加载到数组array1. 
+ 15&nbsp;#
+ 16&nbsp;#  array1=( `cat "$filename" | tr '\n' ' '`)
+ 17&nbsp;#                            把文件中的换行替换为空格. 
+ 18&nbsp;#  其实这么做是没必要的, Not necessary because Bash does word splitting,
+ 19&nbsp;#+ 因为Bash在做单词分割(word splitting)的时候, 将会把换行转换为空格. 
+ 20&nbsp;
+ 21&nbsp;echo ${array1[@]}            # 打印数组. 
+ 22&nbsp;#                              1 a b c 2 d e fg
+ 23&nbsp;#
+ 24&nbsp;#  文件中每个被空白符分隔的"单词"
+ 25&nbsp;#+ 都被保存到数组的一个元素中. 
+ 26&nbsp;
+ 27&nbsp;element_count=${#array1[*]}
+ 28&nbsp;echo $element_count          # 8</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>出色的技巧使得数组的操作技术又多了一种. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ARRAYASSIGN"
+></A
+><P
+><B
+>例子 26-8. 初始化数组</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#! /bin/bash
+  2&nbsp;# array-assign.bash
+  3&nbsp;
+  4&nbsp;#  数组操作是Bash所特有的, 
+  5&nbsp;#+ 所以才使用".bash"作为脚本扩展名. 
+  6&nbsp;
+  7&nbsp;# Copyright (c) Michael S. Zick, 2003, All rights reserved.
+  8&nbsp;# License: Unrestricted reuse in any form, for any purpose.
+  9&nbsp;# Version: $ID$
+ 10&nbsp;#
+ 11&nbsp;# 说明与注释由William Park所添加. 
+ 12&nbsp;
+ 13&nbsp;#  基于Stephane Chazelas所提供的
+ 14&nbsp;#+ 出现在本书中的一个例子. 
+ 15&nbsp;
+ 16&nbsp;# 'times'命令的输出格式: 
+ 17&nbsp;# User CPU &#60;space&#62; System CPU
+ 18&nbsp;# User CPU of dead children &#60;space&#62; System CPU of dead children
+ 19&nbsp;
+ 20&nbsp;#  Bash有两种方法, 
+ 21&nbsp;#+ 可以将一个数组的所有元素都赋值给一个新的数组变量. 
+ 22&nbsp;#  在2.04, 2.05a和2.05b版本的Bash中, 
+ 23&nbsp;#+ 这两种方法都会丢弃数组中的"空引用"(null值)元素. 
+ 24&nbsp;#  另一种给数组赋值的方法将会被添加到新版本的Bash中, 
+ 25&nbsp;#+ 这种方法采用[subscript]=value形式, 来维护数组下标与元素值之间的关系. 
+ 26&nbsp;
+ 27&nbsp;#  可以使用内部命令来构造一个大数组, 
+ 28&nbsp;#+ 当然, 构造一个包含上千元素数组的其他方法
+ 29&nbsp;#+ 也能很好的完成任务. 
+ 30&nbsp;
+ 31&nbsp;declare -a bigOne=( /dev/* )
+ 32&nbsp;echo
+ 33&nbsp;echo 'Conditions: Unquoted, default IFS, All-Elements-Of'
+ 34&nbsp;echo "Number of elements in array is ${#bigOne[@]}"
+ 35&nbsp;
+ 36&nbsp;# set -vx
+ 37&nbsp;
+ 38&nbsp;
+ 39&nbsp;
+ 40&nbsp;echo
+ 41&nbsp;echo '- - testing: =( ${array[@]} ) - -'
+ 42&nbsp;times
+ 43&nbsp;declare -a bigTwo=( ${bigOne[@]} )
+ 44&nbsp;#                 ^              ^
+ 45&nbsp;times
+ 46&nbsp;
+ 47&nbsp;echo
+ 48&nbsp;echo '- - testing: =${array[@]} - -'
+ 49&nbsp;times
+ 50&nbsp;declare -a bigThree=${bigOne[@]}
+ 51&nbsp;# 这次没用括号. 
+ 52&nbsp;times
+ 53&nbsp;
+ 54&nbsp;#  正如Stephane Chazelas所指出的, 通过比较, 
+ 55&nbsp;#+ 可以了解到第二种格式的赋值比第三或第四种形式更快. 
+ 56&nbsp;#
+ 57&nbsp;#  William Park解释: 
+ 58&nbsp;#+ 数组bigTwo是作为一个单个字符串被赋值的, 
+ 59&nbsp;#+ 而数组bigThree, 则是一个元素一个元素进行的赋值. 
+ 60&nbsp;#  所以, 实质上是: 
+ 61&nbsp;#                   bigTwo=( [0]="... ... ..." )
+ 62&nbsp;#                   bigThree=( [0]="..." [1]="..." [2]="..." ... )
+ 63&nbsp;
+ 64&nbsp;
+ 65&nbsp;#  在本书的例子中, 我还是会继续使用第一种形式, 
+ 66&nbsp;#+ 因为我认为这种形式更有利于将问题阐述清楚. 
+ 67&nbsp;
+ 68&nbsp;#  在我所使用的例子中, 在其中复用的部分, 
+ 69&nbsp;#+ 还是使用了第二种形式, 那是因为这种形式更快. 
+ 70&nbsp;
+ 71&nbsp;# MSZ: 很抱歉早先的疏忽(译者: 应是指本书的老版本). 
+ 72&nbsp;
+ 73&nbsp;
+ 74&nbsp;#  注意事项:
+ 75&nbsp;#  ---------
+ 76&nbsp;#  31行和43行的"declare -a"语句其实不是必需的, 
+ 77&nbsp;#+ 因为Array=( ... )形式
+ 78&nbsp;#+ 只能用于数组赋值. 
+ 79&nbsp;#  然而, 如果省略这些声明的话, 
+ 80&nbsp;#+ 会导致脚本后边的相关操作变慢. 
+ 81&nbsp;#  试一下, 看看发生了什么. 
+ 82&nbsp;
+ 83&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在数组声明的时候添加一个额外的<B
+CLASS="COMMAND"
+>declare -a</B
+>语句, 
+		能够加速后续的数组操作速度. 
+	</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="COPYARRAY"
+></A
+><P
+><B
+>例子 26-9. 拷贝和连接数组</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#! /bin/bash
+  2&nbsp;# CopyArray.sh
+  3&nbsp;#
+  4&nbsp;# 这个脚本由Michael Zick所编写. 
+  5&nbsp;# 已通过作者授权, 可以在本书中使用. 
+  6&nbsp;
+  7&nbsp;#  如何"通过名字传值&#38;通过名字返回"(译者注: 这里可以理解为C中的"数组指针", 或C++中的"数组引用")
+  8&nbsp;#+ 或者"建立自己的赋值语句". 
+  9&nbsp;
+ 10&nbsp;
+ 11&nbsp;CpArray_Mac() {
+ 12&nbsp;
+ 13&nbsp;# 建立赋值命令
+ 14&nbsp;
+ 15&nbsp;    echo -n 'eval '
+ 16&nbsp;    echo -n "$2"                    # 目的参数名
+ 17&nbsp;    echo -n '=( ${'
+ 18&nbsp;    echo -n "$1"                    # 原参数名
+ 19&nbsp;    echo -n '[@]} )'
+ 20&nbsp;
+ 21&nbsp;# 上边这些语句会构成一条命令. 
+ 22&nbsp;# 这仅仅是形式上的问题. 
+ 23&nbsp;}
+ 24&nbsp;
+ 25&nbsp;declare -f CopyArray                # 函数"指针"
+ 26&nbsp;CopyArray=CpArray_Mac               # 构造语句
+ 27&nbsp;
+ 28&nbsp;Hype()
+ 29&nbsp;{
+ 30&nbsp;
+ 31&nbsp;# 需要连接的数组名为$1. 
+ 32&nbsp;# (把这个数组与字符串"Really Rocks"结合起来, 形成一个新数组.)
+ 33&nbsp;# 并将结果从数组$2中返回. 
+ 34&nbsp;
+ 35&nbsp;    local -a TMP
+ 36&nbsp;    local -a hype=( Really Rocks )
+ 37&nbsp;
+ 38&nbsp;    $($CopyArray $1 TMP)
+ 39&nbsp;    TMP=( ${TMP[@]} ${hype[@]} )
+ 40&nbsp;    $($CopyArray TMP $2)
+ 41&nbsp;}
+ 42&nbsp;
+ 43&nbsp;declare -a before=( Advanced Bash Scripting )
+ 44&nbsp;declare -a after
+ 45&nbsp;
+ 46&nbsp;echo "Array Before = ${before[@]}"
+ 47&nbsp;
+ 48&nbsp;Hype before after
+ 49&nbsp;
+ 50&nbsp;echo "Array After = ${after[@]}"
+ 51&nbsp;
+ 52&nbsp;# 连接的太多了? 
+ 53&nbsp;
+ 54&nbsp;echo "What ${after[@]:3:2}?"
+ 55&nbsp;
+ 56&nbsp;declare -a modest=( ${after[@]:2:1} ${after[@]:3:2} )
+ 57&nbsp;#                    ----       子串提取       ----
+ 58&nbsp;
+ 59&nbsp;echo "Array Modest = ${modest[@]}"
+ 60&nbsp;
+ 61&nbsp;# 'before'发生了什么变化么? 
+ 62&nbsp;
+ 63&nbsp;echo "Array Before = ${before[@]}"
+ 64&nbsp;
+ 65&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ARRAYAPPEND"
+></A
+><P
+><B
+>例子 26-10. 关于串联数组的更多信息</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#! /bin/bash
+  2&nbsp;# array-append.bash
+  3&nbsp;
+  4&nbsp;# Copyright (c) Michael S. Zick, 2003, All rights reserved.
+  5&nbsp;# License: Unrestricted reuse in any form, for any purpose.
+  6&nbsp;# Version: $ID$
+  7&nbsp;#
+  8&nbsp;# 在格式上, 由M.C做了一些修改. 
+  9&nbsp;
+ 10&nbsp;
+ 11&nbsp;# 数组操作是Bash特有的属性. 
+ 12&nbsp;# 传统的UNIX /bin/sh缺乏类似的功能. 
+ 13&nbsp;
+ 14&nbsp;
+ 15&nbsp;#  将这个脚本的输出通过管道传递给'more', 
+ 16&nbsp;#+ 这么做的目的是防止输出的内容超过终端能够显示的范围. 
+ 17&nbsp;
+ 18&nbsp;
+ 19&nbsp;# 依次使用下标. 
+ 20&nbsp;declare -a array1=( zero1 one1 two1 )
+ 21&nbsp;# 数组中存在空缺的元素([1]未定义). 
+ 22&nbsp;declare -a array2=( [0]=zero2 [2]=two2 [3]=three2 )
+ 23&nbsp;
+ 24&nbsp;echo
+ 25&nbsp;echo '- Confirm that the array is really subscript sparse. -'
+ 26&nbsp;echo "Number of elements: 4"        # 仅仅为了演示, 所以就写死了. 
+ 27&nbsp;for (( i = 0 ; i &#60; 4 ; i++ ))
+ 28&nbsp;do
+ 29&nbsp;    echo "Element [$i]: ${array2[$i]}"
+ 30&nbsp;done
+ 31&nbsp;# 也可以参考一个更通用的例子, basics-reviewed.bash. 
+ 32&nbsp;
+ 33&nbsp;
+ 34&nbsp;declare -a dest
+ 35&nbsp;
+ 36&nbsp;# 将两个数组合并(附加)到第3个数组. 
+ 37&nbsp;echo
+ 38&nbsp;echo 'Conditions: Unquoted, default IFS, All-Elements-Of operator'
+ 39&nbsp;echo '- Undefined elements not present, subscripts not maintained. -'
+ 40&nbsp;# # 那些未定义的元素不会出现; 组合时会丢弃这些元素. 
+ 41&nbsp;
+ 42&nbsp;dest=( ${array1[@]} ${array2[@]} )
+ 43&nbsp;# dest=${array1[@]}${array2[@]}     # 令人奇怪的结果, 或许是个bug. 
+ 44&nbsp;
+ 45&nbsp;# 现在, 打印结果. 
+ 46&nbsp;echo
+ 47&nbsp;echo '- - Testing Array Append - -'
+ 48&nbsp;cnt=${#dest[@]}
+ 49&nbsp;
+ 50&nbsp;echo "Number of elements: $cnt"
+ 51&nbsp;for (( i = 0 ; i &#60; cnt ; i++ ))
+ 52&nbsp;do
+ 53&nbsp;    echo "Element [$i]: ${dest[$i]}"
+ 54&nbsp;done
+ 55&nbsp;
+ 56&nbsp;# 将数组赋值给一个数组中的元素(两次). 
+ 57&nbsp;dest[0]=${array1[@]}
+ 58&nbsp;dest[1]=${array2[@]}
+ 59&nbsp;
+ 60&nbsp;# 打印结果. 
+ 61&nbsp;echo
+ 62&nbsp;echo '- - Testing modified array - -'
+ 63&nbsp;cnt=${#dest[@]}
+ 64&nbsp;
+ 65&nbsp;echo "Number of elements: $cnt"
+ 66&nbsp;for (( i = 0 ; i &#60; cnt ; i++ ))
+ 67&nbsp;do
+ 68&nbsp;    echo "Element [$i]: ${dest[$i]}"
+ 69&nbsp;done
+ 70&nbsp;
+ 71&nbsp;# 检查第二个元素的修改状况. 
+ 72&nbsp;echo
+ 73&nbsp;echo '- - Reassign and list second element - -'
+ 74&nbsp;
+ 75&nbsp;declare -a subArray=${dest[1]}
+ 76&nbsp;cnt=${#subArray[@]}
+ 77&nbsp;
+ 78&nbsp;echo "Number of elements: $cnt"
+ 79&nbsp;for (( i = 0 ; i &#60; cnt ; i++ ))
+ 80&nbsp;do
+ 81&nbsp;    echo "Element [$i]: ${subArray[$i]}"
+ 82&nbsp;done
+ 83&nbsp;
+ 84&nbsp;#  如果你使用'=${ ... }'形式
+ 85&nbsp;#+ 将一个数组赋值到另一个数组的一个元素中, 
+ 86&nbsp;#+ 那么这个数组的所有元素都会被转换为一个字符串, 
+ 87&nbsp;#+ 这个字符串中的每个数组元素都以空格进行分隔(其实是IFS的第一个字符). 
+ 88&nbsp;
+ 89&nbsp;# 如果原来数组中的所有元素都不包含空白符 . . .
+ 90&nbsp;# 如果原来的数组下标都是连续的 . . .
+ 91&nbsp;# 那么我们就可以将原来的数组进行恢复. 
+ 92&nbsp;
+ 93&nbsp;# 从修改过的第二个元素中, 将原来的数组恢复出来. 
+ 94&nbsp;echo
+ 95&nbsp;echo '- - Listing restored element - -'
+ 96&nbsp;
+ 97&nbsp;declare -a subArray=( ${dest[1]} )
+ 98&nbsp;cnt=${#subArray[@]}
+ 99&nbsp;
+100&nbsp;echo "Number of elements: $cnt"
+101&nbsp;for (( i = 0 ; i &#60; cnt ; i++ ))
+102&nbsp;do
+103&nbsp;    echo "Element [$i]: ${subArray[$i]}"
+104&nbsp;done
+105&nbsp;echo '- - Do not depend on this behavior. - -'
+106&nbsp;echo '- - This behavior is subject to change - -'
+107&nbsp;echo '- - in versions of Bash newer than version 2.05b - -'
+108&nbsp;
+109&nbsp;# MSZ: 抱歉, 之前混淆了一些要点(译者注: 指的是本书以前的版本). 
+110&nbsp;
+111&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>--</P
+><P
+>有了数组, 我们就可以在脚本中实现一些比较熟悉的算法. 
+        这么做, 到底是不是一个好主意, 我们在这里不做讨论, 还是留给读者决定吧. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="BUBBLE"
+></A
+><P
+><B
+>例子 26-11. 一位老朋友: 
+             <EM
+>冒泡排序</EM
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# bubble.sh: 一种排序方式, 冒泡排序. 
+  3&nbsp;
+  4&nbsp;# 回忆一下冒泡排序的算法. 我们在这里要实现它...
+  5&nbsp;
+  6&nbsp;#  依靠连续的比较数组元素进行排序, 
+  7&nbsp;#+ 比较两个相邻元素, 如果顺序不对, 就交换这两个元素的位置. 
+  8&nbsp;#  当第一轮比较结束之后, 最"重"的元素就会被移动到最底部. 
+  9&nbsp;#  当第二轮比较结束之后, 第二"重"的元素就会被移动到次底部的位置. 
+ 10&nbsp;#  依此类推. 
+ 11&nbsp;#  这意味着每轮比较不需要比较之前已经"沉淀"好的数据. 
+ 12&nbsp;#  因此你会注意到后边的数据在打印的时候会快一些. 
+ 13&nbsp;
+ 14&nbsp;
+ 15&nbsp;exchange()
+ 16&nbsp;{
+ 17&nbsp;  # 交换数组中的两个元素. 
+ 18&nbsp;  local temp=${Countries[$1]} #  临时保存
+ 19&nbsp;                              #+ 要交换的那个元素. 
+ 20&nbsp;  Countries[$1]=${Countries[$2]}
+ 21&nbsp;  Countries[$2]=$temp
+ 22&nbsp;  
+ 23&nbsp;  return
+ 24&nbsp;}  
+ 25&nbsp;
+ 26&nbsp;declare -a Countries  #  声明数组, 
+ 27&nbsp;                      #+ 此处是可选的, 因为数组在下面被初始化. 
+ 28&nbsp;
+ 29&nbsp;#  我们是否可以使用转义符(\)
+ 30&nbsp;#+ 来将数组元素的值放在不同的行上? 
+ 31&nbsp;#  可以. 
+ 32&nbsp;
+ 33&nbsp;Countries=(Netherlands Ukraine Zaire Turkey Russia Yemen Syria \
+ 34&nbsp;Brazil Argentina Nicaragua Japan Mexico Venezuela Greece England \
+ 35&nbsp;Israel Peru Canada Oman Denmark Wales France Kenya \
+ 36&nbsp;Xanadu Qatar Liechtenstein Hungary)
+ 37&nbsp;
+ 38&nbsp;# "Xanadu"虚拟出来的世外桃源. 
+ 39&nbsp;#+ 
+ 40&nbsp;
+ 41&nbsp;
+ 42&nbsp;clear                      # 开始之前的清屏动作. 
+ 43&nbsp;
+ 44&nbsp;echo "0: ${Countries[*]}"  # 从索引0开始列出整个数组. 
+ 45&nbsp;
+ 46&nbsp;number_of_elements=${#Countries[@]}
+ 47&nbsp;let "comparisons = $number_of_elements - 1"
+ 48&nbsp;
+ 49&nbsp;count=1 # 传递数字. 
+ 50&nbsp;
+ 51&nbsp;while [ "$comparisons" -gt 0 ]          # 开始外部循环
+ 52&nbsp;do
+ 53&nbsp;
+ 54&nbsp;  index=0  # 在每轮循环开始之前, 重置索引. 
+ 55&nbsp;
+ 56&nbsp;  while [ "$index" -lt "$comparisons" ] # 开始内部循环
+ 57&nbsp;  do
+ 58&nbsp;    if [ ${Countries[$index]} \&#62; ${Countries[`expr $index + 1`]} ]
+ 59&nbsp;    #  如果原来的排序次序不对...
+ 60&nbsp;    #  回想一下, 在单括号中, 
+ 61&nbsp;    #+ \&#62;是ASCII码的比较操作符. 
+ 62&nbsp;
+ 63&nbsp;    #  if [[ ${Countries[$index]} &#62; ${Countries[`expr $index + 1`]} ]]
+ 64&nbsp;    #+ 这样也行. 
+ 65&nbsp;    then
+ 66&nbsp;      exchange $index `expr $index + 1`  # 交换. 
+ 67&nbsp;    fi  
+ 68&nbsp;    let "index += 1"  # 或者,   index+=1   在Bash 3.1之后的版本才能这么用. 
+ 69&nbsp;  done # 内部循环结束
+ 70&nbsp;
+ 71&nbsp;# ----------------------------------------------------------------------
+ 72&nbsp;# Paulo Marcel Coelho Aragao建议我们可以使用更简单的for循环. 
+ 73&nbsp;#
+ 74&nbsp;# for (( last = $number_of_elements - 1 ; last &#62; 1 ; last-- ))
+ 75&nbsp;# do
+ 76&nbsp;#     for (( i = 0 ; i &#60; last ; i++ ))
+ 77&nbsp;#     do
+ 78&nbsp;#         [[ "${Countries[$i]}" &#62; "${Countries[$((i+1))]}" ]] \
+ 79&nbsp;#             &#38;&#38; exchange $i $((i+1))
+ 80&nbsp;#     done
+ 81&nbsp;# done
+ 82&nbsp;# ----------------------------------------------------------------------
+ 83&nbsp;  
+ 84&nbsp;
+ 85&nbsp;let "comparisons -= 1" #  因为最"重"的元素到了底部, 
+ 86&nbsp;                       #+ 所以每轮我们可以少做一次比较. 
+ 87&nbsp;
+ 88&nbsp;echo
+ 89&nbsp;echo "$count: ${Countries[@]}"  # 每轮结束后, 都打印一次数组. 
+ 90&nbsp;echo
+ 91&nbsp;let "count += 1"                # 增加传递计数. 
+ 92&nbsp;
+ 93&nbsp;done                            # 外部循环结束
+ 94&nbsp;                                # 至此, 全部完成. 
+ 95&nbsp;
+ 96&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>--</P
+><P
+>我们可以在数组中嵌套数组么? </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# "嵌套"数组. 
+  3&nbsp;
+  4&nbsp;#  Michael Zick提供了这个用例, 
+  5&nbsp;#+ William Park做了一些修正和说明. 
+  6&nbsp;
+  7&nbsp;AnArray=( $(ls --inode --ignore-backups --almost-all \
+  8&nbsp;	--directory --full-time --color=none --time=status \
+  9&nbsp;	--sort=time -l ${PWD} ) )  # 命令及选项. 
+ 10&nbsp;
+ 11&nbsp;# 空格是有意义的 . . . 并且不要在上边用引号引用任何东西. 
+ 12&nbsp;
+ 13&nbsp;SubArray=( ${AnArray[@]:11:1}  ${AnArray[@]:6:5} )
+ 14&nbsp;#  这个数组有六个元素: 
+ 15&nbsp;#+     SubArray=( [0]=${AnArray[11]} [1]=${AnArray[6]} [2]=${AnArray[7]}
+ 16&nbsp;#      [3]=${AnArray[8]} [4]=${AnArray[9]} [5]=${AnArray[10]} )
+ 17&nbsp;#
+ 18&nbsp;#  Bash数组是字符串(char *)类型
+ 19&nbsp;#+ 的(循环)链表. 
+ 20&nbsp;#  因此, 这不是真正意义上的嵌套数组, 
+ 21&nbsp;#+ 只不过功能很相似而已. 
+ 22&nbsp;
+ 23&nbsp;echo "Current directory and date of last status change:"
+ 24&nbsp;echo "${SubArray[@]}"
+ 25&nbsp;
+ 26&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>--</P
+><P
+>如果将<SPAN
+CLASS="QUOTE"
+>"嵌套数组"</SPAN
+>与<A
+HREF="bashver2.html#VARREFNEW"
+>间接引用</A
+>组合起来使用的话, 
+		 将会产生一些非常有趣的用法. 
+	</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EMBARR"
+></A
+><P
+><B
+>例子 26-12. 嵌套数组与间接引用</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# embedded-arrays.sh
+  3&nbsp;# 嵌套数组和间接引用. 
+  4&nbsp;
+  5&nbsp;# 本脚本由Dennis Leeuw编写. 
+  6&nbsp;# 经过授权, 在本书中使用. 
+  7&nbsp;# 本书作者做了少许修改. 
+  8&nbsp;
+  9&nbsp;
+ 10&nbsp;ARRAY1=(
+ 11&nbsp;        VAR1_1=value11
+ 12&nbsp;        VAR1_2=value12
+ 13&nbsp;        VAR1_3=value13
+ 14&nbsp;)
+ 15&nbsp;
+ 16&nbsp;ARRAY2=(
+ 17&nbsp;        VARIABLE="test"
+ 18&nbsp;        STRING="VAR1=value1 VAR2=value2 VAR3=value3"
+ 19&nbsp;        ARRAY21=${ARRAY1[*]}
+ 20&nbsp;)       # 将ARRAY1嵌套到这个数组中. 
+ 21&nbsp;
+ 22&nbsp;function print () {
+ 23&nbsp;        OLD_IFS="$IFS"
+ 24&nbsp;        IFS=$'\n'       #  这么做是为了每行
+ 25&nbsp;                        #+ 只打印一个数组元素.
+ 26&nbsp;        TEST1="ARRAY2[*]"
+ 27&nbsp;        local ${!TEST1} # 删除这一行, 看看会发生什么? 
+ 28&nbsp;        #  间接引用. 
+ 29&nbsp;	#  这使得$TEST1
+ 30&nbsp;	#+ 只能够在函数内被访问. 
+ 31&nbsp;
+ 32&nbsp;
+ 33&nbsp;        #  让我们看看还能干点什么. 
+ 34&nbsp;        echo
+ 35&nbsp;        echo "\$TEST1 = $TEST1"       #  仅仅是变量名字. 
+ 36&nbsp;        echo; echo
+ 37&nbsp;        echo "{\$TEST1} = ${!TEST1}"  #  变量内容. 
+ 38&nbsp;                                      #  这就是
+ 39&nbsp;                                      #+ 间接引用的作用. 
+ 40&nbsp;        echo
+ 41&nbsp;        echo "-------------------------------------------"; echo
+ 42&nbsp;        echo
+ 43&nbsp;
+ 44&nbsp;
+ 45&nbsp;        # 打印变量
+ 46&nbsp;        echo "Variable VARIABLE: $VARIABLE"
+ 47&nbsp;	
+ 48&nbsp;        # 打印一个字符串元素
+ 49&nbsp;        IFS="$OLD_IFS"
+ 50&nbsp;        TEST2="STRING[*]"
+ 51&nbsp;        local ${!TEST2}      # 间接引用(同上). 
+ 52&nbsp;        echo "String element VAR2: $VAR2 from STRING"
+ 53&nbsp;
+ 54&nbsp;        # 打印一个数组元素
+ 55&nbsp;        TEST2="ARRAY21[*]"
+ 56&nbsp;        local ${!TEST2}      # 间接引用(同上). 
+ 57&nbsp;        echo "Array element VAR1_1: $VAR1_1 from ARRAY21"
+ 58&nbsp;}
+ 59&nbsp;
+ 60&nbsp;print
+ 61&nbsp;echo
+ 62&nbsp;
+ 63&nbsp;exit 0
+ 64&nbsp;
+ 65&nbsp;#   脚本作者注, 
+ 66&nbsp;#+ "你可以很容易的将其扩展成一个能创建hash的Bash脚本." 
+ 67&nbsp;#   (难) 留给读者的练习: 实现它. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>--</P
+><P
+>数组使得<EM
+>埃拉托色尼素数筛子</EM
+>有了shell版本的实现. 
+		  当然, 如果你需要的是追求效率的应用, 那么就应该使用编译行语言来实现, 
+		  比如C语言. 因为脚本运行的太慢了. 
+	</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX68"
+></A
+><P
+><B
+>例子 26-13. 复杂的数组应用: 
+             <EM
+>埃拉托色尼素数筛子</EM
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# sieve.sh (ex68.sh)
+  3&nbsp;
+  4&nbsp;# 埃拉托色尼素数筛子
+  5&nbsp;# 找素数的经典算法. 
+  6&nbsp;
+  7&nbsp;#  在同等数值的范围内, 
+  8&nbsp;#+ 这个脚本运行的速度比C版本慢的多. 
+  9&nbsp;
+ 10&nbsp;LOWER_LIMIT=1       # 从1开始. 
+ 11&nbsp;UPPER_LIMIT=1000    # 到1000. 
+ 12&nbsp;# (如果你时间很多的话 . . . 你可以将这个数值调的很高.)
+ 13&nbsp;
+ 14&nbsp;PRIME=1
+ 15&nbsp;NON_PRIME=0
+ 16&nbsp;
+ 17&nbsp;let SPLIT=UPPER_LIMIT/2
+ 18&nbsp;# 优化: 
+ 19&nbsp;# 只需要测试中间到最大的值(为什么?). 
+ 20&nbsp;# (译者注: 这个变量在脚本正文并没有被使用, 仅仅在107行之后的优化部分才使用.)
+ 21&nbsp;
+ 22&nbsp;declare -a Primes
+ 23&nbsp;# Primes[]是个数组. 
+ 24&nbsp;
+ 25&nbsp;
+ 26&nbsp;initialize ()
+ 27&nbsp;{
+ 28&nbsp;# 初始化数组. 
+ 29&nbsp;
+ 30&nbsp;i=$LOWER_LIMIT
+ 31&nbsp;until [ "$i" -gt "$UPPER_LIMIT" ]
+ 32&nbsp;do
+ 33&nbsp;  Primes[i]=$PRIME
+ 34&nbsp;  let "i += 1"
+ 35&nbsp;done
+ 36&nbsp;#  假定所有数组成员都是需要检查的(素数)
+ 37&nbsp;#+ 直到检查完成. 
+ 38&nbsp;}
+ 39&nbsp;
+ 40&nbsp;print_primes ()
+ 41&nbsp;{
+ 42&nbsp;# 打印出所有数组Primes[]中被标记为素数的元素. 
+ 43&nbsp;
+ 44&nbsp;i=$LOWER_LIMIT
+ 45&nbsp;
+ 46&nbsp;until [ "$i" -gt "$UPPER_LIMIT" ]
+ 47&nbsp;do
+ 48&nbsp;
+ 49&nbsp;  if [ "${Primes[i]}" -eq "$PRIME" ]
+ 50&nbsp;  then
+ 51&nbsp;    printf "%8d" $i
+ 52&nbsp;    # 每个数字打印前先打印8个空格, 在偶数列才打印. 
+ 53&nbsp;  fi
+ 54&nbsp;  
+ 55&nbsp;  let "i += 1"
+ 56&nbsp;  
+ 57&nbsp;done
+ 58&nbsp;
+ 59&nbsp;}
+ 60&nbsp;
+ 61&nbsp;sift () # 查出非素数. 
+ 62&nbsp;{
+ 63&nbsp;
+ 64&nbsp;let i=$LOWER_LIMIT+1
+ 65&nbsp;# 我们都知道1是素数, 所以我们从2开始. 
+ 66&nbsp;# (译者注: 从2开始并不是由于1是素数, 而是因为要去掉以后每个数的倍数, 感谢网友KevinChen.)
+ 67&nbsp;until [ "$i" -gt "$UPPER_LIMIT" ]
+ 68&nbsp;do
+ 69&nbsp;
+ 70&nbsp;if [ "${Primes[i]}" -eq "$PRIME" ]
+ 71&nbsp;# 不要处理已经过滤过的数字(被标识为非素数).
+ 72&nbsp;then
+ 73&nbsp;
+ 74&nbsp;  t=$i
+ 75&nbsp;
+ 76&nbsp;  while [ "$t" -le "$UPPER_LIMIT" ]
+ 77&nbsp;  do
+ 78&nbsp;    let "t += $i "
+ 79&nbsp;    Primes[t]=$NON_PRIME
+ 80&nbsp;    # 标识为非素数. 
+ 81&nbsp;  done
+ 82&nbsp;
+ 83&nbsp;fi  
+ 84&nbsp;
+ 85&nbsp;  let "i += 1"
+ 86&nbsp;done  
+ 87&nbsp;
+ 88&nbsp;
+ 89&nbsp;}
+ 90&nbsp;
+ 91&nbsp;
+ 92&nbsp;# ==============================================
+ 93&nbsp;# main ()
+ 94&nbsp;# 继续调用函数. 
+ 95&nbsp;initialize
+ 96&nbsp;sift
+ 97&nbsp;print_primes
+ 98&nbsp;# 这里就是被称为结构化编程的东西. 
+ 99&nbsp;# ==============================================
+100&nbsp;
+101&nbsp;echo
+102&nbsp;
+103&nbsp;exit 0
+104&nbsp;
+105&nbsp;
+106&nbsp;
+107&nbsp;# -------------------------------------------------------- #
+108&nbsp;# 因为前面的'exit'语句, 所以后边的代码不会运行. 
+109&nbsp;
+110&nbsp;#  下边的代码, 是由Stephane Chazelas所编写的埃拉托色尼素数筛子的改进版本, 
+111&nbsp;#+ 这个版本可以运行的快一些. 
+112&nbsp;
+113&nbsp;# 必须在命令行上指定参数(这个参数就是: 寻找素数的限制范围). 
+114&nbsp;
+115&nbsp;UPPER_LIMIT=$1                  # 来自于命令行. 
+116&nbsp;let SPLIT=UPPER_LIMIT/2         # 从中间值到最大值. 
+117&nbsp;
+118&nbsp;Primes=( '' $(seq $UPPER_LIMIT) )
+119&nbsp;
+120&nbsp;i=1
+121&nbsp;until (( ( i += 1 ) &#62; SPLIT ))  # 仅需要从中间值检查. 
+122&nbsp;do
+123&nbsp;  if [[ -n $Primes[i] ]]
+124&nbsp;  then
+125&nbsp;    t=$i
+126&nbsp;    until (( ( t += i ) &#62; UPPER_LIMIT ))
+127&nbsp;    do
+128&nbsp;      Primes[t]=
+129&nbsp;    done
+130&nbsp;  fi  
+131&nbsp;done  
+132&nbsp;echo ${Primes[*]}
+133&nbsp;
+134&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>上边的这个例子是基于数组的素数产生器, 
+		  还有不使用数组的素数产生器<A
+HREF="contributed-scripts.html#PRIMES"
+>例子 A-16</A
+>, 
+		让我们来比较一番. </P
+><P
+>--</P
+><P
+>数组可以进行一定程度上的扩展, 
+		  这样就可以模拟一些Bash原本不支持的数据结构. 
+        </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="STACKEX"
+></A
+><P
+><B
+>例子 26-14. 模拟一个下推堆栈</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# stack.sh: 模拟下推堆栈
+  3&nbsp;
+  4&nbsp;#  类似于CPU栈, 下推堆栈依次保存数据项, 
+  5&nbsp;#+ 但是取数据时, 却反序进行, 后进先出. 
+  6&nbsp;
+  7&nbsp;BP=100            #  栈数组的基址指针. 
+  8&nbsp;                  #  从元素100开始. 
+  9&nbsp;
+ 10&nbsp;SP=$BP            #  栈指针. 
+ 11&nbsp;                  #  将其初始化为栈"基址"(栈底). 
+ 12&nbsp;
+ 13&nbsp;Data=             #  当前栈的数据内容. 
+ 14&nbsp;                  #  必须定义为全局变量, 
+ 15&nbsp;                  #+ 因为函数所能够返回的整数存在范围限制. 
+ 16&nbsp;
+ 17&nbsp;declare -a stack
+ 18&nbsp;
+ 19&nbsp;
+ 20&nbsp;push()            # 压栈.
+ 21&nbsp;{
+ 22&nbsp;if [ -z "$1" ]    # 没有可压入的数据项? 
+ 23&nbsp;then
+ 24&nbsp;  return
+ 25&nbsp;fi
+ 26&nbsp;
+ 27&nbsp;let "SP -= 1"     # 更新栈指针. 
+ 28&nbsp;stack[$SP]=$1
+ 29&nbsp;
+ 30&nbsp;return
+ 31&nbsp;}
+ 32&nbsp;
+ 33&nbsp;pop()                    # 从栈中弹出数据项. 
+ 34&nbsp;{
+ 35&nbsp;Data=                    # 清空保存数据项的中间变量. 
+ 36&nbsp;
+ 37&nbsp;if [ "$SP" -eq "$BP" ]   # 栈空? 
+ 38&nbsp;then
+ 39&nbsp;  return
+ 40&nbsp;fi                       #  这使得SP不会超过100, 
+ 41&nbsp;                         #+ 例如, 这可以防止堆栈失控. 
+ 42&nbsp;
+ 43&nbsp;Data=${stack[$SP]}
+ 44&nbsp;let "SP += 1"            # 更新栈指针. 
+ 45&nbsp;return
+ 46&nbsp;}
+ 47&nbsp;
+ 48&nbsp;status_report()          # 打印当前状态. 
+ 49&nbsp;{
+ 50&nbsp;echo "-------------------------------------"
+ 51&nbsp;echo "REPORT"
+ 52&nbsp;echo "Stack Pointer = $SP"
+ 53&nbsp;echo "Just popped \""$Data"\" off the stack."
+ 54&nbsp;echo "-------------------------------------"
+ 55&nbsp;echo
+ 56&nbsp;}
+ 57&nbsp;
+ 58&nbsp;
+ 59&nbsp;# =======================================================
+ 60&nbsp;# 现在, 来点乐子. 
+ 61&nbsp;
+ 62&nbsp;echo
+ 63&nbsp;
+ 64&nbsp;# 看你是否能从空栈里弹出数据项来. 
+ 65&nbsp;pop
+ 66&nbsp;status_report
+ 67&nbsp;
+ 68&nbsp;echo
+ 69&nbsp;
+ 70&nbsp;push garbage
+ 71&nbsp;pop
+ 72&nbsp;status_report     # 压入garbage, 弹出garbage.       
+ 73&nbsp;
+ 74&nbsp;value1=23; push $value1
+ 75&nbsp;value2=skidoo; push $value2
+ 76&nbsp;value3=FINAL; push $value3
+ 77&nbsp;
+ 78&nbsp;pop              # FINAL
+ 79&nbsp;status_report
+ 80&nbsp;pop              # skidoo
+ 81&nbsp;status_report
+ 82&nbsp;pop              # 23
+ 83&nbsp;status_report    # 后进, 先出! 
+ 84&nbsp;
+ 85&nbsp;#  注意: 栈指针在压栈时减, 
+ 86&nbsp;#+ 在弹出时加. 
+ 87&nbsp;
+ 88&nbsp;echo
+ 89&nbsp;
+ 90&nbsp;exit 0
+ 91&nbsp;
+ 92&nbsp;# =======================================================
+ 93&nbsp;
+ 94&nbsp;
+ 95&nbsp;# 练习:
+ 96&nbsp;# -----
+ 97&nbsp;
+ 98&nbsp;# 1)  修改"push()"函数, 
+ 99&nbsp;#   + 使其调用一次就能够压入多个数据项. 
+100&nbsp;
+101&nbsp;# 2)  修改"pop()"函数, 
+102&nbsp;#   + 使其调用一次就能弹出多个数据项. 
+103&nbsp;
+104&nbsp;# 3)  给那些有临界操作的函数添加出错检查. 
+105&nbsp;#     说明白一些, 就是让这些函数返回错误码, 
+106&nbsp;#   + 返回的错误码依赖于操作是否成功完成, 
+107&nbsp;#   + 如果没有成功完成, 那么就需要启动合适的处理动作. 
+108&nbsp;
+109&nbsp;# 4)  以这个脚本为基础, 
+110&nbsp;#   + 编写一个用栈实现的四则运算计算器. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>--</P
+><P
+>如果想对数组<SPAN
+CLASS="QUOTE"
+>"下标"</SPAN
+>做一些比较诡异的操作, 
+		  可能需要使用中间变量. 
+		  对于那些有这种需求的项目来说, 还是应该考虑使用功能更加强大的编程语言, 
+		  比如Perl或C. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="QFUNCTION"
+></A
+><P
+><B
+>例子 26-15. 复杂的数组应用: 
+             <EM
+>探索一个神秘的数学序列</EM
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# Douglas Hofstadter的声名狼藉的序列"Q-series":
+  4&nbsp;
+  5&nbsp;# Q(1) = Q(2) = 1
+  6&nbsp;# Q(n) = Q(n - Q(n-1)) + Q(n - Q(n-2)), 当n&#62;2时
+  7&nbsp;
+  8&nbsp;# 这是一个令人感到陌生的, 没有规律的"乱序"整数序列. 
+  9&nbsp;# 序列的头20项, 如下所示: 
+ 10&nbsp;# 1 1 2 3 3 4 5 5 6 6 6 8 8 8 10 9 10 11 11 12 
+ 11&nbsp;
+ 12&nbsp;#  请参考相关书籍, Hofstadter的, "_Goedel, Escher, Bach: An Eternal Golden Braid_",
+ 13&nbsp;#+ 第137页. 
+ 14&nbsp;
+ 15&nbsp;
+ 16&nbsp;LIMIT=100     # 需要计算的数列长度. 
+ 17&nbsp;LINEWIDTH=20  # 每行打印的个数. 
+ 18&nbsp;
+ 19&nbsp;Q[1]=1        # 数列的头两项都为1. 
+ 20&nbsp;Q[2]=1
+ 21&nbsp;
+ 22&nbsp;echo
+ 23&nbsp;echo "Q-series [$LIMIT terms]:"
+ 24&nbsp;echo -n "${Q[1]} "             # 输出数列头两项. 
+ 25&nbsp;echo -n "${Q[2]} "
+ 26&nbsp;
+ 27&nbsp;for ((n=3; n &#60;= $LIMIT; n++))  # C风格的循环条件. 
+ 28&nbsp;do   # Q[n] = Q[n - Q[n-1]] + Q[n - Q[n-2]]  当n&#62;2时
+ 29&nbsp;#  需要将表达式拆开, 分步计算, 
+ 30&nbsp;#+ 因为Bash不能够很好的处理复杂数组的算术运算. 
+ 31&nbsp;
+ 32&nbsp;  let "n1 = $n - 1"        # n-1
+ 33&nbsp;  let "n2 = $n - 2"        # n-2
+ 34&nbsp;  
+ 35&nbsp;  t0=`expr $n - ${Q[n1]}`  # n - Q[n-1]
+ 36&nbsp;  t1=`expr $n - ${Q[n2]}`  # n - Q[n-2]
+ 37&nbsp;  
+ 38&nbsp;  T0=${Q[t0]}              # Q[n - Q[n-1]]
+ 39&nbsp;  T1=${Q[t1]}              # Q[n - Q[n-2]]
+ 40&nbsp;
+ 41&nbsp;Q[n]=`expr $T0 + $T1`      # Q[n - Q[n-1]] + Q[n - Q[n-2]]
+ 42&nbsp;echo -n "${Q[n]} "
+ 43&nbsp;
+ 44&nbsp;if [ `expr $n % $LINEWIDTH` -eq 0 ]    # 格式化输出. 
+ 45&nbsp;then   #      ^ 取模操作
+ 46&nbsp;  echo # 把每行都拆为20个数字的小块. 
+ 47&nbsp;fi
+ 48&nbsp;
+ 49&nbsp;done
+ 50&nbsp;
+ 51&nbsp;echo
+ 52&nbsp;
+ 53&nbsp;exit 0
+ 54&nbsp;
+ 55&nbsp;# 这是Q-series的一个迭代实现. 
+ 56&nbsp;# 更直接明了的实现是使用递归, 请读者作为练习完成. 
+ 57&nbsp;# 警告: 使用递归的方法来计算这个数列的话, 会花费非常长的时间. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>--</P
+><P
+>Bash仅仅支持一维数组, 但是我们可以使用一个小手段, 
+        这样就可以模拟多维数组了. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="TWODIM"
+></A
+><P
+><B
+>例子 26-16. 模拟一个二维数组, 并使他倾斜</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# twodim.sh: 模拟一个二维数组. 
+  3&nbsp;
+  4&nbsp;# 一维数组由单行组成. 
+  5&nbsp;# 二维数组由连续的多行组成. 
+  6&nbsp;
+  7&nbsp;Rows=5
+  8&nbsp;Columns=5
+  9&nbsp;# 5 X 5 的数组.
+ 10&nbsp;
+ 11&nbsp;declare -a alpha     # char alpha [Rows] [Columns];
+ 12&nbsp;                     # 没必要声明. 为什么?
+ 13&nbsp;
+ 14&nbsp;load_alpha ()
+ 15&nbsp;{
+ 16&nbsp;local rc=0
+ 17&nbsp;local index
+ 18&nbsp;
+ 19&nbsp;for i in A B C D E F G H I J K L M N O P Q R S T U V W X Y
+ 20&nbsp;do     # 你可以随你的心意, 使用任意符号. 
+ 21&nbsp;  local row=`expr $rc / $Columns`
+ 22&nbsp;  local column=`expr $rc % $Rows`
+ 23&nbsp;  let "index = $row * $Rows + $column"
+ 24&nbsp;  alpha[$index]=$i
+ 25&nbsp;# alpha[$row][$column]
+ 26&nbsp;  let "rc += 1"
+ 27&nbsp;done  
+ 28&nbsp;
+ 29&nbsp;#  更简单的方法: 
+ 30&nbsp;#+   declare -a alpha=( A B C D E F G H I J K L M N O P Q R S T U V W X Y )
+ 31&nbsp;#+ 但是如果写的话, 就缺乏二维数组的"风味"了. 
+ 32&nbsp;}
+ 33&nbsp;
+ 34&nbsp;print_alpha ()
+ 35&nbsp;{
+ 36&nbsp;local row=0
+ 37&nbsp;local index
+ 38&nbsp;
+ 39&nbsp;echo
+ 40&nbsp;
+ 41&nbsp;while [ "$row" -lt "$Rows" ]   #  以"行序为主"进行打印: 
+ 42&nbsp;do                             #+ 行号不变(外层循环),
+ 43&nbsp;                               #+ 列号进行增长. (译者注: 就是按行打印)
+ 44&nbsp;  local column=0
+ 45&nbsp;
+ 46&nbsp;  echo -n "       "            #  按照行方向打印"正方形"数组. 
+ 47&nbsp;
+ 48&nbsp;  while [ "$column" -lt "$Columns" ]
+ 49&nbsp;  do
+ 50&nbsp;    let "index = $row * $Rows + $column"
+ 51&nbsp;    echo -n "${alpha[index]} "  # alpha[$row][$column]
+ 52&nbsp;    let "column += 1"
+ 53&nbsp;  done
+ 54&nbsp;
+ 55&nbsp;  let "row += 1"
+ 56&nbsp;  echo
+ 57&nbsp;
+ 58&nbsp;done  
+ 59&nbsp;
+ 60&nbsp;# 更简单的等价写法为: 
+ 61&nbsp;#     echo ${alpha[*]} | xargs -n $Columns
+ 62&nbsp;
+ 63&nbsp;echo
+ 64&nbsp;}
+ 65&nbsp;
+ 66&nbsp;filter ()     # 过滤掉负的数组下标. 
+ 67&nbsp;{
+ 68&nbsp;
+ 69&nbsp;echo -n "  "  # 产生倾斜. 
+ 70&nbsp;              # 解释一下, 这是怎么做到的. 
+ 71&nbsp;
+ 72&nbsp;if [[ "$1" -ge 0 &#38;&#38;  "$1" -lt "$Rows" &#38;&#38; "$2" -ge 0 &#38;&#38; "$2" -lt "$Columns" ]]
+ 73&nbsp;then
+ 74&nbsp;    let "index = $1 * $Rows + $2"
+ 75&nbsp;    # 现在, 按照旋转方向进行打印. 
+ 76&nbsp;    echo -n " ${alpha[index]}"
+ 77&nbsp;    #           alpha[$row][$column]
+ 78&nbsp;fi    
+ 79&nbsp;
+ 80&nbsp;}
+ 81&nbsp;  
+ 82&nbsp;
+ 83&nbsp;
+ 84&nbsp;
+ 85&nbsp;rotate ()  #  将数组旋转45度 --
+ 86&nbsp;{          #+ 从左下角进行"平衡". 
+ 87&nbsp;local row
+ 88&nbsp;local column
+ 89&nbsp;
+ 90&nbsp;for (( row = Rows; row &#62; -Rows; row-- ))
+ 91&nbsp;  do       # 反向步进数组, 为什么? 
+ 92&nbsp;
+ 93&nbsp;  for (( column = 0; column &#60; Columns; column++ ))
+ 94&nbsp;  do
+ 95&nbsp;
+ 96&nbsp;    if [ "$row" -ge 0 ]
+ 97&nbsp;    then
+ 98&nbsp;      let "t1 = $column - $row"
+ 99&nbsp;      let "t2 = $column"
+100&nbsp;    else
+101&nbsp;      let "t1 = $column"
+102&nbsp;      let "t2 = $column + $row"
+103&nbsp;    fi  
+104&nbsp;
+105&nbsp;    filter $t1 $t2   # 将负的数组下标过滤出来. 
+106&nbsp;                     # 如果你不做这一步, 将会怎样? 
+107&nbsp;  done
+108&nbsp;
+109&nbsp;  echo; echo
+110&nbsp;
+111&nbsp;done 
+112&nbsp;
+113&nbsp;#  数组旋转的灵感来源于Herbert Mayer所著的
+114&nbsp;#+ "Advanced C Programming on the IBM PC"的例子(第143-146页)
+115&nbsp;#+ (参见参考书目). 
+116&nbsp;#  由此可见, C语言能够做到的好多事情, 
+117&nbsp;#+ 用shell脚本一样能够做到. 
+118&nbsp;
+119&nbsp;}
+120&nbsp;
+121&nbsp;
+122&nbsp;#--------------- 现在, 让我们开始吧. ------------#
+123&nbsp;load_alpha     # 加载数组. 
+124&nbsp;print_alpha    # 打印数组.   
+125&nbsp;rotate         # 逆时钟旋转45度打印. 
+126&nbsp;#-----------------------------------------------------#
+127&nbsp;
+128&nbsp;exit 0
+129&nbsp;
+130&nbsp;# 这是有点做作, 不是那么优雅. 
+131&nbsp;
+132&nbsp;# 练习:
+133&nbsp;# -----
+134&nbsp;# 1)  重新实现数组加载和打印函数, 
+135&nbsp;#     让其更直观, 可读性更强. 
+136&nbsp;#
+137&nbsp;# 2)  详细地描述旋转函数的原理. 
+138&nbsp;#     提示: 思考一下倒序索引数组的实现. 
+139&nbsp;#
+140&nbsp;# 3)  重写这个脚本, 扩展它, 让不仅仅能够支持非正方形的数组. 
+141&nbsp;#     比如6 X 4的数组. 
+142&nbsp;#     尝试一下, 在数组旋转时, 做到最小"失真". </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>二维数组本质上其实就是一个一维数组, 
+		  只不过是添加了<EM
+>行</EM
+>和<EM
+>列</EM
+>的寻址方式, 
+		  来引用和操作数组的元素而已. 
+	</P
+><P
+>这里有一个精心制作的模拟二维数组的例子, 
+		请参考<A
+HREF="contributed-scripts.html#LIFESLOW"
+>例子 A-10</A
+>. </P
+><P
+>--</P
+><P
+>还有两个使用脚本的更有趣的例子, 
+		 请参考: 
+       <P
+></P
+><UL
+><LI
+><P
+><A
+HREF="commandsub.html#AGRAM2"
+>例子 14-3</A
+>和<A
+HREF="contributed-scripts.html#HASHEX2"
+>例子 A-23</A
+></P
+></LI
+></UL
+>
+     </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="list-cons.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="devproc.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>列表结构</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part4.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>/dev和/proc</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

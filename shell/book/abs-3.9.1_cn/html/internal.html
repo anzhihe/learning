@@ -1,0 +1,4358 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>内部命令与内建命令</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="进阶"
+HREF="part3.html"><LINK
+REL="PREVIOUS"
+TITLE="测试与分支(case与select结构)"
+HREF="testbranch.html"><LINK
+REL="NEXT"
+TITLE="作业控制命令"
+HREF="x6756.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="testbranch.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x6756.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="INTERNAL"
+></A
+>11. 内部命令与内建命令</H1
+><P
+><A
+NAME="BUILTINREF"
+></A
+><I
+CLASS="FIRSTTERM"
+>内建命令</I
+>指的就是包含在Bash工具包中的<B
+CLASS="COMMAND"
+>命令</B
+>, 
+			  从字面意思上看就是<EM
+>built in</EM
+>. 
+			  这主要是考虑到执行效率的问题 -- 内建命令将比外部命令执行的更快, 
+			  一部分原因是因为外部命令通常都需要fork出一个单独的进程来执行 --
+			  另一部分原因是特定的内建命令需要直接访问shell的内核部分.
+		</P
+><P
+><A
+NAME="FORKREF"
+></A
+></P
+><TABLE
+CLASS="SIDEBAR"
+BORDER="1"
+CELLPADDING="5"
+><TR
+><TD
+><DIV
+CLASS="SIDEBAR"
+><P
+></P
+><A
+NAME="AEN5884"
+></A
+><P
+>当一个命令或者是shell本身需要初始化(或者<I
+CLASS="FIRSTTERM"
+>创建</I
+>)一个新的子进程来执行一个任务的时候, 
+			 这种行为被称为<I
+CLASS="FIRSTTERM"
+>fork</I
+>. 
+			 这个新产生的进程被叫做<I
+CLASS="FIRSTTERM"
+>子进程</I
+>, 
+			 并且这个进程是从<I
+CLASS="FIRSTTERM"
+>父进程</I
+>中<EM
+>fork</EM
+>出来的. 
+			 当<I
+CLASS="FIRSTTERM"
+>子进程</I
+>执行它的任务时, 
+		   <I
+CLASS="FIRSTTERM"
+>父进程</I
+>也在运行.</P
+><P
+>注意: 当<EM
+>父进程</EM
+>获得了<EM
+>子进程</EM
+>的<I
+CLASS="FIRSTTERM"
+>进程ID</I
+>时, 
+		   父进程可以给子进程传递参数,
+		   然而<EM
+>反过来却不行</EM
+>. 
+		   <A
+HREF="gotchas.html#PARCHILDPROBREF"
+>这将会产生不可思议的并且很难追踪的问题. </A
+>
+	   </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="SPAWNSCR"
+></A
+><P
+><B
+>例子 11-1. 一个fork出多个自身实例的脚本</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# spawn.sh
+  3&nbsp;
+  4&nbsp;
+  5&nbsp;PIDS=$(pidof sh $0)  # 这个脚本不同实例的进程ID. 
+  6&nbsp;P_array=( $PIDS )    # 把它们放到数组里(为什么?).
+  7&nbsp;echo $PIDS           # 显示父进程和子进程的进程ID. 
+  8&nbsp;let "instances = ${#P_array[*]} - 1"  # 计算元素个数, 至少为1.
+  9&nbsp;                                      # 为什么减1?
+ 10&nbsp;echo "$instances instance(s) of this script running."
+ 11&nbsp;echo "[Hit Ctl-C to exit.]"; echo
+ 12&nbsp;
+ 13&nbsp;
+ 14&nbsp;sleep 1              # 等一下.
+ 15&nbsp;sh $0                # 再来一次, Sam.
+ 16&nbsp;
+ 17&nbsp;exit 0               # 没必要; 脚本永远不会运行到这里.
+ 18&nbsp;                     # 为什么运行不到这里?
+ 19&nbsp;
+ 20&nbsp;#  在使用Ctl-C退出之后,
+ 21&nbsp;#+ 是否所有产生出来的进程都会被kill掉?
+ 22&nbsp;#  如果是这样的话, 为什么?
+ 23&nbsp;
+ 24&nbsp;# 注意:
+ 25&nbsp;# ----
+ 26&nbsp;# 小心, 不要让这个脚本运行太长时间.
+ 27&nbsp;# 它最后会吃掉你绝大多数的系统资源.
+ 28&nbsp;
+ 29&nbsp;#  是否有合适的脚本技术, 
+ 30&nbsp;#+ 用于产生脚本自身的大量实例.
+ 31&nbsp;#  为什么或为什么不?</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>通常情况下, 脚本中的Bash<EM
+>内建命令</EM
+>在运行的时候是不会fork出一个子进程的. 
+		   但是脚本中的外部或者过滤命令通常<EM
+>会</EM
+>fork出一个子进程. </P
+><P
+></P
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>一个内建命令通常会与一个系统命令同名, 
+			   但是Bash在内部重新实现了这些命令. 
+			   比如, Bash的<B
+CLASS="COMMAND"
+>echo</B
+>命令与<TT
+CLASS="FILENAME"
+>/bin/echo</TT
+>就不尽相同, 
+			   虽然它们的行为在绝大多数情况下都是一样的.
+	   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;echo "This line uses the \"echo\" builtin."
+  4&nbsp;/bin/echo "This line uses the /bin/echo system command."</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	</P
+><P
+><A
+NAME="KEYWORDREF"
+></A
+><I
+CLASS="FIRSTTERM"
+>关键字</I
+>的意思就是<EM
+>保留</EM
+>字, 
+			  对于shell来说关键字具有特殊的含义, 并且用来构建shell语法结构.
+	比如, <SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="TOKEN"
+>for</SPAN
+>"</SPAN
+>,
+	<SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="TOKEN"
+>while</SPAN
+>"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"do"</SPAN
+>, 和
+	<SPAN
+CLASS="QUOTE"
+>"<SPAN
+CLASS="TOKEN"
+>!</SPAN
+>"</SPAN
+> 都是关键字. 
+	与<A
+HREF="internal.html#BUILTINREF"
+>内建命令</A
+>相似的是, 关键字也是Bash的骨干部分, 
+	但是与<EM
+>内建命令</EM
+>不同的是, 关键字本身并不是一个命令, 
+	而是一个比较大的命令结构的一部分.
+
+	   <A
+NAME="AEN5922"
+HREF="#FTN.AEN5922"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+
+	</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="INTIO1"
+></A
+>I/O</B
+></P
+><DL
+><DT
+><A
+NAME="ECHOREF"
+></A
+><B
+CLASS="COMMAND"
+>echo</B
+></DT
+><DD
+><P
+>打印(到 <TT
+CLASS="FILENAME"
+>stdout</TT
+>)一个表达式或者变量(参考<A
+HREF="varsubn.html#EX9"
+>例子 4-1</A
+>). 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo Hello
+  2&nbsp;echo $a</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><B
+CLASS="COMMAND"
+>echo</B
+>命令需要<CODE
+CLASS="OPTION"
+>-e</CODE
+>参数来打印转义字符. 
+	      参考<A
+HREF="escapingsection.html#ESCAPED"
+>例子 5-2</A
+>.</P
+><P
+>通常情况下, 每个<B
+CLASS="COMMAND"
+>echo</B
+>命令都会在终端上新起一行,  
+	      但是<CODE
+CLASS="OPTION"
+>-n</CODE
+>参数会阻止新起一行. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>echo</B
+>命令可以作为输入, 通过管道传递到一系列命令中去.
+	      </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if echo "$VAR" | grep -q txt   # if [[ $VAR = *txt* ]]
+  2&nbsp;then
+  3&nbsp;  echo "$VAR contains the substring sequence \"txt\""
+  4&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>echo</B
+>命令可以与<A
+HREF="commandsub.html#COMMANDSUBREF"
+>命令替换</A
+>组合起来, 
+				这样可以用来设置一个变量.</P
+><P
+><KBD
+CLASS="USERINPUT"
+>a=`echo
+	      "HELLO" | tr A-Z a-z`</KBD
+></P
+><P
+>参考<A
+HREF="textproc.html#LOWERCASE"
+>例子 12-19</A
+>, <A
+HREF="moreadv.html#EX57"
+>例子 12-3</A
+>, <A
+HREF="mathc.html#MONTHLYPMT"
+>例子 12-42</A
+>, 和 <A
+HREF="mathc.html#BASE"
+>例子 12-43</A
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>小心<B
+CLASS="COMMAND"
+>echo `command`</B
+>将会删除任何由<TT
+CLASS="REPLACEABLE"
+><I
+>command</I
+></TT
+>所产生的换行符. 
+	      </P
+><P
+><A
+HREF="internalvariables.html#IFSREF"
+>$IFS</A
+> (内部域分隔符) 
+			  一搬都会将 <SPAN
+CLASS="TOKEN"
+>\n</SPAN
+> (换行符) 包含在它的<A
+HREF="special-chars.html#WHITESPACEREF"
+>空白</A
+>字符集合中. 
+			  Bash因此会根据参数中的换行来分离<TT
+CLASS="REPLACEABLE"
+><I
+>command</I
+></TT
+>的输出, 
+			  然后<B
+CLASS="COMMAND"
+>echo</B
+>.
+	      最后<B
+CLASS="COMMAND"
+>echo</B
+>将以空格代替换行来输出这些参数. 
+	     </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -l /usr/share/apps/kjezz/sounds</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-r--r--    1 root     root         1407 Nov  7  2000 reflect.au
+ -rw-r--r--    1 root     root          362 Nov  7  2000 seconds.au</SAMP
+>
+
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo `ls -l /usr/share/apps/kjezz/sounds`</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 40 -rw-r--r-- 1 root root 716 Nov 7 2000 reflect.au -rw-r--r-- 1 root root 362 Nov 7 2000 seconds.au</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>				所以, 我们怎么做才能够在一个需要<EM
+>echo</EM
+>出来的字符串中嵌入换行呢?
+
+	     <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 嵌入一个换行?
+  2&nbsp;echo "Why doesn't this string \n split on two lines?"
+  3&nbsp;# 上边这句的\n将被打印出来. 达不到换行的目的.
+  4&nbsp;
+  5&nbsp;# 让我们再试试其他方法.
+  6&nbsp;
+  7&nbsp;echo
+  8&nbsp;	     
+  9&nbsp;echo $"A line of text containing
+ 10&nbsp;a linefeed."
+ 11&nbsp;# 打印出两个独立的行(嵌入换行成功了).
+ 12&nbsp;# 但是, 是否必须有"$"作为变量前缀? 
+ 13&nbsp;
+ 14&nbsp;echo
+ 15&nbsp;
+ 16&nbsp;echo "This string splits
+ 17&nbsp;on two lines."
+ 18&nbsp;# 不, 并不是非有"$"不可.
+ 19&nbsp;
+ 20&nbsp;echo
+ 21&nbsp;echo "---------------"
+ 22&nbsp;echo
+ 23&nbsp;
+ 24&nbsp;echo -n $"Another line of text containing
+ 25&nbsp;a linefeed."
+ 26&nbsp;# 打印出两个独立的行(嵌入换行成功了).
+ 27&nbsp;# 即使使用了-n选项, 也没能阻止换行. (译者注: -n 阻止了第2个换行)
+ 28&nbsp;
+ 29&nbsp;echo
+ 30&nbsp;echo
+ 31&nbsp;echo "---------------"
+ 32&nbsp;echo
+ 33&nbsp;echo
+ 34&nbsp;
+ 35&nbsp;# 然而, 下边的代码就没能像期望的那样运行.
+ 36&nbsp;# 为什么失败? 提示: 因为分配到了变量.
+ 37&nbsp;string1=$"Yet another line of text containing
+ 38&nbsp;a linefeed (maybe)."
+ 39&nbsp;
+ 40&nbsp;echo $string1
+ 41&nbsp;# Yet another line of text containing a linefeed (maybe).
+ 42&nbsp;#                                    ^
+ 43&nbsp;# 换行变成了空格.
+ 44&nbsp;
+ 45&nbsp;# 感谢, Steve Parker, 指出了这点.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>这个命令是shell的一个内建命令, 
+				与<TT
+CLASS="FILENAME"
+>/bin/echo</TT
+>不同, 虽然行为相似.</P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>type -a echo</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>echo is a shell builtin
+ echo is /bin/echo</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="PRINTFREF"
+></A
+><B
+CLASS="COMMAND"
+>printf</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>printf</B
+>命令, 格式化输出, 是<B
+CLASS="COMMAND"
+>echo</B
+>命令的增强版. 
+			  它是C语言<CODE
+CLASS="FUNCTION"
+>printf()</CODE
+>库函数的一个有限的变形, 
+			  并且在语法上有些不同.</P
+><P
+><B
+CLASS="COMMAND"
+>printf</B
+>   <TT
+CLASS="REPLACEABLE"
+><I
+>format-string</I
+></TT
+>...   <TT
+CLASS="REPLACEABLE"
+><I
+>parameter</I
+></TT
+>... </P
+><P
+>这是Bash的内建版本,  
+			与<TT
+CLASS="FILENAME"
+>/bin/printf</TT
+>或者<TT
+CLASS="FILENAME"
+>/usr/bin/printf</TT
+>命令不同. 
+			如果想更深入的了解, 请察看<B
+CLASS="COMMAND"
+>printf</B
+>(系统命令)的man页. 
+		</P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>老版本的Bash可能不支持<B
+CLASS="COMMAND"
+>printf</B
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX47"
+></A
+><P
+><B
+>例子 11-2. 使用<B
+CLASS="COMMAND"
+>printf</B
+>的例子</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# printf 示例
+  3&nbsp;
+  4&nbsp;PI=3.14159265358979
+  5&nbsp;DecimalConstant=31373
+  6&nbsp;Message1="Greetings,"
+  7&nbsp;Message2="Earthling."
+  8&nbsp;
+  9&nbsp;echo
+ 10&nbsp;
+ 11&nbsp;printf "Pi to 2 decimal places = %1.2f" $PI
+ 12&nbsp;echo
+ 13&nbsp;printf "Pi to 9 decimal places = %1.9f" $PI  # 都能够正确的结束.
+ 14&nbsp;
+ 15&nbsp;printf "\n"                                  # 打印一个换行,
+ 16&nbsp;                                             # 等价于 'echo' . . .
+ 17&nbsp;
+ 18&nbsp;printf "Constant = \t%d\n" $DecimalConstant  # 插入一个 tab (\t).
+ 19&nbsp;
+ 20&nbsp;printf "%s %s \n" $Message1 $Message2
+ 21&nbsp;
+ 22&nbsp;echo
+ 23&nbsp;
+ 24&nbsp;# ==========================================#
+ 25&nbsp;# 模拟C函数, sprintf().
+ 26&nbsp;# 使用一个格式化的字符串来加载一个变量.
+ 27&nbsp;
+ 28&nbsp;echo 
+ 29&nbsp;
+ 30&nbsp;Pi12=$(printf "%1.12f" $PI)
+ 31&nbsp;echo "Pi to 12 decimal places = $Pi12"
+ 32&nbsp;
+ 33&nbsp;Msg=`printf "%s %s \n" $Message1 $Message2`
+ 34&nbsp;echo $Msg; echo $Msg
+ 35&nbsp;
+ 36&nbsp;#  像我们所看到的一样, 现在'sprintf'可以
+ 37&nbsp;#+ 作为一个可被加载的模块,
+ 38&nbsp;#+ 但是不具可移植性.
+ 39&nbsp;
+ 40&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>使用<B
+CLASS="COMMAND"
+>printf</B
+>的最主要的应用就是格式化错误消息. </P
+><P
+>	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;E_BADDIR=65
+  2&nbsp;
+  3&nbsp;var=nonexistent_directory
+  4&nbsp;
+  5&nbsp;error()
+  6&nbsp;{
+  7&nbsp;  printf "$@" &#62;&#38;2
+  8&nbsp;  # 格式化传递进来的位置参数, 并把它们送到stderr.
+  9&nbsp;  echo
+ 10&nbsp;  exit $E_BADDIR
+ 11&nbsp;}
+ 12&nbsp;
+ 13&nbsp;cd $var || error $"Can't cd to %s." "$var"
+ 14&nbsp;
+ 15&nbsp;# 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+></DD
+><DT
+><A
+NAME="READREF"
+></A
+><B
+CLASS="COMMAND"
+>read</B
+></DT
+><DD
+><P
+>从<TT
+CLASS="FILENAME"
+>stdin</TT
+>中<SPAN
+CLASS="QUOTE"
+>"读取"</SPAN
+>一个变量的值, 
+	    也就是, 和键盘进行交互, 来取得变量的值.
+	    使用<CODE
+CLASS="OPTION"
+>-a</CODE
+>参数可以<B
+CLASS="COMMAND"
+>read</B
+>数组变量(参考<A
+HREF="arrays.html#EX67"
+>例子 26-6</A
+>).</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX36"
+></A
+><P
+><B
+>例子 11-3. 使用<B
+CLASS="COMMAND"
+>read</B
+>来进行变量分配</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# "Reading" 变量.
+  3&nbsp;
+  4&nbsp;echo -n "Enter the value of variable 'var1': "
+  5&nbsp;# -n 选项, 阻止换行.
+  6&nbsp;
+  7&nbsp;read var1
+  8&nbsp;# 注意: 在var1前面没有'$', 因为变量正在被设置. 
+  9&nbsp;
+ 10&nbsp;echo "var1 = $var1"
+ 11&nbsp;
+ 12&nbsp;
+ 13&nbsp;echo
+ 14&nbsp;
+ 15&nbsp;# 一个单独的'read'语句可以设置多个变量. 
+ 16&nbsp;echo -n "Enter the values of variables 'var2' and 'var3' (separated by a space or tab): "
+ 17&nbsp;read var2 var3
+ 18&nbsp;echo "var2 = $var2      var3 = $var3"
+ 19&nbsp;# 如果你只输入了一个值, 那么其他的变量还是处于未设置状态(null). 
+ 20&nbsp;
+ 21&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>一个不带变量参数的<B
+CLASS="COMMAND"
+>read</B
+>命令, 
+	      将会把来自键盘的输入存入到专用变量<A
+HREF="internalvariables.html#REPLYREF"
+>$REPLY</A
+>中. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="READNOVAR"
+></A
+><P
+><B
+>例子 11-4. 当使用一个不带变量参数的<B
+CLASS="COMMAND"
+>read</B
+>命令时, 将会发生什么? </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# read-novar.sh
+  3&nbsp;
+  4&nbsp;echo
+  5&nbsp;
+  6&nbsp;# -------------------------- #
+  7&nbsp;echo -n "Enter a value: "
+  8&nbsp;read var
+  9&nbsp;echo "\"var\" = "$var""
+ 10&nbsp;# 到这里为止, 都与期望的一样.
+ 11&nbsp;# -------------------------- #
+ 12&nbsp;
+ 13&nbsp;echo
+ 14&nbsp;
+ 15&nbsp;# ------------------------------------------------------------------- #
+ 16&nbsp;echo -n "Enter another value: "
+ 17&nbsp;read           #  没有变量分配给'read'命令, 所以...
+ 18&nbsp;               #+ 输入将分配给默认变量, $REPLY.
+ 19&nbsp;var="$REPLY"
+ 20&nbsp;echo "\"var\" = "$var""
+ 21&nbsp;# 这部分代码和上边的代码等价.
+ 22&nbsp;# ------------------------------------------------------------------- #
+ 23&nbsp;
+ 24&nbsp;echo
+ 25&nbsp;
+ 26&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>一般的, 当输入给<B
+CLASS="COMMAND"
+>read</B
+>时, 
+			输入一个<KBD
+CLASS="USERINPUT"
+>\</KBD
+>, 然后回车, 将会阻止产生一个新行. 
+	      <CODE
+CLASS="OPTION"
+>-r</CODE
+>选项将会让 <KBD
+CLASS="USERINPUT"
+>\</KBD
+> 转义. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="READR"
+></A
+><P
+><B
+>例子 11-5. <B
+CLASS="COMMAND"
+>read</B
+>命令的多行输入</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;echo
+  4&nbsp;
+  5&nbsp;echo "Enter a string terminated by a \\, then press &#60;ENTER&#62;."
+  6&nbsp;echo "Then, enter a second string, and again press &#60;ENTER&#62;."
+  7&nbsp;read var1     # 当 read $var1 时, "\" 将会阻止产生新行. 
+  8&nbsp;              #     first line \
+  9&nbsp;              #     second line
+ 10&nbsp;
+ 11&nbsp;echo "var1 = $var1"
+ 12&nbsp;#     var1 = first line second line
+ 13&nbsp;
+ 14&nbsp;#  对于每个以 "\" 结尾的行, 
+ 15&nbsp;#+ 你都会看到一个下一行的提示符, 让你继续向var1输入内容.
+ 16&nbsp;
+ 17&nbsp;echo; echo
+ 18&nbsp;
+ 19&nbsp;echo "Enter another string terminated by a \\ , then press &#60;ENTER&#62;."
+ 20&nbsp;read -r var2  # -r 选项会让 "\" 转义.
+ 21&nbsp;              #     first line \
+ 22&nbsp;
+ 23&nbsp;echo "var2 = $var2"
+ 24&nbsp;#     var2 = first line \
+ 25&nbsp;
+ 26&nbsp;# 第一个 &#60;ENTER&#62; 就会结束var2变量的录入.
+ 27&nbsp;
+ 28&nbsp;echo 
+ 29&nbsp;
+ 30&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><B
+CLASS="COMMAND"
+>read</B
+>命令有些有趣的选项, 这些选项允许打印出一个提示符, 
+	      然后在不输入<B
+CLASS="KEYCAP"
+>ENTER</B
+>的情况下, 可以读入你所按下的字符的内容.
+	      </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 不敲回车, 读取一个按键字符.
+  2&nbsp;
+  3&nbsp;read -s -n1 -p "Hit a key " keypress
+  4&nbsp;echo; echo "Keypress was "\"$keypress\""."
+  5&nbsp;
+  6&nbsp;# -s 选项意味着不打印输入.
+  7&nbsp;# -n N 选项意味着只接受N个字符的输入.
+  8&nbsp;# -p 选项意味着在读取输入之前打印出后边的提示符.
+  9&nbsp;
+ 10&nbsp;# 使用这些选项是有技巧的, 因为你需要用正确的顺序来使用它们.
+ 11&nbsp;		</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><B
+CLASS="COMMAND"
+>read</B
+>命令的<CODE
+CLASS="OPTION"
+>-n</CODE
+>选项也可以检测<EM
+>方向键</EM
+>, 
+	      和一些控制按键. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ARROWDETECT"
+></A
+><P
+><B
+>例子 11-6. 检测方向键</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# arrow-detect.sh: 检测方向键, 和一些非打印字符的按键.
+  3&nbsp;# 感谢, Sandro Magi, 告诉了我们怎么做到这点.
+  4&nbsp;
+  5&nbsp;# --------------------------------------------
+  6&nbsp;# 按键所产生的字符编码.
+  7&nbsp;arrowup='\[A'
+  8&nbsp;arrowdown='\[B'
+  9&nbsp;arrowrt='\[C'
+ 10&nbsp;arrowleft='\[D'
+ 11&nbsp;insert='\[2'
+ 12&nbsp;delete='\[3'
+ 13&nbsp;# --------------------------------------------
+ 14&nbsp;
+ 15&nbsp;SUCCESS=0
+ 16&nbsp;OTHER=65
+ 17&nbsp;
+ 18&nbsp;echo -n "Press a key...  "
+ 19&nbsp;# 如果不是上边列表所列出的按键, 可能还是需要按回车. (译者注: 因为一般按键是一个字符)
+ 20&nbsp;read -n3 key                      # 读取3个字符.
+ 21&nbsp;
+ 22&nbsp;echo -n "$key" | grep "$arrowup"  # 检查输入字符是否匹配.
+ 23&nbsp;if [ "$?" -eq $SUCCESS ]
+ 24&nbsp;then
+ 25&nbsp;  echo "Up-arrow key pressed."
+ 26&nbsp;  exit $SUCCESS
+ 27&nbsp;fi
+ 28&nbsp;
+ 29&nbsp;echo -n "$key" | grep "$arrowdown"
+ 30&nbsp;if [ "$?" -eq $SUCCESS ]
+ 31&nbsp;then
+ 32&nbsp;  echo "Down-arrow key pressed."
+ 33&nbsp;  exit $SUCCESS
+ 34&nbsp;fi
+ 35&nbsp;
+ 36&nbsp;echo -n "$key" | grep "$arrowrt"
+ 37&nbsp;if [ "$?" -eq $SUCCESS ]
+ 38&nbsp;then
+ 39&nbsp;  echo "Right-arrow key pressed."
+ 40&nbsp;  exit $SUCCESS
+ 41&nbsp;fi
+ 42&nbsp;
+ 43&nbsp;echo -n "$key" | grep "$arrowleft"
+ 44&nbsp;if [ "$?" -eq $SUCCESS ]
+ 45&nbsp;then
+ 46&nbsp;  echo "Left-arrow key pressed."
+ 47&nbsp;  exit $SUCCESS
+ 48&nbsp;fi
+ 49&nbsp;
+ 50&nbsp;echo -n "$key" | grep "$insert"
+ 51&nbsp;if [ "$?" -eq $SUCCESS ]
+ 52&nbsp;then
+ 53&nbsp;  echo "\"Insert\" key pressed."
+ 54&nbsp;  exit $SUCCESS
+ 55&nbsp;fi
+ 56&nbsp;
+ 57&nbsp;echo -n "$key" | grep "$delete"
+ 58&nbsp;if [ "$?" -eq $SUCCESS ]
+ 59&nbsp;then
+ 60&nbsp;  echo "\"Delete\" key pressed."
+ 61&nbsp;  exit $SUCCESS
+ 62&nbsp;fi
+ 63&nbsp;
+ 64&nbsp;
+ 65&nbsp;echo " Some other key pressed."
+ 66&nbsp;
+ 67&nbsp;exit $OTHER
+ 68&nbsp;
+ 69&nbsp;#  练习:
+ 70&nbsp;#  -----
+ 71&nbsp;#  1) 使用'case'结构来代替'if'结构, 
+ 72&nbsp;#+    这样可以简化这个脚本.
+ 73&nbsp;#  2) 添加 "Home", "End", "PgUp", 和 "PgDn" 这些按键的检查.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>对于<B
+CLASS="COMMAND"
+>read</B
+>命令来说, 
+				<CODE
+CLASS="OPTION"
+>-n</CODE
+>选项不会检测<B
+CLASS="KEYCAP"
+>ENTER</B
+>(新行)键.
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+><B
+CLASS="COMMAND"
+>read</B
+>命令的<CODE
+CLASS="OPTION"
+>-t</CODE
+>选项允许时间输入(参考<A
+HREF="internalvariables.html#TOUT"
+>例子 9-4</A
+>).</P
+><P
+><B
+CLASS="COMMAND"
+>read</B
+>命令也可以从<A
+HREF="io-redirection.html#IOREDIRREF"
+>重定向</A
+>的文件中<SPAN
+CLASS="QUOTE"
+>"读取"</SPAN
+>变量的值. 
+	      如果文件中的内容超过一行, 
+	      那么只有第一行被分配到这个变量中.
+	      如果<B
+CLASS="COMMAND"
+>read</B
+>命令的参数个数超过一个, 
+		  那么每个变量都会从文件中取得一个分配的字符串作为变量的值, 
+		  这些字符串都是以<A
+HREF="special-chars.html#WHITESPACEREF"
+>定义的空白字符</A
+>来进行分隔的.
+	      小心使用!</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="READREDIR"
+></A
+><P
+><B
+>例子 11-7. 通过<A
+HREF="io-redirection.html#IOREDIRREF"
+>文件重定向</A
+>来使用<B
+CLASS="COMMAND"
+>read</B
+>命令</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;read var1 &#60;data-file
+  4&nbsp;echo "var1 = $var1"
+  5&nbsp;# var1将会把"data-file"的第一行的全部内容都为它的值.
+  6&nbsp;
+  7&nbsp;read var2 var3 &#60;data-file
+  8&nbsp;echo "var2 = $var2   var3 = $var3"
+  9&nbsp;# 注意, 这里的"read"命令将会产生一种不直观的行为. 
+ 10&nbsp;# 1) 重新从文件的开头开始读入变量.
+ 11&nbsp;# 2) 每个变量都设置成了以空白分割的字符串.
+ 12&nbsp;#    而不是之前的以整行的内容作为变量的值.
+ 13&nbsp;# 3) 而最后一个变量将会取得第一行剩余的全部部分(译者注: 不管是否以空白分割).
+ 14&nbsp;# 4) 如果需要赋值的变量个数比文件中第一行以空白分割的字符串个数还多的话, 
+ 15&nbsp;#    那么这些变量将会被赋空值.
+ 16&nbsp;
+ 17&nbsp;echo "------------------------------------------------"
+ 18&nbsp;
+ 19&nbsp;# 如何用循环来解决上边所提到的问题:
+ 20&nbsp;while read line
+ 21&nbsp;do
+ 22&nbsp;  echo "$line"
+ 23&nbsp;done &#60;data-file
+ 24&nbsp;# 感谢, Heiner Steven 指出了这点.
+ 25&nbsp;
+ 26&nbsp;echo "------------------------------------------------"
+ 27&nbsp;
+ 28&nbsp;# 使用$IFS(内部域分隔变量)来将每行的输入单独的放到"read"中,
+ 29&nbsp;# 前提是如果你不想使用默认空白的话.
+ 30&nbsp;
+ 31&nbsp;echo "List of all users:"
+ 32&nbsp;OIFS=$IFS; IFS=:       # /etc/passwd 使用 ":" 作为域分隔符.
+ 33&nbsp;while read name passwd uid gid fullname ignore
+ 34&nbsp;do
+ 35&nbsp;  echo "$name ($fullname)"
+ 36&nbsp;done &#60;/etc/passwd   # I/O 重定向.
+ 37&nbsp;IFS=$OIFS              # 恢复原始的$IFS.
+ 38&nbsp;# 这段代码也是Heiner Steven编写的.
+ 39&nbsp;
+ 40&nbsp;
+ 41&nbsp;
+ 42&nbsp;#  在循环内部设置$IFS变量, 
+ 43&nbsp;#+ 而不用把原始的$IFS
+ 44&nbsp;#+ 保存到临时变量中.
+ 45&nbsp;#  感谢, Dim Segebart, 指出了这点.
+ 46&nbsp;echo "------------------------------------------------"
+ 47&nbsp;echo "List of all users:"
+ 48&nbsp;
+ 49&nbsp;while IFS=: read name passwd uid gid fullname ignore
+ 50&nbsp;do
+ 51&nbsp;  echo "$name ($fullname)"
+ 52&nbsp;done &#60;/etc/passwd   # I/O 重定向.
+ 53&nbsp;
+ 54&nbsp;echo
+ 55&nbsp;echo "\$IFS still $IFS"
+ 56&nbsp;
+ 57&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><A
+HREF="special-chars.html#PIPEREF"
+>管道</A
+>输出到<B
+CLASS="COMMAND"
+>read</B
+>命令中, 
+				使用管道<A
+HREF="internal.html#ECHOREF"
+>echo</A
+>输出来设置变量<A
+HREF="gotchas.html#BADREAD0"
+>将会失败</A
+>.</P
+><P
+><A
+NAME="READPIPEREF"
+></A
+>然而, 使用管道<A
+HREF="basic.html#CATREF"
+>cat</A
+>输出<EM
+>看起来</EM
+>能够正常运行. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;cat file1 file2 |
+  2&nbsp;while read line
+  3&nbsp;do
+  4&nbsp;echo $line
+  5&nbsp;done</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>但是, 就像Bj鰊 Eriksson所指出的:</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="READPIPE"
+></A
+><P
+><B
+>例子 11-8. 管道输出到read中的问题</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/sh
+  2&nbsp;# readpipe.sh
+  3&nbsp;# 这个例子是由Bjon Eriksson所编写的.
+  4&nbsp;
+  5&nbsp;last="(null)"
+  6&nbsp;cat $0 |
+  7&nbsp;while read line
+  8&nbsp;do
+  9&nbsp;    echo "{$line}"
+ 10&nbsp;    last=$line
+ 11&nbsp;done
+ 12&nbsp;printf "\nAll done, last:$last\n"
+ 13&nbsp;
+ 14&nbsp;exit 0  # 代码结束.
+ 15&nbsp;        # 下边是脚本的(部分)输出.
+ 16&nbsp;        # 'echo'出了多余的大括号.
+ 17&nbsp;
+ 18&nbsp;#############################################
+ 19&nbsp;
+ 20&nbsp;./readpipe.sh 
+ 21&nbsp;
+ 22&nbsp;{#!/bin/sh}
+ 23&nbsp;{last="(null)"}
+ 24&nbsp;{cat $0 |}
+ 25&nbsp;{while read line}
+ 26&nbsp;{do}
+ 27&nbsp;{echo "{$line}"}
+ 28&nbsp;{last=$line}
+ 29&nbsp;{done}
+ 30&nbsp;{printf "nAll done, last:$lastn"}
+ 31&nbsp;
+ 32&nbsp;
+ 33&nbsp;All done, last:(null)
+ 34&nbsp;
+ 35&nbsp;变量(last)被设置在子shell中, 并没有被设置在外边. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>在许多Linux发行版上, <B
+CLASS="COMMAND"
+>gendiff</B
+>脚本通常都在<TT
+CLASS="FILENAME"
+>/usr/bin</TT
+>下, 
+		将<A
+HREF="moreadv.html#FINDREF"
+>find</A
+>的输出通过管道传到<EM
+>while read</EM
+>结构中.
+
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;find $1 \( -name "*$2" -o -name ".*$2" \) -print |
+  2&nbsp;while read f; do
+  3&nbsp;. . .</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="INTFILESYSTEM1"
+></A
+>文件系统</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>cd</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>cd</B
+>, 修改目录命令, 
+			  在脚本中用的最多的时候就是当命令需要在指定目录下运行时, 
+	      需要用它来修改当前工作目录. </P
+><P
+>  
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;(cd /source/directory &#38;&#38; tar cf - . ) | (cd /dest/directory &#38;&#38; tar xpvf -)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      [来自于<A
+HREF="special-chars.html#COXEX"
+>之前引用过</A
+>的一个例子, 是由Alan Cox编写的]</P
+><P
+><CODE
+CLASS="OPTION"
+>-P</CODE
+> (physical)选项对于<B
+CLASS="COMMAND"
+>cd</B
+>命令的意义是忽略符号链接. </P
+><P
+><B
+CLASS="COMMAND"
+>cd -</B
+> 将会把工作目录修改至<A
+HREF="internalvariables.html#OLDPWD"
+>$OLDPWD</A
+>, 也就是之前的工作目录. </P
+><P
+><A
+NAME="DOUBLESLASHREF"
+></A
+></P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>当我们使用两个"/"来作为<B
+CLASS="COMMAND"
+>cd</B
+>命令的参数时, 
+					结果却出乎我们的意料.
+	      .
+
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cd //</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>pwd</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>//</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      输出应该是, 并且当然应该是 <SAMP
+CLASS="COMPUTEROUTPUT"
+>/</SAMP
+>.
+	      无论在命令下还是在脚本中, 这都是个问题. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="PWD2REF"
+></A
+><B
+CLASS="COMMAND"
+>pwd</B
+></DT
+><DD
+><P
+>打印出当前的工作目录. 
+			  这将给出用户(或脚本)的当前工作目录 (参考<A
+HREF="internal.html#EX37"
+>例子 11-9</A
+>). 
+				  使用这个命令的结果和从内建变量<A
+HREF="internalvariables.html#PWDREF"
+>$PWD</A
+>中所读取的值是相同的.</P
+></DD
+><DT
+><A
+NAME="DIRSD"
+></A
+><B
+CLASS="COMMAND"
+>pushd</B
+>, <B
+CLASS="COMMAND"
+>popd</B
+>, <B
+CLASS="COMMAND"
+>dirs</B
+></DT
+><DD
+><P
+>这几个命令可以使得工作目录书签化, 就是可以按顺序向前或向后移动工作目录.
+	      压栈的动作可以保存工作目录列表. 选项可以允许对目录栈做不同的操作. </P
+><P
+><A
+NAME="PUSHDREF"
+></A
+><KBD
+CLASS="USERINPUT"
+>pushd
+	      dir-name</KBD
+>把路径<TT
+CLASS="REPLACEABLE"
+><I
+>dir-name</I
+></TT
+>压入目录栈, 
+	      同时修改当前目录到<TT
+CLASS="REPLACEABLE"
+><I
+>dir-name</I
+></TT
+>. </P
+><P
+><A
+NAME="POPDREF"
+></A
+><B
+CLASS="COMMAND"
+>popd</B
+>将目录栈最上边的目录弹出, 
+	      同时将当前目录修改为刚弹出来的那个目录. </P
+><P
+><B
+CLASS="COMMAND"
+>dirs</B
+>列出所有目录栈的内容
+		  (与<A
+HREF="internalvariables.html#DIRSTACKREF"
+>$DIRSTACK</A
+>变量相比较).
+	      一个成功的<B
+CLASS="COMMAND"
+>pushd</B
+>或者<B
+CLASS="COMMAND"
+>popd</B
+>将会自动调用<B
+CLASS="COMMAND"
+>dirs</B
+>命令.</P
+><P
+>对于那些并没有对当前目录做硬编码, 并且需要对当前工作目录做灵活修改的脚本来说, 
+	      使用这些命令是再好不过了. 
+	      注意内建<CODE
+CLASS="VARNAME"
+>$DIRSTACK</CODE
+>数组变量,
+	      这个变量可以在脚本中进行访问, 并且它们保存了目录栈的内容.
+	    </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX37"
+></A
+><P
+><B
+>例子 11-9. 修改当前工作目录</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;dir1=/usr/local
+  4&nbsp;dir2=/var/spool
+  5&nbsp;
+  6&nbsp;pushd $dir1
+  7&nbsp;# 将自动运行一个 'dirs' (把目录栈的内容列到stdout上).
+  8&nbsp;echo "Now in directory `pwd`." # 使用后置引用的 'pwd'.
+  9&nbsp;
+ 10&nbsp;# 现在对'dir1'做一些操作.
+ 11&nbsp;pushd $dir2
+ 12&nbsp;echo "Now in directory `pwd`."
+ 13&nbsp;
+ 14&nbsp;# 现在对'dir2'做一些操作.
+ 15&nbsp;echo "The top entry in the DIRSTACK array is $DIRSTACK."
+ 16&nbsp;popd
+ 17&nbsp;echo "Now back in directory `pwd`."
+ 18&nbsp;
+ 19&nbsp;# 现在, 对'dir1'做更多的操作.
+ 20&nbsp;popd
+ 21&nbsp;echo "Now back in original working directory `pwd`."
+ 22&nbsp;
+ 23&nbsp;exit 0
+ 24&nbsp;
+ 25&nbsp;# 如果你不使用 'popd' 将会发生什么 -- 然后退出这个脚本?
+ 26&nbsp;# 你最后将落在哪个目录中? 为什么?</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="INTVAR1"
+></A
+>变量</B
+></P
+><DL
+><DT
+><A
+NAME="LETREF"
+></A
+><B
+CLASS="COMMAND"
+>let</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>let</B
+>命令将执行变量的算术操作. 
+			  在许多情况下, 它被看作是复杂的<A
+HREF="moreadv.html#EXPRREF"
+>expr</A
+>命令的一个简化版本.</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX46"
+></A
+><P
+><B
+>例子 11-10. 使用<SPAN
+CLASS="QUOTE"
+>"let"</SPAN
+>命令来做算术运算.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;echo
+  4&nbsp;
+  5&nbsp;let a=11            # 与 'a=11' 相同
+  6&nbsp;let a=a+5           # 等价于 let "a = a + 5"
+  7&nbsp;                    # (双引号和空格是这句话更具可读性.)
+  8&nbsp;echo "11 + 5 = $a"  # 16
+  9&nbsp;
+ 10&nbsp;let "a &#60;&#60;= 3"       # 等价于 let "a = a &#60;&#60; 3"
+ 11&nbsp;echo "\"\$a\" (=16) left-shifted 3 places = $a"
+ 12&nbsp;                    # 128
+ 13&nbsp;
+ 14&nbsp;let "a /= 4"        # 等价于 let "a = a / 4"
+ 15&nbsp;echo "128 / 4 = $a" # 32
+ 16&nbsp;
+ 17&nbsp;let "a -= 5"        # 等价于 let "a = a - 5"
+ 18&nbsp;echo "32 - 5 = $a"  # 27
+ 19&nbsp;
+ 20&nbsp;let "a *=  10"      # 等价于 let "a = a * 10"
+ 21&nbsp;echo "27 * 10 = $a" # 270
+ 22&nbsp;
+ 23&nbsp;let "a %= 8"        # 等价于 let "a = a % 8"
+ 24&nbsp;echo "270 modulo 8 = $a  (270 / 8 = 33, remainder $a)"
+ 25&nbsp;                    # 6
+ 26&nbsp;
+ 27&nbsp;echo
+ 28&nbsp;
+ 29&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><A
+NAME="EVALREF"
+></A
+><B
+CLASS="COMMAND"
+>eval</B
+></DT
+><DD
+><P
+><KBD
+CLASS="USERINPUT"
+>eval arg1 [arg2] ... [argN]</KBD
+></P
+><P
+>将表达式中的参数, 或者表达式列表, 组合起来, 
+			然后<EM
+>评价</EM
+>它们(译者注: 通常用来执行). 
+			任何被包含在表达示中的变量都将被扩展.
+	      结果将会被转化到命令中. 如果你想从命令行中或者是从脚本中产生代码, 那么这个命令就非常有用了. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>process=xterm</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>show_process="eval ps ax | grep $process"</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>$show_process</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>1867 tty1     S      0:02 xterm
+ 2779 tty1     S      0:00 xterm
+ 2886 pts/1    S      0:00 grep xterm</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX43"
+></A
+><P
+><B
+>例子 11-11. 展示<B
+CLASS="COMMAND"
+>eval</B
+>命令的效果</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;y=`eval ls -l`  #  与 y=`ls -l` 很相似
+  4&nbsp;echo $y         #+ 但是换行符将会被删除, 因为"echo"的变量未被""引用.
+  5&nbsp;echo
+  6&nbsp;echo "$y"       #  用""将变量引用起来, 换行符就不会被空格替换了.
+  7&nbsp;
+  8&nbsp;echo; echo
+  9&nbsp;
+ 10&nbsp;y=`eval df`     #  与 y=`df` 很相似
+ 11&nbsp;echo $y         #+ 换行符又被空格替换了.
+ 12&nbsp;
+ 13&nbsp;#  当没有LF(换行符)出现时, 如果使用"awk"这样的工具来分析输出的结果, 
+ 14&nbsp;#+ 应该能更容易一些.
+ 15&nbsp;
+ 16&nbsp;echo
+ 17&nbsp;echo "==========================================================="
+ 18&nbsp;echo
+ 19&nbsp;
+ 20&nbsp;# 现在,来看一下怎么用"eval"命令来"扩展"一个变量 . . .
+ 21&nbsp;
+ 22&nbsp;for i in 1 2 3 4 5; do
+ 23&nbsp;  eval value=$i
+ 24&nbsp;  #  value=$i 具有相同的效果, 在这里并不是非要使用"eval"不可. 
+ 25&nbsp;  #  一个缺乏特殊含义的变量将被评价为自身 -- 也就是说,
+ 26&nbsp;  #+ 这个变量除了能够被扩展成自身所表示的字符外, 不能被扩展成任何其他的含义.
+ 27&nbsp;  echo $value
+ 28&nbsp;done
+ 29&nbsp;
+ 30&nbsp;echo
+ 31&nbsp;echo "---"
+ 32&nbsp;echo
+ 33&nbsp;
+ 34&nbsp;for i in ls df; do
+ 35&nbsp;  value=eval $i
+ 36&nbsp;  #  value=$i 在这里就与上边这句有了本质上的区别.
+ 37&nbsp;  #  "eval" 将会评价命令 "ls" 和 "df" . . .
+ 38&nbsp;  #  术语 "ls" 和 "df" 就具有特殊含义,
+ 39&nbsp;  #+ 因为它们被解释成命令,
+ 40&nbsp;  #+ 而不是字符串本身.
+ 41&nbsp;  echo $value
+ 42&nbsp;done
+ 43&nbsp;
+ 44&nbsp;
+ 45&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX44"
+></A
+><P
+><B
+>例子 11-12. 强制登出(log-off)</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 结束ppp进程来强制登出log-off.
+  3&nbsp;
+  4&nbsp;# 本脚本应该以root用户的身份来运行.
+  5&nbsp;
+  6&nbsp;killppp="eval kill -9 `ps ax | awk '/ppp/ { print $1 }'`"
+  7&nbsp;#                     -------- ppp的进程ID -------  
+  8&nbsp;
+  9&nbsp;$killppp                  # 这个变量现在成为了一个命令.
+ 10&nbsp;
+ 11&nbsp;
+ 12&nbsp;# 下边的命令必须以root用户的身份来运行.
+ 13&nbsp;
+ 14&nbsp;chmod 666 /dev/ttyS3      # 恢复读写权限,否则什么?
+ 15&nbsp;#  因为在ppp上执行一个SIGKILL将会修改串口的权限,
+ 16&nbsp;#+ 我们把权限恢复到之前的状态.
+ 17&nbsp;
+ 18&nbsp;rm /var/lock/LCK..ttyS3   # 删除串口琐文件.为什么?
+ 19&nbsp;
+ 20&nbsp;exit 0
+ 21&nbsp;
+ 22&nbsp;# 练习:
+ 23&nbsp;# -----
+ 24&nbsp;# 1) 编写一个脚本来验证是否root用户正在运行它.
+ 25&nbsp;# 2) 做一个检查, 在杀掉某个进程之前, 
+ 26&nbsp;#+   检查一下这个将要被杀掉的进程是否正在运行.
+ 27&nbsp;# 3) 基于'fuser'来编写达到这个目的的另一个版本的脚本
+ 28&nbsp;#+      if [ fuser -s /dev/modem ]; then . . .</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ROT14"
+></A
+><P
+><B
+>例子 11-13. 另一个<SPAN
+CLASS="QUOTE"
+>"rot13"</SPAN
+>版本</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 使用'eval'的一个"rot13"的版本,(译者:rot13就是把26个字母,从中间分为2半,各13个).
+  3&nbsp;# 与脚本"rot13.sh" 比较一下.
+  4&nbsp;
+  5&nbsp;setvar_rot_13()              # "rot13" 函数
+  6&nbsp;{
+  7&nbsp;  local varname=$1 varvalue=$2
+  8&nbsp;  eval $varname='$(echo "$varvalue" | tr a-z n-za-m)'
+  9&nbsp;}
+ 10&nbsp;
+ 11&nbsp;
+ 12&nbsp;setvar_rot_13 var "foobar"   # 将 "foobar" 传递到 rot13函数中.
+ 13&nbsp;echo $var                    # sbbone
+ 14&nbsp;
+ 15&nbsp;setvar_rot_13 var "$var"     # 传递 "sbbone" 到rot13函数中.
+ 16&nbsp;                             # 又变成了原始值.
+ 17&nbsp;echo $var                    # foobar
+ 18&nbsp;
+ 19&nbsp;# 这个例子是Segebart Chazelas编写的.
+ 20&nbsp;# 作者又修改了一下.
+ 21&nbsp;
+ 22&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>Rory Winston 捐献了下边的脚本, 
+			关于使用<B
+CLASS="COMMAND"
+>eval</B
+>命令. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EVALEX"
+></A
+><P
+><B
+>例子 11-14. 在Perl脚本中使用<B
+CLASS="COMMAND"
+>eval</B
+>命令来强制变量替换</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;In the Perl script "test.pl":
+  2&nbsp;        ...		
+  3&nbsp;        my $WEBROOT = &#60;WEBROOT_PATH&#62;;
+  4&nbsp;        ...
+  5&nbsp;
+  6&nbsp;To force variable substitution try:
+  7&nbsp;        $export WEBROOT_PATH=/usr/local/webroot
+  8&nbsp;        $sed 's/&#60;WEBROOT_PATH&#62;/$WEBROOT_PATH/' &#60; test.pl &#62; out
+  9&nbsp;
+ 10&nbsp;But this just gives:
+ 11&nbsp;        my $WEBROOT = $WEBROOT_PATH;
+ 12&nbsp;
+ 13&nbsp;However:
+ 14&nbsp;        $export WEBROOT_PATH=/usr/local/webroot
+ 15&nbsp;        $eval sed 's%\&#60;WEBROOT_PATH\&#62;%$WEBROOT_PATH%' &#60; test.pl &#62; out
+ 16&nbsp;#        ====
+ 17&nbsp;
+ 18&nbsp;That works fine, and gives the expected substitution:
+ 19&nbsp;        my $WEBROOT = /usr/local/webroot;
+ 20&nbsp;
+ 21&nbsp;
+ 22&nbsp;### Paulo Marcel Coelho Aragao校正了这个原始例子.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>eval</B
+>命令是有风险的,
+				如果你有更合适的方法来实现功能的话, 
+				尽量避免使用它.
+				<KBD
+CLASS="USERINPUT"
+>eval $COMMANDS</KBD
+>将会执行命令<TT
+CLASS="REPLACEABLE"
+><I
+>COMMANDS</I
+></TT
+>的内容, 
+				如果命令中包含有<B
+CLASS="COMMAND"
+>rm -rf *</B
+>这样的东西, 可能就不是你想要的了. 
+				当你运行一个包含有<B
+CLASS="COMMAND"
+>eval</B
+>命令的陌生人所编写的代码片段的时候, 这是一件很危险的事情. 
+		</P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="SETREF"
+></A
+><B
+CLASS="COMMAND"
+>set</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>set</B
+>命令用来修改内部脚本变量的值. 
+	      它的一个作用就是触发<A
+HREF="options.html#OPTIONSREF"
+>选项标志位</A
+>来帮助决定脚本的行为. 
+	      另一个作用是以一个命令的结果(<KBD
+CLASS="USERINPUT"
+>set
+	      `command`</KBD
+>)来重新设置脚本的<A
+HREF="internalvariables.html#POSPARAMREF"
+>位置参数</A
+>. 
+	  脚本将会从命令的输出中重新分析出位置参数. 
+		  </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX34"
+></A
+><P
+><B
+>例子 11-15. 使用<B
+CLASS="COMMAND"
+>set</B
+>命令来改变脚本的位置参数</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# script "set-test"
+  4&nbsp;
+  5&nbsp;# 使用3个命令行参数来调用这个脚本,
+  6&nbsp;# 比如, "./set-test one two three".
+  7&nbsp;
+  8&nbsp;echo
+  9&nbsp;echo "Positional parameters before  set \`uname -a\` :"
+ 10&nbsp;echo "Command-line argument #1 = $1"
+ 11&nbsp;echo "Command-line argument #2 = $2"
+ 12&nbsp;echo "Command-line argument #3 = $3"
+ 13&nbsp;
+ 14&nbsp;
+ 15&nbsp;set `uname -a` # 把`uname -a`的命令输出设置
+ 16&nbsp;               # 为新的位置参数.
+ 17&nbsp;
+ 18&nbsp;echo $_        # unknown(译者注: 这要看你的uname -a输出了,这句打印出的就是输出的最后一个单词.)
+ 19&nbsp;# 在脚本中设置标志.
+ 20&nbsp;
+ 21&nbsp;echo "Positional parameters after  set \`uname -a\` :"
+ 22&nbsp;# $1, $2, $3, 等等. 这些位置参数将被重新初始化为`uname -a`的结果
+ 23&nbsp;echo "Field #1 of 'uname -a' = $1"
+ 24&nbsp;echo "Field #2 of 'uname -a' = $2"
+ 25&nbsp;echo "Field #3 of 'uname -a' = $3"
+ 26&nbsp;echo ---
+ 27&nbsp;echo $_        # ---
+ 28&nbsp;echo
+ 29&nbsp;
+ 30&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>关于位置参数更多有趣的事情.</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="REVPOSPARAMS"
+></A
+><P
+><B
+>例子 11-16. 反转位置参数</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# revposparams.sh: 反转位置参数.
+  3&nbsp;# 本脚本由Dan Jacobson所编写, 本书作者做了一些格式上的修正.
+  4&nbsp;
+  5&nbsp;
+  6&nbsp;set a\ b c d\ e;
+  7&nbsp;#     ^      ^     转义的空格
+  8&nbsp;#       ^ ^        未转义的空格
+  9&nbsp;OIFS=$IFS; IFS=:;
+ 10&nbsp;#              ^   保存旧的IFS, 然后设置新的IFS.
+ 11&nbsp;
+ 12&nbsp;echo
+ 13&nbsp;
+ 14&nbsp;until [ $# -eq 0 ]
+ 15&nbsp;do          #      步进位置参数.
+ 16&nbsp;  echo "### k0 = "$k""     # 步进之前
+ 17&nbsp;  k=$1:$k;  #      将每个位置参数都附加在循环变量的后边.
+ 18&nbsp;#     ^
+ 19&nbsp;  echo "### k = "$k""      # 步进之后
+ 20&nbsp;  echo
+ 21&nbsp;  shift;
+ 22&nbsp;done
+ 23&nbsp;
+ 24&nbsp;set $k  #  设置一个新的位置参数.
+ 25&nbsp;echo -
+ 26&nbsp;echo $# #  察看位置参数的个数.
+ 27&nbsp;echo -
+ 28&nbsp;echo
+ 29&nbsp;
+ 30&nbsp;for i   #  省略 "in list" 结构, 
+ 31&nbsp;        #+ 为位置参数设置变量 -- i --.
+ 32&nbsp;do
+ 33&nbsp;  echo $i  # 显示新的位置参数.
+ 34&nbsp;done
+ 35&nbsp;
+ 36&nbsp;IFS=$OIFS  # 恢复 IFS.
+ 37&nbsp;
+ 38&nbsp;#  问题:
+ 39&nbsp;#  是否有必要设置新的IFS, 内部域分隔符,
+ 40&nbsp;#+ 才能够让这个脚本正常运行? (译者注: 当然有必要.)
+ 41&nbsp;#  如果你没设置新的IFS, 会发生什么? 试一下.
+ 42&nbsp;#  并且, 在第17行, 为什么新的IFS要使用 -- 一个冒号 -- ,
+ 43&nbsp;#+ 来将位置参数附加到循环变量中?
+ 44&nbsp;#  这么做的目的是什么?
+ 45&nbsp;
+ 46&nbsp;exit 0
+ 47&nbsp;
+ 48&nbsp;$ ./revposparams.sh
+ 49&nbsp;
+ 50&nbsp;### k0 = 
+ 51&nbsp;### k = a b
+ 52&nbsp;
+ 53&nbsp;### k0 = a b
+ 54&nbsp;### k = c a b
+ 55&nbsp;
+ 56&nbsp;### k0 = c a b
+ 57&nbsp;### k = d e c a b
+ 58&nbsp;
+ 59&nbsp;-
+ 60&nbsp;3
+ 61&nbsp;-
+ 62&nbsp;
+ 63&nbsp;d e
+ 64&nbsp;c
+ 65&nbsp;a b</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>不使用任何选项或参数来调用<B
+CLASS="COMMAND"
+>set</B
+>命令的话, 
+	      将会列出所有的<A
+HREF="othertypesv.html#ENVREF"
+>环境变量</A
+>和其他所有的已经初始化过的变量.
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>set</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>AUTHORCOPY=/home/bozo/posts
+ BASH=/bin/bash
+ BASH_VERSION=$'2.05.8(1)-release'
+ ...
+ XAUTHORITY=/home/bozo/.Xauthority
+ _=/etc/bashrc
+ variable22=abc
+ variable23=xzy</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>如果使用参数<CODE
+CLASS="OPTION"
+>--</CODE
+>来调用<B
+CLASS="COMMAND"
+>set</B
+>命令的话, 
+	      将会明确的分配位置参数.
+		  如果<CODE
+CLASS="OPTION"
+>--</CODE
+>选项后边没有跟变量名的话, 
+		  那么结果就使得所有位置参数都被<EM
+>unsets</EM
+>了.
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="SETPOS"
+></A
+><P
+><B
+>例子 11-17. 重新分配位置参数</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;variable="one two three four five"
+  4&nbsp;
+  5&nbsp;set -- $variable
+  6&nbsp;# 将位置参数的内容设为变量"$variable"的内容.
+  7&nbsp;
+  8&nbsp;first_param=$1
+  9&nbsp;second_param=$2
+ 10&nbsp;shift; shift        # 将最前面的两个位置参数移除.
+ 11&nbsp;remaining_params="$*"
+ 12&nbsp;
+ 13&nbsp;echo
+ 14&nbsp;echo "first parameter = $first_param"             # one
+ 15&nbsp;echo "second parameter = $second_param"           # two
+ 16&nbsp;echo "remaining parameters = $remaining_params"   # three four five
+ 17&nbsp;
+ 18&nbsp;echo; echo
+ 19&nbsp;
+ 20&nbsp;# 再来一次.
+ 21&nbsp;set -- $variable
+ 22&nbsp;first_param=$1
+ 23&nbsp;second_param=$2
+ 24&nbsp;echo "first parameter = $first_param"             # one
+ 25&nbsp;echo "second parameter = $second_param"           # two
+ 26&nbsp;
+ 27&nbsp;# ======================================================
+ 28&nbsp;
+ 29&nbsp;set --
+ 30&nbsp;# 如果没指定变量,那么将会unset所有的位置参数.
+ 31&nbsp;
+ 32&nbsp;first_param=$1
+ 33&nbsp;second_param=$2
+ 34&nbsp;echo "first parameter = $first_param"             # (null value)
+ 35&nbsp;echo "second parameter = $second_param"           # (null value)
+ 36&nbsp;
+ 37&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>参考<A
+HREF="loops1.html#EX22A"
+>例子 10-2</A
+>和<A
+HREF="extmisc.html#EX33A"
+>例子 12-51</A
+>.</P
+></DD
+><DT
+><A
+NAME="UNSETREF"
+></A
+><B
+CLASS="COMMAND"
+>unset</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>unset</B
+>命令用来删除一个shell变量, 
+			  这个命令的效果就是把这个变量设为<EM
+>null</EM
+>. 
+			  注意: 这个命令对位置参数无效. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>unset PATH</KBD
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo $PATH</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#13;</SAMP
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="UNS"
+></A
+><P
+><B
+>例子 11-18. <SPAN
+CLASS="QUOTE"
+>"Unsett"</SPAN
+>一个变量</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# unset.sh: Unset 一个变量.
+  3&nbsp;
+  4&nbsp;variable=hello                       # 初始化.
+  5&nbsp;echo "variable = $variable"
+  6&nbsp;
+  7&nbsp;unset variable                       # Unset.
+  8&nbsp;                                     # 与 variable= 效果相同.
+  9&nbsp;echo "(unset) variable = $variable"  # $variable 设为 null.
+ 10&nbsp;
+ 11&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><A
+NAME="EXPORTREF"
+></A
+><B
+CLASS="COMMAND"
+>export</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>export</B
+>命令将会使得被export的变量在所运行脚本(或shell)的所有子进程中都可用. 
+			  <EM
+>不幸的是, 没有办法</EM
+>将<EM
+>变量</EM
+>export<EM
+>到父进程中, 
+				  这里所指的父进程就是调用这个脚本的脚本或shell.</EM
+> 
+	      关于<B
+CLASS="COMMAND"
+>export</B
+>命令的一个重要的用法就是使用在<A
+HREF="files.html#FILESREF1"
+>启动文件</A
+>中, 
+		  启动文件用来初始化和设置<A
+HREF="othertypesv.html#ENVREF"
+>环境变量</A
+>, 
+		  这样, 用户进程才能够访问环境变量. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="COLTOTALER3"
+></A
+><P
+><B
+>例子 11-19. 使用<B
+CLASS="COMMAND"
+>export</B
+>命令来将一个变量传递到一个内嵌<A
+HREF="awk.html#AWKREF"
+>awk</A
+>的脚本中</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;#  这是"求列的和"脚本的另外一个版本(col-totaler.sh)
+  4&nbsp;#+ 那个脚本可以把目标文件中的指定的列上的所有数字全部累加起来,求和.
+  5&nbsp;#  这个版本将把一个变量通过export的形式传递到'awk'中 . . .
+  6&nbsp;#+ 并且把awk脚本放到一个变量中.
+  7&nbsp;
+  8&nbsp;
+  9&nbsp;ARGS=2
+ 10&nbsp;E_WRONGARGS=65
+ 11&nbsp;
+ 12&nbsp;if [ $# -ne "$ARGS" ] # 检查命令行参数的个数.
+ 13&nbsp;then
+ 14&nbsp;   echo "Usage: `basename $0` filename column-number"
+ 15&nbsp;   exit $E_WRONGARGS
+ 16&nbsp;fi
+ 17&nbsp;
+ 18&nbsp;filename=$1
+ 19&nbsp;column_number=$2
+ 20&nbsp;
+ 21&nbsp;#===== 上边的这部分,与原始脚本完全一样 =====#
+ 22&nbsp;
+ 23&nbsp;export column_number
+ 24&nbsp;# 将列号export出来, 这样后边的进程就可用了.
+ 25&nbsp;
+ 26&nbsp;
+ 27&nbsp;# -----------------------------------------------
+ 28&nbsp;awkscript='{ total += $ENVIRON["column_number"] }
+ 29&nbsp;END { print total }'
+ 30&nbsp;# 是的, 变量可以保存awk脚本.
+ 31&nbsp;# -----------------------------------------------
+ 32&nbsp;
+ 33&nbsp;# 现在, 运行这个awk脚本.
+ 34&nbsp;awk "$awkscript" "$filename"
+ 35&nbsp;
+ 36&nbsp;# 感谢, Stephane Chazelas.
+ 37&nbsp;
+ 38&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>可以在一个操作中同时进行赋值和export变量, 比如: 
+				  <B
+CLASS="COMMAND"
+>export var1=xxx</B
+>.</P
+><P
+>然而, 就像Greg Keraunen所指出的, 
+				  在某些情况下, 如果使用上边这种形式的话, 
+		  将与先设置变量, 然后export变量效果不同. </P
+><P
+>	        <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>export var=(a b); echo ${var[0]}</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>(a b)</SAMP
+>
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>var=(a b); export var; echo ${var[0]}</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>a</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>declare</B
+>, <B
+CLASS="COMMAND"
+>typeset</B
+></DT
+><DD
+><P
+><A
+HREF="declareref.html"
+>declare</A
+>和<A
+HREF="declareref.html"
+>typeset</A
+>命令被用来指定或限制变量的属性. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>readonly</B
+></DT
+><DD
+><P
+>与<A
+HREF="declareref.html"
+>declare -r</A
+>作用相同,
+	      设置变量的只读属性, 或者可以认为这个变量就是一个常量.
+	      设置了这种属性之后, 如果你还要修改它, 那么将会得到一个错误信息.
+	      这种情况与<EM
+>C</EM
+>语言中的<B
+CLASS="COMMAND"
+>const</B
+>常量类型是相同的.
+	      </P
+></DD
+><DT
+><A
+NAME="GETOPTSX"
+></A
+><B
+CLASS="COMMAND"
+>getopts</B
+></DT
+><DD
+><P
+>可以说这个命令是分析传递到脚本中命令行参数的最强力的工具.
+	      这个命令与外部命令<A
+HREF="extmisc.html#GETOPTY"
+>getopt</A
+>, 
+		  还有<EM
+>C</EM
+>语言中的库函数<B
+CLASS="COMMAND"
+>getopt</B
+>的作用是相同的. 
+	       它允许传递和连接多个选项
+
+		   <A
+NAME="AEN6448"
+HREF="#FTN.AEN6448"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+
+	      到脚本中, 并且能够分配多个参数到脚本中(比如: <KBD
+CLASS="USERINPUT"
+>scriptname -abc -e /usr/local</KBD
+>).</P
+><P
+><B
+CLASS="COMMAND"
+>getopts</B
+>结构使用两个隐含变量. 
+	      <CODE
+CLASS="VARNAME"
+>$OPTIND</CODE
+>是参数指针(<I
+CLASS="WORDASWORD"
+>选项索引</I
+>)
+	      和<CODE
+CLASS="VARNAME"
+>$OPTARG</CODE
+>(<I
+CLASS="WORDASWORD"
+>选项参数</I
+>)(可选的)可以在选项后边附加一个参数. 
+	      在声明标签中, 选项名后边的冒号用来提示这个选项名已经分配了一个参数.
+	      </P
+><P
+><B
+CLASS="COMMAND"
+>getopts</B
+>结构通常都组成一组放在一个<A
+HREF="loops1.html#WHILELOOPREF"
+>while循环</A
+>中, 
+			循环过程中每次处理一个选项和参数,
+			然后增加隐含变量<CODE
+CLASS="VARNAME"
+>$OPTIND</CODE
+>的值, 再进行下一次的处理. 
+	      </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>		<P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>通过命令行传递到脚本中的参数前边必须加上一个减号(<CODE
+CLASS="OPTION"
+>-</CODE
+>). 
+		      <CODE
+CLASS="OPTION"
+>-</CODE
+>是一个前缀, 
+		      这样<B
+CLASS="COMMAND"
+>getopts</B
+>命令把这个参数看作为一个<EM
+>选项</EM
+>.
+		      事实上, <B
+CLASS="COMMAND"
+>getopts</B
+>不会处理不带<CODE
+CLASS="OPTION"
+>-</CODE
+>前缀的参数,
+			  如果第一个参数就没有<CODE
+CLASS="OPTION"
+>-</CODE
+>, 
+			  那么将会结束选项的处理.
+		      </P
+></LI
+><LI
+><P
+><B
+CLASS="COMMAND"
+>getopts</B
+>的<B
+CLASS="COMMAND"
+>while</B
+>循环模板与标准的<B
+CLASS="COMMAND"
+>while</B
+>循环模板有些不同, 
+		      没有标准循环中的中括号[]判断条件. </P
+></LI
+><LI
+><P
+><B
+CLASS="COMMAND"
+>getopts</B
+>结构将会取代外部命令<A
+HREF="extmisc.html#GETOPTY"
+>getopt</A
+>.
+		     </P
+></LI
+></OL
+>
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;while getopts ":abcde:fg" Option
+  2&nbsp;# 开始的声明.
+  3&nbsp;# a, b, c, d, e, f, 和 g 被认为是选项(标志).
+  4&nbsp;# 'e' 选项后边的 : 提示这个选项需要带一个参数.
+  5&nbsp;# 译者注:	解释一下 'a' 前边的那个 : 的作用.
+  6&nbsp;#			如果选项'e'不带参数进行调用的话, 会产生一个错误信息.
+  7&nbsp;#			这个开头的 : 就是用来屏蔽掉这个错误信息的, 
+  8&nbsp;#			因为我们一般都会有默认处理, 所以并不需要这个错误信息.
+  9&nbsp;do
+ 10&nbsp;  case $Option in
+ 11&nbsp;    a ) # 对选项'a'作些操作.
+ 12&nbsp;    b ) # 对选项'b'作些操作.
+ 13&nbsp;    ...                                           
+ 14&nbsp;    e)  # 对选项'e'作些操作, 同时处理一下$OPTARG,
+ 15&nbsp;        # 这个变量里边将保存传递给选项"e"的参数.
+ 16&nbsp;    ...                                           
+ 17&nbsp;    g ) # 对选项'g'作些操作.
+ 18&nbsp;  esac
+ 19&nbsp;done
+ 20&nbsp;shift $(($OPTIND - 1))
+ 21&nbsp;# 将参数指针向下移动.
+ 22&nbsp;
+ 23&nbsp;# 所有这些远没有它看起来的那么复杂.&#60;嘿嘿&#62;.
+ 24&nbsp;	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX33"
+></A
+><P
+><B
+>例子 11-20. 使用<B
+CLASS="COMMAND"
+>getopts</B
+>命令来来读取传递给脚本的选项/参数</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 练习 getopts 和 OPTIND
+  3&nbsp;# 在Bill Gradwohl的建议下, 这个脚本于 10/09/03 被修改.
+  4&nbsp;
+  5&nbsp;
+  6&nbsp;# 在这里我们将学习如何使用 'getopts' 来处理脚本的命令行参数.
+  7&nbsp;# 参数被作为"选项"(标志)来解析, 并且对选项分配参数. 
+  8&nbsp;
+  9&nbsp;# 试一下, 使用如下方法来调用这个脚本
+ 10&nbsp;# 'scriptname -mn'
+ 11&nbsp;# 'scriptname -oq qOption' (qOption 可以是任意的哪怕有些诡异字符的字符串.)
+ 12&nbsp;# 'scriptname -qXXX -r'
+ 13&nbsp;#
+ 14&nbsp;# 'scriptname -qr'    - 意外的结果, "r" 将被看成是选项 "q" 的参数.
+ 15&nbsp;# 'scriptname -q -r'  - 意外的结果, 同上.
+ 16&nbsp;# 'scriptname -mnop -mnop'  - 意外的结果
+ 17&nbsp;# (OPTIND在选项刚传递进来的地方是不可靠的). 
+ 18&nbsp;# (译者注: 也就是说OPTIND只是一个参数指针, 指向下一个参数的位置.
+ 19&nbsp;#  比如:	-mnop 在mno处理的位置OPTION都为1, 而到p的处理就变成2, 
+ 20&nbsp;#			-m -n -o 在m的时候OPTION为2, 而n为3, o为4,
+ 21&nbsp;#			也就是说它总指向下一个位置). 
+ 22&nbsp;#
+ 23&nbsp;#  如果选项需要一个参数的话("flag:"), 那么它将获取
+ 24&nbsp;#+ 命令行上紧挨在它后边的任何字符.
+ 25&nbsp;
+ 26&nbsp;NO_ARGS=0 
+ 27&nbsp;E_OPTERROR=65
+ 28&nbsp;
+ 29&nbsp;if [ $# -eq "$NO_ARGS" ]  # 不带命令行参数就调用脚本?
+ 30&nbsp;then
+ 31&nbsp;  echo "Usage: `basename $0` options (-mnopqrs)"
+ 32&nbsp;  exit $E_OPTERROR        # 如果没有参数传递进来, 那么就退出脚本, 并且解释此脚本的用法.
+ 33&nbsp;fi  
+ 34&nbsp;# 用法: scriptname -options
+ 35&nbsp;# 注意: 必须使用破折号 (-) 
+ 36&nbsp;
+ 37&nbsp;
+ 38&nbsp;while getopts ":mnopq:rs" Option
+ 39&nbsp;do
+ 40&nbsp;  case $Option in
+ 41&nbsp;    m     ) echo "Scenario #1: option -m-   [OPTIND=${OPTIND}]";;
+ 42&nbsp;    n | o ) echo "Scenario #2: option -$Option-   [OPTIND=${OPTIND}]";;
+ 43&nbsp;    p     ) echo "Scenario #3: option -p-   [OPTIND=${OPTIND}]";;
+ 44&nbsp;    q     ) echo "Scenario #4: option -q-\
+ 45&nbsp; with argument \"$OPTARG\"   [OPTIND=${OPTIND}]";;
+ 46&nbsp;    #  注意, 选项'q'必须分配一个参数, 
+ 47&nbsp;    #+ 否则, 默认将失败.
+ 48&nbsp;    r | s ) echo "Scenario #5: option -$Option-";;
+ 49&nbsp;    *     ) echo "Unimplemented option chosen.";;   # 默认情况的处理
+ 50&nbsp;  esac
+ 51&nbsp;done
+ 52&nbsp;
+ 53&nbsp;shift $(($OPTIND - 1))
+ 54&nbsp;#  (译者注: shift命令是可以带参数的, 参数就是移动的个数)
+ 55&nbsp;#  将参数指针减1, 这样它将指向下一个参数.
+ 56&nbsp;#  $1 现在引用的是命令行上的第一个非选项参数,
+ 57&nbsp;#+ 如果有一个这样的参数存在的话.
+ 58&nbsp;
+ 59&nbsp;exit 0
+ 60&nbsp;
+ 61&nbsp;#   就像 Bill Gradwohl 所描述的,
+ 62&nbsp;#  "getopts机制允许指定一个参数, 
+ 63&nbsp;#+ 但是scriptname -mnop -mnop就是一种比较特殊的情况, 
+ 64&nbsp;#+ 因为在使用OPTIND的时候, 没有可靠的方法来区分到底传递进来了什么东西."</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="INTSCRBEH1"
+></A
+>脚本行为</B
+></P
+><DL
+><DT
+><A
+NAME="SOURCEREF"
+></A
+><B
+CLASS="COMMAND"
+>source</B
+>, <SPAN
+CLASS="TOKEN"
+>.</SPAN
+> (<A
+HREF="special-chars.html#DOTREF"
+>点</A
+> 命令)</DT
+><DD
+><P
+>当在命令行中调用的时候, 这个命令将会执行一个脚本.
+	      当在脚本中调用的时候, 
+		  <KBD
+CLASS="USERINPUT"
+>source file-name</KBD
+> 将会加载<TT
+CLASS="FILENAME"
+>file-name</TT
+>文件. 
+		  sourc一个文件(或点命令)将会在脚本中<EM
+>引入</EM
+>代码, 
+	     并将这些代码附加到脚本中(与<EM
+>C</EM
+>语言中的<KBD
+CLASS="USERINPUT"
+>#include</KBD
+>指令效果相同). 
+	     最终的结果就像是在使用<SPAN
+CLASS="QUOTE"
+>"source"</SPAN
+>的行上插入了相应文件的内容. 
+	     在多个脚本需要引用相同的数据, 或者需要使用函数库的情况下, 
+	     这个命令非常有用. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX38"
+></A
+><P
+><B
+>例子 11-21. <SPAN
+CLASS="QUOTE"
+>"includ"</SPAN
+>一个数据文件</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;. data-file    # 加载一个数据文件.
+  4&nbsp;# 与"source data-file"效果相同, 但是更具可移植性.
+  5&nbsp;
+  6&nbsp;#  文件"data-file"必须存在于当前工作目录, 
+  7&nbsp;#+ 因为这个文件是使用'basename'来引用的. 
+  8&nbsp;
+  9&nbsp;# 现在, 引用这个文件中的一些数据. 
+ 10&nbsp;
+ 11&nbsp;echo "variable1 (from data-file) = $variable1"
+ 12&nbsp;echo "variable3 (from data-file) = $variable3"
+ 13&nbsp;
+ 14&nbsp;let "sum = $variable2 + $variable4"
+ 15&nbsp;echo "Sum of variable2 + variable4 (from data-file) = $sum"
+ 16&nbsp;echo "message1 (from data-file) is \"$message1\""
+ 17&nbsp;# 注意:                             将双引号转义
+ 18&nbsp;
+ 19&nbsp;print_message This is the message-print function in the data-file.
+ 20&nbsp;
+ 21&nbsp;
+ 22&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>上边<A
+HREF="internal.html#EX38"
+>例子 11-21</A
+>所使用的数据文件<TT
+CLASS="FILENAME"
+>data-file</TT
+>,  
+				  必须和上边的脚本放在同一目录下. </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 这是需要被脚本加载的数据文件.
+  2&nbsp;# 这种文件可以包含变量, 函数, 等等.
+  3&nbsp;# 在脚本中可以通过'source'或者'.'命令来加载.
+  4&nbsp;                                             
+  5&nbsp;# 让我们初始化一些变量.
+  6&nbsp;
+  7&nbsp;variable1=22
+  8&nbsp;variable2=474
+  9&nbsp;variable3=5
+ 10&nbsp;variable4=97
+ 11&nbsp;
+ 12&nbsp;message1="Hello, how are you?"
+ 13&nbsp;message2="Enough for now. Goodbye."
+ 14&nbsp;
+ 15&nbsp;print_message ()
+ 16&nbsp;{
+ 17&nbsp;# echo出所有传递进来的消息.
+ 18&nbsp;
+ 19&nbsp;  if [ -z "$1" ]
+ 20&nbsp;  then
+ 21&nbsp;    return 1
+ 22&nbsp;    # 如果没有参数的话, 会出错.
+ 23&nbsp;  fi
+ 24&nbsp;
+ 25&nbsp;  echo
+ 26&nbsp;
+ 27&nbsp;  until [ -z "$1" ]
+ 28&nbsp;  do
+ 29&nbsp;    # 循环处理传递到函数中的参数.
+ 30&nbsp;    echo -n "$1"
+ 31&nbsp;    # 每次 echo 一个参数, -n禁止换行.
+ 32&nbsp;    echo -n " "
+ 33&nbsp;    # 在参数之间插入空格. 
+ 34&nbsp;    shift
+ 35&nbsp;    # 切换到下一个.
+ 36&nbsp;  done  
+ 37&nbsp;
+ 38&nbsp;  echo
+ 39&nbsp;
+ 40&nbsp;  return 0
+ 41&nbsp;}  </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>如果<EM
+>source</EM
+>进来的文件本身就一个可执行脚本的话, 
+	       那么它将运行起来, 
+	       然后将控制权交还给调用它的脚本.
+	       一个<EM
+>source</EM
+>进来的可执行脚本可以使用<A
+HREF="complexfunct.html#RETURNREF"
+>return</A
+>命令来达到这个目的. 
+	      </P
+><P
+>			(可选的)也可以向<EM
+>source</EM
+>文件中传递参数, 
+			这些参数将被看作<A
+HREF="othertypesv.html#POSPARAMREF1"
+>位置参数</A
+>.
+	       <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;source $filename $arg1 arg2</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>你甚至可以在脚本文件中<EM
+>source</EM
+>它自身, 
+	    虽然这么做看不出有什么实际的应用价值. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="SELFSOURCE"
+></A
+><P
+><B
+>例子 11-22. 一个(没什么用的)source自身的脚本</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# self-source.sh: 一个脚本"递归"的source自身. 
+  3&nbsp;# 来自于"Stupid Script Tricks," 卷 II.
+  4&nbsp;
+  5&nbsp;MAXPASSCNT=100    # 最大的可执行次数. 
+  6&nbsp;
+  7&nbsp;echo -n  "$pass_count  "
+  8&nbsp;#  在第一次运行的时候,这句只不过echo出2个空格,
+  9&nbsp;#+ 因为$pass_count还没被初始化.
+ 10&nbsp;
+ 11&nbsp;let "pass_count += 1"
+ 12&nbsp;#  假定这个未初始化的变量$pass_count
+ 13&nbsp;#+ 可以在第一次运行的时候+1.
+ 14&nbsp;#  这句可以正常工作在Bash和pdksh下, 但是
+ 15&nbsp;#+ 它依赖于不可移植(并且可能危险)的行为.
+ 16&nbsp;#  更好的方法是在使用$pass_count之前,先把这个变量初始化为0.
+ 17&nbsp;
+ 18&nbsp;while [ "$pass_count" -le $MAXPASSCNT ]
+ 19&nbsp;do
+ 20&nbsp;  . $0   # 脚本"source"自身, 而不是调用自己.
+ 21&nbsp;         # ./$0 (应该能够正常递归)不能在这正常运行. 为什么?
+ 22&nbsp;done  
+ 23&nbsp;
+ 24&nbsp;#  这里发生的动作并不是真正的递归,
+ 25&nbsp;#+ 因为脚本成功的展开了自己,换句话说,
+ 26&nbsp;#+ 在每次循环的过程中
+ 27&nbsp;#+ 在每个'source'行(第20行)上
+ 28&nbsp;#  都产生了新的代码.
+ 29&nbsp;#
+ 30&nbsp;#  当然, 脚本会把每个新'source'进来文件的"#!"行
+ 31&nbsp;#+ 都解释成注释, 而不会把它看成是一个新的脚本.
+ 32&nbsp;
+ 33&nbsp;echo
+ 34&nbsp;
+ 35&nbsp;exit 0   # 最终的效果就是从1数到100.
+ 36&nbsp;         # 真是让人印象深刻.
+ 37&nbsp;
+ 38&nbsp;# 练习:
+ 39&nbsp;# -----
+ 40&nbsp;# 使用这个小技巧编写一些真正能够干些事情的脚本. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>exit</B
+></DT
+><DD
+><P
+>无条件的停止一个脚本的运行. 
+		<B
+CLASS="COMMAND"
+>exit</B
+>命令可以随意的取得一个整数参数, 
+		然后把这个参数作为这个脚本的<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>. 
+		在退出一个简单脚本的时候, 使用<KBD
+CLASS="USERINPUT"
+>exit 0</KBD
+>的话, 
+		是种好习惯, 因为这表明成功运行. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果不带参数调用<B
+CLASS="COMMAND"
+>exit</B
+>命令退出的话, 
+			那么退出状态码将会将会是脚本中最后一个命令的退出状态码. 
+		  等价于<B
+CLASS="COMMAND"
+>exit $?</B
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="EXECREF"
+></A
+><B
+CLASS="COMMAND"
+>exec</B
+></DT
+><DD
+><P
+>			这个shell内建命令将使用一个特定的命令来取代当前进程. 
+			一般的当shell遇到一个命令, 
+			它会<A
+HREF="internal.html#FORKREF"
+>forks off</A
+>一个子进程来真正的运行命令. 
+			使用<B
+CLASS="COMMAND"
+>exec</B
+>内建命令, shell就不会fork了,
+			并且命令的执行将会替换掉当前shell. 
+			因此, 在脚本中使用时, 一旦<B
+CLASS="COMMAND"
+>exec</B
+>所执行的命令执行完毕, 
+	      那么它就会强制退出脚本. 
+		  <A
+NAME="AEN6568"
+HREF="#FTN.AEN6568"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+>
+	    </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX54"
+></A
+><P
+><B
+>例子 11-23. <B
+CLASS="COMMAND"
+>exec</B
+>命令的效果</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;exec echo "Exiting \"$0\"."   # 脚本应该在这里退出.
+  4&nbsp;
+  5&nbsp;# ----------------------------------
+  6&nbsp;# The following lines never execute.
+  7&nbsp;
+  8&nbsp;echo "This echo will never echo."
+  9&nbsp;
+ 10&nbsp;exit 99                       #  脚本是不会在这里退出的.
+ 11&nbsp;                              #  脚本退出后会使用'echo $?'
+ 12&nbsp;                              #+ 来检查一下退出码.
+ 13&nbsp;                              #  一定 *不是* 99.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="SELFEXEC"
+></A
+><P
+><B
+>例子 11-24. 一个<B
+CLASS="COMMAND"
+>exec</B
+>自身的脚本</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# self-exec.sh
+  3&nbsp;
+  4&nbsp;echo
+  5&nbsp;
+  6&nbsp;echo "This line appears ONCE in the script, yet it keeps echoing."
+  7&nbsp;echo "The PID of this instance of the script is still $$."
+  8&nbsp;#     上边这行展示了并没有fork出子shell.
+  9&nbsp;
+ 10&nbsp;echo "==================== Hit Ctl-C to exit ===================="
+ 11&nbsp;
+ 12&nbsp;sleep 1
+ 13&nbsp;
+ 14&nbsp;exec $0   #  产生了本脚本的另一个实例,
+ 15&nbsp;          #+ 但是这个新产生的实例却代替了原来的实例.
+ 16&nbsp;
+ 17&nbsp;echo "This line will never echo!"  # 为什么不是这样?
+ 18&nbsp;
+ 19&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><B
+CLASS="COMMAND"
+>exec</B
+>命令还能够用来<A
+HREF="x13380.html#USINGEXECREF"
+>重新分配文件描述符</A
+>.
+			比如, <KBD
+CLASS="USERINPUT"
+>exec &#60;zzz-file</KBD
+>将会用<TT
+CLASS="FILENAME"
+>zzz-file</TT
+>来代替<TT
+CLASS="FILENAME"
+>stdin</TT
+>. 
+	      </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><A
+HREF="moreadv.html#FINDREF"
+>find</A
+>命令的<CODE
+CLASS="OPTION"
+>-exec</CODE
+>选项与shell内建的<B
+CLASS="COMMAND"
+>exec</B
+>命令是<TT
+CLASS="REPLACEABLE"
+><I
+>不同</I
+></TT
+>的.
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>shopt</B
+><A
+NAME="SHOPTREF"
+></A
+></DT
+><DD
+><P
+>这个命令允许shell在空闲时修改shell选项 (见<A
+HREF="aliases.html#AL"
+>例子 24-1</A
+>和<A
+HREF="aliases.html#UNAL"
+>例子 24-2</A
+>). 
+			它经常出现在<A
+HREF="files.html#FILESREF1"
+>启动文件</A
+>中, 
+			但在一般脚本中也常出现. 
+			需要在<A
+HREF="bashver2.html#BASH2REF"
+>版本2</A
+>之后的Bash中才支持. 
+
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;shopt -s cdspell
+  2&nbsp;# 使用'cd'命令时,允许产生少量的拼写错误.
+  3&nbsp;cd /hpme  # 噢! 应该是'/home'.
+  4&nbsp;pwd       # /home
+  5&nbsp;          # 拼写错误被纠正了.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>caller</B
+><A
+NAME="CALLERREF"
+></A
+></DT
+><DD
+><P
+>将<B
+CLASS="COMMAND"
+>caller</B
+>命令放到<A
+HREF="functions.html#FUNCTIONREF"
+>函数</A
+>中, 
+	       将会在<TT
+CLASS="FILENAME"
+>stdout</TT
+>上打印出函数的<EM
+>调用者</EM
+>信息. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;function1 ()
+  4&nbsp;{
+  5&nbsp;  # 在 function1 () 内部.
+  6&nbsp;  caller 0   # 显示调用者信息.
+  7&nbsp;}
+  8&nbsp;
+  9&nbsp;function1    # 脚本的第9行.
+ 10&nbsp;
+ 11&nbsp;# 9 main test.sh
+ 12&nbsp;# ^                 函数调用者所在的行号.
+ 13&nbsp;#   ^^^^            从脚本的"main"部分开始调用的.
+ 14&nbsp;#        ^^^^^^^    调用脚本的名字.
+ 15&nbsp;
+ 16&nbsp;caller 0     # 没效果, 因为这个命令不在函数中. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><B
+CLASS="COMMAND"
+>caller</B
+>命令也可以在一个被<A
+HREF="internal.html#SOURCEREF"
+>source</A
+>的脚本中返回<EM
+>调用者</EM
+>信息. 
+	      当然这个调用者就是<A
+HREF="internal.html#SOURCEREF"
+>source</A
+>这个脚本的脚本.
+	      就像函数一样, 这是一个<SPAN
+CLASS="QUOTE"
+>"子例程调用"</SPAN
+>. </P
+><P
+>你会发现这个命令在调试的时候特别有用. </P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="INTCOMMAND1"
+></A
+>命令</B
+></P
+><DL
+><DT
+><A
+NAME="TRUEREF"
+></A
+><B
+CLASS="COMMAND"
+>true</B
+></DT
+><DD
+><P
+>这是一个返回(<SPAN
+CLASS="RETURNVALUE"
+>零</SPAN
+>)成功<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>的命令, 
+			  但是除此之外不做任何事.
+	  </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 死循环
+  2&nbsp;while true   # 这里的true可以用":"来替换
+  3&nbsp;do
+  4&nbsp;   operation-1
+  5&nbsp;   operation-2
+  6&nbsp;   ...
+  7&nbsp;   operation-n
+  8&nbsp;   # 需要一种手段从循环中跳出来, 或者是让这个脚本挂起.
+  9&nbsp;done</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>false</B
+></DT
+><DD
+><P
+>这是一个返回失败<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>的命令,
+	    但是除此之外不做任何事. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 测试 "false" 
+  2&nbsp;if false
+  3&nbsp;then
+  4&nbsp;  echo "false evaluates \"true\""
+  5&nbsp;else
+  6&nbsp;  echo "false evaluates \"false\""
+  7&nbsp;fi
+  8&nbsp;# 失败会显示 "false"
+  9&nbsp;
+ 10&nbsp;
+ 11&nbsp;# while "false" 循环 (空循环)
+ 12&nbsp;while false
+ 13&nbsp;do
+ 14&nbsp;   # 这里面的代码不会被执行. 
+ 15&nbsp;   operation-1
+ 16&nbsp;   operation-2
+ 17&nbsp;   ...
+ 18&nbsp;   operation-n
+ 19&nbsp;   # 什么事都没发生!
+ 20&nbsp;done   </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>type [cmd]</B
+></DT
+><DD
+><P
+>与外部命令<A
+HREF="filearchiv.html#WHICHREF"
+>which</A
+>很相像,
+	<B
+CLASS="COMMAND"
+>type cmd</B
+>将会给出<SPAN
+CLASS="QUOTE"
+>"cmd"</SPAN
+>的完整路径. 
+	与<B
+CLASS="COMMAND"
+>which</B
+>命令不同的是,
+	<B
+CLASS="COMMAND"
+>type</B
+>命令是Bash内建命令. 
+	<CODE
+CLASS="OPTION"
+>-a</CODE
+>是<B
+CLASS="COMMAND"
+>type</B
+>命令的一个非常有用的选项, 
+	它用来鉴别参数是<TT
+CLASS="REPLACEABLE"
+><I
+>关键字</I
+></TT
+>还是<TT
+CLASS="REPLACEABLE"
+><I
+>内建命令</I
+></TT
+>, 
+	也可以用来定位同名的系统命令. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>type '['</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>[ is a shell builtin</SAMP
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>type -a '['</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>[ is a shell builtin
+ [ is /usr/bin/[</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>hash [cmds]</B
+></DT
+><DD
+><P
+>在shell的hash表中, 
+
+	        <A
+NAME="AEN6708"
+HREF="#FTN.AEN6708"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+>
+
+			记录指定命令的路径名, 所以在shell或脚本中调用这个命令的话, 
+			就不需要再在<CODE
+CLASS="VARNAME"
+>$PATH</CODE
+>中重新搜索这个命令了. 
+			如果不带参数的调用<B
+CLASS="COMMAND"
+>hash</B
+>命令, 
+	      它将列出所有已经被hash的命令. 
+	      <CODE
+CLASS="OPTION"
+>-r</CODE
+>选项会重新设置hash表. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>bind</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>bind</B
+>内建命令用来显示或修改<EM
+>readline</EM
+>
+	    <A
+NAME="AEN6736"
+HREF="#FTN.AEN6736"
+><SPAN
+CLASS="footnote"
+>[5]</SPAN
+></A
+>
+	  的键绑定.</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>help</B
+></DT
+><DD
+><P
+>获得shell内建命令的一个小的使用总结.
+	    与<A
+HREF="filearchiv.html#WHATISREF"
+>whatis</A
+>命令比较象,
+		但<B
+CLASS="COMMAND"
+>help</B
+>命令是内建命令. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>help exit</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>exit: exit [n]
+    Exit the shell with a status of N.  If N is omitted, the exit status
+    is that of the last command executed.</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+></DD
+></DL
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN5922"
+HREF="internal.html#AEN5922"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>其中有一个例外就是<A
+HREF="timedate.html#TIMREF"
+>time</A
+>命令, 
+			   Bash的官方文档说这个命令是一个关键字. </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN6448"
+HREF="internal.html#AEN6448"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>一个选项就是一个行为上比较象标志位的参数, 
+				   可以用来打开或关闭脚本的某些行为.
+		而和某个特定选项相关的参数就是用来控制这个选项(标志)功能是开启还是关闭.
+		</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN6568"
+HREF="internal.html#AEN6568"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>除非<B
+CLASS="COMMAND"
+>exec</B
+>命令被用来<A
+HREF="x13380.html#USINGEXECREF"
+>重新分配文件描述符</A
+>. 
+		  </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN6708"
+HREF="internal.html#AEN6708"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><A
+NAME="HASHREF"
+></A
+></P
+><P
+><EM
+>Hash</EM
+>是一种处理数据的方法, 
+			   这种方法就是为表中的数据建立查找键.
+			   <EM
+>而数据项本身</EM
+>是<SPAN
+CLASS="QUOTE"
+>"不规则"</SPAN
+>的, 
+		这样就需要通过一个简单的数学算法来产生一个数字, 这个数字被用来作为查找键. </P
+><P
+>使用<EM
+>hash</EM
+>的一个最有利的优点就是提高了速度. 
+		而缺点就是会产生<SPAN
+CLASS="QUOTE"
+>"冲撞"</SPAN
+> --
+		也就是说, 可能会有多个数据元素使用同一个主键.
+		possible.</P
+><P
+>关于hash的例子请参考<A
+HREF="contributed-scripts.html#HASHLIB"
+>例子 A-21</A
+>和<A
+HREF="contributed-scripts.html#HASHEXAMPLE"
+>例子 A-22</A
+>.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN6736"
+HREF="internal.html#AEN6736"
+><SPAN
+CLASS="footnote"
+>[5]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>在一个交互的shell中, <EM
+>readline</EM
+>库就是Bash用来读取输入的. 
+				(译者注: 比如默认的Emacs风格的输入, 当然也可以改为vi风格的输入)
+	      </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="testbranch.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x6756.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>测试与分支(case与select结构)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part3.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>作业控制命令</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

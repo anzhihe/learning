@@ -1,0 +1,14 @@
+application: hfwwgapp
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /static
+  static_dir: static
+
+- url: /.*
+  script: hfwwg.py
+  login: required
+
+  

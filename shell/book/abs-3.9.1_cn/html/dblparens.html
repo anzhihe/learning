@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>双圆括号结构</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="变量重游"
+HREF="variables2.html"><LINK
+REL="PREVIOUS"
+TITLE="$RANDOM: 产生随机整数"
+HREF="randomvar.html"><LINK
+REL="NEXT"
+TITLE="循环与分支"
+HREF="loops.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="randomvar.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>9. 变量重游</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="loops.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="DBLPARENS"
+>9.7. 双圆括号结构</A
+></H1
+><P
+>与<A
+HREF="internal.html#LETREF"
+>let</A
+>命令很相似,
+	  <B
+CLASS="COMMAND"
+>((...))</B
+>结构允许算术扩展和赋值. 
+	  举个简单的例子, <KBD
+CLASS="USERINPUT"
+>a=$(( 5 + 3 ))</KBD
+>, 
+	  将把变量<SPAN
+CLASS="QUOTE"
+>"a"</SPAN
+>设为<SPAN
+CLASS="QUOTE"
+>"5 + 3"</SPAN
+>, 或者8. 
+	  然而, 双圆括号结构也被认为是在Bash中使用C语言风格变量操作的一种处理机制.
+  </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="CVARS"
+></A
+><P
+><B
+>例子 9-31. C语言风格的变量操作</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 使用((...))结构操作一个变量, C语言风格的变量操作.
+  3&nbsp;
+  4&nbsp;
+  5&nbsp;echo
+  6&nbsp;
+  7&nbsp;(( a = 23 ))  # C语言风格的变量赋值, "="两边允许有空格.
+  8&nbsp;echo "a (initial value) = $a"
+  9&nbsp;
+ 10&nbsp;(( a++ ))     # C语言风格的后置自加.
+ 11&nbsp;echo "a (after a++) = $a"
+ 12&nbsp;
+ 13&nbsp;(( a-- ))     # C语言风格的后置自减.
+ 14&nbsp;echo "a (after a--) = $a"
+ 15&nbsp;
+ 16&nbsp;
+ 17&nbsp;(( ++a ))     # C语言风格的前置自加.
+ 18&nbsp;echo "a (after ++a) = $a"
+ 19&nbsp;
+ 20&nbsp;(( --a ))     # C语言风格的前置自减.
+ 21&nbsp;echo "a (after --a) = $a"
+ 22&nbsp;
+ 23&nbsp;echo
+ 24&nbsp;
+ 25&nbsp;########################################################
+ 26&nbsp;#  注意: 就像在C语言中一样, 前置或后置自减操作
+ 27&nbsp;#+ 会产生一些不同的副作用.
+ 28&nbsp;
+ 29&nbsp;n=1; let --n &#38;&#38; echo "True" || echo "False"  # False
+ 30&nbsp;n=1; let n-- &#38;&#38; echo "True" || echo "False"  # True
+ 31&nbsp;
+ 32&nbsp;#  感谢, Jeroen Domburg.
+ 33&nbsp;########################################################
+ 34&nbsp;
+ 35&nbsp;echo
+ 36&nbsp;
+ 37&nbsp;(( t = a&#60;45?7:11 ))   # C语言风格的三元操作.
+ 38&nbsp;echo "If a &#60; 45, then t = 7, else t = 11."
+ 39&nbsp;echo "t = $t "        # Yes!
+ 40&nbsp;
+ 41&nbsp;echo
+ 42&nbsp;
+ 43&nbsp;
+ 44&nbsp;# ------------
+ 45&nbsp;# 复活节彩蛋!
+ 46&nbsp;# ------------
+ 47&nbsp;#  Chet Ramey显然偷偷摸摸的将一些未公开的C语言风格的结构
+ 48&nbsp;#+ 引入到了Bash中 (事实上是从ksh中引入的, 这更接近些).
+ 49&nbsp;#  在Bash的文档中, Ramey将((...))称为shell算术运算,
+ 50&nbsp;#+ 但是它所能做的远远不止于此.
+ 51&nbsp;#  不好意思, Chet, 现在秘密被公开了.
+ 52&nbsp;
+ 53&nbsp;# 你也可以参考一些 "for" 和 "while" 循环中使用((...))结构的例子.
+ 54&nbsp;
+ 55&nbsp;# 这些只能够在Bash 2.04或更高版本的Bash上才能运行.
+ 56&nbsp;
+ 57&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>参见<A
+HREF="loops1.html#FORLOOPC"
+>例子 10-12</A
+>.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="randomvar.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="loops.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>$RANDOM: 产生随机整数</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="variables2.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>循环与分支</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

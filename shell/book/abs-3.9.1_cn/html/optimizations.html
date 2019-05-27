@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>优化</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="杂项"
+HREF="miscellany.html"><LINK
+REL="PREVIOUS"
+TITLE="将脚本彩色化"
+HREF="colorizing.html"><LINK
+REL="NEXT"
+TITLE="各种小技巧"
+HREF="assortedtips.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="colorizing.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>33. 杂项</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="assortedtips.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="OPTIMIZATIONS"
+>33.6. 优化</A
+></H1
+><P
+>大部分shell脚本在处理不太复杂的问题的时候, 使用的都是小吃店(快速但是并不优雅)的方式. 
+	  正因为这样, 所以优化脚本的速度并不是一个大问题. 
+	  考虑一下这种情况, 当脚本正在处理一个重要任务的时候, 
+	  虽然这个脚本能够处理的很好, 但是它运行的速度实在太慢. 
+	  在这种情况下, 使用编译语言重写它其实也不是一种很合适的办法. 
+	  最简单的办法其实就是重写这个脚本执行效率低下的部分. 
+	  那么, 是否这种办法可以成为处理效率低下的shell脚本的一种原则? 
+	  </P
+><P
+>仔细检查脚本中循环的部分. 因为重复的操作非常耗时. 
+	  如果有可能的话, 尽量删除掉循环中比较耗时的操作. 
+	  </P
+><P
+>优先使用<A
+HREF="internal.html#BUILTINREF"
+>内建命令</A
+>, 
+		  而不是系统命令. 这是因为内建命令执行得更快, 
+		  并且在调用时, 一般都不会产生子进程. 
+	  </P
+><P
+>避免使用不必要的命令, 尤其是<A
+HREF="special-chars.html#PIPEREF"
+>管道</A
+>中的命令. 
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;cat "$file" | grep "$word"
+  2&nbsp;
+  3&nbsp;grep "$word" "$file"
+  4&nbsp;
+  5&nbsp;#  上面的两行具有相同的效果, 
+  6&nbsp;#+ 但是第二行运行的更快, 因为它不产生子进程. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  <A
+HREF="basic.html#CATREF"
+>cat</A
+>命令看起来经常在脚本中被滥用. 
+	  </P
+><P
+>使用<A
+HREF="timedate.html#TIMREF"
+>time</A
+>和<A
+HREF="x6756.html#TIMESREF"
+>times</A
+>工具来了解计算所消耗的时间. 
+	  可以考虑使用C语言, 甚至是汇编语言来重写时间消耗比较大的代码部分. 
+	  </P
+><P
+>尝试尽量减少文件I/O的操作. 因为Bash在处理文件方面, 
+		  显得并不是很有效率, 所以可以在脚本中考虑使用更合适的工具, 
+	   比如<A
+HREF="awk.html#AWKREF"
+>awk</A
+>或<A
+HREF="wrapper.html#PERLREF"
+>Perl</A
+>. </P
+><P
+>使用结构化的思想来编写脚本, 并且按照需求将各个模块组织并紧密结合起来. 
+	   一些适用于高级语言的优化技术也可以用在脚本上, 
+	   但是有些技术, 比如, 循环展开优化(loop unrolling), 
+	   就根本用不上. 关于上面的讨论, 可以根据经验来取舍. </P
+><P
+>怎么才能很好的减少脚本的执行时间, 让我们看一个优秀的例子, 
+	   <A
+HREF="mathc.html#MONTHLYPMT"
+>例子 12-42</A
+>. </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="colorizing.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="assortedtips.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>将脚本<SPAN
+CLASS="QUOTE"
+>"彩色化"</SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="miscellany.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>各种小技巧</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

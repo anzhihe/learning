@@ -1,0 +1,293 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>分析脚本</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="练习"
+HREF="exercises.html"><LINK
+REL="PREVIOUS"
+TITLE="练习"
+HREF="exercises.html"><LINK
+REL="NEXT"
+TITLE="编写脚本"
+HREF="writingscripts.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="exercises.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix M. 练习</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="writingscripts.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SCRIPTANALYSIS"
+>M.1. 分析脚本</A
+></H1
+><P
+>检查下面的脚本. 运行它, 然后解释一下这个脚本是做什么用的. 
+        注释这个脚本, 并以更紧凑和更优雅的形式重写它. 
+        </P
+><P
+>       <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;MAX=10000
+  4&nbsp;
+  5&nbsp;
+  6&nbsp;  for((nr=1; nr&#60;$MAX; nr++))
+  7&nbsp;  do
+  8&nbsp;
+  9&nbsp;    let "t1 = nr % 5"
+ 10&nbsp;    if [ "$t1" -ne 3 ]
+ 11&nbsp;    then
+ 12&nbsp;      continue
+ 13&nbsp;    fi
+ 14&nbsp;
+ 15&nbsp;    let "t2 = nr % 7"
+ 16&nbsp;    if [ "$t2" -ne 4 ]
+ 17&nbsp;    then
+ 18&nbsp;      continue
+ 19&nbsp;    fi
+ 20&nbsp;
+ 21&nbsp;    let "t3 = nr % 9"
+ 22&nbsp;    if [ "$t3" -ne 5 ]
+ 23&nbsp;    then
+ 24&nbsp;      continue
+ 25&nbsp;    fi
+ 26&nbsp;
+ 27&nbsp;  break   # 当你注释掉这行, 会发生什么? 为什么? 
+ 28&nbsp;
+ 29&nbsp;  done
+ 30&nbsp;
+ 31&nbsp;  echo "Number = $nr"
+ 32&nbsp;
+ 33&nbsp;
+ 34&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+       </P
+><P
+>---</P
+><P
+>解释一下下面脚本的作用. 事实上它只是一个参数化的命令行管道. </P
+><P
+>        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;DIRNAME=/usr/bin
+  4&nbsp;FILETYPE="shell script"
+  5&nbsp;LOGFILE=logfile
+  6&nbsp;
+  7&nbsp;file "$DIRNAME"/* | fgrep "$FILETYPE" | tee $LOGFILE | wc -l
+  8&nbsp;
+  9&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>---</P
+><P
+>一个读者发来了如下的代码片断. 
+
+         <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;while read LINE
+  2&nbsp;do
+  3&nbsp;  echo $LINE
+  4&nbsp;done &#60; `tail -f /var/log/messages`</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+		他希望编写一个脚本, 
+		用来跟踪系统日志文件(<TT
+CLASS="FILENAME"
+>/var/log/messages</TT
+>)的更新情况.
+	    不幸的是, 上面的这段代码会被挂起, 并且不会做任何有意义的事情. 为什么? 
+	    修复它, 让这个脚本如期望般的运行. (小提示: 
+		不要<A
+HREF="redircb.html#REDIRREF"
+>重定向循环的<TT
+CLASS="FILENAME"
+>stdin</TT
+></A
+>, 
+		试试<A
+HREF="special-chars.html#PIPEREF"
+>管道</A
+>. )</P
+><P
+>---</P
+><P
+>分析<A
+HREF="contributed-scripts.html#LIFESLOW"
+>例子 A-10</A
+>, 然后简化它, 使其逻辑性更好. 
+	看看可以省掉多少个变量, 尝试优化这个脚本, 并提高这个脚本的运行速度. 
+	</P
+><P
+>修改这个脚本, 让它可以接受任意的ASCII文本文件作为输入, 用于它初始的"产生". 
+	这个脚本将读取最初的<CODE
+CLASS="VARNAME"
+>$ROW*$COL</CODE
+>字符, 
+	并且设置元音的出现次数作为<SPAN
+CLASS="QUOTE"
+>"活的"</SPAN
+>细胞.  
+	提示: 必须保证将输入文件中的空格转换为下划线. 
+	</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="exercises.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="writingscripts.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>练习</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="exercises.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>编写脚本</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,10 @@
+GIF	:= $(wildcard *.gif)
+EPS	:= $(GIF:.gif=.eps)
+PDF	:= $(GIF:.gif=.pdf)
+
+%.eps:	%.gif
+	convert $< $@
+
+%.pdf:	%.eps
+	epstopdf --outfile=$@ $<
+

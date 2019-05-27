@@ -1,0 +1,834 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>一个简单的.bashrc文件</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="历史命令"
+HREF="histcommands.html"><LINK
+REL="NEXT"
+TITLE="将DOS批处理文件转换为Shell脚本"
+HREF="dosbatch.html"></HEAD
+><BODY
+CLASS="APPENDIX"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="histcommands.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="dosbatch.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="APPENDIX"
+><H1
+><A
+NAME="SAMPLE-BASHRC"
+></A
+>Appendix K. 一个简单的<TT
+CLASS="FILENAME"
+>.bashrc</TT
+>文件</H1
+><P
+><TT
+CLASS="FILENAME"
+>~/.bashrc</TT
+>文件决定了交互shell的行为. 
+       好好的了解这个文件, 将会使你更加了解Bash. </P
+><P
+><A
+HREF="mailto:emmanuel.rouat@wanadoo.fr"
+TARGET="_top"
+>Emmanuel
+	  Rouat</A
+>捐献了下边这个注释非常详细的<TT
+CLASS="FILENAME"
+>.bashrc</TT
+>文件, 
+		  这个文件是为Linux系统编写的. 
+        他希望读者能够给他一些回馈. </P
+><P
+>仔细的学习这个文件, 直到你可以自由重用其中的代码片断和函数, 
+		并把它们用到你自己的<TT
+CLASS="FILENAME"
+>.bashrc</TT
+>文件中, 
+	   甚至可以放到你的脚本中. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="BASHRC"
+></A
+><P
+><B
+>例子 K-1. <TT
+CLASS="FILENAME"
+>.bashrc</TT
+>文件样本</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#===============================================================
+  2&nbsp;#
+  3&nbsp;# 个人的$HOME/.bashrc文件, 基于bash-2.05a(或更高版本)
+  4&nbsp;#
+  5&nbsp;# 最后更新日期: 星期2 4月15 20:32:34 CEST 2003
+  6&nbsp;#
+  7&nbsp;# 这个文件(一般情况下)被只会被交互式shell读取. 
+  8&nbsp;# 这里可以定义你的别名, 函数, 
+  9&nbsp;# 和其他的一些交互式特征, 比如你的提示符. 
+ 10&nbsp;#
+ 11&nbsp;# 这个文件(开始时)是为Solaris设计的, 
+ 12&nbsp;# 但是基于Redhat的默认.bashrc文件
+ 13&nbsp;# --&#62; 为Linux修改. 
+ 14&nbsp;# 你在这里看到的大部分代码都是从网上找来的
+ 15&nbsp;# (即internet). 
+ 16&nbsp;# 这个bashrc文件有点挤 - 
+ 17&nbsp;# 记住, 它仅仅是个例子而已. 按照你自己的需求进行裁减. 
+ 18&nbsp;#
+ 19&nbsp;#
+ 20&nbsp;#===============================================================
+ 21&nbsp;
+ 22&nbsp;# --&#62; 注释由HOWTO的作者添加. 
+ 23&nbsp;# --&#62; 然后又被ER编辑了一下 :-)
+ 24&nbsp;
+ 25&nbsp;#--------------------------------------
+ 26&nbsp;# 如果有源代码的全局定义, 请在此处定义.
+ 27&nbsp;#--------------------------------------
+ 28&nbsp;
+ 29&nbsp;if [ -f /etc/bashrc ]; then
+ 30&nbsp;        . /etc/bashrc   # --&#62; 读取/etc/bashrc, 如果存在的话. 
+ 31&nbsp;fi
+ 32&nbsp;
+ 33&nbsp;#-------------------------------------------------------------
+ 34&nbsp;# $DISPLAY的自动设置 (如果还没设置的话)
+ 35&nbsp;# 这用于linux - 可能运行的结果不同.... 
+ 36&nbsp;# 问题是不同的终端种类对于'who am i'来说, 
+ 37&nbsp;# 将会给出不同的答案......
+ 38&nbsp;# 我还没发现一种'通用'方法
+ 39&nbsp;#-------------------------------------------------------------
+ 40&nbsp;
+ 41&nbsp;function get_xserver ()
+ 42&nbsp;{
+ 43&nbsp;    case $TERM in
+ 44&nbsp;	xterm )
+ 45&nbsp;            XSERVER=$(who am i | awk '{print $NF}' | tr -d ')''(' ) 
+ 46&nbsp;            # Ane-Pieter Wieringa建议使用下面这种方式:
+ 47&nbsp;            # I_AM=$(who am i)
+ 48&nbsp;            # SERVER=${I_AM#*(}
+ 49&nbsp;            # SERVER=${SERVER%*)}
+ 50&nbsp;
+ 51&nbsp;            XSERVER=${XSERVER%%:*}
+ 52&nbsp;	    ;;
+ 53&nbsp;	aterm | rxvt)
+ 54&nbsp; 	# 找出一些运行在这里的代码.....
+ 55&nbsp;	    ;;
+ 56&nbsp;    esac  
+ 57&nbsp;}
+ 58&nbsp;
+ 59&nbsp;if [ -z ${DISPLAY:=""} ]; then
+ 60&nbsp;    get_xserver
+ 61&nbsp;    if [[ -z ${XSERVER}  || ${XSERVER} == $(hostname) || ${XSERVER} == "unix" ]]; then 
+ 62&nbsp;	DISPLAY=":0.0"		# 在本地主机上显示
+ 63&nbsp;    else		
+ 64&nbsp;	DISPLAY=${XSERVER}:0.0	# 在远端主机上显示
+ 65&nbsp;    fi
+ 66&nbsp;fi
+ 67&nbsp;
+ 68&nbsp;export DISPLAY
+ 69&nbsp;
+ 70&nbsp;#----------
+ 71&nbsp;# 一些设置
+ 72&nbsp;#----------
+ 73&nbsp;
+ 74&nbsp;ulimit -S -c 0		# 不需要任何coredump
+ 75&nbsp;set -o notify
+ 76&nbsp;set -o noclobber
+ 77&nbsp;set -o ignoreeof
+ 78&nbsp;set -o nounset
+ 79&nbsp;#set -o xtrace          # 对于调试来说非常有用
+ 80&nbsp;
+ 81&nbsp;# 使能选项:
+ 82&nbsp;shopt -s cdspell
+ 83&nbsp;shopt -s cdable_vars
+ 84&nbsp;shopt -s checkhash
+ 85&nbsp;shopt -s checkwinsize
+ 86&nbsp;shopt -s mailwarn
+ 87&nbsp;shopt -s sourcepath
+ 88&nbsp;shopt -s no_empty_cmd_completion  # 仅限于bash&#62;=2.04
+ 89&nbsp;shopt -s cmdhist
+ 90&nbsp;shopt -s histappend histreedit histverify
+ 91&nbsp;shopt -s extglob	# 对于complete命令(按情况补全)来说是必要的
+ 92&nbsp;
+ 93&nbsp;# 禁用选项:
+ 94&nbsp;shopt -u mailwarn
+ 95&nbsp;unset MAILCHECK		# 当有邮件到达时, 我不希望我的shell提示我
+ 96&nbsp;
+ 97&nbsp;
+ 98&nbsp;export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
+ 99&nbsp;export HISTIGNORE="&#38;:bg:fg:ll:h"
+100&nbsp;export HOSTFILE=$HOME/.hosts	# 将远端主机的列表放入~/.hosts
+101&nbsp;
+102&nbsp;
+103&nbsp;
+104&nbsp;#-----------------------
+105&nbsp;# 问候, 问侯报文等等...
+106&nbsp;#-----------------------
+107&nbsp;
+108&nbsp;# 先定义一些颜色:
+109&nbsp;red='\e[0;31m'
+110&nbsp;RED='\e[1;31m'
+111&nbsp;blue='\e[0;34m'
+112&nbsp;BLUE='\e[1;34m'
+113&nbsp;cyan='\e[0;36m'
+114&nbsp;CYAN='\e[1;36m'
+115&nbsp;NC='\e[0m'              # 没有颜色
+116&nbsp;# --&#62; 很好. 与使用"ansi.sys"的DOS效果相同. 
+117&nbsp;
+118&nbsp;# 在黑色背景下看起来非常好.....
+119&nbsp;echo -e "${CYAN}This is BASH ${RED}${BASH_VERSION%.*}${CYAN} - DISPLAY on ${RED}$DISPLAY${NC}\n"
+120&nbsp;date
+121&nbsp;if [ -x /usr/games/fortune ]; then
+122&nbsp;    /usr/games/fortune -s     # 让我们的每天充满乐趣.... :-)
+123&nbsp;fi
+124&nbsp;
+125&nbsp;function _exit()	# 在退出shell时运行的函数
+126&nbsp;{
+127&nbsp;    echo -e "${RED}Hasta la vista, baby${NC}"
+128&nbsp;}
+129&nbsp;trap _exit EXIT
+130&nbsp;
+131&nbsp;#---------------
+132&nbsp;# Shell提示符
+133&nbsp;#---------------
+134&nbsp;
+135&nbsp;if [[ "${DISPLAY#$HOST}" != ":0.0" &#38;&#38;  "${DISPLAY}" != ":0" ]]; then  
+136&nbsp;    HILIT=${red}   # 远端主机: 提示符为红
+137&nbsp;else
+138&nbsp;    HILIT=${cyan}  # 本地主机: 提示符为青色
+139&nbsp;fi
+140&nbsp;
+141&nbsp;#  --&#62; 下面提示符函数中\W和\w的替换实例, 
+142&nbsp;#+ --&#62; 用来获得完整路径名的显示. 
+143&nbsp;
+144&nbsp;function fastprompt()
+145&nbsp;{
+146&nbsp;    unset PROMPT_COMMAND
+147&nbsp;    case $TERM in
+148&nbsp;        *term | rxvt )
+149&nbsp;            PS1="${HILIT}[\h]$NC \W &#62; \[\033]0;\${TERM} [\u@\h] \w\007\]" ;;
+150&nbsp;	linux )
+151&nbsp;	    PS1="${HILIT}[\h]$NC \W &#62; " ;;
+152&nbsp;        *)
+153&nbsp;            PS1="[\h] \W &#62; " ;;
+154&nbsp;    esac
+155&nbsp;}
+156&nbsp;
+157&nbsp;function powerprompt()
+158&nbsp;{
+159&nbsp;    _powerprompt()
+160&nbsp;    {
+161&nbsp;        LOAD=$(uptime|sed -e "s/.*: \([^,]*\).*/\1/" -e "s/ //g")
+162&nbsp;    }
+163&nbsp;
+164&nbsp;    PROMPT_COMMAND=_powerprompt
+165&nbsp;    case $TERM in
+166&nbsp;        *term | rxvt  )
+167&nbsp;            PS1="${HILIT}[\A \$LOAD]$NC\n[\h \#] \W &#62; \[\033]0;\${TERM} [\u@\h] \w\007\]" ;;
+168&nbsp;        linux )
+169&nbsp;            PS1="${HILIT}[\A - \$LOAD]$NC\n[\h \#] \w &#62; " ;;
+170&nbsp;        * )
+171&nbsp;            PS1="[\A - \$LOAD]\n[\h \#] \w &#62; " ;;
+172&nbsp;    esac
+173&nbsp;}
+174&nbsp;
+175&nbsp;powerprompt     # 这是默认提示符 - 可能比较慢
+176&nbsp;                # 如果很慢的话, 可以使用fastprompt来代替....
+177&nbsp;
+178&nbsp;#===============================================================
+179&nbsp;#
+180&nbsp;# 别名和函数
+181&nbsp;#
+182&nbsp;# 事实上, 这里定义的一些函数非常大
+183&nbsp;# (比如'lowercase'), 但是我的机器是512M内存, 所以 .....
+184&nbsp;# 如果你想让这个文件小一点, 
+185&nbsp;# 可以将这些函数放到脚本中. 
+186&nbsp;#
+187&nbsp;# 其中的许多函数来自于bash-2.04
+188&nbsp;# 中的例子. 
+189&nbsp;#
+190&nbsp;#===============================================================
+191&nbsp;
+192&nbsp;#-------------------
+193&nbsp;# 个人的别名
+194&nbsp;#-------------------
+195&nbsp;
+196&nbsp;alias rm='rm -i'
+197&nbsp;alias cp='cp -i'
+198&nbsp;alias mv='mv -i'
+199&nbsp;# -&#62; 防止偶然的文件误操作. 
+200&nbsp;alias mkdir='mkdir -p'
+201&nbsp;
+202&nbsp;alias h='history'
+203&nbsp;alias j='jobs -l'
+204&nbsp;alias r='rlogin'
+205&nbsp;alias which='type -all'
+206&nbsp;alias ..='cd ..'
+207&nbsp;alias path='echo -e ${PATH//:/\\n}'
+208&nbsp;alias print='/usr/bin/lp -o nobanner -d $LPDEST'   # 假设LPDEST被定义
+209&nbsp;alias pjet='enscript -h -G -fCourier9 -d $LPDEST'  # 使用enscript的漂亮的打印
+210&nbsp;alias background='xv -root -quit -max -rmode 5'    # 将一张图片作为背景
+211&nbsp;alias du='du -kh'
+212&nbsp;alias df='df -kTh'
+213&nbsp;
+214&nbsp;# 'ls'家族 (假定使用GNU ls)
+215&nbsp;alias la='ls -Al'               # 显示隐藏文件
+216&nbsp;alias ls='ls -hF --color'	# 为识别的文件类型添加颜色
+217&nbsp;alias lx='ls -lXB'              # 按扩展名排序
+218&nbsp;alias lk='ls -lSr'              # 按尺寸排序
+219&nbsp;alias lc='ls -lcr'		# 按修改时间排序
+220&nbsp;alias lu='ls -lur'		# 按访问时间排序
+221&nbsp;alias lr='ls -lR'               # 递归ls
+222&nbsp;alias lt='ls -ltr'              # 按日期排序
+223&nbsp;alias lm='ls -al |more'         # 管道给'more'
+224&nbsp;alias tree='tree -Csu'		# 'ls'的另一种好方法
+225&nbsp;
+226&nbsp;# 裁减'less'
+227&nbsp;alias more='less'
+228&nbsp;export PAGER=less
+229&nbsp;export LESSCHARSET='latin1'
+230&nbsp;export LESSOPEN='|/usr/bin/lesspipe.sh %s 2&#62;&#38;-' # 如果lesspipe.sh存在, 就用这个
+231&nbsp;export LESS='-i -N -w  -z-4 -g -e -M -X -F -R -P%t?f%f \
+232&nbsp;:stdin .?pb%pb\%:?lbLine %lb:?bbByte %bb:-...'
+233&nbsp;
+234&nbsp;# 拼写错误 - 纯粹个人喜好 :-)
+235&nbsp;alias xs='cd'
+236&nbsp;alias vf='cd'
+237&nbsp;alias moer='more'
+238&nbsp;alias moew='more'
+239&nbsp;alias kk='ll'
+240&nbsp;
+241&nbsp;#----------------
+242&nbsp;# 一些有趣东西
+243&nbsp;#----------------
+244&nbsp;
+245&nbsp;function xtitle ()
+246&nbsp;{
+247&nbsp;    case "$TERM" in
+248&nbsp;        *term | rxvt)
+249&nbsp;            echo -n -e "\033]0;$*\007" ;;
+250&nbsp;        *)  
+251&nbsp;	    ;;
+252&nbsp;    esac
+253&nbsp;}
+254&nbsp;
+255&nbsp;# 别名...
+256&nbsp;alias top='xtitle Processes on $HOST &#38;&#38; top'
+257&nbsp;alias make='xtitle Making $(basename $PWD) ; make'
+258&nbsp;alias ncftp="xtitle ncFTP ; ncftp"
+259&nbsp;
+260&nbsp;# .. 和函数
+261&nbsp;function man ()
+262&nbsp;{
+263&nbsp;    for i ; do
+264&nbsp;	xtitle The $(basename $1|tr -d .[:digit:]) manual
+265&nbsp;	command man -F -a "$i"
+266&nbsp;    done
+267&nbsp;}
+268&nbsp;
+269&nbsp;function ll(){ ls -l "$@"| egrep "^d" ; ls -lXB "$@" 2&#62;&#38;-| egrep -v "^d|total "; }
+270&nbsp;function te()  # xemacs/gnuserv的包装器
+271&nbsp;{
+272&nbsp;    if [ "$(gnuclient -batch -eval t 2&#62;&#38;-)" == "t" ]; then
+273&nbsp;        gnuclient -q "$@";
+274&nbsp;    else
+275&nbsp;        ( xemacs "$@" &#38;);
+276&nbsp;    fi
+277&nbsp;}
+278&nbsp;
+279&nbsp;#---------------------------
+280&nbsp;# 与文件和字符串相关的函数:
+281&nbsp;#---------------------------
+282&nbsp;
+283&nbsp;# 使用名字模式来查找文件:
+284&nbsp;function ff() { find . -type f -iname '*'$*'*' -ls ; }
+285&nbsp;# 使用pattern $1和Execute $2来查找文件: 
+286&nbsp;function fe() { find . -type f -iname '*'$1'*' -exec "${2:-file}" {} \;  ; }
+287&nbsp;# 在一系列文件中找到模式, 并高亮
+288&nbsp;function fstr()
+289&nbsp;{
+290&nbsp;    OPTIND=1
+291&nbsp;    local case=""
+292&nbsp;    local usage="fstr: find string in files.
+293&nbsp;Usage: fstr [-i] \"pattern\" [\"filename pattern\"] "
+294&nbsp;    while getopts :it opt
+295&nbsp;    do
+296&nbsp;        case "$opt" in
+297&nbsp;        i) case="-i " ;;
+298&nbsp;        *) echo "$usage"; return;;
+299&nbsp;        esac
+300&nbsp;    done
+301&nbsp;    shift $(( $OPTIND - 1 ))
+302&nbsp;    if [ "$#" -lt 1 ]; then
+303&nbsp;        echo "$usage"
+304&nbsp;        return;
+305&nbsp;    fi
+306&nbsp;    local SMSO=$(tput smso)
+307&nbsp;    local RMSO=$(tput rmso)
+308&nbsp;    find . -type f -name "${2:-*}" -print0 | xargs -0 grep -sn ${case} "$1" 2&#62;&#38;- | \
+309&nbsp;sed "s/$1/${SMSO}\0${RMSO}/gI" | more
+310&nbsp;}
+311&nbsp;
+312&nbsp;function cuttail() # 在文件中切掉n行, 默认为10行
+313&nbsp;{
+314&nbsp;    nlines=${2:-10}
+315&nbsp;    sed -n -e :a -e "1,${nlines}!{P;N;D;};N;ba" $1
+316&nbsp;}
+317&nbsp;
+318&nbsp;function lowercase()  # 将文件名转换为小写
+319&nbsp;{
+320&nbsp;    for file ; do
+321&nbsp;        filename=${file##*/}
+322&nbsp;        case "$filename" in
+323&nbsp;        */*) dirname==${file%/*} ;;
+324&nbsp;        *) dirname=.;;
+325&nbsp;        esac
+326&nbsp;        nf=$(echo $filename | tr A-Z a-z)
+327&nbsp;        newname="${dirname}/${nf}"
+328&nbsp;        if [ "$nf" != "$filename" ]; then
+329&nbsp;            mv "$file" "$newname"
+330&nbsp;            echo "lowercase: $file --&#62; $newname"
+331&nbsp;        else
+332&nbsp;            echo "lowercase: $file not changed."
+333&nbsp;        fi
+334&nbsp;    done
+335&nbsp;}
+336&nbsp;
+337&nbsp;function swap()         # 交换两个文件名
+338&nbsp;{
+339&nbsp;    local TMPFILE=tmp.$$
+340&nbsp;    mv "$1" $TMPFILE
+341&nbsp;    mv "$2" "$1"
+342&nbsp;    mv $TMPFILE "$2"
+343&nbsp;}
+344&nbsp;
+345&nbsp;
+346&nbsp;#----------------------
+347&nbsp;# 进程/系统相关的函数:
+348&nbsp;#----------------------
+349&nbsp;
+350&nbsp;function my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,bsdtime,command ; }
+351&nbsp;function pp() { my_ps f | awk '!/awk/ &#38;&#38; $0~var' var=${1:-".*"} ; }
+352&nbsp;
+353&nbsp;# 这个函数与linux上的'killall'基本一致
+354&nbsp;# 但是与Solaris上的却不相同
+355&nbsp;function killps()   # 按进程名进行kill
+356&nbsp;{
+357&nbsp;    local pid pname sig="-TERM"   # 默认signal
+358&nbsp;    if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+359&nbsp;        echo "Usage: killps [-SIGNAL] pattern"
+360&nbsp;        return;
+361&nbsp;    fi
+362&nbsp;    if [ $# = 2 ]; then sig=$1 ; fi
+363&nbsp;    for pid in $(my_ps| awk '!/awk/ &#38;&#38; $0~pat { print $1 }' pat=${!#} ) ; do
+364&nbsp;        pname=$(my_ps | awk '$1~var { print $5 }' var=$pid )
+365&nbsp;        if ask "Kill process $pid &#60;$pname&#62; with signal $sig?"
+366&nbsp;            then kill $sig $pid
+367&nbsp;        fi
+368&nbsp;    done
+369&nbsp;}
+370&nbsp;
+371&nbsp;function my_ip() # 获得IP地址
+372&nbsp;{
+373&nbsp;    MY_IP=$(/sbin/ifconfig ppp0 | awk '/inet/ { print $2 } ' | sed -e s/addr://)
+374&nbsp;    MY_ISP=$(/sbin/ifconfig ppp0 | awk '/P-t-P/ { print $3 } ' | sed -e s/P-t-P://)
+375&nbsp;}
+376&nbsp;
+377&nbsp;function ii()   # 获得当前主机相关的信息
+378&nbsp;{
+379&nbsp;    echo -e "\nYou are logged on ${RED}$HOST"
+380&nbsp;    echo -e "\nAdditionnal information:$NC " ; uname -a
+381&nbsp;    echo -e "\n${RED}Users logged on:$NC " ; w -h
+382&nbsp;    echo -e "\n${RED}Current date :$NC " ; date
+383&nbsp;    echo -e "\n${RED}Machine stats :$NC " ; uptime
+384&nbsp;    echo -e "\n${RED}Memory stats :$NC " ; free
+385&nbsp;    my_ip 2&#62;&#38;- ;
+386&nbsp;    echo -e "\n${RED}Local IP Address :$NC" ; echo ${MY_IP:-"Not connected"}
+387&nbsp;    echo -e "\n${RED}ISP Address :$NC" ; echo ${MY_ISP:-"Not connected"}
+388&nbsp;    echo
+389&nbsp;}
+390&nbsp;
+391&nbsp;# 杂项工具:
+392&nbsp;
+393&nbsp;function repeat()       # 重复n次的命令
+394&nbsp;{
+395&nbsp;    local i max
+396&nbsp;    max=$1; shift;
+397&nbsp;    for ((i=1; i &#60;= max ; i++)); do  # --&#62; C风格的语法
+398&nbsp;        eval "$@";
+399&nbsp;    done
+400&nbsp;}
+401&nbsp;
+402&nbsp;function ask()
+403&nbsp;{
+404&nbsp;    echo -n "$@" '[y/n] ' ; read ans
+405&nbsp;    case "$ans" in
+406&nbsp;        y*|Y*) return 0 ;;
+407&nbsp;        *) return 1 ;;
+408&nbsp;    esac
+409&nbsp;}
+410&nbsp;
+411&nbsp;#=========================================================================
+412&nbsp;#
+413&nbsp;# 按情况补全, complete命令 - BASH-2.04及其后续版本
+414&nbsp;# 大部分摘自bash 2.05文档
+415&nbsp;# 和Ian McDonalds的'Bash completion'软件包(http://www.caliban.org/bash/index.shtml#completion)
+416&nbsp;# 某些特征可能需要使用bash-2.05a
+417&nbsp;#
+418&nbsp;#=========================================================================
+419&nbsp;
+420&nbsp;if [ "${BASH_VERSION%.*}" \&#60; "2.05" ]; then
+421&nbsp;    echo "You will need to upgrade to version 2.05 for programmable completion"
+422&nbsp;    return
+423&nbsp;fi
+424&nbsp;
+425&nbsp;shopt -s extglob        # 必须的
+426&nbsp;set +o nounset          # 否则某些自动补全将会失败
+427&nbsp;
+428&nbsp;complete -A hostname   rsh rcp telnet rlogin r ftp ping disk
+429&nbsp;complete -A export     printenv
+430&nbsp;complete -A variable   export local readonly unset
+431&nbsp;complete -A enabled    builtin
+432&nbsp;complete -A alias      alias unalias
+433&nbsp;complete -A function   function
+434&nbsp;complete -A user       su mail finger
+435&nbsp;
+436&nbsp;complete -A helptopic  help     # 通常与内建命令一样
+437&nbsp;complete -A shopt      shopt
+438&nbsp;complete -A stopped -P '%' bg
+439&nbsp;complete -A job -P '%'     fg jobs disown
+440&nbsp;
+441&nbsp;complete -A directory  mkdir rmdir
+442&nbsp;complete -A directory   -o default cd
+443&nbsp;
+444&nbsp;# 压缩
+445&nbsp;complete -f -o default -X '*.+(zip|ZIP)'  zip
+446&nbsp;complete -f -o default -X '!*.+(zip|ZIP)' unzip
+447&nbsp;complete -f -o default -X '*.+(z|Z)'      compress
+448&nbsp;complete -f -o default -X '!*.+(z|Z)'     uncompress
+449&nbsp;complete -f -o default -X '*.+(gz|GZ)'    gzip
+450&nbsp;complete -f -o default -X '!*.+(gz|GZ)'   gunzip
+451&nbsp;complete -f -o default -X '*.+(bz2|BZ2)'  bzip2
+452&nbsp;complete -f -o default -X '!*.+(bz2|BZ2)' bunzip2
+453&nbsp;# Postscript,pdf,dvi.....(译者: 打印格式相关)
+454&nbsp;complete -f -o default -X '!*.ps'  gs ghostview ps2pdf ps2ascii
+455&nbsp;complete -f -o default -X '!*.dvi' dvips dvipdf xdvi dviselect dvitype
+456&nbsp;complete -f -o default -X '!*.pdf' acroread pdf2ps
+457&nbsp;complete -f -o default -X '!*.+(pdf|ps)' gv
+458&nbsp;complete -f -o default -X '!*.texi*' makeinfo texi2dvi texi2html texi2pdf
+459&nbsp;complete -f -o default -X '!*.tex' tex latex slitex
+460&nbsp;complete -f -o default -X '!*.lyx' lyx
+461&nbsp;complete -f -o default -X '!*.+(htm*|HTM*)' lynx html2ps
+462&nbsp;# 多媒体
+463&nbsp;complete -f -o default -X '!*.+(jp*g|gif|xpm|png|bmp)' xv gimp
+464&nbsp;complete -f -o default -X '!*.+(mp3|MP3)' mpg123 mpg321
+465&nbsp;complete -f -o default -X '!*.+(ogg|OGG)' ogg123
+466&nbsp;
+467&nbsp;
+468&nbsp;
+469&nbsp;complete -f -o default -X '!*.pl'  perl perl5
+470&nbsp;
+471&nbsp;# 这是一个'通用的'补全函数 - 当命令具有一个所谓的"长选项"模式it works when commands have
+472&nbsp;# 的时候, 它就会工作, 比如: 'ls --all' 代替 'ls -a'
+473&nbsp;
+474&nbsp;_get_longopts () 
+475&nbsp;{ 
+476&nbsp;    $1 --help | sed  -e '/--/!d' -e 's/.*--\([^[:space:].,]*\).*/--\1/'| \
+477&nbsp;grep ^"$2" |sort -u ;
+478&nbsp;}
+479&nbsp;
+480&nbsp;_longopts_func ()
+481&nbsp;{
+482&nbsp;    case "${2:-*}" in
+483&nbsp;	-*)	;;
+484&nbsp;	*)	return ;;
+485&nbsp;    esac
+486&nbsp;
+487&nbsp;    case "$1" in
+488&nbsp;	\~*)	eval cmd="$1" ;;
+489&nbsp;	*)	cmd="$1" ;;
+490&nbsp;    esac
+491&nbsp;    COMPREPLY=( $(_get_longopts ${1} ${2} ) )
+492&nbsp;}
+493&nbsp;complete  -o default -F _longopts_func configure bash
+494&nbsp;complete  -o default -F _longopts_func wget id info a2ps ls recode
+495&nbsp;
+496&nbsp;
+497&nbsp;_make_targets ()
+498&nbsp;{
+499&nbsp;    local mdef makef gcmd cur prev i
+500&nbsp;
+501&nbsp;    COMPREPLY=()
+502&nbsp;    cur=${COMP_WORDS[COMP_CWORD]}
+503&nbsp;    prev=${COMP_WORDS[COMP_CWORD-1]}
+504&nbsp;
+505&nbsp;    # 如果之前的参数为-f, 那就返回可能的补全文件名. 
+506&nbsp;    # 我们可以让它更智能一些, 并且返回匹配的
+507&nbsp;    # `makefile Makefile *.mk', 不管存在与否
+508&nbsp;    case "$prev" in
+509&nbsp;        -*f)    COMPREPLY=( $(compgen -f $cur ) ); return 0;;
+510&nbsp;    esac
+511&nbsp;
+512&nbsp;    # 如果我们需要一个选项, 那就返回可能的posix选项
+513&nbsp;    case "$cur" in
+514&nbsp;        -)      COMPREPLY=(-e -f -i -k -n -p -q -r -S -s -t); return 0;;
+515&nbsp;    esac
+516&nbsp;
+517&nbsp;    # 前尝试`makefile'再尝试`Makefile'
+518&nbsp;    if [ -f makefile ]; then
+519&nbsp;        mdef=makefile
+520&nbsp;    elif [ -f Makefile ]; then
+521&nbsp;        mdef=Makefile
+522&nbsp;    else
+523&nbsp;        mdef=*.mk               # 局部约定
+524&nbsp;    fi
+525&nbsp;
+526&nbsp;    # 在我们扫描目标文件之前, 察看makefile文件名是否
+527&nbsp;    # 使用-f指定
+528&nbsp;    for (( i=0; i &#60; ${#COMP_WORDS[@]}; i++ )); do
+529&nbsp;        if [[ ${COMP_WORDS[i]} == -*f ]]; then
+530&nbsp;            eval makef=${COMP_WORDS[i+1]}       # eval for tilde expansion(波浪号扩展)
+531&nbsp;            break
+532&nbsp;        fi
+533&nbsp;    done
+534&nbsp;
+535&nbsp;        [ -z "$makef" ] &#38;&#38; makef=$mdef
+536&nbsp;
+537&nbsp;    # 如果我们有特别偏爱的补全单词, 
+538&nbsp;    # 那么可以限制的补全这个单词
+539&nbsp;    if [ -n "$2" ]; then gcmd='grep "^$2"' ; else gcmd=cat ; fi
+540&nbsp;
+541&nbsp;    # 如果我们不想使用*.mk, 我们可以使用
+542&nbsp;    # 或者使用test -f $makef或者使用输入重定向
+543&nbsp;    COMPREPLY=( $(cat $makef 2&#62;/dev/null | awk 'BEGIN {FS=":"} /^[^.#   ][^=]*:/ {print $1}' | tr -s ' ' '\012' | sort -u | eval $gcmd ) )
+544&nbsp;}
+545&nbsp;
+546&nbsp;complete -F _make_targets -X '+($*|*.[cho])' make gmake pmake
+547&nbsp;
+548&nbsp;
+549&nbsp;# cvs(1) 补全
+550&nbsp;_cvs ()
+551&nbsp;{
+552&nbsp;    local cur prev
+553&nbsp;    COMPREPLY=()
+554&nbsp;    cur=${COMP_WORDS[COMP_CWORD]}
+555&nbsp;    prev=${COMP_WORDS[COMP_CWORD-1]}
+556&nbsp;
+557&nbsp;    if [ $COMP_CWORD -eq 1 ] || [ "${prev:0:1}" = "-" ]; then
+558&nbsp;        COMPREPLY=( $( compgen -W 'add admin checkout commit diff \
+559&nbsp;        export history import log rdiff release remove rtag status \
+560&nbsp;        tag update' $cur ))
+561&nbsp;    else
+562&nbsp;        COMPREPLY=( $( compgen -f $cur ))
+563&nbsp;    fi
+564&nbsp;    return 0
+565&nbsp;}
+566&nbsp;complete -F _cvs cvs
+567&nbsp;
+568&nbsp;_killall ()
+569&nbsp;{
+570&nbsp;    local cur prev
+571&nbsp;    COMPREPLY=()
+572&nbsp;    cur=${COMP_WORDS[COMP_CWORD]}
+573&nbsp;
+574&nbsp;    # 获得进程列表(第一个sed表达式处理
+575&nbsp;    # swap out出去的进程, 第二个
+576&nbsp;    # 获得进程的basename)
+577&nbsp;    COMPREPLY=( $( /usr/bin/ps -u $USER -o comm  | \
+578&nbsp;        sed -e '1,1d' -e 's#[]\[]##g' -e 's#^.*/##'| \
+579&nbsp;        awk '{if ($0 ~ /^'$cur'/) print $0}' ))
+580&nbsp;
+581&nbsp;    return 0
+582&nbsp;}
+583&nbsp;
+584&nbsp;complete -F _killall killall killps
+585&nbsp;
+586&nbsp;
+587&nbsp;# 一个元命令补全函数, 用于sudo(8)这种命令, 
+588&nbsp;# 需要先对这个命令进行补全, 然后需要按照这个命令自己的补全定义进行补全
+589&nbsp;#  - 当前并不是非常可靠(比如 mount和umount命令
+590&nbsp;# 就不能很好的工作), 但还是很有用的 - 作者, Ian McDonald, 我修改了一下. 
+591&nbsp;
+592&nbsp;_my_command()
+593&nbsp;{
+594&nbsp;    local cur func cline cspec
+595&nbsp;    
+596&nbsp;    COMPREPLY=()
+597&nbsp;    cur=${COMP_WORDS[COMP_CWORD]}
+598&nbsp;
+599&nbsp;    if [ $COMP_CWORD = 1 ]; then
+600&nbsp;	COMPREPLY=( $( compgen -c $cur ) )
+601&nbsp;    elif complete -p ${COMP_WORDS[1]} &#38;&#62;/dev/null; then
+602&nbsp;	cspec=$( complete -p ${COMP_WORDS[1]} )
+603&nbsp;	if [ "${cspec%%-F *}" != "${cspec}" ]; then
+604&nbsp;	    # complete -F &#60;function&#62;
+605&nbsp;	    #
+606&nbsp;	    # COMP_CWORD和COMP_WORDS()不是只读的,
+607&nbsp;	    # 所以我们可以在传递到补全例程之前, 
+608&nbsp;	    # 设置它们
+609&nbsp;	
+610&nbsp;	    # 设置当前的标志号减1
+611&nbsp;	    COMP_CWORD=$(( $COMP_CWORD - 1 ))
+612&nbsp;	    # 获得函数名
+613&nbsp;	    func=${cspec#*-F }
+614&nbsp;	    func=${func%% *}
+615&nbsp;	    # 获得去掉第一个命令后的命令行
+616&nbsp;	    cline="${COMP_LINE#$1 }"
+617&nbsp;	    # 分离当前命令, 传递给数组
+618&nbsp;		COMP_WORDS=( $cline )
+619&nbsp;	    $func $cline
+620&nbsp;	elif [ "${cspec#*-[abcdefgjkvu]}" != "" ]; then
+621&nbsp;	    # complete -[abcdefgjkvu]
+622&nbsp;	    #func=$( echo $cspec | sed -e 's/^.*\(-[abcdefgjkvu]\).*$/\1/' )
+623&nbsp;	    func=$( echo $cspec | sed -e 's/^complete//' -e 's/[^ ]*$//' )
+624&nbsp;	    COMPREPLY=( $( eval compgen $func $cur ) )
+625&nbsp;	elif [ "${cspec#*-A}" != "$cspec" ]; then
+626&nbsp;	    # complete -A &#60;type&#62;
+627&nbsp;	    func=${cspec#*-A }
+628&nbsp;	func=${func%% *}
+629&nbsp;	COMPREPLY=( $( compgen -A $func $cur ) )
+630&nbsp;	fi
+631&nbsp;    else
+632&nbsp;	COMPREPLY=( $( compgen -f $cur ) )
+633&nbsp;    fi
+634&nbsp;}
+635&nbsp;
+636&nbsp;
+637&nbsp;complete -o default -F _my_command nohup exec eval trace truss strace sotruss gdb
+638&nbsp;complete -o default -F _my_command command type which man nice
+639&nbsp;
+640&nbsp;# 本地变量:
+641&nbsp;# mode:shell-script
+642&nbsp;# sh-shell:bash
+643&nbsp;# End:</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="histcommands.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="dosbatch.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>历史命令</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>将DOS批处理文件转换为Shell脚本</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

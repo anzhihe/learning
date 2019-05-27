@@ -1,0 +1,4287 @@
+                                   CHANGE LOG
+                                       &
+                                Release History
+
+                       This file is available on-line at
+             http://personal.riverusers.com/~thegrendel/Change.log
+------------------------------------------------------------------------
+
+Intermediate release.
+Working toward version 4.0, Winterberry release.
+
+1) "System and Administrative Commands" chapter:
+   In "Job Control" subsection, added "killall" entry.
+
+2) In "Arrays" chapter:
+   Noted an exception to 'array2=( "${array1[@]}" )' array copying method.
+   (Thank you, Jochen, DeSmet.)
+
+3) In "Contributed Scripts" appendix:
+   Added "ha.sh" hashing script.
+   (Thank you, Oliver Beckstein.)
+
+
+
+Version 3.9
+Spiceberry release, 05/15/06
+
+1) In the "Starting Off With a Sha-Bang" chapter:
+   Added footnote that when launching a script from Bash,
+   the #! isn't strictly necessary.
+   (Thank you, Diane Holt, for bringing this to my attention.)
+
+2) In "I/O Redirection" chapter:
+   At introduction to chapter,
+   Added explanatory examples in introductory in-line code block.
+   At "Using Exec" section,
+   Added brief explanation of different effects of "exec N > filename" and "N > filename."
+
+   (Thank you, Ahmed Darwish, for both of the above.)
+
+3) In "Special Characters" chapter:
+   At "$" entry, added an additional usage example.
+   At "$$" entry, added footnote explaining of what a PID is.
+   At redirection operators entry, added "<>" description.
+   At "-" entry, fixup on "bunzip2" example.
+   (Thanks, Roman.)
+
+4) In "Miscellaneous Commands" section of "External Commands" chapter:
+   At "yes" entry,
+   added parsing of variables.
+
+5) In "File and Archiving Commands" section of "External Commands" Chapter:
+   At "gzip" entry, added note about "-c" option.
+
+6) In "Manipulating Strings" section of "Variables Revisited" chapter:
+   At "${string%%substring}" entry,
+   added "ra2ogg.sh" example script.
+
+7) In "Bash, version 3" section of "Bash, versions 2 and 3" chapter
+   Added "Bash, version 3.1" subsection.
+     Entry for "+=" operator.
+
+8) In "Subshells" chapter:
+   Modified final note about command list within curly brackets,
+   per suggestion of Andreas Kühne.
+
+9) In "Gotchas" chapter:
+   Converted separate entries to bulleted-item list.
+   Added entry for error in leaving out termination semicolon in command
+   block within curly braces.
+    (Thank you, Andreas Kühne.)
+
+10) In "Writing Scripts" section of "Exercises" appendix:
+      Added "Checking whether a process is still running" exercise
+      ("Easy" section).
+
+11) "System and Administrative Commands" chapter:
+     Minor revision of "strace" entry.
+     Added "ltrace" entry.
+     Added "lspci" entry.
+
+12) In "Contributed Scripts" appendix:
+    Minor modification to "life.sh" script, to check for missing startfile.
+
+13) In "Reference Cards" appendix:
+    Fixed up error in "Miscellaneous Constructs" table (terminating
+    semicolon in command list within curly brackets).
+    (Thank you, Andreas Kühne.)
+
+14) In "Revision History" appendix:
+    Fixed embarrassing typos.
+
+15) Various minor fixups on example scripts.
+
+
+Version 3.8
+Blaeberry release, 02/26/06
+
+1) In "Special Characters" chapter:
+   Minor additions to leadin to "control characters" entries,
+   and to "Ctl-K" and "Ctl-L" entries.
+
+2) In "Introduction to Variables and Parameters" chapter:
+     Rewrote lead-in.
+   In "Variable Substitution" section:
+   Added inline example of difference between variable name and value.
+   Added escaped whitespace example to "ex9.sh" script.
+
+3) In "Basic Commands" section of "External Commands" Chapter:   
+   At "cp" entry, added example of using -u option.
+
+4) At beginning "Regular Expressions" chapter,
+   added Stowe Boyd epigraph.
+
+5) "System and Administrative Commands" chapter:
+   In "Job Control" subsection,
+     Added "pgrep/pkill" entry.
+     At "ps" entry, mentioned "aux" options.
+   In "Filesystem" subsection,
+     At "lockfile" entry, more material, including usage example and
+     footnote.
+     Added "flock" entry.
+
+6) In "File and Archiving Commands" section of "External Commands" Chapter:
+   At "sha1sum" entry, added paragraph about security consultants'
+   misgivings.
+   More info at "cpio" entry.
+
+7) In "Parameter Substitution" section of "Variables Revisited" chapter:
+   Fixed minor typo at "${parameter:+alt_value}" example.
+   (Thank you, Jemshad O K)
+
+8) Partitioned  "Security Section" of the "Miscellany" chapter
+   into two subsections.
+   Added subsection about "shc" utility for compiling script source.
+
+9) In "Loops" section of "Loops and Branches" chapter:
+   Applied fixup to "bin-grep.sh" example.
+   (Thank you, Anton Filippov.)
+
+10) In "Redirecting Code Blocks" section of "I/O Redirection" chapter:
+    Corrected annotation in final section of "redir2.sh" example.
+    (Thank you, Brian Onn.)
+
+11) In "Internal Commands and Builtins" chapter:
+    Added "revposparams.sh" example.
+    (Thank you, Dan Jacobson.)
+    More info at "nmap" entry.
+
+12) In "Text Processing" section of "External Commands" Chapter:   
+   At "egrep" / "fgrep" entry, added note about boolean "|" operator.
+
+13) In "Here Strings" section of "Here Documents" chapter:
+    Added short inline usage example.
+    Added "mailbox_grep.sh" example.
+    (Thank you, Francisco Lobo, for both of the above.)
+
+14) Added "Bash Command-Line Options"  section to (retitled) "Command
+   Line Options" appendix.
+
+15) In "Copyright" chapter:
+    Added anti-DRM provisions.
+
+16) Various minor fixups on example scripts.
+
+
+
+
+Version 3.7
+Whortleberry release, 10/23/05
+
+1) In "Special Characters" chapter:
+   At "whitespace" entry, added footnote about newline/linefeed.
+
+2) In "Basic Commands" section of "External Commands" Chapter:   
+   At "ln" entry, noted that only symbolic links can refer to a directory.
+
+3) In "Text Processing Commands" section of "External Commands" Chapter:   
+   Modified comments in "wf.sh" example.
+   At "grep" entry, fixed 2 typos
+      "Now, let's search this file . . . "
+      "printf 'a b\nc  d\n\n\n\n\n\000\n\000e\000\000\nf' | grep -cz ."
+   At "diff" entry, fixed typo ("spiff" --> "sdiff").
+   (Thank you, Frank Wang.)
+   At "colrm" entry, changed "warning" to "caution" -- toned it down a bit.
+   At "cut" entry,
+     Added note about using linefeed as delimiter.
+      (Thank you, Jaka Kranjc.)
+     Got rid of unnecessary "cat" in inline example.
+   At "iconv" entry, added snippet of code from "booklistgen.sh" script.
+   (Thank you, Peter Knowles, for permission to use it.)
+
+4) In "Complex Commands" section of "External Commands" Chapter:   
+   At "expr" entry, added usage example of escaped parentheses.
+   (Thank you, Peter Knowles, for permission to use it.)
+
+5) In "File and Archiving Commands" section of "External Commands" Chapter:
+   Added "sha1sum" command at Frank Wang's suggestion.
+
+6) In "Communications Commands" section of "External Commands" chapter:
+   In "Remote Host Access" subsection, added "scp" entry.
+   Added material at "uucp" entry.
+   Added "uux" entry.
+   At "wget" listing, added comments.
+
+   At "rsync" entry, fixed up usage example.
+   Added "fc4upd.sh" example.
+   (Thank you, Frank Wang.)
+
+7) In "Complex Commands" section of "External Commands" Chapter:   
+   At "xargs" entry, added footnote about speeding up execution.
+
+8) In "Math Commands" section of "External Commands" chapter:
+   Added Frank Wang's comments to "monthlypmt.sh" example.
+
+9) In "Miscellaneous Commands" section of "External Commands" chapter:
+   At "tee" entry, redesigned diagram for greater clarity.
+
+10) In "Testing and Branching" section of "Loops and Branches" chapter:
+    Rewrote explanation of filename "globbing" in the [list] of a for-loop
+    and added comments to "list-glob.sh" example.
+
+11) In "Quoting" chapter:
+    Added sidebar near beginning of chapter.
+    Removed intro paragraph (superfluous) at beginning of "Quoting Variables"
+    section.
+
+12) In "$RANDOM" section of "Variables Revisited" chapter:
+    Added comment to "ex21.sh" example.
+
+13) In "Command Substitution" chapter:
+    Added footnote about nesting command substitution with backticks
+    by using escaping.
+    (Thanks, John Default.)
+
+14) In "System and Administrative Commands" chapter:
+    Moved "dmesg" entry to "Information and Statistics" subsection.
+    In "Process Control and Booting" subsection, added "service" entry.
+    At "uptime" entry, added note about load average.
+    Fixups at "terminals and modes" sidebar, second example.
+    (Thank you, Mark Norman.)
+
+15) In "Bibliography" section:
+    Added reference and URL for Col Needham's original IBDB scripts.
+
+16) Numerous typos corrected, per a list sent in by Mark Norman (thanks!).
+
+17) Various changes and fixups in example scripts.
+
+
+
+
+
+Version 3.6
+Pokeberry release, 08/28/05
+
+1) In "Special Characters" chapter:
+   At "-" (redirection from/to stdin or stdout [dash]) entry,
+   corrected comments.
+   (Thank you, Frank Wang.)
+   Replaced flawed first example at "brace expansion" entry.
+   Added quoting comment at "whitespace" entry.
+   
+2) In "Operators" subsection of "Operations and Related Topics" chapter:
+   Removed unnecessary "echo" from modulo operator usage example.
+   (Thank you, Pasha Zubkov.)
+
+3) In "/proc" section of "/dev and /proc" chapter:
+   Added comment to "pid-identifier.sh" example, per Teemu Huovila.
+   (Thanks!)
+
+4) In "Testing and Branching" section of "Loops and Branches" chapter:
+   Changed description of "case" construct from "equivalent of"
+   to "analog to" "switch" in C/C++.
+   (Thank you, Teemu Huovila.)
+
+5) In "Communications Commands" section of "External Commands" chapter:
+   Added "rsync" entry.
+
+6) In "Miscellaneous Commands" section of "External Commands" chapter:
+   Added additional usage example at "jot/seq" entry.
+
+7) In "Internal Commands and Builtins" chapter:
+   Added "testing 'false'" to "false" entry example.
+   (Thank you, Joe Friedrichsen for the suggestion.)
+   At "getopts" entry, made corrections in description of behavior of
+   $GETOPTS.
+   (Thank you, Pharis Monalo.)
+   At "source" entry, added notes about passing arguments to "sourced"
+   file and using a "return" to pass control back to the calling script.
+   Added "caller" entry.
+
+8) In "Contributed Scripts" appendix:
+   Made changes to "whx.sh" script.
+
+9) In "Test Constructs" section of "Tests" chapter:
+   Fixed up "ex.11.sh" example for difference in Bash 3.x behavior.
+   (Thank you, Frank Wang.)
+
+10) In "Internal Variables" section of "Variables Revisited" chapter:
+    Fixed up comments in "t-out.sh" example to reflect changes
+    in Bash 3.x.
+    (Thank you, Frank Wang.)
+    Fixed up explanation of "anomalous" output given by ${PIPESTATUS[@]}
+    in certain situations.
+    (Thank you, Frank Wang, for providing Chet Ramey's explanation.)
+
+11) In "Typing Variables" section of "Variables Revisited" chapter:
+    Added caution + example of how "typeset" restricts the scope of a
+    variable.
+    (Thank you, Michael Iatrou.)
+
+
+12) In "File and Archiving Commands" section of "External Commands" Chapter:
+    At "file" entry, fixed typo (/usrlocal/bin => /usr/local/bin).
+    Fixed error in "strip-comments.sh" example script.
+    (Thank you, Jesse Gough.)
+
+13) In "Complex Commands" section of "External Commands" Chapter:   
+    At "xargs" entry, added extra usage example.
+    At "expr" entry, added example of illegal arithmetic operation.
+
+14) In "$RANDOM" section of "Variables Revisited" chapter:
+    Added Frank Wang's alternative to jipe's example.
+
+15) In "Quoting" chapter:
+    Split the chapter into introduction and "Quoting Variables" and
+   "Escaping" sections.
+
+    Corrected note about unquoted "grep" . . .
+    Added discussion about quoting correcting echo's appetite for newlines.
+    Clarified explanation of referencing quoted variables
+    and added footnote.
+    Amended tip about double quotes being necessary only to prevent word
+    splitting.
+    (Thank you, Harald Koenig.)
+
+16) In "Local Variables" section of "Functions" chapter:
+    In footnoted example of a segfaulting recursive function,
+    added an "echo" to properly exercise the function.
+    (Thank you, Dr. Roland Sonnenschein.)
+
+17) In "Debugging" chapter:
+    At listing of "Tools for debugging non-working scripts,"
+    added list item for "$LINENO" variable and "caller" builtin.
+
+    At "trap" entry, replaced buggy "multiple-processes.sh" example.
+    (Thank you, Tedman Eng.)
+
+18) In "Copyright" chapter:
+    Updated licensing terms to give the LDP the right to reassign custodianship
+    of the book in the event the author cannot be contacted.
+
+19) In "Bibliography" section:
+    Added entry for Peter Knowles' booklistgen.sh --
+    Sony Librie booklist generator -- making possible
+    Linux access to this neat e-book reader.
+
+20) Corrected spelling of the name of contributor Stéphane Chazelas
+    in multiple places.
+    (Thank you, Bertrand Mollinier Toublet, for pointing out these
+    embarrassing typos.)
+
+21) Various changes and fixups in example scripts.
+
+
+
+Version 3.5
+Boxberry release, 06/05/05
+
+
+
+1) In "Indirect References to Variables" section of "Variables Revisited" chapter:
+   Added "ugly kludge" sidebar.
+
+2) In "Variable Assignment" section of "Introduction to Variables and
+   Parameters" chapter:
+     After "ex16.sh" example, noted that $(...) construct is a form of
+     command substitution.
+
+3) In "Special Variable Types" section of "Introduction to Variables and
+   Parameters" chapter:
+     In note about remedies for missing command-line parameters,
+     added discussion about using parameter substitution,
+     rather than adding extra characters to variable names.
+     (Thank you, Fabian Kreutz.)
+
+4) In "Command Substitution" chapter:
+   At note at end of chapter, added mention that nesting is possible
+   with $(...) construct, and added "agram2.sh" example script.
+
+5) In "Internal Commands and Builtins" chapter:
+   At "exec" entry, added footnote and streamlined text.
+
+6) In "File and Archiving Commands" section of "External Commands" Chapter:
+   At "more/less" entry, added "testing command sequence" usage example.
+   At "mktemp" entry, added usage example and elaborated existing example.
+
+7) In "Communications Commands" section of "External Commands" chapter:
+   At "dig" entry, added "spam-lookup.sh" example.
+
+8) In "Text Processing" section of "External Commands" Chapter:   
+   At "tail" entry, added usage example of combining "head" and "tail"
+   to extract a specific line or lines from a text file.
+
+9) In "System and Administrative Commands" chapter:
+   At "umask" entry, added "rot13a.sh" example script.
+
+10) In "Complex Functions and Function Complexities" section of "Functions"
+chapter:
+    Added in-line example ("days in month") of capturing function "echo"
+    as "return value."
+
+11) In the "Shell Wrappers" section of "Miscellany" chapter:
+    Added "pr-asc.sh" example script.
+
+12) Changed "Files" chapter into an appendix.
+
+13) In the "Sed and Awk Micro-primer" appendix:
+    More examples of the awk "print" command.
+
+14) In "Contributed Scripts" appendix:
+    Added "whx.sh" script.
+    (Thank you, Walter Dnes.)
+
+15) Miscellaneous fixups and stylistic changes in the text and various
+    scripts.
+    Fixed up three misspellings of "permissible"!
+    Updated morethan.org site address.
+
+
+
+Version 3.4
+Teaberry release, 05/08/05
+
+1) In "Special Characters" chapter:
+   Some minor additions and cleanups.
+
+2) In "Basic Commands" section of "External Commands" Chapter:   
+   At "ls" entry, minor fixups on "ex40.sh" example.
+   At "rm" entry, added "rm -- -badname" method of deleting hyphen-prefixed
+   filenames.
+
+3) In "Time/Date Commands" section of "External Commands" chapter:
+   At "date" entry:
+     Added mention of "TZ=XXX" option.
+     (Thanks, Frank Kannemann and Pete Sjöberg.)
+     Also added discussion of additional options.
+
+4) In "Communications Commands" section of "External Commands" chapter:
+   At "lynx" entry, added paragraph on "-traversal" option.
+   At "wget" entry, added comments to "quote-fetch.sh" example script.
+
+5) In "Miscellaneous Commands" section of "External Commands" Chapter:
+   At "sox" entry, added links for examples of script use.
+   At "getopt" entry, fixed typo.
+
+6) In "Math Commands" section of "External Commands" chapter:
+   At "dc" entry, added echoing obfuscated text entry.
+
+7) In "Internal Commands and Builtins" chapter:
+   At "echo" entry, added comments to in-line examples of
+   embedding linefeed in a string.
+   (Per suggestion of Michal Jaegermann.)
+   At "hash" entry, added footnote explaining what a hash is.
+   Modified "col-totaler3.sh" example script to make it more interesting.
+   At "forking" sidebar, added paragraph about parent-child process problem.
+
+8) In "File test Operators" section of "Tests" chapter:
+   Added deprecated "-a" option.
+
+9) In "System and Administrative Commands" chapter:
+
+   Added "nc" entry, and
+     Added "iscan.sh" example script.
+     (Thank you, Hobbit.)
+
+     Added Dr. Andrew Tridgell's famous one-line script.
+     (Thank you for permission to quote it, Tridge.)
+
+   At "logrotate" entry, added URL for Stefano Falsetto's "rottlog"
+   project.
+   At "ps" entry, added graphical "tree" options. 
+
+   Added "quota" entry.
+
+   Separated "Analyzing a System Script" into a section of its own.
+
+
+10) In "Bash, version 3" section of "Bash, versions 2 and 3" chapter
+    At "=~" entry, added Social Security number example.
+    Added end of chapter note that version 3 update breaks a few old
+    scripts.
+
+
+11) In "Testing and Branching" section of "Loops and Branches" chapter:
+    Added code snippet from Stefano Falsetto's "rottlog" package.
+    (Thank you, Stefano.)
+
+12) In "Debugging" chapter:
+    Added Stefano Falsetto's "debecho ()" debugging echo.
+    (Thank you, Stefano.)
+
+13) In "$RANDOM" section of "Variables Revisited" chapter:
+    Added footnote discussing "seeds."
+
+14) In "Parameter Substitution" section of "Variables Revisited" chapter:
+    Changed "rfe.sh" example to use "case" construct to test for
+    command-line parameters.
+
+15) In "Manipulating Strings" section of "Variables Revisited" chapter:
+    Added "getopt-simple.sh" example.
+    (Thank you, Chris Morgan.)
+
+16) In "Gotchas" chapter:
+    Added comments about 'exporting' inner shell variables to
+   "subshell-pitfalls.sh" example.
+    Added note that, as of Bash 3,  periods are no longer permitted
+    within variable or function names.
+
+
+17) In "Here Documents" chapter:
+    Added Huxley epigraph.
+    Reshuffled order of first several examples.
+    Added in-line example of an "ex script" (Smith/Jones replacement).
+
+18) In "Regular Expressions" chapter:
+      In "Globbing" Section:
+        Stylistic fixups. Added footnote.
+
+19) In "Assorted Tips" section of "Miscellany" chapter:
+   Corrected "dialog.sh" example.
+   Added entry on setting a variable to the contents of a sed or awk script,
+   with cross-references to a couple of example scripts.
+
+20) In "Contributed Scripts" appendix:
+    Added Mariusz Gniazdowski's "Hash.lib" hashing library for scripting,
+    and an example script using the library ("hash-example.sh").
+    (Thank you, Mariusz.)
+    Minor revision of "mail-format.sh" example (converted sed script to a
+    variable)
+
+21) In "Writing Scripts" section of "Exercises" appendix:
+    Added "Removing Inactive Accounts" exercise to "Intermediate" section.
+    Added "Checking for Broken Links" exercise to "Intermediate" section.
+
+22) In "Bibliography" section:
+    Added Henry Spencer epigraph.
+    Added "Wicked Cool Shell Scripts" entry.
+    Added "seder's grabbag."
+    Added Linuxreviews.
+
+23) Miscellaneous stylistic changes in various scripts.
+
+24) Many minor stylistic changes in the body of the text.
+
+
+
+Version 3.3
+Raspberry release, 03/20/05
+
+1) In the "Starting Off With a Sha-Bang" chapter:
+   Amended footnote [3] to mention a cat / here document.
+   (Thank you, Fabian Kreutz.)
+   Fixed typo in "ex1a.sh" example.
+   (Thank you, Preetam.)
+   Added Larry Wall epigraph.
+   Changed "Important" block to "Tip," and added "generalizing scripts"
+   paragraph.
+
+2) In "Special Characters" chapter:
+   At "#" entry, noted that if comment follows a command on a line,
+   then whitespace preceding the "#" is necessary.
+   (Thanks, Le Wen.)
+
+3) In "Basic Commands" section of "External Commands" Chapter:   
+   Greatly expanded discussion of "chattr" entry.
+
+4) In "File and Archiving Commands" section of "External Commands" Chapter:
+   Added "rpm -qf" tip at "rpm" entry.
+
+5) In "Text Processing" section of "External Commands" Chapter:   
+   Added "enscript" entry.
+   At "egrep" and "fgrep" entries.
+     added symbolic link note
+     added "dict-lookup.sh" example script.
+   Updated "wc" entry.
+
+6) In "Communications Commands" section of "External Commands" chapter:
+   Added "netconfig" entry.
+
+7) In "Math Commands" section of "External Commands" chapter:
+   Fixup of "hexconvert.sh" example script
+   (had left out initialization of E_NOARGS variable)
+   (Thanks, Stefano Palmeri.)
+
+8) In "Internal Commands and Builtins" chapter:
+   At "forking/spawning" sidebar:
+   Added "spawn.sh" example
+
+9) In "Job Control Commands" section of "Internal Commands and Builtins"
+   chapter:
+   Corrected note discussing zombie processes.
+   (Thank you, Alan Sundell.)
+
+10) In "Here Documents" chapter:
+    Removed reference to 'telnet' -- since it's generally not a good idea.
+
+11) In "Of Zeroes and Nulls" chapter
+    Added/revised discussion of /dev/zero.
+
+12) In the "Shell Wrappers" section of "Miscellany" chapter:
+    Added footnote giving examples of system utilities that are really
+    shell wrappers.
+    Added "logging-wrapper.sh" example.
+
+13) In "Indirect References to Variables" section of "Variables Revisited" chapter:
+    Expanded Nils Radtke's example of building dynamic variable names.
+
+14) In "Parameter Substitution" section of "Variables Revisited" chapter:
+    Fixed up "ex6.sh" example to make it less ambiguous,
+    per suggestion of "Der Schwadde" . . . ).
+
+15) In "Miscellaneous Commands" section of "External Commands" Chapter:
+    At "dd" entry," added lowercase conversion in-line example.
+    At "jot/seq" entry, added "letter-count.sh" example script.
+    (Thanks, Stefano Palmeri.)
+
+16) In "System and Administrative Commands" chapter:
+    At "lockfile" entry, fixed typo in inline example.
+    (Thanks, Andreas Abraham.)
+    At "fuser" entry, added more material.
+
+17) In "Gotchas" chapter:
+    At "Mixing up '=' and '-eq' entry, fixed typo.
+    (Thanks, Andreas Abraham.)
+
+18) In "Colorizing Scripts" section of "Miscellany" chapter:
+    Added "horserace.sh" example.
+   (Thanks, Stefano Palmeri.)
+
+19) In "Redirecting Code Blocks" section of "I/O Redirection" chapter:
+    Added code snippet and commentary to redir2.sh example.
+    (Thank you, Bruno de Oliveira Schneider.)
+
+20) In "Copyright" chapter:
+    Added second URL for French translation.
+
+21) In the "Sed and Awk Micro-primer" appendix:
+    Fixed "letter-count.sh" example to work with gawk, ver. 3.1.3.
+    (Thanks to Stefano Palmeri for pointing out the need for a fixup.)
+    Renamed filename to "letter-count2.sh" to accommodate alternate
+    version of script which will appear prior to this one in the text.
+
+22) In "Contributed Scripts" appendix:
+    Fixups to "wgetter2.bash" script.
+    Added "bashpodder.sh" script.
+    (Thank you, Linc Fessenden.)
+
+23) In "Writing Scripts" section of "Exercises" appendix:
+    In "Intermediate sub-section":
+      Added "Enforcing Disk Quotas" exercise.
+
+24) Various miscellaneous fixups and enhancements:
+      In example scripts.
+      In citations of book titles (inserted <citetitle> tag).
+
+
+
+
+Version 3.2
+Blueberry release, 02/06/05
+
+1) In the "Starting Off With a Sha-Bang" chapter:
+   Fixed small typo (if [ $# -ne $Number_of_expected args ]).
+   Thanks, Robbie Morrison.
+   Added epigraph to "Why Shell Programming?" section. 
+
+2) In "Special Characters" chapter:
+   At "&" entry, added comment about Nasimuddin Ansari's suggested change
+   to "background-loop.sh" example.
+
+3) In "Colorizing Scripts" section of "Miscellany" chapter:
+   Added link to Henry/teikedvl's utility for creating colorized scripts.
+
+4) In "Complex Functions and Function Complexities" section of "Functions"
+chapter:
+   Added "func-cmdlinearg.sh" example script to clear up confusion
+   about command-line args passed to a script.
+
+5) In "Local Variables" section of "Functions" chapter:
+   Fixed typo in example in footnote.
+   (Thank you, jaka kranjc.)
+
+6) In "File and Archiving Commands" section of "External Commands" Chapter:
+   At "files" entry, added example of finding specific file types
+   in a given directory.
+
+7) In "Communications Commands" section of "External Commands" chapter:
+   At "ssh" entry, added caution about ssh using up loop's stdin.
+   (Thanks, Jason Bechtel.)
+
+8) In "Special Variable Types" section of "Introduction to Variables" chapter
+   Some fixups for "ex18.sh" example.
+   Added Chris Monson's example of finding last command line parameter.
+
+9) In "Parameter Substitution" section of "Variables Revisited" chapter:
+   Added material to "param-sub.sh" example.
+
+10) In "Double Parentheses Construct" section of "Variables Revisited"
+    chapter:
+    In "c-vars.sh" example, added instances of differing side-effects
+    of pre- and post-increment operators.
+    (Thanks, Jeroen Domburg.)
+
+11) In "Indirect References to Variables" section of "Variables Revisited"
+    chapter:
+    Added Nils Radtke's example of building dynamic variable names.
+
+12) In "Text Processing" section of "External Commands" Chapter:   
+    Added extra explanatory lines at "grep" listing.
+    Moved "manview.sh" script example from Contributed Script appendix
+    to "groff, tbl, eqn" entry.
+
+13) In the "Shell Wrappers" section of "Miscellany" chapter:
+    Added redirection comment to "ex3.sh" example.
+    (Thanks, jaka kranjc.)
+
+14) In "Regular Expressions" chapter:
+    Added listing of components of REs.
+    Streamlined the discussion following.
+
+15) In "$RANDOM" section of "Variables Revisited" chapter:
+    Added footnote about randomness and pseudorandomness.
+    Added a couple of cross-links in the text.
+
+16) In "System and Administrative Commands" chapter:
+    Added usage example at "last" entry.
+
+17) In "/dev" section of "/dev and /proc" chapter:
+    Changed reference URL from slashdot.org to net.cn (a known spam ISP).
+    Added to footnote about mounting a USB flash drive.
+
+18) In "Gotchas" chapter:
+    Added note about not hyphenating function names.
+
+19) In "Bibliography" section:
+    Added William Parks' Dec. '04 "Linux Gazette" article to his listing.
+    Added entry for "Unix Oneliners."
+    Added "http://www.zazzybob.com" entry.
+
+20)  In "Writing Scripts" section of "Exercises" appendix:
+     In "Intermediate" section, added "Integer or String" exercise .
+     In "Intermediate" section, added "Logged in User Information"
+     exercise .
+
+21) In "Contributed Scripts" appendix:
+    Added "cdll" expanded 'cd' command.
+    (Thanks, Phil Braham.)
+    Added "wgetter2.bash" example script.
+    (Thanks, Little Monster <monster@monstruum.co.uk>.)
+
+22) In "Localization" appendix:
+    Again, fixed quoting problem in "localized.sh" in-line example
+    (per Bruno Haible).
+
+23) In "Important System Directories" appendix:
+    Corrected "/sys" entry.
+    Added "/mnt," "/dev," "/proc," and "/media" entries.
+
+24) In "Analyzing Scripts" section of "Exercises" appendix:
+    Added short example script.
+
+25) Added comment block to sample .bashrc file (Appendix G).   
+    (Thanks, Ane-Pieter Wieringa.)
+
+26) Deleted unwanted space in ": <<XXX" here document comments in various
+    scripts and text body.
+
+27) Various miscellaneous fixups in example scripts.
+    (Thanks, Kalin Kozhuharov and others.)
+
+
+
+
+Version 3.1
+Bayberry release, 11/14/04
+
+1) In "Subshells" chapter:
+   Removed superfluous close-parenthesis from in-line example comments.
+   Removed doubled line in "lock file" in-line example.
+   (Thanks, bojster.)
+   Added example of the $BASH_SUBSHELL variable (new to Bash 3).
+
+2) In "Complex Functions and Function Complexities" chapter:
+   Fixed typos in "realname.sh" example script.
+   (Thanks, bojster.)
+
+3) In "Unofficial Shell Scripting Stylesheet" section of
+   Scripting With Style" chapter:
+   Fixed a couple of typos involving extra space and quote.
+   (Thanks, bojster.)
+   Added Ender's suggestion to use exit codes in /usr/include/sysexits.h.
+   Added Ender's list of suggested script invocation flags.
+
+4) In "Colorizing Scripts" section of "Miscellany" chapter:
+   Added example of using bold foreground text, with note to that effect.
+   Updated link for Moshe Jacobson's project.
+   (Thanks, bojster.)
+
+5) In "Assorted Tips" section of "Miscellany" chapter:
+   At "whatis" entry, added safer alternative to using that.
+   (Thanks, bojster.)
+   Added discussion of the use of the "rcs" package in script revisions.
+
+6) In "System and Administrative Commands" chapter:
+   At "fuser" entry, added usage example.
+
+7) Assorted other typos pointed out by bojster fixed.
+
+8) In "$RANDOM" section of "Variables Revisited" chapter:
+   Removed an unnecessary variable from "ex21.sh" example.
+   (Thanks, jaka kranjc.)
+
+9) In "Internal Variables" section of "Variables Revisited" chapter:
+   Fixed prefatory comment in "timed-input.sh" example.
+   Added $BASH_SUBSHELL variable (Bash 3 or later).
+
+10) In "File and Archiving Commands" section of "External Commands" Chapter:
+   At "split" entry, added "csplit."
+
+11) In "Gotchas" chapter:
+    Added "echo $BASH_SUBSHELL" command to Richardson/Berendsen example.
+
+12) In "Debugging" chapter:
+    Added Kernighan quote at beginning.
+    Added list of debugging variables new to version 3 of Bash.
+
+13) In "Bibliography" section:
+    Updated William Parks' bio and added his Nov. '04 "Linux Gazette"
+    article.
+
+14) In "To Do List" appendix.
+    Added Michael Zick's "test-cgi.sh" script as a starter example.
+
+15) In "Writing Scripts" section of "Exercises" appendix:
+    In "Difficult" section, added "Creating man pages" exercise .
+
+16) In "Contributed Scripts" appendix:
+    Applied Daniel Albers' patch to "life.sh" to enable use of non-square
+    grids.
+    Added two additional reader exercises to "life.sh" script.
+
+17) In "Localization" appendix:
+    Fixed quoting bug in "localized.sh" in-line example.
+    Numerous other changes and bugfixes.
+    (Thanks, Alfredo Pironti.)
+
+18) In "History Commands" appendix:
+    Added $HISTTIMEFORMAT variable (new to Bash, ver. 3.0 or later).
+    Added link to "Advancing in the Bash Shell" site.
+
+19) Added "Mirror Site" appendix.
+
+20) Minor cleanups on various example scripts.
+
+
+
+Version 3.0
+Loganberry release, 10/03/04
+
+1) In "Numerical Constants" section of "Operations and Related Topics"
+   chapter:
+   Fixed error in comment in "numbers.sh" script.
+   (Thanks, Frank Wang.)
+
+2) In "Operators" subsection of "Operations and Related Topics" chapter:
+   Added four increment operations to "arith-ops.sh" example.
+   (Thanks, Frank Wang.)
+
+
+3) In "Testing and Branching" section of "Loops and Branches" chapter:
+   Fixed "ex29.sh" example to account for sorting problem in some locales.
+   (Thanks, Frank Wang.)
+
+4) In "Internal Variables" section of "Variables Revisited" chapter:
+   At "$!" entry, added "hanging job" example.
+   (Thanks, Sylvain Fourmanoit.)
+   At "$PIPESTATUS" entry, added discussion of fixes in Bash, ver. 3,
+   with examples. Added discussion of "volatility" of this variable.
+
+5) In the "Using Exec" section of "I/O Redirection" chapter:
+   Added "avoid-subshell.sh" example script.
+   (Thanks, Matthew Walker.)
+
+6) In "Communications Commands" section of "External Commands" chapter:
+   At "ssh" entry, added "remote.bash" example script.
+   (Thank you, Michael Zick.)
+   At "dig" entry:
+   Added discussion of some interesting options.
+   Added "is-spammer.sh" example script.
+   (Thank you, Michael Zick.)
+   
+7) In "/proc" section of "/dev and /proc" chapter:
+   Added short example of parsing /proc/bus/usb/devices
+   to determine whether USB 1.1 port detected.
+
+8) In "Complex Commands" section of "External Commands" Chapter:   
+   Added comments and fixup to "ex41.sh" example
+      (xargs can't handle unmatched quotes).
+   Simplified "ex45.sh" example by eliminating a misleading section.
+   (Thanks, Frank Wang, for both of the above.)
+
+9) In "Arrays" chapter:
+   Fixed up some comments in "array-assign.bash" example.
+   (Thanks, Frank Wang.)
+   Corrected comment in "stack.sh" example.
+
+10) In "Here Documents" chapter:
+    Added section for "here strings" (<<<).
+    Added "prepend.sh" example.
+    (Thanks, Kenny Stauffer.)
+
+11) In "Special Characters" chapter:
+    Added entry for "<<<" (here strings).
+
+12) In "Parameter Substitution" section of "Variables Revisited" chapter:
+    Fixed typo in comments of "var-match.sh" example script.
+    (Thanks, bojster.)
+
+13) In "Process Substitution" chapter:
+    Added more commentary to in-line SuSE code fragment.
+    (Thanks, Filip Moritz.)
+
+14) In "Assorted Tips" section of "Miscellany" chapter:
+    Fixed typo in "multiplication.sh" example.
+    (Thanks, Frank Wang.)
+
+15) In "Recursion" section of "Miscellany" chapter:
+    Added note about execute permissions to "recurse.sh" example script.
+
+16) In the "Portability Issues" section of the "Miscellany" chapter:    
+    Fixed typo ("funtionality).
+    (Thanks, Andreas Abraham.)
+
+17) In "System and Administrative Commands" chapter:
+    Fixed mistake in a comment in "killall, from /etc/rc.d/init.d" in-line
+    example.
+    (Thanks, Andrzej Stefanski.)
+    At "lockfile" entry, fixed typo.
+    (Thanks, bojster.)
+
+18) In "Time/Date Commands" section of "External Commands" chapter:
+    At "date" entry, dded discussion of more options.
+
+19) In "Miscellaneous Commands" section of "External Commands" Chapter:   
+    Added comment to "blot-out.sh" example script noting that it may not
+    work well under a journaled filesystem.
+    (Thanks, bojster.)
+
+20) In "Colorizing Scripts" section of "Miscellany" chapter:
+    Added note about "echo -ne \E[0m" being a better alternative to
+    "tput sgr0."
+    Added "Draw-box.sh" example.
+    (Thanks, Stefano Palmeri.)
+
+21) In "Bibliography" section:
+    Added entry for Ken Burtch's "Linux Shell Scripting with Bash."
+
+22) In "Reference Cards" appendix:
+    Miscellaneous minor cleanups in tables.
+
+23) "Bash, version 2" chapter title changed to "Bash, versions 2 and 3"
+     Split chapter in sections for "Bash, version 2" and "Bash, version 3."
+     List of new features in Bash, version 3 in latter section.
+       * {a..z} brace expansion operator
+       * ${!array[@]} operator
+       * =~ Regular Expression matching operator within [[ double brackets ]]
+
+24) In "Author's Note" section of "Endnotes" chapter:
+    Added Latin epigraph.
+
+25) In "Copyright" chapter:
+    Added note exempting Public Domain scripts from the overall license
+    and copyright restrictions of the document.
+
+26) In "Contributed Scripts" appendix:
+    Added Michael Zick's elegant "is_spammer.bash" script.
+
+27) Updated "ex40.sh" and "copy-cd.sh" examples for newer versions
+   of "cdrecord."
+
+28) Changed almost all occurrences of "Unix" to "UNIX" for consistency.
+
+
+
+Version 2.8
+Elderberry release, 07/11/04
+
+1) In the introduction:
+   Added link to pdf version of the book.
+
+2) In "Arithmetic Expansion" chapter:
+   Fixed typo -- missing parenthesis -- in inline example.
+   (Thank you, Thorsten Bonow.)
+
+3) In "Special Characters" chapter:
+   Added material at "Ctl-D" entry.
+   Added material at "Ctl-K" entry.
+   Added material at "Ctl-U" entry.
+   (Thank you, Jeremy Impson.)
+   Added "Ctl-V" entry.
+   (Thank you, Jeremy Impson.)
+   Added "Ctl-W" entry.
+   (Thank you, Jeremy Impson.)
+   At "-" (redirection from/to stdin or stdout) entry:
+   Fixed comment in Alan Cox's example.
+   (Thank you, Ken Fuchs.)
+
+4) In "Gotchas" chapter:
+   Added another alternative to Anthony Richardson's piping-loop example.
+   (Thank you, Wilbert Berendsen.)
+
+5) In "Internal Commands and Builtins" chapter:
+   At "echo" entry, showed how to embed a linefeed within echoed text.
+   (Thanks, Steve Parker.)
+   At "read" entry, added note that "read -n" command sequence will not
+   detect the ENTER (newline) key.
+   (Thank you, Tony Morgan.)
+   At "source" entry, rewrote introductory paragraph for additional
+   clarity.
+   Added "bind" entry, with a brief footnote about the readline library.
+   Slight modification of discussion at "help" entry.
+
+6) In "File and Archiving Commands" section of "External Commands" Chapter:
+   At "sum, cksum, md5sum" entry, added usage examples and expanded note.
+
+7) In "List Constructs" chapter:
+   Added example snippets from Miquel van Smoorenburg's
+   /etc/rc.d/init.d/single script.
+
+8) In "/dev" section of "/dev and /proc" chapter:
+   Fixed up "Downloading a URL" inline example.
+   (Thanks, Mihai Maties.)
+   Added "noatime" to USB flash drive installation example.
+
+9) Cleaned up and made consistent notes about #!/bin/sh disabling extended
+   Bash functionality.
+
+10) In "Exit Codes With Special Meanings" appendix:
+    Fixed footnote about out-of-range exit values.
+
+11) In "Important System Directories" appendix:
+    Added /var and /boot entries.
+    Additional short notes.
+    Other Minor changes.
+
+12) In the "Sed and Awk Micro-primer" appendix:
+    Corrected explanation of backslash in sed.
+    (Thank you, George Cristian Birzan.)
+
+13) In "Bibliography" section:
+    Added entry for "The Linux USB subsystem."
+
+14) Various minor changes to example scripts.
+
+
+
+
+
+Version 2.7
+Mulberry release, 04/18/04
+
+1) In the "Starting Off With a Sha-Bang" chapter:
+   Added "ex1a.sh" example as a bridge between "ex1.sh" and "ex2.sh"
+   examples.
+   Added a few explanatory notes.
+   Minor revisions to comments in "ex1.sh" and "ex2.sh" examples.
+   Added "$" to variable name in script prolog note.
+   Minor revisions to "Why Shell Programming?" section. 
+
+2) In "Special Characters" chapter:
+   In in-line example at "Control-K" entry, expanded explanation of
+   effect of a vertical tab.
+   (Thank you, Lee Maschmeyer.)
+   Minor rewording at "`" (backticks), "\" (escape), and other entries.
+
+3) In "Quoting" chapter:
+   Slight rewording of note about certain programs expanding special
+   characters in a quoted string.
+   Dropped word "apparently" from footnote on quoting "!" character.
+
+4) In "/dev" section of "/dev and /proc" chapter:
+   Added short explanation of Bash's treatment of /dev/tcp/host/port
+   pseudo-device files.
+   Added footnote defining a socket.
+   Added use of /dev/sda1 in mounting a USB flash drive.
+   Added examples of getting the time from a remote network
+   and downloading a URL -- using /dev/tcp.
+   (Thank you, Mark.)
+
+5) In "/proc" section of "/dev and /proc" chapter:
+   Added "cat /proc/apm" to list of 'proc' examples.
+   Redid first parsing example.
+
+6) In the "Portability Issues" section of the "Miscellany" chapter:    
+   Added discussion of using !#/bin/sh to run scripts.
+   (Thank you, Ian D. Allen.)
+
+7) In "Assorted Tips" section of "Miscellany" chapter:
+   Added redirecting stderr to stdout in "if-grep" test.
+   (Thank you, Chris Martin.)
+   Added tip about setting PATH and umask at beginning of script.
+   (Thank you, Ian D. Allen.)
+
+8) In "System and Administrative Commands" chapter:
+   At "ifconfig" entry, added "ifconfig -a" output example.
+   At "hostname" entry, added note about "domainname" and similar
+   commands.
+   At "netstat" entry, added screen output example.
+
+9) In "Text Processing" section of "External Commands" Chapter:   
+   Added comment (suggested modification) to "wf.sh" example.
+   (Thanks, Arun Giridhar.)
+   At "grep" entry, added method of searching for two different patterns,
+   with usage example.
+
+10) In "Internal Commands and Builtins" chapter:
+    Expanded "ex43.sh" example.
+
+11) In "Comparison Operators" section of "Tests" chapter:
+    Changed section title.
+    Added brief intro paragraph.
+    At "==" entry, added note and embedded pre-existing example within it.
+
+12) In "Regular Expressions" chapter:
+    In "Brief Introduction to Regular Expression" Section:
+      Added sidebar with example of testing an RE.
+    In "Globbing" Section:
+      Fixed typo in footnote 1.
+      (Thanks (Asheesh Soni.)
+
+13) In "Copyright" chapter:
+    Added URL for French translation.
+
+14) In "Contributed Scripts" appendix:
+    Replaced "tree.sh" script with a simplified version,
+    revised by Rick Boivie.
+
+15) Added "To Do List" appendix.
+
+16) Changed all "process id" references to "process ID" to avoid
+    confusion.
+
+17) Minor cleanups and fixups to various scripts.
+
+
+
+Version 2.6
+'SALAL' release, 03/15/04
+
+1) In "Exit and Exit Status" chapter,
+   Added comment to inline example discussing negation of a 'true' command.
+   (Thanks, Kristopher Newsome.)
+
+2) Added "Standard Command-Line Options" appendix.
+
+3) In "Basic Commands" section of "External Commands" Chapter:   
+   At 'cat' entry, added discussion of redirecting stdin as an
+   alternate to 'cat.'
+   Fixed a typo in "ex40.sh" example script.
+   (Thanks, Thiers Botelho.)
+   Updated URL in comment in "ex40.sh" example script.
+
+4) In "Miscellaneous Commands" section of "External Commands" Chapter:   
+   Added "sox" entry.
+   At 'dd' entry, did some minor fixups on "blot-out.sh" example.
+   At 'dd' entry, added "self-copy.sh" example.
+   At 'dd' entry, converted "exercising dd" in-line example to
+   an external shell script example, with some modifications.
+
+5) In the "Starting Off With a Sha-Bang" chapter:
+   Added listing of Open Group site to POSIX footnote.
+
+6) In "System and Administrative Commands" chapter:
+   At "passwd" entry: Simplified "setnew-passwd.sh" example.
+   Added "setterm" entry in Terminal Commands section.
+
+7) In "Internal Variables" section of "Variables Revisited" chapter:
+   Added material at "$PIPESTATUS" entry.
+   Minor changes in discussion of 'eval' entry.
+   Modified "rot14.sh" example.
+   Minor changes in comments in "ex44.sh" example.
+   At "piping to a while-read" note, added "gendiff" code fragment.
+
+8) In "$RANDOM" section of "Variables Revisited" chapter:
+   Removed an unnecessary line from "random-test.sh" example.
+
+9) In "Complex Commands" section of "External Commands" Chapter:   
+   At "find" entry, added short in-line example of removing core dump files.
+   At "xargs" entry, added paragraph about curly brackets.
+   Made minor stylistic changes to "wf2.sh" example.
+   Additional explanatory comments in "ex42.sh" example.
+   Additional comment in "idelete.sh" example.
+
+10) In "Time/Date Commands" section of "External Commands" chapter:
+    Added a couple of words at "zdump" listing.
+    Reformatted short in-line examples at "sleep" and "usleep" listings.
+
+11) In "Communications Commands" section of "External Commands" chapter:
+    At "wget" entry, added "quote-fetch" example.
+
+12) In "Internal Commands and Builtins" chapter:
+    At "eval" entry, revisions to discussion and addition
+    of an in-line usage example.
+    Drastically revised "ex44.sh" example.
+
+13) In "Bash, Version 2" chapter:
+    Added an exercise to "resistor-inventory.sh" exercise.
+
+14) In "Loops and Branches" chapter:
+    At "while loops" discussion, added paragraph to final *note*
+    about piping into a loop.
+    Added comments to "ex25.sh" example.
+
+15) In "Process Substitution" chapter:
+    Added example of comparing the output of a command with different
+    options.
+    Added example of comparing contents of different directories.
+
+16) In "Debugging" chapter:
+    At "trap" entry, added "multiple-processes.sh" example.
+    (Thank you, Vernia Damiano.)
+    Added comments to "ex76.sh" example.
+
+17) In "Writing Scripts" section of "Exercises" appendix:
+    In "Difficult" section, added "Word Ladders" exercise .
+
+18) Minor cleanups and fixups to various scripts.
+
+19) In "Bibliography" section:
+    Added entries for comp.os.unix.sh and comp.os.unix FAQs.
+
+
+
+
+Version 2.5
+'STARFRUIT' release, 02/15/04
+
+1) In "I/O Redirection Chapter":
+   At discussion of redirection of multiple output streams,
+   Added information about order of operations being important.
+   (Thanks, Paulo Marcel Coelho Aragao.)
+
+2) In "Redirecting Code Blocks" section of "I/O Redirection" chapter:
+   Fixed error in comment in example "redir4.sh."
+     Old = # More concise is     line_count=$(wc < "$Filename")
+     New = # More concise is     line_count=$(wc -l < "$Filename")
+   Simplified example "redir2a.sh."
+   (Thanks, Paulo Marcel Coelho Aragao, for all of the above.)
+
+3) In "Here Documents" chapter:
+   Minor rewrite of beginning paragraphs.
+   Clarified comment in "generate-script.sh" example.
+   Amended warning near end of chapter to include trailing whitespace
+   on a "limit string" line, as well as leading whitespace. Added
+   explanatory paragraph.
+   Noted that the "-" option marking a limit string suppresses only leading
+   tabs. Modified comments in "ex71a.sh" example to reflect this.
+   (Thanks, Paulo Marcel Coelho Aragao, for all of the above.)
+   Fixed two minor errors in "self-document.sh" example script.
+   (Thanks, Markus Wolf.)
+
+
+4) In "Command Substitution" chapter:
+   Added footnote at beginning of chapter giving technically correct
+   explanation of what happens.
+   Added link in first footnote.
+   Noted that `...` and $(...) treat a "\\" differently..
+   (Thanks, Paulo Marcel Coelho Aragao, for pointing this out.)
+
+5) In "System and Administrative Commands" chapter:
+   At "passwd" entry:
+     Fixed typo (omitted word "command").
+     Added mention of "-l," "-u," and "-d" options.
+     Broke out "setnew-passwd.sh" as an external example.
+   Moved "MAKEDEV" entry to just below "mknod."
+   Added "usermod," "groupmod," "iwconfig,"
+  "lsusb / usbmodules," "modinfo," and "setquota" entries.
+
+6) In "Basic Commands" section of "External Commands" Chapter:   
+   At "rm" entry, added note about removing filenames beginning with
+   a dash.
+
+7) In "Communications Commands" section of "External Commands" chapter:
+   Added "chfn" entry.
+
+8) In "Complex Commands" section of "External Commands" Chapter:   
+   At "xargs" entry, added "kill-byname.sh" example script.
+
+9) In "Complex Functions and Function Complexities" chapter:
+   section of "Functions" chapter:
+     In discussion of capturing output of a function, corrected reference
+     of "parameter substitution" to "command substitution."
+     In "max2.sh" example, corrected typo and misleading comment.
+     In "count_lines_in_etc_passwd" in-line example, added comment.
+     In "ref-params.sh" example, added comment (almost) clarifying
+     a particularly difficult construct. (Paulo Marcel Coelho Aragao)
+
+     Modified note about being unable to dereference passed parameter to
+     a function. Removed "note" and made it into an ordinary paragraph.
+     Added "ind-func.sh" example of passing an indirect reference to a
+     function. Added Bruce W. Clare's "dereference.sh" example of
+     dereferencing a parameter passed to a function.
+
+10) In "Assorted Tips" section of "Miscellany" chapter:
+    At discussion of using stdout to capture function "return value(s),"
+    added parenthetical clarification.
+
+11) In "Regular Expressions" chapter:
+    Removed specific reference tying UNIX to use of REs.
+    Noted that GNU tools allow extended REs if escaped.
+    Removed brackets from RE character sets where unnecessary and
+    misleading.
+    In "Globbing" Section:
+    Corrected note about 'echo' performing wildcard expansion.
+    (Thanks, Paulo Marcel Coelho Aragao, for all of the above.)
+    Broke 'echo' filename expansion examples out of main "screen" block.
+
+12) In "Arithmetic Expansion" chapter:
+    At in-line example code,
+      Fixed comment about quotes enclosing "special characters."
+      Noted that within double parens, parameter dereferencing is optional.
+    (Thanks, Paulo Marcel Coelho Aragao.)
+
+13) In "Gotchas" chapter:
+    Fixed "bad-op.sh" example (misuse of string comparison
+    operators). Added much additional explanatory material to it.
+    Broke it out as an external example.
+    (Thanks, Paulo Marcel Coelho Aragao, for the hint.)
+
+14) In "Subshells" chapter:
+    Additional comment at code snippet for testing whether a
+    variable is defined.
+    Modification of code snippet testing for a lock file.
+    (Thanks, Paulo Marcel Coelho Aragao, for both of the above.)
+
+15) In "/dev and /proc" chapter:
+    Added Troy Engel's "dev-tcp" example script.
+
+16) In "Bibliography" section:
+    Added "Mastering Regular Expressions (Friedl)" reference.
+    (Thanks, Paulo Marcel Coelho Aragao, for the suggestion.)
+    Added reference to William Park's Bash enhancement project.
+
+17) In "Contributed Scripts" appendix:
+    Did some very minor polishing on "days-between.sh" script.
+    Added Troy Engel's "archiveweblogs.sh" example.
+
+18) In "Writing Scripts" section of "Exercises" appendix:
+    Added "Logging Logins" problem to "Intermediate" section.
+    Added optional section to "Word-Find" problem.
+    Fixed typo in "Playfair Cipher" problem.
+
+19) Added "Important System Directories" appendix.
+
+20) At various points in the text, corrected maximum return value
+    of a function to 255 (was 256).
+
+
+
+
+Version 2.4
+'MUSKMELON' release, 01/25/04
+
+1) In "Loops and Branches" chapter:
+   Fixed comment in "continue-nlevel.sh" example.
+   Minor fine-tuning of "bin-grep.sh" example.
+   Added comment to "symlinks.sh" example.
+   (Thanks, Paulo Marcel Coelho Aragao, for all of the above.)
+
+2) In "Operations and Related Topics" chapter:
+   Added counting method in "arith-ops.sh" example.
+   (Thanks, David Lombard.)
+   Minor comment addition to "and-or.sh" example.
+
+3) In "Internal Commands and Builtins" chapter:
+   Fixed error in comment in "ex44.sh" example.
+   Corrected discussion at "getopts" entry.
+   (Thanks, Paulo Marcel Coelho Aragao.)
+   Fixed comment misnaming $IFS.
+   (Thanks, Mike Latimer.)
+
+4) In "$RANDOM" section of "Variables Revisited" chapter:
+   Simplified dice throw section of "ex21.sh" example.
+   Alternate formula in "random-between.sh" example.
+   (Thanks, Paulo Marcel Coelho Aragao, for both of the above.)
+
+5) In "Arithmetic Expansion" chapter:
+   Added use of (( stand-alone expression )) to in-line
+   usage example.
+
+6) In "Basic Commands" section of "External Commands" Chapter:   
+   At "ln" entry, added "hello.sh" example
+   (link at "$0" entry in "Special Variable Types" section
+   of "Introduction to Variables and Parameters" chapter.)
+
+7) In "File and Archiving Commands" section of "External Commands" Chapter:
+   Fixed error in command-line args check in "strip-comments.sh" example.
+   Removed unnecessary 'eval' from "strip-comments.sh" example.
+   (Thanks, Paulo Marcel Coelho Aragao, for both of the above.)
+   Fixed a subtle logic error in "file-integrity.sh" example.
+   (Thanks, Paulo Marcel Coelho Aragao, for bringing the error
+   to my attention.)
+
+8) In "Communications Commands" section of "External Commands" chapter:
+   Clarified explanation of "ipcalc" entry.
+   Corrected "ping" entry.
+   (Thanks, Paulo Marcel Coelho Aragao, for directing my attention
+   to these.)
+
+9) In "Complex Commands" section of "External Commands" Chapter:   
+   Added comment to "ex57.sh".
+   (Thanks, Paulo Marcel Coelho Aragao.)
+
+10) In "Internal Variables" section of "Variables Revisited" chapter:
+    Changed description of "$IFS" entry to correctly read "internal
+    field separator.
+    (Thanks, Mike Latimer.)
+    Added short introductory paragraph to "$IFS" entry.
+
+11) In "System and Administrative Commands" chapter:
+    Renamed "crond" entry to the more traditional "cron,"
+    and noted that "crond" is Matthew Dillon's version.
+    Added explanatory notes to "id" and "logname" entries.
+    (Thanks, Paulo Marcel Coelho Aragao, for all of the above.)
+
+12) In "Math Commands" section of "External Commands" chapter:
+    Added Paulo Mercel coelho Aragao's comment to "base.sh" example.
+
+13) In "Time/Date Commands" section of "External Commands" chapter:
+    Simplified "ex51.sh" example by eliminating an unnecessary 'eval.'
+   (Thanks, Paulo Marcel Coelho Aragao.)
+
+14) In "Miscellaneous Commands" section of "External Commands" Chapter:   
+    Cleaned up in-line example at "mcookie" entry.
+    Corrected description of "objdump" entry.
+    Corrected "getopt" entry.
+   (Thanks, Paulo Marcel Coelho Aragao.)
+
+15) In "Text Processing Commands" of "External Commands and Filters"
+    chapter:
+    Added comment to in-line example at "grep" entry.
+
+16) In "Functions" chapter:
+    Added material to "ex59.sh" example.
+
+17) In "Tests" chapter:
+    Added "if grep" example at "if" entry.
+    (Thanks, Michel Briand.)
+
+18) In "Here Documents" chapter:
+    Added comment block to "ex71.sh",
+    explaining how to redirect stdout to a file.
+    Added in-line example of setting a variable
+    from the output of a here document.
+    (Thanks, Jason Parker, for both of the above.)
+
+19) In "Arrays" chapter:
+    Fixed errors in comments in in-line "Nested Array" example.
+    Added clarification and comments to "array-assign.bash" example.
+    (Thank you, William Park, for both of the above.)
+    After "array-assig.bash" example, added note about speeding up
+    execution using an "unnecessary" 'declare -a' in an array declaration.
+
+20) In "Gotchas" chapter:
+    Added problem with "tail -f" piped to a "grep" while trying to
+    write the stdout to a file.
+    (Thanks, TKVoice Author, for bringing this to my attention.)
+
+21) In "Options" chapter:
+    Minor revisions to "Bash options" table.
+
+22) In "Revision History" appendix:
+    Changed format to a table.
+
+23) Restored truncated version of Revision History to front matter.
+    It turns out that this is required Docbook metadata, per the LDP.
+   
+
+
+
+Version 2.3
+'STRAWBERRY' release, 12/28/03
+
+1) In "Parameter Substitution" section of "Variables Revisited" chapter:
+   Fixed typo ("code code") at "${parameter=default}" entry.
+   (Thank you, Ken Harrenstien.)
+   Simplified usage example of "${var#Pattern}.
+   Added more elaborate alternate.
+   (Thank you, Manfred Schwarb.)
+
+2) In "Operations and Related Topics" chapter:
+   Noted that as of version 2.05b, Bash supports 64-bit integers.
+   (Thank you, Ken Harrenstien.)
+
+3) In "Options" chapter:
+   Clarified "single-dash" versus "double-dash" invocation of options.
+
+4) In "Internal Commands" chapter:
+   Applied fix to "eval.example" example.
+   (Thanks, Paulo Marcel Coelho Aragao.)
+
+5) In "Text Processing Commands" of "External Commands and Filters" chapter:
+   Modified "wf.sh" example to also filter out commas.
+
+6) In "Basic Commands" section of "External Commands" Chapter:   
+   At "ln" discussion, fixed error and added John MacDonald's lucid
+   explanation of the difference between a hard and soft link.
+
+7) In "Complex Commands" section of "External Commands" Chapter:   
+   At "xargs" discussion, added "wf2.sh" example script.
+
+8) In "Special Characters" chapter:
+   Modified "ex58.sh" example to include creation date in name of
+   backup file. (Thanks, Joshua Tschida.)
+   Added listing for "Ctl-Q." (Thanks, Jeremy Weatherford.)
+   Fixed erroneous comment at ": >>" entry. (Thanks, Mitchlan Landers.)
+
+9) In "Time/Date Commands" section of "External Commands" chapter:
+   At "date" discussion, added "ex58" cross-reference
+   and using "date" to generate 6-digit random integers.
+
+10) Bash, version 2.05b, no longer supports large negative integer
+    return values. This required changing some text and rewriting the
+    example scripts "max2.sh" and "return-test.sh" in the "Functions"
+    chapter. Also, the "days-between.sh" script in the "Contributed
+    Scripts" appendix needed modification. It serves me right for
+    using undocumented features.
+
+11) In "Functions" chapter:
+    Added subsection on recursion in a function, without using local
+    variables. Added Amit Singh's wonderfully recursive "Towers of Hanoi"
+    (hanoi.bash) example script.
+
+12) In "Gotchas" chapter:
+    Added discussion of hazards of using undocumented features in Bash.
+
+13) In "Internal Variables" section of "Variables Revisited" chapter:
+    Revised discussion of "$TMOUT" variable to reflect
+    changes in version 2.05b of Bash. Provided inline usage example.
+
+14) In "Here Documents" chapter:
+    Minor stylistic change in introductory paragraph.
+
+15) In "Globbing" section of "Regular Expressions" chapter:
+    Added discussion of changing globbing behavior using "set -f" and
+    "nocaseglob" and "nullglob" options to 'shopt.'
+
+16) In "Arrays" chapter:
+    Fixed error in comment in "array-ops.sh" example.
+    (Paulo Marcel Coelho Aragao and Emilio Conti both pointed this out.)
+    Fixed error in comment in "array-strops.sh" example.
+    (Thanks, Paulo Marcel Coelho Aragao.)
+    Fixed misleading comment in "ex67.sh" example,
+    and added comment about use of "@" and "*" in array notation
+    being analogous to $@ and $*.
+    (Thanks, Paulo Marcel Coelho Aragao.)
+    Removed unnecessary instances of "declare" from "empty-array.sh"
+    example.
+    (Thanks, Paulo Marcel Coelho Aragao.)
+    Simplified in-line example demonstrating loading of the contents
+    of a file into an array.
+    (Thanks, Paulo Marcel Coelho Aragao.)
+    Added comments suggesting a simplification in "bubble.sh" example.
+    (Thanks, Paulo Marcel Coelho Aragao.)
+
+17) In "Contributed Scripts" appendix:
+    Added Konstantin Riabitsev's "usb.sh" example.
+    Fortunately, the script is GPL, which is compatible
+    with the ABS Guide license.
+
+18) In "Analyzing Scripts" section of "Exercises" appendix:
+    Minor stylistic changes in commentary.
+
+19) In "Copyright" chapter:
+    Added links for Russian and Italian translations.
+
+20) Moved the Revision History to the back of the book, into an
+    appendix of its own.
+    (I have had numerous requests to do this.)
+
+
+
+
+Version 2.2 'CRANBERRY' release, 11/01/03
+Comments: Major release.
+          Much new material added.
+
+1) In "Text Processing Commands" of "External Commands and Filters" chapter:
+   Fixed up listing of "gettext."
+   (Thanks, Bruno Haible.)
+   Added "msgfmt."
+   Renamed "du.sh" example to "Du.sh" to avoid confusion with system 'du"
+   command.
+   (Thank you, Bill Gradwohl.)
+
+2) In "Typing Variables" section of "Variables Revisited" chapter:
+   At 'declare,' added example of arithmetic operations enabled
+   with '-i' option.
+   Fixed term heading to "-x var=$value." (Thank you, Bill Gradwohl.)
+
+3) Modified "Localization" appendix, per suggestions by Bruno Haible.
+
+4) In "Internal Variables" section of "Variables Revisited" chapter:
+   Added '$PROMPT_COMMAND.'
+   Fixed an error in "arglist.sh" example.
+   Added Bjön Eriksson's "readpipe.sh" example.
+
+5) In "Local Variables" section of "Functions" chapter:
+   Modified note in example script in footnote 2.
+   (Thanks, Zhao You Bing.)
+
+6) Fixed up references to my own "yawl" package, to reflect
+   the latest update.
+
+7) In "Writing Scripts" section of "Exercises" appendix:
+   In "Difficult" section, added "Testing Passwords" exercise .
+
+8) In "Subshells" chapter:
+   In in-line script example that tests whether variable is set,
+   noted that this also tests whether that variable is present
+   in the environment (exported).
+   (Thank you, Mr. Fred.)
+
+9) In "Comparison Operators" section of "Tests" chapter:
+   Corrected typos in "str-test.sh" example.
+   (Thank you, Bill Gradwohl.)
+
+10) In "Internal Commands" chapter:
+    Fixed a typo in "ex46.sh" example.
+   (Thank you, Bill Gradwohl.)
+    Fixed a typo in "ex33.sh" example,
+    and implemented changes to explain what OPTIND does.
+   (Thank you, Bill Gradwohl.)
+
+11) In "Information and Statistics" subsection of "System and
+    Administrative Commands" chapter:
+    Substituted better example of 'sar' output.
+    (Thank you, Sebastien Godard.)
+
+12) In "Local Variables " section of "Functions" chapter:
+    Fixed up "ex62.sh" example.
+   (Thank you, Bill Gradwohl.)
+
+13) In "Basic Commands" section of "External Commands" Chapter:   
+    Added to discussion of 'ln.'
+    Fixed typo in in-line example listing at 'cat,tac.'
+   (Thank you, Bill Gradwohl.)
+
+14) In "Miscellaneous Commands" section of "External Commands" Chapter:   
+    Corrected "ex33a.sh" example.
+    Noted that 'getopt' permits long options.
+   (Thank you, Eric Levy.)
+
+15) In "RANDOM" section of "Variables Revisited" chapter:
+    Noted exception in "Jipe" method of generating random numbers
+    within a given range.
+    Added improved formula for generating randoms within a range.
+   (Thank you, Bill Gradwohl.)
+   Added "random-between.sh" example for generating randoms within a range.
+   (Thank you, Bill Gradwohl.)
+
+16) In "Arrays" chapter:
+    Changed in-line example of miscellaneous array operations
+    to an external shell script and enhanced it, per suggestions
+    by Michael Zick.
+    Added "array-strops.sh" example of using string manipulation operations
+    on arrays.
+    Added "array-assign.bash" script.
+    Added "array-append.bash" script.
+    (Thank you, Michael Zick.)
+
+17) In "Special Characters" chapter:
+    At "Control Characters," section, added Ctl-B, Ctl-I, Ctl-S, and
+    Ctl-K listings.
+    Fixed listing for Ctl-M (Thanks, Lee Maschmeyer.)
+    Also added Lee Maschmeyer's in-line example.
+
+18) In "Gotchas" chapter:
+    At "Piping echo output . . . " inserted missing space.
+
+19) In "Exit and Exit Status" chapter:
+    Added material to discussion of "bare" exit.
+
+20) Added "Where to Go For Help" section
+    to "Endnotes" chapter.
+
+21) In the "Sed and Awk Micro-primer" appendix:
+    Added "nyal's" "letter-count.sh" script.
+
+22) In "Contributed Scripts" appendix:
+    Added Michael Zick's "protect_literal.sh" script.
+    Added Michael Zick's "unprotect_literal.sh" script.
+    Added Michael Zick's "basics-reviewed.bash" script.
+
+23) In "Bibliography" section:
+    Added 'Bash Navigator' listing.
+    Added 'GNU Bash Reference Manual' listing (thanks, Brian Gough).
+
+24) Miscellaneous cleanups on example scripts.
+
+
+
+
+
+Version 2.1
+'HUCKLEBERRY' release, 09/14/03
+
+1) In Appendix B, "Reference Cards:
+   Fixups --
+   (thanks to errors brought to my attention by Heiner Steven).
+
+2) In Appendix B, "Reference Cards:
+   Added "Miscellaneous Construct" table.
+   Added variable prefix matching to "Parameter Substitution" table.
+
+3) In "Internal Variables" section of "Variables Revisited" chapter:
+   Noted that "$*" must be quoted to differentiate it from "$@" variable,
+   and added a case to "arglist.sh" example to demonstrate this.
+   (Thanks, Heiner Steven.)
+
+4) In "Command Substitution" chapter:
+   Added note about the invocation of a subshell.
+   Likewise added note in "setting variable to a file" in-line example.
+   (Thanks, Paul Heffner.)
+   Removed erroneous comment from in-line example of
+   setting a variable to contents of a file.
+   (Thanks, Anthony Richardson.)
+
+5) In "Arrays" chapter:
+   Added "script-array.sh" example.
+   (Thanks, Chris Martin, for the inspiration.)
+
+6) In "System Resources" subsection of "System and Administrative
+   Commands":
+   Fixed minor error ("while 1") in 'ulimit' illustrative script.
+   (Thanks Emmanuel Chantreau)
+
+7) In "Subshells" chapter:
+   Added a paragraph of commentary concerning external commands and Bash
+   builtins.
+
+8) In "Special Characters" chapter:
+   Elaborated example of ';' usage.
+
+9) In "Gotchas" chapter:
+   Added in-line example of problem caused by piping to a loop.
+   (Thanks Anthony Richardson.)
+
+10) In "System and Administrative Commands" chapter:
+    Added more info to "sar" listing.
+
+11) In "Writing Scripts" section of "Exercises" appendix:
+    Added "Monitoring Processes" exercise.
+
+12) In "Recursion" section of "Miscellany" chapter:
+    Added Anthony Richardson's "usrmnt.sh" example.
+    (Thanks!)
+
+13) Slight modifications to certain example files for clarification.
+
+
+
+
+
+Version 2.0
+'GOOSEBERRY' release, 08/24/03
+
+Comments:
+In view of the cumulative changes in the last several updates, it's
+bumped up to a major version. This is now officially a "mature" project.
+
+
+
+1) In "Manipulating Strings" section of "Variables Revisited" chapter:
+   Added negative index substring extraction example (Thanks, Dan
+   Jacobson).
+
+2) In "Sed appendix":
+   Changed title of second table, to make it less ambiguous.
+
+3) Changed "Sunsite" address in two examples.
+
+4) Made capitalization of example scripts more consistent.
+
+5) In "Command Substitution" chapter:
+   Fixed typo in backquotes discussion (Thanks, Jiri Beran).
+
+6) In "Process Substitution" chapter:
+   Added clarifying comment to SuSE script fragment (Thanks Ulrich Gayer).
+
+7) In "Invoking the script" section of
+  "Starting Off With a Sha-Bang" chapter:
+   Corrected typo in discussion
+   (" . . . not recommended is using sh <scriptname . . . ")
+   (Thanks, Norman Megill.)
+
+8) In "Quoting" chapter:
+   Corrected typo in final example ("foor" --> "foo").
+   (Thanks, Norman Megill.)
+   Noted that 'echo "\" invokes secondary prompt.
+
+9) In "Here Document" chapter:
+   Shuffled the order of a couple of examples.
+   Added warning about closing 'limit string' starting in first character
+   position on its line, with in-line example. (Also added a mention in
+  "Gotchas" chapter.
+   Added "script-generate.sh" example of generating program code
+   by disabling parameter substitution within the body of a 'here document.'
+   (Thanks, Albert Reiner, for the idea.)
+
+10) In "Miscellaneous" subsection of "System and Administrative Commands":
+    chapter:
+    Added listing for "dialog" toolsets.
+
+11) In "Assorted Tips" section of "Miscellany" chapter:
+    Added discussion of "dialog" toolsets, with "dialog.sh" example.
+
+12) In "Copyright" chapter:
+    Updated notices.
+
+13) Added "Reference Cards" appendix.
+    Thank you, Aurelio Marinho Jargas, for giving me the inspiration.
+
+14) In "Bibliography" section:
+    Added LINUX JOURNAL article, "Scripting for X Productivity" listing.
+    Added Jargas' entry for "Regular Expression wizard."
+
+15) In "Loop Control" section of "Loops and Branches" chapter:
+    Embellished "symlinks.sh" example with Jean Helou's alternative
+    method.
+
+16) Typo fixes supplied by Edward Scholtz (thanks!):
+    "Special Variable Types" section of "Introduction to Variables" chapter
+        "fairly simply way" --> "fairly simple way"
+    "Quoting" chapter
+        "advisable in enclose it" --> "advisable to enclose it"
+
+17) In "Copyright" chapter:
+    Added note about contributors rights.
+    Added mention of Russian translation being underway.
+
+18) Corrected several minor typos in the text and script examples.
+
+
+
+Version 1.9 [Cleanups & revisions]
+'PERSIMMON' release, 06/21/03
+
+1) In "Portabilities Issues" section of "Miscellany" chapter:
+   Added URL for article about Caldera's release of UNIX source.
+   [Yes, indeed, before Caldera reinvented itself as SCO, it had
+   begun to Open Source the code to UNIX.]
+
+2) In "Copyright" chapter:
+   Added trademark notices.
+
+3) In "Arrays" chapter:
+   Added another initialization option to in-line example.
+   Fixed error in comment in "q-function.sh" example.
+   Added "embedded-arrays.sh" example of using indirect references
+   with embedded arrays. (Thank you, Dennis Leeuw.)
+
+4) In "Regular Expressions" chapter:
+   Added mention of "anchors."
+
+5) In "Assorted Tips" section of "Miscellany" chapter:
+   Added in-line example of using "if-test" constructs to comment out
+   code blocks.
+
+6) In "cannon.sh" example:
+   Added comment about firing cannon balls only at the upper right-hand
+   corner. (Thanks, Emilio Conti, for making me think about this.)
+
+7) In "String Manipulation" section "Variables Revisited" chapter:   
+   Fixed two errors in comments of in-line substring replacement example.
+   (Thanks, Emilio Conti.)
+
+8) In "ex21.sh" example:
+   Eliminated unnecessary variable.
+   (Thanks, Emilio Conti.)
+
+9) In "wstrings.sh" example:
+   Eliminated unnecessary variable.
+   (Thanks, Emilio Conti.)
+
+10) In "Comparison Operations" section of "Tests" chapter:
+    Fixed     if ["$a" -gt "$b" ]      Missing space!
+    (Thanks, Thomas Treutner.)
+
+11) In "Communications Commands" section of "External Commands" chapter:
+    Moved "cu" to after "uucp," since it's part of the latter's command set.
+
+12) In "Contributed Scripts" appendix:
+    Corrected error in comment in "makedict.sh" script.
+
+13) In "Copyright" appendix:
+    Updates.
+
+14) Various minor script updates.    
+
+
+
+Version 1.8 [Cleanups & revisions]
+'BREADFRUIT' release, 05/10/03
+
+
+1) Revised "self-document.sh" to remove unnecessary 'cat.'
+
+2) In "cvt.sh" example, quoted target file name and added exercise.
+
+3) Updated Jordi Sanfeliu's e-mail address in "Credits" chapter and in
+  "tree.sh" example script.
+
+4) In "blot-out.sh" script, updated the Peter Gutmann URL.  
+
+5) In "Miscellaneous" subsection of "System and Administrative Commands"
+   chapter:
+   Added "watch" command.
+
+6) In the introduction, in reason not to use shell scripts,
+   Removed misleading reference to Open Source (thank you, Peter Lietz, for
+   pointing this out).
+
+7) In "Quoting" chapter:
+   Added footnote about problem double quoting "!" and "\!".
+   (Thanks, Wayne Pollock.)
+
+8) In "Internal Commands" chapter:
+   Added caution about 'cd //' problem. (Thanks, Wayne Pollock.)
+   Added short example of "$!" usage. (Thanks, Jacques Lederer.)
+
+9) In "Arrays" chapter:
+   Replaced "empty-array.sh" with an extended version.
+   Added note that Bash treats variables as arrays, even if not declared as
+   such.
+   Added example of nested arrays.
+   Added example of copying and concatenating arrays.
+   (All the above thanks to Michael Zick.)
+
+10) In "Tests" chapter:
+    Fixed up "Tests Constructs" section link (finally!).
+
+11) In "Command Substitution" chapter:
+    Added mention of $(<$file) construct.
+
+12) In "Functions" chapter:
+    Added material to nested functions in-line examples.
+
+13) In the "Portability Issues" section of the "Miscellany" chapter:    
+    Added short list of Bash-specific features.
+
+14) In "File and Archiving Commands" section of "External Commands" Chapter:   
+    Added "dos2unix" utility.
+
+15) In "Gotchas" chapter:
+    Added short in-line example of using an uninitialized variable.
+    Added in-line example showing DOS-formatted script failing to run.
+
+16) In "Contributed Scripts" appendix:
+    Added Michael Zick's "directory-info.sh" script.
+
+17) In "Bibliography" section:
+    Updated "The UNIX CD Bookshelf" reference.
+    Added Eric Pement's sed resources page.
+    Removed outdated "Sed F.A.Q." reference.
+    Updated Frisch entry.
+    Updated Shelldorado and Giles Orr entries.
+
+18) Updated sample .bashrc file (Appendix G).   
+
+19) A few minor error corrections and clean ups at various places in the
+    text.
+
+
+
+
+Version 1.7  (minor update)
+'COCONUT' release
+01/05/03
+
+1) In "Special Variable Types" section of "Introduction to Variables and
+   Parameters" chapter:
+   Added note about "$*" and "$@" special variables, and updated "ex17.sh"
+   example to reflect this.
+
+2) In "Manipulating Strings" subsection of "Variables Revisited" chapter:
+   Added "paragraph-space.sh" example.
+
+3) In "Loop Control" section of "Loops and Branches" chapter:
+   Added "continue-n.example" to illustrate use of "continue N" construct.
+   (Thank you, Albert Reiner.)
+
+4) In "Internal Commands" chapter:
+   Added section to "read-redir.sh" example to show setting "$IFS" within a
+   loop. (Thanks, Dim Segebart.) 
+   Added Rory Winston's example of "eval" usage.
+
+5) In "List Constructs" chapter:
+   Deleted erroneous comment in "ex65.sh."
+   (Thank you, Francisco de Jesus Orozco Ruiz.)
+
+6) In "File Test" section of "Tests" chapter:
+   Added "broken-link.sh" example.
+
+7) In "Internal Variables" section of "Variables Revisited" chapter:
+   Added comment on $PIPESTATUS.
+
+8) In "RANDOM" section of "Variables Revisited" chapter:
+   Added the 'jipe' techniques for generating random numbers within a
+   specified range.
+   Added "pick-card.sh" example. Thank you once more, jipe.
+
+9) In "Miscellaneous Commands" section of "External Commands" Chapter:   
+   Amended discussion of "tee" command.
+
+10) In "System and Administrative Commands" chapter:
+    Expanded "ulimit" discussion to include "fork bomb" scenario.
+
+11) In "Aliases" chapter:
+    Slightly revised "alias.sh" example.
+
+12) In "Bibliography" section and as a footnote in "Debugging" chapter:
+    Added reference to Rocky Bernstein's Bash debugger.
+
+13) Various minor fixups on example scripts.
+
+
+
+
+Version 1.6  (minor update)
+'POMEGRANATE' release
+09/29/02
+
+1) In "System and Administrative Commands" chapter:
+   Added "nmap" entry, with in-line usage example.
+
+2) In "Communications Commands" section of "External Commands" chapter:
+   Revised "self-mailer.sh" example.
+
+3) In "Miscellaneous Commands" section of "External Commands" Chapter:   
+   Added "objdump" entry, with usage example.
+
+4) In "File and Archiving Commands" section of "External Commands" Chapter:   
+   Added "readlink" entry.
+
+5) In "/dev and /proc" chapter:
+   Added example of extracting information from a /proc file.
+
+6) Moved Chapter 3, "Exit and Exit Status" ahead 3 positions, to make it
+   Chapter 6. This makes the organization of the first part of book more
+   logical.
+
+7) In "List Constructs" chapter:
+   Added discussion of using an "and list" to supply a default command-line
+   argument.
+
+8) In "Quoting" chapter:
+   Rewrote "Of course, grep [Ff]irst *.txt would not work."
+     This does work under Bash, and fails under tcsh.
+     (Thanks, Simon Williams.)
+   Added example of hexadecimal character assignment to "escaped.sh" example.
+     (Thanks, Greg Keraunen.)
+
+9) In "Special Variable Types" section of "Introduction to Variables and
+   Parameters" chapter:     
+   Showed how to reference the last command-line parameter.
+
+
+10) In "Internal Commands" chapter:
+    Added cautionary note about setting and exporting a variable in a single
+    operation (thanks, Greg Keraunen).
+    Added use of '-n' option to "read" to detect keypress of arrow keys,
+    with "arrow-detect.sh" example.
+    (thanks, Sandro Magi).
+
+11) In "Assorted Tips" section of "Miscellany" chapter:
+    Added example of using "whatis" to test for an invoked command and do a
+    workaround if necessary.
+
+12) In "Colorizing Scripts" section of "Miscellany" chapter:
+    Fixed typo in comment in "color-echo.sh" example.
+
+13) In "Debugging" chapter:
+    Added note about syntax error messages possibly ignoring comment lines
+    when calculating the line number of the error. (Thanks, Keith Matthews)
+
+14) Wrote a short introduction to "Part 4: Advanced Topics."
+
+15) In "Writing Scripts" section of "Exercises" appendix:
+   In "Intermediate" section", added "Mailing List" exercise.
+
+16) In the "Sed and Awk Micro-primer" appendix:
+    Added discussion and example of single-quoted 'sed' editing command not
+    working.
+
+17) In "Bibliography" section:
+    Updated entry for "Sed F.A.Q." / "Do It With Sed."
+
+18) Various minor fixups on example scripts.    
+ 
+
+
+
+Version 1.5 (major update)
+'PAPAYA' release
+07/13/02
+
+1) In "Basic Commands" section of "External Commands and Filters"
+   Added "man, info" entry.
+   At "ls," added comments to "ex40.sh" example.
+
+2) In "File and Archiving Commands" section of "External Commands and Filters"
+   section:
+   Moved "shred" to "Utilities" subsection and did minor rewriting of entry.
+   Fixed minor error in "de-rpm.sh" example.
+   Added "mktemp" entry.
+   Added "rpm" entry, with usage examples.
+   Added "rpm2cpio" entry.
+
+3) In "Math Commands" section of "External Commands" chapter:
+   Split "bc" and "dc" into separate entries.
+   At "bc", added "cannon.sh" example.
+
+4) In "Miscellaneous Commands" section of "External Commands" Chapter:   
+   At "mcookie" entry, added "tempfile-name.sh" example.
+   At "seq" entry, added section to "ex53.sh" example.
+   Added "units" entry, with "unit-conversion.sh" example.
+   Added "doexec" entry.
+   More info at "pathchk" entry.
+
+5) In "Communications Commands" section of "External Commands" chapter:
+   Added usage example at "host" entry.
+   Revised "finger" entry.
+   Added "ipcalc" entry.
+   Added "mailto" entry.
+   Added "wget" entry.
+   Added "lynx" (with "-dump" option) entry.
+   More info at "nslookup."
+   More info at "dig."
+   More info at "traceroute."
+
+6) In "Time/Date Commands" section of "External Commands" chapter:
+   More info at "usleep" entry.
+
+7) In "Terminal Control Commands" section of "External Commands" chapter:
+   Added more options at "tput" entry.
+   Added "infocmp" entry, with usage example.
+
+8) In "File and Archive Commands" section of "External Commands" Chapter:   
+   Added info at "diff" entry.
+
+9) In "Complex Commands" section of "External Commands" Chapter:   
+   At "find" entry, clarified introductory remarks, and added info.
+
+10) In "Internal Commands and Builtins" chapter:
+   At "source" entry, added "self-source.sh" example.
+   At "shopt" entry, fixed up usage example.
+
+11) In "Job Control Commands" section of "Internal Commands":
+    Added comments to "self-destruct.sh" example.
+
+12) In "Testing and Branching" subsection of "Loops and Branches" chapter,
+    Improved "isalpha.sh" example (added integer test function).
+
+13) In "System and Administrative Commands" chapter:
+    Added "passwd" entry, with in-line illustrative script.
+    Added "readelf" entry.
+    Added "size" entry.
+    More discussion in "Modules" subsection.
+    Added usage example at "dmesg" entry.
+
+14) In "Assorted Tips" section of "Miscellany" chapter:
+    Added "Colorizing Scripts" section, with "ex30a.sh" and
+   "color-echo.sh" examples.
+    Added "agram.sh" example of iterated piping to a filter.
+
+15) In "Optimizations" section of "Miscellany" chapter:
+    Added "avoiding unnecessary commands."
+
+16) In "Arrays" chapter:
+    Added "poem.sh" example.
+
+17) In "Regular Expressions" chapter:
+    Clarifications and error corrections on "Extended Regular Expressions"
+    section (thanks, Peter Tillier).
+
+18) In "Tests" chapter:
+    Added code to "arith-tests.sh" example.
+
+19) In "Parameter Substitution" chapter:
+    At "${parameter-default}", added usage when command-line parameters in a
+    script are "missing."
+    At "${paramter?err_msg}", added "usage-msg.sh" example.
+
+20) In "Functions" chapter:
+    Added info to "ex60.sh" example.
+
+21) In "Gotchas" chapter:
+    Added material to "badread.sh" example.
+
+22) In "Special Characters" chapter:
+    Added usage examples at "*" entry.
+
+23) In "Variable Substitution" section of "Introduction to Variables" chapter:
+    Added in-line example of using uninitialized variable in arithmetic
+    operations.
+
+24) In "Bash Variables are Untyped" section of "Introduction to Variables"
+    chapter:
+    Rewrote "int-or-string.sh" example.
+
+25) Renamed "Oddities" section of "Miscellany" chapter to "Recursion",
+    and moved it forward.
+
+26) In "Starting off with a Sha-Bang" chapter:
+    Added commentary and script snippet to footnote [2].
+
+27) Slight revision to introduction to the book.
+
+28) In "Contributed Scripts" appendix:
+    Added "soundex.sh" example.
+    Fixed minor typo in lead-in to "obj-oriented.sh" example.
+
+29) In "Writing Scripts" section of "Exercises" appendix:
+    Added "Justification" exercise to "Intermediate" section.
+    Added "Buffon's Needle" exercise to "Difficult" section.
+    Added "Chasing Spammers" exercise to "Difficult" section.
+
+30) In "Bibliography" section:
+     Added Steve Parker entry.
+
+31) Added Landon Noll epigraph to end of "Scripting With Style" chapter.
+
+32) Various minor cleanups and additions to example scripts.   
+
+
+
+Version 1.4 (minor update)
+'MANGO' release
+06/16/02
+
+1) In "Special Characters" chapter:
+   Added "<" and ">" ASCII comparison entry.
+   Added "\<" and "\>" word boundary in a regular expression entry.
+   Added "&>" to redirection characters.
+   Added "history mechanism" comment to "!" entry.
+
+2) In "Debugging" chapter:
+   Added "missing-keyword.sh" example of error message, with note.
+   Minor language clarification.
+
+3) In "Tests" chapter:
+   Added material to "ex11.sh" example.
+   Changed "cmp a b >/dev/null" inline example to "cmp a b &>/dev/null
+     (thanks Baris Cicek).
+
+4) In "I/O" Redirection chapter:
+   Added "&>filename" to redirection chart.  
+
+5) In "Of Zeros and Nulls" chapter:     
+   Added comment to "suppressing output" inline example.
+
+6) In "External Commands and Filters" chapter:
+   Moved "diff", "patch", "diff3", "sdiff", "cmp", and "comm" from "Text
+   Processing Commands" section to "File and Archiving Commands" section, and
+   created a "Comparison" subsection for them.
+   Moved "ptx" from "Text Processing Commands" section to "File and Archiving
+   Commands" section.
+   Gave the sections descriptive subtitles.
+
+7) In "Text Processing Commands" of "External Commands and Filters" chapter:
+   Added tests to "file-comparison.sh" example.
+   At "head", added "script-detector.sh" example.
+
+8) In "Miscellaneous Commands" section of "External Commands" Chapter:   
+   Added "mcookie" entry.
+
+9) In "Math Commands" section of "External Commands" chapter:
+   At "bc/dc" entry, added "hexconvert.sh" and "factr.sh" (thanks, Michel
+   Charpentier) examples of using "dc."
+
+10) In "List Constructs" chapter:
+    Minor rewriting of "ex65.sh" example.
+
+11) In "Contributed Scripts" appendix:
+    Added "blank-rename.sh" example.
+
+12) In "Writing Scripts" section of "Exercises" appendix:
+    Added detail to "Safe Delete" exercise and moved it to "Intermediate"
+    subsection.
+    Added "Automatically Decompressing Files" exercise ("Easy" section).
+    Added "Lottery Numbers" exercise ("Easy" section).
+    Added "Passwords" exercise ("Intermediate" section).
+    Added "Fog Index" exercise ("Difficult" section).
+
+13) In the "Security Section" of the "Miscellany" chapter:
+    Added 'Unix Scripting Malware' reference to the footnote.
+
+14) In "Starting off with a Sha-Bang" chapter,
+    Fixed typo in comment in "ex2.sh" example ('wtemp' --> 'wtmp')
+      Thanks for pointing this out, Julien Reveret.
+
+15) In "Internal Commands and Builtins" chapter:
+    At "read" entry, added in-line example of using "cat" to pipe to a
+    "read".
+
+16) In "Optimizations" section of "Miscellany" chapter:
+    Added text.
+
+17) Numerous typos corrected from a list sent in by Andreas Abraham (thanks!).   
+    [Imagine that, I've been misspelling "Eratosthenes" since the 8th grade.]
+
+
+
+
+Version 1.3
+'TANGERINE' release
+06/02/02
+
+1) In "Arrays" chapter:
+   Revised the "bubble.sh" example script by splitting the array variable.
+
+2) In "Here Documents" chapter:
+   Clarified introduction.
+   Added using a here document to comment out a block of code (thanks, Adam
+   Lazur for pointing this out), with "commentblock.sh" example.
+   Added a "self-documenting" script example ("self-document.sh").
+   Added using a here document to supply input to a function, with
+   "here-function" illustrative example.
+
+3) In "Contributed Scripts" appendix:
+   Modified "life.sh" example to accept different startup file as a parameter
+   at invocation.
+   Added "makedict.sh" example.
+
+4) In "Exercises" appendix:
+   Added "sum matching numbers" exercise.
+
+5) In "Oddities" section of "Miscellany" chapter:
+   Added Rick Boivie's "pb.sh" script as a recursive script example.
+
+6) In "Optimizations" section of "Miscellany" chapter:
+   Editing of "loops" paragraph.
+   Added cross-reference to "monthlypmt.sh" script.
+
+7) In "Parameter Substitution" chapter:
+   Fixed typos at "${var/#patt/replacement}" and "${var/#patt/replacement}"
+   discussion (thank you, Dr. Claudia Neumann, for pointing this out).
+
+8) In "Sed and Awk Mini-Primer"
+   Added sed script cross-reference.
+
+9) In "Basic Commands" section of "External Commands" Chapter:   
+   More info at "mv".
+
+10) In "File and Archive Commands" section of "External Commands" Chapter:   
+    More info at "md5sum".
+    Added "file-integrity.sh" example at "md5sum".
+    At "tar", added various options and clarified commentary.
+    More info at "bzip2".
+    Added "unarc/unarj/unrar" entry.
+
+11) In "Text Processing Commands" section of "External Commands" Chapter:   
+    Added footnote at "tr" explaining that only the GNU version recognizes
+    character classes.
+
+12) In "Complex Commands" section of "External Commands" Chapter:   
+    Added notes to example "ex45a.sh".
+    Fixups in "ex45.sh" and "ex45a.sh".
+    Corrected commentary on escaped parentheses grouping operator.
+
+13) In "Time/Date Commands" section of "External Commands" chapter:
+    Added ">> newfile" at "touch".
+
+14) In "Math Commands" section of "External Commands" chapter:
+    Added Rick Boivie's comments and improvements (2 sets)
+    to "monthlypmt.sh" example script.
+
+15) In "Miscellaneous Commands" section of "External Commands" chapter:
+    Added "getopt", with "ex33a.sh" illustrative example.
+
+16) In "Special Characters" chapter:
+    Clarification and added material at "-" (hyphen), including option flag.
+    Added mention of use as option flag at "+".
+    Added short definition of a "filter."
+    At ".", reorganized entry and
+      added current working directory and parent directory (..).
+    At "?", reorganized entry and
+      added "test operator" meaning.
+    At "$", added "end-of-line" regular expression meaning.
+    At "[]", added array element and regular expression meanings.
+    Added "$?" entry.
+    Added "$$" entry.
+    Added "^" entry.  
+    Added "||" entry.  
+    Added "&&" entry.  
+
+17) In "Internal Commands and Builtins" chapter:
+    Partially rewrote and clarified the introduction to the chapter.
+    Added brief discussion of what happens when 'read' lacks.
+    an associated variable, with "read-novar.sh" example.
+    At "set", added discussion of "--" option, with "set-pos.sh" example
+       and added discussion of "set" with no options and arguments.
+    At "exec", added "self-exec.sh" example.
+
+18) In "Job Control Commands" section of
+    "Internal Commands and Builtins" chapter:
+    Added "self-destruct.sh" example at "kill."
+
+19) In "Of Zeros and Nulls" chapter, added examples of using /dev/null.
+
+20) In "Debugging" chapter, fixed up "online.sh" example to cope with changed
+    requirements of newer Linux kernels.
+
+21) In "Aliases" chapter, added comment to "alias.sh" example, per a
+    suggestion by Steve Jacobson.    
+
+22) In "Gotchas" chapter:
+    Added piping to a "read", with "badread.sh" example.
+    Added note about GNU utilities in scripts.
+
+23) In "I/O Redirection" chapter:
+    Clarified language in chart.
+    Added '>' as zero-length file truncation operator.
+    Added "reassign-stdout.sh" and "upperconv.sh" examples at "exec".
+
+24) In "String Manipulation" section of "Variables Revisited" chapter:
+    Added instances in in-line examples.
+    Added end-of-string operators for 'expr'.
+    Small fixup in "underscore variable" inline example.
+
+25) In "Regular Expressions" chapter:
+    Added '\<...\>' word boundary markers.
+
+26) In "Quoting" chapter:
+    Fixed minor syntax error in "tar" example (thanks, Ian Barwick).
+
+27) Expanded "Author's Note" section of "Endnotes" chapter.
+
+28) Fixed minor typo in table in "Exit Codes With Special Meanings" appendix.
+
+29) Added reference links to "environmental variables" explanation.
+
+30) Fixed reference links to "startup files" section.
+
+31) In "Miscellany" Chapter:   
+     Added "Security Issues" section.
+
+32) In "Bibliography" section:
+     Added Denning entry.
+     Added Polya entry.
+     Added "Shell Corner" entry.
+     Added "UNIX Grymoire" entry.
+
+33) In "Copyright" appendix:
+    Clarified license terms with reference to "Open Publication License."
+
+34) Various minor fixups and enhancements to example scripts.     
+
+35) Updated references to LDP site (changed from 'linuxdoc.org' to
+   'tldp.org').
+
+
+
+Version 1.2 (major release)
+03/31/02
+
+1) In "Operators" subsection of "Operations and Related Topics" chapter:
+   Fixed comment in in-line example (thanks, Marcus Bergöf).
+   Added "gcd.sh" example at "%" (modulo) operator.
+
+2) In "Numerical Constants" subsection of "Operations and Related Topics"
+   chapter:   
+   Fixed up and enhanced "numbers.sh" example (thanks, Rich Bartell).
+
+3) In "arithops.sh" example, fixed comment to refer to correct operation
+   (thanks, Marcus Bergöf).
+
+4) In "Command Substitution" chapter:
+   Added excerpts from /etc/rc.d/rc.sysinit as examples of setting
+   a variable to the contents of a file using "var=`cat filename`
+   construction.
+   Added "csubloop.sh" example of setting a variable from the output of a
+   loop.
+
+5) In "Basic Commands" section of "External Commands and Filters" chapter:
+   Added info on "-f" option at "mv" and "rm".
+   Added "-s" option at "cat".
+
+6) In "Text Processing Commands" sect. of "External Commands and Filters" chapt.:
+   Added more info for "nl".
+   Rewrote "groff" as a separate entry, and added "col" and "tbl"/"eqn"
+   as subentries.
+   Added much more info on "tr".
+   Added more options to "grep".
+
+7) In "Complex Commands" section of "External Commands" chapter:
+   Added more info at "xargs".
+   Added caution when using "*" with "expr" in arithmetic operation.
+
+8) In "Miscellaneous Commands" section of "External Commands" chapter:
+   Added more info on "jot/seq".
+   Added "Linux Journal" reference at "m4".
+
+9) In "File and Archiving Commands" section of "External Commands and Filters"
+   chapter:
+   Added "mimencode/mmencode".
+   More info on "cksum"/"md5sum".
+   Added "wstrings.sh" example at "strings" entry.
+
+10) In "Communications Commands" section of "External Commands" chapter:
+    Added "mail", with "self-mailer.sh" illustrative example.
+
+11) In "Time/Date Commands" section of "External Commands" chapter:
+    Added discussion of "-u" option to "date".
+
+12) In "Special Variable Types" section of "Introduction to Variables" chapter:
+    Improved link to "bracket" notation.
+    Added note that "shift" command also applies to function parameters.
+
+13) In "Internal Variables" section of "Variables Revisited" chapter:
+    Added info on "$@" special variable, with new in-line example.
+    Corrected "$DIRSTACK" listing (thanks again, Nick Drage).
+    At "$TMOUT", added "t-out.sh", another example of timed input (thanks,
+    syngin seven).
+    Added commentary to "am-i-root.sh" example.
+
+14) Changed document subtitle.   
+
+15) In "Command Substitution" chapter:
+    Corrected word-splitting example in "caution" (thanks, Tony Richardson).
+    Added "stupid-script-tricks.sh" example of setting a variable to the
+    contents of a binary file (which has no useful applications).
+
+16) In "Internal Commands and Builtins" chapter:
+    Clarified "ex43.sh" example (thanks, Tony Richardson).
+    Clarified explanation and example of "echo" eating linefeeds in a
+    command fed to it.
+    More info on "keywords" topic.
+
+17) In "Special Characters" chapter:
+    Added in-line example of embedding Ctl-H's in a variable.
+    More info on '-' as an option to certain commands.
+    Added "background-loop.sh" example at "&" (run command in background).
+
+18) In "Bash, version 2" chapter:
+    Added "resistor-inventory.sh" example of database using indirect variable
+    referencing.
+
+19) Changed name of example "rot13_2.sh" to "rot14.sh" because otherwise SGML
+    conversion seems to experience namespace confusion.
+
+20) In "Quoting" chapter:
+    Added header notes to "\" escape usage listing.
+    Added in-line example on behavior of "\".
+    Slight revisions to "escaped.sh" example.
+
+21) In "Internal Variables" section of "Variables Revisited" Chapter:
+    Added usage example for "$GROUPS".
+    
+22) In "Gotchas" chapter:
+    Added mixing up integer and string comparison operators.
+
+23) In "While Loops" subsection of "Loops and Branches" chapter:
+    Added clarifying statement as to when "while loops" are used.
+    Added "userlist.sh" example of command substitution in generating
+    "[list]" in "for loop".
+
+24) In "System and Administrative Commands" chapter:
+    Added "rmmod".
+    added "sudo".
+    Added commentary on "debugfs".
+
+25) In "Exercises" Appendix:
+    Reorganization into two distinct subsections.
+    Added a sample script to annotate.
+    Added a script code snippet to fix up.
+    Added a few more script writing problems, including the very difficult
+    "Playfair Cipher".
+
+26) Simplified "wf.sh" example.
+
+27) In "Starting off with a Sha-Bang" chapter:
+    Fixed typo in "ex2.sh" example script (thanks, David Kimbro for
+    bringing this to my attention).
+
+28) In "Arrays" chapter:
+    Rewrote confusing language in introductory paragraph.
+    Added "stackex.sh" example for emulating data structures.
+    Added in-line example of loading an array with the contents of a text
+    file.
+
+29) In "Tests" chapter:
+    Clarification of why semicolon needed when "if" and "then" are on same
+    line.
+    Added material to "ex10.sh" example.
+
+30) In "Here Documents" chapter:
+    Modified "ex69.sh" example, per message from Jess Thrysoee relaying to me
+    clarification from Bram Moolenaar.
+
+31) In "I/O Redirection" chapter:
+    Fixed comment on in-line example on closing file descriptors.
+    (Thanks, Matthieu Lucotte)
+    Made the data file for redirection examples, "names.data", visible.
+
+32) In "Assorted Tips" section of "Miscellany" chapter:
+    Added repeated piping of the output of a filter back to that same filter.
+    Added alternative method of having a function return a value to the body
+    of the script, with "multiplication.sh" example showing how.
+    Added method of having a function "return" multiple values,
+    with illustrative "sum-product.sh" example.
+    Added "tolower()" function to function library.
+    Added methods of passing an array to a function, and returning an array
+    from a function to the main body of a script (with example
+    "array-function.sh").
+
+33) In "Contributed Scripts" appendix:
+    Added "collatz.sh" example.
+    Added "life.sh" example (Conway's "Game of Life").
+
+34) In "Exit Codes" appendix:
+    Added footnote with more information about out of range exit codes
+    (thanks for tweaking my curiosity about this, Akira Huang).
+
+35) In "Sed Micro-Primer" appendix:
+    Added use of backslash as newline.
+    Added example of operation(s) over an address range.
+
+36) In "Bibliography" section:
+    Added Pickover entry.
+
+37) Clarifications in "Copyright" appendix.    
+
+38) Various minor edits to various example scripts.    
+
+
+
+Version 1.1 release (major release)
+01/06/02
+
+1) Fix up comments in "weirdvars.sh" example.
+
+2) In "Variables" chapter, slight wording change in first paragraph.
+
+3) Slight changes to "ex9.sh" example.
+
+4) Added redirection as an alternative remedy to the script hang problem with
+   background commands in "Job Control Commands" section of "Internal
+   Commands" chapter.
+
+5) In "Text Processing Commands" section of "External Commands" chapter:
+      Added "-q" option at "grep", with in-line example.
+      Added usage example for "cut".
+      Much more information on "uniq -c", and added "wf.sh" example.
+
+6) In "Functions" chapter:
+     Added more info on oversize (> 256) return values.   
+     Modified "ex62.sh" example.
+     Reorganized "Local Variables" section.
+     Added note that before function call, all variables within functions
+     are local, not just those explicitly declared as such.
+
+7) Add section on "Shell Scripting Under Windows" to "Miscellany" chapter.
+
+8) In "String Manipulation" section of "Variables Revisited" chapter:
+      Bugfix in comment in "%%" substring removal example.
+      Added "cvt.sh" example at "%%" substring removal discussion.
+      Added subsection on using "awk" functionality for string manipulation,
+      with added "substring-extraction.sh" example.
+
+9) In "$RANDOM" section of "Variables Revisited" chapter:
+      Removed superfluous "note" icon at beginning of section.
+      Added example of using "awk" rand() function to generate random numbers.
+
+10) In "Command Substitution" chapter:
+      Added discussion and example of extending Bash toolset.
+      Added footnote about what exactly constitutes a "command".
+
+11) In "System and Administrative Commands" chapter:
+    Added "lastlog" command.   
+    More info on "route" and "netstat".
+    Fixed reference to "crond" at "logrotate".
+    Added "tmpwatch".
+    Added "sar".
+
+12) In "Miscellaneous Commands" section of "External Commands" chapter,
+    added more info and an example to "dd".
+
+13) In "Math Commands" section of "External Commands" chapter:
+    Added an alternative method of invoking 'bc', with "alt-bc.sh" example.
+    Added using "awk" math commands, with "hypotenuse.sh" example.
+
+14) In "Archiving Commands" section of "External Commands" chapter,
+    added footnote to "tar".
+
+15) In "Bibliography" section:
+      Cleaned up cross reference to University of Alberta site.
+      Added comp.unix.shell newsgroup reference.
+
+16) Made corrections to "symlinks.sh" and "symlinks2.sh" examples,
+    per Dominik 'Aeneas' Schnitzer.
+
+17) In "Starting Off With a Sha-Bang" chapter, clarified footnote explaining
+   "magic numbers", per Stanislav Brabec's suggestion.
+
+18) In "I/O Redirection" chapter, added stdout redirection instance, with
+    example.
+
+19) In "Sed and Awk Micro-Primer" appendix:
+    Added $filename to in-line examples.
+    Fixup on "END" command block description.
+
+20) Added semicolons as necessary to terminate commands in Perl examples.    
+
+21) Added "History Commands" appendix. 
+
+
+
+
+
+Version 1.0 (stable!), released 10/14/01
+
+1) Quoted "$LOGFILE" in in-line example in "Scripting With Style" subsection
+   of "Miscellany" chapter.
+
+2) Added missing "/" in first footnote in Chapter 2 (thanks, Stepan Kasal).
+
+3) Additional comments for "primes.sh" contrib script.
+   Fixup in "ex72.sh" contrib script.
+
+4) In "Job Control Commands" section of "Internal Commands and Builtins" chapter:
+   Additional comment for footnote to "enable -f". 
+   Additional material on "wait" (preventing script hang after background
+   command).
+
+5) Added "Oddities" section to "Miscellany" chapter.
+   o Script calling itself recursively, with illustrative example
+     ("recurse.sh").
+   o Moved "Shell Wrappers" section from "Starting Off With a Sha-Bang"
+     chapter to "Miscellany" chapter.
+
+6) In "Local Variables and Recursion" section of "Functions" chapter:
+   Defined "recursion" in more detail.
+
+7) Modified in-line example in "Special Variable Types" section of
+  "Introduction to Variables and Parameters". Thanks, John Villalovos for
+    bringing a side effect of parameter substitution to my attention.
+
+8) In "System and Administrative Commands" chapter:
+   Added "setserial".
+   Added "MAKEDEV".
+   Added "mkbootdisk".
+   Added "tcpdump".
+   Added "strip".
+   Added "chkconfig".
+   Added "hdparm".
+   Added "badblocks".
+   Added "lsdev".
+   More info on "uname".
+   Added "top" to "Job Control" subsection.
+   Moved "mknod" to "Filesystem" subsection.
+   Moved "ps" and "pstree" from "Internal and Builtin" job control
+   commands to this chapter.
+
+9)  In "Arrays" chapter, added "unset" for removing array elements or an
+    entire array. 
+
+10) Added "Exercises" appendix.    
+
+11) In "Special Characters" chapter:
+    Added "EOF" as attribute of "Ctl-D" control character.
+    Added "(( ))".
+    Added "?".
+    Added ";;".
+    Added field separator usage for ":".
+    Added info on pipes.
+
+12) In "System Commands" chapter, changed "cron" to more technically correct
+   "crond".    
+
+13) In "Globbing" section of "Regular Expressions" chapter, added examples of
+   "echo" doing filename expansion.
+
+14) In "Test Constructs" section of "Tests" chapter:
+    Enhanced "arith-tests.sh" example.
+    Added "(( "$a" < "$b" ))" and "(( "$a" > "$b" ))" constructs.
+    Added "(( "$a" <= "$b" ))" and "(( "$a" >= "$b" ))" constructs.
+    Added "Testing Your Knowledge of Tests" section.
+    Added some material to "ex10.sh" example.
+
+15) In "Complex Commands" section of "External Commands" chapter:
+    Added material to "ex45.sh" example.
+    Fixed error in description of "expr index $string" 
+    Rewrote part of "expr" discussion.
+    Added "idelete.sh" example at "find" listing.
+
+16) Added testing for condition with "assert" function in "Debugging" chapter.
+    Illustrative example, "assert.sh".
+
+17) Added prepending a line to an existing file to "Assorted Tips" section of 
+   "Miscellany" chapter.
+
+18) Added "Bash Variables Are Untyped" section to "Variables" chapter.
+    Example "int-or-string.sh".
+    Slight modification of "ex9.sh" example.
+    Added special case of signal variables to "naked" variables.
+
+19) Moved "$?" and "$$" for "Positional Parameters" subsection of "Variables
+    Revisited" chapter to newly created "Other Special Parameter" listing,
+    along with "$-", "$!", and "$_".
+
+
+20) In "Variables Revisited" chapter:
+    Added "Manipulating Strings" section.
+    Swatted a couple of bugs in the first couple of drafts of this section.
+    Added "$GLOBIGNORE" and "$LC_CTYPE".
+    Added "$BASH_VERSINFO[n]".
+    Added "$PIPESTATUS".
+    More info at non-builtin Bash variables.
+
+21) In "Arrays" chapter, added "${array:position}" construct in-line example.    
+
+22) In "Time / Date" section of "External Commands" chapter:
+    Rewrote and corrected part of "at" entry.
+    Added "zdump".
+
+23) In "Text Processing Commands" section of "External Commands" chapter:
+    Added example for "cut", per idea of Oleg Philon.
+    Added yet another usage example for "wc".
+    Added "recode".
+    Added "zdiff" at "diff" entry.
+    Added "zcmp" at "cmp" entry.
+    Slightly revised "sort" entry.
+    Revisions on "grep" entry.
+      Added notation about "agrep".
+
+24) In "/dev and /proc" chapter:
+    Reorganization into two separate sections.
+    Oleg Philon suggested a simplification for the "connect-stat.sh" example.
+
+25) In "Miscellaneous Commands" section of "External Commands:
+    Added "banner".
+    Added "m4", with "m4.sh" illustrative example.
+    Added "make".
+    Added "hexdump".
+
+26) In "File and Archiving Commands" section of "External Commands:
+    More info on "file" entry.
+    Added "znew" note at "compress / uncompress" entry.
+    Added "zip / unzip".
+    Added "vdir".
+    Added "shred".
+
+27) In "Math Commands" section of "External Commands"
+    Corrected "EBCDCIC" to "EBCDIC". Very embarrassing.
+
+28) In "Regular Expression" chapter:
+    Added "()" and "|" to extended REs.
+
+29) In "Communications Commands" section of "External Commands" chapter:
+    Added "cu".
+
+30) In "Of Zeros and Nulls" chapter, added "ramdisk.sh" example.    
+
+31) In "Appendix B", fixed error stating that "Both sed and awk use the -e
+    option..." Only sed does (whoops!). Thanks to Peter S Tillier for
+    pointing this out.
+
+32) Clarification of version 2 of Bash in "Bash, Version 2" and
+   "Gotchas" chapters.
+
+33) Slight change to "symlinks.sh" example script, as suggested by
+    Dominik 'Aeneas' Schnitzer. 
+
+34) Added note to "numbers.sh" example, at the suggestion of Chiron.    
+
+35) Folded "Credits" chapter into "Endnotes" chapter, as a section. It's more
+    logical that way.
+
+36) Added "Preliminary Exercises" section to Chapter 2.
+
+37) Added setting a variable to the contents of a file to "Command
+    Substitution" chapter.
+
+38) In Bibliography, added Rosenblatt listing.    
+
+39) In "Command Substitution" chapter, back quotes (`...`) erroneous shown as 
+    single quotes ('...'). Fixed. Thanks, David Lawyer.
+
+40) Fixed ambiguity in conditional test in "rpm-check.sh" example, in "Special
+    Characters" chapter. Also fixed "ex9.sh". Again, thank you, David Lawyer.
+
+41) Fixed "for loop" references (links led to wrong places).
+
+42) In "Testing and Branching" subsection of "Loops and Branches" chapter,
+    added "match-string.sh" example.
+
+43) In "Loops and Branches" chapter,
+    added example of "for" loop with stdout redirected to a file.
+
+44) In "Redirected Code Blocks" section" of "I/O Redirection" chapter, added
+   "redir4a.sh" example, showing redirection of both "stdin" and "stdout" of
+   loop.
+
+45) In "Shell Wrapper" section of "Starting Off With a Sha-Bang" chapter,
+    added "bashandperl.sh" example.
+
+46) Revised the introduction to the book.    
+
+47) Last minute cleanups of various example scripts.
+
+48) New .bashrc from Emmanuel Rouat.
+
+    
+
+
+
+
+Version 0.5, released 09/03/01
+
+1) Changed the name of this file from "NEWS" to Change.log"
+
+2) Reorganized subsections of the huge "Tutorial" chapter into separate
+   chapters.  This is much more logical.
+
+3) Divided main section of the book into four parts.
+   First paragraph of chapter 1 moved to Part 1 introduction.
+
+4) Fixups on id tags for various subsections (Jade does not like "anchors"
+   nested in within certain tags).   
+
+5) In "Tools Used" section, fixed typo in "OpenJade" URL.
+
+6) Changed chapter heading from "End Notes" to more grammatically correct
+  "Endnotes".
+
+7) In "Regular Expressions" chapter:
+   Fixed typo ("or" -> "of").  
+   Added subsection for POSIX character classes.
+
+8) Enhancements to "ex73.sh" example.
+
+9) In "File and Archiving Commands" section of "External Commands" chapter:
+   Added "de-rpm.sh" example of using "cpio".
+   Added "ar".
+   Reorganized into subsections.
+
+10) Added dedication.
+
+11) Corrected comment in "weirdvars.sh" example. Thanks, Prahad V.
+
+12) Cleanups on "ex2.sh", "ex39.sh", "ex41.sh", and "logevents.sh" examples.
+
+13) In "I/O Redirection" chapter, added cross references to "de-rpm.sh" and
+   "fifo.sh" examples.
+
+14) In "System and Administrative Commands" chapter
+    Added "strace".
+    Added "hostid".
+    Added "nm".
+    Added "vmstat".
+    Added "fdformat".
+    Added "erase.sh" example at "stty".
+    More info on lock files.
+    Reorganization of entries into logical sections.
+
+15) Moved "Parameter Substitution" section from "Introduction to Variables and
+    Parameters" chapter to "Variables Revisited". This is a fairly advanced
+    topic.
+
+16) Moved "Variable Assignment" and "Special Variable Types" information from
+   "Variables Revisited" chapter to "Introduction to Variables and
+    Parameters". These are introductory topics.
+
+17) In "Miscellaneous Commands" section of "External Commands" chapter:
+    Added "blot-out.sh" example for "dd".   
+    Added footnote explaining "EBCDIC" at "dd" 
+    Added "run-parts".
+
+18) Changed <itemizedlist> to <variablelist> in various places, since the
+    Docbook stylesheet does strange things with the former.    
+
+19) In "Tests" chapter:
+    Fixup in footnote in "File Test Operators" subsection.    
+    Added note that "&&", "||", "<", and ">" work within "[[  ]]" construct.
+    Rewrote "<" and ">" entries in "Comparison Operations" section.
+
+20) In "Internal Commands" chapter:
+    Added "-r" option to "read".
+    Added "-f" option to "enable".
+    Extended "ex47.sh" example at "printf" with "sprintf" simulation.
+    Added more info to "cd" ("-P" option and "cd -").
+    Added "fg" and "bg" (how did I manage to leave these out before?).
+    Added "logout".
+    Added optional argument that "wait" may take.
+    Added "autoload".
+    Added table of "Job Identifiers".
+    Reorganized chapter into subsections.
+
+21) In "Text Processing" section of "External Commands" chapter:
+    Added "crypto-quote.sh" example for "tr".
+    Added another usage example for "wc".
+    Added "tsort".
+    Added "iconv".
+    Added "lex" and "yacc".
+
+22) More info added in "Aliases" chapter.    
+
+23) In "Parameter Substitution" section of "Variables Revisited" chapter:
+    Added usage examples on "${param+alt_value}" and "${param:+alt_value}"
+    Added in-line usage examples for "${var#pattern}" and "${var##pattern}".
+    Added "${!varprefix@}" matching.
+    Added "${var/#patt/replacement}" and "${var/%patt/replacement}",
+    with illustrative example ("var-match.sh").
+
+24) Dedicated section to "Globbing".    
+    Added usage examples.
+
+25) In "Variables Revisited" chapter:
+   Added usage example of "declare -i" in "Typing Variables" section.
+   Added material to "am-i-root.sh" example.
+   Correction: "typeset" and "declare" are builtins, not keywords.
+   Added "declare" option ("var=$value").
+
+26) Added $ LC_COLLATE, $SHLVL, and $FUNCNAME to "Variables Revisited" chapter.   
+    Noted adding "export LC_COLLATE=C" to /etc/profile to restore customary
+    behavior of bracket set filename globbing.
+
+27) Made "bubble.sh" more pedantically correct by quoting params within tests.
+
+28) In "Assorted Tips" section of "Miscellany" chapter:
+    Added inline example of a definition and function library.
+    Added special-purpose comment headers.
+
+29) Added "About the Author" section to "Endnotes" chapter.    
+
+30) In "Operations" section of "Operations and Related Topics" chapter:
+    Added "**" exponentiation operator.
+    Added note that Bash integers are of type 32-bit signed long, with
+    in-line example.
+    Added comma linking operator.
+    Fixed and enhanced "&&" and "||" entries.
+
+31) In "Parameter Substitution" section of "Variables Revisited" chapter,
+    added "${!varprefix*}" expansion.
+
+32) In "Communications Commands" section of "External Commands" chapter,
+    Added "whois".
+    Added "ping".
+    Added "finger".
+    Added "vacation".
+    Added "ftp".
+    Added "telnet".
+    Added "rsh".
+    Added "rlogin".
+    Added "ssh".
+    Added footnote defining "daemon".
+    Reorganized commands into subsections.
+
+33) In "Complex Commands" section of "External Commands" chapter, added
+    usage example of "expr $string :" operations.
+
+34) Clean up example scripts, and made them more stylistically consistent.   
+      Fixed error in "ex22a.sh".
+      Fixed error in "arith-tests.sh".
+
+35) Fixed erroneous reference to "ex74.sh" in "Of Zeros and Nulls" chapter
+    (should be "ex57.sh").
+
+36) Corrections and additions to "DOS Batch Files" appendix, sent in by
+    Marc-Jano Knopp.
+
+37) In "Functions" chapter, noted that 256 is the largest positive
+    integer return value, and added "return-test.sh" illustrative example.
+    Showed how to "evade" this restriction, with "max2.sh" example.
+
+38) Branched off "function redirection" into a separate sub-subsection.    
+
+39) Added integer variable test to "Assorted Tests" section of "Miscellany"
+    chapter.
+
+40) Added "days-between.sh" example to "Contributed Scripts" appendix.
+
+41) Added "using same name for a function and a variable" to "Gotchas"
+    chapter.
+
+42) In "Special Characters" chapter:
+    Fixed "pipes" example to reflect GNU syntax of "tr" (thanks, Elias Assman).
+    Added note to "dot" character that in another context, it can be part of a
+    Regular Expression.
+    Added "$", variable substitution.
+    Added "&", run job in background.
+    Added "%", modulo and pattern matching operator.
+    Added "/", filename path separator and division operator.
+    Added "=", assignment and string test operator.
+    Added "+", arithmetic addition and Regular Expression operator.
+    Added "~+", print working directory.
+    Added "~-", print previous working directory.
+    Added "control characters".
+    Reordered listings.
+
+43) In "Arrays" chapter, added comment to "bubble.sh" example.
+
+44) Added portability note to "ex51.sh".
+
+45) Removed redundant and partially incorrect "relational tests" subsection
+    from "Operators" section of "Operations and Related Topics" chapter.
+
+46) In "Basic Commands" section of "External Commands" chapter:
+    More options to "ls".
+
+47) Added "Portability Issues" section to "Miscellany" chapter.
+
+48) In "Bibliography":
+    Updated Rick Hohensee assembler link.
+    Added Sheer book listing.
+
+49) Added "Effective Awk Programming", to Bibliography.
+
+
+
+
+
+======================================================================================
+
+
+Version 0.4, released 07/09/01
+
+Comments: Complete revision. The document is now the equivalent of a
+          300-page book.
+
+Changes from version 0.3:
+
+1) Substituted Emmanuel Rouat's new, improved Linux-specific .bashrc
+   file for the old one.
+
+2)
+In "External Filters, Programs, and Commands" section:
+   More info on "sleep".
+   Added "usleep".
+   More info on "diff", with note about using it to recursively compare
+   directories.
+   Added "diff3".
+   Added "sdiff".
+   Added "cmp".
+   Added example using "cmp", and cross referenced it to "exit status".
+   Added "hwclock/clock".
+   Added "locate/slocate".
+   Added "whatis", with example script.
+   Added "whereis".
+   Added "od".
+   Added "unexpand".
+   Added "install".
+   Added "crypt".
+   Added "write".
+   Added "compress/uncompress".
+   Added "gettext".
+   Added "printenv".
+   Added "tput".
+   More info on "fold" (-s option).  
+   More info on "patch".
+   More info on "join".
+   More info on "tar".
+   More info on "tr".
+   More info on "dd".
+   More info on "logger".
+   More options for "cat".
+   More options for "cp".
+   Added cautionary note to "tar".
+   Added --count and --invert-match options to "grep".
+   Extra options and code snippets for "find". 
+   Using "echo" to feed a command sequence into a pipe and set a variable,
+    with illustrative code snippets.
+   Added subsection for "Terminal Control Commands" (tput, clear, reset,
+     script).
+   Added subsection for "Math Commands" (factor, bc/dc).  
+
+3) Moved subsection on "Here Documents" to right after "I/O Redirection" (much
+   more logical).
+
+4) Added more reasons not to use shell scripts.   
+
+5) Added info about the "widtools" (widget tools) package to "Assorted Tips"
+   subsection of "Miscellany".
+
+6) Corrected "Born-Again Shell" to "Bourne-Again Shell" (thanks to Jan
+   Svenungson for pointing this out).
+
+7) In "System and Administrative Commands" section:
+     Added "dumpe2fs".
+     Added "tune2fs".
+     Added "fdisk".
+     Added "mke2fs".
+     Added "fsck", "e2fsck", and "debugfs".
+     Added script using "fdisk" and "mke2fs".
+     Added "df".
+     Added "du".
+     Added "mesg".
+       Added tip.
+     Added "procinfo".
+     Added "ac"
+     Added "last"
+     Added "tset"
+     Added "getty" and "agetty".
+     Added "chown/chgrp".
+     Added "useradd/userdel".
+     Added "logrotate".
+     Added "dump/restore".
+     Added "stat".
+     Added "rdist".
+     Added "losetup".
+     Added "lastcomm".
+     Added "mkswap".
+     Added "swapon/swapoff".
+     Added "newgrp".
+     More info on "chroot".
+     More info on "netstat".
+     More info on "ifconfig".
+     More info on "route".
+     More info and example added on "mount".
+     Added note to "umount".
+     Usage example on "lsmod".
+     Removed inappropriate spacing in "wall" listing and added note.
+   
+8) In "Internal Commands" section:
+     Added "pstree".
+     Added "type".
+     Added "help".
+     Added footnote on "forking".
+     More info on "kill".
+     Added example to "unset".
+     More options and info added to "read".
+
+9) Additional clarification of "for" loops.     
+
+10) Added using C-like syntax in a "for" loop to "Loops" section,
+    with illustrative example.
+      Did the same with a "while" loop.
+      Cross-references to examples in "Miscellany / Assorted Tips" section.
+
+11) Added using command substitution to generate [list] in a "for" loop.      
+    Same for a "case" construct.  
+      Examples added.
+
+12) In "Variables Revisited" section, added C-type variable manipulation,
+    using the ((...)) construct [Chet Ramey's Easter Egg, actually borrowed
+    from ksh93].
+
+13) In "Gotchas" section, 
+    Added scripts with DOS-type newlines.
+    Added script invoked with "/bin/sh" maybe not fully Bash-compatible.
+
+14) In "Files" section, added ~/.bash_logout.
+
+15) In "Variables Revisited" section,
+    Moved note about certain variables not internal to Bash to a more logical location.
+    Added short note about using /dev/urandom to generate (useless) random numbers.
+    Added $LINENO to internal variables.
+    Added illustrative script ("am-i-root.sh") to "UID" discussion.
+    Fixed "dubugging" typo.
+
+16) In "Bibliography" section,
+    Added four sites for example shell scripts.
+    Added reference to Rick Hohensee's shell-scripted virtual machine + assembler.
+
+17) Added "mail-format.sh" to "Contributed Scripts" appendix.
+
+18) In "Tests" section:
+    Clearer definition of what "test" actually means.
+    Add info about "-g", "-u", and "-k" flags.
+    Clarified examples of "integer tests" (used if [ "$a" XX "$b" ] to illustrate).
+
+19) Fixed syntax error in "ex45.sh" (embarrassing).
+
+20) Added piping the output of a "for" loop to a command.
+
+21) Mention /usr/include/sysexits.h as an attempt at systematizing exit status
+    numbers.
+
+22) Added "string.sh", a "Contrib Script" by Noah Friedman.    
+
+23) Alphabetized listing of internal Bash variables in "Variables Revisited"
+    section. It looks more professional now.
+
+24) Added subsection on "Nested Loops" to "Loops" section.
+    Added illustrative example script.
+
+25) Added subsection on "Nested if/then Condition Tests" to "Tests" section.
+
+26) In "Here Documents" section,
+       Added - option.
+       Added passing parameters to body of here document, with examples.
+       Added disabling parameter replacement by quoting or escaping.
+
+27) In "Special Characters" section,
+       Added info on "-" redirection operator.
+       Added quotes ("").
+       Added strong quotes ('').
+       Added escape (\).
+       Added backticks (`).
+       Added using ":" for comment line (not recommended).
+       Added "*".
+       Added "$*" and "$@".
+       Piping the output of command(s) to a script.
+       More info on "!" operator.
+       Annotated Alan Cox's one-liner script.
+       Added "_" (underscore).
+
+28) Reorganized "Loops" section; created new subsection and reshuffled.
+
+29) Added instance of "unset" to when a variable appears "naked" (without the
+    $ prefix). Thanks to Florian Wisser for pointing this out.
+
+30) Rewrote "Command Substitution" section (formerly named "Backticks").    
+    Split off "Arithmetic Expansion" as a separate section, and added
+    material.
+
+31) Added "bc" and "dc" to "External Filters" section, with elegant
+    illustrative script by Heiner Steven.
+    Added more info on "bc", with "monthlypmt.sh" illustrative example.
+
+32) Added new section on "/dev and /proc".
+      Added illustrative examples.
+
+33) Made a number of corrections and clarifications, as pointed out by Heiner
+    Steven. Thanks!
+       Some UNIX flavors take a 4-byte magic number...
+       Too many script headers on one line in "magic number" example listing.
+       Example "ex2.sh", added comment that "> filename" is equivalent to "cat /dev/null > filename".
+       Example "ex2.sh", quoted parameter.
+       Omitting [list] in a "for" loop assumes "$@", rather than "$*".
+       Clarified that a "flag" acts as a semaphore, rather than as a signal.
+       Added comment that {code block} does not launch a subshell to
+       "Special Characters" section.
+       At his suggestion, added a couple of more examples on "~" in
+       "Special Characters" section.
+       Added his "allprofs" script to "Subshells" section (with modifications
+       by HOWTO author).
+       Noted that some substitution operators come from ksh93.
+       Noted that a line of code in a script ending in a pipe character does
+       not require an escape to continue to the next line.
+       Code snippet on how to redirect "read" through an entire file, line by
+       line.
+       Added note that "declare" is Bash-specific.
+       Added code snippet explaining use of $IFS with "read"
+       Added alternate example of redirected "while" loop to "I/O Redirection"
+       section.
+
+34) Added comments to "Subshells" section.       
+
+35) In "strip-comments.sh" example script, changed "=" to "-eq" (bugfix).
+
+36) Changed all instances of "white space" to "whitespace" for consistency
+    (picky, picky).
+
+37) Added pitfalls of variables in a subshell with illustrative example to
+    "Gotchas" section.
+
+38) Added using Bash-specific functionality in a Bourne shell script on a
+    generic UNIX machine to "Gotchas" section.
+
+39) Added another example to "List Constructs" section.
+
+40) Added using positional paramters > $9, using {bracket} notation (thanks,
+    Philippe Martin).
+
+41) Added -N and -t file tests to "Tests" section.    
+
+42) In "Arrays" section:
+      Added "q-function.sh" (Hofstadter's Q-function) as an illustrative
+      example.
+      Added "twodim.sh" simulation of a two-dimensional array.
+
+43) Added two new entries to "Bibliography" section.
+
+44) Added more info in "Quoting" section.
+
+45) Bugfix: removed an extraneous header from "source/dot" command in "Special
+    Characters" section.
+
+46) Added a caution about confusing REs with "globbing" to "Regular
+    Expressions" section.
+
+47) In "Loops" Section:
+      Added filename "globbing" in for-loop [list].
+      Added "break N", breaking out of multiple loop levels.
+      Added "continue N", continuing at a higher loop level.
+      Added footnote to "Loop Control Commands" subsection noting that
+      "break" and "continue" are shell builtins.
+
+48) Removed commented-out SGML code for article header. That makes it official
+    that this document is a book.
+
+49) Added new appendix on "Converting DOS Batch Files to Shell Scripts".    
+
+50) Added "findstring.sh", illustrative example for generating [list] in a
+    "for" loop with command substitution and for "strings" command in
+    "External Filters, Programs, and Commands" section.
+
+51) More info on "exit status".    
+
+52) Added appendix for "Exit Codes With Special Meanings".
+
+53) Added "!" to "Special Characters" section.
+
+54) Added "==" to "Tests" section.
+
+55) Added a couple of examples and more explanation to "Regular
+    Expressions" section.
+
+56) Extra notes on $BASH_VERSION.
+
+57) In "Functions" section:
+    Added directing the stdin of a function, with illustrative example.
+    Added footnote to "return" command, noting that it is a Bash builtin.
+
+58) Added "[[  ]]" construct to "Tests" section.    
+
+59) In "bubble.sh", fixed spelling of "Zaire" and changed "Kashmir" to "Kenya"
+    (it was pointed out that Kashmir is not a country).
+
+60) Added "file-info.sh", illustrative example of a variable containing the
+    [list] in a "for" loop.
+
+61) Added a section on "Scripting With Style", stylistic guidelines.    
+      * Script and function headers added.
+      * Descriptive names for variables added.
+
+62) Added "copy-cd.sh", a script for copying data CDs, to "Contributed
+    Scripts" appendix.
+
+63) In "Loops" section, separated "Loop Control Commands" ("break" and "continue")    
+    into a separate subsection.
+
+64) Added note to "Tests" section that after "if", "test" or test brackets not
+    strictly necessary. Similarly, test brackets do not necessarily require an
+    "if" when used with "list constructions".
+
+65) Once more, checked all the examples for stylistic correctness.    
+
+66) In "Variables Revisited" section:
+    Added "random-test.sh", testing the randomness of RANDOM.
+    Added "seeding-random.sh", reseeding the RANDOM generator.
+
+67) Reshuffled some commands into different subsections in "External
+    Filters, Programs, and Commands" section.
+
+68) Added "isalpha.sh" example to "case" constructs in "Loops" section.    
+
+69) Added inline example in "Regular Expressions" section.
+
+70) Moved "ex50.sh" from "pr" to "fmt" in "External Filters, Programs, and
+    Commands" section.
+
+71) Added "du.sh" example to "tr" in "External Filters, Programs, and
+    Commands" section.
+
+72) Clarification on ${var#pattern}, ${var%pattern} variable substitution
+    in "Variables" section, and added "patt-matching.sh" example to
+    illustrate.
+
+73) Clarifications on "ex14.sh" example.    
+
+74) In "Internal Commands and Builtins", fixed explanation on
+    "getopts" and associated "ex33.sh" to make usage consistent with
+    accepted usage. (Thanks, Ueli Strasser)
+
+75) Fixed typos:
+    ("suppress" --> "suppresses") in "Here Documents section.    
+    ("inderect" --> "indirect") in "Variables Revisited" section.
+    "Option" left out in "type" discussion.
+
+76) More on "%" (modulo) operator in "Operations" section.
+
+77) Added "> &FD" and "n<>filename" to "I/O Redirection" section.
+
+78) Fixed bug in "ex2.sh" example (removed "or-list"),
+    and added cautionary not on "or lists".
+
+79) More explanation on meaning of "keyword".    
+    Noted that "!" is a keyword.
+
+80) Moved "printf" and "eval" from "External Commands" to "Internal
+    Commands" section.
+
+81) Fixed up some cross-reference links.    
+
+82) In "Sha-bang" section:
+    Added footnote with self-deleting script example.
+    Added footnote about invoking script with "sh scriptname" turning off
+    Added footnote about invoking a script with "./scriptname".
+    Bash-specific extensions.
+    Minor cleanups.
+
+83) Cleaned up "filename" referenced.
+      Made references to "stdin" and "stdout" consistent (<filename>).
+
+84) Added footnote about "dotfiles".
+
+85) Noted that "logname" is not exact equivalent to "whoami", with example.
+    Correction:  "trap 2" changes to "trap '' 2" in "Debugging" section.
+    Thank you, Nick Drage.
+
+86) Fixed typos pointed out by Hyun Jin Chan.
+       Typo in "ex13.sh".
+       Typo in "ex41.sh".
+       In "Here Documents" section, changed
+         "feeding input into non-interactive programs" to
+         "feeding input into interactive programs". 
+
+87) Added footnote about "magic numbers" used in the context hard-wired
+    constants in "Scripting With Style" section.
+
+88) Added "End Notes" chapter, which includes "Author's Note" and "Tool Used
+    to Produce This Book".    
+
+89) Added footnote about shell script naming conventions to "Why Shell
+    Programming?" section of Chapter 1. 
+
+90) Changed all <errorcode> tags to the more appropriate <returnvalue>.
+
+91) Added info about Korean translation of the document to "Copyright"
+    section.
+
+92) Added "${#variable}" construct to "Parameter Substitution" subsection in
+    "Introduction to Variables and Parameters" section, mentioning exceptional
+    cases of "${#*}" and"${#@}".
+
+93) Reorganized "I/O Redirection" section (subdivided into subsections).    
+
+94) Reorganized "Functions" section (subdivided into subsections).    
+
+95) Added example snippets to "Process Substitution" section.
+
+96) Added Nick Drage's comments to "online.sh" in "Debugging" section.
+
+97) Tidied up "Operations and Related Topics" section.
+
+98) Fixed typos in "ex79.sh" ("suite" -> "suit").
+
+99) Fixed other minor typos in the document.
+
+100) Stéphane Chazelas sent in long lists of corrections and suggestions.
+       Bug fixes, improvements, and comments on "ex2.sh" example.
+       Bug fixes and improvements to "ex3.sh" example.
+       Improvement on "ex4.sh", "ex5.sh", and "ex14.sh" examples.
+       Suggestion for "col-totaler.sh" example.
+       Code snippet on use of "case" for parsing command-line args.
+       In "brace expansion" discussion, pointed out that spaces permitted when
+         quoted or escaped.
+       Improved "ex8.sh" to read more than one line (more useful as an
+         example).
+       Resolve ambiguity about "-", which is not a Bash operator.
+       Suggested workarounds for filenames starting with "-" used with "-"
+         redirection operator.
+       Added safer alternatives to "ex58.sh".
+       In "Why Shell Programming?" section, modified footnote to state that
+       user-written scripts with ".sh" extension should be Bourne shell
+       compliant.
+       In "Command Substitution" section:
+         Added notes.
+	 Added explanation in code snippet on command output.
+	 Note that newline deletion may result from word splitting.
+	 Added example snippets of trailing newline deletion.
+       In "Special Characters" section:
+         Fixed typo at beginning of "#" (comment) listing.
+	 Added note about "#" not denoting a comment in certain constructs.
+         "${parameter?err_msg}, ${parameter:?err_msg}"
+         Added note that non-interactive script exits with code 127.
+	 Added note about escaping "#" in echo statements.
+	 Added caution about variable value starting with "-n".
+	 More on "~" expansion.
+	 Changed "noclobber" environmental variable (obsolete) to option.
+	 Added "array initialization" to "()" listing.
+	 Added notes to "brace expansion".
+	 Added notes and made corrections to "ex6.sh" example.
+	 Added note and example demonstrating that a code block in braces
+	 may run as a subshell.
+	 Clarification on "pipes".
+	 Note on Alan Cox's directory copy method.
+	 Noted that ":" is a shell builtin.
+	 Noted that ": >>" applies only to regular files.
+	 Fixed error about "code block" { ... }.
+	 Added note about variables defined within (...) not being visible to
+	 rest of script.
+	 Fixed error on "{}\" construct, and added note.
+	 Change to "uppercase.sh" in-line example.
+	 Added "{#array}" as string length of first element of array.
+       Added cautionary note about reserved exit status codes to "Exit Status" section.
+       In "Variables" section:
+         Added comments and clarifications to "ex7.sh".
+         Added comments and clarifications to "ex9.sh".
+       Added info per his comments on the $'...' string expansion construct.
+       In "Quoting" section:
+         Added more examples of escaping a newline in variable assignment.
+         Clarified and corrected info about quoting variables "echoed", with
+         Added illustrative examples. 
+	 Replaced flawed example snippet ("bash$ echo [Ff]irst")
+	 Fixed bug, changed ' to ` in referencing within double quotes.
+	 Clarified and corrected "toggling on" special meanings of characters
+	 by escaping.
+       In "Tests" section:	 
+         Added detailed explanation about "if/then" construct, "[", and "test".
+         Added clarification about "[",  "[[" , and "test".
+	 Added arithmetic tests using "(( ))".
+	 Added notes to "ex10.sh" example.
+	 Clarification on "ex12.sh", and moved it to "External Filters..." section.
+         Pointed out that one should always quote a string being tested. 
+         Clarified what happens when erroneously putting a space in an
+         assignment statement.
+         Added example on using arithmetic operations (arithops.sh).
+	 Clarification and corrections on "-t" test option.
+	 Clarification on "-r" test option.
+	 Clarification on "-w" test option.
+	 Clarification on "-g" test option.
+	 Clarification on "-u" test option.
+	 Clarification on "-k" test option.
+	 Clarification on "-n" test option.
+	 Clarification on "str-test.sh" example.
+	 Clarification and example on "==".
+	 Clarification on pattern matching with "!=".
+	 Clarification on "&&" and "||" comparison operators.
+	 Fixup on "arith-tests.sh" example.
+	 Clarification and corrections on "ex14.sh" example.
+       In "Operations" section:
+	 Fixed "=" in-line example.
+         Fixed "+=" and "*=" example snippets.
+	 Fixed typo:   'if "Xstring1" = "Xstring2" ] is safer,'.
+         Retitled subsections to avoid reader confusion.
+         Added example snippet on using "&&" and "||" in an arithmetic
+         context.
+         Added note to "arith-ops.sh".
+         Added note to "and-or.sh".
+	 Fixed typo (lost space) in in-line "&&" example.
+         Clarified "numbers.sh" example.
+	 Clarification on "&&" and "||".
+       In "Variables Revisited" section:
+         More clarifications and example snippets + "ifs.sh" example for "$IFS".
+         Clarified use of "$PATH" variable.
+         Cleared up confusion on "$PPID".
+         Cleared up confusion on "$@".
+	 Added "incompat.sh" and "ifs-empty.sh" examples on inconsistent
+	 "$*" and "$@" behavior.
+         Plugged a possible hole in "wipedir.sh" example script and added
+	 comments.
+         Added "timeout.sh", another example of timed input.
+         Explanation (footnote) on environmental variables.
+         Explanation (footnote) on parameter $0.
+         Corrected "declare -f" listing.
+	 Clarification on "ind-ref.sh" example.
+	 Clarification on $SHELL variable.
+	 Clarification on $HOSTNAME variable.
+	 Added "col-totaler2.sh" as an example of indirect references.
+	 Fixed typo "that that".
+	 Fixup on "ex17.sh".
+	 Fixup on "ex20.sh".
+	 Added comment to "ex21.sh".
+       In "Loops" section:
+         Fixed error: semicolon *after* [list].
+	 Additional clarification in "ex22a.sh" example.
+	 Quoted arguments in [list] in for-loop illustration.
+	 Removed reference to REs in filename globbing.
+	 Fixup and note added to "list-glob.sh" example.
+	 Added note to "bin-grep.sh" example.
+	 Added note to "ex24.sh" example.
+	 Correction on "ex26a.sh" example.
+	 In "case" constructs:
+	   Noted that variable quoting not mandatory.
+	   Corrected and clarified comment in command line parameter testing.
+	   Changed "regular expression" filtering to "globbing" filtering.
+	   Improved "isalpha.sh" example.
+	   In footnote, cleared up some confusion about builtins.
+       Moved 'basename', 'dirname', and 'factor' from "Internal Commands"
+       to "External Filters, Programs, and Commands" section.
+       Minor clarification on "read-redir.sh" example.
+       Alternatives added to "realname.sh" example.
+       In "Internal Commands and Builtins" section:
+         Corrections on "ps", "suspend", "command", and "builtin".
+	 Moved "echo", "cd", and "let" here from "External Commands"
+	 section.
+	 Note on "echo" deleting linefeeds in command output.
+	 Added in-line examples for "echo".
+	 Correction on "find" (-exec).
+	 Added "col-totaler3.sh" as an example of using "export" to
+	 pass a variable to an embedded awk script.
+	 Removed "stop" (how the heck did a "csh" command sneak in?).
+	 Removed "." from examples of builtins.
+	 Minor fixup on "ex33.sh" example.
+	 Added cautionary note on "eval".
+	 Added examples ("rot13_2.sh") to "eval".
+	 Added long note to "jobs" command clarifying difference between jobs
+	 and processes.
+	 Added in-line example on "printf".
+	 Clarified "keyword" definition.
+	 Fixed typos in "read" and "find" command subsections.
+       In "External Filters, Programs, and Commands" section:
+         Clarifications on "chmod" and "chattr".
+         Added alternative method in "ex57.sh" example.
+	 Clarification on "ex42.sh" example.
+	 Clarification on "ex44.sh" example.
+	 Clarification on "ex45.sh" example.
+	 Option "-c" to "uniq" discussed.
+	 Correction on "cut".
+	 Clarification on "colrm".
+	 Clarification on "join".
+	 Clarification on "head", and added example "rnd.sh".
+	 Concise form of "lookup.sh".
+	 Clarification on "gs".
+	 Added notes on "wc" (and fixup of example).
+	 At "grep":
+	   Additional minor fixups.
+	   Note in "grp.sh" script.
+	   Added usage examples for "-c" and "-z" options.
+	 Added note on "time" about it becoming a reserved word.
+	 Clarification and corrections on "tr".
+	   Clarification in "ex49.sh" and "rot13.sh".
+	   Added alternative code to "lowercase.sh".
+	 Added note to "fmt" about Kamil Toman's "par" utility.  
+	 Added note to "line-number.sh" script about '-ba' option to 'nl'.
+	 Clarification and fixup on "pr".
+	 Added note to "zcat".
+	 Added alternative code to "strip-comments.sh".
+	 Fixed "lp".
+	 Added two usage examples for "yes".
+	 Added altenative methods to "find" in-line example.
+	 Fixed format in "cat/tac" in-line example.
+	 Added long note to "xargs".
+	 Added note to "touch", and link from ":" in "Special Characters"
+	 section.
+	 Fixup on "zcat" in "gzip" subsection, and fixed typo there.
+	 At "dd":
+	   Added usage examples".
+	   Fixed comments "dd-keypress.sh".
+	 Fixed typo on "grep".
+	 Explanatory note on "-maxdepth" option for "grep".
+       In "System Commands" section:
+         Moved "shopt" to "Internal Commands and Builtins".
+	 More info on "who".
+	 Correction and clarification on "hostname".
+	 More info on "env".
+	 Added "lsof".
+	 Clarification on "pidof".
+         Moved "exec" to "Internal Commands and Builtins" and made some
+	 corrections in the commentary.
+	 Using "stty" to detect keypress, with illustrative example.
+	 Fixup on "chgrp".
+	 Fixup on "nice".
+	 Fixup on "sync".
+	 Added "createfs" example to illustrate "losetup".
+	 At "stty", added long sidebar explaining canonical mode in terminals.
+	   Fixup and additional illustrations on example.
+	 Additional commentary on "ifconfig" code snippets.  
+       Clarifications in "Arithmetic Expansion" section.
+       In "I/O Redirection" section:
+         Added note to "redir1.sh" example.
+         Added note to "redir2.sh" example.
+	 Clarifications and notes added on "redir2a.sh", "redir3.sh",
+	 "redir4.sh", and "redir5.sh" examples.
+	 Added ": >" file truncation note.
+	 Added examples (programlisting) of word splitting.
+	 Added example of newline deletion.
+	 Fixups (removed extraneous spaces in redirection operators in example
+	 snippets).
+	 Added alternative forms of operators that close file descriptors.
+	 Added note and code snippet to "Closing File Descriptors" subsection.
+	 Added "logevents.sh" example of using redirection operations in event
+	 logging.
+	 Added example snippet for "[j]<>filename".
+       In "Gotchas" section:	 
+         Fixed errors in using bad variable names.
+	 Stylistic notes added.
+	 Added note about attempting to use "-" as redirection operator.
+	 Added notes and in-line example snippets about mixing up "=" and "-eq".
+	 Correction on making script "suid".
+       Corrections and explanatory notes in "Regular Expressions" section.	 
+         Notes about "+" and curly brackets in "gawk".
+	 Note and example ("newline.sh") about using "." to match newlines.
+	 Footnote about matching dotfiles with globbing.
+       In "Subshells" section:
+         Fixup on in-line example.
+	 Added example of subshell redirection.
+	 Setting up a "dedicated environment" for a command group.
+	 Added comment to code snippet illustrating parallel processes.
+	 Added note about I/O redirection to subshells.
+       In "Functions" section:
+         Fix up and elaborate "ex60.sh" example.
+	 Example ("ref-params.sh") of passing reference parameters to functions.
+	 Comments and example on recursion.
+	 Note and example snippet on declaring functions before calling them.
+	 Note and example snippet on nested function.
+	 Note and example snippet on function declarations in unlikely places.
+	 Note and example snippet on using dedicated variables for return values.
+	 Note and example snipptets on an alternative method of redirecting
+	 the stdin of a function.
+       In "List Constructs" section:
+         Note and example snippets on operator precedence in compound
+	 statements.
+       In "Arrays" section:
+         Added notes to "ex67.sh".
+	 Added alternative implementation to "ex68.sh".
+	 Added notes and example snippet on ${xxx[@]} and ${xxx[*]} notation.
+	 Added notes to "twodim.sh" example.
+	 Added "{#array}" as string length of first element of array.
+	 Added "empty-array.sh" example.
+       In "Files" section, clarification on "/etc/profile".	 
+       In "Exit and Exit Status" section, added clarifying notes in in-line
+       example.
+       In "Here Documents" section:
+         Added note to "ex71.sh".
+	 Fixup on "ex71c.sh".
+	 Added note and example on "anonymous here documents".
+	 Removed caution about pagers not working in a here document.
+	 Added note about temporary files used by here documents.
+       In "Zeroes and Nulls" section, added note about ": >" alternate to
+       "cat /dev/null >".
+       In "Process Substitution" section:
+         Fixed error in note about not leaving space between ">(command)".
+	 Changed "(command)>" to correct ">(command)".
+	 Added example snippets.
+       In "Debugging" section:
+         Added commentary after "test24, another buggy script".
+	 Correction on "exit" sending signal 0.
+	 Added note and example ("vartrace.sh") in trapping discussion.
+	 Notes added to "online.sh".
+       In "Miscellany" section:
+         Added using "[[ ]]" and "(( ))" in comparisons.	 
+	 Corrections in discussion of interactive shells, plus
+	 illustrative example.
+       In "Contributed Scripts" appendix:
+         Added "primes.sh" to demonstrate that arrays are not need to
+         generate prime numbers.
+	 Added comments to "manview.sh"
+	 Added comment to "tree.sh"
+	 Added "obj-oriented.sh" example of object-oriented programming in a script.
+	 Fixed error in comment in "pw.sh"
+	 Notes on "string.sh".
+       In "Sed and Awk Micro-Primer" section, corrections, clarifications,
+       additions, and more examples.
+       In "Sample .bashrc File" appendix, correction pointing out that only
+       interactive shells read ".bashrc".
+       In "Sha-Bang" section:
+         Added note about the "#!" line being interpreted as a comment
+         by the command interpreter.
+	 Added note about script needing read, as well as execute permission.
+	 Added note about starting a "README" file with "#!/bin/more".
+       In "/dev and /proc" section:
+         Added note that /dev/sndstat has been eliminated as of the 2.3
+	 kernel.
+	 Clarification on virtual devices.
+	 Simplified code snippets illustrating "extracting data" from /proc files.
+	 Noted that /dev is not a filesystem.
+	 Added commentary to "pid-identifier.sh" example.
+	 Fixed error in footnote: entries in /dev do take up some space.
+       In "Options" section:
+	 Clarified "-c" option.
+	 Added note to "-u" option.
+         Fixed typo (--arg1arg2) on "--" (changed to "-- arg1 arg2")
+       In "Converting DOS Batch Files" section:
+         Removed unnecessary variable from "viewdata.sh" example.
+	 Fixups on tables of DOS batch file / shell script equivalents.
+       In "Scripting With Style" section:
+         Fixup on example script.
+       Noted that "exit status" of a script is available to the parent process
+       of that script, not necessarily the shell.
+       Rewritten version of "example 3-2".
+       Added "A Detailed Introduction to I/O Redirection" appendix.
+       Added "Localization" appendix.
+         Made corrections.
+
+
+
+
+======================================================================================
+
+Version 0.3, released 02/12/01
+
+Comments: Another major improvement. The HOWTO is nearly book length,
+          still evolving toward becoming a GUIDE.
+
+Changes from version 0.2:
+
+1) Fixed:
+         Renamed Example A-2 in Appendix A (Contributed Scripts appendix) to
+	 "encryptedpw". It had previously been named "manview", duplicating
+	 the title of Example A-1.
+
+2) In Chapter 1, the reader is now advised to use the example scripts
+   (something-or-other.sh), as an alternative to laboriously
+   cutting-and-pasting from rendered HTML.
+
+3) In "Special Characters" section, added brace expansion {xxx,yyy,zzz...}.
+
+4) Deleted the erroneous statement that the "set -r" option cannot be
+   invoked from within a script.
+
+5) Added section for "restricted shells" with additional info.   
+
+6) Added a couple of script options.
+
+7) Fixed minor bug in code snippet in "Interactive Scripts" section.
+
+8) More info on interactive scripts.
+
+9) Fixed an error confusing '$#' with '$*' in "Loops" section and in ex23.sh.
+
+10) Added Antek Sawicki's random password script in contrib scripts.
+
+In "External Filters, Programs, and Commands" section:
+------------------------------------------------------
+11) More accurately described the "{} \;" arguments to "find" command. Thanks
+    to Jim Van Zandt for pointing this out.
+
+12) Added note to "xargs" that "echo" is default command. Again thanks
+    to Jim Van Zandt.
+
+13) Fixed error claiming "diff" needs sorted files. Jim Van Zandt again.    
+
+14) Cleared up ambiguity about "colrm".
+
+15) More info on "umask" and corrections.
+
+16) Added "mkfifo".
+------------------------------------------------------
+
+17) Added cross-reference on "&&".
+
+18) Added cross-reference to embedded sed script.
+
+19) Added example of embedded awk script (col-totaler.sh).
+
+20) Fixed clumsy wording in sed and awk description.
+
+21) Added "su" to "System and Administrative Commands" section.
+
+22) Added Jim Van Zandt's "daily backup" example script
+    to "Contrib-Scripts" appendix.
+
+23) Enhanced example 66 (ex66.sh) on arrays with more methods of initializing
+    array variables.
+
+24) Corrected "Siever" entry in bibliography.    
+
+25) Added Jordi Sanfeliu's "tree" script to "Contrib-Scripts" appendix.
+
+26) Added Robbins' "Bash Reference Card" to bibliography.
+
+27) Added reference to Duarte's sed tutorial in bibliography.
+
+28) Added "rn.sh", file rename utility to "Contrib-Scripts" appendix.
+
+29) Added "initializing multiple variables on same line" to ex9.sh.
+
+30) Fixed title on "ex52.sh".
+
+31) Added a case when not to use shell scripts, in intro.
+
+32) Added shell script as embedded command in another script, Tcl or wish
+    script, etc. to "Miscellany / Assorted Tips" section.
+
+33) Added download link for latest version of document to intro.
+
+34) Added "id" to "System and Administrative Commands" section.
+
+35) Added "stty" to "System and Administrative Commands" section.
+
+36) Added "strip-comments.sh" example to illustrate "file" command,
+    and "rot13.sh" example to "tr" command, in "External Filters" section.
+
+37) Added "modular approach" sidebar to Chapter 2, section 1.    
+
+38) Added example cross-references to use of REs in scripts by sed,
+    awk, and Perl.
+
+39) More info and clarification on command substitution and arithmetic
+    expansion in "Backticks" section.
+
+40) Corrected "Bibliography" section entry for Ben Okopnik's introductory
+    Bash scripting articles in "Linux Gazette".
+
+41) Added "Bibliography" section entries for "Bash-Prompt HOWTO" and
+    "Bash-Programming-Intro HOWTO".    
+
+42) Added $OLDPWD, $BASH_VERSION, $DIRSTACK, $HOSTNAME, $PPID, $MACHTYPE,
+    $HOSTTYPE, $OSTYPE, $UID, $EUID, $SHELLOPTS, $IGNOREEOF, and $GROUPS
+    to internal Bash variables in "Variables Revisited" section.
+
+43) Added info on the "-" operator (may also be interpreted as "old
+    working directory", depending on context).
+
+44) Added collecting favorite definitions and functions into "library file" to
+    "Miscellany / Assorted Tips" section.
+
+45) Added cross reference from "dot" command to "source", later on in
+    tutorial.    
+
+46) In "Special Characters" section, noted that a command may not follow
+    a comment on the same line.
+
+47) Added section on "Aliases", including two example scripts.    
+
+48) Added discussion of "for" loops with multiple parameters in each [list]
+    element to "Loops Section".
+
+49) Added discussion of "while" loops with multiple conditions to "Loops
+    Section".    
+
+50) Added cross-reference to mention of "getopts" in "while loops" discussion.    
+
+51) Added cross-reference on "exec" in "System and Administrative Commands"
+    section back to use of "exec" in "find" command sequence in "External
+    Filters, Programs, and Commands" section. Added other cross-references in
+    this section.
+
+52) Added footnote about fd 5 being reserved to "I/O Redirection" section.    
+
+53) Additional discussion in "I/O Redirection" section.    
+
+54) Added using "exec" to redirect stdin to "I/O Redirection" section.
+
+55) Added "redir1.sh", example of I/O redirection using "exec".
+
+56) Added "redir2.sh", example of I/O redirected "while" loop.
+
+57) Added "redir3.sh", example of I/O redirected "until" loop.
+
+58) Added "redir4.sh", example of I/O redirected "for" loop.
+
+59) Added "redir5.sh", example of I/O redirected "if/then" test.
+
+60) Added "wipedir.sh" example to $PWD listing in "Variables Revisited"
+    section.
+
+61) More cross-references in "I/O Redirection" section.
+
+62) Added "grp.sh", 'grep' emulation script, after 'grep' listing
+    in "External Filters, Programs and Commands" section.
+
+63) Added "nice", "arch", "users" , "logname", "dmesg", "groups",
+    "hostname", and "pidof" to "System and Administrative Commands"
+    section.
+
+64) Added "bzip2", "sq",  "rev", "strings", "pathchk" and references to
+    "egrep", "fgrep" ,  "groff, gs, TeX", "column", "look", "ptx",
+    "chattr", "cal", "nslookup", "traceroute", "dig", "rx/sx", "rz/sz",
+    "uucp", and "sum, cksum, md5sum" to "External Filters, Programs and
+    Commands" section. Also added illustrative examples for "column"
+    and "look".
+
+65) Added bibliography entries for GNU "gawk" reference manual and "groff"
+    tutorial. Also for I/O reference on UAlberta site.
+
+66) Added cross-references to script examples to "zcat" and "mv"
+    commands" in "External Filters, Programs and Commands" section.
+
+67) Clarification on [ -n $string ] string test operator. Added illustrative
+    example (str-test.sh).    
+
+68) Added "lp" and related commands to "External Filters, Programs and
+    Commands" section.
+
+69) Added double-quoting variables to "Gotchas" section.    
+
+70) Added more xrefs to examples in "Variables Revisited" section.
+
+71) Added "PS3" and "PS4" to "Variables Revisited" section.
+
+72) Added enabling script options from #! header to "Options" section.
+
+73) Added double backslash (\\) to "Quoting" section.
+
+74) Added "Sed and Awk Micro-primer" appendix.
+
+75) Fuller explanation of differences between "$*" and "$@" in "Variables
+    Revisited" section. Also added example to illustrate this,
+    "arglist.sh".
+
+76) More cross-references to examples in "System and Administrative Commands"
+    section.
+
+77) Added more detail to description of $PATH, in "Variables Revisited"
+    section.
+
+78) Added more detail to "Files" section.    
+
+79) Added "command", "enable", , "builtin", "host", and "vrfy"  to
+    "Internal Commands and Builtins" section.
+
+80) Moved "umask" from "External Filters, Programs, and Commands" to "System
+    and Administrative Commands" section.
+
+81) Rearranged the entries in "External Filters, Programs and Commands" in
+    somewhat more logical order and subdivided the section into logical
+    subsections.
+
+82) Moved discussion of embedded Perl scripts from "System and Administrative
+    Commands" section to "Shell Wrappers" subsection.
+
+83) Added example .bashrc file, thanks to Emmanuel Rouat.    
+
+84) Many minor changes not listed above.    
+
+
+
+
+====================================================================
+
+Version 0.2, released 10/30/00.
+
+Comments: This is a major improvement over 0.1.
+
+Changes from version 0.1:
+
+
+Bugfixes
+
+1) fixed if [ cond1 && cond2 ]  ==> if [ cond1 ] && [ cond2 ]
+         if [ cond1 || cond2 ]  ==> if [ cond1 ] || [ cond2 ]
+Added -a and -o options
+         if [ cond1 -a cond2 ]
+         if [ cond1 -o cond2 ]
+
+Added 'and-or.sh' as new example to illustrate && and ||.
+
+
+2) Corrected ex6.sh, added $'s in front of {USER?} and {MAIL?},
+   and added additional explanatory material.
+
+3) Noted that "-" is not a bash option.	 
+
+
+Other changes
+
+4) ex55.sh: added note that 'killall' is Red Hat specific
+
+5) Added to 'Gotchas':
+  interchanging -eq and =
+  starting variables with a digit
+
+6) Substituted for Samuel Johnson quote at beginning:
+"...there are dark corners in the Bourne shell, and people use all of them."
+                    --Chet Ramey
+		    
+7) Added reference to /usr/doc/initscripts-X.XX/sysconfig.txt just after
+   ex. 3-52.
+
+8) Added reference to 'nl' in "External Filters" section and illustrative
+   example.
+
+9) Added material to 'cat' listing.   
+
+10) Added:
+    cd source-directory
+    tar cf - . | (cd ../target-directory; tar xzf -)
+    to Alan Cox example as an alternative.
+
+11) Added material & example to {}    
+
+12) Added "Renaming file extensions" example
+    to pattern matching section.
+
+13) Added "Bash F.A.Q." and "sed F.A.Q." to references.
+
+14) Added missing line in "Tests" section.
+
+15) Revised the 'abstract'.
+
+16) Added <revhistory> element.
+
+17) Reorganized:
+    Moved two examples placed erroneously in 'backticks' section
+    to where they belong.
+
+18) Fleshed out section on 'subshells'.
+    Added 2 examples.
+
+19) Rewrote text to first 'variables' section.
+
+20) Added "rpm-check.sh" example to "code blocks" discussion.
+
+21) Added "online.sh" example to "trap" discussion.
+
+22) Expanded "I/O Redirection" section
+    Definition of 'file descriptor' added.
+    More on file descriptors 3 - 9.
+
+23) Expanded "Regular Expression" section.
+
+24) Added explanation of signals to "debugging" section.
+
+25) Added SECONDS and REPLY to internal variables listing (plus illustrative
+    examples).
+
+26) Added 'ulimit' to administrative commands listing.    
+
+27) Added more information on 'trap' in 'Debugging' section.
+
+28) Fixed erroneous '==' reference in 'Variables Revisited section.
+
+29) Added 'jobs', 'ps', and 'nohup' to 'Administrative Commands' section.
+
+30) Added additional entries to file tests in 'Tests' section.
+
+31) Added additional entries and much more detail in 'Options' section.
+
+32) More detail on 'grep'.
+
+33) More detail on 'export'.
+
+34) Added entries to file and string tests.
+
+35) Added 'uptime' to 'System and Administrative Commands' section.
+
+36) Added '~' to 'Special Characters' section.
+
+37) Added material to 'Backquotes' section.
+
+38) Added 'which' to 'External Filters and Commands' section.
+
+39) More detail on parameters to functions.
+
+40) More detail on arrays.
+
+41) More detail on 'at'.
+
+42) More detail on $RANDOM. Expanded example.
+
+43) Added example script to demonstrate timed input.
+
+44) Added 'Representation of Numerical Constants' subsection to 'Operations'
+    section.
+
+45) Added "eval var1=\$$var2" indirect reference notation to 'Variables
+    Revisited' section.
+
+46) Reorganized:
+    Moved 'Parameter Substition' discussion from 'Special Characters' section
+    to 'Variables' section.
+      Added extra illustrative code snippets.
+
+47) Added bubble sort example to 'Arrays' section.    
+
+48) Added %= operator to 'Operations' section.
+
+49) Added reference to 'whoami' to 'System and Administrative Commands'
+    section.
+
+50) More detail and an additional example for 'Quoting' section.
+
+51) Added info on using pattern match operator, ${var/patt/}, for deletion.
+
+52) More detail on 'touch' and 'read' in 'External Filters'.
+
+53) More detail on 'null' operator (:).
+
+54) Some of the preexisting examples revised, with more material.
+
+55) 'Miscellany' section added.
+       subsection 'Interactive Scripts'
+       subsection 'Optimizations'
+       subsection 'Assorted Tips'
+
+56) Contrib script section added.
+    4 scripts so far.
+
+57) Expanded 'Credits' section.
+
+
+58) Many other corrections, minor changes, and additions. 
+
+
+
+====================================================================
+
+Version 0.1 released 14 June, 2000.

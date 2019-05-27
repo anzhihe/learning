@@ -1,0 +1,420 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>I/O和I/O重定向的详细介绍</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="带有特殊含义的退出码"
+HREF="exitcodes.html"><LINK
+REL="NEXT"
+TITLE="命令行选项"
+HREF="command-line-options.html"></HEAD
+><BODY
+CLASS="APPENDIX"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="exitcodes.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="command-line-options.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="APPENDIX"
+><H1
+><A
+NAME="IOREDIRINTRO"
+></A
+>Appendix E. I/O和I/O重定向的详细介绍</H1
+><P
+><EM
+>由Stephane Chazelas编写, 本书作者修订</EM
+></P
+><P
+>一个命令期望前3个<A
+HREF="io-redirection.html#FDREF"
+>文件描述符</A
+>是可用的. 
+		 第一个, <EM
+>fd 0</EM
+>(标准输入, <TT
+CLASS="FILENAME"
+>stdin</TT
+>), 
+        用作读取. 另外两个, (<EM
+>fd 1</EM
+>, 
+        <TT
+CLASS="FILENAME"
+>stdout</TT
+>和<EM
+>fd 2</EM
+>, 
+        <TT
+CLASS="FILENAME"
+>stderr</TT
+>), 用来写入. </P
+><P
+>每个命令都会关联到<TT
+CLASS="FILENAME"
+>stdin</TT
+>, 
+		<TT
+CLASS="FILENAME"
+>stdout</TT
+>, 和<TT
+CLASS="FILENAME"
+>stderr</TT
+>. 
+        <KBD
+CLASS="USERINPUT"
+>ls 2&#62;&#38;1</KBD
+>意味着临时的将<B
+CLASS="COMMAND"
+>ls</B
+>命令的<TT
+CLASS="FILENAME"
+>stderr</TT
+>连接到shell的<TT
+CLASS="FILENAME"
+>stdout</TT
+>. </P
+><P
+>按惯例, 命令一般都是从fd 0(<TT
+CLASS="FILENAME"
+>stdin</TT
+>)上读取输入, 
+		打印输出到fd 1(<TT
+CLASS="FILENAME"
+>stdout</TT
+>)上, 
+		错误输出一般都输出到fd 2(<TT
+CLASS="FILENAME"
+>stderr</TT
+>)上. 
+		如果这3个文件描述中的某一个没打开, 你可能就会遇到麻烦了: 
+        </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cat /etc/passwd &#62;&#38;-</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>cat: standard output: Bad file descriptor</SAMP
+>
+      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>比如说, 当<B
+CLASS="COMMAND"
+>xterm</B
+>运行的时候, 
+		  它首先会初始化自身. 
+		  在运行用户shell之前, 
+        <B
+CLASS="COMMAND"
+>xterm</B
+>会打开终端设备(/dev/pts/&#60;n&#62; 或者类似的东西)三次. </P
+><P
+>这里, Bash继承了这三个文件描述符, 
+        而且每个运行在Bash上的命令(子进程)也都依次继承了它们, 
+        除非你重定向了这些命令. <A
+HREF="io-redirection.html#IOREDIRREF"
+>重定向</A
+>意味着将这些文件描述符中的某一个, 
+		重新分配到其他文件中(或者分配到一个管道中, 或者是其他任何可能的东西). 
+		文件描述符既可以被局部重分配(对于一个命令, 命令组, 
+		一个子shell, 一个<A
+HREF="redircb.html#REDIRREF"
+>while循环, if或case结构</A
+>...), 
+        也可以全局重分配, 对于余下的shell(使用<A
+HREF="internal.html#EXECREF"
+>exec</A
+>). </P
+><P
+><KBD
+CLASS="USERINPUT"
+>ls &#62; /dev/null</KBD
+> 表示将运行的<B
+CLASS="COMMAND"
+>ls</B
+>命令的fd 1连接到<TT
+CLASS="FILENAME"
+>/dev/null</TT
+>上. </P
+><P
+>      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>lsof -a -p $$ -d0,1,2</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>COMMAND PID     USER   FD   TYPE DEVICE SIZE NODE NAME
+ bash    363 bozo        0u   CHR  136,1         3 /dev/pts/1
+ bash    363 bozo        1u   CHR  136,1         3 /dev/pts/1
+ bash    363 bozo        2u   CHR  136,1         3 /dev/pts/1</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>exec 2&#62; /dev/null</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>lsof -a -p $$ -d0,1,2</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>COMMAND PID     USER   FD   TYPE DEVICE SIZE NODE NAME
+ bash    371 bozo        0u   CHR  136,1         3 /dev/pts/1
+ bash    371 bozo        1u   CHR  136,1         3 /dev/pts/1
+ bash    371 bozo        2w   CHR    1,3       120 /dev/null</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>bash -c 'lsof -a -p $$ -d0,1,2' | cat</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>COMMAND PID USER   FD   TYPE DEVICE SIZE NODE NAME
+ lsof    379 root    0u   CHR  136,1         3 /dev/pts/1
+ lsof    379 root    1w  FIFO    0,0      7118 pipe
+ lsof    379 root    2u   CHR  136,1         3 /dev/pts/1</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo "$(bash -c 'lsof -a -p $$ -d0,1,2' 2&#62;&#38;1)"</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>COMMAND PID USER   FD   TYPE DEVICE SIZE NODE NAME
+ lsof    426 root    0u   CHR  136,1         3 /dev/pts/1
+ lsof    426 root    1w  FIFO    0,0      7520 pipe
+ lsof    426 root    2w  FIFO    0,0      7520 pipe</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>这是用来展示不同类型的重定向. </P
+><P
+><KBD
+CLASS="USERINPUT"
+>练习:</KBD
+> 分析下面的脚本. 
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#! /usr/bin/env bash                                                                                    
+  2&nbsp;												
+  3&nbsp;mkfifo /tmp/fifo1 /tmp/fifo2                                                                            
+  4&nbsp;while read a; do echo "FIFO1: $a"; done &#60; /tmp/fifo1 &#38;                                                  
+  5&nbsp;exec 7&#62; /tmp/fifo1                                                                                      
+  6&nbsp;exec 8&#62; &#62;(while read a; do echo "FD8: $a, to fd7"; done &#62;&#38;7)                                            
+  7&nbsp;                                                                                                        
+  8&nbsp;exec 3&#62;&#38;1                                                                                               
+  9&nbsp;(                                                                                                       
+ 10&nbsp; (                                                                                                      
+ 11&nbsp;  (                                                                                                     
+ 12&nbsp;   while read a; do echo "FIFO2: $a"; done &#60; /tmp/fifo2 | tee /dev/stderr | tee /dev/fd/4 | tee /dev/fd/5 | tee /dev/fd/6 &#62;&#38;7 &#38;                                                                        
+ 13&nbsp;   exec 3&#62; /tmp/fifo2                                                                                   
+ 14&nbsp;                                                                                                        
+ 15&nbsp;   echo 1st, to stdout                                                                                  
+ 16&nbsp;   sleep 1                                                                                              
+ 17&nbsp;   echo 2nd, to stderr &#62;&#38;2                                                                              
+ 18&nbsp;   sleep 1                                                                                              
+ 19&nbsp;   echo 3rd, to fd 3 &#62;&#38;3                                                                                
+ 20&nbsp;   sleep 1                                                                                              
+ 21&nbsp;   echo 4th, to fd 4 &#62;&#38;4                                                                                
+ 22&nbsp;   sleep 1                                                                                              
+ 23&nbsp;   echo 5th, to fd 5 &#62;&#38;5                                                                                
+ 24&nbsp;   sleep 1                                                                                              
+ 25&nbsp;   echo 6th, through a pipe | sed 's/.*/PIPE: &#38;, to fd 5/' &#62;&#38;5                                          
+ 26&nbsp;   sleep 1                                                                                              
+ 27&nbsp;   echo 7th, to fd 6 &#62;&#38;6                                                                                
+ 28&nbsp;   sleep 1                                                                                              
+ 29&nbsp;   echo 8th, to fd 7 &#62;&#38;7                                                                                
+ 30&nbsp;   sleep 1                                                                                              
+ 31&nbsp;   echo 9th, to fd 8 &#62;&#38;8                                                                                
+ 32&nbsp;                                                                                                        
+ 33&nbsp;  ) 4&#62;&#38;1 &#62;&#38;3 3&#62;&#38;- | while read a; do echo "FD4: $a"; done 1&#62;&#38;3 5&#62;&#38;- 6&#62;&#38;-                                
+ 34&nbsp; ) 5&#62;&#38;1 &#62;&#38;3 | while read a; do echo "FD5: $a"; done 1&#62;&#38;3 6&#62;&#38;-                                           
+ 35&nbsp;) 6&#62;&#38;1 &#62;&#38;3 | while read a; do echo "FD6: $a"; done 3&#62;&#38;-                                                 
+ 36&nbsp;                                                                                                        
+ 37&nbsp;rm -f /tmp/fifo1 /tmp/fifo2
+ 38&nbsp;
+ 39&nbsp;
+ 40&nbsp;# 对于每个命令和子shell, 分别指出每个fd的指向. 
+ 41&nbsp;
+ 42&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="exitcodes.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="command-line-options.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>带有特殊含义的退出码</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>命令行选项</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

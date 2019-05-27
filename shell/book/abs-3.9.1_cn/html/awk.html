@@ -1,0 +1,502 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Awk</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="一个学习Sed和Awk的小手册"
+HREF="sedawk.html"><LINK
+REL="PREVIOUS"
+TITLE="Sed"
+HREF="x17814.html"><LINK
+REL="NEXT"
+TITLE="带有特殊含义的退出码"
+HREF="exitcodes.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x17814.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix C. 一个学习Sed和Awk的小手册</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="exitcodes.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AWK"
+>C.2. Awk</A
+></H1
+><P
+><A
+NAME="AWKREF"
+></A
+></P
+><P
+><B
+CLASS="COMMAND"
+>Awk</B
+>是功能完整的文本处理语言, 
+		 使用类似于<B
+CLASS="COMMAND"
+>C</B
+>的语法. 
+		 它具有一整套操作符和能力集, 我们只在这里讲解一小部分 - 
+		 也就是在shell脚本中最有用的部分. 
+       </P
+><P
+>Awk将传递进来的每行输入都分割成<I
+CLASS="FIRSTTERM"
+>域</I
+>. 
+		   默认情况下, 一个域指的就是使用<A
+HREF="special-chars.html#WHITESPACEREF"
+>空白</A
+>分隔的一个连续字符串, 
+		   不过我们可以修改属性来改变分隔符. 
+       Awk将会分析并操作每个分割域. 
+	   因为这种特性, 所以awk非常善于处理结构化的文本文件 -- 
+	   尤其是表 -- 将数据组织成统一的块, 
+	   比如说分成行和列. </P
+><P
+>强引用(单引号)和大括号用来包含shell脚本中的awk代码段. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo one two | awk '{print $1}'
+  2&nbsp;# one
+  3&nbsp;
+  4&nbsp;echo one two | awk '{print $2}'
+  5&nbsp;# two
+  6&nbsp;
+  7&nbsp;
+  8&nbsp;awk '{print $3}' $filename
+  9&nbsp;# 打印文件$filename的域#3, 到stdout. 
+ 10&nbsp;
+ 11&nbsp;awk '{print $1 $5 $6}' $filename
+ 12&nbsp;# 打印文件$filename的域#1, #5, 和#6. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>事实上, 上边我们只讲解了awk的<B
+CLASS="COMMAND"
+>print</B
+>命令. 
+       我们需要在这里讲解awk的另一个特点, 变量. 
+	   Awk处理变量的手段与shell脚本很相似, 
+	  虽然更复杂一些. 
+       </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;{ total += ${column_number} }</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+		 上边这句将<EM
+>column_number</EM
+>的值加上<SPAN
+CLASS="QUOTE"
+>"total"</SPAN
+>的值然后再赋给<EM
+>total</EM
+>. 
+		 最后, 为了打印出<SPAN
+CLASS="QUOTE"
+>"total"</SPAN
+>, 
+		 我们需要一个<B
+CLASS="COMMAND"
+>END</B
+>命令块, 
+       当脚本处理完所有输入之后, 就会执行这个命令块中的内容. 
+       <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;END { print total }</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>与<B
+CLASS="COMMAND"
+>END</B
+>对应, 
+	   还有<B
+CLASS="COMMAND"
+>BEGIN</B
+>命令块, 
+       在脚本处理所有输入之前, 将会执行这个命令块中的内容. 
+       </P
+><P
+>下面这个例子展示了<B
+CLASS="COMMAND"
+>awk</B
+>如何在shell脚本中添加文本分析工具. 
+       </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="LETTERCOUNT2"
+></A
+><P
+><B
+>例子 C-1. 计算字符出现次数</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#! /bin/sh
+  2&nbsp;# letter-count2.sh: 在文本文件中计算字符的出现次数. 
+  3&nbsp;#
+  4&nbsp;# 由nyal [nyal@voila.fr]编写.
+  5&nbsp;# 授权使用. 
+  6&nbsp;# 本文作者重新注释. 
+  7&nbsp;# 版本 1.1: 经过修改可用于gawk 3.1.3.
+  8&nbsp;#              (也可用于awk的早期版本.)
+  9&nbsp;
+ 10&nbsp;
+ 11&nbsp;INIT_TAB_AWK=""
+ 12&nbsp;# 初始化awk脚本的参数. 
+ 13&nbsp;count_case=0
+ 14&nbsp;FILE_PARSE=$1
+ 15&nbsp;
+ 16&nbsp;E_PARAMERR=65
+ 17&nbsp;
+ 18&nbsp;usage()
+ 19&nbsp;{
+ 20&nbsp;    echo "Usage: letter-count.sh file letters" 2&#62;&#38;1
+ 21&nbsp;    # 比如:   ./letter-count2.sh filename.txt a b c
+ 22&nbsp;    exit $E_PARAMERR  # 传递到脚本的参数个数不够. 
+ 23&nbsp;}
+ 24&nbsp;
+ 25&nbsp;if [ ! -f "$1" ] ; then
+ 26&nbsp;    echo "$1: No such file." 2&#62;&#38;1
+ 27&nbsp;    usage                 # 打印使用信息并退出. 
+ 28&nbsp;fi 
+ 29&nbsp;
+ 30&nbsp;if [ -z "$2" ] ; then
+ 31&nbsp;    echo "$2: No letters specified." 2&#62;&#38;1
+ 32&nbsp;    usage
+ 33&nbsp;fi 
+ 34&nbsp;
+ 35&nbsp;shift                      # 指定的字符. 
+ 36&nbsp;for letter in `echo $@`    # for循环遍历 . . .
+ 37&nbsp;  do
+ 38&nbsp;  INIT_TAB_AWK="$INIT_TAB_AWK tab_search[${count_case}] = \"$letter\"; final_tab[${count_case}] = 0; " 
+ 39&nbsp;  # 作为参数传递到下边的awk脚本中. 
+ 40&nbsp;  count_case=`expr $count_case + 1`
+ 41&nbsp;done
+ 42&nbsp;
+ 43&nbsp;# 调试:
+ 44&nbsp;# echo $INIT_TAB_AWK;
+ 45&nbsp;
+ 46&nbsp;cat $FILE_PARSE |
+ 47&nbsp;# 将目标文件通过管道传递下边的awk脚本中. 
+ 48&nbsp;
+ 49&nbsp;# ----------------------------------------------------------------------------------
+ 50&nbsp;# 下边是本脚本的早期版本使用的方法: 
+ 51&nbsp;# awk -v tab_search=0 -v final_tab=0 -v tab=0 -v nb_letter=0 -v chara=0 -v chara2=0 \
+ 52&nbsp;
+ 53&nbsp;awk \
+ 54&nbsp;"BEGIN { $INIT_TAB_AWK } \
+ 55&nbsp;{ split(\$0, tab, \"\"); \
+ 56&nbsp;for (chara in tab) \
+ 57&nbsp;{ for (chara2 in tab_search) \
+ 58&nbsp;{ if (tab_search[chara2] == tab[chara]) { final_tab[chara2]++ } } } } \
+ 59&nbsp;END { for (chara in final_tab) \
+ 60&nbsp;{ print tab_search[chara] \" =&#62; \" final_tab[chara] } }"
+ 61&nbsp;# ----------------------------------------------------------------------------------
+ 62&nbsp;#  不是所有的都那么复杂, 只是 . . . 
+ 63&nbsp;#+ for循环, if条件判断, 和几个指定函数而已. 
+ 64&nbsp;
+ 65&nbsp;exit $?
+ 66&nbsp;
+ 67&nbsp;# 与脚本letter-count.sh相比较.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>如果想再看一些在shell脚本中使用awk的简单例子, 如下: 
+       <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><A
+HREF="internal.html#EX44"
+>例子 11-12</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="redircb.html#REDIR4"
+>例子 16-8</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="filearchiv.html#STRIPC"
+>例子 12-29</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="wrapper.html#COLTOTALER"
+>例子 33-5</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="ivr.html#COLTOTALER2"
+>例子 9-24</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="internal.html#COLTOTALER3"
+>例子 11-19</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="procref1.html#PIDID"
+>例子 27-2</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="procref1.html#CONSTAT"
+>例子 27-3</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="loops1.html#FILEINFO"
+>例子 10-3</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="extmisc.html#BLOTOUT"
+>例子 12-55</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="randomvar.html#SEEDINGRANDOM"
+>例子 9-29</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="moreadv.html#IDELETE"
+>例子 12-4</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="string-manipulation.html#SUBSTRINGEX"
+>例子 9-14</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="assortedtips.html#SUMPRODUCT"
+>例子 33-16</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="loops1.html#USERLIST"
+>例子 10-8</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="wrapper.html#PRASC"
+>例子 33-4</A
+></P
+></LI
+></OL
+>
+      </P
+><P
+>我们在这里所要讲解的awk内容就这么多, 
+		  但是事实上还有好多东西需要学. 
+		  可以参考<A
+HREF="biblio.html"
+><I
+>参考文献</I
+></A
+>中的内容深入学习. </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x17814.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="exitcodes.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Sed</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="sedawk.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>带有特殊含义的退出码</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

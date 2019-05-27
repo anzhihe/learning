@@ -1,0 +1,545 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>非官方的Shell脚本编写风格</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="脚本编程风格"
+HREF="scrstyle.html"><LINK
+REL="PREVIOUS"
+TITLE="脚本编程风格"
+HREF="scrstyle.html"><LINK
+REL="NEXT"
+TITLE="杂项"
+HREF="miscellany.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="scrstyle.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>32. 脚本编程风格</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="miscellany.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="UNOFFICIALST"
+>32.1. 非官方的Shell脚本编写风格</A
+></H1
+><P
+></P
+><UL
+><LI
+><P
+>习惯性的注释你的代码. 
+			这可以让别人更容易看懂(或者感激)你的代码(译者注: 犯错时, 别人也会靠注释找到你), 
+	    而且也更便于维护. 
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;PASS="$PASS${MATRIX:$(($RANDOM%${#MATRIX})):1}"
+  2&nbsp;# 去年你写下这段代码的时候, 你非常了解这段代码的含义, 但现在它对你来说完全是个谜. 
+  3&nbsp;# (摘自Antek Sawicki的"pw.sh"脚本.)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+><P
+>给脚本和函数加上描述性的头信息. 
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;#************************************************#
+  4&nbsp;#                   xyz.sh                       #
+  5&nbsp;#           written by Bozo Bozeman              #
+  6&nbsp;#                July 05, 2001                   #
+  7&nbsp;#                                                #
+  8&nbsp;#           Clean up project files.              #
+  9&nbsp;#************************************************#
+ 10&nbsp;
+ 11&nbsp;E_BADDIR=65                       # 没有这个目录. 
+ 12&nbsp;projectdir=/home/bozo/projects    # 想要清除的目录. 
+ 13&nbsp;
+ 14&nbsp;# --------------------------------------------------------- #
+ 15&nbsp;# cleanup_pfiles ()                                         #
+ 16&nbsp;# 删除指定目录中的所有文件.                                 #
+ 17&nbsp;# Parameter: $target_directory                              #
+ 18&nbsp;# 返回值: 0表示成功, 失败返回$E_BADDIR.                     #
+ 19&nbsp;# --------------------------------------------------------- #
+ 20&nbsp;cleanup_pfiles ()
+ 21&nbsp;{
+ 22&nbsp;  if [ ! -d "$1" ]  # Test if target directory exists.
+ 23&nbsp;  then
+ 24&nbsp;    echo "$1 is not a directory."
+ 25&nbsp;    return $E_BADDIR
+ 26&nbsp;  fi
+ 27&nbsp;
+ 28&nbsp;  rm -f "$1"/*
+ 29&nbsp;  return 0   # Success.
+ 30&nbsp;}  
+ 31&nbsp;
+ 32&nbsp;cleanup_pfiles $projectdir
+ 33&nbsp;
+ 34&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+	    在脚本开头添加任何注释之前, 一定要确保<EM
+>#!/bin/bash</EM
+>放在脚本第一行的开头. 
+	    </P
+></LI
+><LI
+><P
+>避免使用<SPAN
+CLASS="QUOTE"
+>"魔法数字"</SPAN
+>, 
+
+	     <A
+NAME="AEN15556"
+HREF="#FTN.AEN15556"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+
+	    也就是, 避免<SPAN
+CLASS="QUOTE"
+>"写死的"</SPAN
+>字符常量. 
+		可以使用有意义的变量名来代替. 
+		这使得脚本更易于理解, 并且允许在不破坏应用的情况下进行修改和更新. 
+
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if [ -f /var/log/messages ]
+  2&nbsp;then
+  3&nbsp;  ...
+  4&nbsp;fi
+  5&nbsp;# 一年以后, 你决定修改这个脚本, 让它来检查/var/log/syslog. 
+  6&nbsp;# 到时候你就必须一行一行的手动修改这个脚本, 
+  7&nbsp;# 并且寄希望于没有遗漏的地方. 
+  8&nbsp;
+  9&nbsp;# 更好的办法是: 
+ 10&nbsp;LOGFILE=/var/log/messages  # 只需要改动一行就行了. 
+ 11&nbsp;if [ -f "$LOGFILE" ]
+ 12&nbsp;then
+ 13&nbsp;  ...
+ 14&nbsp;fi</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+          </P
+></LI
+><LI
+><P
+>给变量和函数起一些有意义的名字. 
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;fl=`ls -al $dirname`                 # 含义模糊. 
+  2&nbsp;file_listing=`ls -al $dirname`       # 更好的名字. 
+  3&nbsp;
+  4&nbsp;
+  5&nbsp;MAXVAL=10   # 使用变量来代替脚本常量, 并且在脚本中都是用这个变量. 
+  6&nbsp;while [ "$index" -le "$MAXVAL" ]
+  7&nbsp;...
+  8&nbsp;
+  9&nbsp;
+ 10&nbsp;E_NOTFOUND=75                        #  错误码使用大写, 
+ 11&nbsp;                                     #+ 并且命名的时候用"E_"作为前缀. 
+ 12&nbsp;if [ ! -e "$filename" ]
+ 13&nbsp;then
+ 14&nbsp;  echo "File $filename not found."
+ 15&nbsp;  exit $E_NOTFOUND
+ 16&nbsp;fi  
+ 17&nbsp;
+ 18&nbsp;
+ 19&nbsp;MAIL_DIRECTORY=/var/spool/mail/bozo  # 环境变量名使用大写. 
+ 20&nbsp;export MAIL_DIRECTORY
+ 21&nbsp;
+ 22&nbsp;
+ 23&nbsp;GetAnswer ()                         # 函数名采用大小写混合的方式. 
+ 24&nbsp;{
+ 25&nbsp;  prompt=$1
+ 26&nbsp;  echo -n $prompt
+ 27&nbsp;  read answer
+ 28&nbsp;  return $answer
+ 29&nbsp;}  
+ 30&nbsp;
+ 31&nbsp;GetAnswer "What is your favorite number? "
+ 32&nbsp;favorite_number=$?
+ 33&nbsp;echo $favorite_number
+ 34&nbsp;
+ 35&nbsp;
+ 36&nbsp;_uservariable=23                     # 语法上可以这么起名, 但是不推荐. 
+ 37&nbsp;# 用户定义的变量名最好不要以下划线开头. 
+ 38&nbsp;# 因为以下划线开头的变量, 一般都保留, 作为系统变量. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+          </P
+></LI
+><LI
+><P
+><A
+HREF="exit-status.html#EXITCOMMANDREF"
+>退出码</A
+>最好也采用具有系统性的或有意义的命名方式. 
+
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;E_WRONG_ARGS=65
+  2&nbsp;...
+  3&nbsp;...
+  4&nbsp;exit $E_WRONG_ARGS</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            也请参考<A
+HREF="exitcodes.html"
+>Appendix D</A
+>. </P
+><P
+><EM
+>最后</EM
+>, 
+			我们建议采用<TT
+CLASS="FILENAME"
+>/usr/include/sysexits.h</TT
+>中的定义作为退出码, 
+			虽然这些定义主要用于C/C++编程语言. 
+	    </P
+></LI
+><LI
+><P
+>在脚本调用中使用标准化的参数标志. 
+		   <EM
+>最后</EM
+>, 我们建议使用下面的参数集. 
+	   </P
+><P
+>             <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;-a      全部: 返回全部信息(包括隐藏的文件信息). 
+  2&nbsp;-b      摘要: 缩减版本, 通常用于其它版本. 通常用于其它脚本. 
+  3&nbsp;-c      拷贝, 连接, 等等.
+  4&nbsp;-d      日常的: 使用全天的信息, 
+  5&nbsp;        而不仅仅是特定用户或特定实例的信息. 
+  6&nbsp;-e      扩展/详细描述: (通常不包括隐藏文件信息). 
+  7&nbsp;-h      帮助: 详细的使用方法, 附加信息, 讨论, 帮助.
+  8&nbsp;        也请参考-V.
+  9&nbsp;-l      打印出脚本的输出记录. 
+ 10&nbsp;-m      手册: 显示基本命令的man页. 
+ 11&nbsp;-n      数字: 仅使用数字数据. 
+ 12&nbsp;-r      递归: 这个目录中所有的文件(也包含所有子目录). 
+ 13&nbsp;-s      安装&#38;文件维护: 这个脚本的配置文件. 
+ 14&nbsp;-u      用法: 列出脚本的调用方法. 
+ 15&nbsp;-v      详细信息: 只读输出, 或多或少的会做一些格式化. 
+ 16&nbsp;-V      版本/许可/版权Copy(right|left)/捐助(邮件列表). </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+           </P
+><P
+>也请参考<A
+HREF="standard-options.html"
+>Section F.1</A
+>. </P
+></LI
+><LI
+><P
+>将一个复杂脚本分割成一些简单的模块. 
+	    使用合适的函数来实现模块的功能. 请参考<A
+HREF="bashver2.html#EX79"
+>例子 34-4</A
+>. </P
+></LI
+><LI
+><P
+>如果有更简单的结构可以使用的话, 就不要使用复杂的结构. 
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;COMMAND
+  2&nbsp;if [ $? -eq 0 ]
+  3&nbsp;...
+  4&nbsp;# 多余, 而且不好理解. 
+  5&nbsp;
+  6&nbsp;if COMMAND
+  7&nbsp;...
+  8&nbsp;# 更简练(可能会损失一些可读性). </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+          </P
+></LI
+></UL
+><TABLE
+BORDER="0"
+WIDTH="100%"
+CELLSPACING="0"
+CELLPADDING="0"
+CLASS="EPIGRAPH"
+><TR
+><TD
+WIDTH="45%"
+>&nbsp;</TD
+><TD
+WIDTH="45%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+><P
+><I
+>... 当我阅读UNIX中Bourne shell (/bin/sh)部分的源代码时. 
+		  我被震惊了, 有多少简单的算法被恶心的编码风格弄得令人看不懂, 
+		  并且因此变得没用. 
+	我问我自己, 
+	<SPAN
+CLASS="QUOTE"
+>"有人会对这种代码感到骄傲和自豪么?"</SPAN
+></I
+></P
+></I
+></TD
+></TR
+><TR
+><TD
+WIDTH="45%"
+>&nbsp;</TD
+><TD
+WIDTH="45%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><I
+><SPAN
+CLASS="ATTRIBUTION"
+>Landon Noll</SPAN
+></I
+></TD
+></TR
+></TABLE
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN15556"
+HREF="unofficialst.html#AEN15556"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>在这种上下文中所说的<SPAN
+CLASS="QUOTE"
+>"魔法数字"</SPAN
+>与用来指明文件类型的<A
+HREF="sha-bang.html#MAGNUMREF"
+>魔法数字</A
+>, 在含义上完全不同. 
+	       </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="scrstyle.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="miscellany.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>脚本编程风格</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="scrstyle.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>杂项</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

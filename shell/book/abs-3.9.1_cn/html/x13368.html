@@ -1,0 +1,524 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>使用exec</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="I/O重定向"
+HREF="io-redirection.html"><LINK
+REL="PREVIOUS"
+TITLE="I/O重定向"
+HREF="io-redirection.html"><LINK
+REL="NEXT"
+TITLE="代码块重定向"
+HREF="redircb.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="io-redirection.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>16. I/O重定向</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="redircb.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN13368"
+>16.1. 使用<B
+CLASS="COMMAND"
+>exec</B
+></A
+></H1
+><P
+><A
+NAME="USINGEXECREF"
+></A
+></P
+><P
+><B
+CLASS="COMMAND"
+>exec &#60;filename</B
+>命令会将<TT
+CLASS="FILENAME"
+>stdin</TT
+>重定向到文件中. 
+			从这句开始, 所有的<TT
+CLASS="FILENAME"
+>stdin</TT
+>就都来自于这个文件了, 
+		而不是标准输入(通常都是键盘输入). 
+		这样就提供了一种按行读取文件的方法, 
+		并且可以使用<A
+HREF="sedawk.html#SEDREF"
+>sed</A
+>和/或<A
+HREF="awk.html#AWKREF"
+>awk</A
+>来对每一行进行分析. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="REDIR1"
+></A
+><P
+><B
+>例子 16-1. 使用<B
+CLASS="COMMAND"
+>exec</B
+>重定向<TT
+CLASS="FILENAME"
+>stdin</TT
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/bash
+# 使用'exec'重定向stdin. 
+
+
+exec 6&#60;&#38;0          # 将文件描述符#6与stdin链接起来. 
+                   # 保存stdin. 
+
+exec &#60; data-file   # stdin被文件"data-file"所代替. 
+
+read a1            # 读取文件"data-file"的第一行. 
+read a2            # 读取文件"data-file"的第二行. 
+
+echo
+echo "Following lines read from file."
+echo "-------------------------------"
+echo $a1
+echo $a2
+
+echo; echo; echo
+
+exec 0&#60;&#38;6 6&#60;&#38;-
+#  现在将stdin从fd #6中恢复, 因为刚才我们把stdin重定向到#6了, 
+#+ 然后关闭fd #6 ( 6&#60;&#38;- ), 好让这个描述符继续被其他进程所使用. 
+#
+# &#60;&#38;6 6&#60;&#38;-    这么做也可以. 
+
+echo -n "Enter data  "
+read b1  # 现在"read"已经恢复正常了, 就是能够正常的从stdin中读取.
+echo "Input read from stdin."
+echo "----------------------"
+echo "b1 = $b1"
+
+echo
+
+exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>同样的, <B
+CLASS="COMMAND"
+>exec &#62;filename</B
+>命令将会把<TT
+CLASS="FILENAME"
+>stdout</TT
+>重定向到一个指定的文件中. 
+	  这样所有命令的输出就都会发送到那个指定的文件, 
+	  而不是<TT
+CLASS="FILENAME"
+>stdout</TT
+>. </P
+><DIV
+CLASS="IMPORTANT"
+><P
+></P
+><TABLE
+CLASS="IMPORTANT"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/important.gif"
+HSPACE="5"
+ALT="Important"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>			<B
+CLASS="COMMAND"
+>exec N &#62; filename</B
+>会影响整个脚本或<EM
+>当前shell</EM
+>. 
+			对于这个指定<A
+HREF="special-chars.html#PROCESSIDREF"
+>PID</A
+>的脚本或shell来说, 
+			从这句命令执行之后, 就会重定向到这个文件中, 
+			然而 . . .
+        </P
+><P
+>	  <B
+CLASS="COMMAND"
+>N &#62; filename</B
+>只会影响新fork出来的进程, 而不会影响整个脚本或shell. 
+	  not the entire script or shell.
+        </P
+><P
+>感谢你, Ahmed Darwish, 指出这个问题. </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="REASSIGNSTDOUT"
+></A
+><P
+><B
+>例子 16-2. 使用<B
+CLASS="COMMAND"
+>exec</B
+>来重定向<TT
+CLASS="FILENAME"
+>stdout</TT
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/bash
+# reassign-stdout.sh
+
+LOGFILE=logfile.txt
+
+exec 6&#62;&#38;1           # 将fd #6与stdout链接起来. 
+                    # 保存stdout. 
+
+exec &#62; $LOGFILE     # stdout就被文件"logfile.txt"所代替了. 
+
+# ----------------------------------------------------------- #
+# 在这块中所有命令的输出都会发送到文件$LOGFILE中. 
+
+echo -n "Logfile: "
+date
+echo "-------------------------------------"
+echo
+
+echo "Output of \"ls -al\" command"
+echo
+ls -al
+echo; echo
+echo "Output of \"df\" command"
+echo
+df
+
+# ----------------------------------------------------------- #
+
+exec 1&#62;&#38;6 6&#62;&#38;-      # 恢复stdout, 然后关闭文件描述符#6. 
+
+echo
+echo "== stdout now restored to default == "
+echo
+ls -al
+echo
+
+exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="UPPERCONV"
+></A
+><P
+><B
+>例子 16-3. 使用<B
+CLASS="COMMAND"
+>exec</B
+>在同一个脚本中重定向<TT
+CLASS="FILENAME"
+>stdin</TT
+>和<TT
+CLASS="FILENAME"
+>stdout</TT
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/bash
+# upperconv.sh
+# 将一个指定的输入文件转换为大写. 
+
+E_FILE_ACCESS=70
+E_WRONG_ARGS=71
+
+if [ ! -r "$1" ]     # 判断指定的输入文件是否可读? 
+then
+  echo "Can't read from input file!"
+  echo "Usage: $0 input-file output-file"
+  exit $E_FILE_ACCESS
+fi                   #  即使输入文件($1)没被指定
+                     #+ 也还是会以相同的错误退出(为什么?). 
+
+if [ -z "$2" ]
+then
+  echo "Need to specify output file."
+  echo "Usage: $0 input-file output-file"
+  exit $E_WRONG_ARGS
+fi
+
+
+exec 4&#60;&#38;0
+exec &#60; $1            # 将会从输入文件中读取. 
+
+exec 7&#62;&#38;1
+exec &#62; $2            # 将写到输出文件中. 
+                     # 假设输出文件是可写的(添加检查?). 
+
+# -----------------------------------------------
+    cat - | tr a-z A-Z   # 转换为大写. 
+#   ^^^^^                # 从stdin中读取. 
+#           ^^^^^^^^^^   # 写到stdout上. 
+# 然而, stdin和stdout都被重定向了. 
+# -----------------------------------------------
+
+exec 1&#62;&#38;7 7&#62;&#38;-       # 恢复stout.
+exec 0&#60;&#38;4 4&#60;&#38;-       # 恢复stdin.
+
+# 恢复之后, 下边这行代码将会如预期的一样打印到stdout上. 
+echo "File \"$1\" written to \"$2\" as uppercase conversion."
+
+exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>I/O重定向是一种避免可怕的<A
+HREF="subshells.html#PARVIS"
+>子shell中不可访问变量</A
+>问题的方法. 
+      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="AVOIDSUBSHELL"
+></A
+><P
+><B
+>例子 16-4. 避免子shell</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/bash
+# avoid-subshell.sh
+# 由Matthew Walker所提出的建议. 
+
+Lines=0
+
+echo
+
+cat myfile.txt | while read line;  #  (译者注: 管道会产生子shell)
+                 do {
+                   echo $line
+                   (( Lines++ ));  #  增加这个变量的值
+                                   #+ 但是外部循环却不能访问. 
+                                   #  子shell问题. 
+                 }
+                 done
+
+echo "Number of lines read = $Lines"     # 0
+                                         # 错误!
+
+echo "------------------------"
+
+
+exec 3&#60;&#62; myfile.txt
+while read line &#60;&#38;3
+do {
+  echo "$line"
+  (( Lines++ ));                   #  增加这个变量的值
+                                   #+ 现在外部循环就可以访问了. 
+                                   #  没有子shell, 现在就没问题了. 
+}
+done
+exec 3&#62;&#38;-
+
+echo "Number of lines read = $Lines"     # 8
+
+echo
+
+exit 0
+
+# 下边这些行是这个脚本的结果, 脚本是不会走到这里的. 
+
+$ cat myfile.txt
+
+Line 1.
+Line 2.
+Line 3.
+Line 4.
+Line 5.
+Line 6.
+Line 7.
+Line 8.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="io-redirection.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="redircb.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>I/O重定向</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="io-redirection.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>代码块重定向</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

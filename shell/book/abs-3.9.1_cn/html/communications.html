@@ -1,0 +1,2069 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>通讯命令</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="外部过滤器, 程序和命令"
+HREF="external.html"><LINK
+REL="PREVIOUS"
+TITLE="文件与归档命令"
+HREF="filearchiv.html"><LINK
+REL="NEXT"
+TITLE="终端控制命令"
+HREF="terminalccmds.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="filearchiv.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>12. 外部过滤器, 程序和命令</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="terminalccmds.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="COMMUNICATIONS"
+>12.6. 通讯命令</A
+></H1
+><P
+>下边命令中的某几个命令你会在<A
+HREF="writingscripts.html#CSPAMMERS"
+>追踪垃圾邮件</A
+>练习中找到其用法, 
+		用来进行网络数据的转换和分析. </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="COMMUNINFO1"
+></A
+>信息与统计</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>host</B
+></DT
+><DD
+><P
+>通过名字或IP地址来搜索一个互联网主机的信息, 
+			  使用DNS. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>host surfacemail.com</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>surfacemail.com. has address 202.92.42.236</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>ipcalc</B
+></DT
+><DD
+><P
+>显示一个主机IP信息. 
+			  使用<CODE
+CLASS="OPTION"
+>-h</CODE
+>选项, 
+			  <B
+CLASS="COMMAND"
+>ipcalc</B
+>将会做一个DNS的反向查询, 
+			  通过IP地址找到主机(服务器)名. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ipcalc -h 202.92.42.236</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>HOSTNAME=surfacemail.com</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>nslookup</B
+></DT
+><DD
+><P
+>通过IP地址在一个主机上做一个互联网的<SPAN
+CLASS="QUOTE"
+>"名字服务查询"</SPAN
+>. 
+			事实上, 这与<B
+CLASS="COMMAND"
+>ipcalc -h</B
+>或<B
+CLASS="COMMAND"
+>dig 
+				-x</B
+>等价. 这个命令既可以交互运行也可以非交互运行, 
+		   	换句话说, 就是在脚本中运行.
+	      </P
+><P
+><B
+CLASS="COMMAND"
+>nslookup</B
+>命令据说已经被慢慢的<SPAN
+CLASS="QUOTE"
+>"忽视"</SPAN
+>了, 但事实上它是有一定的作用. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>nslookup -sil 66.97.104.180</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>nslookup kuhleersparnis.ch
+ Server:         135.116.137.2
+ Address:        135.116.137.2#53
+
+ Non-authoritative answer:
+ Name:   kuhleersparnis.ch</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>dig</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>D</B
+>omain <B
+CLASS="COMMAND"
+>I</B
+>nformation
+			<B
+CLASS="COMMAND"
+>G</B
+>roper(域信息查询). 
+			与<B
+CLASS="COMMAND"
+>nslookup</B
+>很相似, 
+			<B
+CLASS="COMMAND"
+>dig</B
+>也可以在一个主机上做互联网的<SPAN
+CLASS="QUOTE"
+>"名字服务查询"</SPAN
+>. 
+			这个命令既可以交互运行也可以非交互运行, 
+			换句话说, 就是在脚本中运行.
+	      </P
+><P
+>下面是一些<B
+CLASS="COMMAND"
+>dig</B
+>命令有趣的选项, 
+				<CODE
+CLASS="OPTION"
+>+time=N</CODE
+>选项用来设置查询超时为<EM
+>N</EM
+>秒, 
+				<CODE
+CLASS="OPTION"
+>+nofail</CODE
+>选项用来持续查询服务器直到收到一个响应, 
+	      <CODE
+CLASS="OPTION"
+>-x</CODE
+>会做反向地址查询. </P
+><P
+>比较下边这3个命令的输出, 
+		  <B
+CLASS="COMMAND"
+>dig -x</B
+>, 
+	      <B
+CLASS="COMMAND"
+>ipcalc -h</B
+>和
+	      <B
+CLASS="COMMAND"
+>nslookup</B
+>. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>dig -x 81.9.6.2</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>;; Got answer:
+ ;; -&#62;&#62;HEADER&#60;&#60;- opcode: QUERY, status: NXDOMAIN, id: 11649
+ ;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 0
+
+ ;; QUESTION SECTION:
+ ;2.6.9.81.in-addr.arpa.         IN      PTR
+
+ ;; AUTHORITY SECTION:
+ 6.9.81.in-addr.arpa.    3600    IN      SOA     ns.eltel.net. noc.eltel.net.
+ 2002031705 900 600 86400 3600
+
+ ;; Query time: 537 msec
+ ;; SERVER: 135.116.137.2#53(135.116.137.2)
+ ;; WHEN: Wed Jun 26 08:35:24 2002
+ ;; MSG SIZE  rcvd: 91</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="SPAMLOOKUP"
+></A
+><P
+><B
+>例子 12-36. 查找滥用的链接来报告垃圾邮件发送者</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# spam-lookup.sh: 查找滥用的连接来报告垃圾邮件发送者.
+  3&nbsp;# 感谢Michael Zick.
+  4&nbsp;                                                      
+  5&nbsp;# 检查命令行参数.
+  6&nbsp;ARGCOUNT=1
+  7&nbsp;E_WRONGARGS=65
+  8&nbsp;if [ $# -ne "$ARGCOUNT" ]
+  9&nbsp;then
+ 10&nbsp;  echo "Usage: `basename $0` domain-name"
+ 11&nbsp;  exit $E_WRONGARGS
+ 12&nbsp;fi
+ 13&nbsp;
+ 14&nbsp;
+ 15&nbsp;dig +short $1.contacts.abuse.net -c in -t txt
+ 16&nbsp;# 也试试:
+ 17&nbsp;#     dig +nssearch $1
+ 18&nbsp;#     尽量找到"可信赖的名字服务器"并且显示SOA记录.
+ 19&nbsp;                                                               
+ 20&nbsp;# 下边这句也可以:
+ 21&nbsp;#     whois -h whois.abuse.net $1
+ 22&nbsp;#           ^^ ^^^^^^^^^^^^^^^  指定主机.
+ 23&nbsp;#     使用这个命令也可以查找多个垃圾邮件发送者, 比如:"
+ 24&nbsp;#     whois -h whois.abuse.net $spamdomain1 $spamdomain2 . . .
+ 25&nbsp;                                                               
+ 26&nbsp;                                                               
+ 27&nbsp;#  练习:
+ 28&nbsp;#  -----
+ 29&nbsp;#  扩展这个脚本的功能,
+ 30&nbsp;#+ 让它可以自动发送e-mail来通知
+ 31&nbsp;#+ 需要对此负责的ISP的联系地址.
+ 32&nbsp;#  暗示: 使用"mail"命令.
+ 33&nbsp;
+ 34&nbsp;exit $?
+ 35&nbsp;
+ 36&nbsp;# spam-lookup.sh chinatietong.com
+ 37&nbsp;#                一个已知的垃圾邮件域. (译者: 中国铁通 . . .)
+ 38&nbsp;
+ 39&nbsp;# "crnet_mgr@chinatietong.com"
+ 40&nbsp;# "crnet_tec@chinatietong.com"
+ 41&nbsp;# "postmaster@chinatietong.com"
+ 42&nbsp;
+ 43&nbsp;
+ 44&nbsp;#  如果想找到这个脚本的一个更详尽的版本,
+ 45&nbsp;#+ 请访问SpamViz的主页, http://www.spamviz.net/index.html.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ISSPAMMER"
+></A
+><P
+><B
+>例子 12-37. 分析一个垃圾邮件域</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#! /bin/bash
+  2&nbsp;# is-spammer.sh: 鉴别一个垃圾邮件域
+  3&nbsp;                                                          
+  4&nbsp;# $Id: is-spammer, v 1.4 2004/09/01 19:37:52 mszick Exp $
+  5&nbsp;# 上边这行是RCS ID信息.
+  6&nbsp;#                                                         
+  7&nbsp;#  这是附件中捐献脚本is_spammer.bash
+  8&nbsp;#+ 的一个简单版本.
+  9&nbsp;                                                          
+ 10&nbsp;# is-spammer &#60;domain.name&#62;
+ 11&nbsp;                                                          
+ 12&nbsp;# 使用外部程序: 'dig'
+ 13&nbsp;# 测试版本: 9.2.4rc5
+ 14&nbsp;                                                          
+ 15&nbsp;# 使用函数. 
+ 16&nbsp;# 使用IFS来分析分配在数组中的字符串. 
+ 17&nbsp;# 做一些有用的事: 检查e-mail黑名单. 
+ 18&nbsp;
+ 19&nbsp;# 使用来自文本体中的domain.name:
+ 20&nbsp;# http://www.good_stuff.spammer.biz/just_ignore_everything_else
+ 21&nbsp;#                       ^^^^^^^^^^^
+ 22&nbsp;# 或者使用来自任意e-mail地址的domain.name: 
+ 23&nbsp;# Really_Good_Offer@spammer.biz
+ 24&nbsp;#                                                               
+ 25&nbsp;# 并将其作为这个脚本的唯一参数.
+ 26&nbsp;#(另: 你的Inet连接应该保证连接好)
+ 27&nbsp;#                                                               
+ 28&nbsp;# 这样, 在上边两个实例中调用这个脚本:
+ 29&nbsp;#       is-spammer.sh spammer.biz
+ 30&nbsp;
+ 31&nbsp;
+ 32&nbsp;# Whitespace == :Space:Tab:Line Feed:Carriage Return:
+ 33&nbsp;WSP_IFS=$'\x20'$'\x09'$'\x0A'$'\x0D'
+ 34&nbsp;
+ 35&nbsp;# No Whitespace == Line Feed:Carriage Return
+ 36&nbsp;No_WSP=$'\x0A'$'\x0D'
+ 37&nbsp;
+ 38&nbsp;# 域分隔符为点分10进制ip地址
+ 39&nbsp;ADR_IFS=${No_WSP}'.'
+ 40&nbsp;
+ 41&nbsp;# 取得dns文本资源记录. 
+ 42&nbsp;# get_txt &#60;error_code&#62; &#60;list_query&#62;
+ 43&nbsp;get_txt() {
+ 44&nbsp;
+ 45&nbsp;    # 分析在"."中分配的$1.
+ 46&nbsp;    local -a dns
+ 47&nbsp;    IFS=$ADR_IFS
+ 48&nbsp;    dns=( $1 )
+ 49&nbsp;    IFS=$WSP_IFS
+ 50&nbsp;    if [ "${dns[0]}" == '127' ]
+ 51&nbsp;    then
+ 52&nbsp;        # 查看此处是否有原因.
+ 53&nbsp;        echo $(dig +short $2 -t txt)
+ 54&nbsp;    fi
+ 55&nbsp;}
+ 56&nbsp;
+ 57&nbsp;# 取得dns地址资源纪录. 
+ 58&nbsp;# chk_adr &#60;rev_dns&#62; &#60;list_server&#62;
+ 59&nbsp;chk_adr() {
+ 60&nbsp;    local reply
+ 61&nbsp;    local server
+ 62&nbsp;    local reason
+ 63&nbsp;
+ 64&nbsp;    server=${1}${2}
+ 65&nbsp;    reply=$( dig +short ${server} )
+ 66&nbsp;
+ 67&nbsp;    # 假设应答可能是一个错误码 . . .
+ 68&nbsp;    if [ ${#reply} -gt 6 ]
+ 69&nbsp;    then
+ 70&nbsp;        reason=$(get_txt ${reply} ${server} )
+ 71&nbsp;        reason=${reason:-${reply}}
+ 72&nbsp;    fi
+ 73&nbsp;    echo ${reason:-' not blacklisted.'}
+ 74&nbsp;}
+ 75&nbsp;
+ 76&nbsp;# 需要从名字中取得 IP 地址.
+ 77&nbsp;echo 'Get address of: '$1
+ 78&nbsp;ip_adr=$(dig +short $1)
+ 79&nbsp;dns_reply=${ip_adr:-' no answer '}
+ 80&nbsp;echo ' Found address: '${dns_reply}
+ 81&nbsp;
+ 82&nbsp;# 一个可用的应答至少是4个数字加上3个点.
+ 83&nbsp;if [ ${#ip_adr} -gt 6 ]
+ 84&nbsp;then
+ 85&nbsp;    echo
+ 86&nbsp;    declare query
+ 87&nbsp;
+ 88&nbsp;    # 通过点中的分配进行分析. 
+ 89&nbsp;    declare -a dns
+ 90&nbsp;    IFS=$ADR_IFS
+ 91&nbsp;    dns=( ${ip_adr} )
+ 92&nbsp;    IFS=$WSP_IFS
+ 93&nbsp;
+ 94&nbsp;    # 用8进制表示法将dns查询循序记录起来. 
+ 95&nbsp;    rev_dns="${dns[3]}"'.'"${dns[2]}"'.'"${dns[1]}"'.'"${dns[0]}"'.'
+ 96&nbsp;
+ 97&nbsp;# 查看: http://www.spamhaus.org (传统地址, 维护的很好)
+ 98&nbsp;    echo -n 'spamhaus.org says: '
+ 99&nbsp;    echo $(chk_adr ${rev_dns} 'sbl-xbl.spamhaus.org')
+100&nbsp;
+101&nbsp;# 查看: http://ordb.org (开放转发Open mail relay)
+102&nbsp;    echo -n '   ordb.org  says: '
+103&nbsp;    echo $(chk_adr ${rev_dns} 'relays.ordb.org')
+104&nbsp;
+105&nbsp;# 查看: http://www.spamcop.net/ (你可以在这里报告spammer)
+106&nbsp;    echo -n ' spamcop.net says: '
+107&nbsp;    echo $(chk_adr ${rev_dns} 'bl.spamcop.net')
+108&nbsp;
+109&nbsp;# # # 其他的黑名单操作 # # #
+110&nbsp;
+111&nbsp;# 查看: http://cbl.abuseat.org.
+112&nbsp;    echo -n ' abuseat.org says: '
+113&nbsp;    echo $(chk_adr ${rev_dns} 'cbl.abuseat.org')
+114&nbsp;
+115&nbsp;# 查看: http://dsbl.org/usage (不同的邮件转发mail relay)
+116&nbsp;    echo
+117&nbsp;    echo 'Distributed Server Listings'
+118&nbsp;    echo -n '       list.dsbl.org says: '
+119&nbsp;    echo $(chk_adr ${rev_dns} 'list.dsbl.org')
+120&nbsp;
+121&nbsp;    echo -n '   multihop.dsbl.org says: '
+122&nbsp;    echo $(chk_adr ${rev_dns} 'multihop.dsbl.org')
+123&nbsp;
+124&nbsp;    echo -n 'unconfirmed.dsbl.org says: '
+125&nbsp;    echo $(chk_adr ${rev_dns} 'unconfirmed.dsbl.org')
+126&nbsp;
+127&nbsp;else
+128&nbsp;    echo
+129&nbsp;    echo 'Could not use that address.'
+130&nbsp;fi
+131&nbsp;
+132&nbsp;exit 0
+133&nbsp;
+134&nbsp;# 练习:
+135&nbsp;# -----
+136&nbsp;
+137&nbsp;# 1) 检查脚本参数, 
+138&nbsp;#    并且如果必要的话, 可以使用合适的错误消息退出.
+139&nbsp;
+140&nbsp;# 2) 察看调用这个脚本的时候是否在线, 
+141&nbsp;#    并且如果必要的话, 可以使用合适的错误消息退出.
+142&nbsp;
+143&nbsp;# 3) 用一般变量来替换掉"硬编码"的BHL domain.
+144&nbsp;
+145&nbsp;# 4) 通过对'dig'命令使用"+time="选项
+146&nbsp;#    来给这个脚本设置一个暂停.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>想获得比上边这个脚本更详细的版本, 请参考<A
+HREF="contributed-scripts.html#ISSPAMMER2"
+>例子 A-28</A
+>.</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>traceroute</B
+></DT
+><DD
+><P
+>跟踪包发送到远端主机过程中的路由信息. 
+			  这个命令在LAN, WAN, 或者在Internet上都可以正常工作. 
+			  远端主机可以通过IP地址来指定. 
+			  这个命令的输出也可以通过管道中的<A
+HREF="textproc.html#GREPREF"
+>grep</A
+>或<A
+HREF="sedawk.html#SEDREF"
+>sed</A
+>命令来过滤. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>traceroute 81.9.6.2</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>traceroute to 81.9.6.2 (81.9.6.2), 30 hops max, 38 byte packets
+ 1  tc43.xjbnnbrb.com (136.30.178.8)  191.303 ms  179.400 ms  179.767 ms
+ 2  or0.xjbnnbrb.com (136.30.178.1)  179.536 ms  179.534 ms  169.685 ms
+ 3  192.168.11.101 (192.168.11.101)  189.471 ms  189.556 ms *
+ ...</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	  </P
+></DD
+><DT
+><A
+NAME="PINGREF"
+></A
+><B
+CLASS="COMMAND"
+>ping</B
+></DT
+><DD
+><P
+>广播一个<SPAN
+CLASS="QUOTE"
+>"ICMP ECHO_REQUEST"</SPAN
+>包到其他主机上, 
+			既可以是本地网络也可以是远端网络. 
+			这是一个测试网络连接的诊断工具, 
+			应该小心使用. 
+	      </P
+><P
+>如果<B
+CLASS="COMMAND"
+>ping</B
+>成功之行, 那么返回的<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>为<SPAN
+CLASS="ERRORCODE"
+>0</SPAN
+>. 
+			可以用在脚本的测试语句中. 
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ping localhost</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>PING localhost.localdomain (127.0.0.1) from 127.0.0.1 : 56(84) bytes of data.
+ 64 bytes from localhost.localdomain (127.0.0.1): icmp_seq=0 ttl=255 time=709 usec
+ 64 bytes from localhost.localdomain (127.0.0.1): icmp_seq=1 ttl=255 time=286 usec
+
+ --- localhost.localdomain ping statistics ---
+ 2 packets transmitted, 2 packets received, 0% packet loss
+ round-trip min/avg/max/mdev = 0.286/0.497/0.709/0.212 ms</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><A
+NAME="WHOISREF"
+></A
+><B
+CLASS="COMMAND"
+>whois</B
+></DT
+><DD
+><P
+>执行DNS(域名系统)查询. 
+			<CODE
+CLASS="OPTION"
+>-h</CODE
+>选项允许指定需要查询的特定<EM
+>whois</EM
+>服务器. 
+			请参考<A
+HREF="othertypesv.html#EX18"
+>例子 4-6</A
+>和<A
+HREF="communications.html#SPAMLOOKUP"
+>例子 12-36</A
+>. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>finger</B
+></DT
+><DD
+><P
+>取得网络上的用户信息. 
+			  另外这个命令可以显示一个用户的<TT
+CLASS="FILENAME"
+>~/.plan</TT
+>,
+			  <TT
+CLASS="FILENAME"
+>~/.project</TT
+>, 
+			  和<TT
+CLASS="FILENAME"
+>~/.forward</TT
+>文件, 当然, 前提是如果这些文件存在的话. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>finger</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Login  Name           Tty      Idle  Login Time   Office     Office Phone
+ bozo   Bozo Bozeman   tty1        8  Jun 25 16:59
+ bozo   Bozo Bozeman   ttyp0          Jun 25 16:59
+ bozo   Bozo Bozeman   ttyp1          Jun 25 17:07</SAMP
+>
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>finger bozo</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Login: bozo                             Name: Bozo Bozeman
+ Directory: /home/bozo                   Shell: /bin/bash
+ Office: 2355 Clown St., 543-1234
+ On since Fri Aug 31 20:13 (MST) on tty1    1 hour 38 minutes idle
+ On since Fri Aug 31 20:13 (MST) on pts/0   12 seconds idle
+ On since Fri Aug 31 20:13 (MST) on pts/1
+ On since Fri Aug 31 20:31 (MST) on pts/2   1 hour 16 minutes idle
+ No mail.
+ No Plan.</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>出于安全上的考虑, 
+			许多网络都禁用了<B
+CLASS="COMMAND"
+>finger</B
+>, 
+		   以及和它相关的幽灵进程.
+	          <A
+NAME="AEN9898"
+HREF="#FTN.AEN9898"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+	      </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>chfn</B
+></DT
+><DD
+><P
+>修改<B
+CLASS="COMMAND"
+>finger</B
+>命令所显示出来的用户信息. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>vrfy</B
+></DT
+><DD
+><P
+>验证一个互联网的e-mail地址. </P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="COMMREMOTE1"
+></A
+>远端主机接入</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>sx</B
+>, <B
+CLASS="COMMAND"
+>rx</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>sx</B
+>和<B
+CLASS="COMMAND"
+>rx</B
+>命令使用<EM
+>xmodem</EM
+>协议, 
+			  置服务来向远端主机传输文件和接收文件. 
+			  这些都是通讯安装包的一般部分, 比如<B
+CLASS="COMMAND"
+>minicom</B
+>. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>sz</B
+>, <B
+CLASS="COMMAND"
+>rz</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>sz</B
+>和<B
+CLASS="COMMAND"
+>rz</B
+>命令使用<EM
+>zmodem</EM
+>协议, 
+			设置服务来向远端主机传输文件和接收文件. 
+			<EM
+>Zmodem</EM
+>协议在某些方面比<EM
+>xmodem</EM
+>协议强, 
+			比如使用更快的传输波特率, 并且可以对中断的文件进行续传. 
+			与<B
+CLASS="COMMAND"
+>sx</B
+>和<B
+CLASS="COMMAND"
+>rx</B
+>一样,
+	      这些都是通讯安装包的一般部分. </P
+></DD
+><DT
+><A
+NAME="FTPREF"
+></A
+><B
+CLASS="COMMAND"
+>ftp</B
+></DT
+><DD
+><P
+>向远端服务器上传或下载的工具, 也是一种协议. 
+			  一个ftp会话可以写到脚本中自动运行. 
+	      (请参考<A
+HREF="here-docs.html#EX72"
+>例子 17-6</A
+>, <A
+HREF="contributed-scripts.html#ENCRYPTEDPW"
+>例子 A-4</A
+>, 和<A
+HREF="contributed-scripts.html#FTPGET"
+>例子 A-13</A
+>). </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>uucp</B
+>, <B
+CLASS="COMMAND"
+>uux</B
+>, <B
+CLASS="COMMAND"
+>cu</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>uucp</B
+>: <EM
+>UNIX到UNIX拷贝</EM
+>. 
+			  这是一个通讯安装包, 
+			  目的是为了在UNIX服务器之间传输文件. 
+			  使用shell脚本来处理<B
+CLASS="COMMAND"
+>uucp</B
+>命令序列是一种有效的方法. </P
+><P
+>因为互联网和电子邮件的出现, 
+			<B
+CLASS="COMMAND"
+>uucp</B
+>现在看起来已经很落伍了, 
+			但是这个命令在互联网连接不可用或者不适合使用的地方, 
+			这个命令还是可以完美的运行. 
+			<B
+CLASS="COMMAND"
+>uucp</B
+>的优点就是它的容错性, 
+			即使有一个服务将拷贝操作中断了, 
+			那么当连接恢复的时候, 这个命令还是可以在中断的地方续传. 
+	      </P
+><P
+>---</P
+><P
+><B
+CLASS="COMMAND"
+>uux</B
+>: <EM
+>UNIX到UNIX执行</EM
+>. 
+              在远端系统上执行一个命令. 这个命令是<B
+CLASS="COMMAND"
+>uucp</B
+>包的一部分. </P
+><P
+>---</P
+><P
+><B
+CLASS="COMMAND"
+>cu</B
+>: <EM
+>C</EM
+>all <EM
+>U</EM
+>p
+			一个远端系统并且作为一个简单终端进行连接. 
+			这是一个<A
+HREF="communications.html#TELNETREF"
+>telnet</A
+>的缩减版本. 
+			这个命令是<B
+CLASS="COMMAND"
+>uucp</B
+>包的一部分. </P
+></DD
+><DT
+><A
+NAME="TELNETREF"
+></A
+><B
+CLASS="COMMAND"
+>telnet</B
+></DT
+><DD
+><P
+>连接远端主机的工具和协议. </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>telnet协议本身包含安全漏洞, 
+				因此我们应该适当的避免使用. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="WGETREF"
+></A
+><B
+CLASS="COMMAND"
+>wget</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>wget</B
+>工具使用<EM
+>非交互</EM
+>的形式从web或ftp站点上取得或下载文件. 在脚本中使用正好. 
+	      </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;wget -p http://www.xyz23.com/file01.html
+  2&nbsp;#  -p或--page-requisite选项将会使得wget取得所有在显示指定页时
+  3&nbsp;#+ 所需要的文件. (译者: 比如内嵌图片和样式表等.)
+  4&nbsp;
+  5&nbsp;wget -r ftp://ftp.xyz24.net/~bozo/project_files/ -O $SAVEFILE
+  6&nbsp;#  -r选项将会递归的从指定站点
+  7&nbsp;#+ 上下载所有连接. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="QUOTEFETCH"
+></A
+><P
+><B
+>例子 12-38. 获得一份股票报价</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# quote-fetch.sh: 下载一份股票报价. 
+  3&nbsp;
+  4&nbsp;
+  5&nbsp;E_NOPARAMS=66
+  6&nbsp;
+  7&nbsp;if [ -z "$1" ]  #必须指定需要获取的股票(代号). 
+  8&nbsp;  then echo "Usage: `basename $0` stock-symbol"
+  9&nbsp;  exit $E_NOPARAMS
+ 10&nbsp;fi
+ 11&nbsp;
+ 12&nbsp;stock_symbol=$1
+ 13&nbsp;
+ 14&nbsp;file_suffix=.html
+ 15&nbsp;# 获得一个HTML文件, 所以要正确命名它. 
+ 16&nbsp;URL='http://finance.yahoo.com/q?s='
+ 17&nbsp;# Yahoo金融板块, 后缀是股票查询.
+ 18&nbsp;
+ 19&nbsp;# -----------------------------------------------------------
+ 20&nbsp;wget -O ${stock_symbol}${file_suffix} "${URL}${stock_symbol}"
+ 21&nbsp;# -----------------------------------------------------------
+ 22&nbsp;
+ 23&nbsp;
+ 24&nbsp;# 在http://search.yahoo.com上查询相关材料:
+ 25&nbsp;# -----------------------------------------------------------
+ 26&nbsp;# URL="http://search.yahoo.com/search?fr=ush-news&#38;p=${query}"
+ 27&nbsp;# wget -O "$savefilename" "${URL}"
+ 28&nbsp;# -----------------------------------------------------------
+ 29&nbsp;# 保存相关URL的列表.
+ 30&nbsp;
+ 31&nbsp;exit $?
+ 32&nbsp;
+ 33&nbsp;# 练习:
+ 34&nbsp;# -----
+ 35&nbsp;#
+ 36&nbsp;# 1) 添加一个测试来验证用户是否在线.
+ 37&nbsp;#    (暗示: 对"ppp"或"connect"来分析'ps -ax'的输出.
+ 38&nbsp;#
+ 39&nbsp;# 2) 修改这个脚本, 让这个脚本具有获得本地天气预报的能力,
+ 40&nbsp;#+   将用户的zip code作为参数.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>请参考<A
+HREF="contributed-scripts.html#WGETTER2"
+>例子 A-30</A
+>和<A
+HREF="contributed-scripts.html#BASHPODDER"
+>例子 A-31</A
+>. </P
+></DD
+><DT
+><A
+NAME="LYNXREF"
+></A
+><B
+CLASS="COMMAND"
+>lynx</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>lynx</B
+>是一个网页浏览器, 
+			  也是一个文件浏览器. 它可以(通过使用<CODE
+CLASS="OPTION"
+>-dump</CODE
+>选项)在脚本中使用. 它的作用是可以非交互的从Web或ftp站点上获得文件. 
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;lynx -dump http://www.xyz23.com/file01.html &#62;$SAVEFILE</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>使用<CODE
+CLASS="OPTION"
+>-traversal</CODE
+>选项, 
+				<B
+CLASS="COMMAND"
+>lynx</B
+>将会从参数中指定的HTTP URL开始, 
+				<SPAN
+CLASS="QUOTE"
+>"遍历"</SPAN
+>指定服务器上的所有连接. 
+	      如果与<CODE
+CLASS="OPTION"
+>-crawl</CODE
+>选项一起用的话, 将会把每个输出的页面文本都放到一个log文件中. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>rlogin</B
+></DT
+><DD
+><P
+><TT
+CLASS="REPLACEABLE"
+><I
+>远端登陆</I
+></TT
+>, 
+			  在远端的主机上开启一个会话. 
+			  这个命令存在安全隐患, 
+			  所以要使用<A
+HREF="communications.html#SSHREF"
+>ssh</A
+>来代替. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>rsh</B
+></DT
+><DD
+><P
+><TT
+CLASS="REPLACEABLE"
+><I
+>远端shell</I
+></TT
+>, 
+			  在远端的主机上执行命令. 
+			  这个命令存在安全隐患, 
+			  所以要使用<B
+CLASS="COMMAND"
+>ssh</B
+>来代替. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>rcp</B
+></DT
+><DD
+><P
+><TT
+CLASS="REPLACEABLE"
+><I
+>远端拷贝</I
+></TT
+>, 
+			  在网络上的不同主机间拷贝文件. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>rsync</B
+></DT
+><DD
+><P
+><TT
+CLASS="REPLACEABLE"
+><I
+>远端同步</I
+></TT
+>, 
+			  在网络上的不同主机间(同步)更新文件. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>rsync -a ~/sourcedir/*txt /node1/subdirectory/</KBD
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="FC4UPD"
+></A
+><P
+><B
+>例子 12-39. 更新FC4(Fedora 4)</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# fc4upd.sh
+  3&nbsp;
+  4&nbsp;# 脚本作者: Frank Wang.
+  5&nbsp;# 本书作者作了少量修改.
+  6&nbsp;# 授权在本书中使用.
+  7&nbsp;
+  8&nbsp;
+  9&nbsp;#  使用rsync命令从镜像站点上下载Fedora 4的更新. 
+ 10&nbsp;#  为了节省空间, 如果有多个版本存在的话, 
+ 11&nbsp;#+ 只下载最新的包. 
+ 12&nbsp;
+ 13&nbsp;URL=rsync://distro.ibiblio.org/fedora-linux-core/updates/
+ 14&nbsp;# URL=rsync://ftp.kddilabs.jp/fedora/core/updates/
+ 15&nbsp;# URL=rsync://rsync.planetmirror.com/fedora-linux-core/updates/
+ 16&nbsp;
+ 17&nbsp;DEST=${1:-/var/www/html/fedora/updates/}
+ 18&nbsp;LOG=/tmp/repo-update-$(/bin/date +%Y-%m-%d).txt
+ 19&nbsp;PID_FILE=/var/run/${0##*/}.pid
+ 20&nbsp;
+ 21&nbsp;E_RETURN=65        # 某些意想不到的错误.
+ 22&nbsp;
+ 23&nbsp;
+ 24&nbsp;# 一般rsync选项
+ 25&nbsp;# -r: 递归下载
+ 26&nbsp;# -t: 保存时间
+ 27&nbsp;# -v: verbose
+ 28&nbsp;
+ 29&nbsp;OPTS="-rtv --delete-excluded --delete-after --partial"
+ 30&nbsp;
+ 31&nbsp;# rsync include模式
+ 32&nbsp;# 开头的"/"会导致绝对路径名匹配. 
+ 33&nbsp;INCLUDE=(
+ 34&nbsp;    "/4/i386/kde-i18n-Chinese*" 
+ 35&nbsp;#   ^                         ^
+ 36&nbsp;# 双引号是必须的, 用来防止globbing.
+ 37&nbsp;) 
+ 38&nbsp;
+ 39&nbsp;
+ 40&nbsp;# rsync exclude模式
+ 41&nbsp;# 使用"#"临时注释掉一些不需要的包.
+ 42&nbsp;EXCLUDE=(
+ 43&nbsp;    /1
+ 44&nbsp;    /2
+ 45&nbsp;    /3
+ 46&nbsp;    /testing
+ 47&nbsp;    /4/SRPMS
+ 48&nbsp;    /4/ppc
+ 49&nbsp;    /4/x86_64
+ 50&nbsp;    /4/i386/debug
+ 51&nbsp;   "/4/i386/kde-i18n-*"
+ 52&nbsp;   "/4/i386/openoffice.org-langpack-*"
+ 53&nbsp;   "/4/i386/*i586.rpm"
+ 54&nbsp;   "/4/i386/GFS-*"
+ 55&nbsp;   "/4/i386/cman-*"
+ 56&nbsp;   "/4/i386/dlm-*"
+ 57&nbsp;   "/4/i386/gnbd-*"
+ 58&nbsp;   "/4/i386/kernel-smp*"
+ 59&nbsp;#  "/4/i386/kernel-xen*" 
+ 60&nbsp;#  "/4/i386/xen-*" 
+ 61&nbsp;)
+ 62&nbsp;
+ 63&nbsp;
+ 64&nbsp;init () {
+ 65&nbsp;    # 让管道命令返回可能的rsync错误, 比如, 网络延时(stalled network).
+ 66&nbsp;    set -o pipefail
+ 67&nbsp;
+ 68&nbsp;    TMP=${TMPDIR:-/tmp}/${0##*/}.$$     # 保存精炼的下载列表.
+ 69&nbsp;    trap "{                                                   
+ 70&nbsp;        rm -f $TMP 2&#62;/dev/null                                
+ 71&nbsp;    }" EXIT                             # 删除存在的临时文件.
+ 72&nbsp;}
+ 73&nbsp;
+ 74&nbsp;
+ 75&nbsp;check_pid () {
+ 76&nbsp;# 检查进程是否存在. 
+ 77&nbsp;    if [ -s "$PID_FILE" ]; then
+ 78&nbsp;        echo "PID file exists. Checking ..."
+ 79&nbsp;        PID=$(/bin/egrep -o "^[[:digit:]]+" $PID_FILE)
+ 80&nbsp;        if /bin/ps --pid $PID &#38;&#62;/dev/null; then
+ 81&nbsp;            echo "Process $PID found. ${0##*/} seems to be running!"
+ 82&nbsp;           /usr/bin/logger -t ${0##*/} \
+ 83&nbsp;                 "Process $PID found. ${0##*/} seems to be running!"
+ 84&nbsp;            exit $E_RETURN
+ 85&nbsp;        fi
+ 86&nbsp;        echo "Process $PID not found. Start new process . . ."
+ 87&nbsp;    fi
+ 88&nbsp;}
+ 89&nbsp;
+ 90&nbsp;
+ 91&nbsp;#  根据上边的模式,
+ 92&nbsp;#+ 设置整个文件的更新范围, 从root或$URL开始.
+ 93&nbsp;set_range () {
+ 94&nbsp;    include=
+ 95&nbsp;    exclude=
+ 96&nbsp;    for p in "${INCLUDE[@]}"; do
+ 97&nbsp;        include="$include --include \"$p\""
+ 98&nbsp;    done
+ 99&nbsp;
+100&nbsp;    for p in "${EXCLUDE[@]}"; do
+101&nbsp;        exclude="$exclude --exclude \"$p\""
+102&nbsp;    done
+103&nbsp;}
+104&nbsp;
+105&nbsp;
+106&nbsp;# 获得并提炼rsync更新列表.
+107&nbsp;get_list () {
+108&nbsp;    echo $$ &#62; $PID_FILE || {
+109&nbsp;        echo "Can't write to pid file $PID_FILE"
+110&nbsp;        exit $E_RETURN
+111&nbsp;    }
+112&nbsp;
+113&nbsp;    echo -n "Retrieving and refining update list . . ."
+114&nbsp;
+115&nbsp;    # 获得列表 -- 作为单个命令来运行rsync的话需要'eval'.
+116&nbsp;    # $3和$4是文件创建的日期和时间.
+117&nbsp;    # $5是完整的包名字.
+118&nbsp;    previous=
+119&nbsp;    pre_file=
+120&nbsp;    pre_date=0
+121&nbsp;    eval /bin/nice /usr/bin/rsync \
+122&nbsp;        -r $include $exclude $URL | \
+123&nbsp;        egrep '^dr.x|^-r' | \
+124&nbsp;        awk '{print $3, $4, $5}' | \
+125&nbsp;        sort -k3 | \
+126&nbsp;        { while read line; do
+127&nbsp;            # 获得这段运行的秒数, 过滤掉不用的包. 
+128&nbsp;            cur_date=$(date -d "$(echo $line | awk '{print $1, $2}')" +%s)
+129&nbsp;            #  echo $cur_date
+130&nbsp;
+131&nbsp;            # 取得文件名. 
+132&nbsp;            cur_file=$(echo $line | awk '{print $3}')
+133&nbsp;            #  echo $cur_file
+134&nbsp;
+135&nbsp;            # 如果可能的话, 从文件名中取得rpm的包名字. 
+136&nbsp;            if [[ $cur_file == *rpm ]]; then
+137&nbsp;                pkg_name=$(echo $cur_file | sed -r -e \
+138&nbsp;                    's/(^([^_-]+[_-])+)[[:digit:]]+\..*[_-].*$/\1/')
+139&nbsp;            else
+140&nbsp;                pkg_name=
+141&nbsp;            fi
+142&nbsp;            # echo $pkg_name
+143&nbsp;
+144&nbsp;            if [ -z "$pkg_name" ]; then   #  如果不是一个rpm文件,
+145&nbsp;                echo $cur_file &#62;&#62; $TMP    #+ 然后添加到下载列表里.
+146&nbsp;            elif [ "$pkg_name" != "$previous" ]; then   # 发现一个新包.
+147&nbsp;                echo $pre_file &#62;&#62; $TMP                  # 输出最新的文件.
+148&nbsp;                previous=$pkg_name                      # 保存当前状态.
+149&nbsp;                pre_date=$cur_date
+150&nbsp;                pre_file=$cur_file
+151&nbsp;            elif [ "$cur_date" -gt "$pre_date" ]; then  #  如果是相同的包, 但是这个包更新一些, 
+152&nbsp;                pre_date=$cur_date                      #+ 那么就更新最新的. 
+153&nbsp;                pre_file=$cur_file
+154&nbsp;            fi
+155&nbsp;            done
+156&nbsp;            echo $pre_file &#62;&#62; $TMP                      #  TMP现在包含所有
+157&nbsp;                                                        #+ 提炼过的列表. 
+158&nbsp;            # echo "subshell=$BASH_SUBSHELL"
+159&nbsp;
+160&nbsp;    }       # 这里的大括号是为了让最后这句"echo $pre_file &#62;&#62; $TMP"
+161&nbsp;            # 也能与整个循环一起放到同一个子shell ( 1 )中. 
+162&nbsp;
+163&nbsp;    RET=$?  # 取得管道命令的返回状态. 
+164&nbsp;
+165&nbsp;    [ "$RET" -ne 0 ] &#38;&#38; {
+166&nbsp;        echo "List retrieving failed with code $RET"
+167&nbsp;        exit $E_RETURN
+168&nbsp;    }
+169&nbsp;
+170&nbsp;    echo "done"; echo
+171&nbsp;}
+172&nbsp;
+173&nbsp;# 真正的rsync下载部分. 
+174&nbsp;get_file () {
+175&nbsp;
+176&nbsp;    echo "Downloading..."
+177&nbsp;    /bin/nice /usr/bin/rsync \
+178&nbsp;        $OPTS \
+179&nbsp;        --filter "merge,+/ $TMP" \
+180&nbsp;        --exclude '*'  \
+181&nbsp;        $URL $DEST     \
+182&nbsp;        | /usr/bin/tee $LOG
+183&nbsp;
+184&nbsp;    RET=$?
+185&nbsp;
+186&nbsp;        #  --filter merge,+/ 对于这个目的来说, 这句是至关重要的. 
+187&nbsp;        #  + 修饰语意为着包含, / 意味着绝对路径. 
+188&nbsp;        #  然后$TMP中排过序的列表将会包含升序的路径名, 
+189&nbsp;        #+ 并从"简化的流程"(shortcutting the circuit)中阻止下边的 --exclude '*'. 
+190&nbsp;
+191&nbsp;    echo "Done"
+192&nbsp;
+193&nbsp;    rm -f $PID_FILE 2&#62;/dev/null
+194&nbsp;
+195&nbsp;    return $RET
+196&nbsp;}
+197&nbsp;
+198&nbsp;# -------
+199&nbsp;# Main
+200&nbsp;init
+201&nbsp;check_pid
+202&nbsp;set_range
+203&nbsp;get_list
+204&nbsp;get_file
+205&nbsp;RET=$?
+206&nbsp;# -------
+207&nbsp;
+208&nbsp;if [ "$RET" -eq 0 ]; then
+209&nbsp;    /usr/bin/logger -t ${0##*/} "Fedora update mirrored successfully."
+210&nbsp;else
+211&nbsp;    /usr/bin/logger -t ${0##*/} "Fedora update mirrored with failure code: $RET"
+212&nbsp;fi
+213&nbsp;
+214&nbsp;exit $RET</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>在使用<B
+CLASS="COMMAND"
+>rcp</B
+>, <B
+CLASS="COMMAND"
+>rsync</B
+>,
+	      还有另外一些有安全问题的类似工具的时候, 一定要小心, 因为将这些工具用在shell脚本中是不明智的. 
+	      你应该考虑使用<B
+CLASS="COMMAND"
+>ssh</B
+>, <B
+CLASS="COMMAND"
+>scp</B
+>,
+	      或者<B
+CLASS="COMMAND"
+>expect</B
+>脚本来代替这些不安全的工具. </P
+></DD
+><DT
+><A
+NAME="SSHREF"
+></A
+><B
+CLASS="COMMAND"
+>ssh</B
+></DT
+><DD
+><P
+><TT
+CLASS="REPLACEABLE"
+><I
+>安全shell</I
+></TT
+>, 
+			  登陆远端主机并在其上运行命令. 
+			  这个工具具有身份认证和加密的功能, 
+			  可以安全的替换<B
+CLASS="COMMAND"
+>telnet</B
+>,
+			  <B
+CLASS="COMMAND"
+>rlogin</B
+>, <B
+CLASS="COMMAND"
+>rcp</B
+>, 
+			  和<B
+CLASS="COMMAND"
+>rsh</B
+>等工具. 
+			  请参考这个工具的<EM
+>man页</EM
+>来获取详细信息. 
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="REMOTE"
+></A
+><P
+><B
+>例子 12-40. 使用ssh</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# remote.bash: 使用ssh. 
+  3&nbsp;
+  4&nbsp;# 这个例子是Michael Zick编写的. 
+  5&nbsp;# 授权在本书中使用. 
+  6&nbsp;
+  7&nbsp;
+  8&nbsp;#   假设的一些前提:
+  9&nbsp;#   ---------------
+ 10&nbsp;#   fd-2(文件描述符2)的内容并没有被丢弃( '2&#62;/dev/null' ).
+ 11&nbsp;#   ssh/sshd假设stderr ('2')将会显示给用户. 
+ 12&nbsp;#
+ 13&nbsp;#   假设sshd正运行在你的机器上. 
+ 14&nbsp;#   对于绝大多数'标准'的发行版, 都是有sshd的, 
+ 15&nbsp;#+  并且没有稀奇古怪的ssh-keygen. 
+ 16&nbsp;
+ 17&nbsp;# 在你的机器上从命令行中试着运行一下ssh:
+ 18&nbsp;#
+ 19&nbsp;# $ ssh $HOSTNAME
+ 20&nbsp;# 不需要特别的设置, 也会要求你输入密码. 
+ 21&nbsp;#   接下来输入密码, 
+ 22&nbsp;#   完成后, $ exit
+ 23&nbsp;#
+ 24&nbsp;# 能够正常运行么? 如果正常的话, 接下来你可以获得更多的乐趣了. 
+ 25&nbsp;
+ 26&nbsp;# 尝试在你的机器上以'root'身份来运行ssh:
+ 27&nbsp;#
+ 28&nbsp;#   $  ssh -l root $HOSTNAME
+ 29&nbsp;#   当要求询问密码时, 输入root的密码, 注意别输入你的用户密码. 
+ 30&nbsp;#          Last login: Tue Aug 10 20:25:49 2004 from localhost.localdomain
+ 31&nbsp;#   完成后键入'exit'.
+ 32&nbsp;
+ 33&nbsp;#  上边的动作将会带给你一个交互的shell. 
+ 34&nbsp;#  也可以在'single command'模式下建立sshd, 
+ 35&nbsp;#+ 但是这已经超出本例所讲解的范围了. 
+ 36&nbsp;#  唯一需要注意的是, 下面的命令都可以运行在
+ 37&nbsp;#+ 'single command'模式下.
+ 38&nbsp;
+ 39&nbsp;
+ 40&nbsp;# 基本的, 写stdout(本地)命令.
+ 41&nbsp;
+ 42&nbsp;ls -l
+ 43&nbsp;
+ 44&nbsp;# 这样远端机器上就会执行相同的命令. 
+ 45&nbsp;# 如果你想的话, 可以传递不同的'USERNAME'和'HOSTNAME': 
+ 46&nbsp;USER=${USERNAME:-$(whoami)}
+ 47&nbsp;HOST=${HOSTNAME:-$(hostname)}
+ 48&nbsp;
+ 49&nbsp;#  现在, 在远端主机上执行上边的命令, 
+ 50&nbsp;#+ 当然, 所有的传输都会被加密.
+ 51&nbsp;
+ 52&nbsp;ssh -l ${USER} ${HOST} " ls -l "
+ 53&nbsp;
+ 54&nbsp;#  期望的结果就是在远端主机上列出
+ 55&nbsp;#+ 你的用户名所拥有的主目录下的所有文件. 
+ 56&nbsp;#  如果想看点不一样的东西, 
+ 57&nbsp;#+ 那就在别的地方运行这个脚本, 别在你自己的主目录下运行这个脚本. 
+ 58&nbsp;
+ 59&nbsp;#  换句话说, Bash命令已经作为一个引用行
+ 60&nbsp;#+ 被传递到了远端shell中, 这样远端机器就会运行它. 
+ 61&nbsp;#  在这种情况下, sshd代表你运行了' bash -c "ls -l" '.
+ 62&nbsp;
+ 63&nbsp;#  如果你想不输入密码, 
+ 64&nbsp;#+ 或者想更详细的了解相关的问题, 请参考: 
+ 65&nbsp;#+    man ssh
+ 66&nbsp;#+    man ssh-keygen
+ 67&nbsp;#+    man sshd_config.
+ 68&nbsp;
+ 69&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在循环中, <B
+CLASS="COMMAND"
+>ssh</B
+>可能会引起一些异常问题. 
+		根据comp.unix上的shell文档<A
+HREF="http://groups-beta.google.com/group/comp.unix.shell/msg/dcb446b5fff7d230"
+TARGET="_top"
+>		Usenet post</A
+>所描述的内容, 
+	<B
+CLASS="COMMAND"
+>ssh</B
+>继承了循环的<TT
+CLASS="FILENAME"
+>stdin</TT
+>. 
+	为了解决这个问题, 
+		请使用<B
+CLASS="COMMAND"
+>ssh</B
+>的<CODE
+CLASS="OPTION"
+>-n</CODE
+>或者<CODE
+CLASS="OPTION"
+>-f</CODE
+>选项. </P
+><P
+>感谢, Jason Bechtel, 为我们指出这个问题. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>scp</B
+></DT
+><DD
+><P
+><TT
+CLASS="REPLACEABLE"
+><I
+>安全拷贝</I
+></TT
+>, 
+			  在功能上与<B
+CLASS="COMMAND"
+>rcp</B
+>很相似, 
+			  就是在两个不同的网络主机之间拷贝文件, 
+	      但是要使用鉴权的方式, 并且要使用与<B
+CLASS="COMMAND"
+>ssh</B
+>类似的安全层. </P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="COMMLOCAL1"
+></A
+>本地网络</B
+></P
+><DL
+><DT
+><A
+NAME="WRITEREF"
+></A
+><B
+CLASS="COMMAND"
+>write</B
+></DT
+><DD
+><P
+>这是一个端到端通讯的工具. 
+	      这个工具可以从你的终端上(console或者<I
+CLASS="FIRSTTERM"
+>xterm</I
+>)发送整行数据到另一个用户的终端上. 
+	      <A
+HREF="system.html#MESGREF"
+>mesg</A
+>命令当然也可以用来禁用对于一个终端的写权限. </P
+><P
+>因为<B
+CLASS="COMMAND"
+>write</B
+>命令是需要交互的, 
+		  所以这个命令在脚本中很少使用. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>netconfig</B
+></DT
+><DD
+><P
+>用来配置网络适配器(使用DHCP)的命令行工具. 
+	      这个命令对于红帽发行版来说是内置的. 
+	      </P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="COMMMAIL1"
+></A
+>Mail</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>mail</B
+></DT
+><DD
+><P
+>发送或者读取e-mail消息. </P
+><P
+>如果把这个命令行的mail客户端当成一个脚本中的命令来使用的话, 效果非常好. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="SELFMAILER"
+></A
+><P
+><B
+>例子 12-41. 一个mail自身的脚本</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/sh
+  2&nbsp;# self-mailer.sh: mail自身的脚本. 
+  3&nbsp;
+  4&nbsp;adr=${1:-`whoami`}     # 如果没有指定的话, 默认是当前用户.
+  5&nbsp;#  键入'self-mailer.sh wiseguy@superdupergenius.com'
+  6&nbsp;#+ 将脚本发送到这个地址. 
+  7&nbsp;#  如果只键入'self-mailer.sh'(不给参数)的话, 
+  8&nbsp;#+ 那么这个脚本就会被发送给调用者, 比如, 比如, bozo@localhost.localdomain.
+  9&nbsp;#
+ 10&nbsp;#  如果想了解${parameter:-default}结构的更多细节, 
+ 11&nbsp;#+ 请参考"变量重游"那章中的
+ 12&nbsp;#+ "参数替换"小节. 
+ 13&nbsp;
+ 14&nbsp;# ============================================================================
+ 15&nbsp;  cat $0 | mail -s "Script \"`basename $0`\" has mailed itself to you." "$adr"
+ 16&nbsp;# ============================================================================
+ 17&nbsp;
+ 18&nbsp;# --------------------------------------------
+ 19&nbsp;#  来自self-mailing脚本的一份祝福. 
+ 20&nbsp;#  一个喜欢恶搞的家伙运行了这个脚本, 
+ 21&nbsp;#+ 这导致了他自己收到了这份mail. 
+ 22&nbsp;#  显然的, 有些人确实没什么事好做, 
+ 23&nbsp;#+ 就只能浪费他们自己的时间玩了. 
+ 24&nbsp;# --------------------------------------------
+ 25&nbsp;
+ 26&nbsp;echo "At `date`, script \"`basename $0`\" mailed to "$adr"."
+ 27&nbsp;
+ 28&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>mailto</B
+></DT
+><DD
+><P
+>与<B
+CLASS="COMMAND"
+>mail</B
+>命令很相似, 
+	      <B
+CLASS="COMMAND"
+>mailto</B
+>可以使用命令行或在脚本中发送e-mail消息. 
+	      而且<B
+CLASS="COMMAND"
+>mailto</B
+>也可以发送MIME(多媒体)消息. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>vacation</B
+></DT
+><DD
+><P
+>这个工具可以自动回复e-mail给发送者, 
+	      表示邮件的接受者正在度假暂时无法收到邮件. 
+		  这个工具与<B
+CLASS="COMMAND"
+>sendmail</B
+>一起运行于网络上, 
+		  并且这个工具不支持拨号的POPmail帐号. </P
+></DD
+></DL
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN9898"
+HREF="communications.html#AEN9898"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><A
+NAME="DAEMONREF"
+></A
+></P
+><P
+>一个<EM
+>幽灵进程</EM
+>指的是并未附加在终端会话中的后台进程. 
+			  幽灵进程在指定的时间执行指定的服务, 
+			  或者由特定的事件触发来执行指定的服务. 
+		    </P
+><P
+>希腊文中的<SPAN
+CLASS="QUOTE"
+>"daemon"</SPAN
+>意思是幽灵, 
+			  这个词充满了神秘感和神奇的力量, 
+			  在UNIX中幽灵进程总是在后台默默地执行着分配给它们的任务. 
+		    </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="filearchiv.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="terminalccmds.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>文件与归档命令</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="external.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>终端控制命令</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

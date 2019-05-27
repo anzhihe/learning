@@ -1,0 +1,15 @@
+from google.appengine.api import users
+
+import webapp2
+
+class MainPage(webapp2.RequestHandler):
+    def get(self):
+        user = users.get_current_user()
+        if user:
+            self.response.out.write('Hello %s!' % user.nickname())
+        else:
+            self.response.out.write('Hello World!')
+
+app = webapp2.WSGIApplication([
+    ('/', MainPage),
+], debug=True)

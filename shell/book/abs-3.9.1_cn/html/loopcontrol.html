@@ -1,0 +1,570 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>循环控制</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="循环与分支"
+HREF="loops.html"><LINK
+REL="PREVIOUS"
+TITLE="嵌套循环"
+HREF="nestedloops.html"><LINK
+REL="NEXT"
+TITLE="测试与分支(case与select结构)"
+HREF="testbranch.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="nestedloops.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>10. 循环与分支</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="testbranch.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="LOOPCONTROL"
+>10.3. 循环控制</A
+></H1
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="BRKCONT1"
+></A
+>影响循环行为的命令</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>break</B
+>, <B
+CLASS="COMMAND"
+>continue</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>break</B
+>和<B
+CLASS="COMMAND"
+>continue</B
+>这两个循环控制命令
+		<A
+NAME="AEN5681"
+HREF="#FTN.AEN5681"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+		  与其他语言的类似命令的行为是相同的. 
+		  <B
+CLASS="COMMAND"
+>break</B
+>命令用来跳出循环, 
+		  而<B
+CLASS="COMMAND"
+>continue</B
+>命令只会跳过本次循环, 
+		  忽略本次循环剩余的代码, 
+		  进入循环的下一次<I
+CLASS="FIRSTTERM"
+>迭代</I
+>. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX28"
+></A
+><P
+><B
+>例子 10-20. <B
+CLASS="COMMAND"
+>break</B
+>和<B
+CLASS="COMMAND"
+>continue</B
+>命令在循环中的效果</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;LIMIT=19  # 上限
+  4&nbsp;
+  5&nbsp;echo
+  6&nbsp;echo "Printing Numbers 1 through 20 (but not 3 and 11)."
+  7&nbsp;
+  8&nbsp;a=0
+  9&nbsp;
+ 10&nbsp;while [ $a -le "$LIMIT" ]
+ 11&nbsp;do
+ 12&nbsp; a=$(($a+1))
+ 13&nbsp;
+ 14&nbsp; if [ "$a" -eq 3 ] || [ "$a" -eq 11 ]  # 除了3和11.
+ 15&nbsp; then
+ 16&nbsp;   continue      # 跳过本次循环剩余的语句.
+ 17&nbsp; fi
+ 18&nbsp;
+ 19&nbsp; echo -n "$a "   # 在$a等于3和11的时候，这句将不会执行.
+ 20&nbsp;done 
+ 21&nbsp;
+ 22&nbsp;# 练习:
+ 23&nbsp;# 为什么循环会打印出20?
+ 24&nbsp;
+ 25&nbsp;echo; echo
+ 26&nbsp;
+ 27&nbsp;echo Printing Numbers 1 through 20, but something happens after 2.
+ 28&nbsp;
+ 29&nbsp;##################################################################
+ 30&nbsp;
+ 31&nbsp;# 同样的循环, 但是用'break'来代替'continue'.
+ 32&nbsp;
+ 33&nbsp;a=0
+ 34&nbsp;
+ 35&nbsp;while [ "$a" -le "$LIMIT" ]
+ 36&nbsp;do
+ 37&nbsp; a=$(($a+1))
+ 38&nbsp;
+ 39&nbsp; if [ "$a" -gt 2 ]
+ 40&nbsp; then
+ 41&nbsp;   break  # 将会跳出整个循环.
+ 42&nbsp; fi
+ 43&nbsp;
+ 44&nbsp; echo -n "$a "
+ 45&nbsp;done
+ 46&nbsp;
+ 47&nbsp;echo; echo; echo
+ 48&nbsp;
+ 49&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><B
+CLASS="COMMAND"
+>break</B
+>命令可以带一个参数. 
+			一个不带参数的<B
+CLASS="COMMAND"
+>break</B
+>命令只能退出最内层的循环, 
+	      而<B
+CLASS="COMMAND"
+>break N</B
+>可以退出<CODE
+CLASS="PARAMETER"
+>N</CODE
+>层循环. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="BREAKLEVELS"
+></A
+><P
+><B
+>例子 10-21. 多层循环的退出</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# break-levels.sh: 退出循环.
+  3&nbsp;
+  4&nbsp;# "break N" 退出N层循环.
+  5&nbsp;
+  6&nbsp;for outerloop in 1 2 3 4 5
+  7&nbsp;do
+  8&nbsp;  echo -n "Group $outerloop:   "
+  9&nbsp;
+ 10&nbsp;  # --------------------------------------------------------
+ 11&nbsp;  for innerloop in 1 2 3 4 5
+ 12&nbsp;  do
+ 13&nbsp;    echo -n "$innerloop "
+ 14&nbsp;
+ 15&nbsp;    if [ "$innerloop" -eq 3 ]
+ 16&nbsp;    then
+ 17&nbsp;      break  # 试试   break 2   来看看发生什么事.
+ 18&nbsp;             # (内部循环和外部循环都被"Break"了. )
+ 19&nbsp;    fi
+ 20&nbsp;  done
+ 21&nbsp;  # --------------------------------------------------------
+ 22&nbsp;
+ 23&nbsp;  echo
+ 24&nbsp;done  
+ 25&nbsp;
+ 26&nbsp;echo
+ 27&nbsp;
+ 28&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><B
+CLASS="COMMAND"
+>continue</B
+>命令也可以象<B
+CLASS="COMMAND"
+>break</B
+>命令一样带一个参数.
+		一个不带参数的<B
+CLASS="COMMAND"
+>continue</B
+>命令只会去掉本次循环的剩余代码. 
+	      而<B
+CLASS="COMMAND"
+>continue N</B
+>将会把<CODE
+CLASS="OPTION"
+>N</CODE
+>层循环的剩余代码都去掉, 但是循环的次数不变. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="CONTINUELEVELS"
+></A
+><P
+><B
+>例子 10-22. 多层循环的continue</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# "continue N" 命令, 将让N层的循环全部被continue.
+  3&nbsp;
+  4&nbsp;for outer in I II III IV V           # 外部循环
+  5&nbsp;do
+  6&nbsp;  echo; echo -n "Group $outer: "
+  7&nbsp;
+  8&nbsp;  # --------------------------------------------------------------------
+  9&nbsp;  for inner in 1 2 3 4 5 6 7 8 9 10  # 内部循环
+ 10&nbsp;  do
+ 11&nbsp;
+ 12&nbsp;    if [ "$inner" -eq 7 ]
+ 13&nbsp;    then
+ 14&nbsp;      continue 2  # 在第2层循环上的continue, 也就是"外部循环".
+ 15&nbsp;                  # 使用"continue"来替代这句, 
+ 16&nbsp;                  # 然后看一下一个正常循环的行为.
+ 17&nbsp;    fi  
+ 18&nbsp;
+ 19&nbsp;    echo -n "$inner "  # 7 8 9 10 将不会被echo.
+ 20&nbsp;  done  
+ 21&nbsp;  # --------------------------------------------------------------------
+ 22&nbsp;  # 译者注: 如果在此处添加echo的话, 当然也不会输出.
+ 23&nbsp;done
+ 24&nbsp;
+ 25&nbsp;echo; echo
+ 26&nbsp;
+ 27&nbsp;# 练习:
+ 28&nbsp;# 在脚本中放入一个有意义的"continue N". 
+ 29&nbsp;
+ 30&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="CONTINUENEX"
+></A
+><P
+><B
+>例子 10-23. 在实际的任务中使用<SPAN
+CLASS="QUOTE"
+>"continue N"</SPAN
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# Albert Reiner 给出了一个关于使用"continue N"的例子:
+  2&nbsp;# ---------------------------------------------------------
+  3&nbsp;
+  4&nbsp;#  假定我有很多作业需要运行, 这些任务要处理一些数据,
+  5&nbsp;#+ 这些数据保存在某个目录下的文件里, 文件是以预先给定的模式进行命名的. 
+  6&nbsp;#+ 有几台机器要访问这个目录, 
+  7&nbsp;#+ 我想把工作都分配给这几台不同的机器,
+  8&nbsp;#+ 然后我一般会在每台机器里运行类似下面的代码:
+  9&nbsp;
+ 10&nbsp;while true
+ 11&nbsp;do
+ 12&nbsp;  for n in .iso.*
+ 13&nbsp;  do
+ 14&nbsp;    [ "$n" = ".iso.opts" ] &#38;&#38; continue
+ 15&nbsp;    beta=${n#.iso.}
+ 16&nbsp;    [ -r .Iso.$beta ] &#38;&#38; continue
+ 17&nbsp;    [ -r .lock.$beta ] &#38;&#38; sleep 10 &#38;&#38; continue
+ 18&nbsp;    lockfile -r0 .lock.$beta || continue
+ 19&nbsp;    echo -n "$beta: " `date`
+ 20&nbsp;    run-isotherm $beta
+ 21&nbsp;    date
+ 22&nbsp;    ls -alF .Iso.$beta
+ 23&nbsp;    [ -r .Iso.$beta ] &#38;&#38; rm -f .lock.$beta
+ 24&nbsp;    continue 2
+ 25&nbsp;  done
+ 26&nbsp;  break
+ 27&nbsp;done
+ 28&nbsp;
+ 29&nbsp;#  在我的应用中的某些细节是很特殊的, 尤其是sleep N, 
+ 30&nbsp;#+ 但是更一般的模式是:
+ 31&nbsp;
+ 32&nbsp;while true
+ 33&nbsp;do
+ 34&nbsp;  for job in {pattern}
+ 35&nbsp;  do
+ 36&nbsp;    {job already done or running} &#38;&#38; continue
+ 37&nbsp;    {mark job as running, do job, mark job as done}
+ 38&nbsp;    continue 2
+ 39&nbsp;  done
+ 40&nbsp;  break        # 而所谓的`sleep 600'只不过是想避免程序太快结束, 而达不到演示效果. 
+ 41&nbsp;done
+ 42&nbsp;
+ 43&nbsp;#  脚本只有在所有任务都完成之后才会停止运行,
+ 44&nbsp;#+ (包括那些运行时新添加的任务). 
+ 45&nbsp;#+ 通过使用合适的lockfiles,
+ 46&nbsp;#+ 可以使几台机器协作运行而不会产生重复的处理,
+ 47&nbsp;#+ [在我的这个例子中, 重复处理会使处理时间延长一倍时间, 因此我很想避免这个问题].
+ 48&nbsp;#+ 同样, 如果每次都从头开始搜索, 可以由文件名得到处理顺序.
+ 49&nbsp;#+ 当然, 还有一种办法, 也可以不使用`continue 2',
+ 50&nbsp;#+ 但这样的话, 就不得不检查相同的任务是不是已经被完成过了,
+ 51&nbsp;#+ (而我们应该马上来找到下一个要运行的任务)
+ 52&nbsp;#+ (在演示的情况中, 检查新任务前我们终止或睡眠了很长一段时间).
+ 53&nbsp;#+ </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>continue N</B
+>结构如果用在有意义的场合中, 往往都很难理解, 并且技巧性很高. 所以最好的方法就是尽量避免使用它. 
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+></DL
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN5681"
+HREF="loopcontrol.html#AEN5681"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>这两个命令是shell的<A
+HREF="internal.html#BUILTINREF"
+>内建</A
+>命令,
+		而不象其他的循环命令那样, 比如<A
+HREF="loops1.html#WHILELOOPREF"
+>while</A
+>和<A
+HREF="testbranch.html#CASEESAC1"
+>case</A
+>, 这两个是<A
+HREF="internal.html#KEYWORDREF"
+>关键字</A
+>.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="nestedloops.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="testbranch.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>嵌套循环</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="loops.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>测试与分支(case与select结构)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

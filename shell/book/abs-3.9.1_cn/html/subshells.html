@@ -1,0 +1,559 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>子shell</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="高级主题"
+HREF="part4.html"><LINK
+REL="PREVIOUS"
+TITLE="通配(globbing)"
+HREF="globbingref.html"><LINK
+REL="NEXT"
+TITLE="受限shell"
+HREF="restricted-sh.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="globbingref.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="restricted-sh.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="SUBSHELLS"
+></A
+>20. 子shell</H1
+><P
+><A
+NAME="SUBSHELLSREF"
+></A
+></P
+><P
+>运行一个shell脚本的时候, 会启动命令解释器的另一个实例. 
+        就好像你的命令是在命令行提示下被解释的一样, 
+        类似于批处理文件中的一系列命令. 
+        每个shell脚本都有效地运行在<A
+HREF="internal.html#FORKREF"
+>父</A
+>shell的一个子进程中. 
+        这个<A
+HREF="internal.html#FORKREF"
+>父</A
+>shell指的是在一个控制终端或在一个<I
+CLASS="FIRSTTERM"
+>xterm</I
+>窗口中给出命令提示符的那个进程. </P
+><P
+>shell脚本也能启动它自已的子进程. 
+        这些<EM
+>子shell</EM
+>能够使脚本并行的, 
+        有效的, 同时运行多个子任务. 
+        </P
+><TABLE
+CLASS="SIDEBAR"
+BORDER="1"
+CELLPADDING="5"
+><TR
+><TD
+><DIV
+CLASS="SIDEBAR"
+><P
+></P
+><A
+NAME="AEN14158"
+></A
+><P
+>一般来说, 脚本中的<A
+HREF="external.html#EXTERNALREF"
+>外部命令</A
+>能够<A
+HREF="internal.html#FORKREF"
+>生成(fork)</A
+>一个子进程, 
+			  然而Bash的<A
+HREF="internal.html#BUILTINREF"
+>内建命令</A
+>却不会这么做. 
+			  也正是由于这个原因, 内建命令比等价的外部命令要执行的快. 
+		</P
+><P
+></P
+></DIV
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="SUBSHELLPARENS1"
+></A
+>圆括号中的命令列表</B
+></P
+><DL
+><DT
+>( command1; command2; command3; ... )</DT
+><DD
+><P
+><TT
+CLASS="REPLACEABLE"
+><I
+>圆括号</I
+></TT
+>中命令列表的命令将会运行在一个子shell中. </P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><A
+NAME="PARVIS"
+></A
+>子shell中的变量对于子shell之外的代码块来说, 
+				  是<EM
+>不</EM
+>可见的. 
+          当然, <A
+HREF="internal.html#FORKREF"
+>父进程</A
+>也不能访问这些变量, 
+          父进程指的是产生这个子shell的shell. 
+          事实上, 这些变量都是<A
+HREF="localvar.html#LOCALREF"
+>局部变量</A
+>. </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="SUBSHELL"
+></A
+><P
+><B
+>例子 20-1. 子shell中的变量作用域</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# subshell.sh
+  3&nbsp;
+  4&nbsp;echo
+  5&nbsp;
+  6&nbsp;echo "Subshell level OUTSIDE subshell = $BASH_SUBSHELL"
+  7&nbsp;# Bash, 版本3, 添加了这个新的           $BASH_SUBSHELL 变量. 
+  8&nbsp;echo
+  9&nbsp;
+ 10&nbsp;outer_variable=Outer
+ 11&nbsp;
+ 12&nbsp;(
+ 13&nbsp;echo "Subshell level INSIDE subshell = $BASH_SUBSHELL"
+ 14&nbsp;inner_variable=Inner
+ 15&nbsp;
+ 16&nbsp;echo "From subshell, \"inner_variable\" = $inner_variable"
+ 17&nbsp;echo "From subshell, \"outer\" = $outer_variable"
+ 18&nbsp;)
+ 19&nbsp;
+ 20&nbsp;echo
+ 21&nbsp;echo "Subshell level OUTSIDE subshell = $BASH_SUBSHELL"
+ 22&nbsp;echo
+ 23&nbsp;
+ 24&nbsp;if [ -z "$inner_variable" ]
+ 25&nbsp;then
+ 26&nbsp;  echo "inner_variable undefined in main body of shell"
+ 27&nbsp;else
+ 28&nbsp;  echo "inner_variable defined in main body of shell"
+ 29&nbsp;fi
+ 30&nbsp;
+ 31&nbsp;echo "From main body of shell, \"inner_variable\" = $inner_variable"
+ 32&nbsp;#  $inner_variable将被作为未初始化的变量, 被显示出来, 
+ 33&nbsp;#+ 这是因为变量是在子shell里定义的"局部变量". 
+ 34&nbsp;#  还有补救的办法么? 
+ 35&nbsp;
+ 36&nbsp;echo
+ 37&nbsp;
+ 38&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>请参考<A
+HREF="gotchas.html#SUBPIT"
+>例子 31-2</A
+>. </P
+><P
+>+</P
+><P
+>子shell中的目录更改不会影响到父shell. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ALLPROFS"
+></A
+><P
+><B
+>例子 20-2. 列出用户的配置文件</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# allprofs.sh: 打印所有用户的配置文件
+  3&nbsp;
+  4&nbsp;# 由Heiner Steven编写, 并由本书作者进行了修改. 
+  5&nbsp;
+  6&nbsp;FILE=.bashrc  #  在原始脚本中, File containing user profile,
+  7&nbsp;              #+ 包含用户profile的是文件".profile". 
+  8&nbsp;
+  9&nbsp;for home in `awk -F: '{print $6}' /etc/passwd`
+ 10&nbsp;do
+ 11&nbsp;  [ -d "$home" ] || continue    # 如果没有home目录, 跳出本次循环. 
+ 12&nbsp;  [ -r "$home" ] || continue    # 如果home目录没有读权限, 跳出本次循环. 
+ 13&nbsp;  (cd $home; [ -e $FILE ] &#38;&#38; less $FILE)
+ 14&nbsp;done
+ 15&nbsp;
+ 16&nbsp;#  当脚本结束时，不必使用'cd'命令返回原来的目录. 
+ 17&nbsp;#+ 因为'cd $home'是在子shell中发生的, 不影响父shell. 
+ 18&nbsp;
+ 19&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>子shell可用于为一组命令设置一个<SPAN
+CLASS="QUOTE"
+>"独立的临时环境"</SPAN
+>. 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;COMMAND1
+  2&nbsp;COMMAND2
+  3&nbsp;COMMAND3
+  4&nbsp;(
+  5&nbsp;  IFS=:
+  6&nbsp;  PATH=/bin
+  7&nbsp;  unset TERMINFO
+  8&nbsp;  set -C
+  9&nbsp;  shift 5
+ 10&nbsp;  COMMAND4
+ 11&nbsp;  COMMAND5
+ 12&nbsp;  exit 3 # 只是从子shell退出. 
+ 13&nbsp;)
+ 14&nbsp;# 父shell不受任何影响, 并且父shell的环境也没有被更改. 
+ 15&nbsp;COMMAND6
+ 16&nbsp;COMMAND7</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+            子shell的另一个应用, 是可以用来检测一个变量是否被定义. 
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if (set -u; : $variable) 2&#62; /dev/null
+  2&nbsp;then
+  3&nbsp;  echo "Variable is set."
+  4&nbsp;fi     #  变量已经在当前脚本中被设置, 
+  5&nbsp;       #+ 或者是一个Bash的内建变量, 
+  6&nbsp;       #+ 或者是在当前环境下的一个可见变量(指已经被export的环境变量). 
+  7&nbsp;
+  8&nbsp;# 也可以写成            [[ ${variable-x} != x || ${variable-y} != y ]]
+  9&nbsp;# 或                    [[ ${variable-x} != x$variable ]]
+ 10&nbsp;# 或                    [[ ${variable+x} = x ]]
+ 11&nbsp;# 或                    [[ ${variable-x} != x ]]</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+            子shell还可以用来检测一个加锁的文件: 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if (set -C; : &#62; lock_file) 2&#62; /dev/null
+  2&nbsp;then
+  3&nbsp;  :   # lock_file不存在, 还没有用户运行这个脚本
+  4&nbsp;else
+  5&nbsp;  echo "Another user is already running that script."
+  6&nbsp;exit 65
+  7&nbsp;fi
+  8&nbsp;
+  9&nbsp;#  这段程序由Stephane Chazelas所编写,
+ 10&nbsp;#+ Paulo Marcel Coelho Aragao做了一些修改. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>进程在不同的子shell中可以并行地执行. 
+        这样就可以把一个复杂的任务分成几个小的子问题来同时处理. 
+        </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="PARALLEL-PROCESSES"
+></A
+><P
+><B
+>例子 20-3. 在子shell中进行并行处理</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;	(cat list1 list2 list3 | sort | uniq &#62; list123) &#38;
+  2&nbsp;	(cat list4 list5 list6 | sort | uniq &#62; list456) &#38;
+  3&nbsp;	# 列表的合并与排序同时进行. 
+  4&nbsp;	# 放到后台运行可以确保能够并行执行. 
+  5&nbsp;	#
+  6&nbsp;	# 等效于
+  7&nbsp;	#   cat list1 list2 list3 | sort | uniq &#62; list123 &#38;
+  8&nbsp;	#   cat list4 list5 list6 | sort | uniq &#62; list456 &#38;
+  9&nbsp;	
+ 10&nbsp;	wait   # 不再执行下面的命令, 直到子shell执行完毕. 
+ 11&nbsp;	
+ 12&nbsp;	diff list123 list456</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>使用<SPAN
+CLASS="QUOTE"
+>"|"</SPAN
+>管道操作符, 将I/O流重定向到一个子shell中, 
+	  比如<KBD
+CLASS="USERINPUT"
+>ls -al | (command)</KBD
+>. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在<TT
+CLASS="REPLACEABLE"
+><I
+>大括号</I
+></TT
+>中的命令<EM
+>不会</EM
+>启动子shell. </P
+><P
+>{ command1; command2; command3; . . . commandN; }</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="globbingref.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="restricted-sh.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>通配(globbing)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part4.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>受限shell</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

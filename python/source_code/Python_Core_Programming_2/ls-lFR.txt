@@ -1,0 +1,305 @@
+.:
+total 268
+-r--r--r--  1 wesc wesc  54164 2006-12-06 12:47 all.tgz
+-r--r--r--  1 wesc wesc 113040 2006-12-06 12:46 all.zip
+dr-xr-xr-x  2 wesc wesc   4096 2006-10-11 22:16 ch03/
+dr-xr-xr-x  2 wesc wesc   4096 2006-09-21 00:49 ch04/
+dr-xr-xr-x  3 wesc wesc   4096 2006-09-21 00:49 ch06/
+dr-xr-xr-x  3 wesc wesc   4096 2006-09-18 23:58 ch07/
+dr-xr-xr-x  3 wesc wesc   4096 2006-09-19 00:03 ch08/
+dr-xr-xr-x  3 wesc wesc   4096 2006-09-19 00:03 ch09/
+dr-xr-xr-x  3 wesc wesc   4096 2007-01-02 00:12 ch10/
+dr-xr-xr-x  3 wesc wesc   4096 2006-09-21 00:53 ch11/
+dr-xr-xr-x  3 wesc wesc   4096 2006-10-11 22:44 ch13/
+dr-xr-xr-x  3 wesc wesc   4096 2006-09-19 16:14 ch14/
+dr-xr-xr-x  3 wesc wesc   4096 2006-09-19 16:18 ch15/
+dr-xr-xr-x  3 wesc wesc   4096 2006-09-20 16:42 ch16/
+dr-xr-xr-x  2 wesc wesc   4096 2006-09-21 00:49 ch17/
+dr-xr-xr-x  3 wesc wesc   4096 2006-09-20 17:24 ch18/
+dr-xr-xr-x  3 wesc wesc   4096 2006-09-20 18:33 ch19/
+dr-xr-xr-x  3 wesc wesc   4096 2006-09-21 00:50 ch20/
+dr-xr-xr-x  3 wesc wesc   4096 2006-09-21 00:56 ch21/
+dr-xr-xr-x  2 wesc wesc   4096 2006-09-21 00:51 ch22/
+dr-xr-xr-x  3 wesc wesc   4096 2006-10-11 22:53 ch23/
+-r--r--r--  1 wesc wesc   1395 2006-09-22 11:40 COLOPHON.txt
+-r--r--r--  1 wesc wesc    300 2006-09-22 10:03 COPYRIGHT.txt
+-r--r--r--  1 wesc wesc    802 2006-09-22 10:04 LICENSE.txt
+-rw-r--r--  1 wesc wesc      0 2007-01-03 00:07 ls-lFR.txt
+-r--r--r--  1 wesc wesc    837 2006-11-13 00:59 README.txt
+
+./ch03:
+total 20
+-rw-r--r--  1 wesc wesc 610 2006-10-11 22:00 makeTextFile0.py
+-r-xr-xr-x  1 wesc wesc 652 2006-09-18 23:32 makeTextFile1.py*
+-rw-r--r--  1 wesc wesc 663 2006-10-11 22:03 makeTextFile.diff
+-rwxr-xr-x  1 wesc wesc 619 2006-10-11 21:49 makeTextFile.py*
+-r-xr-xr-x  1 wesc wesc 365 2006-03-28 02:06 readTextFile.py*
+
+./ch04:
+total 4
+-r-xr-xr-x  1 wesc wesc 354 2006-09-18 23:37 typechk.py*
+
+./ch06:
+total 24
+dr-xr-xr-x  2 wesc wesc 4096 2006-10-27 01:00 alt/
+-r-xr-xr-x  1 wesc wesc  479 2000-09-20 09:57 buggy.py*
+-r-xr-xr-x  1 wesc wesc  586 2000-10-10 16:16 idcheck.py*
+-r-xr-xr-x  1 wesc wesc  956 2000-10-10 14:54 queue.py*
+-r-xr-xr-x  1 wesc wesc  958 2000-10-10 14:52 stack.py*
+-r-xr-xr-x  1 wesc wesc  399 2006-09-18 23:45 uniFile.py*
+
+./ch06/alt:
+total 32
+-r-xr-xr-x  1 wesc wesc  732 2006-10-27 01:00 idcheck2.py*
+-r-xr-xr-x  1 wesc wesc 1358 2000-10-10 16:17 idcheck.py*
+-r-xr-xr-x  1 wesc wesc  442 2006-03-28 02:06 insertVsColonZero.py*
+-r-xr-xr-x  1 wesc wesc  243 2006-03-28 02:06 NoneIndex.py*
+-r-xr-xr-x  1 wesc wesc 1993 2000-09-20 10:00 queue.py*
+-r-xr-xr-x  1 wesc wesc 1149 2006-03-28 02:06 reversedSorted.py*
+-r-xr-xr-x  1 wesc wesc 1941 2000-09-20 10:00 stack.py*
+-r-xr-xr-x  1 wesc wesc  240 2006-03-28 02:06 stringTemplates.py*
+
+./ch07:
+total 8
+dr-xr-xr-x  2 wesc wesc 4096 2006-09-18 23:58 alt/
+-r-xr-xr-x  1 wesc wesc 1192 2000-09-20 10:03 userpw.py*
+
+./ch07/alt:
+total 4
+-r-xr-xr-x  1 wesc wesc 2658 2000-09-20 10:02 userpw.py*
+
+./ch08:
+total 8
+dr-xr-xr-x  2 wesc wesc 4096 2006-09-19 00:03 alt/
+-r-xr-xr-x  1 wesc wesc  316 2000-10-11 22:39 maxFact.py*
+
+./ch08/alt:
+total 4
+-r-xr-xr-x  1 wesc wesc 1217 2000-10-12 18:10 maxFact.py*
+
+./ch09:
+total 8
+dr-xr-xr-x  2 wesc wesc 4096 2006-09-19 00:03 alt/
+-r-xr-xr-x  1 wesc wesc 1548 2006-11-25 10:35 ospathex.py*
+
+./ch09/alt:
+total 4
+-r-xr-xr-x  1 wesc wesc 3109 2000-09-20 10:05 ospathex.py*
+
+./ch10:
+total 20
+dr-xr-xr-x  2 wesc wesc 4096 2006-09-19 00:05 alt/
+-r--r--r--  1 wesc wesc  110 2007-01-02 00:11 carddata.txt
+-r--r--r--  1 wesc wesc  419 2007-01-02 00:11 cardlog.txt
+-r-xr-xr-x  1 wesc wesc  851 2007-01-02 00:09 cardrun.py*
+-r-xr-xr-x  1 wesc wesc 2484 2006-11-14 00:01 myexc.py*
+
+./ch10/alt:
+total 12
+-r-xr-xr-x  1 wesc wesc 1964 2007-01-02 00:16 cardrun.py*
+-r-xr-xr-x  1 wesc wesc 4379 2006-11-14 00:03 myexc.py*
+
+./ch11:
+total 40
+dr-xr-xr-x  2 wesc wesc 4096 2006-12-06 12:35 alt/
+-r-xr-xr-x  1 wesc wesc  691 2006-09-19 14:24 closureVars.py*
+-r-xr-xr-x  1 wesc wesc  301 2006-09-19 00:12 deco.py*
+-r-xr-xr-x  1 wesc wesc 1035 2006-03-23 01:14 easyMath.py*
+-r-xr-xr-x  1 wesc wesc  846 2006-09-19 14:26 funcLog.py*
+-r-xr-xr-x  1 wesc wesc  631 2006-09-20 01:29 grabWeb.py*
+-r-xr-xr-x  1 wesc wesc  255 2006-09-19 00:15 numConv.py*
+-r-xr-xr-x  1 wesc wesc  377 2006-09-19 14:23 pfaGUI.py*
+-r-xr-xr-x  1 wesc wesc  312 2000-10-14 22:52 scope.py*
+-r-xr-xr-x  1 wesc wesc  719 2006-09-19 14:21 testit.py*
+
+./ch11/alt:
+total 20
+-r-xr-xr-x  1 wesc wesc  566 2006-12-06 12:35 counter.py*
+-r-xr-xr-x  1 wesc wesc 1700 2006-03-28 02:06 deco.py*
+-r-xr-xr-x  1 wesc wesc  225 2006-12-06 12:30 randGen.py*
+-r-xr-xr-x  1 wesc wesc  939 2000-10-16 00:56 scope.py*
+-r-xr-xr-x  1 wesc wesc  146 2006-12-06 12:28 simpleGen.py*
+
+./ch13:
+total 64
+dr-xr-xr-x  2 wesc wesc 4096 2006-09-21 00:49 alt/
+-r-xr-xr-x  1 wesc wesc  502 2006-09-19 14:57 anyIter.py*
+-r-xr-xr-x  1 wesc wesc  385 2006-09-19 15:02 capOpen.py*
+-rw-r--r--  1 wesc wesc 1233 2006-10-11 22:24 descr0.py
+-rw-r--r--  1 wesc wesc 1023 2006-10-11 22:43 descr.diff
+-rw-r--r--  1 wesc wesc  839 2006-10-11 22:44 descrPRE25.diff
+-rwxr-xr-x  1 wesc wesc 1245 2006-10-11 22:26 descrPRE25.py*
+-rwxr-xr-x  1 wesc wesc 1204 2006-10-11 22:27 descr.py*
+-r-xr-xr-x  1 wesc wesc  494 2000-09-20 18:03 hotel.py*
+-r-xr-xr-x  1 wesc wesc 1042 2006-09-19 15:55 meta.py*
+-r-xr-xr-x  1 wesc wesc  664 2006-11-20 11:17 moneyfmt.py*
+-r-xr-xr-x  1 wesc wesc 1290 2006-09-19 15:00 numstr.py*
+-r-xr-xr-x  1 wesc wesc  225 2006-09-19 14:54 randSeq.py*
+-r-xr-xr-x  1 wesc wesc  280 2006-09-19 14:52 roundFloat2.py*
+-r-xr-xr-x  1 wesc wesc  678 2006-09-19 14:53 time60.py*
+-r-xr-xr-x  1 wesc wesc 1046 2006-09-19 15:02 twrapme.py*
+
+./ch13/alt:
+total 36
+-r-xr-xr-x  1 wesc wesc  761 2006-05-01 03:18 anyIter.py*
+-r-xr-xr-x  1 wesc wesc  762 2000-09-21 14:03 capOpen.py*
+-r-xr-xr-x  1 wesc wesc 1587 2006-09-19 15:27 descr.py*
+-r-xr-xr-x  1 wesc wesc 1154 2006-09-19 15:07 descr-tef.py*
+-r-xr-xr-x  1 wesc wesc 1188 2006-09-19 15:06 descr-with.py*
+-r-xr-xr-x  1 wesc wesc  800 2000-09-21 14:09 hotel.py*
+-r-xr-xr-x  1 wesc wesc  562 2006-09-19 15:45 metaIntro.py*
+-r-xr-xr-x  1 wesc wesc 1708 2006-11-20 11:19 moneyfmt.py*
+-r-xr-xr-x  1 wesc wesc 1529 2000-09-21 14:49 twrapme.py*
+
+./ch14:
+total 16
+dr-xr-xr-x  2 wesc wesc 4096 2006-09-19 16:13 alt/
+-r-xr-xr-x  1 wesc wesc  294 2006-09-19 16:14 args.py*
+-r-xr-xr-x  1 wesc wesc  652 2006-03-28 02:06 funcAttrs.py*
+-r-xr-xr-x  1 wesc wesc 1450 2000-09-21 08:48 loopmake.py*
+
+./ch14/alt:
+total 12
+-r-xr-xr-x  1 wesc wesc 4766 2000-09-21 08:48 loopmake.py*
+-r-xr-xr-x  1 wesc wesc  114 2006-03-28 02:06 xcount.py*
+
+./ch15:
+total 12
+dr-xr-xr-x  2 wesc wesc 4096 2006-09-19 14:30 alt/
+-r-xr-xr-x  1 wesc wesc  711 2006-09-19 16:18 gendata.py*
+-r-xr-xr-x  1 wesc wesc  163 2006-09-19 16:16 rewho.py*
+
+./ch15/alt:
+total 8
+-r-xr-xr-x  1 wesc wesc 1461 2000-09-21 15:27 gendata.py*
+-r-xr-xr-x  1 wesc wesc  540 2000-09-21 15:27 rewho.py*
+
+./ch16:
+total 36
+dr-xr-xr-x  2 wesc wesc 4096 2006-09-21 00:51 alt/
+-r-xr-xr-x  1 wesc wesc  377 2006-09-20 16:35 tsTclnt.py*
+-r-xr-xr-x  1 wesc wesc  406 2006-09-20 16:41 tsTclntSS.py*
+-r-xr-xr-x  1 wesc wesc  739 2006-09-20 16:42 tsTclntTW.py*
+-r-xr-xr-x  1 wesc wesc  546 2006-09-20 16:35 tsTserv.py*
+-r-xr-xr-x  1 wesc wesc  448 2006-09-20 16:40 tsTservSS.py*
+-r-xr-xr-x  1 wesc wesc  520 2006-09-20 16:41 tsTservTW.py*
+-r-xr-xr-x  1 wesc wesc  369 2006-09-20 16:39 tsUclnt.py*
+-r-xr-xr-x  1 wesc wesc  420 2006-09-20 16:36 tsUserv.py*
+
+./ch16/alt:
+total 36
+-r-xr-xr-x  1 wesc wesc  386 2006-04-18 17:44 tsTclntNew.py*
+-r-xr-xr-x  1 wesc wesc  348 2006-04-18 02:48 tsTclntSSBRH.py*
+-r-xr-xr-x  1 wesc wesc  678 2006-04-18 17:58 tsTservNew.py*
+-r-xr-xr-x  1 wesc wesc  654 2006-09-20 16:34 tsTserv.py*
+-r-xr-xr-x  1 wesc wesc  480 2006-04-18 17:56 tsTservSSBRH.py*
+-r-xr-xr-x  1 wesc wesc  483 2006-09-20 16:40 tsTservSS.py*
+-r-xr-xr-x  1 wesc wesc  528 2006-09-20 16:36 tsUserv.py*
+-r-xr-xr-x  1 wesc wesc 4994 2006-04-18 22:53 ts.zip*
+
+./ch17:
+total 12
+-r-xr-xr-x  1 wesc wesc 1075 2006-11-08 17:13 getLatestFTP.py*
+-r-xr-xr-x  1 wesc wesc 2314 2006-09-20 16:48 getLatestNNTP.py*
+-r-xr-xr-x  1 wesc wesc  831 2006-08-26 18:56 myMail.py*
+
+./ch18:
+total 40
+dr-xr-xr-x  2 wesc wesc 4096 2006-09-21 00:51 alt/
+-r-xr-xr-x  1 wesc wesc  964 2006-09-20 17:21 mtfacfib.py*
+-r-xr-xr-x  1 wesc wesc  482 2006-09-20 17:10 mtsleep1.py*
+-r-xr-xr-x  1 wesc wesc  672 2006-07-04 17:24 mtsleep2.py*
+-r-xr-xr-x  1 wesc wesc  679 2006-09-20 17:13 mtsleep3.py*
+-r-xr-xr-x  1 wesc wesc  900 2006-09-20 17:14 mtsleep4.py*
+-r-xr-xr-x  1 wesc wesc  846 2006-09-20 17:16 mtsleep5.py*
+-r-xr-xr-x  1 wesc wesc  496 2006-09-20 17:18 myThread.py*
+-r-xr-xr-x  1 wesc wesc  401 2006-09-20 17:10 onethr.py*
+-r-xr-xr-x  1 wesc wesc  980 2006-09-20 17:22 prodcons.py*
+
+./ch18/alt:
+total 4
+-r-xr-xr-x  1 wesc wesc 977 2006-09-20 17:20 mtfacfib.py*
+
+./ch19:
+total 44
+dr-xr-xr-x  2 wesc wesc 4096 2006-09-21 00:51 alt/
+-r-xr-xr-x  1 wesc wesc 1382 2006-09-20 18:31 animalGtk.pyw*
+-r-xr-xr-x  1 wesc wesc  648 2006-04-20 01:41 animalPmw.pyw*
+-r-xr-xr-x  1 wesc wesc  606 2006-09-20 18:27 animalTix.pyw*
+-r-xr-xr-x  1 wesc wesc 1234 2006-09-20 18:29 animalWx.pyw*
+-r-xr-xr-x  1 wesc wesc 3302 2000-10-19 03:07 listdir.py*
+-r-xr-xr-x  1 wesc wesc 1127 2006-09-20 17:32 pfaGUI2.py*
+-r-xr-xr-x  1 wesc wesc  138 2000-09-21 19:18 tkhello1.py*
+-r-xr-xr-x  1 wesc wesc  159 2000-09-21 19:18 tkhello2.py*
+-r-xr-xr-x  1 wesc wesc  260 2006-09-20 17:30 tkhello3.py*
+-r-xr-xr-x  1 wesc wesc  524 2000-09-21 19:18 tkhello4.py*
+
+./ch19/alt:
+total 20
+-r-xr-xr-x  1 wesc wesc 3519 2001-01-10 14:36 listdir.py*
+-r-xr-xr-x  1 wesc wesc  351 2000-09-22 16:08 tkhello0.py*
+-r-xr-xr-x  1 wesc wesc  543 2000-09-21 19:18 tkhello1.py*
+-r-xr-xr-x  1 wesc wesc  457 2000-09-21 19:18 tkhello2.py*
+-r-xr-xr-x  1 wesc wesc  924 2000-09-21 19:18 tkhello4.py*
+
+./ch20:
+total 44
+-r-xr-xr-x  1 wesc wesc 6468 2000-09-22 17:15 advcgi.py*
+dr-xr-xr-x  2 wesc wesc 4096 2006-11-10 10:18 alt/
+-r-xr-xr-x  1 wesc wesc 3555 2006-09-20 18:52 crawl.py*
+-r-xr-xr-x  1 wesc wesc  382 2000-12-30 19:38 friends1.py*
+-r-xr-xr-x  1 wesc wesc 1407 2001-01-05 00:18 friends2.py*
+-r-xr-xr-x  1 wesc wesc 2244 2000-12-30 19:38 friends3.py*
+-r-xr-xr-x  1 wesc wesc  556 2001-01-05 00:08 friends.htm*
+-r-xr-xr-x  1 wesc wesc  857 2000-10-19 16:28 myhttpd.py*
+-r-xr-xr-x  1 wesc wesc  326 2006-04-26 17:22 uniCGI.py*
+-r-xr-xr-x  1 wesc wesc  779 2006-09-20 18:37 urlopenAuth.py*
+
+./ch20/alt:
+total 48
+-r-xr-xr-x  1 wesc wesc 8538 2006-04-20 15:25 advcgi2.py*
+-r-xr-xr-x  1 wesc wesc 8211 2000-12-30 18:33 advcgi.py*
+-r-xr-xr-x  1 wesc wesc   61 2006-02-14 13:30 cgihttpd2.py*
+-r-xr-xr-x  1 wesc wesc  244 2000-12-31 19:57 cgihttpd.py*
+-r-xr-xr-x  1 wesc wesc  761 2000-12-30 18:33 friends1.py*
+-r-xr-xr-x  1 wesc wesc 1740 2000-12-30 18:33 friends2.py*
+-r-xr-xr-x  1 wesc wesc 3291 2000-12-30 18:33 friends3.py*
+-r-xr-xr-x  1 wesc wesc 1276 2000-10-19 19:37 myhttpd.py*
+
+./ch21:
+total 20
+dr-xr-xr-x  2 wesc wesc 4096 2006-09-21 00:51 alt/
+-r-xr-xr-x  1 wesc wesc 4538 2006-09-20 22:27 ushuffle_db.py*
+-r-xr-xr-x  1 wesc wesc 3162 2006-04-22 15:28 ushuffle_sa.py*
+-r-xr-xr-x  1 wesc wesc 3130 2006-04-22 16:21 ushuffle_so.py*
+
+./ch21/alt:
+total 8
+-r-xr-xr-x  1 wesc wesc 4604 2006-04-29 00:23 ushuffle_dbPRE25.py*
+
+./ch22:
+total 12
+-r-xr-xr-x  1 wesc wesc  852 2006-09-20 22:51 Extest1.c*
+-r-xr-xr-x  1 wesc wesc 1627 2006-09-20 22:53 Extest2.c*
+-r-xr-xr-x  1 wesc wesc  157 2006-05-01 00:38 setup.py*
+
+./ch23:
+total 40
+dr-xr-xr-x  2 wesc wesc 4096 2006-09-21 00:55 alt/
+-r-xr-xr-x  1 wesc wesc 1353 2006-10-11 22:53 estock.pyw*
+lrwxrwxrwx  1 wesc wesc    9 2006-09-21 02:09 excel.py -> excel.pyw*
+-r-xr-xr-x  1 wesc wesc 1285 2006-09-20 23:25 excel.pyc*
+-r-xr-xr-x  1 wesc wesc  709 2006-09-20 23:02 excel.pyw*
+lrwxrwxrwx  1 wesc wesc    9 2006-09-21 02:09 olook.py -> olook.pyw*
+-r-xr-xr-x  1 wesc wesc  920 2006-10-08 12:34 olook.pyw*
+lrwxrwxrwx  1 wesc wesc   10 2006-09-21 02:09 ppoint.py -> ppoint.pyw*
+-r-xr-xr-x  1 wesc wesc  828 2006-09-20 23:04 ppoint.pyw*
+-r-xr-xr-x  1 wesc wesc  576 2006-10-11 22:52 stock.py*
+-r-xr-xr-x  1 wesc wesc 1095 2006-09-20 23:15 swhello.java*
+-r-xr-xr-x  1 wesc wesc  457 2006-09-20 23:17 swhello.py*
+lrwxrwxrwx  1 wesc wesc    8 2006-09-21 02:09 word.py -> word.pyw*
+-r-xr-xr-x  1 wesc wesc  720 2006-09-20 23:04 word.pyw*
+
+./ch23/alt:
+total 4
+-r-xr-xr-x  1 wesc wesc 1065 2006-09-21 00:41 win32demo.pyw*

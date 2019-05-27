@@ -1,0 +1,622 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>列表结构</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="高级主题"
+HREF="part4.html"><LINK
+REL="PREVIOUS"
+TITLE="别名"
+HREF="aliases.html"><LINK
+REL="NEXT"
+TITLE="数组"
+HREF="arrays.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="aliases.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="arrays.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="LIST-CONS"
+></A
+>25. 列表结构</H1
+><P
+><A
+NAME="LISTCONSREF"
+></A
+></P
+><P
+><SPAN
+CLASS="QUOTE"
+>"与列表"</SPAN
+>和<SPAN
+CLASS="QUOTE"
+>"或列表"</SPAN
+>结构能够提供一种手段, 
+	这种手段能够用来处理一串连续的命令. 
+	这样就可以有效的替换掉嵌套的<B
+CLASS="COMMAND"
+>if</B
+>/<B
+CLASS="COMMAND"
+>then</B
+>结构, 
+	甚至能够替换掉<B
+CLASS="COMMAND"
+>case</B
+>语句. </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="LCONS1"
+></A
+>把命令连接到一起</B
+></P
+><DL
+><DT
+>与列表</DT
+><DD
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;command-1 &#38;&#38; command-2 &#38;&#38; command-3 &#38;&#38; ... command-n</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+			如果每个命令执行后都返回<SPAN
+CLASS="RETURNVALUE"
+>true</SPAN
+>(0)的话, 
+			那么命令将会依次执行下去. 
+			如果其中的某个命令返回<SPAN
+CLASS="RETURNVALUE"
+>false</SPAN
+>(非零值)的话, 
+			那么这个命令链就会被打断, 也就是结束执行, 
+			(那么第一个返回<SPAN
+CLASS="RETURNVALUE"
+>false</SPAN
+>的命令, 
+		   就是最后一个执行的命令, 其后的命令都不会执行). </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX64"
+></A
+><P
+><B
+>例子 25-1. 使用<SPAN
+CLASS="QUOTE"
+>"与列表"</SPAN
+>来测试命令行参数</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# "与列表"
+  3&nbsp;
+  4&nbsp;if [ ! -z "$1" ] &#38;&#38; echo "Argument #1 = $1" &#38;&#38; [ ! -z "$2" ] &#38;&#38; echo "Argument #2 = $2"
+  5&nbsp;then
+  6&nbsp;  echo "At least 2 arguments passed to script."
+  7&nbsp;  # 所有连接起来的命令都返回true. 
+  8&nbsp;else
+  9&nbsp;  echo "Less than 2 arguments passed to script."
+ 10&nbsp;  # 整个命令列表中至少有一个命令返回false. 
+ 11&nbsp;fi  
+ 12&nbsp;# 注意, "if [ ! -z $1 ]"也可以, 但它是有所假定的等价物. 
+ 13&nbsp;#   if [ -n $1 ] 这个不行. 
+ 14&nbsp;#     然而, 如果加了引用就行了. 
+ 15&nbsp;#  if [ -n "$1" ] 这样就行了. 
+ 16&nbsp;#     小心!
+ 17&nbsp;# 最好将你要测试的变量引用起来, 这么做是非常好的习惯. 
+ 18&nbsp;
+ 19&nbsp;
+ 20&nbsp;# 下面这段代码与上面代码是等价的, 不过下面这段代码使用的是"纯粹"的if/then结构. 
+ 21&nbsp;if [ ! -z "$1" ]
+ 22&nbsp;then
+ 23&nbsp;  echo "Argument #1 = $1"
+ 24&nbsp;fi
+ 25&nbsp;if [ ! -z "$2" ]
+ 26&nbsp;then
+ 27&nbsp;  echo "Argument #2 = $2"
+ 28&nbsp;  echo "At least 2 arguments passed to script."
+ 29&nbsp;else
+ 30&nbsp;  echo "Less than 2 arguments passed to script."
+ 31&nbsp;fi
+ 32&nbsp;# 这么写的话, 行数太多了, 没有"与列表"来的精简. 
+ 33&nbsp;
+ 34&nbsp;
+ 35&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ANDLIST2"
+></A
+><P
+><B
+>例子 25-2. 使用<SPAN
+CLASS="QUOTE"
+>"与列表"</SPAN
+>来测试命令行参数的另一个例子</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;ARGS=1        # 期望的参数个数. 
+  4&nbsp;E_BADARGS=65  # 如果传递的参数个数不正确, 那么给出这个退出码. 
+  5&nbsp;
+  6&nbsp;test $# -ne $ARGS &#38;&#38; echo "Usage: `basename $0` $ARGS argument(s)" &#38;&#38; exit $E_BADARGS
+  7&nbsp;#  如果"条件1"测试为true (表示传递给脚本的参数个数不对), 
+  8&nbsp;#+ 则余下的命令会被执行, 并且脚本将结束运行. 
+  9&nbsp;
+ 10&nbsp;# 只有当上面的测试条件为false的时候, 这行代码才会被执行. 
+ 11&nbsp;echo "Correct number of arguments passed to this script."
+ 12&nbsp;
+ 13&nbsp;exit 0
+ 14&nbsp;
+ 15&nbsp;# 为了检查退出码, 在脚本结束的时候可以使用"echo $?"来查看退出码. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><A
+NAME="ANDDEFAULT"
+></A
+></P
+><P
+>	      当然, <EM
+>与列表</EM
+>也可以给变量<EM
+>设置</EM
+>默认值. 
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;arg1=$@       # 不管怎样, 将$arg1设置为命令行参数. 
+  2&nbsp;
+  3&nbsp;[ -z "$arg1" ] &#38;&#38; arg1=DEFAULT
+  4&nbsp;              # 如果没有指定命令行参数, 则把$arg1设置为DEFAULT. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+></DD
+><DT
+>或列表</DT
+><DD
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;command-1 || command-2 || command-3 || ... command-n</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+			如果每个命令都返回<SPAN
+CLASS="RETURNVALUE"
+>false</SPAN
+>, 
+			那么命令链就会执行下去. 
+			一旦有一个命令返回<SPAN
+CLASS="RETURNVALUE"
+>true</SPAN
+>, 
+			命令链就会被打断, 也就是结束执行, 
+			(第一个返回<SPAN
+CLASS="RETURNVALUE"
+>true</SPAN
+>的命令将会是最后一个执行的命令). 
+			显然, 这和<SPAN
+CLASS="QUOTE"
+>"与列表"</SPAN
+>完全相反. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX65"
+></A
+><P
+><B
+>例子 25-3. 将<SPAN
+CLASS="QUOTE"
+>"或列表"</SPAN
+>和<SPAN
+CLASS="QUOTE"
+>"与列表"</SPAN
+>结合使用</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;#  delete.sh, 不是很聪明的文件删除方法. 
+  4&nbsp;#  Usage: delete filename
+  5&nbsp;
+  6&nbsp;E_BADARGS=65
+  7&nbsp;
+  8&nbsp;if [ -z "$1" ]
+  9&nbsp;then
+ 10&nbsp;  echo "Usage: `basename $0` filename"
+ 11&nbsp;  exit $E_BADARGS  # 没有参数? 退出脚本. 
+ 12&nbsp;else  
+ 13&nbsp;  file=$1          # 设置文件名.
+ 14&nbsp;fi  
+ 15&nbsp;
+ 16&nbsp;
+ 17&nbsp;[ ! -f "$file" ] &#38;&#38; echo "File \"$file\" not found. \
+ 18&nbsp;Cowardly refusing to delete a nonexistent file."
+ 19&nbsp;# 与列表, 在文件不存在时将会给出错误信息. 
+ 20&nbsp;# 注意echo命令使用了一个续行符, 这样下一行的内容, 也会作为echo命令的参数. 
+ 21&nbsp;
+ 22&nbsp;[ ! -f "$file" ] || (rm -f $file; echo "File \"$file\" deleted.")
+ 23&nbsp;# 或列表, 如果文件存在, 那就删除此文件. 
+ 24&nbsp;
+ 25&nbsp;# 注意, 上边的两个逻辑相反. 
+ 26&nbsp;# 与列表在true的情况下才执行, 或列表在false的时候才执行. 
+ 27&nbsp;
+ 28&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果<SPAN
+CLASS="QUOTE"
+>"或列表"</SPAN
+>中的第一个命令返回<SPAN
+CLASS="RETURNVALUE"
+>true</SPAN
+>, 
+				那么, <SPAN
+CLASS="QUOTE"
+>"或列表"</SPAN
+>中的第一个命令还是<TT
+CLASS="REPLACEABLE"
+><I
+>会</I
+></TT
+>执行. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+></DL
+></DIV
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# ==&#62; 下面的片断摘自于脚本/etc/rc.d/init.d/single, 这个脚本由Miquel van Smoorenburg所编写. 
+  2&nbsp;#+==&#62; 用于展示"与"/"或"列表的使用. 
+  3&nbsp;# ==&#62; "箭头"注释是由本书作者添加的. 
+  4&nbsp;
+  5&nbsp;[ -x /usr/bin/clear ] &#38;&#38; /usr/bin/clear
+  6&nbsp;  # ==&#62; 如果/usr/bin/clear存在, 那么就调用它. 
+  7&nbsp;  # ==&#62; 在调用一个命令前, 检查一下它是否存在. 
+  8&nbsp;  #+==&#62; 这样可以避免错误信息, 和其他愚蠢的结果. 
+  9&nbsp;
+ 10&nbsp;  # ==&#62; . . .
+ 11&nbsp;
+ 12&nbsp;# 如果他们想在单用户模式下运行某些程序, 可能也会运行它...
+ 13&nbsp;for i in /etc/rc1.d/S[0-9][0-9]* ; do
+ 14&nbsp;        # 检查一下脚本是否在那里. 
+ 15&nbsp;        [ -x "$i" ] || continue
+ 16&nbsp;  # ==&#62; 如果在$PWD中没发现相应的文件, 
+ 17&nbsp;  #+==&#62; 则会使用"continue"跳过本次循环. 
+ 18&nbsp;
+ 19&nbsp;        # 不接受备份文件, 也不接受由rpm产生的文件. 
+ 20&nbsp;        case "$1" in
+ 21&nbsp;                *.rpmsave|*.rpmorig|*.rpmnew|*~|*.orig)
+ 22&nbsp;                        continue;;
+ 23&nbsp;        esac
+ 24&nbsp;        [ "$i" = "/etc/rc1.d/S00single" ] &#38;&#38; continue
+ 25&nbsp;  # ==&#62; 设置脚本名, 但现在还不执行它. 
+ 26&nbsp;        $i start
+ 27&nbsp;done
+ 28&nbsp;
+ 29&nbsp;  # ==&#62; . . .</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><DIV
+CLASS="IMPORTANT"
+><P
+></P
+><TABLE
+CLASS="IMPORTANT"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/important.gif"
+HSPACE="5"
+ALT="Important"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><KBD
+CLASS="USERINPUT"
+>与列表</KBD
+>和<KBD
+CLASS="USERINPUT"
+>或列表</KBD
+>的<A
+HREF="exit-status.html#EXITSTATUSREF"
+>退出状态码</A
+>由最后一个命令的退出状态所决定. 
+	  </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>可以灵活的将<SPAN
+CLASS="QUOTE"
+>"与"</SPAN
+>/<SPAN
+CLASS="QUOTE"
+>"或"</SPAN
+>列表组合在一起, 
+	但是这么做的话, 会使得逻辑变得很复杂, 并且需要经过仔细的测试. 
+	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;false &#38;&#38; true || echo false         # false
+  2&nbsp;
+  3&nbsp;# 与下面的结果相同
+  4&nbsp;( false &#38;&#38; true ) || echo false     # false
+  5&nbsp;# But *not*
+  6&nbsp;false &#38;&#38; ( true || echo false )     # (没有输出)
+  7&nbsp;
+  8&nbsp;#  注意, 以从做到右的顺序进行分组与求值, 
+  9&nbsp;#+ 这是因为逻辑操作符"&#38;&#38;"和"||"具有相同的优先级. 
+ 10&nbsp;
+ 11&nbsp;#  最好避免这么复杂的情况, 除非你非常了解你到底在做什么. 
+ 12&nbsp;
+ 13&nbsp;#  感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	</P
+><P
+>也请参考<A
+HREF="contributed-scripts.html#DAYSBETWEEN"
+>例子 A-7</A
+>和<A
+HREF="fto.html#BROKENLINK"
+>例子 7-4</A
+>, 
+	这两个例子展示了如何使用<KBD
+CLASS="USERINPUT"
+>与/或列表</KBD
+>来测试变量. </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="aliases.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="arrays.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>别名</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part4.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>数组</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,1396 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>基本命令</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="外部过滤器, 程序和命令"
+HREF="external.html"><LINK
+REL="PREVIOUS"
+TITLE="外部过滤器, 程序和命令"
+HREF="external.html"><LINK
+REL="NEXT"
+TITLE="复杂命令"
+HREF="moreadv.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="external.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>12. 外部过滤器, 程序和命令</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="moreadv.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="BASIC"
+>12.1. 基本命令</A
+></H1
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="BASICCOMMANDS1"
+></A
+>新手必须要掌握的初级命令</B
+></P
+><DL
+><DT
+><A
+NAME="LSREF"
+></A
+><B
+CLASS="COMMAND"
+>ls</B
+></DT
+><DD
+><P
+><SPAN
+CLASS="QUOTE"
+>"列出"</SPAN
+>文件的基本命令. 
+			  但是往往就是因为这个命令太简单, 所以我们总是低估它.
+	      比如, 使用<CODE
+CLASS="OPTION"
+>-R</CODE
+>选项, 递归选项,
+		  <B
+CLASS="COMMAND"
+>ls</B
+>将会以目录树的形式列出所有文件. 
+		  另一个很有用的选项<CODE
+CLASS="OPTION"
+>-S</CODE
+>, 将会按照文件尺寸列出所有文件,
+	      <CODE
+CLASS="OPTION"
+>-t</CODE
+>, 将会按照修改时间来列出文件, 
+	      <CODE
+CLASS="OPTION"
+>-i</CODE
+>选项会显示文件的inode(请参考<A
+HREF="moreadv.html#IDELETE"
+>例子 12-4</A
+>).</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX40"
+></A
+><P
+><B
+>例子 12-1. 使用<B
+CLASS="COMMAND"
+>ls</B
+>命令来创建一个烧录<ABBR
+CLASS="ABBREV"
+>CDR</ABBR
+>的内容列表</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# ex40.sh (burn-cd.sh)
+  3&nbsp;# 自动刻录CDR的脚本.
+  4&nbsp;
+  5&nbsp;
+  6&nbsp;SPEED=2          # 如果你的硬件支持的话, 你可以选用更高的速度.
+  7&nbsp;IMAGEFILE=cdimage.iso
+  8&nbsp;CONTENTSFILE=contents
+  9&nbsp;DEVICE=cdrom
+ 10&nbsp;# DEVICE="0,0"     为了是用老版本的CDR
+ 11&nbsp;DEFAULTDIR=/opt  # 这是包含需要被刻录内容的目录.
+ 12&nbsp;                 # 必须保证目录存在.
+ 13&nbsp;                 # 小练习: 测试一下目录是否存在.
+ 14&nbsp;
+ 15&nbsp;# 使用 Joerg Schilling 的 "cdrecord" 包:
+ 16&nbsp;# http://www.fokus.fhg.de/usr/schilling/cdrecord.html
+ 17&nbsp;
+ 18&nbsp;#  如果一般用户调用这个脚本的话, 可能需要root身份
+ 19&nbsp;#+ chmod u+s /usr/bin/cdrecord
+ 20&nbsp;#  当然, 这会产生安全漏洞, 虽然这是一个比较小的安全漏洞.
+ 21&nbsp;
+ 22&nbsp;if [ -z "$1" ]
+ 23&nbsp;then
+ 24&nbsp;  IMAGE_DIRECTORY=$DEFAULTDIR
+ 25&nbsp;  # 如果命令行没指定的话, 那么这个就是默认目录.
+ 26&nbsp;else
+ 27&nbsp;    IMAGE_DIRECTORY=$1
+ 28&nbsp;fi
+ 29&nbsp;
+ 30&nbsp;# 创建一个"内容列表"文件.
+ 31&nbsp;ls -lRF $IMAGE_DIRECTORY &#62; $IMAGE_DIRECTORY/$CONTENTSFILE
+ 32&nbsp;# "l" 选项将给出一个"长"文件列表.
+ 33&nbsp;# "R" 选项将使这个列表递归.
+ 34&nbsp;# "F" 选项将标记出文件类型 (比如: 目录是以 /结尾, 而可执行文件以 *结尾).
+ 35&nbsp;echo "Creating table of contents."
+ 36&nbsp;
+ 37&nbsp;# 在烧录到CDR之前创建一个镜像文件.
+ 38&nbsp;mkisofs -r -o $IMAGEFILE $IMAGE_DIRECTORY
+ 39&nbsp;echo "Creating ISO9660 file system image ($IMAGEFILE)."
+ 40&nbsp;
+ 41&nbsp;# 烧录CDR.
+ 42&nbsp;echo "Burning the disk."
+ 43&nbsp;echo "Please be patient, this will take a while."
+ 44&nbsp;cdrecord -v -isosize speed=$SPEED dev=$DEVICE $IMAGEFILE
+ 45&nbsp;
+ 46&nbsp;exit $?</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><A
+NAME="CATREF"
+></A
+><B
+CLASS="COMMAND"
+>cat</B
+>, <B
+CLASS="COMMAND"
+>tac</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>cat</B
+>, 
+			  是单词<I
+CLASS="WORDASWORD"
+>concatenate</I
+>的缩写,
+			  把文件的内容输出到<TT
+CLASS="FILENAME"
+>stdout</TT
+>. 
+			  当与重定向操作符(<SPAN
+CLASS="TOKEN"
+>&#62;</SPAN
+>或<SPAN
+CLASS="TOKEN"
+>&#62;&#62;</SPAN
+>), 
+			  一般都是用来将多个文件连接起来.
+
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# Uses of 'cat'
+  2&nbsp;cat filename                          # 打印出文件内容.
+  3&nbsp;
+  4&nbsp;cat file.1 file.2 file.3 &#62; file.123   # 把三个文件连接到一个文件中. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+	      <B
+CLASS="COMMAND"
+>cat</B
+>命令的<CODE
+CLASS="OPTION"
+>-n</CODE
+>选项是为了在目标文件中的所有行前边插入行号. 
+		  <CODE
+CLASS="OPTION"
+>-b</CODE
+>也是用来加行号的, 
+		  但是不对空行进行编号.
+	      <CODE
+CLASS="OPTION"
+>-v</CODE
+>选项可以使用<SPAN
+CLASS="TOKEN"
+>^</SPAN
+>标记法来echo出不可打印字符. 
+		  <CODE
+CLASS="OPTION"
+>-s</CODE
+>选项可以把多个空行压缩成一个空行. </P
+><P
+>请参考<A
+HREF="textproc.html#LNUM"
+>例子 12-25</A
+>和<A
+HREF="textproc.html#ROT13"
+>例子 12-21</A
+>.</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>			在一个<A
+HREF="special-chars.html#PIPEREF"
+>管道</A
+>中, 
+			有一种把<TT
+CLASS="FILENAME"
+>stdin</TT
+><A
+HREF="io-redirection.html#IOREDIRREF"
+>重定向</A
+>到一个文件中更有效的方法, 
+            这种方法比使用<B
+CLASS="COMMAND"
+>cat</B
+>文件的方法更高效. 
+            </P
+><P
+>	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;cat filename | tr a-z A-Z
+  2&nbsp;
+  3&nbsp;tr a-z A-Z &#60; filename   #  效果相同, 但是处理更少,
+  4&nbsp;                        #+ 并且连管道都省掉了. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+><B
+CLASS="COMMAND"
+>tac</B
+>命令, 就是<I
+CLASS="WORDASWORD"
+>cat</I
+>命令的反转, 
+			这个命令将会从文件结尾部分列出文件的内容. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>rev</B
+></DT
+><DD
+><P
+>把每一行中的内容反转, 
+			  并且输出到<TT
+CLASS="FILENAME"
+>stdout</TT
+>上. 
+			  这个命令与<B
+CLASS="COMMAND"
+>tac</B
+>命令的效果是不同的, 
+			  因为它并不反转行序, 而是把每行的内容反转.
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cat file1.txt</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>This is line 1.
+ This is line 2.</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>tac file1.txt</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>This is line 2.
+ This is line 1.</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>rev file1.txt</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>.1 enil si sihT
+ .2 enil si sihT</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>cp</B
+></DT
+><DD
+><P
+><A
+NAME="CPREF"
+></A
+></P
+><P
+>这是文件拷贝命令. <KBD
+CLASS="USERINPUT"
+>cp file1
+				file2</KBD
+>把文件<TT
+CLASS="FILENAME"
+>file1</TT
+>拷贝到<TT
+CLASS="FILENAME"
+>file2</TT
+>, 
+			如果<TT
+CLASS="FILENAME"
+>file2</TT
+>存在的话, 那么<TT
+CLASS="FILENAME"
+>file2</TT
+>将被覆盖(请参考<A
+HREF="moreadv.html#EX42"
+>例子 12-6</A
+>).</P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>特别有用的选项就是<CODE
+CLASS="OPTION"
+>-a</CODE
+>选项, 
+	       这是归档标志(目的是为了copy一个完整的目录树), 
+	       <CODE
+CLASS="OPTION"
+>-u</CODE
+>是更新选项, 
+	       <CODE
+CLASS="OPTION"
+>-r</CODE
+>和<CODE
+CLASS="OPTION"
+>-R</CODE
+>选项是递归标志. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;cp -u source_dir/* dest_dir
+  2&nbsp;#  把源目录"同步"到目标目录上,
+  3&nbsp;#+  也就是拷贝所有更新的文件和之前不存在的文件. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>mv</B
+></DT
+><DD
+><P
+>这是文件<EM
+>移动</EM
+>命令. 
+			  它等价于<B
+CLASS="COMMAND"
+>cp</B
+>和<B
+CLASS="COMMAND"
+>rm</B
+>命令的组合. 
+			  它可以把多个文件移动到目录中,甚
+			至将目录重命名.
+	      想察看<B
+CLASS="COMMAND"
+>mv</B
+>在脚本中使用的例子, 
+	      请参考<A
+HREF="parameter-substitution.html#RFE"
+>例子 9-19</A
+>和<A
+HREF="contributed-scripts.html#RN"
+>例子 A-2</A
+>. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>当使用非交互脚本时, 
+	      可以使用<B
+CLASS="COMMAND"
+>mv</B
+>的<CODE
+CLASS="OPTION"
+>-f</CODE
+>(<EM
+>强制</EM
+>)选项来避免用户的输入. 
+	      </P
+><P
+>当一个目录被移动到一个已存在的目录时, 那么它将成为目标目录的子目录.
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>mv source_directory target_directory</KBD
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -lF target_directory</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 1
+ drwxrwxr-x    2 bozo  bozo      1024 May 28 19:20 source_directory/</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>rm</B
+></DT
+><DD
+><P
+>删除(清除)一个或多个文件. 
+			  <CODE
+CLASS="OPTION"
+>-f</CODE
+>选项将强制删除文件, 
+			  即使这个文件是只读的. 
+			  并且可以用来避免用户输入(在非交互脚本中使用).
+		  </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>rm</B
+>将无法删除以破折号开头的文件. 
+		</P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>rm -badname</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rm: invalid option -- b
+ Try `rm --help' for more information.</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><P
+>解决这个问题的一个方法就是在要删除的文件的前边加上<EM
+>./</EM
+> .
+
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>rm ./-badname</KBD
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	        
+		另一种解决的方法是在文件名前边加上<SPAN
+CLASS="QUOTE"
+>" -- "</SPAN
+>.
+
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>rm -- -badname</KBD
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/warning.gif"
+HSPACE="5"
+ALT="Warning"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>当使用递归参数<CODE
+CLASS="OPTION"
+>-r</CODE
+>时, 
+				这个命令将会删除整个目录树. 
+	      如果不慎的使用<B
+CLASS="COMMAND"
+>rm -rf *</B
+>的话, 
+	      那整个目录树就真的完了. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>rmdir</B
+></DT
+><DD
+><P
+>删除目录. 但是只有这个目录中没有文件的时候
+	      -- 当然会包含<SPAN
+CLASS="QUOTE"
+>"不可见的"</SPAN
+><EM
+>点文件</EM
+>
+
+		<A
+NAME="AEN7278"
+HREF="#FTN.AEN7278"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+
+	      -- 这个命令才会成功. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>mkdir</B
+></DT
+><DD
+><P
+>生成目录, 创建一个空目录. 比如,
+			<KBD
+CLASS="USERINPUT"
+>mkdir -p project/programs/December</KBD
+>将会创建指定的目录, 
+			即使project目录和programs目录都不存在.
+			<TT
+CLASS="REPLACEABLE"
+><I
+>-p</I
+></TT
+>选项将会自动产生必要的父目录, 
+			这样也就同时创建了多个目录. 
+		</P
+></DD
+><DT
+><A
+NAME="CHMODREF"
+></A
+><B
+CLASS="COMMAND"
+>chmod</B
+></DT
+><DD
+><P
+>修改一个现存文件的属性(请参考<A
+HREF="internal.html#EX44"
+>例子 11-12</A
+>).</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;chmod +x filename
+  2&nbsp;# 使得文件"filename"对所有用户都可执行.
+  3&nbsp;
+  4&nbsp;chmod u+s filename
+  5&nbsp;# 设置"filename"文件的"suid"位.
+  6&nbsp;# 这样一般用户就可以在执行"filename"的时候, 拥有和文件宿主相同的权限.
+  7&nbsp;# (这并不适用于shell脚本.)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;chmod 644 filename
+  2&nbsp;# 对文件"filename"的宿主设置r/w权限, 
+  3&nbsp;# 对一般用户设置读权限
+  4&nbsp;# (8进制模式). </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;chmod 1777 directory-name
+  2&nbsp;# 对这个目录设置r/w和可执行权限, 并开放给所有人.
+  3&nbsp;# 同时设置 "粘贴位".
+  4&nbsp;# 这意味着,　只有目录宿主,
+  5&nbsp;# 文件宿主, 当然, 
+  6&nbsp;# 还有root可以删除这个目录中的任何特定的文件.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>chattr</B
+></DT
+><DD
+><P
+>修改文件属性. 
+			  这个命令与上边的<B
+CLASS="COMMAND"
+>chmod</B
+>命令项类似, 
+			  但是有不同的选项和不同的调用语法, 
+			  并且这个命令只能工作在<EM
+>ext2</EM
+>文件系统中. </P
+><P
+><B
+CLASS="COMMAND"
+>chattr</B
+>命令的一个特别有趣的选项是<CODE
+CLASS="OPTION"
+>i</CODE
+>. 
+			 <B
+CLASS="COMMAND"
+>chattr +i <TT
+CLASS="FILENAME"
+>filename</TT
+></B
+>将使得这个文件被标记为永远不变. 
+	      这个文件将不能被修改, 连接, 或删除,
+		  <EM
+>即使是root也不行</EM
+>. 
+		  这个文件属性只能被root设置和删除. 
+		  类似的, <CODE
+CLASS="OPTION"
+>a</CODE
+>选项将会把文件标记为只能追加数据
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>root# </SAMP
+><KBD
+CLASS="USERINPUT"
+>chattr +i file1.txt</KBD
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>root# </SAMP
+><KBD
+CLASS="USERINPUT"
+>rm file1.txt</KBD
+>
+
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rm: remove write-protected regular file `file1.txt'? y
+ rm: cannot remove `file1.txt': Operation not permitted</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>如果文件设置了<CODE
+CLASS="OPTION"
+>s</CODE
+>(安全)属性, 
+			那么当这个文件被删除时, 这个文件所在磁盘的块将全部被0填充. </P
+><P
+>如果文件设置了<CODE
+CLASS="OPTION"
+>u</CODE
+>(不可删除)属性, 那么当这个文件被删除后, 
+			这个文件的内容还可以被恢复(不可删除). </P
+><P
+>如果文件设置了<CODE
+CLASS="OPTION"
+>c</CODE
+>(压缩)属性, 
+			那么当这个文件在进行写操作时, 它将自动被压缩, 
+			并且在读的时候, 自动解压.
+	      </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>使用<B
+CLASS="COMMAND"
+>chattr</B
+>命令设置过属性的文件将不会显示在文件列表中(<B
+CLASS="COMMAND"
+>ls 
+					  -l</B
+>).</P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="LINKREF"
+></A
+><B
+CLASS="COMMAND"
+>ln</B
+></DT
+><DD
+><P
+>创建文件链接, 前提是这个文件是存在的. 
+			  <SPAN
+CLASS="QUOTE"
+>"链接"</SPAN
+>就是一个文件的引用, 
+			  也就是这个文件的另一个名字. 
+			  <B
+CLASS="COMMAND"
+>ln</B
+>命令允许对同一个文件引用多个链接, 
+			  并且是避免混淆的一个很好的方法(请参考<A
+HREF="othertypesv.html#EX18"
+>例子 4-6</A
+>).</P
+><P
+><B
+CLASS="COMMAND"
+>ln</B
+>对于文件来说只不过是创建了一个引用, 
+				  一个指针而已, 因为创建出来的连接文件只有几个字节. 
+			  </P
+><P
+><A
+NAME="SYMLINKREF"
+></A
+></P
+><P
+>绝大多数使用<B
+CLASS="COMMAND"
+>ln</B
+>命令时, 
+				使用的是<CODE
+CLASS="OPTION"
+>-s</CODE
+>选项, 
+				可以称为符号链接, 或<SPAN
+CLASS="QUOTE"
+>"软"</SPAN
+>链接. 
+				使用<CODE
+CLASS="OPTION"
+>-s</CODE
+>标志的一个优点是它可以穿越文件系统来链接目录. 
+	      </P
+><P
+>关于使用这个命令的语法还是有点小技巧的. 
+			  比如: <KBD
+CLASS="USERINPUT"
+>ln -s oldfile newfile</KBD
+>将对之前存在的<TT
+CLASS="FILENAME"
+>oldfile</TT
+>产生一个新的连接, 
+	      <TT
+CLASS="FILENAME"
+>newfile</TT
+>. </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果之前<TT
+CLASS="FILENAME"
+>newfile</TT
+>已经存在的话, 
+	      将会产生一个错误信息. </P
+></TD
+></TR
+></TABLE
+></DIV
+><TABLE
+CLASS="SIDEBAR"
+BORDER="1"
+CELLPADDING="5"
+><TR
+><TD
+><DIV
+CLASS="SIDEBAR"
+><A
+NAME="AEN7379"
+></A
+><P
+><B
+>使用链接中的哪种类型?</B
+></P
+><P
+>就像John Macdonald解释的那样: </P
+><P
+>不论是那种类型的链接, 都提供了一种双向引用的手段 -- 也就是说, 
+			  不管你用文件的哪个名字对文件内容进行修改, 
+			  你修改的效果都即会影响到原始名字的文件, 
+			  也会影响到链接名字的文件. 当你工作在更高层次的时候, 
+			  才会发生软硬链接的不同. 硬链接的优点是, 原始文件与链接文件之间是相互独立的 
+			  -- 如果你删除或者重命名旧文件, 那么这种操作将不会影响硬链接的文件, 
+			  硬链接的文件讲还是原来文件的内容. 然而如果你使用软链接的话, 
+			  当你把旧文件删除或重命名后, 软链接将再也找不到原来文件的内容了. 
+			  而软链接的优点是它可以跨越文件系统(因为它只不过是文件名的一个引用, 
+			  而并不是真正的数据). 与硬链接的另一个不同是, 
+			  一个符号链接可以指向一个目录.</P
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>链接给出了一种可以用多个名字来调用脚本的能力(当然这也适用于任何其他可执行的类型), 
+	并且脚本的行为将依赖于脚本是如何被调用的. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="HELLOL"
+></A
+><P
+><B
+>例子 12-2. 到底是Hello还是Good-bye</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# hello.sh: 显示"hello"还是"goodbye"
+  3&nbsp;#+          依赖于脚本是如何被调用的. 
+  4&nbsp;
+  5&nbsp;# 在当前目录下($PWD)为这个脚本创建一个链接:
+  6&nbsp;#    ln -s hello.sh goodbye
+  7&nbsp;# 现在, 通过如下两种方法来调用这个脚本:
+  8&nbsp;# ./hello.sh
+  9&nbsp;# ./goodbye
+ 10&nbsp;
+ 11&nbsp;
+ 12&nbsp;HELLO_CALL=65
+ 13&nbsp;GOODBYE_CALL=66
+ 14&nbsp;
+ 15&nbsp;if [ $0 = "./goodbye" ]
+ 16&nbsp;then
+ 17&nbsp;  echo "Good-bye!"
+ 18&nbsp;  # 当然, 在这里你也可以添加一些其他的goodbye类型的命令.
+ 19&nbsp;  exit $GOODBYE_CALL
+ 20&nbsp;fi
+ 21&nbsp;
+ 22&nbsp;echo "Hello!"
+ 23&nbsp;# 当然, 在这里你也可以添加一些其他的hello类型的命令.
+ 24&nbsp;exit $HELLO_CALL</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>man</B
+>, <B
+CLASS="COMMAND"
+>info</B
+></DT
+><DD
+><P
+>这两个命令用来查看系统命令或安装工具的手册和信息. 
+			  当两者都可用时, 
+	      <EM
+>info</EM
+>页一般会比<EM
+>man</EM
+>页包含更多的细节描述. </P
+></DD
+></DL
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN7278"
+HREF="basic.html#AEN7278"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><A
+NAME="DOTFILESREF"
+></A
+></P
+><P
+><EM
+>点文件</EM
+>就是文件名以<EM
+>点</EM
+>开头的文件, 
+				  比如<TT
+CLASS="FILENAME"
+>~/.Xdefaults</TT
+>. 
+				  当使用一般的<B
+CLASS="COMMAND"
+>ls</B
+>命令时, 
+				 这样的文件是不会被显示出来的. 
+				 (当然<B
+CLASS="COMMAND"
+>ls -a</B
+>会显示它们), 
+				 所以它们也不会被意外的<B
+CLASS="COMMAND"
+>rm -rf *</B
+>命令所删除. 
+				 在用户的home目录中, 点文件一般被用作安装和配置文件.
+		    </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="external.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="moreadv.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>外部过滤器, 程序和命令</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="external.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>复杂命令</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

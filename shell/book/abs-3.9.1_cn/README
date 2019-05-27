@@ -1,0 +1,64 @@
+                        SOME SCRIPTS WILL NOT RUN AS IS
+
+
+Note that the source code for certain of the example shell scripts
+have the "&lt;" and "&gt;" in place of angle brackets (< and >), or &amp; in
+place of the ampersand (&). This is necessary for the Docbook SGML
+conversion. If you plan to run these scripts from the enclosed source
+files, then it will, of course, be necessary to restore the angle
+brackets or ampersand.
+
+                          &lt;      becomes  <
+                          &gt;      becomes  >
+                          &lt;&lt;  becomes  <<
+                          &lt;&lt;  becomes  <<<
+                          &gt;&gt;  becomes  >>
+			  &amp;     becomes  &
+
+In some of the below cases, only the comments are affected, and these scripts
+require no fixups to execute as expected.
+
+
+Scripts needing to be altered:
+-----------------------------
+
+Du.sh (line 19)
+encryptedpw.sh (lines 27 and 35)
+ex57.sh (comment in line 8)
+ex70.sh (line 3)
+ex71.sh (line 7)
+ex71a.sh (line 8)
+ex71b.sh (line 22)
+logevents.sh (lines 29, 36-39, 44, 53, 55, 60, 64)
+m4.sh (line 8)
+pw.sh (comment in line 4)
+read-r.sh (lines 5, 6, 19, 26)
+rnd.sh (comments in lines 38, 55, 64)
+rot13.sh (comment, line 6)
+rot13a.sh (comment, line 5)
+here-function.sh (line 16)
+avoid-subshell.sh (lines 24, 25, and 33)
+usb.sh (line 28)
+prepend.sh (lines 18 and 28)
+array-assign.bash
+cdll (lines 51-53, 59, 63-69, 82-83, 85, 463, 521, 567-568, 570,
+            580-586, 637, 656-658)
+directory-info.sh (lines 36, 166, 273 and 353)
+is-spammer.sh (comments on lines 4, 35, and 51)
+bashrc (comments on lines 596 and 618)
+commentblock.sh (lines 4 and 23)
+self-document.sh (line 14)
+self-document2.sh (line 8)
+dev-tcp.sh (line 14)
+archiveweblogs.sh (comment in line 4)
+multiple-processes.sh (line 143)
+catscripts.sh (lines 12 and 21)
+is_spammer.bash (comments on various lines)
+iscan.sh (comment in line 10)
+Hash.lib, (comments in lines lines 103 and 116: & --> &amp;)
+          (comment in line 3: < --> &lt;, > --> &gt;)
+hash-example.sh (comment in line 3: < --> &lt;, > --> &gt;)
+quote-fetch.sh (comment in line 26: &amp; --> &)
+ftpget.sh (comment in line 28)
+whx.sh (comment in line 259)
+In-line code block at beginning of "I/O Redirection" chapter, line 41.

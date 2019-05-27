@@ -1,0 +1,13 @@
+2001-12-06  Adam Di Carlo <adicarlo@users.sourceforge.net>
+
+	* Makefile: image converstion make improvements; if you want to tweak the image conversion stuff, do that in Make.images and that will affect the subdirs too; also, a clean rule
+
+2001-12-01  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* .cvsignore, Makefile: New file.
+
+2001-04-02  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* 1.gif, 10.gif, 2.gif, 3.gif, 4.gif, 5.gif, 6.gif, 7.gif, 8.gif, 9.gif: 
+	New file.
+

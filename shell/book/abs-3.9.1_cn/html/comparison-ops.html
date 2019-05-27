@@ -1,0 +1,981 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>其他比较操作符</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="条件判断"
+HREF="tests.html"><LINK
+REL="PREVIOUS"
+TITLE="文件测试操作符"
+HREF="fto.html"><LINK
+REL="NEXT"
+TITLE="嵌套的if/then条件测试"
+HREF="nestedifthen.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="fto.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>7. 条件判断</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="nestedifthen.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="COMPARISON-OPS"
+>7.3. 其他比较操作符</A
+></H1
+><P
+><EM
+>二元</EM
+>比较操作符用来比较两个变量或数字. 
+		注意整数比较与字符串比较的区别. </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="ICOMPARISON1"
+></A
+>整数比较</B
+></P
+><DL
+><DT
+><SPAN
+CLASS="TOKEN"
+>-eq</SPAN
+></DT
+><DD
+><P
+><A
+NAME="EQUALREF"
+></A
+></P
+><P
+>等于</P
+><P
+><KBD
+CLASS="USERINPUT"
+>if [ "$a" -eq "$b" ]</KBD
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-ne</SPAN
+></DT
+><DD
+><P
+>不等于</P
+><P
+><KBD
+CLASS="USERINPUT"
+>if [ "$a" -ne "$b" ]</KBD
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-gt</SPAN
+></DT
+><DD
+><P
+>大于</P
+><P
+><KBD
+CLASS="USERINPUT"
+>if [ "$a" -gt "$b" ]</KBD
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-ge</SPAN
+></DT
+><DD
+><P
+>大于等于</P
+><P
+><KBD
+CLASS="USERINPUT"
+>if [ "$a" -ge "$b" ]</KBD
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-lt</SPAN
+></DT
+><DD
+><P
+>小于</P
+><P
+><KBD
+CLASS="USERINPUT"
+>if [ "$a" -lt "$b" ]</KBD
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-le</SPAN
+></DT
+><DD
+><P
+>小于等于</P
+><P
+><KBD
+CLASS="USERINPUT"
+>if [ "$a" -le "$b" ]</KBD
+></P
+></DD
+><DT
+><A
+NAME="INTLT"
+></A
+><SPAN
+CLASS="TOKEN"
+>&#60;</SPAN
+></DT
+><DD
+><P
+>小于(在<A
+HREF="dblparens.html"
+>双括号</A
+>中使用)</P
+><P
+><KBD
+CLASS="USERINPUT"
+>(("$a" &#60; "$b"))</KBD
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>&#60;=</SPAN
+></DT
+><DD
+><P
+>小于等于(在双括号中使用)</P
+><P
+><KBD
+CLASS="USERINPUT"
+>(("$a" &#60;= "$b"))</KBD
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>&#62;</SPAN
+></DT
+><DD
+><P
+>大于(在双括号中使用)</P
+><P
+><KBD
+CLASS="USERINPUT"
+>(("$a" &#62; "$b"))</KBD
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>&#62;=</SPAN
+></DT
+><DD
+><P
+>大于等于(在双括号中使用)</P
+><P
+><KBD
+CLASS="USERINPUT"
+>(("$a" &#62;= "$b"))</KBD
+></P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="SCOMPARISON1"
+></A
+>字符串比较</B
+></P
+><DL
+><DT
+><SPAN
+CLASS="TOKEN"
+>=</SPAN
+></DT
+><DD
+><P
+><A
+NAME="EQUALSIGNREF"
+></A
+></P
+><P
+>等于</P
+><P
+><KBD
+CLASS="USERINPUT"
+>if [ "$a" = "$b" ]</KBD
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>==</SPAN
+></DT
+><DD
+><P
+>等于</P
+><P
+><KBD
+CLASS="USERINPUT"
+>if [ "$a" == "$b" ]</KBD
+></P
+><P
+>与<SPAN
+CLASS="TOKEN"
+>=</SPAN
+>等价.</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>	      <SPAN
+CLASS="TOKEN"
+>==</SPAN
+>比较操作符在<A
+HREF="testconstructs.html#DBLBRACKETS"
+>双中括号对</A
+>和单中括号对中的行为是不同的. 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;[[ $a == z* ]]    # 如果$a以"z"开头(模式匹配)那么结果将为真
+  2&nbsp;[[ $a == "z*" ]]  # 如果$a与z*相等(就是字面意思完全一样), 那么结果为真.
+  3&nbsp;
+  4&nbsp;[ $a == z* ]      # 文件扩展匹配(file globbing)和单词分割有效. 
+  5&nbsp;[ "$a" == "z*" ]  # 如果$a与z*相等(就是字面意思完全一样), 那么结果为真. 
+  6&nbsp;
+  7&nbsp;# 感谢, Stephane Chazelas</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+              </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>!=</SPAN
+></DT
+><DD
+><P
+>不等号</P
+><P
+><KBD
+CLASS="USERINPUT"
+>if [ "$a" != "$b" ]</KBD
+></P
+><P
+>这个操作符将在<A
+HREF="testconstructs.html#DBLBRACKETS"
+>[[ ... ]]</A
+>结构中使用模式匹配. </P
+></DD
+><DT
+><A
+NAME="LTREF"
+></A
+><SPAN
+CLASS="TOKEN"
+>&#60;</SPAN
+></DT
+><DD
+><P
+>小于, 按照ASCII字符进行排序</P
+><P
+><KBD
+CLASS="USERINPUT"
+>if [[ "$a" &#60; "$b" ]]</KBD
+></P
+><P
+><KBD
+CLASS="USERINPUT"
+>if [ "$a" \&#60; "$b" ]</KBD
+></P
+><P
+>注意<SPAN
+CLASS="QUOTE"
+>"&#60;"</SPAN
+>使用在<KBD
+CLASS="USERINPUT"
+>[  ]</KBD
+>结构中的时候需要被转义. </P
+></DD
+><DT
+><A
+NAME="GTREF"
+></A
+><SPAN
+CLASS="TOKEN"
+>&#62;</SPAN
+></DT
+><DD
+><P
+>大于, 按照ASCII字符进行排序</P
+><P
+><KBD
+CLASS="USERINPUT"
+>if [[ "$a" &#62; "$b" ]]</KBD
+></P
+><P
+><KBD
+CLASS="USERINPUT"
+>if [ "$a" \&#62; "$b" ]</KBD
+></P
+><P
+>注意<SPAN
+CLASS="QUOTE"
+>"&#62;"</SPAN
+>使用在<KBD
+CLASS="USERINPUT"
+>[  ]</KBD
+>结构中的时候需要被转义. </P
+><P
+>参考<A
+HREF="arrays.html#BUBBLE"
+>例子 26-11</A
+>, 这个例子展示了如何使用这个比较操作符. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-z</SPAN
+></DT
+><DD
+><P
+>字符串为<SPAN
+CLASS="QUOTE"
+>"null"</SPAN
+>, 意思就是字符串长度为零</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-n</SPAN
+></DT
+><DD
+><P
+>字符串不为<SPAN
+CLASS="QUOTE"
+>"null"</SPAN
+>.</P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>当<KBD
+CLASS="USERINPUT"
+>-n</KBD
+>使用在中括号中进行条件测试的时候, 
+				  必须要把字符串用双引号引用起来. 
+				  如果采用了未引用的字符串来使用<KBD
+CLASS="USERINPUT"
+>! -z</KBD
+>, 
+				  甚至是在条件测试中括号(参见<A
+HREF="comparison-ops.html#STRTEST"
+>例子 7-6</A
+>)中只使用未引用的字符串的话, 一般也是可以工作的, 
+		然而, 这是一种不安全的习惯. <EM
+>习惯于</EM
+>使用引用的测试字符串才是正路. 
+		  <A
+NAME="AEN2980"
+HREF="#FTN.AEN2980"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+		</P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX13"
+></A
+><P
+><B
+>例子 7-5. 算术比较与字符串比较</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;a=4
+  4&nbsp;b=5
+  5&nbsp;
+  6&nbsp;#  这里的"a"和"b"既可以被认为是整型也可被认为是字符串. 
+  7&nbsp;#  这里在算术比较与字符串比较之间是容易让人产生混淆, 
+  8&nbsp;#+ 因为Bash变量并不是强类型的.
+  9&nbsp;
+ 10&nbsp;#  Bash允许对于变量进行整形操作与比较操作.
+ 11&nbsp;#+ 但前提是变量中只能包含数字字符.
+ 12&nbsp;#  不管怎么样, 还是要小心. 
+ 13&nbsp;
+ 14&nbsp;echo
+ 15&nbsp;
+ 16&nbsp;if [ "$a" -ne "$b" ]
+ 17&nbsp;then
+ 18&nbsp;  echo "$a is not equal to $b"
+ 19&nbsp;  echo "(arithmetic comparison)"
+ 20&nbsp;fi
+ 21&nbsp;
+ 22&nbsp;echo
+ 23&nbsp;
+ 24&nbsp;if [ "$a" != "$b" ]
+ 25&nbsp;then
+ 26&nbsp;  echo "$a is not equal to $b."
+ 27&nbsp;  echo "(string comparison)"
+ 28&nbsp;  #     "4"  != "5"
+ 29&nbsp;  # ASCII 52 != ASCII 53
+ 30&nbsp;fi
+ 31&nbsp;
+ 32&nbsp;# 在这个特定的例子中, "-ne"和"!="都可以. 
+ 33&nbsp;
+ 34&nbsp;echo
+ 35&nbsp;
+ 36&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="STRTEST"
+></A
+><P
+><B
+>例子 7-6. 检查字符串是否为<EM
+>null</EM
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;#  str-test.sh: 检查null字符串和未引用的字符串,
+  3&nbsp;#+ but not strings and sealing wax, not to mention cabbages and kings . . .
+  4&nbsp;#+ 但不是字符串和封蜡, 也并没有提到卷心菜和国王. . . ??? (没看懂, rojy bug)
+  5&nbsp;
+  6&nbsp;# 使用   if [ ... ]
+  7&nbsp;
+  8&nbsp;
+  9&nbsp;# 如果字符串并没有被初始化, 那么它里面的值未定义.
+ 10&nbsp;# 这种状态被称为"null" (注意这与零值不同).
+ 11&nbsp;
+ 12&nbsp;if [ -n $string1 ]    # $string1 没有被声明和初始化.
+ 13&nbsp;then
+ 14&nbsp;  echo "String \"string1\" is not null."
+ 15&nbsp;else  
+ 16&nbsp;  echo "String \"string1\" is null."
+ 17&nbsp;fi  
+ 18&nbsp;# 错误的结果.
+ 19&nbsp;# 显示$string1为非null, 虽然这个变量并没有被初始化.
+ 20&nbsp;
+ 21&nbsp;
+ 22&nbsp;echo
+ 23&nbsp;
+ 24&nbsp;
+ 25&nbsp;# 让我们再试一下.
+ 26&nbsp;
+ 27&nbsp;if [ -n "$string1" ]  # 这次$string1被引号扩起来了. 
+ 28&nbsp;then
+ 29&nbsp;  echo "String \"string1\" is not null."
+ 30&nbsp;else  
+ 31&nbsp;  echo "String \"string1\" is null."
+ 32&nbsp;fi                    # 注意一定要将引用的字符放到中括号结构中!
+ 33&nbsp;
+ 34&nbsp;
+ 35&nbsp;echo
+ 36&nbsp;
+ 37&nbsp;
+ 38&nbsp;if [ $string1 ]       # 这次, 就一个$string1, 什么都不加.
+ 39&nbsp;then
+ 40&nbsp;  echo "String \"string1\" is not null."
+ 41&nbsp;else  
+ 42&nbsp;  echo "String \"string1\" is null."
+ 43&nbsp;fi  
+ 44&nbsp;# 这种情况运行的非常好.
+ 45&nbsp;# [ ] 测试操作符能够独立检查string是否为null.
+ 46&nbsp;# 然而, 使用("$string1")是一种非常好的习惯.
+ 47&nbsp;#
+ 48&nbsp;# 就像Stephane Chazelas所指出的,
+ 49&nbsp;#    if [ $string1 ]    只有一个参数, "]"
+ 50&nbsp;#    if [ "$string1" ]  有两个参数, 一个是空的"$string1", 另一个是"]" 
+ 51&nbsp;
+ 52&nbsp;
+ 53&nbsp;
+ 54&nbsp;echo
+ 55&nbsp;
+ 56&nbsp;
+ 57&nbsp;
+ 58&nbsp;string1=initialized
+ 59&nbsp;
+ 60&nbsp;if [ $string1 ]       # 再来, 还是只有$string1, 什么都不加.
+ 61&nbsp;then
+ 62&nbsp;  echo "String \"string1\" is not null."
+ 63&nbsp;else  
+ 64&nbsp;  echo "String \"string1\" is null."
+ 65&nbsp;fi  
+ 66&nbsp;# 再来试一下, 给出了正确的结果.
+ 67&nbsp;# 再强调一下, 使用引用的("$string1")还是更好一些, 原因我们上边已经说过了.
+ 68&nbsp;
+ 69&nbsp;
+ 70&nbsp;string1="a = b"
+ 71&nbsp;
+ 72&nbsp;if [ $string1 ]       # 再来, 还是只有$string1, 什么都不加.
+ 73&nbsp;then
+ 74&nbsp;  echo "String \"string1\" is not null."
+ 75&nbsp;else  
+ 76&nbsp;  echo "String \"string1\" is null."
+ 77&nbsp;fi  
+ 78&nbsp;# 未引用的"$string1", 这回给出了错误的结果! 
+ 79&nbsp;
+ 80&nbsp;exit 0
+ 81&nbsp;# 也感谢Florian Wisser, 给出了上面这个"足智多谋"的例子.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX14"
+></A
+><P
+><B
+>例子 7-7. <B
+CLASS="COMMAND"
+>zmore</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# zmore
+  3&nbsp;
+  4&nbsp;#使用'more'来查看gzip文件
+  5&nbsp;
+  6&nbsp;NOARGS=65
+  7&nbsp;NOTFOUND=66
+  8&nbsp;NOTGZIP=67
+  9&nbsp;
+ 10&nbsp;if [ $# -eq 0 ] # 与if [ -z "$1" ]效果相同
+ 11&nbsp;# (译者注: 上边这句注释有问题), $1是可以存在的, 可以为空, 如:  zmore "" arg2 arg3
+ 12&nbsp;then
+ 13&nbsp;  echo "Usage: `basename $0` filename" &#62;&#38;2
+ 14&nbsp;  # 错误消息输出到stderr.
+ 15&nbsp;  exit $NOARGS
+ 16&nbsp;  # 返回65作为脚本的退出状态的值(错误码).
+ 17&nbsp;fi  
+ 18&nbsp;
+ 19&nbsp;filename=$1
+ 20&nbsp;
+ 21&nbsp;if [ ! -f "$filename" ]   # 将$filename引用起来, 这样允许其中包含空白字符. 
+ 22&nbsp;then
+ 23&nbsp;  echo "File $filename not found!" &#62;&#38;2
+ 24&nbsp;  # 错误消息输出到stderr.
+ 25&nbsp;  exit $NOTFOUND
+ 26&nbsp;fi  
+ 27&nbsp;
+ 28&nbsp;if [ ${filename##*.} != "gz" ]
+ 29&nbsp;# 在变量替换中使用中括号结构.
+ 30&nbsp;then
+ 31&nbsp;  echo "File $1 is not a gzipped file!"
+ 32&nbsp;  exit $NOTGZIP
+ 33&nbsp;fi  
+ 34&nbsp;
+ 35&nbsp;zcat $1 | more
+ 36&nbsp;
+ 37&nbsp;# 使用过滤命令'more.'
+ 38&nbsp;# 当然, 如果你愿意, 也可以使用'less'.
+ 39&nbsp;
+ 40&nbsp;
+ 41&nbsp;exit $?   # 脚本将把管道的退出状态作为返回值.
+ 42&nbsp;# 事实上, 也不一定非要加上"exit $?", 因为在任何情况下,
+ 43&nbsp;# 脚本都会将最后一条命令的退出状态作为返回值.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="CCOMPARISON1"
+></A
+>compound comparison</B
+></P
+><DL
+><DT
+><SPAN
+CLASS="TOKEN"
+>-a</SPAN
+></DT
+><DD
+><P
+>逻辑与</P
+><P
+><TT
+CLASS="REPLACEABLE"
+><I
+>exp1 -a exp2</I
+></TT
+> 如果表达式exp1和exp2<EM
+>都</EM
+>为真的话, 那么结果为真.</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-o</SPAN
+></DT
+><DD
+><P
+>逻辑或</P
+><P
+><TT
+CLASS="REPLACEABLE"
+><I
+>exp1 -o exp2</I
+></TT
+> 如果表达式exp1和exp2中<EM
+>至少</EM
+>有一个为真的话, 那么结果为真.</P
+></DD
+></DL
+></DIV
+><P
+>这与Bash中的比较操作符<B
+CLASS="COMMAND"
+>&#38;&#38;</B
+>和<B
+CLASS="COMMAND"
+>||</B
+>非常相像, 
+		但是这个两个操作符是用在<A
+HREF="testconstructs.html#DBLBRACKETS"
+>双中括号结构</A
+>中的.
+	   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;[[ condition1 &#38;&#38; condition2 ]]</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	 <B
+CLASS="COMMAND"
+>-o</B
+>和<B
+CLASS="COMMAND"
+>-a</B
+>操作符一般都是和<B
+CLASS="COMMAND"
+>test</B
+>命令或者是单中括号结构一起使用的. 
+	   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if [ "$exp1" -a "$exp2" ]</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	   </P
+><P
+>请参考<A
+HREF="ops.html#ANDOR"
+>例子 8-3</A
+>, <A
+HREF="arrays.html#TWODIM"
+>例子 26-16</A
+>,
+	 和<A
+HREF="contributed-scripts.html#WHX"
+>例子 A-29</A
+>, 这几个例子演示了混合比较操作符的行为. </P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN2980"
+HREF="comparison-ops.html#AEN2980"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>就像S.C.所指出的那样, 在一个混合测试中,
+				  即使使用引用的字符串变量也可能还不够. 
+				  如果<CODE
+CLASS="VARNAME"
+>$string</CODE
+>为空的话, 
+				  <KBD
+CLASS="USERINPUT"
+>[ -n "$string" -o "$a" =
+		    "$b" ]</KBD
+>可能会在某些版本的Bash中产生错误. 
+		安全的做法是附加一个额外的字符给可能的空变量, 
+		<KBD
+CLASS="USERINPUT"
+>[ "x$string" != x -o "x$a" = "x$b" ]</KBD
+>
+		    (<SPAN
+CLASS="QUOTE"
+>"x"</SPAN
+>字符是可以相互抵消的).</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="fto.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="nestedifthen.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>文件测试操作符</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="tests.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>嵌套的if/then条件测试</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,409 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>别名</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="高级主题"
+HREF="part4.html"><LINK
+REL="PREVIOUS"
+TITLE="不使用局部变量的递归"
+HREF="recurnolocvar.html"><LINK
+REL="NEXT"
+TITLE="列表结构"
+HREF="list-cons.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="recurnolocvar.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="list-cons.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="ALIASES"
+></A
+>24. 别名</H1
+><P
+><A
+NAME="ALIASREF"
+></A
+></P
+><P
+>Bash<EM
+>别名</EM
+>本质上来说不过就是个简称, 缩写, 
+	是一种避免输入长命令序列的手段. 
+	举个例子, 如果我们添加<B
+CLASS="COMMAND"
+>alias lm="ls -l | more"</B
+>到文件<A
+HREF="files.html#FILESREF1"
+><TT
+CLASS="FILENAME"
+>~/.bashrc</TT
+></A
+>中, 
+	那么每次在命令行中键入<KBD
+CLASS="USERINPUT"
+>lm</KBD
+>就可以自动转换为 <B
+CLASS="COMMAND"
+>ls -l | more</B
+>. 
+	这可以让你在命令行上少敲好多次, 
+	而且也可以避免记忆复杂的命令和繁多的选项. 
+	设置<B
+CLASS="COMMAND"
+>alias rm="rm -i"</B
+>(删除的时候提示), 
+	可以让你在犯了错误之后也不用悲伤, 
+	因为它可以让你避免意外删除重要文件. </P
+><P
+>在脚本中, 别名就没那么重要了. 
+	如果把别名机制想象成C预处理器的某些功能的话, 就很形象, 比如说宏扩展, 
+	但不幸的是, Bash不能在别名中扩展参数. 
+	  <A
+NAME="AEN14578"
+HREF="#FTN.AEN14578"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+	  而且在脚本中, 别名不能够用在<SPAN
+CLASS="QUOTE"
+>"混合型结构"</SPAN
+>中, 
+	  比如<A
+HREF="tests.html#IFTHEN"
+>if/then</A
+>结构, 循环, 
+	  和函数. 还有一个限制, 别名不能递归扩展. 
+	绝大多数情况下, 我们期望别名能够完成的工作, 
+	都能够用<A
+HREF="functions.html#FUNCTIONREF"
+>函数</A
+>更高效的完成. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="AL"
+></A
+><P
+><B
+>例子 24-1. 用在脚本中的别名</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# alias.sh
+  3&nbsp;
+  4&nbsp;shopt -s expand_aliases
+  5&nbsp;# 必须设置这个选项, 否则脚本不会打开别名功能. 
+  6&nbsp;
+  7&nbsp;
+  8&nbsp;# 首先, 来点有趣的. 
+  9&nbsp;alias Jesse_James='echo "\"Alias Jesse James\" was a 1959 comedy starring Bob Hope."'
+ 10&nbsp;Jesse_James
+ 11&nbsp;
+ 12&nbsp;echo; echo; echo;
+ 13&nbsp;
+ 14&nbsp;alias ll="ls -l"
+ 15&nbsp;# 可以使用单引号(')或双引号(")来定义一个别名. 
+ 16&nbsp;
+ 17&nbsp;echo "Trying aliased \"ll\":"
+ 18&nbsp;ll /usr/X11R6/bin/mk*   #* 别名工作了. 
+ 19&nbsp;
+ 20&nbsp;echo
+ 21&nbsp;
+ 22&nbsp;directory=/usr/X11R6/bin/
+ 23&nbsp;prefix=mk*  # 看一下通配符会不会引起麻烦. 
+ 24&nbsp;echo "Variables \"directory\" + \"prefix\" = $directory$prefix"
+ 25&nbsp;echo
+ 26&nbsp;
+ 27&nbsp;alias lll="ls -l $directory$prefix"
+ 28&nbsp;
+ 29&nbsp;echo "Trying aliased \"lll\":"
+ 30&nbsp;lll         # 详细列出/usr/X11R6/bin目录下所有以mk开头的文件. 
+ 31&nbsp;# 别名能处理连接变量 -- 包括通配符 -- o.k. 
+ 32&nbsp;
+ 33&nbsp;
+ 34&nbsp;
+ 35&nbsp;
+ 36&nbsp;TRUE=1
+ 37&nbsp;
+ 38&nbsp;echo
+ 39&nbsp;
+ 40&nbsp;if [ TRUE ]
+ 41&nbsp;then
+ 42&nbsp;  alias rr="ls -l"
+ 43&nbsp;  echo "Trying aliased \"rr\" within if/then statement:"
+ 44&nbsp;  rr /usr/X11R6/bin/mk*   #* 产生错误信息! 
+ 45&nbsp;  # 别名不能在混合结构中使用. 
+ 46&nbsp;  echo "However, previously expanded alias still recognized:"
+ 47&nbsp;  ll /usr/X11R6/bin/mk*
+ 48&nbsp;fi  
+ 49&nbsp;
+ 50&nbsp;echo
+ 51&nbsp;
+ 52&nbsp;count=0
+ 53&nbsp;while [ $count -lt 3 ]
+ 54&nbsp;do
+ 55&nbsp;  alias rrr="ls -l"
+ 56&nbsp;  echo "Trying aliased \"rrr\" within \"while\" loop:"
+ 57&nbsp;  rrr /usr/X11R6/bin/mk*   #* 这里, 别名也不会扩展. 
+ 58&nbsp;                           #  alias.sh: line 57: rrr: command not found
+ 59&nbsp;  let count+=1
+ 60&nbsp;done 
+ 61&nbsp;
+ 62&nbsp;echo; echo
+ 63&nbsp;
+ 64&nbsp;alias xyz='cat $0'   # 脚本打印自身内容. 
+ 65&nbsp;                     # 注意是单引号(强引用). 
+ 66&nbsp;xyz
+ 67&nbsp;#  虽然Bash文档建议, 它不能正常运行, 
+ 68&nbsp;#+ 不过它看起来是可以运行的. 
+ 69&nbsp;#
+ 70&nbsp;#  然而, 就像Steve Jacobson所指出的那样, 
+ 71&nbsp;#+ 参数"$0"立即扩展成了这个别名的声明. 
+ 72&nbsp;
+ 73&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><B
+CLASS="COMMAND"
+>unalias</B
+>命令用来删除之前设置的<EM
+>别名</EM
+>. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="UNAL"
+></A
+><P
+><B
+>例子 24-2. <B
+CLASS="COMMAND"
+>unalias</B
+>: 设置与删除别名</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# unalias.sh
+  3&nbsp;
+  4&nbsp;shopt -s expand_aliases  # 启用别名扩展. 
+  5&nbsp;
+  6&nbsp;alias llm='ls -al | more'
+  7&nbsp;llm
+  8&nbsp;
+  9&nbsp;echo
+ 10&nbsp;
+ 11&nbsp;unalias llm              # 删除别名.
+ 12&nbsp;llm
+ 13&nbsp;# 产生错误信息, 因为'llm'已经不再有效了. 
+ 14&nbsp;
+ 15&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>./unalias.sh</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 6
+drwxrwxr-x    2 bozo     bozo         3072 Feb  6 14:04 .
+drwxr-xr-x   40 bozo     bozo         2048 Feb  6 14:04 ..
+-rwxr-xr-x    1 bozo     bozo          199 Feb  6 14:04 unalias.sh
+
+./unalias.sh: llm: command not found</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN14578"
+HREF="aliases.html#AEN14578"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>然而, 别名好像能够扩展位置参数. </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="recurnolocvar.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="list-cons.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>不使用局部变量的递归</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part4.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>列表结构</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

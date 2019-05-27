@@ -1,0 +1,61 @@
+{% load AppFilter %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>应用监控列表</title>
+<link href="/site_media/css/syscss.css" rel="stylesheet" type="text/css" />
+<link href="/site_media/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/site_media/css/skin/dmm-green/ymPrompt.css" rel="stylesheet" type="text/css"> 
+<link href="/site_media/css/base.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" type="text/javascript" src="/site_media/js/My97DatePicker/WdatePicker.js"></script>
+<script language="JavaScript" type="text/javascript" src="/site_media/js/prototype.js"></script>
+<script language="JavaScript" type="text/javascript" src="/site_media/js/ymPrompt.js"></script>
+<script language="JavaScript" type="text/javascript" src="/site_media/js/bash.js"></script>
+</head>
+
+<body>
+<table width="1014" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc">
+  <tr class="TitleText">
+    <td height="28" align="center" bgcolor="#808080">DNS解析时间(s)</td>
+    <td height="28" align="center" bgcolor="#808080">建立连接时间(s)</td>
+    <td height="28" align="center" bgcolor="#808080">准备传输时间(s)</td>
+    <td height="28" align="center" bgcolor="#808080">开始传输时间(s)</td>
+    <td height="28" align="center" bgcolor="#808080">传输总时间(s)</td>
+    <td height="28" align="center" bgcolor="#808080">HTTP状态</td>
+    <td height="28" align="center" bgcolor="#808080">下载数据包大小(byte)</td>
+    <td height="28" align="center" bgcolor="#808080">平均下载速度(byte/s)</td>
+    <td height="28" align="center" bgcolor="#808080">探测时间</td>
+  </tr>
+{% for contact in contacts.object_list %}
+  <tr>
+    <td height="25" align="right" bgcolor="#FFFFFF">{{contact.NAMELOOKUP_TIME}}</td>
+    <td height="25" align="right" bgcolor="#FFFFFF">{{contact.CONNECT_TIME}}</td>
+    <td height="25" align="right" bgcolor="#FFFFFF">{{contact.PRETRANSFER_TIME}}</td>
+    <td height="25" align="right" bgcolor="#FFFFFF">{{contact.STARTTRANSFER_TIME}}</td>
+    <td height="25" align="right" bgcolor="#FFFFFF">{{contact.TOTAL_TIME}}</td>
+    <td height="25" align="center" bgcolor="#FFFFFF">{{contact.HTTP_CODE}}</td>
+    <td height="25" align="center" bgcolor="#FFFFFF">{{contact.SIZE_DOWNLOAD}}</td>
+    <td height="25" align="center" bgcolor="#FFFFFF">{{contact.SPEED_DOWNLOAD}}</td>
+    <td height="25" align="center" bgcolor="#FFFFFF">{{contact.DATETIME|result_datetime}}</td>
+  </tr>
+{% endfor %}
+</table>
+<br>
+<div class="pagination" align="center">
+    <span class="step-links">
+	<a href="?page=1&AppId={{ID}}&StartTime={{StartTime}}&EndTime={{EndTime}}">[首页]</a>
+        {% if contacts.has_previous %}
+            &nbsp;&nbsp;<a href="?page={{ contacts.previous_page_number }}&AppId={{ID}}&StartTime={{StartTime}}&EndTime={{EndTime}}">[上一页]</a>
+        {% endif %}
+        {% if contacts.has_next %}
+            &nbsp;&nbsp;<a href="?page={{ contacts.next_page_number }}&AppId={{ID}}&StartTime={{StartTime}}&EndTime={{EndTime}}">[下一页]</a>
+        {% endif %}
+	&nbsp;&nbsp;<a href="?page={{ contacts.paginator.num_pages }}&AppId={{ID}}&StartTime={{StartTime}}&EndTime={{EndTime}}">[尾页]</a>
+    </span>
+        <span class="current">
+         &nbsp;&nbsp;&nbsp;&nbsp;当前页：{{ contacts.number }}/总页：{{ contacts.paginator.num_pages }}
+        </span>
+</div>
+</body>
+</html>

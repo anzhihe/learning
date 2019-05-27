@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>算术扩展</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="进阶"
+HREF="part3.html"><LINK
+REL="PREVIOUS"
+TITLE="命令替换"
+HREF="commandsub.html"><LINK
+REL="NEXT"
+TITLE="I/O重定向"
+HREF="io-redirection.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="commandsub.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="io-redirection.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="ARITHEXP"
+></A
+>15. 算术扩展</H1
+><P
+><A
+NAME="ARITHEXPREF"
+></A
+>算术扩展提供了一种强力工具, 
+			  可以在脚本中执行(整型)算法操作. 
+			  可以使用<A
+HREF="commandsub.html#BACKQUOTESREF"
+>backticks</A
+>, 
+			  <A
+HREF="dblparens.html"
+>double parentheses</A
+>, 
+			  或<A
+HREF="internal.html#LETREF"
+>let</A
+>来将字符串转换为数字表达式. </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="ARITHEXPVAR1"
+></A
+>一些变化</B
+></P
+><DL
+><DT
+>使用后置引用的算术扩展(通常都是和<A
+HREF="moreadv.html#EXPRREF"
+>expr</A
+>一起使用)</DT
+><DD
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;z=`expr $z + 3`          # 'expr'命令将会执行这个扩展. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+>使用双括号形式的算术扩展, 也可以使用<B
+CLASS="COMMAND"
+>let</B
+>命令</DT
+><DD
+><P
+>后置引用形式的算术扩展已经被双括号形式所替代了 -- 
+		   <KBD
+CLASS="USERINPUT"
+>((...))</KBD
+>和<KBD
+CLASS="USERINPUT"
+>$((...))</KBD
+> 
+		  -- 当然也可以使用非常方便的<B
+CLASS="COMMAND"
+>let</B
+>结构. </P
+><P
+>	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;z=$(($z+3))
+  2&nbsp;z=$((z+3))                                  #  也正确. 
+  3&nbsp;                                            #  使用双括号的形式, 
+  4&nbsp;                                            #+ 参数解引用
+  5&nbsp;                                            #+ 是可选的. 
+  6&nbsp;
+  7&nbsp;# $((EXPRESSION))是算数表达式.              #  不要与命令替换
+  8&nbsp;                                            #+ 相混淆. 
+  9&nbsp;
+ 10&nbsp;
+ 11&nbsp;
+ 12&nbsp;# 使用双括号的形式也可以不用给变量赋值. 
+ 13&nbsp;
+ 14&nbsp;  n=0
+ 15&nbsp;  echo "n = $n"                             # n = 0
+ 16&nbsp;
+ 17&nbsp;  (( n += 1 ))                              # 递增. 
+ 18&nbsp;# (( $n += 1 )) is incorrect!
+ 19&nbsp;  echo "n = $n"                             # n = 1
+ 20&nbsp;
+ 21&nbsp;
+ 22&nbsp;let z=z+3
+ 23&nbsp;let "z += 3"  #  使用引用的形式, 允许在变量赋值的时候存在空格. 
+ 24&nbsp;              #  'let'命令事实上执行得的是算术赋值, 
+ 25&nbsp;              #+ 而不是算术扩展. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>下边是一些在脚本中使用算术扩展的例子: 
+       <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><A
+HREF="moreadv.html#EX45"
+>例子 12-9</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="loops1.html#EX25"
+>例子 10-14</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="arrays.html#EX66"
+>例子 26-1</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="arrays.html#BUBBLE"
+>例子 26-11</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="contributed-scripts.html#TREE"
+>例子 A-17</A
+></P
+></LI
+></OL
+>
+     </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="commandsub.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="io-redirection.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>命令替换</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part3.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>I/O重定向</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

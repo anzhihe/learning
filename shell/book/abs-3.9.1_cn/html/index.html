@@ -1,0 +1,3315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>高级Bash脚本编程指南</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="NEXT"
+TITLE="序"
+HREF="preface.html"></HEAD
+><BODY
+CLASS="BOOK"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="AEN1"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2"
+>高级Bash脚本编程指南</A
+></H1
+><H2
+CLASS="SUBTITLE"
+>一本深入学习shell脚本艺术的书籍</H2
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN5"
+></A
+>Mendel Cooper</H3
+><DIV
+CLASS="AFFILIATION"
+><SPAN
+CLASS="ORGNAME"
+><BR></SPAN
+><DIV
+CLASS="ADDRESS"
+><P
+CLASS="ADDRESS"
+><CODE
+CLASS="EMAIL"
+>&#60;<A
+HREF="mailto:thegrendel@theriver.com"
+>thegrendel@theriver.com</A
+>&#62;</CODE
+></P
+></DIV
+></DIV
+><P
+CLASS="OTHERCREDIT"
+><B
+>春敏 杨 - </B
+><SPAN
+CLASS="CONTRIB"
+></SPAN
+></P
+><P
+CLASS="OTHERCREDIT"
+><B
+>毅 黄 - </B
+><SPAN
+CLASS="CONTRIB"
+></SPAN
+></P
+><SPAN
+CLASS="RELEASEINFO"
+>3.9.1<BR></SPAN
+><P
+CLASS="PUBDATE"
+>2006年5月26日<BR></P
+><DIV
+><DIV
+CLASS="ABSTRACT"
+><P
+></P
+><A
+NAME="AEN46"
+></A
+><P
+>这本书假定你没有任何关于脚本或一般程序的编程知识, 但是如果你具备相关的知识, 
+        那么你将很容易就能够达到中高级的水平<EM
+>. . . 所有这些只是<SPAN
+CLASS="TRADEMARK"
+>UNIX</SPAN
+>&reg;浩瀚知识的一小部分</EM
+>. 你可以把本书作为教材, 
+        自学手册, 或者是关于shell脚本技术的文档. 书中的练习和样例脚本中的注释将会与读者进行更好的互动,
+        但是最关键的前提是: 
+		<KBD
+CLASS="USERINPUT"
+>想真正学习脚本编程的唯一途径就是亲自动手编写脚本.
+        </KBD
+></P
+><P
+>这本书也可作为教材来讲解一般的编程概念.</P
+><P
+><A
+HREF="http://personal.riverusers.com/~thegrendel/abs-guide-3.9.tar.bz2"
+TARGET="_top"
+>		本文档的最新版本</A
+>是作为一个归档文件<A
+HREF="filearchiv.html#BZIPREF"
+>bzip2-ed</A
+>,
+	<SPAN
+CLASS="QUOTE"
+>"tar包"</SPAN
+>来发布的, 
+	其中还包括SGML源代码和编译好的HTML版本. 
+	读者可以从作者的主页上下载. 
+	<A
+HREF="http://www.tldp.org/LDP/abs/abs-guide.pdf"
+TARGET="_top"
+>pdf版本</A
+>也可以从作者的主页上下载. 
+	查看<A
+HREF="http://personal.riverusers.com/~thegrendel/Change.log"
+TARGET="_top"
+>change log</A
+>来查看校订历史. </P
+><P
+></P
+></DIV
+></DIV
+><HR></DIV
+><H1
+><A
+NAME="AEN58"
+></A
+>贡献</H1
+><P
+>献给Anita, 我所有动力的源泉!</P
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>目录</B
+></DT
+><DT
+><A
+HREF="preface.html"
+>序</A
+></DT
+><DD
+><DL
+><DT
+>1. <A
+HREF="preface_author_en.html"
+>原书作者致中国读者(英文)</A
+></DT
+><DT
+>2. <A
+HREF="preface_author_cn.html"
+>原书作者致中国读者(译文)</A
+></DT
+><DT
+>3. <A
+HREF="preface_huang_yi.html"
+>黄毅</A
+></DT
+><DT
+>4. <A
+HREF="preface_chunmin_yang.html"
+>杨春敏</A
+></DT
+></DL
+></DD
+><DT
+>第一部分. <A
+HREF="part1.html"
+>热身</A
+></DT
+><DD
+><DL
+><DT
+>1. <A
+HREF="why-shell.html"
+>为什么使用shell编程?</A
+></DT
+><DT
+>2. <A
+HREF="sha-bang.html"
+>带着一个Sha-Bang出发(Sha-Bang指的是#!)</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="invoking.html"
+>调用一个脚本</A
+></DT
+><DT
+>2.2. <A
+HREF="prelimexer.html"
+>初步的练习</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>第二部分. <A
+HREF="part2.html"
+>基本</A
+></DT
+><DD
+><DL
+><DT
+>3. <A
+HREF="special-chars.html"
+>特殊字符</A
+></DT
+><DT
+>4. <A
+HREF="variables.html"
+>变量和参数的介绍</A
+></DT
+><DD
+><DL
+><DT
+>4.1. <A
+HREF="varsubn.html"
+>变量替换</A
+></DT
+><DT
+>4.2. <A
+HREF="varassignment.html"
+>变量赋值</A
+></DT
+><DT
+>4.3. <A
+HREF="untyped.html"
+>Bash变量是不区分类型的</A
+></DT
+><DT
+>4.4. <A
+HREF="othertypesv.html"
+>特殊的变量类型</A
+></DT
+></DL
+></DD
+><DT
+>5. <A
+HREF="quoting.html"
+>引用</A
+></DT
+><DD
+><DL
+><DT
+>5.1. <A
+HREF="quotingvar.html"
+>引用变量</A
+></DT
+><DT
+>5.2. <A
+HREF="escapingsection.html"
+>转义</A
+></DT
+></DL
+></DD
+><DT
+>6. <A
+HREF="exit-status.html"
+>退出和退出状态码</A
+></DT
+><DT
+>7. <A
+HREF="tests.html"
+>条件判断</A
+></DT
+><DD
+><DL
+><DT
+>7.1. <A
+HREF="testconstructs.html"
+>条件测试结构</A
+></DT
+><DT
+>7.2. <A
+HREF="fto.html"
+>文件测试操作符</A
+></DT
+><DT
+>7.3. <A
+HREF="comparison-ops.html"
+>其他比较操作符</A
+></DT
+><DT
+>7.4. <A
+HREF="nestedifthen.html"
+>嵌套的if/then条件测试</A
+></DT
+><DT
+>7.5. <A
+HREF="testtest.html"
+>检测你对测试知识的掌握情况</A
+></DT
+></DL
+></DD
+><DT
+>8. <A
+HREF="operations.html"
+>操作符与相关主题</A
+></DT
+><DD
+><DL
+><DT
+>8.1. <A
+HREF="ops.html"
+>操作符</A
+></DT
+><DT
+>8.2. <A
+HREF="numerical-constants.html"
+>数字常量</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>第三部分. <A
+HREF="part3.html"
+>进阶</A
+></DT
+><DD
+><DL
+><DT
+>9. <A
+HREF="variables2.html"
+>变量重游</A
+></DT
+><DD
+><DL
+><DT
+>9.1. <A
+HREF="internalvariables.html"
+>内部变量</A
+></DT
+><DT
+>9.2. <A
+HREF="string-manipulation.html"
+>操作字符串</A
+></DT
+><DT
+>9.3. <A
+HREF="parameter-substitution.html"
+>参数替换</A
+></DT
+><DT
+>9.4. <A
+HREF="declareref.html"
+>指定变量的类型: 使用<B
+CLASS="COMMAND"
+>declare</B
+>或者<B
+CLASS="COMMAND"
+>typeset</B
+></A
+></DT
+><DT
+>9.5. <A
+HREF="ivr.html"
+>变量的间接引用</A
+></DT
+><DT
+>9.6. <A
+HREF="randomvar.html"
+>$RANDOM: 产生随机整数</A
+></DT
+><DT
+>9.7. <A
+HREF="dblparens.html"
+>双圆括号结构</A
+></DT
+></DL
+></DD
+><DT
+>10. <A
+HREF="loops.html"
+>循环与分支</A
+></DT
+><DD
+><DL
+><DT
+>10.1. <A
+HREF="loops1.html"
+>循环</A
+></DT
+><DT
+>10.2. <A
+HREF="nestedloops.html"
+>嵌套循环</A
+></DT
+><DT
+>10.3. <A
+HREF="loopcontrol.html"
+>循环控制</A
+></DT
+><DT
+>10.4. <A
+HREF="testbranch.html"
+>测试与分支(case与select结构)</A
+></DT
+></DL
+></DD
+><DT
+>11. <A
+HREF="internal.html"
+>内部命令与内建命令</A
+></DT
+><DD
+><DL
+><DT
+>11.1. <A
+HREF="x6756.html"
+>作业控制命令</A
+></DT
+></DL
+></DD
+><DT
+>12. <A
+HREF="external.html"
+>外部过滤器, 程序和命令</A
+></DT
+><DD
+><DL
+><DT
+>12.1. <A
+HREF="basic.html"
+>基本命令</A
+></DT
+><DT
+>12.2. <A
+HREF="moreadv.html"
+>复杂命令</A
+></DT
+><DT
+>12.3. <A
+HREF="timedate.html"
+>时间/日期 命令</A
+></DT
+><DT
+>12.4. <A
+HREF="textproc.html"
+>文本处理命令</A
+></DT
+><DT
+>12.5. <A
+HREF="filearchiv.html"
+>文件与归档命令</A
+></DT
+><DT
+>12.6. <A
+HREF="communications.html"
+>通讯命令</A
+></DT
+><DT
+>12.7. <A
+HREF="terminalccmds.html"
+>终端控制命令</A
+></DT
+><DT
+>12.8. <A
+HREF="mathc.html"
+>数学计算命令</A
+></DT
+><DT
+>12.9. <A
+HREF="extmisc.html"
+>混杂命令</A
+></DT
+></DL
+></DD
+><DT
+>13. <A
+HREF="system.html"
+>系统与管理命令</A
+></DT
+><DD
+><DL
+><DT
+>13.1. <A
+HREF="sysscripts.html"
+>分析一个系统脚本</A
+></DT
+></DL
+></DD
+><DT
+>14. <A
+HREF="commandsub.html"
+>命令替换</A
+></DT
+><DT
+>15. <A
+HREF="arithexp.html"
+>算术扩展</A
+></DT
+><DT
+>16. <A
+HREF="io-redirection.html"
+>I/O重定向</A
+></DT
+><DD
+><DL
+><DT
+>16.1. <A
+HREF="x13380.html"
+>使用<B
+CLASS="COMMAND"
+>exec</B
+></A
+></DT
+><DT
+>16.2. <A
+HREF="redircb.html"
+>代码块重定向</A
+></DT
+><DT
+>16.3. <A
+HREF="redirapps.html"
+>重定向的应用</A
+></DT
+></DL
+></DD
+><DT
+>17. <A
+HREF="here-docs.html"
+>Here Document</A
+></DT
+><DD
+><DL
+><DT
+>17.1. <A
+HREF="x13628.html"
+>Here String</A
+></DT
+></DL
+></DD
+><DT
+>18. <A
+HREF="recess-time.html"
+>休息片刻</A
+></DT
+></DL
+></DD
+><DT
+>第四部分. <A
+HREF="part4.html"
+>高级主题</A
+></DT
+><DD
+><DL
+><DT
+>19. <A
+HREF="regexp.html"
+>正则表达式</A
+></DT
+><DD
+><DL
+><DT
+>19.1. <A
+HREF="x13673.html"
+>一份简要的正则表达式介绍</A
+></DT
+><DT
+>19.2. <A
+HREF="globbingref.html"
+>通配(globbing)</A
+></DT
+></DL
+></DD
+><DT
+>20. <A
+HREF="subshells.html"
+>子shell</A
+></DT
+><DT
+>21. <A
+HREF="restricted-sh.html"
+>受限shell</A
+></DT
+><DT
+>22. <A
+HREF="process-sub.html"
+>进程替换</A
+></DT
+><DT
+>23. <A
+HREF="functions.html"
+>函数</A
+></DT
+><DD
+><DL
+><DT
+>23.1. <A
+HREF="complexfunct.html"
+>复杂函数和函数复杂性</A
+></DT
+><DT
+>23.2. <A
+HREF="localvar.html"
+>局部变量</A
+></DT
+><DT
+>23.3. <A
+HREF="recurnolocvar.html"
+>不使用局部变量的递归</A
+></DT
+></DL
+></DD
+><DT
+>24. <A
+HREF="aliases.html"
+>别名</A
+></DT
+><DT
+>25. <A
+HREF="list-cons.html"
+>列表结构</A
+></DT
+><DT
+>26. <A
+HREF="arrays.html"
+>数组</A
+></DT
+><DT
+>27. <A
+HREF="devproc.html"
+>/dev和/proc</A
+></DT
+><DD
+><DL
+><DT
+>27.1. <A
+HREF="devref1.html"
+><TT
+CLASS="FILENAME"
+>/dev</TT
+></A
+></DT
+><DT
+>27.2. <A
+HREF="procref1.html"
+><TT
+CLASS="FILENAME"
+>/proc</TT
+></A
+></DT
+></DL
+></DD
+><DT
+>28. <A
+HREF="zeros.html"
+>Zero与Null</A
+></DT
+><DT
+>29. <A
+HREF="debugging.html"
+>调试</A
+></DT
+><DT
+>30. <A
+HREF="options.html"
+>选项</A
+></DT
+><DT
+>31. <A
+HREF="gotchas.html"
+>陷阱</A
+></DT
+><DT
+>32. <A
+HREF="scrstyle.html"
+>脚本编程风格</A
+></DT
+><DD
+><DL
+><DT
+>32.1. <A
+HREF="unofficialst.html"
+>非官方的Shell脚本编写风格</A
+></DT
+></DL
+></DD
+><DT
+>33. <A
+HREF="miscellany.html"
+>杂项</A
+></DT
+><DD
+><DL
+><DT
+>33.1. <A
+HREF="intandnonint.html"
+>交互与非交互式的交互与非交互式的shell和脚本</A
+></DT
+><DT
+>33.2. <A
+HREF="wrapper.html"
+>Shell包装</A
+></DT
+><DT
+>33.3. <A
+HREF="testsandcomparisons.html"
+>测试和比较: 一种可选的方法</A
+></DT
+><DT
+>33.4. <A
+HREF="recursionsct.html"
+>递归</A
+></DT
+><DT
+>33.5. <A
+HREF="colorizing.html"
+>将脚本<SPAN
+CLASS="QUOTE"
+>"彩色化"</SPAN
+></A
+></DT
+><DT
+>33.6. <A
+HREF="optimizations.html"
+>优化</A
+></DT
+><DT
+>33.7. <A
+HREF="assortedtips.html"
+>各种小技巧</A
+></DT
+><DT
+>33.8. <A
+HREF="securityissues.html"
+>安全问题</A
+></DT
+><DT
+>33.9. <A
+HREF="portabilityissues.html"
+>可移植性问题</A
+></DT
+><DT
+>33.10. <A
+HREF="winscript.html"
+>Windows下的shell脚本</A
+></DT
+></DL
+></DD
+><DT
+>34. <A
+HREF="bash2.html"
+>Bash, 版本2与版本3</A
+></DT
+><DD
+><DL
+><DT
+>34.1. <A
+HREF="bashver2.html"
+>Bash, 版本2</A
+></DT
+><DT
+>34.2. <A
+HREF="bashver3.html"
+>Bash, 版本3</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>35. <A
+HREF="endnotes.html"
+>后记</A
+></DT
+><DD
+><DL
+><DT
+>35.1. <A
+HREF="authorsnote.html"
+>作者后记</A
+></DT
+><DT
+>35.2. <A
+HREF="aboutauthor.html"
+>关于作者</A
+></DT
+><DT
+>35.3. <A
+HREF="translator_china.html"
+>译者后记</A
+></DT
+><DD
+><DL
+><DT
+>35.3.1. <A
+HREF="translator_china.html#TRANSLATOR1_ROJY_YANG"
+>杨春敏</A
+></DT
+><DT
+>35.3.2. <A
+HREF="translator_china.html#TRANSLATOR2_YI_HUANG"
+>黄毅</A
+></DT
+></DL
+></DD
+><DT
+>35.4. <A
+HREF="wherehelp.html"
+>在哪里可以获得帮助</A
+></DT
+><DT
+>35.5. <A
+HREF="toolsused.html"
+>用来制作这本书的工具</A
+></DT
+><DD
+><DL
+><DT
+>35.5.1. <A
+HREF="toolsused.html#SOFTWARE-HARDWARE"
+>硬件</A
+></DT
+><DT
+>35.5.2. <A
+HREF="toolsused.html#SOFTWARE-PRINTWARE"
+>软件与排版软件</A
+></DT
+></DL
+></DD
+><DT
+>35.6. <A
+HREF="credits.html"
+>致谢</A
+></DT
+><DT
+>35.7. <A
+HREF="trans_credits.html"
+>译者致谢</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="biblio.html"
+>参考文献</A
+></DT
+><DT
+>A. <A
+HREF="contributed-scripts.html"
+>捐献的脚本</A
+></DT
+><DT
+>B. <A
+HREF="refcards.html"
+>参考卡片</A
+></DT
+><DT
+>C. <A
+HREF="sedawk.html"
+>一个学习Sed和Awk的小手册</A
+></DT
+><DD
+><DL
+><DT
+>C.1. <A
+HREF="x17814.html"
+>Sed</A
+></DT
+><DT
+>C.2. <A
+HREF="awk.html"
+>Awk</A
+></DT
+></DL
+></DD
+><DT
+>D. <A
+HREF="exitcodes.html"
+>带有特殊含义的退出码</A
+></DT
+><DT
+>E. <A
+HREF="ioredirintro.html"
+>I/O和I/O重定向的详细介绍</A
+></DT
+><DT
+>F. <A
+HREF="command-line-options.html"
+>命令行选项</A
+></DT
+><DD
+><DL
+><DT
+>F.1. <A
+HREF="standard-options.html"
+>标准命令行选项</A
+></DT
+><DT
+>F.2. <A
+HREF="bash-options.html"
+>Bash命令行选项</A
+></DT
+></DL
+></DD
+><DT
+>G. <A
+HREF="files.html"
+>重要的文件</A
+></DT
+><DT
+>H. <A
+HREF="systemdirs.html"
+>重要的系统目录</A
+></DT
+><DT
+>I. <A
+HREF="localization.html"
+>本地化</A
+></DT
+><DT
+>J. <A
+HREF="histcommands.html"
+>历史命令</A
+></DT
+><DT
+>K. <A
+HREF="sample-bashrc.html"
+>一个简单的<TT
+CLASS="FILENAME"
+>.bashrc</TT
+>文件</A
+></DT
+><DT
+>L. <A
+HREF="dosbatch.html"
+>将DOS批处理文件转换为Shell脚本</A
+></DT
+><DT
+>M. <A
+HREF="exercises.html"
+>练习</A
+></DT
+><DD
+><DL
+><DT
+>M.1. <A
+HREF="scriptanalysis.html"
+>分析脚本</A
+></DT
+><DT
+>M.2. <A
+HREF="writingscripts.html"
+>编写脚本</A
+></DT
+></DL
+></DD
+><DT
+>N. <A
+HREF="revisionhistory.html"
+>修订记录</A
+></DT
+><DT
+>O. <A
+HREF="trans_revisionhistory.html"
+>翻译版修订记录</A
+></DT
+><DT
+>P. <A
+HREF="mirrorsites.html"
+>镜像站点</A
+></DT
+><DT
+>Q. <A
+HREF="todolist.html"
+>To Do列表</A
+></DT
+><DT
+>R. <A
+HREF="copyright.html"
+>版权</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="LOT"
+><DL
+CLASS="LOT"
+><DT
+><B
+>表格清单</B
+></DT
+><DT
+>11-1. <A
+HREF="x6756.html#JOBIDTABLE"
+>作业标识符</A
+></DT
+><DT
+>30-1. <A
+HREF="options.html#AEN15239"
+>Bash选项</A
+></DT
+><DT
+>33-1. <A
+HREF="colorizing.html#AEN15798"
+>转义序列中颜色与数值的对应</A
+></DT
+><DT
+>B-1. <A
+HREF="refcards.html#AEN17110"
+>特殊的shell变量</A
+></DT
+><DT
+>B-2. <A
+HREF="refcards.html#AEN17180"
+>测试操作: 二元比较</A
+></DT
+><DT
+>B-3. <A
+HREF="refcards.html#AEN17292"
+>文件类型的测试操作</A
+></DT
+><DT
+>B-4. <A
+HREF="refcards.html#AEN17426"
+>参数替换和扩展</A
+></DT
+><DT
+>B-5. <A
+HREF="refcards.html#AEN17517"
+>字符串操作</A
+></DT
+><DT
+>B-6. <A
+HREF="refcards.html#AEN17666"
+>一些结构的汇总</A
+></DT
+><DT
+>C-1. <A
+HREF="x17814.html#AEN17832"
+>基本sed操作</A
+></DT
+><DT
+>C-2. <A
+HREF="x17814.html#AEN17893"
+>sed操作符举例</A
+></DT
+><DT
+>D-1. <A
+HREF="exitcodes.html#AEN18110"
+><SPAN
+CLASS="QUOTE"
+>"保留的"</SPAN
+>退出码</A
+></DT
+><DT
+>L-1. <A
+HREF="dosbatch.html#AEN18726"
+>批处理文件关键字 / 变量 / 操作符, 和等价的shell符号</A
+></DT
+><DT
+>L-2. <A
+HREF="dosbatch.html#AEN18933"
+>DOS命令与UNIX的等价命令</A
+></DT
+><DT
+>N-1. <A
+HREF="revisionhistory.html#AEN19599"
+>修订历史</A
+></DT
+><DT
+>O-1. <A
+HREF="trans_revisionhistory.html#AEN19781"
+>翻译版修订历史</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="LOT"
+><DL
+CLASS="LOT"
+><DT
+><B
+>例子清单</B
+></DT
+><DT
+>2-1. <A
+HREF="sha-bang.html#EX1"
+><B
+CLASS="COMMAND"
+>清除</B
+>: 清除/var/log下的log文件</A
+></DT
+><DT
+>2-2. <A
+HREF="sha-bang.html#EX1A"
+><B
+CLASS="COMMAND"
+>清除</B
+>:一个改良的清除脚本</A
+></DT
+><DT
+>2-3. <A
+HREF="sha-bang.html#EX2"
+><B
+CLASS="COMMAND"
+>清除</B
+>: 一个增强的和广义的删除logfile的脚本</A
+></DT
+><DT
+>3-1. <A
+HREF="special-chars.html#EX8"
+>代码块和I/O重定向</A
+></DT
+><DT
+>3-2. <A
+HREF="special-chars.html#RPMCHECK"
+>将一个代码块的结果保存到文件</A
+></DT
+><DT
+>3-3. <A
+HREF="special-chars.html#BGLOOP"
+>在后台运行一个循环</A
+></DT
+><DT
+>3-4. <A
+HREF="special-chars.html#EX58"
+>备份最后一天所有修改的文件</A
+></DT
+><DT
+>4-1. <A
+HREF="varsubn.html#EX9"
+>变量赋值和替换</A
+></DT
+><DT
+>4-2. <A
+HREF="varassignment.html#EX15"
+>简单的变量赋值</A
+></DT
+><DT
+>4-3. <A
+HREF="varassignment.html#EX16"
+>简单和复杂, 两种类型的变量赋值</A
+></DT
+><DT
+>4-4. <A
+HREF="untyped.html#INTORSTRING"
+>整型还是字符串?</A
+></DT
+><DT
+>4-5. <A
+HREF="othertypesv.html#EX17"
+>位置参数</A
+></DT
+><DT
+>4-6. <A
+HREF="othertypesv.html#EX18"
+><B
+CLASS="COMMAND"
+>wh</B
+>, <A
+HREF="communications.html#WHOISREF"
+>whois</A
+>节点名字查询</A
+></DT
+><DT
+>4-7. <A
+HREF="othertypesv.html#EX19"
+>使用<B
+CLASS="COMMAND"
+>shift</B
+>命令</A
+></DT
+><DT
+>5-1. <A
+HREF="quotingvar.html#WEIRDVARS"
+>echo出一些诡异变量</A
+></DT
+><DT
+>5-2. <A
+HREF="escapingsection.html#ESCAPED"
+>转义符</A
+></DT
+><DT
+>6-1. <A
+HREF="exit-status.html#EX5"
+>退出/退出状态码</A
+></DT
+><DT
+>6-2. <A
+HREF="exit-status.html#NEGCOND"
+>反转一个条件的用法<SPAN
+CLASS="TOKEN"
+>!</SPAN
+></A
+></DT
+><DT
+>7-1. <A
+HREF="testconstructs.html#EX10"
+>什么是真?</A
+></DT
+><DT
+>7-2. <A
+HREF="testconstructs.html#EX11"
+><SPAN
+CLASS="TOKEN"
+>test</SPAN
+>,
+	  <TT
+CLASS="FILENAME"
+>/usr/bin/test</TT
+>, <SPAN
+CLASS="TOKEN"
+>[ ]</SPAN
+>,
+	  和<TT
+CLASS="FILENAME"
+>/usr/bin/[</TT
+>都是等价命令</A
+></DT
+><DT
+>7-3. <A
+HREF="testconstructs.html#ARITHTESTS"
+>算术测试需要使用<SPAN
+CLASS="TOKEN"
+>(( ))</SPAN
+></A
+></DT
+><DT
+>7-4. <A
+HREF="fto.html#BROKENLINK"
+>测试那些断掉的链接文件</A
+></DT
+><DT
+>7-5. <A
+HREF="comparison-ops.html#EX13"
+>算术比较与字符串比较</A
+></DT
+><DT
+>7-6. <A
+HREF="comparison-ops.html#STRTEST"
+>检查字符串是否为<EM
+>null</EM
+></A
+></DT
+><DT
+>7-7. <A
+HREF="comparison-ops.html#EX14"
+><B
+CLASS="COMMAND"
+>zmore</B
+></A
+></DT
+><DT
+>8-1. <A
+HREF="ops.html#GCD"
+>最大公约数</A
+></DT
+><DT
+>8-2. <A
+HREF="ops.html#ARITHOPS"
+>使用算术操作符</A
+></DT
+><DT
+>8-3. <A
+HREF="ops.html#ANDOR"
+>使用&#38;&#38;和||进行混合条件测试</A
+></DT
+><DT
+>8-4. <A
+HREF="numerical-constants.html#NUMBERS"
+>数字常量表示法</A
+></DT
+><DT
+>9-1. <A
+HREF="internalvariables.html#IFSH"
+>$IFS与空白字符</A
+></DT
+><DT
+>9-2. <A
+HREF="internalvariables.html#TMDIN"
+>定时输入</A
+></DT
+><DT
+>9-3. <A
+HREF="internalvariables.html#TIMEOUT"
+>再来一个, 定时输入</A
+></DT
+><DT
+>9-4. <A
+HREF="internalvariables.html#TOUT"
+>定时<B
+CLASS="COMMAND"
+>read</B
+></A
+></DT
+><DT
+>9-5. <A
+HREF="internalvariables.html#AMIROOT"
+>我是root么?</A
+></DT
+><DT
+>9-6. <A
+HREF="internalvariables.html#ARGLIST"
+><B
+CLASS="COMMAND"
+>arglist</B
+>: 通过$*和$@列出所有的参数</A
+></DT
+><DT
+>9-7. <A
+HREF="internalvariables.html#INCOMPAT"
+><CODE
+CLASS="VARNAME"
+>$*</CODE
+>和<CODE
+CLASS="VARNAME"
+>$@</CODE
+>的不一致的行为</A
+></DT
+><DT
+>9-8. <A
+HREF="internalvariables.html#IFSEMPTY"
+>当<CODE
+CLASS="VARNAME"
+>$IFS</CODE
+>为空时的<CODE
+CLASS="VARNAME"
+>$*</CODE
+>和<CODE
+CLASS="VARNAME"
+>$@</CODE
+></A
+></DT
+><DT
+>9-9. <A
+HREF="internalvariables.html#USCREF"
+>下划线变量</A
+></DT
+><DT
+>9-10. <A
+HREF="string-manipulation.html#PARAGRAPHSPACE"
+>在一个文本文件的段落之间插入空行</A
+></DT
+><DT
+>9-11. <A
+HREF="string-manipulation.html#CVT"
+>转换图片文件格式, 同时更改文件名</A
+></DT
+><DT
+>9-12. <A
+HREF="string-manipulation.html#RA2OGG"
+>将音频流文件转换为<EM
+>ogg</EM
+>各式的文件</A
+></DT
+><DT
+>9-13. <A
+HREF="string-manipulation.html#GETOPTSIMPLE"
+>模拟<EM
+>getopt</EM
+></A
+></DT
+><DT
+>9-14. <A
+HREF="string-manipulation.html#SUBSTRINGEX"
+>提取字符串的另一种方法</A
+></DT
+><DT
+>9-15. <A
+HREF="parameter-substitution.html#EX6"
+>使用参数替换和错误消息</A
+></DT
+><DT
+>9-16. <A
+HREF="parameter-substitution.html#USAGEMESSAGE"
+>参数替换和<SPAN
+CLASS="QUOTE"
+>"usage"</SPAN
+>消息(译者注: 通常就是帮助信息)</A
+></DT
+><DT
+>9-17. <A
+HREF="parameter-substitution.html#LENGTH"
+>变量长度</A
+></DT
+><DT
+>9-18. <A
+HREF="parameter-substitution.html#PATTMATCHING"
+>参数替换中的模式匹配</A
+></DT
+><DT
+>9-19. <A
+HREF="parameter-substitution.html#RFE"
+>修改文件扩展名<SPAN
+CLASS="TOKEN"
+>:</SPAN
+></A
+></DT
+><DT
+>9-20. <A
+HREF="parameter-substitution.html#EX7"
+>使用模式匹配来解析任意字符串</A
+></DT
+><DT
+>9-21. <A
+HREF="parameter-substitution.html#VARMATCH"
+>对字符串的前缀和后缀使用匹配模式</A
+></DT
+><DT
+>9-22. <A
+HREF="declareref.html#EX20"
+>使用<B
+CLASS="COMMAND"
+>declare</B
+>来指定变量的类型</A
+></DT
+><DT
+>9-23. <A
+HREF="ivr.html#INDREF"
+>间接引用</A
+></DT
+><DT
+>9-24. <A
+HREF="ivr.html#COLTOTALER2"
+>传递一个间接引用给<TT
+CLASS="REPLACEABLE"
+><I
+>awk</I
+></TT
+></A
+></DT
+><DT
+>9-25. <A
+HREF="randomvar.html#EX21"
+>产生随机整数</A
+></DT
+><DT
+>9-26. <A
+HREF="randomvar.html#PICKCARD"
+>从一幅扑克牌中取出一张随机的牌</A
+></DT
+><DT
+>9-27. <A
+HREF="randomvar.html#RANDOMBETWEEN"
+>两个指定值之间的随机数</A
+></DT
+><DT
+>9-28. <A
+HREF="randomvar.html#RANDOMTEST"
+>用随机数来摇单个骰子</A
+></DT
+><DT
+>9-29. <A
+HREF="randomvar.html#SEEDINGRANDOM"
+>重新分配随机数种子</A
+></DT
+><DT
+>9-30. <A
+HREF="randomvar.html#RANDOM2"
+>使用<A
+HREF="awk.html#AWKREF"
+>awk</A
+>来产生伪随机数</A
+></DT
+><DT
+>9-31. <A
+HREF="dblparens.html#CVARS"
+>C语言风格的变量操作</A
+></DT
+><DT
+>10-1. <A
+HREF="loops1.html#EX22"
+>一个简单的<B
+CLASS="COMMAND"
+>for</B
+>循环</A
+></DT
+><DT
+>10-2. <A
+HREF="loops1.html#EX22A"
+>每个[list]元素中都带有两个参数的<B
+CLASS="COMMAND"
+>for</B
+>循环</A
+></DT
+><DT
+>10-3. <A
+HREF="loops1.html#FILEINFO"
+><EM
+>文件信息:</EM
+> 对包含在变量中的文件列表进行操作</A
+></DT
+><DT
+>10-4. <A
+HREF="loops1.html#LISTGLOB"
+><B
+CLASS="COMMAND"
+>在for循环中操作文件</B
+></A
+></DT
+><DT
+>10-5. <A
+HREF="loops1.html#EX23"
+>在<B
+CLASS="COMMAND"
+>for</B
+>循环中省略<KBD
+CLASS="USERINPUT"
+>in [list]</KBD
+>部分</A
+></DT
+><DT
+>10-6. <A
+HREF="loops1.html#FORLOOPCMD"
+>使用命令替换来产生<B
+CLASS="COMMAND"
+>for</B
+>循环的[list]</A
+></DT
+><DT
+>10-7. <A
+HREF="loops1.html#BINGREP"
+>对于二进制文件的<A
+HREF="textproc.html#GREPREF"
+>grep</A
+>替换</A
+></DT
+><DT
+>10-8. <A
+HREF="loops1.html#USERLIST"
+>列出系统上的所有用户</A
+></DT
+><DT
+>10-9. <A
+HREF="loops1.html#FINDSTRING"
+>在目录的所有文件中查找源字串</A
+></DT
+><DT
+>10-10. <A
+HREF="loops1.html#SYMLINKS"
+>列出目录中所有的<A
+HREF="basic.html#SYMLINKREF"
+>符号链接</A
+></A
+></DT
+><DT
+>10-11. <A
+HREF="loops1.html#SYMLINKS2"
+>将目录中所有符号链接文件的名字保存到一个文件中</A
+></DT
+><DT
+>10-12. <A
+HREF="loops1.html#FORLOOPC"
+>一个C风格的<B
+CLASS="COMMAND"
+>for</B
+>循环</A
+></DT
+><DT
+>10-13. <A
+HREF="loops1.html#EX24"
+>在batch mode中使用<B
+CLASS="COMMAND"
+>efax</B
+></A
+></DT
+><DT
+>10-14. <A
+HREF="loops1.html#EX25"
+>简单的<B
+CLASS="COMMAND"
+>while</B
+>循环</A
+></DT
+><DT
+>10-15. <A
+HREF="loops1.html#EX26"
+>另一个<B
+CLASS="COMMAND"
+>while</B
+>循环</A
+></DT
+><DT
+>10-16. <A
+HREF="loops1.html#EX26A"
+>多条件的<B
+CLASS="COMMAND"
+>while</B
+>循环</A
+></DT
+><DT
+>10-17. <A
+HREF="loops1.html#WHLOOPC"
+>C风格的<B
+CLASS="COMMAND"
+>while</B
+>循环</A
+></DT
+><DT
+>10-18. <A
+HREF="loops1.html#EX27"
+><B
+CLASS="COMMAND"
+>until</B
+>循环</A
+></DT
+><DT
+>10-19. <A
+HREF="nestedloops.html#NESTEDLOOP"
+>嵌套循环</A
+></DT
+><DT
+>10-20. <A
+HREF="loopcontrol.html#EX28"
+><B
+CLASS="COMMAND"
+>break</B
+>和<B
+CLASS="COMMAND"
+>continue</B
+>命令在循环中的效果</A
+></DT
+><DT
+>10-21. <A
+HREF="loopcontrol.html#BREAKLEVELS"
+>多层循环的退出</A
+></DT
+><DT
+>10-22. <A
+HREF="loopcontrol.html#CONTINUELEVELS"
+>多层循环的continue</A
+></DT
+><DT
+>10-23. <A
+HREF="loopcontrol.html#CONTINUENEX"
+>在实际的任务中使用<SPAN
+CLASS="QUOTE"
+>"continue N"</SPAN
+></A
+></DT
+><DT
+>10-24. <A
+HREF="testbranch.html#EX29"
+>使用<B
+CLASS="COMMAND"
+>case</B
+></A
+></DT
+><DT
+>10-25. <A
+HREF="testbranch.html#EX30"
+>使用<B
+CLASS="COMMAND"
+>case</B
+>来创建菜单</A
+></DT
+><DT
+>10-26. <A
+HREF="testbranch.html#CASECMD"
+>使用命令替换来产生<B
+CLASS="COMMAND"
+>case</B
+>变量</A
+></DT
+><DT
+>10-27. <A
+HREF="testbranch.html#MATCHSTRING"
+>简单的字符串匹配</A
+></DT
+><DT
+>10-28. <A
+HREF="testbranch.html#ISALPHA"
+>检查输入字符是否为字母</A
+></DT
+><DT
+>10-29. <A
+HREF="testbranch.html#EX31"
+>使用<B
+CLASS="COMMAND"
+>select</B
+>来创建菜单</A
+></DT
+><DT
+>10-30. <A
+HREF="testbranch.html#EX32"
+>使用函数中的<B
+CLASS="COMMAND"
+>select</B
+>结构来创建菜单</A
+></DT
+><DT
+>11-1. <A
+HREF="internal.html#SPAWNSCR"
+>一个fork出多个自身实例的脚本</A
+></DT
+><DT
+>11-2. <A
+HREF="internal.html#EX47"
+>使用<B
+CLASS="COMMAND"
+>printf</B
+>的例子</A
+></DT
+><DT
+>11-3. <A
+HREF="internal.html#EX36"
+>使用<B
+CLASS="COMMAND"
+>read</B
+>来进行变量分配</A
+></DT
+><DT
+>11-4. <A
+HREF="internal.html#READNOVAR"
+>当使用一个不带变量参数的<B
+CLASS="COMMAND"
+>read</B
+>命令时, 将会发生什么?</A
+></DT
+><DT
+>11-5. <A
+HREF="internal.html#READR"
+><B
+CLASS="COMMAND"
+>read</B
+>命令的多行输入</A
+></DT
+><DT
+>11-6. <A
+HREF="internal.html#ARROWDETECT"
+>检测方向键</A
+></DT
+><DT
+>11-7. <A
+HREF="internal.html#READREDIR"
+>通过<A
+HREF="io-redirection.html#IOREDIRREF"
+>文件重定向</A
+>来使用<B
+CLASS="COMMAND"
+>read</B
+>命令</A
+></DT
+><DT
+>11-8. <A
+HREF="internal.html#READPIPE"
+>管道输出到read中的问题</A
+></DT
+><DT
+>11-9. <A
+HREF="internal.html#EX37"
+>修改当前工作目录</A
+></DT
+><DT
+>11-10. <A
+HREF="internal.html#EX46"
+>使用<SPAN
+CLASS="QUOTE"
+>"let"</SPAN
+>命令来做算术运算.</A
+></DT
+><DT
+>11-11. <A
+HREF="internal.html#EX43"
+>展示<B
+CLASS="COMMAND"
+>eval</B
+>命令的效果</A
+></DT
+><DT
+>11-12. <A
+HREF="internal.html#EX44"
+>强制登出(log-off)</A
+></DT
+><DT
+>11-13. <A
+HREF="internal.html#ROT14"
+>另一个<SPAN
+CLASS="QUOTE"
+>"rot13"</SPAN
+>版本</A
+></DT
+><DT
+>11-14. <A
+HREF="internal.html#EVALEX"
+>在Perl脚本中使用<B
+CLASS="COMMAND"
+>eval</B
+>命令来强制变量替换</A
+></DT
+><DT
+>11-15. <A
+HREF="internal.html#EX34"
+>使用<B
+CLASS="COMMAND"
+>set</B
+>命令来改变脚本的位置参数</A
+></DT
+><DT
+>11-16. <A
+HREF="internal.html#REVPOSPARAMS"
+>反转位置参数</A
+></DT
+><DT
+>11-17. <A
+HREF="internal.html#SETPOS"
+>重新分配位置参数</A
+></DT
+><DT
+>11-18. <A
+HREF="internal.html#UNS"
+><SPAN
+CLASS="QUOTE"
+>"Unsett"</SPAN
+>一个变量</A
+></DT
+><DT
+>11-19. <A
+HREF="internal.html#COLTOTALER3"
+>使用<B
+CLASS="COMMAND"
+>export</B
+>命令来将一个变量传递到一个内嵌<A
+HREF="awk.html#AWKREF"
+>awk</A
+>的脚本中</A
+></DT
+><DT
+>11-20. <A
+HREF="internal.html#EX33"
+>使用<B
+CLASS="COMMAND"
+>getopts</B
+>命令来来读取传递给脚本的选项/参数</A
+></DT
+><DT
+>11-21. <A
+HREF="internal.html#EX38"
+><SPAN
+CLASS="QUOTE"
+>"includ"</SPAN
+>一个数据文件</A
+></DT
+><DT
+>11-22. <A
+HREF="internal.html#SELFSOURCE"
+>一个(没什么用的)source自身的脚本</A
+></DT
+><DT
+>11-23. <A
+HREF="internal.html#EX54"
+><B
+CLASS="COMMAND"
+>exec</B
+>命令的效果</A
+></DT
+><DT
+>11-24. <A
+HREF="internal.html#SELFEXEC"
+>一个<B
+CLASS="COMMAND"
+>exec</B
+>自身的脚本</A
+></DT
+><DT
+>11-25. <A
+HREF="x6756.html#EX39"
+>在继续处理之前, 等待一个进程的结束</A
+></DT
+><DT
+>11-26. <A
+HREF="x6756.html#SELFDESTRUCT"
+>一个结束自身的脚本程序</A
+></DT
+><DT
+>12-1. <A
+HREF="basic.html#EX40"
+>使用<B
+CLASS="COMMAND"
+>ls</B
+>命令来创建一个烧录<ABBR
+CLASS="ABBREV"
+>CDR</ABBR
+>的内容列表</A
+></DT
+><DT
+>12-2. <A
+HREF="basic.html#HELLOL"
+>到底是Hello还是Good-bye</A
+></DT
+><DT
+>12-3. <A
+HREF="moreadv.html#EX57"
+><B
+CLASS="COMMAND"
+>糟糕的文件名</B
+>, 删除当前目录下文件名中包含一些糟糕字符(包括<A
+HREF="special-chars.html#WHITESPACEREF"
+>空白</A
+>的文件.</A
+></DT
+><DT
+>12-4. <A
+HREF="moreadv.html#IDELETE"
+>通过文件的<EM
+>inode</EM
+>号来删除文件</A
+></DT
+><DT
+>12-5. <A
+HREF="moreadv.html#EX41"
+>Logfile: 使用<B
+CLASS="COMMAND"
+>xargs</B
+>来监控系统log</A
+></DT
+><DT
+>12-6. <A
+HREF="moreadv.html#EX42"
+>把当前目录下的文件拷贝到另一个文件中</A
+></DT
+><DT
+>12-7. <A
+HREF="moreadv.html#KILLBYNAME"
+>通过名字kill进程</A
+></DT
+><DT
+>12-8. <A
+HREF="moreadv.html#WF2"
+>使用<B
+CLASS="COMMAND"
+>xargs</B
+><B
+CLASS="COMMAND"
+>分析单词出现的频率</B
+></A
+></DT
+><DT
+>12-9. <A
+HREF="moreadv.html#EX45"
+>使用<B
+CLASS="COMMAND"
+>expr</B
+></A
+></DT
+><DT
+>12-10. <A
+HREF="timedate.html#EX51"
+>使用<B
+CLASS="COMMAND"
+>date</B
+>命令</A
+></DT
+><DT
+>12-11. <A
+HREF="textproc.html#WF"
+>分析单词出现的频率</A
+></DT
+><DT
+>12-12. <A
+HREF="textproc.html#SCRIPTDETECTOR"
+>哪个文件是脚本?</A
+></DT
+><DT
+>12-13. <A
+HREF="textproc.html#RND"
+>产生10-进制随机数</A
+></DT
+><DT
+>12-14. <A
+HREF="textproc.html#EX12"
+>使用<B
+CLASS="COMMAND"
+>tail</B
+>命令来监控系统log</A
+></DT
+><DT
+>12-15. <A
+HREF="textproc.html#GRP"
+>在脚本中模拟<SPAN
+CLASS="QUOTE"
+>"grep"</SPAN
+>的行为</A
+></DT
+><DT
+>12-16. <A
+HREF="textproc.html#DICTLOOKUP"
+>在1913年的韦氏词典中查找定义</A
+></DT
+><DT
+>12-17. <A
+HREF="textproc.html#LOOKUP"
+>检查列表中单词的正确性</A
+></DT
+><DT
+>12-18. <A
+HREF="textproc.html#EX49"
+><B
+CLASS="COMMAND"
+>转换大写</B
+>: 把一个文件的内容全部转换为大写.</A
+></DT
+><DT
+>12-19. <A
+HREF="textproc.html#LOWERCASE"
+><B
+CLASS="COMMAND"
+>转换小写</B
+>: 将当前目录下的所有文全部转换为小写.</A
+></DT
+><DT
+>12-20. <A
+HREF="textproc.html#DU"
+><B
+CLASS="COMMAND"
+>Du</B
+>: DOS到UNIX文本文件的转换.</A
+></DT
+><DT
+>12-21. <A
+HREF="textproc.html#ROT13"
+><B
+CLASS="COMMAND"
+>rot13</B
+>: rot13, 弱智加密.</A
+></DT
+><DT
+>12-22. <A
+HREF="textproc.html#CRYPTOQUOTE"
+>产生<SPAN
+CLASS="QUOTE"
+>"Crypto-Quote"</SPAN
+>游戏(译者: 一种文字游戏)</A
+></DT
+><DT
+>12-23. <A
+HREF="textproc.html#EX50"
+>格式化文件列表.</A
+></DT
+><DT
+>12-24. <A
+HREF="textproc.html#COL"
+>使用<B
+CLASS="COMMAND"
+>column</B
+>来格式化目录列表</A
+></DT
+><DT
+>12-25. <A
+HREF="textproc.html#LNUM"
+><B
+CLASS="COMMAND"
+>nl</B
+>: 一个自己计算行号的脚本.</A
+></DT
+><DT
+>12-26. <A
+HREF="textproc.html#MANVIEW"
+><B
+CLASS="COMMAND"
+>manview</B
+>: 查看格式化的man页</A
+></DT
+><DT
+>12-27. <A
+HREF="filearchiv.html#EX48"
+>使用<B
+CLASS="COMMAND"
+>cpio</B
+>来拷贝一个目录树</A
+></DT
+><DT
+>12-28. <A
+HREF="filearchiv.html#DERPM"
+>解包一个<EM
+>rpm</EM
+>归档文件</A
+></DT
+><DT
+>12-29. <A
+HREF="filearchiv.html#STRIPC"
+>从C文件中去掉注释</A
+></DT
+><DT
+>12-30. <A
+HREF="filearchiv.html#WHAT"
+><B
+CLASS="COMMAND"
+>浏览<TT
+CLASS="FILENAME"
+>/usr/X11R6/bin</TT
+></B
+></A
+></DT
+><DT
+>12-31. <A
+HREF="filearchiv.html#WSTRINGS"
+>一个<SPAN
+CLASS="QUOTE"
+>"改进过"</SPAN
+>的<EM
+>strings</EM
+>命令</A
+></DT
+><DT
+>12-32. <A
+HREF="filearchiv.html#FILECOMP"
+>在一个脚本中使用<B
+CLASS="COMMAND"
+>cmp</B
+>命令来比较两个文件.</A
+></DT
+><DT
+>12-33. <A
+HREF="filearchiv.html#EX35"
+><B
+CLASS="COMMAND"
+>basename</B
+>和<B
+CLASS="COMMAND"
+>dirname</B
+></A
+></DT
+><DT
+>12-34. <A
+HREF="filearchiv.html#FILEINTEGRITY"
+>检查文件完整性</A
+></DT
+><DT
+>12-35. <A
+HREF="filearchiv.html#EX52"
+>Uudecode编码后的文件</A
+></DT
+><DT
+>12-36. <A
+HREF="communications.html#SPAMLOOKUP"
+>查找滥用的链接来报告垃圾邮件发送者</A
+></DT
+><DT
+>12-37. <A
+HREF="communications.html#ISSPAMMER"
+>分析一个垃圾邮件域</A
+></DT
+><DT
+>12-38. <A
+HREF="communications.html#QUOTEFETCH"
+>获得一份股票报价</A
+></DT
+><DT
+>12-39. <A
+HREF="communications.html#FC4UPD"
+>更新FC4(Fedora 4)</A
+></DT
+><DT
+>12-40. <A
+HREF="communications.html#REMOTE"
+>使用ssh</A
+></DT
+><DT
+>12-41. <A
+HREF="communications.html#SELFMAILER"
+>一个mail自身的脚本</A
+></DT
+><DT
+>12-42. <A
+HREF="mathc.html#MONTHLYPMT"
+>按月偿还贷款</A
+></DT
+><DT
+>12-43. <A
+HREF="mathc.html#BASE"
+>数制转换</A
+></DT
+><DT
+>12-44. <A
+HREF="mathc.html#ALTBC"
+>使用<SPAN
+CLASS="QUOTE"
+>"here document"</SPAN
+>来调用<B
+CLASS="COMMAND"
+>bc</B
+></A
+></DT
+><DT
+>12-45. <A
+HREF="mathc.html#CANNON"
+>计算圆周率</A
+></DT
+><DT
+>12-46. <A
+HREF="mathc.html#HEXCONVERT"
+>将10进制数字转换为16进制数字</A
+></DT
+><DT
+>12-47. <A
+HREF="mathc.html#FACTR"
+>因子分解</A
+></DT
+><DT
+>12-48. <A
+HREF="mathc.html#HYPOT"
+>计算直角三角形的斜边</A
+></DT
+><DT
+>12-49. <A
+HREF="extmisc.html#EX53"
+>使用<B
+CLASS="COMMAND"
+>seq</B
+>命令来产生循环参数</A
+></DT
+><DT
+>12-50. <A
+HREF="extmisc.html#LETTERCOUNT"
+>字母统计</A
+></DT
+><DT
+>12-51. <A
+HREF="extmisc.html#EX33A"
+>使用<B
+CLASS="COMMAND"
+>getopt</B
+>来分析命令行选项</A
+></DT
+><DT
+>12-52. <A
+HREF="extmisc.html#SELFCOPY"
+>一个拷贝自身的脚本</A
+></DT
+><DT
+>12-53. <A
+HREF="extmisc.html#EXERCISINGDD"
+>练习<B
+CLASS="COMMAND"
+>dd</B
+></A
+></DT
+><DT
+>12-54. <A
+HREF="extmisc.html#DDKEYPRESS"
+>记录按键</A
+></DT
+><DT
+>12-55. <A
+HREF="extmisc.html#BLOTOUT"
+>安全的删除一个文件</A
+></DT
+><DT
+>12-56. <A
+HREF="extmisc.html#TEMPFILENAME"
+>文件名产生器</A
+></DT
+><DT
+>12-57. <A
+HREF="extmisc.html#UNITCONVERSION"
+>将长度单位-米, 转化为英里</A
+></DT
+><DT
+>12-58. <A
+HREF="extmisc.html#M4"
+>使用m4</A
+></DT
+><DT
+>13-1. <A
+HREF="system.html#SETNEWPW"
+>设置一个新密码</A
+></DT
+><DT
+>13-2. <A
+HREF="system.html#ERASE"
+>设置一个擦除字符</A
+></DT
+><DT
+>13-3. <A
+HREF="system.html#SECRETPW"
+><B
+CLASS="COMMAND"
+>保密密码</B
+>: 关闭终端对于密码的echo</A
+></DT
+><DT
+>13-4. <A
+HREF="system.html#KEYPRESS"
+>按键检测</A
+></DT
+><DT
+>13-5. <A
+HREF="system.html#ISCAN"
+>扫描远程机器上的<EM
+>identd</EM
+>服务进程</A
+></DT
+><DT
+>13-6. <A
+HREF="system.html#KILLPROCESS"
+>使用<B
+CLASS="COMMAND"
+>pidof</B
+>命令帮忙kill一个进程</A
+></DT
+><DT
+>13-7. <A
+HREF="system.html#ISOMOUNTREF"
+>检查一个CD镜像</A
+></DT
+><DT
+>13-8. <A
+HREF="system.html#CREATEFS"
+>在一个文件中创建文件系统</A
+></DT
+><DT
+>13-9. <A
+HREF="system.html#ADDDRV"
+>添加一个新的硬盘驱动器</A
+></DT
+><DT
+>13-10. <A
+HREF="system.html#ROT13A"
+>用<B
+CLASS="COMMAND"
+>umask</B
+>将输出文件隐藏起来</A
+></DT
+><DT
+>13-11. <A
+HREF="sysscripts.html#EX55"
+><B
+CLASS="COMMAND"
+>killall</B
+>, 来自于<TT
+CLASS="FILENAME"
+>/etc/rc.d/init.d</TT
+></A
+></DT
+><DT
+>14-1. <A
+HREF="commandsub.html#STUPSCR"
+>愚蠢的脚本策略</A
+></DT
+><DT
+>14-2. <A
+HREF="commandsub.html#CSUBLOOP"
+>将一个循环输出的内容设置到变量中</A
+></DT
+><DT
+>14-3. <A
+HREF="commandsub.html#AGRAM2"
+>找anagram(回文构词法, 可以将一个有意义的单词, 
+			  变换为1个或多个有意义的单词, 但是还是原来的子母集合)</A
+></DT
+><DT
+>16-1. <A
+HREF="x13380.html#REDIR1"
+>使用<B
+CLASS="COMMAND"
+>exec</B
+>重定向<TT
+CLASS="FILENAME"
+>stdin</TT
+></A
+></DT
+><DT
+>16-2. <A
+HREF="x13380.html#REASSIGNSTDOUT"
+>使用<B
+CLASS="COMMAND"
+>exec</B
+>来重定向<TT
+CLASS="FILENAME"
+>stdout</TT
+></A
+></DT
+><DT
+>16-3. <A
+HREF="x13380.html#UPPERCONV"
+>使用<B
+CLASS="COMMAND"
+>exec</B
+>在同一个脚本中重定向<TT
+CLASS="FILENAME"
+>stdin</TT
+>和<TT
+CLASS="FILENAME"
+>stdout</TT
+></A
+></DT
+><DT
+>16-4. <A
+HREF="x13380.html#AVOIDSUBSHELL"
+>避免子shell</A
+></DT
+><DT
+>16-5. <A
+HREF="redircb.html#REDIR2"
+><EM
+>while</EM
+>循环的重定向</A
+></DT
+><DT
+>16-6. <A
+HREF="redircb.html#REDIR2A"
+>重定向<EM
+>while</EM
+>循环的另一种形式</A
+></DT
+><DT
+>16-7. <A
+HREF="redircb.html#REDIR3"
+>重定向<EM
+>until</EM
+>循环</A
+></DT
+><DT
+>16-8. <A
+HREF="redircb.html#REDIR4"
+>重定向<EM
+>for</EM
+>循环</A
+></DT
+><DT
+>16-9. <A
+HREF="redircb.html#REDIR4A"
+>重定向<EM
+>for</EM
+>循环(<TT
+CLASS="FILENAME"
+>stdin</TT
+>和<TT
+CLASS="FILENAME"
+>stdout</TT
+>都进行重定向)</A
+></DT
+><DT
+>16-10. <A
+HREF="redircb.html#REDIR5"
+>重定向<EM
+>if/then</EM
+>测试结构</A
+></DT
+><DT
+>16-11. <A
+HREF="redircb.html#NAMESDATA"
+>用于上面例子的<SPAN
+CLASS="QUOTE"
+>"names.data"</SPAN
+>数据文件</A
+></DT
+><DT
+>16-12. <A
+HREF="redirapps.html#LOGEVENTS"
+>事件纪录</A
+></DT
+><DT
+>17-1. <A
+HREF="here-docs.html#EX70"
+><B
+CLASS="COMMAND"
+>广播</B
+>: 将消息发送给每个登陆的用户</A
+></DT
+><DT
+>17-2. <A
+HREF="here-docs.html#EX69"
+><B
+CLASS="COMMAND"
+>虚拟文件</B
+>: 创建一个2行的虚拟文件</A
+></DT
+><DT
+>17-3. <A
+HREF="here-docs.html#EX71"
+>使用<B
+CLASS="COMMAND"
+>cat</B
+>的多行消息</A
+></DT
+><DT
+>17-4. <A
+HREF="here-docs.html#EX71A"
+>带有抑制tab功能的多行消息</A
+></DT
+><DT
+>17-5. <A
+HREF="here-docs.html#EX71B"
+>使用参数替换的here document</A
+></DT
+><DT
+>17-6. <A
+HREF="here-docs.html#EX72"
+>上传一个文件对到<SPAN
+CLASS="QUOTE"
+>"Sunsite"</SPAN
+>的incoming目录</A
+></DT
+><DT
+>17-7. <A
+HREF="here-docs.html#EX71C"
+>关闭参数替换</A
+></DT
+><DT
+>17-8. <A
+HREF="here-docs.html#GENERATESCRIPT"
+>生成另外一个脚本的脚本</A
+></DT
+><DT
+>17-9. <A
+HREF="here-docs.html#HF"
+>Here document与函数</A
+></DT
+><DT
+>17-10. <A
+HREF="here-docs.html#ANONHEREDOC"
+><SPAN
+CLASS="QUOTE"
+>"匿名"</SPAN
+>的here Document</A
+></DT
+><DT
+>17-11. <A
+HREF="here-docs.html#COMMENTBLOCK"
+>注释掉一段代码块</A
+></DT
+><DT
+>17-12. <A
+HREF="here-docs.html#SELFDOCUMENT"
+>一个自文档化(self-documenting)的脚本</A
+></DT
+><DT
+>17-13. <A
+HREF="x13628.html#PREPENDEX"
+>在一个文件的开头添加文本</A
+></DT
+><DT
+>17-14. <A
+HREF="x13628.html#MAILBOXGREP"
+>分析一个邮箱</A
+></DT
+><DT
+>20-1. <A
+HREF="subshells.html#SUBSHELL"
+>子shell中的变量作用域</A
+></DT
+><DT
+>20-2. <A
+HREF="subshells.html#ALLPROFS"
+>列出用户的配置文件</A
+></DT
+><DT
+>20-3. <A
+HREF="subshells.html#PARALLEL-PROCESSES"
+>在子shell中进行并行处理</A
+></DT
+><DT
+>21-1. <A
+HREF="restricted-sh.html#RESTRICTED"
+>在受限模式下运行脚本</A
+></DT
+><DT
+>23-1. <A
+HREF="functions.html#EX59"
+>简单函数</A
+></DT
+><DT
+>23-2. <A
+HREF="complexfunct.html#EX60"
+>带参数的函数</A
+></DT
+><DT
+>23-3. <A
+HREF="complexfunct.html#FUNCCMDLINEARG"
+>函数与传递给脚本的命令行参数</A
+></DT
+><DT
+>23-4. <A
+HREF="complexfunct.html#INDFUNC"
+>将一个间接引用传递给函数</A
+></DT
+><DT
+>23-5. <A
+HREF="complexfunct.html#DEREFERENCECL"
+>对一个传递给函数的参数进行解除引用的操作</A
+></DT
+><DT
+>23-6. <A
+HREF="complexfunct.html#REFPARAMS"
+>再来一次, 对一个传递给函数的参数进行解除引用的操作</A
+></DT
+><DT
+>23-7. <A
+HREF="complexfunct.html#MAX"
+>取两个数中的最大值</A
+></DT
+><DT
+>23-8. <A
+HREF="complexfunct.html#EX61"
+>将阿拉伯数字转化为罗马数字</A
+></DT
+><DT
+>23-9. <A
+HREF="complexfunct.html#RETURNTEST"
+>测试函数最大的返回值</A
+></DT
+><DT
+>23-10. <A
+HREF="complexfunct.html#MAX2"
+>比较两个大整数</A
+></DT
+><DT
+>23-11. <A
+HREF="complexfunct.html#REALNAME"
+>从username中取得用户的真名</A
+></DT
+><DT
+>23-12. <A
+HREF="localvar.html#EX62"
+>局部变量的可见范围</A
+></DT
+><DT
+>23-13. <A
+HREF="localvar.html#EX63"
+>使用局部变量的递归</A
+></DT
+><DT
+>23-14. <A
+HREF="recurnolocvar.html#HANOI"
+>汉诺塔</A
+></DT
+><DT
+>24-1. <A
+HREF="aliases.html#AL"
+>用在脚本中的别名</A
+></DT
+><DT
+>24-2. <A
+HREF="aliases.html#UNAL"
+><B
+CLASS="COMMAND"
+>unalias</B
+>: 设置与删除别名</A
+></DT
+><DT
+>25-1. <A
+HREF="list-cons.html#EX64"
+>使用<SPAN
+CLASS="QUOTE"
+>"与列表"</SPAN
+>来测试命令行参数</A
+></DT
+><DT
+>25-2. <A
+HREF="list-cons.html#ANDLIST2"
+>使用<SPAN
+CLASS="QUOTE"
+>"与列表"</SPAN
+>来测试命令行参数的另一个例子</A
+></DT
+><DT
+>25-3. <A
+HREF="list-cons.html#EX65"
+>将<SPAN
+CLASS="QUOTE"
+>"或列表"</SPAN
+>和<SPAN
+CLASS="QUOTE"
+>"与列表"</SPAN
+>结合使用</A
+></DT
+><DT
+>26-1. <A
+HREF="arrays.html#EX66"
+>简单的数组使用</A
+></DT
+><DT
+>26-2. <A
+HREF="arrays.html#POEM"
+>格式化一首诗</A
+></DT
+><DT
+>26-3. <A
+HREF="arrays.html#ARRAYOPS"
+>多种数组操作</A
+></DT
+><DT
+>26-4. <A
+HREF="arrays.html#ARRAYSTROPS"
+>用于数组的字符串操作</A
+></DT
+><DT
+>26-5. <A
+HREF="arrays.html#SCRIPTARRAY"
+>将脚本的内容赋值给数组</A
+></DT
+><DT
+>26-6. <A
+HREF="arrays.html#EX67"
+>一些数组专用的小道具</A
+></DT
+><DT
+>26-7. <A
+HREF="arrays.html#EMPTYARRAY"
+>空数组与包含空元素的数组</A
+></DT
+><DT
+>26-8. <A
+HREF="arrays.html#ARRAYASSIGN"
+>初始化数组</A
+></DT
+><DT
+>26-9. <A
+HREF="arrays.html#COPYARRAY"
+>拷贝和连接数组</A
+></DT
+><DT
+>26-10. <A
+HREF="arrays.html#ARRAYAPPEND"
+>关于串联数组的更多信息</A
+></DT
+><DT
+>26-11. <A
+HREF="arrays.html#BUBBLE"
+>一位老朋友: 
+             <EM
+>冒泡排序</EM
+></A
+></DT
+><DT
+>26-12. <A
+HREF="arrays.html#EMBARR"
+>嵌套数组与间接引用</A
+></DT
+><DT
+>26-13. <A
+HREF="arrays.html#EX68"
+>复杂的数组应用: 
+             <EM
+>埃拉托色尼素数筛子</EM
+></A
+></DT
+><DT
+>26-14. <A
+HREF="arrays.html#STACKEX"
+>模拟一个下推堆栈</A
+></DT
+><DT
+>26-15. <A
+HREF="arrays.html#QFUNCTION"
+>复杂的数组应用: 
+             <EM
+>探索一个神秘的数学序列</EM
+></A
+></DT
+><DT
+>26-16. <A
+HREF="arrays.html#TWODIM"
+>模拟一个二维数组, 并使他倾斜</A
+></DT
+><DT
+>27-1. <A
+HREF="devref1.html#DEVTCP"
+>利用<TT
+CLASS="FILENAME"
+>/dev/tcp</TT
+>来检修故障</A
+></DT
+><DT
+>27-2. <A
+HREF="procref1.html#PIDID"
+>找出与给定PID相关联的进程</A
+></DT
+><DT
+>27-3. <A
+HREF="procref1.html#CONSTAT"
+>网络连接状态</A
+></DT
+><DT
+>28-1. <A
+HREF="zeros.html#COOKIES"
+>隐藏令人厌恶的cookie</A
+></DT
+><DT
+>28-2. <A
+HREF="zeros.html#EX73"
+>使用<TT
+CLASS="FILENAME"
+>/dev/zero</TT
+>来建立一个交换文件</A
+></DT
+><DT
+>28-3. <A
+HREF="zeros.html#RAMDISK"
+>创建一个ramdisk</A
+></DT
+><DT
+>29-1. <A
+HREF="debugging.html#EX74"
+>一个错误脚本</A
+></DT
+><DT
+>29-2. <A
+HREF="debugging.html#MISSINGKEYWORD"
+>缺少<A
+HREF="internal.html#KEYWORDREF"
+>关键字</A
+></A
+></DT
+><DT
+>29-3. <A
+HREF="debugging.html#EX75"
+>test24, 另一个错误脚本</A
+></DT
+><DT
+>29-4. <A
+HREF="debugging.html#ASSERT"
+>使用<SPAN
+CLASS="QUOTE"
+>"assert"</SPAN
+>来测试条件</A
+></DT
+><DT
+>29-5. <A
+HREF="debugging.html#EX76"
+>捕获exit</A
+></DT
+><DT
+>29-6. <A
+HREF="debugging.html#ONLINE"
+>Control-C之后, 清除垃圾</A
+></DT
+><DT
+>29-7. <A
+HREF="debugging.html#VARTRACE"
+>跟踪一个变量</A
+></DT
+><DT
+>29-8. <A
+HREF="debugging.html#MULTIPLEPROC"
+>运行多进程(在对称多处理器(SMP box)的机器上)</A
+></DT
+><DT
+>31-1. <A
+HREF="gotchas.html#BADOP"
+>数字比较与字符串比较并不相同</A
+></DT
+><DT
+>31-2. <A
+HREF="gotchas.html#SUBPIT"
+>子shell缺陷</A
+></DT
+><DT
+>31-3. <A
+HREF="gotchas.html#BADREAD"
+>将<B
+CLASS="COMMAND"
+>echo</B
+>的输出通过管道传递给<B
+CLASS="COMMAND"
+>read</B
+>命令</A
+></DT
+><DT
+>33-1. <A
+HREF="wrapper.html#EX3"
+><B
+CLASS="COMMAND"
+>shell包装</B
+></A
+></DT
+><DT
+>33-2. <A
+HREF="wrapper.html#EX4"
+>稍微复杂一些的<B
+CLASS="COMMAND"
+>shell包装</B
+></A
+></DT
+><DT
+>33-3. <A
+HREF="wrapper.html#LOGGINGWRAPPER"
+>一个通用的<B
+CLASS="COMMAND"
+>shell包装</B
+>, 用来写日志文件</A
+></DT
+><DT
+>33-4. <A
+HREF="wrapper.html#PRASC"
+>包装awd脚本的<B
+CLASS="COMMAND"
+>shell包装</B
+></A
+></DT
+><DT
+>33-5. <A
+HREF="wrapper.html#COLTOTALER"
+>另一个包装awd脚本的<B
+CLASS="COMMAND"
+>shell包装</B
+></A
+></DT
+><DT
+>33-6. <A
+HREF="wrapper.html#EX56"
+>将Perl嵌入到<B
+CLASS="COMMAND"
+>Bash</B
+>脚本中</A
+></DT
+><DT
+>33-7. <A
+HREF="wrapper.html#BASHANDPERL"
+>将Bash和Perl脚本写到同一个文件中</A
+></DT
+><DT
+>33-8. <A
+HREF="recursionsct.html#RECURSE"
+>递归调用自身的(没用的)脚本</A
+></DT
+><DT
+>33-9. <A
+HREF="recursionsct.html#PBOOK"
+>递归调用自身的(有用的)脚本</A
+></DT
+><DT
+>33-10. <A
+HREF="recursionsct.html#USRMNT"
+>另一个递归调用自身的(有用的)脚本</A
+></DT
+><DT
+>33-11. <A
+HREF="colorizing.html#EX30A"
+>一个<SPAN
+CLASS="QUOTE"
+>"彩色的"</SPAN
+>地址数据库</A
+></DT
+><DT
+>33-12. <A
+HREF="colorizing.html#DRAW-BOX"
+>画一个盒子</A
+></DT
+><DT
+>33-13. <A
+HREF="colorizing.html#COLORECHO"
+>显示彩色文本</A
+></DT
+><DT
+>33-14. <A
+HREF="colorizing.html#HORSERACE"
+><SPAN
+CLASS="QUOTE"
+>"赛马"</SPAN
+>游戏</A
+></DT
+><DT
+>33-15. <A
+HREF="assortedtips.html#MULTIPLICATION"
+>返回值小技巧</A
+></DT
+><DT
+>33-16. <A
+HREF="assortedtips.html#SUMPRODUCT"
+>返回多个值的技巧</A
+></DT
+><DT
+>33-17. <A
+HREF="assortedtips.html#ARRFUNC"
+>传递数组到函数, 从函数中返回数组</A
+></DT
+><DT
+>33-18. <A
+HREF="assortedtips.html#AGRAM"
+>anagram游戏</A
+></DT
+><DT
+>33-19. <A
+HREF="assortedtips.html#DIALOG"
+><B
+CLASS="COMMAND"
+>从shell脚本中调用窗口部件</B
+></A
+></DT
+><DT
+>34-1. <A
+HREF="bashver2.html#EX77"
+>字符串扩展</A
+></DT
+><DT
+>34-2. <A
+HREF="bashver2.html#EX78"
+>间接变量引用 - 新方法</A
+></DT
+><DT
+>34-3. <A
+HREF="bashver2.html#RESISTOR"
+>使用间接变量引用的简单数据库应用</A
+></DT
+><DT
+>34-4. <A
+HREF="bashver2.html#EX79"
+>使用数组和其他的小技巧来处理4人随机打牌</A
+></DT
+><DT
+>A-1. <A
+HREF="contributed-scripts.html#MAILFORMAT"
+><B
+CLASS="COMMAND"
+>mailformat</B
+>: 格式化一个e-mail消息</A
+></DT
+><DT
+>A-2. <A
+HREF="contributed-scripts.html#RN"
+><B
+CLASS="COMMAND"
+>rn</B
+>: 一个非常简单的文件重命名工具</A
+></DT
+><DT
+>A-3. <A
+HREF="contributed-scripts.html#BLANKRENAME"
+><B
+CLASS="COMMAND"
+>blank-rename</B
+>: 重命名包含空白的文件名</A
+></DT
+><DT
+>A-4. <A
+HREF="contributed-scripts.html#ENCRYPTEDPW"
+><B
+CLASS="COMMAND"
+>encryptedpw</B
+>: 使用一个本地加密口令, 上传到一个ftp服务器.</A
+></DT
+><DT
+>A-5. <A
+HREF="contributed-scripts.html#COPYCD"
+><B
+CLASS="COMMAND"
+>copy-cd</B
+>: 拷贝一个数据CD</A
+></DT
+><DT
+>A-6. <A
+HREF="contributed-scripts.html#COLLATZ"
+>Collatz序列</A
+></DT
+><DT
+>A-7. <A
+HREF="contributed-scripts.html#DAYSBETWEEN"
+><B
+CLASS="COMMAND"
+>days-between</B
+>: 计算两个日期之间天数差</A
+></DT
+><DT
+>A-8. <A
+HREF="contributed-scripts.html#MAKEDICT"
+>构造一个<SPAN
+CLASS="QUOTE"
+>"字典"</SPAN
+></A
+></DT
+><DT
+>A-9. <A
+HREF="contributed-scripts.html#SOUNDEX"
+>Soundex转换</A
+></DT
+><DT
+>A-10. <A
+HREF="contributed-scripts.html#LIFESLOW"
+><SPAN
+CLASS="QUOTE"
+>"Game of Life"</SPAN
+></A
+></DT
+><DT
+>A-11. <A
+HREF="contributed-scripts.html#GEN0DATA"
+><SPAN
+CLASS="QUOTE"
+>"Game of Life"</SPAN
+>的数据文件</A
+></DT
+><DT
+>A-12. <A
+HREF="contributed-scripts.html#BEHEAD"
+><B
+CLASS="COMMAND"
+>behead</B
+>: 去掉信件与新消息的头</A
+></DT
+><DT
+>A-13. <A
+HREF="contributed-scripts.html#FTPGET"
+><B
+CLASS="COMMAND"
+>ftpget</B
+>: 通过ftp下载文件</A
+></DT
+><DT
+>A-14. <A
+HREF="contributed-scripts.html#PW"
+><B
+CLASS="COMMAND"
+>password</B
+>: 产生随机的8个字符的密码</A
+></DT
+><DT
+>A-15. <A
+HREF="contributed-scripts.html#FIFO"
+><B
+CLASS="COMMAND"
+>fifo</B
+>: 使用命名管道来做每日的备份</A
+></DT
+><DT
+>A-16. <A
+HREF="contributed-scripts.html#PRIMES"
+>使用模操作符来产生素数</A
+></DT
+><DT
+>A-17. <A
+HREF="contributed-scripts.html#TREE"
+><B
+CLASS="COMMAND"
+>tree</B
+>: 显示目录树</A
+></DT
+><DT
+>A-18. <A
+HREF="contributed-scripts.html#STRING"
+><B
+CLASS="COMMAND"
+>string functions</B
+>: C风格的字符串函数</A
+></DT
+><DT
+>A-19. <A
+HREF="contributed-scripts.html#DIRECTORYINFO"
+>目录信息</A
+></DT
+><DT
+>A-20. <A
+HREF="contributed-scripts.html#OBJORIENTED"
+>面向对象数据库</A
+></DT
+><DT
+>A-21. <A
+HREF="contributed-scripts.html#HASHLIB"
+>hash函数库</A
+></DT
+><DT
+>A-22. <A
+HREF="contributed-scripts.html#HASHEXAMPLE"
+>使用hash函数来给文本上色</A
+></DT
+><DT
+>A-23. <A
+HREF="contributed-scripts.html#HASHEX2"
+>深入hash函数</A
+></DT
+><DT
+>A-24. <A
+HREF="contributed-scripts.html#USBINST"
+>挂载USB keychain型的存储设备</A
+></DT
+><DT
+>A-25. <A
+HREF="contributed-scripts.html#ARCHIVWEBLOGS"
+>保存weblog</A
+></DT
+><DT
+>A-26. <A
+HREF="contributed-scripts.html#PROTECTLITERAL"
+>保护字符串的字面含义</A
+></DT
+><DT
+>A-27. <A
+HREF="contributed-scripts.html#UNPROTECTLITERAL"
+>不保护字符串的字面含义</A
+></DT
+><DT
+>A-28. <A
+HREF="contributed-scripts.html#ISSPAMMER2"
+>鉴定是否是垃圾邮件服务器</A
+></DT
+><DT
+>A-29. <A
+HREF="contributed-scripts.html#WHX"
+>垃圾邮件服务器猎手</A
+></DT
+><DT
+>A-30. <A
+HREF="contributed-scripts.html#WGETTER2"
+>使得<B
+CLASS="COMMAND"
+>wget</B
+>更易用</A
+></DT
+><DT
+>A-31. <A
+HREF="contributed-scripts.html#BASHPODDER"
+>一个<SPAN
+CLASS="QUOTE"
+>"podcasting"</SPAN
+>(译者: 指的是在互联网上发布音视频文件, 并允许用户订阅并自动接收的方法)脚本</A
+></DT
+><DT
+>A-32. <A
+HREF="contributed-scripts.html#BASICSREVIEWED"
+>基础回顾</A
+></DT
+><DT
+>A-33. <A
+HREF="contributed-scripts.html#CDLL"
+>一个扩展的<B
+CLASS="COMMAND"
+>cd</B
+>命令</A
+></DT
+><DT
+>C-1. <A
+HREF="awk.html#LETTERCOUNT2"
+>计算字符出现次数</A
+></DT
+><DT
+>K-1. <A
+HREF="sample-bashrc.html#BASHRC"
+><TT
+CLASS="FILENAME"
+>.bashrc</TT
+>文件样本</A
+></DT
+><DT
+>L-1. <A
+HREF="dosbatch.html#VIEWDAT"
+>VIEWDATA.BAT: DOS批处理文件</A
+></DT
+><DT
+>L-2. <A
+HREF="dosbatch.html#VIEWDATA"
+>viewdata.sh: 转换自VIEWDATA.BAT的shell脚本</A
+></DT
+><DT
+>Q-1. <A
+HREF="todolist.html#TESTCGI"
+>打印服务器环境</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="preface.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>序</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

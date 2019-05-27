@@ -1,0 +1,591 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>指定变量的类型: 使用declare或者typeset</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="变量重游"
+HREF="variables2.html"><LINK
+REL="PREVIOUS"
+TITLE="参数替换"
+HREF="parameter-substitution.html"><LINK
+REL="NEXT"
+TITLE="变量的间接引用"
+HREF="ivr.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="parameter-substitution.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>9. 变量重游</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ivr.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="DECLAREREF"
+>9.4. 指定变量的类型: 使用<B
+CLASS="COMMAND"
+>declare</B
+>或者<B
+CLASS="COMMAND"
+>typeset</B
+></A
+></H1
+><P
+><I
+CLASS="FIRSTTERM"
+>declare</I
+>或者<I
+CLASS="FIRSTTERM"
+>typeset</I
+><A
+HREF="internal.html#BUILTINREF"
+>内建</A
+>命令(这两个命令是完全一样的)允许指定变量的具体类型. 
+	在某些编程语言中, 这是指定变量类型的一种很弱的形式. 
+	<B
+CLASS="COMMAND"
+>declare</B
+>命令是从Bash 2.0之后才被引入的命令.
+	  <B
+CLASS="COMMAND"
+>typeset</B
+>也可以用在ksh的脚本中. </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="DECLAREOPSREF1"
+></A
+>declare/typeset选项</B
+></P
+><DL
+><DT
+><SPAN
+CLASS="TOKEN"
+>-r</SPAN
+> <TT
+CLASS="REPLACEABLE"
+><I
+>只读</I
+></TT
+></DT
+><DD
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;declare -r var1</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>(<KBD
+CLASS="USERINPUT"
+>declare -r var1</KBD
+>与<KBD
+CLASS="USERINPUT"
+>readonly var1</KBD
+>是完全一样的)</P
+><P
+>这和C语言中的<B
+CLASS="COMMAND"
+>const</B
+>关键字一样, 都用来指定变量为只读. 
+			  如果你尝试修改一个只读变量的值, 那么会产生错误信息. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-i</SPAN
+> <TT
+CLASS="REPLACEABLE"
+><I
+>整型</I
+></TT
+></DT
+><DD
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;declare -i number
+  2&nbsp;# 脚本将会把变量"number"按照整型进行处理. 
+  3&nbsp;
+  4&nbsp;number=3
+  5&nbsp;echo "Number = $number"     # Number = 3
+  6&nbsp;
+  7&nbsp;number=three
+  8&nbsp;echo "Number = $number"     # Number = 0
+  9&nbsp;# 脚本尝试把字符串"three"作为整数来求值(译者注: 当然会失败, 所以出现值为0). </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>如果把一个变量指定为整型的话, 
+				  那么即使没有<A
+HREF="moreadv.html#EXPRREF"
+>expr</A
+>或者<A
+HREF="internal.html#LETREF"
+>let</A
+>命令, 也允许使用特定的算术运算.</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;n=6/3
+  2&nbsp;echo "n = $n"       # n = 6/3
+  3&nbsp;
+  4&nbsp;declare -i n
+  5&nbsp;n=6/3
+  6&nbsp;echo "n = $n"       # n = 2</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-a</SPAN
+> <TT
+CLASS="REPLACEABLE"
+><I
+>数组</I
+></TT
+></DT
+><DD
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;declare -a indices</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>变量<CODE
+CLASS="VARNAME"
+>indices</CODE
+>将被视为数组.</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-f</SPAN
+> <TT
+CLASS="REPLACEABLE"
+><I
+>函数</I
+></TT
+></DT
+><DD
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;declare -f</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>如果在脚本中使用<KBD
+CLASS="USERINPUT"
+>declare -f</KBD
+>, 而不加任何参数的话, 
+		那么将会列出这个脚本之前定义的所有函数. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;declare -f function_name</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>如果在脚本中使用<KBD
+CLASS="USERINPUT"
+>declare -f function_name</KBD
+>这种形式的话, 
+			  将只会列出这个函数的名字. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>-x</SPAN
+> <A
+HREF="internal.html#EXPORTREF"
+>export</A
+></DT
+><DD
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;declare -x var3</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>这句将会声明一个变量, 并作为这个脚本的环境变量被导出. </P
+></DD
+><DT
+>-x var=$value</DT
+><DD
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;declare -x var3=373</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><B
+CLASS="COMMAND"
+>declare</B
+>命令允许在声明变量类型的同时给变量赋值. </P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX20"
+></A
+><P
+><B
+>例子 9-22. 使用<B
+CLASS="COMMAND"
+>declare</B
+>来指定变量的类型</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;func1 ()
+  4&nbsp;{
+  5&nbsp;echo This is a function.
+  6&nbsp;}
+  7&nbsp;
+  8&nbsp;declare -f        # 列出前面定义的所有函数.
+  9&nbsp;
+ 10&nbsp;echo
+ 11&nbsp;
+ 12&nbsp;declare -i var1   # var1是个整型变量.
+ 13&nbsp;var1=2367
+ 14&nbsp;echo "var1 declared as $var1"
+ 15&nbsp;var1=var1+1       # 整型变量的声明并不需要使用'let'命令.
+ 16&nbsp;echo "var1 incremented by 1 is $var1."
+ 17&nbsp;# 尝试修改一个已经声明为整型变量的值.
+ 18&nbsp;echo "Attempting to change var1 to floating point value, 2367.1."
+ 19&nbsp;var1=2367.1       # 产生错误信息, 并且变量并没有被修改.
+ 20&nbsp;echo "var1 is still $var1"
+ 21&nbsp;
+ 22&nbsp;echo
+ 23&nbsp;
+ 24&nbsp;declare -r var2=13.36         # 'declare'允许设置变量的属性, 
+ 25&nbsp;                              #+ 同时给变量赋值.
+ 26&nbsp;echo "var2 declared as $var2" # 试图修改只读变量的值.
+ 27&nbsp;var2=13.37                    # 产生错误消息, 并且从脚本退出.
+ 28&nbsp;
+ 29&nbsp;echo "var2 is still $var2"    # 将不会执行到这行.
+ 30&nbsp;
+ 31&nbsp;exit 0                        # 脚本也不会从此处退出.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>使用<EM
+>declare</EM
+>内建命令可以限制变量的<I
+CLASS="FIRSTTERM"
+>作用域</I
+>.
+
+	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;foo ()
+  2&nbsp;{
+  3&nbsp;FOO="bar"
+  4&nbsp;}
+  5&nbsp;
+  6&nbsp;bar ()
+  7&nbsp;{
+  8&nbsp;foo
+  9&nbsp;echo $FOO
+ 10&nbsp;}
+ 11&nbsp;
+ 12&nbsp;bar   # 打印bar. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>然而 . . .
+
+	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;foo (){
+  2&nbsp;declare FOO="bar"
+  3&nbsp;}
+  4&nbsp;
+  5&nbsp;bar ()
+  6&nbsp;{
+  7&nbsp;foo
+  8&nbsp;echo $FOO
+  9&nbsp;}
+ 10&nbsp;
+ 11&nbsp;bar  # 什么都不打印.
+ 12&nbsp;
+ 13&nbsp;
+ 14&nbsp;# 感谢, Michael Iatrou, 指出这点. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="parameter-substitution.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ivr.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>参数替换</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="variables2.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>变量的间接引用</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

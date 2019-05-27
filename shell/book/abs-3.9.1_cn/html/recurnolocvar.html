@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>不使用局部变量的递归</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="函数"
+HREF="functions.html"><LINK
+REL="PREVIOUS"
+TITLE="局部变量"
+HREF="localvar.html"><LINK
+REL="NEXT"
+TITLE="别名"
+HREF="aliases.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="localvar.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>23. 函数</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="aliases.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="RECURNOLOCVAR"
+>23.3. 不使用局部变量的递归</A
+></H1
+><P
+>即使不使用局部变量, 函数也可以递归的调用自身. 
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="HANOI"
+></A
+><P
+><B
+>例子 23-14. 汉诺塔</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#! /bin/bash
+  2&nbsp;#
+  3&nbsp;# 汉诺塔
+  4&nbsp;# Bash script
+  5&nbsp;# Copyright (C) 2000 Amit Singh. All Rights Reserved.
+  6&nbsp;# http://hanoi.kernelthread.com
+  7&nbsp;#
+  8&nbsp;# 在bash version 2.05b.0(13)-release下通过测试
+  9&nbsp;#
+ 10&nbsp;#  经过脚本原作者同意
+ 11&nbsp;#+ 可以使用在"Advanced Bash Scripting Guide"中. 
+ 12&nbsp;#  本书作者对此脚本做了少许修改. 
+ 13&nbsp;
+ 14&nbsp;#=================================================================#
+ 15&nbsp;#  汉诺塔是由Edouard Lucas提出的数学谜题, 
+ 16&nbsp;#+ 他是19世纪的法国数学家. 
+ 17&nbsp;#
+ 18&nbsp;#  有三个直立的柱子竖在地面上. 
+ 19&nbsp;#  第一个柱子上有一组盘子套在上面. 
+ 20&nbsp;#  这些盘子是平的, 中间有孔, 
+ 21&nbsp;#+ 可以套在柱子上面. 
+ 22&nbsp;#  这些盘子的直径不同, 它们从下到上, 
+ 23&nbsp;#+ 按照尺寸递减的顺序摆放. 
+ 24&nbsp;#  也就是说, 最小的在最上边, 最大的在最下面. 
+ 25&nbsp;#
+ 26&nbsp;#  现在的任务是要把这组盘子
+ 27&nbsp;#+ 从一个柱子上全部搬到另一个柱子上. 
+ 28&nbsp;#  你每次只能将一个盘子从一个柱子移动到另一个柱子上. 
+ 29&nbsp;#  你也可以把盘子从其他的柱子上移回到原来的柱子上. 
+ 30&nbsp;#  你只能把小的盘子放到大的盘子上, 
+ 31&nbsp;#+ 反过来就*不*行. 
+ 32&nbsp;#  切记, 这是规则, 绝对不能把大盘子放到小盘子的上面. 
+ 33&nbsp;#
+ 34&nbsp;#  如果盘子的数量比较少, 那么移不了几次就能完成. 
+ 35&nbsp;#+ 但是随着盘子数量的增加, 
+ 36&nbsp;#+ 移动次数几乎成倍的增长, 
+ 37&nbsp;#+ 而且移动的"策略"也会变得越来越复杂. 
+ 38&nbsp;#
+ 39&nbsp;#  想了解更多信息的话, 请访问http://hanoi.kernelthread.com. 
+ 40&nbsp;#
+ 41&nbsp;#
+ 42&nbsp;#         ...                   ...                    ...
+ 43&nbsp;#         | |                   | |                    | |
+ 44&nbsp;#        _|_|_                  | |                    | |
+ 45&nbsp;#       |_____|                 | |                    | |
+ 46&nbsp;#      |_______|                | |                    | |
+ 47&nbsp;#     |_________|               | |                    | |
+ 48&nbsp;#    |___________|              | |                    | |
+ 49&nbsp;#   |             |             | |                    | |
+ 50&nbsp;# .--------------------------------------------------------------.
+ 51&nbsp;# |**************************************************************|
+ 52&nbsp;#          #1                   #2                      #3
+ 53&nbsp;#
+ 54&nbsp;#=================================================================#
+ 55&nbsp;
+ 56&nbsp;
+ 57&nbsp;E_NOPARAM=66  # 没有参数传给脚本. 
+ 58&nbsp;E_BADPARAM=67 # 传给脚本的盘子个数不符合要求. 
+ 59&nbsp;Moves=        # 保存移动次数的全局变量. 
+ 60&nbsp;              # 这里修改了原来的脚本. 
+ 61&nbsp;
+ 62&nbsp;dohanoi() {   # 递归函数. 
+ 63&nbsp;    case $1 in
+ 64&nbsp;    0)
+ 65&nbsp;        ;;
+ 66&nbsp;    *)
+ 67&nbsp;        dohanoi "$(($1-1))" $2 $4 $3
+ 68&nbsp;        echo move $2 "--&#62;" $3
+ 69&nbsp;	let "Moves += 1"  # 这里修改了原脚本. 
+ 70&nbsp;        dohanoi "$(($1-1))" $4 $3 $2
+ 71&nbsp;        ;;
+ 72&nbsp;    esac
+ 73&nbsp;}
+ 74&nbsp;
+ 75&nbsp;case $# in
+ 76&nbsp;1)
+ 77&nbsp;    case $(($1&#62;0)) in     # 至少要有一个盘子. 
+ 78&nbsp;    1)
+ 79&nbsp;        dohanoi $1 1 3 2
+ 80&nbsp;        echo "Total moves = $Moves"
+ 81&nbsp;        exit 0;
+ 82&nbsp;        ;;
+ 83&nbsp;    *)
+ 84&nbsp;        echo "$0: illegal value for number of disks";
+ 85&nbsp;        exit $E_BADPARAM;
+ 86&nbsp;        ;;
+ 87&nbsp;    esac
+ 88&nbsp;    ;;
+ 89&nbsp;*)
+ 90&nbsp;    echo "usage: $0 N"
+ 91&nbsp;    echo "       Where \"N\" is the number of disks."
+ 92&nbsp;    exit $E_NOPARAM;
+ 93&nbsp;    ;;
+ 94&nbsp;esac
+ 95&nbsp;
+ 96&nbsp;# 练习:
+ 97&nbsp;# -----
+ 98&nbsp;# 1) 这个位置以下的代码会不会被执行? 
+ 99&nbsp;#    为什么不? (容易)
+100&nbsp;# 2) 解释一下这个运行的"dohanoi"函数的运行原理. 
+101&nbsp;#    (比较难)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="localvar.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="aliases.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>局部变量</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="functions.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>别名</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

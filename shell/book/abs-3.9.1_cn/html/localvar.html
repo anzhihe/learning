@@ -1,0 +1,524 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>局部变量</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="函数"
+HREF="functions.html"><LINK
+REL="PREVIOUS"
+TITLE="复杂函数和函数复杂性"
+HREF="complexfunct.html"><LINK
+REL="NEXT"
+TITLE="不使用局部变量的递归"
+HREF="recurnolocvar.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="complexfunct.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>23. 函数</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="recurnolocvar.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="LOCALVAR"
+>23.2. 局部变量</A
+></H1
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="LOCALREF1"
+></A
+>怎样使一个变量变成<SPAN
+CLASS="QUOTE"
+>"局部"</SPAN
+>变量?</B
+></P
+><DL
+><DT
+>局部变量</DT
+><DD
+><P
+>如果变量用<I
+CLASS="FIRSTTERM"
+>local</I
+>来声明, 
+	      那么它就只能够在该变量被声明的<A
+HREF="special-chars.html#CODEBLOCKREF"
+>代码块</A
+>中可见. 
+		  这个代码块就是局部<SPAN
+CLASS="QUOTE"
+>"范围"</SPAN
+>. 
+		  在一个函数中, 一个<EM
+>局部变量</EM
+>只有在函数代码块中才有意义. 
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX62"
+></A
+><P
+><B
+>例子 23-12. 局部变量的可见范围</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 函数内部的局部变量与全局变量. 
+  3&nbsp;
+  4&nbsp;func ()
+  5&nbsp;{
+  6&nbsp;  local loc_var=23       # 声明为局部变量. 
+  7&nbsp;  echo                   # 使用'local'内建命令. 
+  8&nbsp;  echo "\"loc_var\" in function = $loc_var"
+  9&nbsp;  global_var=999         # 没有声明为局部变量. 
+ 10&nbsp;                         # 默认为全局变量.  
+ 11&nbsp;  echo "\"global_var\" in function = $global_var"
+ 12&nbsp;}  
+ 13&nbsp;
+ 14&nbsp;func
+ 15&nbsp;
+ 16&nbsp;# 现在, 来看看局部变量"loc_var"在函数外部是否可见. 
+ 17&nbsp;
+ 18&nbsp;echo
+ 19&nbsp;echo "\"loc_var\" outside function = $loc_var"
+ 20&nbsp;                                      # $loc_var outside function = 
+ 21&nbsp;                                      # 不行, $loc_var不是全局可见的. 
+ 22&nbsp;echo "\"global_var\" outside function = $global_var"
+ 23&nbsp;                                      # 在函数外部$global_var = 999
+ 24&nbsp;                                      # $global_var是全局可见的. 
+ 25&nbsp;echo				      
+ 26&nbsp;
+ 27&nbsp;exit 0
+ 28&nbsp;#  与C语言相比, 在函数内声明的Bash变量
+ 29&nbsp;#+ 除非它被明确声明为local时, 它才是局部的. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在函数被调用之前, <EM
+>所有</EM
+>在函数中声明的变量, 
+				在函数体外都是不可见的, 当然也包括那些被明确声明为<EM
+>local</EM
+>的变量. 
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;func ()
+  4&nbsp;{
+  5&nbsp;global_var=37    #  在函数被调用之前, 
+  6&nbsp;                 #+ 变量只在函数体内可见.  
+  7&nbsp;}                #  函数结束
+  8&nbsp;
+  9&nbsp;echo "global_var = $global_var"  # global_var =
+ 10&nbsp;                                 #  函数"func"还没被调用, 
+ 11&nbsp;                                 #+ 所以$global_var还不能被访问. 
+ 12&nbsp;
+ 13&nbsp;func
+ 14&nbsp;echo "global_var = $global_var"  # global_var = 37
+ 15&nbsp;                                 # 已经在函数调用的时候设置了变量的值. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+></DL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="LOCVARRECUR"
+>23.2.1. 局部变量使递归变为可能.</A
+></H2
+><P
+>局部变量允许递归, 
+
+	      <A
+NAME="AEN14542"
+HREF="#FTN.AEN14542"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+
+		但是这种方法会产生大量的计算, 因此在shell脚本中, 
+		非常明确的<EM
+>不</EM
+>推荐这种做法. 
+
+	         <A
+NAME="AEN14549"
+HREF="#FTN.AEN14549"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+	      
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="EX63"
+></A
+><P
+><B
+>例子 23-13. 使用局部变量的递归</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;#               阶乘
+  4&nbsp;#               ----
+  5&nbsp;
+  6&nbsp;
+  7&nbsp;# bash允许递归吗? 
+  8&nbsp;# 嗯, 允许, 但是...
+  9&nbsp;# 他太慢了, 所以恐怕你难以忍受. 
+ 10&nbsp;
+ 11&nbsp;
+ 12&nbsp;MAX_ARG=5
+ 13&nbsp;E_WRONG_ARGS=65
+ 14&nbsp;E_RANGE_ERR=66
+ 15&nbsp;
+ 16&nbsp;
+ 17&nbsp;if [ -z "$1" ]
+ 18&nbsp;then
+ 19&nbsp;  echo "Usage: `basename $0` number"
+ 20&nbsp;  exit $E_WRONG_ARGS
+ 21&nbsp;fi
+ 22&nbsp;
+ 23&nbsp;if [ "$1" -gt $MAX_ARG ]
+ 24&nbsp;then
+ 25&nbsp;  echo "Out of range (5 is maximum)."
+ 26&nbsp;  #  现在让我们来了解一些实际情况. 
+ 27&nbsp;  #  如果你想计算比这个更大的范围的阶乘, 
+ 28&nbsp;  #+ 应该用真正的编程语言来重写它. 
+ 29&nbsp;  exit $E_RANGE_ERR
+ 30&nbsp;fi  
+ 31&nbsp;
+ 32&nbsp;fact ()
+ 33&nbsp;{
+ 34&nbsp;  local number=$1
+ 35&nbsp;  #  变量"number"必须声明为局部变量, 
+ 36&nbsp;  #+ 否则不能正常工作. 
+ 37&nbsp;  if [ "$number" -eq 0 ]
+ 38&nbsp;  then
+ 39&nbsp;    factorial=1    # 0的阶乘为1. 
+ 40&nbsp;  else
+ 41&nbsp;    let "decrnum = number - 1"
+ 42&nbsp;    fact $decrnum  # 递归的函数调用(就是函数调用自己). 
+ 43&nbsp;    let "factorial = $number * $?"
+ 44&nbsp;  fi
+ 45&nbsp;
+ 46&nbsp;  return $factorial
+ 47&nbsp;}
+ 48&nbsp;
+ 49&nbsp;fact $1
+ 50&nbsp;echo "Factorial of $1 is $?."
+ 51&nbsp;
+ 52&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>也可以参考<A
+HREF="contributed-scripts.html#PRIMES"
+>例子 A-16</A
+>, 
+			这是一个脚本中递归的例子. 
+	      必须认识到递归同时也意味着巨大的资源消耗和缓慢的运行速度, 
+	      因此它并不适合在脚本中使用. 
+	      </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN14542"
+HREF="localvar.html#AEN14542"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><A
+NAME="RECURSIONREF"
+></A
+>
+	        <A
+HREF="biblio.html#MAYERREF"
+>Herbert Mayer</A
+>
+		给<EM
+>递归</EM
+>下的定义为: 
+		<SPAN
+CLASS="QUOTE"
+>". . . expressing an algorithm by using a simpler
+			version of that same algorithm(使用相同算法的一个简单版本来表达这个算法) . . ."</SPAN
+> 
+		一个递归函数就是调用自身的函数. 
+		</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN14549"
+HREF="localvar.html#AEN14549"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>过多层次的递归可能会产生段错误, 继而导致脚本崩溃. 
+		   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;#  警告: 运行这个脚本可能使你的系统失去响应! 
+  4&nbsp;#  如果你运气不错, 在它用光所有可用内存之前会因为段错误而退出. 
+  5&nbsp;
+  6&nbsp;recursive_function ()		   
+  7&nbsp;{
+  8&nbsp;echo "$1"     # 让这个函数做点事, 以便于加速段错误. 
+  9&nbsp;(( $1 &#60; $2 )) &#38;&#38; recursive_function $(( $1 + 1 )) $2;
+ 10&nbsp;#  当第一个参数比第二个参数少时, 
+ 11&nbsp;#+ 将第一个参数加1, 然后再递归. 
+ 12&nbsp;}
+ 13&nbsp;
+ 14&nbsp;recursive_function 1 50000  # Recurse 50,000 levels!
+ 15&nbsp;#  极有可能产生段错误(这依赖于栈尺寸, 可以用ulimit -m来设置). 
+ 16&nbsp;
+ 17&nbsp;#  这种深度递归可能会产生C程序的段错误, 
+ 18&nbsp;#+ 这是由于耗光所有的栈内存所引起的. 
+ 19&nbsp;
+ 20&nbsp;
+ 21&nbsp;echo "This will probably not print."
+ 22&nbsp;exit 0  # 这个脚本是不会在这里正常退出的. 
+ 23&nbsp;
+ 24&nbsp;#  感谢, Stephane Chazelas.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="complexfunct.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="recurnolocvar.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>复杂函数和函数复杂性</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="functions.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>不使用局部变量的递归</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,760 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>转义</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="引用"
+HREF="quoting.html"><LINK
+REL="PREVIOUS"
+TITLE="引用变量"
+HREF="quotingvar.html"><LINK
+REL="NEXT"
+TITLE="退出和退出状态码"
+HREF="exit-status.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="quotingvar.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>5. 引用</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="exit-status.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="ESCAPINGSECTION"
+>5.2. 转义</A
+></H1
+><P
+><A
+NAME="ESCP"
+></A
+><I
+CLASS="FIRSTTERM"
+>转义</I
+>是一种引用单个字符的方法. 
+	一个前面放上<SPAN
+CLASS="TOKEN"
+>转义符</SPAN
+>
+	(<SPAN
+CLASS="TOKEN"
+>\</SPAN
+>)的字符就是告诉shell这个字符按照字面的意思进行解释, 
+   换句话说, 就是这个字符失去了它的特殊含义. </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在某些特定的命令和工具中, 比如<A
+HREF="internal.html#ECHOREF"
+>echo</A
+>和<A
+HREF="sedawk.html#SEDREF"
+>sed</A
+>, 转义符往往会起到相反效果
+	- 它反倒可能会引发出这个字符的特殊含义. </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="SPM"
+></A
+>特定的转义符的特殊的含义</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>echo</B
+>和<B
+CLASS="COMMAND"
+>sed</B
+>命令中使用</DT
+><DD
+><P
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>\n</SPAN
+></DT
+><DD
+><P
+>表示新的一行</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>\r</SPAN
+></DT
+><DD
+><P
+>表示回车</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>\t</SPAN
+></DT
+><DD
+><P
+>表示水平制表符</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>\v</SPAN
+></DT
+><DD
+><P
+>表示垂直制表符</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>\b</SPAN
+></DT
+><DD
+><P
+>表示后退符</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>\a</SPAN
+></DT
+><DD
+><P
+>表示<SPAN
+CLASS="QUOTE"
+>"alert"</SPAN
+>(蜂鸣或者闪烁)</P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>\0xx</SPAN
+></DT
+><DD
+><P
+>转换为八进制的ASCII码, 等价于<TT
+CLASS="REPLACEABLE"
+><I
+>0xx</I
+></TT
+></P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ESCAPED"
+></A
+><P
+><B
+>例子 5-2. 转义符</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# escaped.sh: 转义符
+  3&nbsp;
+  4&nbsp;echo; echo
+  5&nbsp;
+  6&nbsp;echo "\v\v\v\v"      # 逐字的打印\v\v\v\v.
+  7&nbsp;# 使用-e选项的'echo'命令来打印转义符.
+  8&nbsp;echo "============="
+  9&nbsp;echo "VERTICAL TABS"
+ 10&nbsp;echo -e "\v\v\v\v"   # 打印4个垂直制表符.
+ 11&nbsp;echo "=============="
+ 12&nbsp;
+ 13&nbsp;echo "QUOTATION MARK"
+ 14&nbsp;echo -e "\042"       # 打印" (引号, 8进制的ASCII 码就是42).
+ 15&nbsp;echo "=============="
+ 16&nbsp;
+ 17&nbsp;# 如果使用$'\X'结构,那-e选项就不必要了.
+ 18&nbsp;echo; echo "NEWLINE AND BEEP"
+ 19&nbsp;echo $'\n'           # 新行.
+ 20&nbsp;echo $'\a'           # 警告(蜂鸣).
+ 21&nbsp;
+ 22&nbsp;echo "==============="
+ 23&nbsp;echo "QUOTATION MARKS"
+ 24&nbsp;# 版本2以后Bash允许使用$'\nnn'结构.
+ 25&nbsp;# 注意在这里, '\nnn\'是8进制的值.
+ 26&nbsp;echo $'\t \042 \t'   # 被水平制表符括起来的引号(").
+ 27&nbsp;
+ 28&nbsp;# 当然,也可以使用16进制的值,使用$'\xhhh' 结构.
+ 29&nbsp;echo $'\t \x22 \t'  # 被水平制表符括起来的引号(").
+ 30&nbsp;# 感谢, Greg Keraunen, 指出了这点.
+ 31&nbsp;# 早一点的Bash版本允许'\x022'这种形式.
+ 32&nbsp;echo "==============="
+ 33&nbsp;echo
+ 34&nbsp;
+ 35&nbsp;
+ 36&nbsp;# 分配ASCII字符到变量中.
+ 37&nbsp;# ----------------------------------------
+ 38&nbsp;quote=$'\042'        # " 被赋值到变量中.
+ 39&nbsp;echo "$quote This is a quoted string, $quote and this lies outside the quotes."
+ 40&nbsp;
+ 41&nbsp;echo
+ 42&nbsp;
+ 43&nbsp;# 变量中的连续的ASCII字符.
+ 44&nbsp;triple_underline=$'\137\137\137'  # 137是八进制的'_'.
+ 45&nbsp;echo "$triple_underline UNDERLINE $triple_underline"
+ 46&nbsp;
+ 47&nbsp;echo
+ 48&nbsp;
+ 49&nbsp;ABC=$'\101\102\103\010'           # 101, 102, 103是八进制码的A, B, C.
+ 50&nbsp;echo $ABC
+ 51&nbsp;
+ 52&nbsp;echo; echo
+ 53&nbsp;
+ 54&nbsp;escape=$'\033'                    # 033 是八进制码的esc.
+ 55&nbsp;echo "\"escape\" echoes as $escape"
+ 56&nbsp;#                                   没有变量被输出.
+ 57&nbsp;
+ 58&nbsp;echo; echo
+ 59&nbsp;
+ 60&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>参考<A
+HREF="bashver2.html#EX77"
+>例子 34-1</A
+>, 
+			  这是关于<KBD
+CLASS="USERINPUT"
+>$'   '</KBD
+>字符串扩展结构的一个例子. </P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>\"</SPAN
+></DT
+><DD
+><P
+>表示引号字面的意思</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo "Hello"                  # Hello
+  2&nbsp;echo "\"Hello\", he said."    # "Hello", he said.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>\$</SPAN
+></DT
+><DD
+><P
+>表示$本身子面的含义(跟在<SPAN
+CLASS="TOKEN"
+>\$</SPAN
+>后边的变量名将不能引用变量的值)</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo "\$variable01"  # 结果是$variable01</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><SPAN
+CLASS="TOKEN"
+>\\</SPAN
+></DT
+><DD
+><P
+>表示反斜线字面的意思</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo "\\"  # 结果是\
+  2&nbsp;
+  3&nbsp;# 反之 . . .
+  4&nbsp;
+  5&nbsp;echo "\"   # 如果从命令行调用的话, 会出现SP2, 也就是2级提示符(译者注: 提示你命令不全, 在添加一个"就好了.
+  6&nbsp;           # 如果在脚本中调用的话, 那么会报错. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><SPAN
+CLASS="TOKEN"
+>\</SPAN
+>的行为依赖于它自身是否被转义, 被引用(""), 
+	或者是否出现在<A
+HREF="commandsub.html#COMMANDSUBREF"
+>命令替换</A
+>或<A
+HREF="here-docs.html#HEREDOCREF"
+>here document</A
+>中.
+
+	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;                      #  简单的转义和引用
+  2&nbsp;echo \z               #  z
+  3&nbsp;echo \\z              # \z
+  4&nbsp;echo '\z'             # \z
+  5&nbsp;echo '\\z'            # \\z
+  6&nbsp;echo "\z"             # \z
+  7&nbsp;echo "\\z"            # \z
+  8&nbsp;
+  9&nbsp;                      #  命令替换
+ 10&nbsp;echo `echo \z`        #  z
+ 11&nbsp;echo `echo \\z`       #  z
+ 12&nbsp;echo `echo \\\z`      # \z
+ 13&nbsp;echo `echo \\\\z`     # \z
+ 14&nbsp;echo `echo \\\\\\z`   # \z
+ 15&nbsp;echo `echo \\\\\\\z`  # \\z
+ 16&nbsp;echo `echo "\z"`      # \z
+ 17&nbsp;echo `echo "\\z"`     # \z
+ 18&nbsp;
+ 19&nbsp;                      # Here document
+ 20&nbsp;cat &#60;&#60;EOF              
+ 21&nbsp;\z                      
+ 22&nbsp;EOF                   # \z
+ 23&nbsp;
+ 24&nbsp;cat &#60;&#60;EOF              
+ 25&nbsp;\\z                     
+ 26&nbsp;EOF                   # \z
+ 27&nbsp;
+ 28&nbsp;# 这些例子是由Stephane Chazelas所提供的.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>赋值给变量的字符串的元素也会被转义, 但是不能把一个单独的转义符赋值给变量.
+	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;variable=\
+  2&nbsp;echo "$variable"
+  3&nbsp;# 不能正常运行 - 会报错:
+  4&nbsp;# test.sh: : command not found
+  5&nbsp;# 一个"裸体的"转义符是不能够安全的赋值给变量的.
+  6&nbsp;#
+  7&nbsp;#  事实上在这里"\"转义了一个换行符(变成了续航符的含义), 
+  8&nbsp;#+ 效果就是				variable=echo "$variable"
+  9&nbsp;#+                      不可用的变量赋值
+ 10&nbsp;
+ 11&nbsp;variable=\
+ 12&nbsp;23skidoo
+ 13&nbsp;echo "$variable"        #  23skidoo
+ 14&nbsp;                        #  这句是可以的, 因为
+ 15&nbsp;                        #+ 第2行是一个可用的变量赋值.
+ 16&nbsp;
+ 17&nbsp;variable=\ 
+ 18&nbsp;#        \^    转义一个空格
+ 19&nbsp;echo "$variable"        # 显示空格
+ 20&nbsp;
+ 21&nbsp;variable=\\
+ 22&nbsp;echo "$variable"        # \
+ 23&nbsp;
+ 24&nbsp;variable=\\\
+ 25&nbsp;echo "$variable"
+ 26&nbsp;# 不能正常运行 - 报错:
+ 27&nbsp;# test.sh: \: command not found
+ 28&nbsp;#
+ 29&nbsp;#  第一个转义符把第2个\转义了,但是第3个又变成"裸体的"了,
+ 30&nbsp;#+ 与上边的例子的原因相同.
+ 31&nbsp;
+ 32&nbsp;variable=\\\\
+ 33&nbsp;echo "$variable"        # \\
+ 34&nbsp;                        # 第2和第4个反斜线被转义了.
+ 35&nbsp;                        # 这是正确的. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>转义一个空格会阻止命令行参数列表的<SPAN
+CLASS="QUOTE"
+>"单词分割"</SPAN
+>问题.
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;file_list="/bin/cat /bin/gzip /bin/more /usr/bin/less /usr/bin/emacs-20.7"
+  2&nbsp;# 列出的文件都作为命令的参数.
+  3&nbsp;
+  4&nbsp;# 加两个文件到参数列表中, 列出所有的文件信息.
+  5&nbsp;ls -l /usr/X11R6/bin/xsetroot /sbin/dump $file_list
+  6&nbsp;
+  7&nbsp;echo "-------------------------------------------------------------------------"
+  8&nbsp;
+  9&nbsp;# 如果我们将上边的两个空个转义了会产生什么效果?
+ 10&nbsp;ls -l /usr/X11R6/bin/xsetroot\ /sbin/dump\ $file_list
+ 11&nbsp;# 错误: 因为前3个路径被合并成一个参数传递给了'ls -l'
+ 12&nbsp;#       而且两个经过转义的空格组织了参数(单词)分割. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+> <SPAN
+CLASS="TOKEN"
+>转义符</SPAN
+>也提供续行功能, 也就是编写多行命令的功能. 
+	一般的, 每一个单独行都包含一个不同的命令, 
+	但是每行结尾的<SPAN
+CLASS="TOKEN"
+>转义符</SPAN
+>都会<EM
+>转义换行符</EM
+>,
+	这样下一行会与上一行一起形成一个命令序列. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;(cd /source/directory &#38;&#38; tar cf - . ) | \
+  2&nbsp;(cd /dest/directory &#38;&#38; tar xpvf -)
+  3&nbsp;# 重复Alan Cox的目录数拷贝命令,
+  4&nbsp;# 但是分成两行是为了增加可读性.
+  5&nbsp;
+  6&nbsp;# 也可以使用如下方式:
+  7&nbsp;tar cf - -C /source/directory . |
+  8&nbsp;tar xpvf - -C /dest/directory
+  9&nbsp;# 察看下边的注意事项.
+ 10&nbsp;# (感谢, Stephane Chazelas.)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+        
+	<DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果一个脚本以<SPAN
+CLASS="TOKEN"
+>|</SPAN
+>结束, 管道符, 
+			那么就不用非的加上转义符<SPAN
+CLASS="TOKEN"
+>\</SPAN
+>了. 
+			但是一个好的编程风格, 还是应该在行尾加上转义符. </P
+></TD
+></TR
+></TABLE
+></DIV
+></P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo "foo
+  2&nbsp;bar" 
+  3&nbsp;#foo
+  4&nbsp;#bar
+  5&nbsp;
+  6&nbsp;echo
+  7&nbsp;
+  8&nbsp;echo 'foo
+  9&nbsp;bar'    # 没什么区别.
+ 10&nbsp;#foo
+ 11&nbsp;#bar
+ 12&nbsp;
+ 13&nbsp;echo
+ 14&nbsp;
+ 15&nbsp;echo foo\
+ 16&nbsp;bar     # 换行符被转义.
+ 17&nbsp;#foobar
+ 18&nbsp;
+ 19&nbsp;echo
+ 20&nbsp;
+ 21&nbsp;echo "foo\
+ 22&nbsp;bar"     # 与上边一样, \在部分引用中还是被解释为续行符. 
+ 23&nbsp;#foobar
+ 24&nbsp;
+ 25&nbsp;echo
+ 26&nbsp;
+ 27&nbsp;echo 'foo\
+ 28&nbsp;bar'     # 由于是全引用, 所以\没有被解释成续行符. 
+ 29&nbsp;#foo\
+ 30&nbsp;#bar
+ 31&nbsp;
+ 32&nbsp;# 由Stephane Chazelas所建议的用例.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="quotingvar.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="exit-status.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>引用变量</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="quoting.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>退出和退出状态码</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

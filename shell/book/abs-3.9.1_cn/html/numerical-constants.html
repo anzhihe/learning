@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>数字常量</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="操作符与相关主题"
+HREF="operations.html"><LINK
+REL="PREVIOUS"
+TITLE="操作符"
+HREF="ops.html"><LINK
+REL="NEXT"
+TITLE="进阶"
+HREF="part3.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ops.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>8. 操作符与相关主题</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="part3.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="NUMERICAL-CONSTANTS"
+>8.2. 数字常量</A
+></H1
+><P
+><A
+NAME="NUMCONSTANTS"
+></A
+>shell脚本在默认情况下都是把数字作为10进制数来处理, 
+	除非这个数字采用了特殊的标记或者前缀.
+	如果数字以<TT
+CLASS="REPLACEABLE"
+><I
+>0</I
+></TT
+>开头的话那么就是<TT
+CLASS="REPLACEABLE"
+><I
+>8进制</I
+></TT
+>数.
+	如果数字以<TT
+CLASS="REPLACEABLE"
+><I
+>0x</I
+></TT
+>开头的话那么就是<TT
+CLASS="REPLACEABLE"
+><I
+>16进制</I
+></TT
+>数. 
+	如果数字中间嵌入了<TT
+CLASS="REPLACEABLE"
+><I
+>#</I
+></TT
+>的话, 那么就被认为是<TT
+CLASS="REPLACEABLE"
+><I
+>BASE#NUMBER</I
+></TT
+>形式的标记法(有范围和符号限制).</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="NUMBERS"
+></A
+><P
+><B
+>例子 8-4. 数字常量表示法</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# numbers.sh: 几种不同数制的数字表示法.
+  3&nbsp;
+  4&nbsp;# 10进制: 默认情况
+  5&nbsp;let "dec = 32"
+  6&nbsp;echo "decimal number = $dec"             # 32
+  7&nbsp;# 这没什么特别的.
+  8&nbsp;
+  9&nbsp;
+ 10&nbsp;# 8进制: 以'0'(零)开头 
+ 11&nbsp;let "oct = 032"
+ 12&nbsp;echo "octal number = $oct"               # 26
+ 13&nbsp;# 表达式结果是用10进制表示的.
+ 14&nbsp;# ---------------------------
+ 15&nbsp;
+ 16&nbsp;# 16进制: 以'0x'或者'0X'开头的数字
+ 17&nbsp;let "hex = 0x32"
+ 18&nbsp;echo "hexadecimal number = $hex"         # 50
+ 19&nbsp;# 表达式结果是用10进制表示的.
+ 20&nbsp;
+ 21&nbsp;# 其他进制: BASE#NUMBER
+ 22&nbsp;# BASE的范围在2到64之间.
+ 23&nbsp;# NUMBER的值必须使用BASE范围内的符号来表示, 具体看下边的示例. 
+ 24&nbsp;
+ 25&nbsp;
+ 26&nbsp;let "bin = 2#111100111001101"
+ 27&nbsp;echo "binary number = $bin"              # 31181
+ 28&nbsp;
+ 29&nbsp;let "b32 = 32#77"
+ 30&nbsp;echo "base-32 number = $b32"             # 231
+ 31&nbsp;
+ 32&nbsp;let "b64 = 64#@_"
+ 33&nbsp;echo "base-64 number = $b64"             # 4031
+ 34&nbsp;# 这个表示法只能工作于受限的ASCII字符范围(2 - 64).
+ 35&nbsp;# 10个数字 + 26个小写字母 + 26个大写字符 + @ + _
+ 36&nbsp;
+ 37&nbsp;
+ 38&nbsp;echo
+ 39&nbsp;
+ 40&nbsp;echo $((36#zz)) $((2#10101010)) $((16#AF16)) $((53#1aA))
+ 41&nbsp;                                         # 1295 170 44822 3375
+ 42&nbsp;
+ 43&nbsp;
+ 44&nbsp;#  重要的注意事项:
+ 45&nbsp;#  ---------------
+ 46&nbsp;#  使用一个超出给定进制的数字的话, 
+ 47&nbsp;#+ 将会引起一个错误. 
+ 48&nbsp;
+ 49&nbsp;let "bad_oct = 081"
+ 50&nbsp;# (部分的) 错误消息输出:
+ 51&nbsp;#  bad_oct = 081: value too great for base (error token is "081")
+ 52&nbsp;#              Octal numbers use only digits in the range 0 - 7.
+ 53&nbsp;
+ 54&nbsp;exit 0       # 感谢, Rich Bartell 和 Stephane Chazelas的指正. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ops.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="part3.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>操作符</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="operations.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>进阶</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resource>
+        <object class="wxPanel" name="panel">
+				<size>200,100</size>
+	                <object class="wxStaticText" name="label3">
+                    <label>功能描述：请选择需要同步的文件。</label>
+                    <pos>30,20</pos>
+                    </object>
+            <object class="wxListBox" name="Parameter1_object_id">
+                <pos>30,50</pos>
+                <style>wxLB_SINGLE</style>
+                <content>
+                    <item>nginx</item>
+                    <item>nginx_config</item>
+                    <item>haproxy</item>
+                    <item>syslog</item>
+                    <item>sysctl</item>
+                    <item>resin</item>
+                    <item>resinhttpd</item>
+                </content>
+            </object>
+        </object>
+</resource>

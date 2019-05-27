@@ -1,0 +1,1546 @@
+2010-11-15 10:11:54,705 [ERROR] connect database error!(1044, "Access denied for user 'webmonitor_user'@'localhost' to database 'WebMonitor1'")
+2010-11-15 10:11:54,711 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-15 10:19:12,329 [ERROR] pycurl url reset![Errno 2] No such file or directory: 'body'
+2010-11-15 10:19:12,330 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:19:37,831 [ERROR] pycurl url reset!(52, 'Empty reply from server')
+2010-11-15 10:19:37,831 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:19:38,758 [ERROR] pycurl url reset![Errno 2] No such file or directory: 'body'
+2010-11-15 10:19:38,758 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:19:39,334 [ERROR] pycurl url reset![Errno 2] No such file or directory: 'body'
+2010-11-15 10:19:39,334 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:19:39,844 [ERROR] pycurl url reset![Errno 2] No such file or directory: 'body'
+2010-11-15 10:19:39,844 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:22:52,879 [ERROR] pycurl url reset!global name 'c' is not defined
+2010-11-15 10:22:52,880 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:22:52,880 [ERROR] pycurl url reset!global name 'c' is not defined
+2010-11-15 10:22:52,881 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:22:52,881 [ERROR] pycurl url reset!global name 'c' is not defined
+2010-11-15 10:22:52,881 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:22:52,881 [ERROR] pycurl url reset!global name 'c' is not defined
+2010-11-15 10:22:52,882 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:22:52,882 [ERROR] pycurl url reset!global name 'c' is not defined
+2010-11-15 10:22:52,882 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:22:58,665 [ERROR] pycurl url reset!global name 'c' is not defined
+2010-11-15 10:22:58,666 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:22:58,666 [ERROR] pycurl url reset!global name 'c' is not defined
+2010-11-15 10:22:58,666 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:22:58,666 [ERROR] pycurl url reset!global name 'c' is not defined
+2010-11-15 10:22:58,666 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:22:58,666 [ERROR] pycurl url reset!global name 'c' is not defined
+2010-11-15 10:22:58,666 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:22:58,666 [ERROR] pycurl url reset!global name 'c' is not defined
+2010-11-15 10:22:58,666 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:29:11,069 [ERROR] pycurl url reset!'str' object has no attribute 'str'
+2010-11-15 10:29:11,070 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:29:11,070 [ERROR] pycurl url reset!'str' object has no attribute 'str'
+2010-11-15 10:29:11,070 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:29:11,070 [ERROR] pycurl url reset!'str' object has no attribute 'str'
+2010-11-15 10:29:11,070 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:29:11,070 [ERROR] pycurl url reset!'str' object has no attribute 'str'
+2010-11-15 10:29:11,070 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:29:11,070 [ERROR] pycurl url reset!'str' object has no attribute 'str'
+2010-11-15 10:29:11,070 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:30:03,380 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:30:03,937 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:30:04,401 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:30:04,892 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:30:05,205 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:34:13,035 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:35:12,919 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:35:13,393 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:35:13,790 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:35:13,953 [DEBUG] monitordata insert error%d format: a number is required, not NoneType
+2010-11-15 10:48:19,113 [DEBUG] monitordata insert errorfloat argument required, not str
+2010-11-15 10:49:04,028 [ERROR] pycurl url reset!(52, 'Empty reply from server')
+2010-11-15 10:49:04,029 [DEBUG] monitordata insert errorfloat argument required, not str
+2010-11-15 10:49:04,575 [DEBUG] monitordata insert errorfloat argument required, not str
+2010-11-15 10:49:05,129 [DEBUG] monitordata insert errorfloat argument required, not str
+2010-11-15 10:49:05,330 [DEBUG] monitordata insert errorfloat argument required, not str
+2010-11-15 11:31:11,622 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:31:12,084 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:31:12,563 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:31:13,112 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:31:13,381 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:32:18,973 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:32:19,618 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:32:20,159 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:32:20,670 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:32:20,939 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:33:08,645 [DEBUG] monitordata insert errornot all arguments converted during string formatting
+2010-11-15 11:33:08,899 [DEBUG] monitordata insert errornot all arguments converted during string formatting
+2010-11-15 11:33:09,442 [DEBUG] monitordata insert errornot all arguments converted during string formatting
+2010-11-15 11:33:09,952 [DEBUG] monitordata insert errornot all arguments converted during string formatting
+2010-11-15 11:33:10,214 [DEBUG] monitordata insert errornot all arguments converted during string formatting
+2010-11-15 11:43:14,797 [DEBUG] monitordata insert errornot all arguments converted during string formatting
+2010-11-15 11:43:15,210 [DEBUG] monitordata insert errornot all arguments converted during string formatting
+2010-11-15 11:43:15,695 [DEBUG] monitordata insert errornot all arguments converted during string formatting
+2010-11-15 11:43:16,139 [DEBUG] monitordata insert errornot all arguments converted during string formatting
+2010-11-15 11:43:16,476 [DEBUG] monitordata insert errornot all arguments converted during string formatting
+2010-11-15 11:44:17,167 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:44:17,650 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:44:18,489 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:44:18,887 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:44:19,032 [DEBUG] monitordata insert error%d format: a number is required, not str
+2010-11-15 11:46:41,098 [DEBUG] monitordata insert error:not all arguments converted during string formatting
+2010-11-15 11:46:41,604 [DEBUG] monitordata insert error:not all arguments converted during string formatting
+2010-11-15 11:46:42,054 [DEBUG] monitordata insert error:not all arguments converted during string formatting
+2010-11-15 11:46:42,518 [DEBUG] monitordata insert error:not all arguments converted during string formatting
+2010-11-15 11:46:42,739 [DEBUG] monitordata insert error:not all arguments converted during string formatting
+2010-11-15 11:47:59,897 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 11:48:08,210 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 11:48:08,747 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 11:48:09,215 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 11:48:09,407 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 11:50:37,981 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 11:50:38,447 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 11:50:39,001 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 11:50:39,719 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 11:50:39,890 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 11:51:10,458 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 11:51:10,812 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 11:51:11,513 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 11:51:11,894 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 11:51:12,023 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 14:14:04,848 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 14:14:05,661 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 14:14:06,104 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 14:14:06,545 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 14:14:06,800 [DEBUG] monitordata insert error:%d format: a number is required, not str
+2010-11-15 15:13:04,224 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:13:04,275 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:13:04,308 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:13:04,341 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:13:04,375 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:13:28,353 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:13:28,392 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:13:28,417 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:13:28,442 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:13:28,467 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:15:07,682 [ERROR] pycurl url reset!(52, 'Empty reply from server')
+2010-11-15 15:15:49,676 [ERROR] pycurl url reset!(52, 'Empty reply from server')
+2010-11-15 15:16:43,537 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:16:43,584 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:16:43,609 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:16:43,634 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:16:43,659 [ERROR] pycurl url reset!(3, 'No URL set!')
+2010-11-15 15:35:58,421 [DEBUG] monitordata insert error:cannot concatenate 'str' and 'tuple' objects
+2010-11-15 15:36:24,168 [ERROR] pycurl url reset!(52, 'Empty reply from server')
+2010-11-15 15:36:24,168 [DEBUG] monitordata insert error:cannot concatenate 'str' and 'tuple' objects
+2010-11-15 15:36:24,976 [DEBUG] monitordata insert error:cannot concatenate 'str' and 'tuple' objects
+2010-11-15 15:36:28,488 [DEBUG] monitordata insert error:cannot concatenate 'str' and 'tuple' objects
+2010-11-15 15:36:28,567 [DEBUG] monitordata insert error:cannot concatenate 'str' and 'tuple' objects
+2010-11-15 15:44:10,891 [ERROR] pycurl url reset!(52, 'Empty reply from server')
+2010-11-15 15:46:28,564 [ERROR] pycurl url reset!(28, 'Operation timed out after 5000 milliseconds with 0 bytes received')
+2010-11-15 16:07:03,391 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 0 bytes received')
+2010-11-15 16:09:01,032 [ERROR] pycurl url reset:(28, 'Operation timed out after 2000 milliseconds with 0 bytes received')
+2010-11-15 16:13:21,827 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-15 16:25:21,199 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 0 bytes received')
+2010-11-15 16:28:37,957 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-15 16:29:08,642 [ERROR] pycurl url reset:(28, 'Operation timed out after 10000 milliseconds with 0 bytes received')
+2010-11-15 17:15:17,768 [ERROR] pycurl url reset:(6, "Couldn't resolve host 'xdjx.tianya.cn'")
+2010-11-15 17:23:06,165 [ERROR] pycurl url reset:(6, "Couldn't resolve host 'xdjx.tianya.cn'")
+2010-11-15 17:33:17,230 [ERROR] pycurl url reset:(6, "Couldn't resolve host 'xdjx.tianya.cn'")
+2010-11-15 17:33:17,231 [DEBUG] monitordata insert error:(1064, 'You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'t resolve host \'xdjx.tianya.cn\'")\',\'0.000000\',\'0\',\'0\',\'0.000000\',\'0.000000\',\'128\' at line 1')
+2010-11-15 17:38:59,285 [ERROR] pycurl url reset:(6, "Couldn't resolve host 'xdjx.tianya.cn'")
+2010-11-15 17:47:14,041 [ERROR] pycurl url reset:(6, "Couldn't resolve host 'xdjx.tianya.cn'")
+2010-11-15 17:47:14,057 [DEBUG] monitordata insert error:(1064, 'You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'t resolve host \'xdjx.tianya.cn\'")\',\'0.000000\',\'0\',\'0\',\'0.000000\',\'0.000000\',\'128\' at line 1')
+2010-11-15 17:50:03,650 [ERROR] pycurl url reset:(6, "Couldn't resolve host 'xdjx.tianya.cn'")
+2010-11-15 18:49:40,832 [ERROR] pycurl url reset:(6, "Couldn't resolve host 'xdjx.tianya.cn'")
+2010-11-15 18:50:21,623 [ERROR] pycurl url reset:(6, "Couldn't resolve host 'xdjx.tianya.cn'")
+2010-11-15 18:50:21,624 [DEBUG] monitordata insert error:(1064, 'You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'t resolve host \'xdjx.tianya.cn\'")\',\'0.000000\',\'0\',\'0\',\'0.000000\',\'0.000000\',\'128\' at line 1')
+2010-11-15 18:51:49,651 [ERROR] pycurl url reset:(6, "Couldn't resolve host 'xdjx.tianya.cn'")
+2010-11-15 18:52:35,086 [ERROR] pycurl url reset:(6, "Couldn't resolve host 'xdjx.tianya.cn'")
+2010-11-15 19:05:10,328 [ERROR] pycurl url reset:[Errno 2] No such file or directory: 'body'
+2010-11-15 19:15:07,631 [ERROR] pycurl url reset:second argument must be open file
+2010-11-15 19:15:07,682 [ERROR] pycurl url reset:second argument must be open file
+2010-11-15 19:15:07,716 [ERROR] pycurl url reset:second argument must be open file
+2010-11-15 19:15:07,749 [ERROR] pycurl url reset:second argument must be open file
+2010-11-15 19:15:07,774 [ERROR] pycurl url reset:second argument must be open file
+2010-11-16 11:36:55,643 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 11:36:55,669 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 11:36:55,669 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 11:36:55,781 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 11:36:55,782 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 11:36:55,782 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 11:36:55,848 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 11:36:55,849 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 11:36:55,849 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 11:36:55,914 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 11:36:55,915 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 11:36:55,915 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 11:36:55,981 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 11:36:55,981 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 11:36:55,982 [ERROR] Get FID URL  error:global name 'GetURLdomain' is not defined
+2010-11-16 14:13:30,319 [ERROR] create rrd error!<built-in function id>
+2010-11-16 14:14:50,543 [DEBUG] /bin/sh  /opt/python/servermonitor/webmonitor/createrrd.sh /opt/python/servermonitor/rrd/game.hainan.net/1_time.rrd time
+2010-11-16 14:14:50,568 [DEBUG] /bin/sh  /opt/python/servermonitor/webmonitor/createrrd.sh /opt/python/servermonitor/rrd/game.hainan.net/1_download.rrd download
+2010-11-16 14:14:50,593 [DEBUG] /bin/sh  /opt/python/servermonitor/webmonitor/createrrd.sh /opt/python/servermonitor/rrd/game.hainan.net/1_unavailable.rrd unavailable
+2010-11-16 15:50:06,741 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-16 17:15:06,995 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-17 02:10:06,661 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-17 06:30:07,142 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-17 11:10:06,882 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 0 bytes received')
+2010-11-17 11:15:06,208 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 0 bytes received')
+2010-11-17 11:15:11,340 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 0 bytes received')
+2010-11-17 11:20:06,639 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 0 bytes received')
+2010-11-17 11:35:06,219 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 0 bytes received')
+2010-11-17 11:35:11,313 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 0 bytes received')
+2010-11-17 14:20:06,922 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-18 10:43:34,747 [ERROR] Get Host data  error:GraphRRD instance has no attribute 'getURL'
+2010-11-18 10:45:21,207 [ERROR] Get Host data  error:bad operand type for unary +: 'str'
+2010-11-18 11:40:23,259 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,263 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,266 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,269 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,273 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,276 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,279 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,283 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,286 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,290 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,293 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,296 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,300 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,303 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,306 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,310 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,313 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,316 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,319 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,322 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-18 11:40:23,325 [ERROR] graph rrd error:global name 'DOWN_APEED_ALARM' is not defined
+2010-11-19 07:05:01,568 [ERROR] pycurl url reset:(7, "couldn't connect to host")
+2010-11-19 07:05:01,571 [ERROR] pycurl url reset:(7, "couldn't connect to host")
+2010-11-19 07:05:01,574 [ERROR] pycurl url reset:(7, "couldn't connect to host")
+2010-11-19 07:05:01,577 [ERROR] pycurl url reset:(7, "couldn't connect to host")
+2010-11-22 12:35:07,236 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-22 13:00:08,085 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185842 bytes received')
+2010-11-22 13:25:07,356 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185842 bytes received')
+2010-11-22 14:00:06,746 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 28708 bytes received')
+2010-11-22 15:25:08,883 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 95691 bytes received')
+2010-11-22 15:35:07,420 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185842 bytes received')
+2010-11-22 16:10:10,188 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 5491 out of 45430 bytes received')
+2010-11-22 16:15:10,118 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 0 bytes received')
+2010-11-22 18:40:06,860 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-22 20:35:08,372 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185448 bytes received')
+2010-11-22 21:20:06,770 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-22 21:30:06,898 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 108723 bytes received')
+2010-11-22 21:35:08,089 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 120307 bytes received')
+2010-11-22 22:25:07,314 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-22 22:45:06,864 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-22 23:00:04,618 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 95691 bytes received')
+2010-11-22 23:45:06,867 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 28708 bytes received')
+2010-11-23 00:15:07,746 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 100035 bytes received')
+2010-11-23 08:20:08,266 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159754 bytes received')
+2010-11-23 08:30:07,225 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185842 bytes received')
+2010-11-23 08:40:06,501 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 195481 bytes received')
+2010-11-23 08:45:06,760 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 195438 bytes received')
+2010-11-23 09:25:06,889 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185842 bytes received')
+2010-11-23 10:30:07,386 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159778 bytes received')
+2010-11-23 11:20:07,160 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-23 11:30:06,619 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 31604 bytes received')
+2010-11-23 11:50:07,485 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-23 12:30:07,339 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 177154 bytes received')
+2010-11-23 14:25:07,208 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 95691 bytes received')
+2010-11-23 14:40:07,377 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-23 15:30:06,663 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 163874 bytes received')
+2010-11-23 15:55:07,009 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 95691 bytes received')
+2010-11-23 16:50:06,938 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-23 18:30:06,892 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 196345 bytes received')
+2010-11-23 18:45:08,173 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 162674 bytes received')
+2010-11-23 19:00:07,421 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-23 19:05:07,141 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 196269 bytes received')
+2010-11-23 19:40:06,753 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 34500 bytes received')
+2010-11-23 20:10:06,625 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-23 20:40:08,252 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 187270 bytes received')
+2010-11-23 21:30:07,393 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-23 22:00:07,588 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 161122 bytes received')
+2010-11-23 23:45:07,866 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 120307 bytes received')
+2010-11-24 00:15:07,394 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-24 00:55:06,825 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-24 03:15:07,387 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 166770 bytes received')
+2010-11-24 05:00:06,285 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-24 08:25:06,877 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 196892 bytes received')
+2010-11-24 09:10:07,939 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 108723 bytes received')
+2010-11-24 10:30:07,129 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 28708 bytes received')
+2010-11-24 10:50:07,276 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 108723 bytes received')
+2010-11-24 11:20:07,345 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 43188 bytes received')
+2010-11-24 11:35:06,965 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 43188 bytes received')
+2010-11-24 11:40:07,529 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 108723 bytes received')
+2010-11-24 11:55:08,501 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 120307 bytes received')
+2010-11-24 12:15:06,949 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 197263 bytes received')
+2010-11-24 12:20:07,158 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 108723 bytes received')
+2010-11-24 12:30:07,094 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 174258 bytes received')
+2010-11-24 12:35:06,697 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 108723 bytes received')
+2010-11-24 12:50:07,751 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 197321 bytes received')
+2010-11-24 13:05:06,960 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-24 14:55:06,552 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-24 15:20:06,895 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 47532 bytes received')
+2010-11-24 15:35:06,575 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159778 bytes received')
+2010-11-24 17:55:07,325 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 174258 bytes received')
+2010-11-24 19:15:07,254 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 197181 bytes received')
+2010-11-24 19:20:06,793 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-24 19:35:06,968 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-24 21:05:07,371 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-24 22:00:06,768 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185842 bytes received')
+2010-11-24 22:25:06,946 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 35948 bytes received')
+2010-11-24 23:50:07,127 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-25 00:05:07,127 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 196683 bytes received')
+2010-11-25 03:30:06,710 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 30136 bytes received')
+2010-11-25 04:00:06,522 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 196447 bytes received')
+2010-11-25 05:00:07,828 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-25 05:05:06,545 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 148015 bytes received')
+2010-11-25 07:25:07,188 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 196340 bytes received')
+2010-11-25 08:05:07,896 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 97099 bytes received')
+2010-11-25 08:20:07,121 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-25 08:25:06,877 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-25 09:15:07,295 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 196560 bytes received')
+2010-11-25 09:35:07,407 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185842 bytes received')
+2010-11-25 10:20:07,686 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 111619 bytes received')
+2010-11-25 11:10:08,046 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 98587 bytes received')
+2010-11-25 12:50:06,433 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 97139 bytes received')
+2010-11-25 13:20:06,440 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 28708 bytes received')
+2010-11-25 13:40:06,538 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-25 14:35:07,423 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-25 15:05:06,375 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 43188 bytes received')
+2010-11-25 15:20:07,488 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-25 15:30:07,509 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 189938 bytes received')
+2010-11-25 16:20:07,021 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 196739 bytes received')
+2010-11-25 16:55:07,095 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-25 18:15:07,762 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 120307 bytes received')
+2010-11-25 18:20:06,448 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 43188 bytes received')
+2010-11-25 19:40:07,334 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 47532 bytes received')
+2010-11-25 20:05:06,638 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-25 20:25:07,381 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159674 bytes received')
+2010-11-25 21:00:07,007 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-25 21:05:06,836 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-25 21:10:07,341 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-25 21:50:06,814 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 28708 bytes received')
+2010-11-25 22:25:07,161 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 120307 bytes received')
+2010-11-25 22:55:07,778 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 97099 bytes received')
+2010-11-25 23:10:07,954 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-25 23:25:07,361 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-25 23:30:07,393 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 28708 bytes received')
+2010-11-25 23:45:07,277 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-26 00:05:08,326 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-26 01:35:07,098 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-26 08:30:07,558 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 162674 bytes received')
+2010-11-26 08:45:07,142 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185842 bytes received')
+2010-11-26 09:00:06,469 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185842 bytes received')
+2010-11-26 09:10:07,540 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 120307 bytes received')
+2010-11-26 09:25:07,137 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 43188 bytes received')
+2010-11-26 10:15:07,320 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 161123 bytes received')
+2010-11-26 10:40:07,324 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-26 10:50:07,612 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 196527 bytes received')
+2010-11-26 11:40:07,384 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 108723 bytes received')
+2010-11-26 12:20:06,603 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 177114 bytes received')
+2010-11-26 12:30:07,337 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 196430 bytes received')
+2010-11-26 14:15:06,695 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 178602 bytes received')
+2010-11-26 15:25:07,616 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 120307 bytes received')
+2010-11-26 16:40:07,266 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 83732 bytes received')
+2010-11-26 16:55:07,163 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185842 bytes received')
+2010-11-26 18:20:07,398 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-26 18:25:06,930 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-26 20:50:08,422 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-26 21:00:06,994 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 120307 bytes received')
+2010-11-26 21:20:08,520 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-26 21:25:06,723 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 113067 bytes received')
+2010-11-26 21:50:07,229 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185842 bytes received')
+2010-11-26 22:25:07,235 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 196158 bytes received')
+2010-11-26 23:15:07,504 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159755 bytes received')
+2010-11-26 23:20:06,499 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-27 00:35:07,283 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159778 bytes received')
+2010-11-27 01:00:06,903 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 30156 bytes received')
+2010-11-27 01:25:07,154 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-27 01:35:07,545 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 196699 bytes received')
+2010-11-27 02:20:06,934 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 120307 bytes received')
+2010-11-27 02:25:06,709 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 95691 bytes received')
+2010-11-27 04:50:08,356 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-27 06:10:07,201 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 28708 bytes received')
+2010-11-27 08:00:06,648 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 30156 bytes received')
+2010-11-27 09:05:07,037 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159778 bytes received')
+2010-11-27 09:25:07,029 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-27 09:40:07,308 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 196443 bytes received')
+2010-11-27 14:10:07,522 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 108723 bytes received')
+2010-11-27 14:55:06,758 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 175686 bytes received')
+2010-11-27 15:10:06,636 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 44636 bytes received')
+2010-11-27 15:45:07,233 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 167018 bytes received')
+2010-11-27 15:55:06,758 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-27 16:05:07,173 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185842 bytes received')
+2010-11-27 16:25:06,545 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 108723 bytes received')
+2010-11-27 17:30:07,155 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 108723 bytes received')
+2010-11-27 17:55:07,158 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185842 bytes received')
+2010-11-27 19:35:07,215 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 161206 bytes received')
+2010-11-27 19:50:06,917 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-27 20:10:07,891 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159778 bytes received')
+2010-11-27 20:30:07,438 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 188698 bytes received')
+2010-11-27 20:55:07,384 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 175686 bytes received')
+2010-11-27 21:20:07,278 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 43188 bytes received')
+2010-11-27 21:50:07,540 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 195298 bytes received')
+2010-11-27 22:45:07,825 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 185842 bytes received')
+2010-11-27 23:55:08,247 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 28708 bytes received')
+2010-11-28 00:10:06,849 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 195167 bytes received')
+2010-11-28 00:15:06,537 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 195167 bytes received')
+2010-11-28 03:15:06,940 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-28 03:35:07,114 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-28 03:45:07,040 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 195063 bytes received')
+2010-11-28 03:50:06,821 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 161226 bytes received')
+2010-11-28 05:30:06,796 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159778 bytes received')
+2010-11-28 06:55:07,277 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 195059 bytes received')
+2010-11-28 08:50:06,606 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-28 11:15:08,550 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 187270 bytes received')
+2010-11-28 12:40:08,009 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-28 13:55:06,974 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-28 14:00:07,219 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-28 14:35:06,454 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 181524 bytes received')
+2010-11-28 14:40:06,544 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-28 15:45:07,163 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159778 bytes received')
+2010-11-28 15:50:07,169 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-28 15:55:06,403 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 162562 bytes received')
+2010-11-28 16:05:07,144 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 28708 bytes received')
+2010-11-28 16:25:07,526 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159778 bytes received')
+2010-11-28 18:10:06,890 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 163874 bytes received')
+2010-11-28 18:55:07,075 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159778 bytes received')
+2010-11-28 19:05:07,460 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 120307 bytes received')
+2010-11-28 19:40:07,397 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 161206 bytes received')
+2010-11-28 19:55:07,188 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 50428 bytes received')
+2010-11-28 20:15:07,233 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-28 20:20:06,432 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-28 20:40:06,644 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159778 bytes received')
+2010-11-28 20:50:07,064 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 155336 bytes received')
+2010-11-28 21:20:08,032 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-28 21:45:06,880 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159778 bytes received')
+2010-11-28 21:50:06,825 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 95691 bytes received')
+2010-11-28 21:55:07,155 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-28 22:10:07,806 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 161226 bytes received')
+2010-11-28 22:30:07,343 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 181250 bytes received')
+2010-11-28 22:40:07,328 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-28 23:55:06,531 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 194913 bytes received')
+2010-11-29 00:35:07,206 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-29 01:15:07,118 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 95691 bytes received')
+2010-11-29 02:25:07,361 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 194919 bytes received')
+2010-11-29 03:15:07,204 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 28708 bytes received')
+2010-11-29 06:05:07,075 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 30156 bytes received')
+2010-11-29 07:20:01,918 [ERROR] pycurl url reset:(7, "couldn't connect to host")
+2010-11-29 07:20:01,921 [ERROR] pycurl url reset:(7, "couldn't connect to host")
+2010-11-29 07:20:01,923 [ERROR] pycurl url reset:(7, "couldn't connect to host")
+2010-11-29 07:20:01,926 [ERROR] pycurl url reset:(7, "couldn't connect to host")
+2010-11-29 08:40:06,671 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 159778 bytes received')
+2010-11-29 08:50:07,052 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 162634 bytes received')
+2010-11-29 09:15:07,291 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-29 09:40:08,014 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-29 10:30:07,312 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 177114 bytes received')
+2010-11-29 10:50:07,339 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 120307 bytes received')
+2010-11-29 12:45:06,507 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 54772 bytes received')
+2010-11-29 12:50:07,188 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 121735 bytes received')
+2010-11-29 12:55:07,640 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 181458 bytes received')
+2010-11-29 13:05:07,374 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 94243 bytes received')
+2010-11-29 13:10:06,959 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 178331 bytes received')
+2010-11-29 13:15:07,279 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 120307 bytes received')
+2010-11-29 14:55:22,871 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 14:55:22,879 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 15:00:22,071 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 15:00:22,078 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 15:05:22,211 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 15:05:22,218 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 15:10:22,361 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 15:10:22,369 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 15:15:22,531 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 15:15:22,539 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 15:20:22,701 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 15:20:22,708 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 15:25:22,861 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 15:25:22,868 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 15:30:23,011 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 15:30:23,019 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 15:35:22,181 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 15:35:22,189 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 15:40:22,361 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 15:40:22,369 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 15:45:22,521 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 15:45:22,528 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 15:50:22,683 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 15:50:22,690 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 15:55:22,841 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 15:55:22,849 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 16:00:23,003 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 16:00:23,010 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 16:05:22,175 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 16:05:22,182 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 16:10:22,361 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 16:10:22,368 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 16:15:22,543 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 16:15:22,549 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 16:18:09,180 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:18:09,188 [DEBUG] __del__ object error!Report instance has no attribute 'cursor'
+2010-11-29 16:19:59,769 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:19:59,782 [DEBUG] __del__ object error!Report instance has no attribute 'cursor'
+2010-11-29 16:20:22,693 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 16:20:22,700 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 16:24:00,044 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:24:00,105 [DEBUG] __del__ object error!Report instance has no attribute 'cursor'
+2010-11-29 16:24:24,806 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:24:24,812 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:24:24,820 [DEBUG] __del__ object error!Report instance has no attribute 'cursor'
+2010-11-29 16:24:50,214 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:24:50,220 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:24:50,220 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:24:50,221 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-29 16:24:50,228 [DEBUG] __del__ object error!Report instance has no attribute 'cursor'
+2010-11-29 16:25:22,851 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 16:25:22,858 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 16:27:04,256 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:27:04,261 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:27:04,261 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:27:04,262 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-29 16:27:04,269 [DEBUG] __del__ object error!Report instance has no attribute 'cursor'
+2010-11-29 16:29:54,380 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:29:54,385 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:29:54,385 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:29:54,386 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-29 16:29:54,394 [DEBUG] __del__ object error!Report instance has no attribute 'cursor'
+2010-11-29 16:30:23,002 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 16:30:23,009 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 16:32:46,929 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:32:46,934 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:32:46,935 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:32:46,935 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-29 16:32:46,944 [DEBUG] __del__ object error!Report instance has no attribute 'cursor'
+2010-11-29 16:35:22,171 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 16:35:22,177 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 16:35:59,051 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:35:59,057 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:35:59,057 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:35:59,058 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-29 16:35:59,066 [DEBUG] __del__ object error!Report instance has no attribute 'cursor'
+2010-11-29 16:38:43,330 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:38:43,336 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:38:43,336 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:38:43,337 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-29 16:38:43,346 [DEBUG] __del__ object error!Report instance has no attribute 'cursor'
+2010-11-29 16:40:22,361 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 16:40:22,368 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 16:43:42,412 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:43:42,417 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:43:42,418 [ERROR] select database error!Report instance has no attribute 'cursor'
+2010-11-29 16:43:42,419 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-29 16:43:42,427 [DEBUG] __del__ object error!Report instance has no attribute 'cursor'
+2010-11-29 16:45:22,531 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 16:45:22,537 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 16:46:13,162 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:46:13,168 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-29 16:46:13,168 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-29 16:46:13,169 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-29 16:46:13,177 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-29 16:47:20,974 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:47:20,980 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-29 16:47:20,980 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-29 16:47:20,981 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-29 16:47:20,989 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-29 16:50:22,721 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 16:50:22,728 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 16:52:05,164 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:52:05,169 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-29 16:52:05,169 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-29 16:52:05,170 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-29 16:52:05,178 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-29 16:55:22,893 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 16:55:22,901 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 16:56:01,009 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:56:01,014 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-29 16:56:01,014 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-29 16:56:01,015 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-29 16:56:01,023 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-29 16:59:03,911 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-29 16:59:03,917 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-29 16:59:03,917 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-29 16:59:03,918 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-29 16:59:03,926 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-29 17:00:22,061 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 17:00:22,068 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 17:05:22,223 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 17:05:22,230 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 17:10:22,401 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 17:10:22,409 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 17:15:22,581 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 17:15:22,587 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 17:20:22,763 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 17:20:22,770 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 17:25:22,924 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 17:25:22,930 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 17:30:22,111 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 17:30:22,118 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 17:35:22,282 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 17:35:22,288 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 18:25:22,482 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 18:25:22,509 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 18:30:22,672 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 18:30:22,680 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 18:35:22,932 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 18:35:22,940 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 18:40:22,122 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 18:40:22,130 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 18:45:22,272 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 18:45:22,279 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 18:50:22,402 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 18:50:22,410 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 18:55:22,582 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 18:55:22,590 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 19:00:22,712 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 19:00:22,720 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 19:05:22,872 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 19:05:22,879 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 19:10:23,032 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 19:10:23,040 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 19:15:22,162 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 19:15:22,170 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 19:20:22,352 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 19:20:22,359 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 19:25:22,512 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 19:25:22,519 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 19:30:22,672 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 19:30:22,680 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 19:35:22,832 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 19:35:22,840 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 19:40:23,002 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 19:40:23,010 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 19:45:22,162 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 19:45:22,170 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 19:50:22,312 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 19:50:22,320 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 19:55:22,472 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 19:55:22,480 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 20:00:22,632 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 20:00:22,639 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 20:05:22,792 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 20:05:22,800 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 20:10:22,952 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 20:10:22,960 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 20:15:22,132 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 20:15:22,140 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 20:20:22,302 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 20:20:22,310 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 20:25:22,442 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 20:25:22,450 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 20:30:22,602 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 20:30:22,610 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 20:35:22,752 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 20:35:22,760 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 20:40:22,912 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 20:40:22,920 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 20:45:22,052 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 20:45:22,059 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 20:50:22,192 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 20:50:22,200 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 20:55:22,352 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 20:55:22,360 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 21:00:22,482 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 21:00:22,490 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 21:05:22,632 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 21:05:22,639 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 21:10:22,822 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 21:10:22,829 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 21:15:22,972 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 21:15:22,980 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 21:20:22,122 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 21:20:22,129 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 21:25:22,272 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 21:25:22,280 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 21:30:22,672 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 21:30:22,679 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 21:35:22,842 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 21:35:22,850 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 21:40:22,292 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 21:40:22,299 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 21:45:22,442 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 21:45:22,450 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 21:50:22,592 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 21:50:22,600 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 21:55:22,732 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 21:55:22,740 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 22:00:22,902 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 22:00:22,910 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 22:05:23,062 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 22:05:23,070 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 22:10:22,234 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 22:10:22,240 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 22:15:22,392 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 22:15:22,400 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 22:20:22,552 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 22:20:22,560 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 22:25:22,692 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 22:25:22,700 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 22:30:22,852 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 22:30:22,860 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 22:35:23,002 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 22:35:23,009 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 22:40:22,184 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 22:40:22,190 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 22:45:22,322 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 22:45:22,330 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 22:50:22,472 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 22:50:22,480 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 22:55:22,632 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 22:55:22,640 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 23:00:22,782 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 23:00:22,789 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 23:05:22,922 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 23:05:22,929 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 23:10:22,092 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 23:10:22,100 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 23:15:22,242 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 23:15:22,249 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 23:20:22,392 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 23:20:22,400 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 23:25:22,532 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 23:25:22,539 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 23:30:22,682 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 23:30:22,690 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 23:35:22,842 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 23:35:22,850 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 23:40:23,002 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 23:40:23,010 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 23:45:22,162 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 23:45:22,170 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 23:50:22,342 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 23:50:22,349 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-29 23:55:22,492 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-29 23:55:22,500 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 00:00:22,672 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 00:00:22,679 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 00:05:22,812 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 00:05:22,820 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 00:10:22,992 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 00:10:23,000 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 00:15:22,152 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 00:15:22,160 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 00:20:22,692 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 00:20:22,700 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 00:25:22,842 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 00:25:22,850 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 00:30:22,192 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 00:30:22,200 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 00:35:22,602 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 00:35:22,610 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 00:40:22,872 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 00:40:22,880 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 00:45:23,032 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 00:45:23,040 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 00:50:22,192 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 00:50:22,200 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 00:55:22,362 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 00:55:22,370 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 01:00:22,512 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 01:00:22,520 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 01:05:22,642 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 01:05:22,650 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 01:10:22,792 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 01:10:22,800 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 01:15:22,952 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 01:15:22,960 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 01:20:22,132 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 01:20:22,139 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 01:25:22,292 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 01:25:22,300 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 01:30:22,462 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 01:30:22,470 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 01:35:22,602 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 01:35:22,610 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 01:40:22,782 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 01:40:22,790 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 01:45:22,932 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 01:45:22,939 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 01:50:22,072 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 01:50:22,079 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 01:55:22,232 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 01:55:22,239 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 02:00:22,372 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 02:00:22,380 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 02:05:22,522 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 02:05:22,530 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 02:10:22,702 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 02:10:22,710 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 02:15:22,842 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 02:15:22,850 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 02:20:23,012 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 02:20:23,019 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 02:25:22,172 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 02:25:22,180 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 02:30:22,532 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 02:30:22,540 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 02:35:22,682 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 02:35:22,690 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 02:40:22,832 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 02:40:22,840 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 02:45:22,972 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 02:45:22,979 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 02:50:22,122 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 02:50:22,130 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 02:55:22,272 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 02:55:22,279 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 03:00:22,432 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 03:00:22,440 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 03:05:22,592 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 03:05:22,600 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 03:10:22,752 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 03:10:22,759 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 03:15:22,882 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 03:15:22,890 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 03:20:23,042 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 03:20:23,050 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 03:25:22,192 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 03:25:22,200 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 03:30:22,352 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 03:30:22,360 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 03:35:22,492 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 03:35:22,500 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 03:40:22,642 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 03:40:22,650 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 03:45:22,872 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 03:45:22,880 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 03:50:22,302 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 03:50:22,309 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 03:55:22,642 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 03:55:22,650 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 04:00:22,802 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 04:00:22,810 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 04:05:22,952 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 04:05:22,959 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 04:10:22,132 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 04:10:22,140 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 04:15:22,302 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 04:15:22,310 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 04:20:22,442 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 04:20:22,450 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 04:25:22,602 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 04:25:22,610 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 04:30:22,752 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 04:30:22,760 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 04:35:22,892 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 04:35:22,899 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 04:40:22,072 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 04:40:22,080 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 04:45:22,212 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 04:45:22,220 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 04:50:22,362 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 04:50:22,370 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 04:55:22,532 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 04:55:22,540 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 05:00:22,672 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 05:00:22,680 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 05:05:22,832 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 05:05:22,840 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 05:10:22,992 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 05:10:23,000 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 05:15:22,132 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 05:15:22,139 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 05:20:22,302 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 05:20:22,310 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 05:25:22,442 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 05:25:22,450 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 05:30:22,622 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 05:30:22,630 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 05:35:22,882 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 05:35:22,890 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 05:40:22,062 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 05:40:22,069 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 05:45:22,202 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 05:45:22,209 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 05:50:22,352 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 05:50:22,360 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 05:55:22,492 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 05:55:22,500 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 06:00:22,632 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 06:00:22,640 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 06:05:22,782 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 06:05:22,790 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 06:10:22,952 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 06:10:22,960 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 06:15:22,102 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 06:15:22,110 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 06:20:22,244 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 06:20:22,250 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 06:25:22,402 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 06:25:22,410 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 06:30:22,552 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 06:30:22,560 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 06:35:22,682 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 06:35:22,690 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 06:40:22,862 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 06:40:22,869 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 06:45:23,002 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 06:45:23,010 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 06:50:22,172 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 06:50:22,180 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 06:55:22,392 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 06:55:22,400 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 07:00:22,542 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 07:00:22,550 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 07:05:22,712 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 07:05:22,720 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 07:10:22,872 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 07:10:22,880 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 07:15:23,042 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 07:15:23,049 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 07:20:22,222 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 07:20:22,230 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 07:25:22,372 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 07:25:22,379 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 07:30:22,532 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 07:30:22,540 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 07:35:22,902 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 07:35:22,908 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 07:40:22,072 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 07:40:22,080 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 07:45:22,232 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 07:45:22,240 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 07:50:22,382 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 07:50:22,389 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 07:55:22,552 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 07:55:22,560 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 08:00:22,682 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 08:00:22,690 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 08:05:22,852 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 08:05:22,860 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 08:10:23,032 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 08:10:23,040 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 08:15:22,192 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 08:15:22,200 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 08:20:22,352 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 08:20:22,360 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 08:25:22,522 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 08:25:22,529 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 08:30:22,673 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 08:30:22,677 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 08:35:22,202 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 08:35:22,209 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 08:40:22,464 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 08:40:22,472 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 08:45:22,634 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 08:45:22,641 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 08:50:22,862 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 08:50:22,869 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 08:55:23,042 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 08:55:23,049 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 08:56:20,366 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 08:56:20,371 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 08:56:20,372 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 08:56:20,372 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 08:56:20,380 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:00:22,234 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 09:00:22,241 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 09:01:17,761 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 09:01:17,768 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:01:17,768 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:01:17,769 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 09:01:17,776 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:05:22,392 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 09:05:22,399 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 09:09:46,030 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 09:09:46,035 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:09:46,036 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:09:46,036 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 09:09:46,044 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:10:22,564 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 09:10:22,568 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 09:13:01,429 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 09:13:01,435 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:13:01,435 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:13:01,436 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 09:13:01,444 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:13:43,235 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 09:13:43,240 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:13:43,240 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:13:43,241 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 09:13:43,249 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:14:18,800 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 09:14:18,805 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:14:18,805 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:14:18,806 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 09:14:18,814 [DEBUG] __del__ object error!ExReport instance has no attribute 'conn'
+2010-11-30 09:14:34,040 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 09:14:34,045 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:14:34,045 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:14:34,046 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 09:14:40,006 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 09:14:40,011 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:14:40,011 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:14:40,012 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 09:15:22,754 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 09:15:22,761 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 09:16:01,302 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 09:16:01,307 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:16:01,307 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:16:01,308 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 09:16:01,316 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:16:23,772 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 09:16:23,777 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:16:23,777 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:16:23,778 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 09:16:23,786 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:16:53,966 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 09:16:53,971 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:16:53,971 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:16:53,972 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 09:16:53,980 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:20:22,932 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 09:20:22,939 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 09:25:06,370 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:25:06,370 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:25:06,371 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 09:25:06,379 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 09:25:22,122 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 09:25:22,129 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 09:30:22,292 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 09:30:22,299 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 09:35:22,452 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 09:35:22,460 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 09:40:22,632 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 09:40:22,639 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 09:45:22,803 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 09:45:22,810 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 09:50:22,962 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 09:50:22,969 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 09:55:22,142 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 09:55:22,149 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 10:00:22,634 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 10:00:22,640 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 10:05:22,832 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 10:05:22,838 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 10:10:23,032 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 10:10:23,039 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 10:15:22,202 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 10:15:22,209 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 10:20:22,392 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 10:20:22,399 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 10:25:22,552 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 10:25:22,559 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 10:30:22,742 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 10:30:22,749 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 10:35:22,892 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 10:35:22,899 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 10:40:22,072 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 10:40:22,079 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 10:45:22,232 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 10:45:22,239 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 10:50:22,512 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 10:50:22,519 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 10:55:22,672 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 10:55:22,679 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 11:00:22,872 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 11:00:22,880 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 11:05:23,032 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 11:05:23,039 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 11:10:22,252 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 11:10:22,259 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 11:15:22,402 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 11:15:22,409 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 11:20:22,562 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 11:20:22,569 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 11:25:22,722 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 11:25:22,729 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 11:30:22,972 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 11:30:22,979 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 11:35:22,122 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 11:35:22,128 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 11:40:22,322 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 11:40:22,329 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 11:45:22,572 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 11:45:22,578 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 11:50:22,754 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 11:50:22,762 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 11:55:22,944 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 11:55:22,951 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 12:00:22,112 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 12:00:22,119 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 12:05:22,272 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 12:05:22,278 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 12:10:22,462 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 12:10:22,470 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 12:15:22,672 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 12:15:22,679 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 12:20:22,894 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 12:20:22,901 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 12:25:22,062 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 12:25:22,069 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 12:30:22,212 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 12:30:22,219 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 12:35:22,392 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 12:35:22,399 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 12:40:22,592 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 12:40:22,598 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 12:45:22,754 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 12:45:22,761 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 12:50:23,102 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 12:50:23,109 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 12:55:22,292 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 12:55:22,299 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 13:00:22,442 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 13:00:22,448 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 13:05:22,712 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 13:05:22,719 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 13:10:22,912 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 13:10:22,919 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 13:15:22,072 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 13:15:22,079 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 13:20:22,264 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 13:20:22,270 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 13:25:22,464 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 13:25:22,470 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 13:30:22,672 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 13:30:22,689 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 13:35:22,922 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 13:35:22,929 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 13:40:22,142 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 13:40:22,149 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 13:45:22,342 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 13:45:22,350 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 13:50:22,534 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 13:50:22,541 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 13:55:22,952 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 13:55:22,961 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 14:00:22,122 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:00:22,129 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 14:05:22,302 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:05:22,310 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 14:09:02,527 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 14:09:02,533 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:09:02,533 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:09:02,533 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:09:02,542 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:10:22,482 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:10:22,488 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 14:13:31,550 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 14:13:31,558 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:14:02,115 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 14:14:02,121 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:14:02,121 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:14:02,122 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:14:02,130 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:15:22,722 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:15:22,729 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 14:16:11,542 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 14:16:11,548 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:16:11,548 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:16:11,549 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:16:11,557 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:20:22,902 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:20:22,910 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 14:21:51,892 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 14:21:51,898 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:21:51,898 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:21:51,899 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:21:51,907 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:24:25,212 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 14:24:25,218 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:24:25,218 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:24:25,219 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:24:25,227 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:24:27,262 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 14:24:27,268 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:24:27,268 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:24:27,269 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:24:27,277 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:24:41,497 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 14:24:41,502 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:24:41,502 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:24:41,503 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:24:41,512 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:25:22,072 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:25:22,080 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 14:25:32,448 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 14:25:32,454 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:25:32,454 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:25:32,455 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:25:32,462 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:26:13,161 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 14:26:13,166 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:26:13,166 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:26:13,167 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:26:13,175 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:27:32,186 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 14:27:32,193 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:27:32,193 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:27:32,194 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:27:32,202 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:28:13,368 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 14:28:13,374 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:28:13,374 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:28:13,375 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:28:13,375 [ERROR] connect database error!global name 'MySQLdb' is not defined
+2010-11-30 14:28:13,384 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:30:22,234 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:30:22,240 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 14:35:22,382 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:35:22,389 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 14:36:24,822 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:36:24,833 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:36:24,833 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:36:24,835 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:36:24,846 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:40:21,933 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:40:21,943 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:40:21,943 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:40:21,944 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:40:21,952 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:40:22,553 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:40:22,559 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 14:45:22,912 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:45:22,919 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 14:50:22,074 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:50:22,080 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 14:50:58,492 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:50:58,503 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:50:58,503 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:50:58,504 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:50:58,513 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:54:00,403 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:54:00,413 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:54:00,414 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:54:00,415 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 14:54:21,414 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:54:21,430 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:54:21,430 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 14:55:22,252 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 14:55:22,260 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 15:00:22,432 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 15:00:22,439 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 15:05:22,602 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 15:05:22,609 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 15:10:22,792 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 15:10:22,799 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 15:15:22,962 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 15:15:22,969 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 15:20:22,152 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 15:20:22,159 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 15:25:22,324 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 15:25:22,331 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 15:30:22,483 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 15:30:22,490 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 15:35:22,724 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 15:35:22,735 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 15:40:22,892 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 15:40:22,899 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 15:43:31,772 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 15:43:31,783 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 15:43:31,783 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 15:43:31,785 [ERROR] select database error!'NoneType' object is not iterable
+2010-11-30 15:43:31,797 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 15:45:22,114 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 15:45:22,121 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 15:50:22,274 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 15:50:22,281 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 15:55:22,444 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 15:55:22,451 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 16:00:22,592 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 16:00:22,600 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 16:04:17,024 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 16:04:17,034 [ERROR] select database error!ExReport instance has no attribute 'cursor'
+2010-11-30 16:04:17,047 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 16:05:22,762 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 16:05:22,770 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 16:08:49,664 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 16:08:49,687 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 16:10:15,882 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 16:10:15,905 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 16:10:22,952 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 16:10:22,959 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 16:12:10,484 [ERROR] connect database error!(2003, "Can't connect to MySQL server on '19.2.168.220' (110)")
+2010-11-30 16:12:10,509 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 16:15:01,154 [ERROR] connect database error!(1045, "Access denied for user 'tyservermonitory'@'localhost' (using password: YES)")
+2010-11-30 16:15:01,161 [DEBUG] __del__ object error!Runmonitor instance has no attribute 'cursor'
+2010-11-30 16:16:00,050 [ERROR] connect database error!(1045, "Access denied for user 'webmonitor_user'@'localhost' (using password: YES)")
+2010-11-30 16:16:00,065 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 16:16:16,659 [ERROR] connect database error!(1045, "Access denied for user 'webmonitor_user'@'localhost' (using password: YES)")
+2010-11-30 16:16:16,674 [DEBUG] __del__ object error!ExReport instance has no attribute 'cursor'
+2010-11-30 17:05:06,959 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-11-30 17:40:06,769 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-11-30 17:40:11,809 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-11-30 17:45:07,158 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-11-30 17:45:12,223 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-11-30 17:50:06,640 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-11-30 17:50:11,704 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-11-30 17:55:07,709 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-11-30 17:55:12,774 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-11-30 18:00:07,176 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-11-30 18:00:12,224 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-11-30 18:05:06,559 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-11-30 18:05:11,615 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-11-30 18:10:02,114 [ERROR] pycurl url reset:(7, "couldn't connect to host")
+2010-11-30 18:10:02,200 [ERROR] pycurl url reset:(7, "couldn't connect to host")
+2010-11-30 18:15:06,528 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-11-30 18:15:11,576 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-11-30 22:20:06,960 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-01 09:20:10,167 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 0 bytes received')
+2010-12-01 10:35:06,734 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-01 17:10:06,240 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-01 19:50:06,124 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-01 22:10:06,922 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-01 23:15:06,299 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-02 01:00:06,489 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-02 01:00:11,546 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-02 10:45:07,694 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-02 14:20:06,891 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-12-02 16:35:06,874 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-02 16:55:07,457 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-02 18:45:07,276 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-02 20:50:06,425 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-02 22:50:06,347 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-02 23:55:06,446 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-03 00:25:06,858 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-03 00:35:06,618 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-03 00:35:11,671 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-03 01:20:06,942 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-03 09:40:06,800 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-03 10:55:06,096 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-03 14:30:06,385 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-03 15:00:06,670 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-03 17:30:06,221 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-03 18:10:06,995 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-03 22:25:07,071 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-03 23:25:06,796 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-04 00:25:06,729 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-04 00:25:11,787 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-04 00:35:06,934 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-04 03:05:06,158 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-04 10:15:06,705 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-04 13:25:06,851 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-04 13:55:06,607 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-04 14:30:07,640 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-04 17:15:06,698 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-04 22:05:06,466 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-05 00:05:06,602 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-05 00:10:06,821 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-05 01:15:06,970 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-05 11:05:06,441 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-05 12:35:06,960 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-05 13:40:06,616 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-05 15:15:07,609 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-05 15:20:06,816 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-05 23:25:06,154 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-06 00:45:06,701 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-06 00:45:11,743 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-06 07:00:06,882 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-06 09:10:06,184 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-06 09:10:11,565 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-06 14:18:56,609 [ERROR] Write excel timedata error :a float is required
+2010-12-06 14:32:57,061 [ERROR] Write excel timedata error :a float is required
+2010-12-06 14:35:42,733 [ERROR] Write excel timedata error :a float is required
+2010-12-06 16:05:07,004 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-12-06 19:05:06,919 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-06 19:35:06,836 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-06 23:35:06,251 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-07 10:50:11,616 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-12-07 11:00:13,079 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 1209 out of 2095 bytes received')
+2010-12-07 11:05:07,865 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-12-07 14:20:06,126 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-07 14:25:08,255 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 1209 out of 2095 bytes received')
+2010-12-07 14:55:08,604 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 1209 out of 2095 bytes received')
+2010-12-07 15:05:06,559 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-12-07 15:50:10,175 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 2095 out of 2095 bytes received')
+2010-12-07 16:55:06,231 [ERROR] pycurl url reset:(56, 'Failure when receiving data from the peer')
+2010-12-07 19:55:06,764 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-07 21:35:01,494 [ERROR] pycurl url reset:(7, "couldn't connect to host")
+2010-12-08 00:35:06,377 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-08 00:35:11,431 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-08 03:45:07,460 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-08 07:00:06,396 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-12-08 09:20:07,211 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-08 10:25:06,191 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-08 19:35:06,462 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-08 19:45:06,983 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-08 20:35:07,254 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-08 20:45:07,138 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-09 00:15:04,960 [ERROR] pycurl url reset:(7, "couldn't connect to host")
+2010-12-09 10:25:08,658 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 2095 out of 2095 bytes received')
+2010-12-09 16:35:08,512 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-12-09 16:40:06,896 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-09 16:40:11,935 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-09 16:45:10,061 [ERROR] pycurl url reset:(28, 'Operation timed out after 5000 milliseconds with 0 bytes received')
+2010-12-09 17:15:06,143 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-09 17:15:11,205 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-09 17:15:16,934 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-09 19:15:04,524 [ERROR] pycurl url reset:(7, "couldn't connect to host")
+2010-12-09 22:30:06,312 [ERROR] pycurl url reset:(28, 'connect() timed out!')
+2010-12-10 00:25:06,626 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 01:20:06,523 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 01:20:11,571 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 01:25:06,965 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 01:25:12,013 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 01:30:06,502 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 01:40:06,564 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 01:45:08,003 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:05:07,096 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:10:06,567 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:10:11,615 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:15:06,968 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:15:12,024 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:20:06,431 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:20:11,479 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:30:06,451 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:30:11,490 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:35:06,877 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:35:11,917 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:40:06,322 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:40:11,362 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:45:07,147 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:50:06,776 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 02:55:07,127 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 03:00:06,639 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 03:00:11,687 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 03:35:06,620 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 04:45:07,187 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 07:40:06,771 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 11:35:06,127 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 12:00:06,351 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 12:10:06,342 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 13:30:06,465 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 16:00:06,850 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 16:00:07,461 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:00:08,602 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:00:08,752 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:00:12,093 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:01:44,216 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:01:44,402 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:01:44,613 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:05:01,525 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:05:06,549 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 16:05:15,028 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:05:15,355 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:10:01,776 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:10:02,539 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:10:04,489 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:15:03,093 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:15:06,498 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 16:15:06,977 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 17:05:06,659 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 17:05:06,737 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 19:10:07,046 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 19:10:07,628 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 19:40:06,592 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 19:40:06,723 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 19:45:06,510 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 19:45:06,614 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 20:10:06,369 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 20:10:06,398 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 20:15:06,895 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 20:15:06,930 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 21:15:06,485 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 21:15:06,541 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-10 23:10:07,096 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-10 23:10:07,720 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-11 00:20:06,984 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-11 00:20:15,287 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-11 01:05:06,390 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-11 01:05:06,616 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-11 01:05:11,651 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-11 01:05:11,673 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-11 02:30:06,718 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-11 02:30:07,021 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-11 11:20:07,517 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-11 11:20:08,249 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-11 14:20:06,952 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-11 14:20:08,293 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-11 14:35:06,733 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-11 14:35:15,227 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-11 15:15:06,131 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-11 15:15:06,160 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-11 16:05:06,896 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-11 16:05:06,940 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-11 19:10:06,217 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-11 19:10:06,631 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-11 19:45:06,585 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-11 19:45:06,917 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-11 20:45:07,046 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-11 20:45:07,077 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-11 23:20:06,302 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-11 23:20:06,894 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-12 01:25:06,311 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-12 01:25:06,445 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-12 02:30:06,366 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-12 02:30:06,461 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-12 10:15:07,079 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-12 10:15:07,718 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-12 10:20:06,407 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-12 10:20:06,442 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-12 10:25:06,928 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-12 10:25:07,152 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-12 13:50:06,746 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-12 13:50:07,473 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-12 14:00:06,717 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-12 14:00:06,750 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-12 14:25:06,646 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-12 14:25:06,758 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-12 18:10:06,460 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-12 18:10:14,910 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-12 20:40:06,812 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-12 20:40:15,071 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-12 22:15:06,886 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-12 22:15:07,159 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-12 23:00:06,520 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-12 23:00:06,848 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-13 12:45:07,003 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-13 12:45:07,835 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-13 13:45:06,306 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-13 13:45:06,822 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-13 14:05:06,179 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-13 14:05:06,376 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-13 16:15:06,410 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-13 16:15:06,728 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-13 16:25:06,545 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-13 16:25:06,795 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-13 19:55:07,008 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-13 19:55:07,600 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-13 20:05:06,770 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-13 20:05:07,088 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-13 20:05:12,136 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-13 20:05:12,181 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-13 20:55:06,780 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-13 20:55:06,816 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-13 21:50:06,968 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-13 21:50:15,281 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-13 21:55:06,829 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-13 21:55:06,863 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-13 23:35:06,553 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-13 23:35:07,240 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-13 23:40:06,555 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-13 23:40:06,713 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-14 10:05:06,963 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-14 10:05:08,293 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-14 12:10:06,589 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-14 12:10:06,893 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-14 15:20:06,541 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-14 15:20:07,604 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-14 15:50:06,769 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-14 15:50:06,807 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-14 16:55:06,956 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-14 16:55:15,296 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-14 17:30:01,827 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-14 20:50:06,411 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-14 20:50:07,981 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-15 09:55:06,708 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-15 09:55:07,377 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-15 10:40:07,107 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-15 10:40:07,208 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-15 11:15:06,999 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-15 11:15:07,036 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-15 13:45:06,378 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-15 13:45:21,022 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-15 14:00:07,170 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-15 14:00:07,422 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-15 17:45:07,048 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-15 17:45:07,582 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-16 00:50:06,562 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-16 00:50:07,142 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-16 12:15:06,612 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-16 12:15:07,581 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-16 19:05:07,644 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-16 19:05:07,957 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-16 19:20:06,993 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-16 19:20:07,151 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-16 21:00:06,131 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-16 21:00:06,163 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-17 00:00:06,753 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-17 00:00:08,062 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known
+2010-12-17 09:50:06,180 [ERROR] pycurl url reset:(6, 'name lookup timed out')
+2010-12-17 09:50:07,507 [DEBUG] Alarm error![Errno socket error] [Errno -2] Name or service not known

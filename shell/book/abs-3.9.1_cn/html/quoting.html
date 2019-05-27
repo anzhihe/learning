@@ -1,0 +1,396 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>引用</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="基本"
+HREF="part2.html"><LINK
+REL="PREVIOUS"
+TITLE="特殊的变量类型"
+HREF="othertypesv.html"><LINK
+REL="NEXT"
+TITLE="引用变量"
+HREF="quotingvar.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="othertypesv.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="quotingvar.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="QUOTING"
+></A
+>5. 引用</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>目录</B
+></DT
+><DT
+>5.1. <A
+HREF="quotingvar.html"
+>引用变量</A
+></DT
+><DT
+>5.2. <A
+HREF="escapingsection.html"
+>转义</A
+></DT
+></DL
+></DIV
+><P
+><A
+NAME="QUOTINGREF"
+></A
+></P
+><P
+>引用的字面意思就是将字符串用双引号括起来. 
+		  它的作用就是保护字符串中的<A
+HREF="special-chars.html#SCHARLIST1"
+>特殊字符</A
+>不被shell或者shell脚本重新解释, 或者扩展. 
+	  (我们这里所说的<SPAN
+CLASS="QUOTE"
+>"特殊"</SPAN
+>指的是一些字符在shell中具有的特殊意义, 
+	 而不是字符的字面意思, 比如<SPAN
+CLASS="TOKEN"
+>通配符</SPAN
+> --
+      <SPAN
+CLASS="TOKEN"
+>*</SPAN
+>.)</P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -l [Vv]*</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-rw-r--    1 bozo  bozo       324 Apr  2 15:05 VIEWDATA.BAT
+ -rw-rw-r--    1 bozo  bozo       507 May  4 14:25 vartrace.sh
+ -rw-rw-r--    1 bozo  bozo       539 Apr 14 17:11 viewdata.sh</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ls -l '[Vv]*'</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>ls: [Vv]*: No such file or directory</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>	      
+	      </P
+><TABLE
+CLASS="SIDEBAR"
+BORDER="1"
+CELLPADDING="5"
+><TR
+><TD
+><DIV
+CLASS="SIDEBAR"
+><P
+></P
+><A
+NAME="AEN2059"
+></A
+><P
+>在日常的演讲和写作中, 
+			当我们<SPAN
+CLASS="QUOTE"
+>"引用"</SPAN
+>一个短语的时候, 
+			这意味着这个短语被区分以示它有特别的含义.
+			但是在Bash脚本中, 当我们<I
+CLASS="FIRSTTERM"
+>引用</I
+>一个字符串的时候, 
+			我们区分这个字符串是为了保护它的<EM
+>字面</EM
+>含义. </P
+><P
+></P
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>某些程序和工具能够重新解释或者扩展被引用的特殊字符. 
+		  引用的一个重要作用就是保护命令行参数不被shell解释, 
+		  但是还是能够让正在调用的程序来扩展它. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>grep '[Ff]irst' *.txt</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>file1.txt:This is the first line of file1.txt.
+ file2.txt:This is the First line of file2.txt.</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><P
+>注意一下未引用的 <KBD
+CLASS="USERINPUT"
+>grep [Ff]irst *.txt</KBD
+>
+	  在Bash shell下的行为.
+	    <A
+NAME="AEN2072"
+HREF="#FTN.AEN2072"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+	  </P
+><P
+>引用还可以改掉<A
+HREF="internal.html#ECHOREF"
+>echo's</A
+>不换行的<SPAN
+CLASS="QUOTE"
+>"毛病"</SPAN
+>. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo $(ls -l)</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 8 -rw-rw-r-- 1 bozo bozo 130 Aug 21 12:57 t222.sh -rw-rw-r-- 1 bozo bozo 78 Aug 21 12:57 t71.sh</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo "$(ls -l)"</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 8
+ -rw-rw-r--  1 bozo bozo 130 Aug 21 12:57 t222.sh
+ -rw-rw-r--  1 bozo bozo  78 Aug 21 12:57 t71.sh</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN2072"
+HREF="quoting.html#AEN2072"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>除非正好当前工作目录下有一个名字为
+				<TT
+CLASS="FILENAME"
+>first</TT
+>的文件. 
+				然而这是<EM
+>引用的</EM
+>另一个原因. 
+				(感谢, Harald Koenig, 指出这一点. </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="othertypesv.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="quotingvar.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>特殊的变量类型</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part2.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>引用变量</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

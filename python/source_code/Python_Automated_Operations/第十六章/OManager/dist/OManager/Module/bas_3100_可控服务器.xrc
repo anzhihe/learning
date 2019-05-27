@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resource>
+        <object class="wxPanel" name="panel">
+				<size>200,100</size>
+                <object class="wxStaticText" name="label1">
+                    <label>功能描述：显示平台的服务器清单。\n查看所选服务器信息请将[全部服务器]勾掉。</label>
+                    <pos>30,20</pos>
+                 </object>
+		<object class="wxCheckBox" name="checkbox_allserver">
+			<pos>30,50</pos>
+			<label>全部服务器</label>
+			<checked>1</checked>
+		</object>
+       </object>
+</resource>

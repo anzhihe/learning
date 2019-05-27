@@ -1,0 +1,1253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>陷阱</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="高级主题"
+HREF="part4.html"><LINK
+REL="PREVIOUS"
+TITLE="选项"
+HREF="options.html"><LINK
+REL="NEXT"
+TITLE="脚本编程风格"
+HREF="scrstyle.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="options.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="scrstyle.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="GOTCHAS"
+></A
+>31. 陷阱</H1
+><TABLE
+BORDER="0"
+WIDTH="100%"
+CELLSPACING="0"
+CELLPADDING="0"
+CLASS="EPIGRAPH"
+><TR
+><TD
+WIDTH="45%"
+>&nbsp;</TD
+><TD
+WIDTH="45%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+><P
+><I
+>Turandot: Gli enigmi sono tre, la morte una!</I
+></P
+><P
+><I
+>Caleph: No, no! Gli enigmi sono tre, una la vita!</I
+></P
+></I
+></TD
+></TR
+><TR
+><TD
+WIDTH="45%"
+>&nbsp;</TD
+><TD
+WIDTH="45%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><I
+><SPAN
+CLASS="ATTRIBUTION"
+>Puccini</SPAN
+></I
+></TD
+></TR
+></TABLE
+><P
+><A
+NAME="BASH3GOTCHA"
+></A
+></P
+><P
+></P
+><UL
+><LI
+><P
+>将保留字或特殊字符声明为变量名. </P
+><P
+>	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;case=value0       # 引发错误. 
+  2&nbsp;23skidoo=value1   # 也会引发错误. 
+  3&nbsp;# 以数字开头的变量名是被shell保留使用的. 
+  4&nbsp;# 试试_23skidoo=value1. 以下划线开头的变量就没问题. 
+  5&nbsp;
+  6&nbsp;# 然而 . . .   如果只用一个下划线作为变量名就不行. 
+  7&nbsp;_=25
+  8&nbsp;echo $_           # $_是一个特殊变量, 代表最后一个命令的最后一个参数. 
+  9&nbsp;
+ 10&nbsp;xyz((!*=value2    # 引起严重的错误. 
+ 11&nbsp;# Bash3.0之后, 标点不能出现在变量名中. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+><LI
+><P
+>使用连字符或其他保留字符来做变量名(或函数名). </P
+><P
+>	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;var-1=23
+  2&nbsp;# Use 'var_1' instead.
+  3&nbsp;
+  4&nbsp;function-whatever ()   # 错误
+  5&nbsp;# 使用'function_whatever ()'来代替. 
+  6&nbsp;
+  7&nbsp; 
+  8&nbsp;# Bash3.0之后, 标点不能出现在函数名中. 
+  9&nbsp;function.whatever ()   # 错误
+ 10&nbsp;# 使用'functionWhatever ()'来代替. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+></LI
+><LI
+><P
+>让变量名与函数名相同. 这会使得脚本的可读性变得很差. </P
+><P
+>        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;do_something ()
+  2&nbsp;{
+  3&nbsp;  echo "This function does something with \"$1\"."
+  4&nbsp;}
+  5&nbsp;
+  6&nbsp;do_something=do_something
+  7&nbsp;
+  8&nbsp;do_something do_something
+  9&nbsp;
+ 10&nbsp;# 这么做是合法的, 但是会让人混淆. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+><LI
+><P
+><A
+NAME="WSBAD"
+></A
+>不合时宜的使用<A
+HREF="special-chars.html#WHITESPACEREF"
+>空白</A
+>字符. 
+	与其它编程语言相比, Bash非常讲究空白字符的使用. 
+	</P
+><P
+>	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;var1 = 23   # 'var1=23'才是正确的. 
+  2&nbsp;# 对于上边这一行来说, Bash会把"var1"当作命令来执行, 
+  3&nbsp;# "="和"23"会被看作"命令""var1"的参数. 
+  4&nbsp;	
+  5&nbsp;let c = $a - $b   # 'let c=$a-$b'或'let "c = $a - $b"'才是正确的. 
+  6&nbsp;
+  7&nbsp;if [ $a -le 5]    # if [ $a -le 5 ]   是正确的. 
+  8&nbsp;# if [ "$a" -le 5 ]   这么写更好. 
+  9&nbsp;# [[ $a -le 5 ]] 也行. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+><LI
+><P
+>在<A
+HREF="special-chars.html#CODEBLOCKREF"
+>大括号包含的代码块</A
+>中, 最后一条命令没有以<I
+CLASS="FIRSTTERM"
+>分号</I
+>结尾. </P
+><P
+>        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;{ ls -l; df; echo "Done." }
+  2&nbsp;# bash: syntax error: unexpected end of file
+  3&nbsp;
+  4&nbsp;{ ls -l; df; echo "Done."; }
+  5&nbsp;#                        ^     ### 最后的这条命令必须以分号结尾. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+></LI
+><LI
+><P
+>		  假定未初始化的变量(赋值前的变量)被<SPAN
+CLASS="QUOTE"
+>"清0"</SPAN
+>. 
+		  事实上, 未初始化的变量值为<SPAN
+CLASS="QUOTE"
+>"null"</SPAN
+>, 
+	而<EM
+>不是</EM
+>0. </P
+><P
+>	   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;echo "uninitialized_var = $uninitialized_var"
+  4&nbsp;# uninitialized_var =</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+      </P
+></LI
+><LI
+><P
+>混淆测试符号<EM
+>=</EM
+>和<EM
+>-eq</EM
+>. 
+	请记住, <EM
+>=</EM
+>用于比较字符变量, 
+	而<EM
+>-eq</EM
+>用来比较整数. </P
+><P
+>	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;if [ "$a" = 273 ]      # $a是整数还是字符串? 
+  2&nbsp;if [ "$a" -eq 273 ]    # $a为整数. 
+  3&nbsp;
+  4&nbsp;# 有些情况下, 即使你混用-eq和=, 也不会产生错误的结果. 
+  5&nbsp;# 然而 . . .
+  6&nbsp;
+  7&nbsp;
+  8&nbsp;a=273.0   # 不是一个整数. 
+  9&nbsp;	   
+ 10&nbsp;if [ "$a" = 273 ]
+ 11&nbsp;then
+ 12&nbsp;  echo "Comparison works."
+ 13&nbsp;else  
+ 14&nbsp;  echo "Comparison does not work."
+ 15&nbsp;fi    # Comparison does not work.
+ 16&nbsp;
+ 17&nbsp;# 与a=" 273"和a="0273"相同.
+ 18&nbsp;
+ 19&nbsp;
+ 20&nbsp;# 类似的, 如果对非整数值使用"-eq"的话, 就会产生问题. 
+ 21&nbsp;	   
+ 22&nbsp;if [ "$a" -eq 273.0 ]
+ 23&nbsp;then
+ 24&nbsp;  echo "a = $a"
+ 25&nbsp;fi  # 因为产生了错误消息, 所以退出. 
+ 26&nbsp;# test.sh: [: 273.0: integer expression expected</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+        </P
+></LI
+><LI
+><P
+>误用了<A
+HREF="comparison-ops.html#SCOMPARISON1"
+>字符串比较</A
+>操作符. 
+        </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="BADOP"
+></A
+><P
+><B
+>例子 31-1. 数字比较与字符串比较并不相同</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# bad-op.sh: 尝试一下对整数使用字符串比较. 
+  3&nbsp;
+  4&nbsp;echo
+  5&nbsp;number=1
+  6&nbsp;
+  7&nbsp;# 下面的"while循环"有两个错误: 
+  8&nbsp;#+ 一个比较明显, 而另一个比较隐蔽. 
+  9&nbsp;
+ 10&nbsp;while [ "$number" &#60; 5 ]    # 错! 应该是:  while [ "$number" -lt 5 ]
+ 11&nbsp;do
+ 12&nbsp;  echo -n "$number "
+ 13&nbsp;  let "number += 1"
+ 14&nbsp;done  
+ 15&nbsp;#  如果你企图运行这个错误的脚本, 那么就会得到一个错误消息: 
+ 16&nbsp;#+ bad-op.sh: line 10: 5: No such file or directory
+ 17&nbsp;#  在单中括号结构([ ])中, "&#60;"必须被转义. 
+ 18&nbsp;#+ 即便如此, 比较两个整数还是错误的. 
+ 19&nbsp;
+ 20&nbsp;
+ 21&nbsp;echo "---------------------"
+ 22&nbsp;
+ 23&nbsp;
+ 24&nbsp;while [ "$number" \&#60; 5 ]    #  1 2 3 4
+ 25&nbsp;do                          #
+ 26&nbsp;  echo -n "$number "        #  看起来*好像可以工作, 但是 . . .
+ 27&nbsp;  let "number += 1"         #+ 事实上是比较ASCII码, 
+ 28&nbsp;done                        #+ 而不是整数比较. 
+ 29&nbsp;
+ 30&nbsp;echo; echo "---------------------"
+ 31&nbsp;
+ 32&nbsp;# 这么做会产生问题. 比如: 
+ 33&nbsp;
+ 34&nbsp;lesser=5
+ 35&nbsp;greater=105
+ 36&nbsp;
+ 37&nbsp;if [ "$greater" \&#60; "$lesser" ]
+ 38&nbsp;then
+ 39&nbsp;  echo "$greater is less than $lesser"
+ 40&nbsp;fi                          # 105 is less than 5
+ 41&nbsp;#  事实上, 在字符串比较中(按照ASCII码的顺序)
+ 42&nbsp;#+ "105"小于"5". 
+ 43&nbsp;
+ 44&nbsp;echo
+ 45&nbsp;
+ 46&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></LI
+><LI
+><P
+>有时候在<SPAN
+CLASS="QUOTE"
+>"test"</SPAN
+>中括号([ ])结构里的变量需要被引用起来(双引号). 
+	如果不这么做的话, 可能会引起不可预料的结果. 
+	请参考<A
+HREF="comparison-ops.html#STRTEST"
+>例子 7-6</A
+>, <A
+HREF="redircb.html#REDIR2"
+>例子 16-5</A
+>, 和<A
+HREF="internalvariables.html#ARGLIST"
+>例子 9-6</A
+>. </P
+></LI
+><LI
+><P
+>脚本中的命令可能会因为脚本宿主不具备相应的运行权限而导致运行失败, 
+	如果用户在命令行中就不能调用这个命令的话, 
+	那么即使把它放到脚本中来运行, 也还是会失败. 
+	这时可以通过修改命令的属性来解决这个问题, 
+	有时候甚至要给它设置suid位(当然, 要以root身份来设置). </P
+></LI
+><LI
+><P
+>试图使用<B
+CLASS="COMMAND"
+>-</B
+>作为重定向操作符(事实上它不是), 
+			通常都会导致令人不快的结果. 
+	</P
+><P
+>	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;command1 2&#62; - | command2  # 试图将command1的错误输出重定向到一个管道中...
+  2&nbsp;#    ...不会工作. 	
+  3&nbsp;
+  4&nbsp;command1 2&#62;&#38; - | command2  # 也没效果. 
+  5&nbsp;
+  6&nbsp;感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></LI
+><LI
+><P
+>使用Bash <A
+HREF="bashver2.html#BASH2REF"
+>2.0</A
+>或更高版本的功能, 
+	可以在产生错误信息的时候, 引发修复动作. 
+	但是比较老的Linux机器默认安装的可能是Bash 1.XX. 
+	</P
+><P
+>	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;minimum_version=2
+  4&nbsp;# 因为Chet Ramey经常给Bash添加一些新的特征, 
+  5&nbsp;# 所以你最好将$minimum_version设置为2.XX, 3.XX, 或是其他你认为比较合适的值. 
+  6&nbsp;E_BAD_VERSION=80
+  7&nbsp;
+  8&nbsp;if [ "$BASH_VERSION" \&#60; "$minimum_version" ]
+  9&nbsp;then
+ 10&nbsp;  echo "This script works only with Bash, version $minimum or greater."
+ 11&nbsp;  echo "Upgrade strongly recommended."
+ 12&nbsp;  exit $E_BAD_VERSION
+ 13&nbsp;fi
+ 14&nbsp;
+ 15&nbsp;...</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></LI
+><LI
+><P
+>在非Linux机器上的Bourne shell脚本(<KBD
+CLASS="USERINPUT"
+>#!/bin/sh</KBD
+>)中使用Bash特有的功能, 
+			可能会引起不可预料的行为. 
+	Linux系统通常都会把<B
+CLASS="COMMAND"
+>bash</B
+>别名化为<B
+CLASS="COMMAND"
+>sh</B
+>, 
+	但是在一般的UNIX机器上却不一定会这么做. </P
+></LI
+><LI
+><P
+>使用Bash未文档化的特征, 将是一种危险的举动. 
+	本书之前的几个版本就依赖一个这种<SPAN
+CLASS="QUOTE"
+>"特征"</SPAN
+>, 
+	下面说明一下这个<SPAN
+CLASS="QUOTE"
+>"特征"</SPAN
+>, 
+	虽然<A
+HREF="exit-status.html#EXITSTATUSREF"
+>exit</A
+>或<A
+HREF="complexfunct.html#RETURNREF"
+>return</A
+>所能返回的最大正值为255, 
+	但是并没有限制我们使用<EM
+>负</EM
+>整数. 
+	不幸的是, Bash 2.05b之后的版本, 这个漏洞消失了. 
+	请参考<A
+HREF="complexfunct.html#RETURNTEST"
+>例子 23-9</A
+>. </P
+></LI
+><LI
+><P
+>        一个带有DOS风格换行符(<TT
+CLASS="REPLACEABLE"
+><I
+>\r\n</I
+></TT
+>)的脚本将会运行失败, 
+	因为<KBD
+CLASS="USERINPUT"
+>#!/bin/bash\r\n</KBD
+>是<EM
+>不</EM
+>合法的, 
+	与我们所期望的<KBD
+CLASS="USERINPUT"
+>#!/bin/bash\n</KBD
+><EM
+>不同</EM
+>. 
+	解决办法就是将这个脚本转换为UNIX风格的换行符. </P
+><P
+>	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;echo "Here"
+  4&nbsp;
+  5&nbsp;unix2dos $0    # 脚本先将自己改为DOS格式. 
+  6&nbsp;chmod 755 $0   # 更改可执行权限. 
+  7&nbsp;               # 'unix2dos'会删除可执行权限. 
+  8&nbsp;
+  9&nbsp;./$0           # 脚本尝试再次运行自己. 
+ 10&nbsp;               # 但它作为一个DOS文件, 已经不能运行了. 
+ 11&nbsp;
+ 12&nbsp;echo "There"
+ 13&nbsp;
+ 14&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+></LI
+><LI
+><P
+>以<KBD
+CLASS="USERINPUT"
+>#!/bin/sh</KBD
+>开头的Bash脚本, 
+		  不能在完整的Bash兼容模式下运行. 
+		  某些Bash特定的功能可能会被禁用. 
+		  如果脚本需要完整的访问所有Bash专有扩展, 
+		  那么它需要使用<KBD
+CLASS="USERINPUT"
+>#!/bin/bash</KBD
+>作为开头. </P
+></LI
+><LI
+><P
+>如果在<A
+HREF="here-docs.html#HEREDOCREF"
+>here document</A
+>中, 
+		<A
+HREF="here-docs.html#INDENTEDLS"
+>结尾的limit string之前加上空白字符</A
+>的话, 
+	将会导致脚本的异常行为. 
+	</P
+></LI
+><LI
+><P
+><A
+NAME="PARCHILDPROBREF"
+></A
+></P
+><P
+>脚本不能将变量<B
+CLASS="COMMAND"
+>export</B
+>到它的<A
+HREF="internal.html#FORKREF"
+>父进程</A
+>(即调用这个脚本的shell), 
+			  或父进程的环境中. 
+			  就好比我们在生物学中所学到的那样, 
+			  子进程只会继承父进程, 反过来则不行. 
+		</P
+><P
+>	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;WHATEVER=/home/bozo
+  2&nbsp;export WHATEVER
+  3&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+          <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><B
+CLASS="COMMAND"
+>echo $WHATEVER</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+></SAMP
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        可以确定的是, 即使回到命令行提示符, 变量$WHATEVER仍然没有被设置. 
+       </P
+></LI
+><LI
+><P
+>在<A
+HREF="subshells.html#SUBSHELLSREF"
+>子shell</A
+>中设置和操作变量之后, 
+			如果尝试在子shell作用域之外使用同名变量的话, 将会产生令人不快的结果. 
+		</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="SUBPIT"
+></A
+><P
+><B
+>例子 31-2. 子shell缺陷</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 子shell中的变量缺陷. 
+  3&nbsp;
+  4&nbsp;outer_variable=outer
+  5&nbsp;echo
+  6&nbsp;echo "outer_variable = $outer_variable"
+  7&nbsp;echo
+  8&nbsp;
+  9&nbsp;(
+ 10&nbsp;# 开始子shell
+ 11&nbsp;
+ 12&nbsp;echo "outer_variable inside subshell = $outer_variable"
+ 13&nbsp;inner_variable=inner  # Set
+ 14&nbsp;echo "inner_variable inside subshell = $inner_variable"
+ 15&nbsp;outer_variable=inner  # 会修改全局变量么? 
+ 16&nbsp;echo "outer_variable inside subshell = $outer_variable"
+ 17&nbsp;
+ 18&nbsp;# 如果将变量'导出'会产生不同的结果么? 
+ 19&nbsp;#    export inner_variable
+ 20&nbsp;#    export outer_variable
+ 21&nbsp;# 试试看. 
+ 22&nbsp;
+ 23&nbsp;# 结束子shell
+ 24&nbsp;)
+ 25&nbsp;
+ 26&nbsp;echo
+ 27&nbsp;echo "inner_variable outside subshell = $inner_variable"  # 未设置. 
+ 28&nbsp;echo "outer_variable outside subshell = $outer_variable"  # 未修改. 
+ 29&nbsp;echo
+ 30&nbsp;
+ 31&nbsp;exit 0
+ 32&nbsp;
+ 33&nbsp;# 如果你打开第19和第20行的注释会怎样? 
+ 34&nbsp;# 会产生不同的结果么? (译者注: 小提示, 第18行的'导出'都加上引号了.)</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></LI
+><LI
+><P
+><A
+NAME="BADREAD0"
+></A
+></P
+><P
+>将<B
+CLASS="COMMAND"
+>echo</B
+>的输出通过<A
+HREF="special-chars.html#PIPEREF"
+>管道</A
+>传递给<A
+HREF="internal.html#READREF"
+>read</A
+>命令可能会产生不可预料的结果. 
+	在这种情况下, <B
+CLASS="COMMAND"
+>read</B
+>命令的行为就好像它在子shell中运行一样. 
+	可以使用<A
+HREF="internal.html#SETREF"
+>set</A
+>命令来代替(就好像<A
+HREF="internal.html#SETPOS"
+>例子 11-17</A
+>一样). </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="BADREAD"
+></A
+><P
+><B
+>例子 31-3. 将<B
+CLASS="COMMAND"
+>echo</B
+>的输出通过管道传递给<B
+CLASS="COMMAND"
+>read</B
+>命令</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;#  badread.sh:
+  3&nbsp;#  尝试使用'echo'和'read'命令
+  4&nbsp;#+ 非交互的给变量赋值. 
+  5&nbsp;
+  6&nbsp;a=aaa
+  7&nbsp;b=bbb
+  8&nbsp;c=ccc
+  9&nbsp;
+ 10&nbsp;echo "one two three" | read a b c
+ 11&nbsp;# 尝试重新给变量a, b, 和c赋值.
+ 12&nbsp;
+ 13&nbsp;echo
+ 14&nbsp;echo "a = $a"  # a = aaa
+ 15&nbsp;echo "b = $b"  # b = bbb
+ 16&nbsp;echo "c = $c"  # c = ccc
+ 17&nbsp;# 重新赋值失败. 
+ 18&nbsp;
+ 19&nbsp;# ------------------------------
+ 20&nbsp;
+ 21&nbsp;# 试试下边这种方法. 
+ 22&nbsp;
+ 23&nbsp;var=`echo "one two three"`
+ 24&nbsp;set -- $var
+ 25&nbsp;a=$1; b=$2; c=$3
+ 26&nbsp;
+ 27&nbsp;echo "-------"
+ 28&nbsp;echo "a = $a"  # a = one
+ 29&nbsp;echo "b = $b"  # b = two
+ 30&nbsp;echo "c = $c"  # c = three 
+ 31&nbsp;# 重新赋值成功. 
+ 32&nbsp;
+ 33&nbsp;# ------------------------------
+ 34&nbsp;
+ 35&nbsp;#  也请注意, echo到'read'的值只会在子shell中起作用. 
+ 36&nbsp;#  所以, 变量的值*只*会在子shell中被修改. 
+ 37&nbsp;
+ 38&nbsp;a=aaa          # 重新开始. 
+ 39&nbsp;b=bbb
+ 40&nbsp;c=ccc
+ 41&nbsp;
+ 42&nbsp;echo; echo
+ 43&nbsp;echo "one two three" | ( read a b c;
+ 44&nbsp;echo "Inside subshell: "; echo "a = $a"; echo "b = $b"; echo "c = $c" )
+ 45&nbsp;# a = one
+ 46&nbsp;# b = two
+ 47&nbsp;# c = three
+ 48&nbsp;echo "-----------------"
+ 49&nbsp;echo "Outside subshell: "
+ 50&nbsp;echo "a = $a"  # a = aaa
+ 51&nbsp;echo "b = $b"  # b = bbb
+ 52&nbsp;echo "c = $c"  # c = ccc
+ 53&nbsp;echo
+ 54&nbsp;
+ 55&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>事实上, 也正如Anthony Richardson指出的那样, 
+		  通过管道将输出传递到<EM
+>任何</EM
+>循环中, 都会引起类似的问题. </P
+><P
+>	
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 循环的管道问题. 
+  2&nbsp;#  这个例子由Anthony Richardson编写, 
+  3&nbsp;#+ 由Wilbert Berendsen补遗. 
+  4&nbsp;
+  5&nbsp;
+  6&nbsp;foundone=false
+  7&nbsp;find $HOME -type f -atime +30 -size 100k |
+  8&nbsp;while true
+  9&nbsp;do
+ 10&nbsp;   read f
+ 11&nbsp;   echo "$f is over 100KB and has not been accessed in over 30 days"
+ 12&nbsp;   echo "Consider moving the file to archives."
+ 13&nbsp;   foundone=true
+ 14&nbsp;   # ------------------------------------
+ 15&nbsp;   echo "Subshell level = $BASH_SUBSHELL"
+ 16&nbsp;   # Subshell level = 1
+ 17&nbsp;   # 没错, 现在是在子shell中运行. 
+ 18&nbsp;   # ------------------------------------
+ 19&nbsp;done
+ 20&nbsp;   
+ 21&nbsp;#  变量foundone在这里肯定是false, 
+ 22&nbsp;#+ 因为它是在子shell中被设置为true的. 
+ 23&nbsp;if [ $foundone = false ]
+ 24&nbsp;then
+ 25&nbsp;   echo "No files need archiving."
+ 26&nbsp;fi
+ 27&nbsp;
+ 28&nbsp;# =====================现在, 下边是正确的方法:=================
+ 29&nbsp;
+ 30&nbsp;foundone=false
+ 31&nbsp;for f in $(find $HOME -type f -atime +30 -size 100k)  # 这里没使用管道. 
+ 32&nbsp;do
+ 33&nbsp;   echo "$f is over 100KB and has not been accessed in over 30 days"
+ 34&nbsp;   echo "Consider moving the file to archives."
+ 35&nbsp;   foundone=true
+ 36&nbsp;done
+ 37&nbsp;   
+ 38&nbsp;if [ $foundone = false ]
+ 39&nbsp;then
+ 40&nbsp;   echo "No files need archiving."
+ 41&nbsp;fi
+ 42&nbsp;
+ 43&nbsp;# ==================这里是另一种方法==================
+ 44&nbsp;
+ 45&nbsp;#  将脚本中读取变量的部分放到一个代码块中, 
+ 46&nbsp;#+ 这样一来, 它们就能在相同的子shell中共享了. 
+ 47&nbsp;#  感谢, W.B.
+ 48&nbsp;
+ 49&nbsp;find $HOME -type f -atime +30 -size 100k | {
+ 50&nbsp;     foundone=false
+ 51&nbsp;     while read f
+ 52&nbsp;     do
+ 53&nbsp;       echo "$f is over 100KB and has not been accessed in over 30 days"
+ 54&nbsp;       echo "Consider moving the file to archives."
+ 55&nbsp;       foundone=true
+ 56&nbsp;     done
+ 57&nbsp;
+ 58&nbsp;     if ! $foundone
+ 59&nbsp;     then
+ 60&nbsp;       echo "No files need archiving."
+ 61&nbsp;     fi
+ 62&nbsp;}</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        一个相关的问题: 当你尝试将<B
+CLASS="COMMAND"
+>tail -f</B
+>的<TT
+CLASS="FILENAME"
+>stdout</TT
+>通过管道传递给<A
+HREF="textproc.html#GREPREF"
+>grep</A
+>时, 会产生问题. 
+	  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;tail -f /var/log/messages | grep "$ERROR_MSG" &#62;&#62; error.log
+  2&nbsp;# "error.log"文件将不会写入任何东西. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+      </P
+></LI
+><LI
+><P
+>在脚本中使用<SPAN
+CLASS="QUOTE"
+>"suid"</SPAN
+>命令是非常危险的, 
+	因为这会危及系统安全. 
+	  <A
+NAME="AEN15516"
+HREF="#FTN.AEN15516"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+      </P
+></LI
+><LI
+><P
+>使用shell脚本来编写CGI程序是值得商榷的. 
+			因为Shell脚本的变量不是<SPAN
+CLASS="QUOTE"
+>"类型安全"</SPAN
+>的, 
+		当CGI被关联的时候, 可能会产生令人不快的行为. 
+	此外, 它还很难抵挡住<SPAN
+CLASS="QUOTE"
+>"破解的考验"</SPAN
+>. </P
+></LI
+><LI
+><P
+>Bash不能正确的处理<A
+HREF="internal.html#DOUBLESLASHREF"
+>双斜线(<SPAN
+CLASS="TOKEN"
+>//</SPAN
+>)字符串</A
+>. </P
+></LI
+><LI
+><P
+>在Linux或BSD上编写的Bash脚本, 可能需要修改一下, 
+			才能使它们运行在商业的UNIX(或Apple OSX)机器上.  
+	这些脚本通常都使用GNU命令和过滤工具, GNU工具通常都比一般的UNIX上的同类工具更加强大. 
+	这方面的一个非常明显的例子就是, 文本处理工具<A
+HREF="textproc.html#TRREF"
+>tr</A
+>. </P
+></LI
+></UL
+><TABLE
+BORDER="0"
+WIDTH="100%"
+CELLSPACING="0"
+CELLPADDING="0"
+CLASS="EPIGRAPH"
+><TR
+><TD
+WIDTH="45%"
+>&nbsp;</TD
+><TD
+WIDTH="45%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+><P
+><I
+>危险正在接近你 --</I
+></P
+><P
+><I
+>小心, 小心, 小心, 小心.</I
+></P
+><P
+><I
+>许多勇敢的心都在沉睡.</I
+></P
+><P
+><I
+>所以一定要小心 --</I
+></P
+><P
+><I
+>小心.</I
+></P
+></I
+></TD
+></TR
+><TR
+><TD
+WIDTH="45%"
+>&nbsp;</TD
+><TD
+WIDTH="45%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><I
+><SPAN
+CLASS="ATTRIBUTION"
+>A.J. Lamb and H.W. Petrie</SPAN
+></I
+></TD
+></TR
+></TABLE
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN15516"
+HREF="gotchas.html#AEN15516"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>给脚本设置<EM
+>suid</EM
+>权限是没用的. 
+	    </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="options.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="scrstyle.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>选项</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part4.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>脚本编程风格</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

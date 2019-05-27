@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>一个学习Sed和Awk的小手册</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="参考卡片"
+HREF="refcards.html"><LINK
+REL="NEXT"
+TITLE="Sed"
+HREF="x17814.html"></HEAD
+><BODY
+CLASS="APPENDIX"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="refcards.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x17814.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="APPENDIX"
+><H1
+><A
+NAME="SEDAWK"
+></A
+>Appendix C. 一个学习Sed和Awk的小手册</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>目录</B
+></DT
+><DT
+>C.1. <A
+HREF="x17814.html"
+>Sed</A
+></DT
+><DT
+>C.2. <A
+HREF="awk.html"
+>Awk</A
+></DT
+></DL
+></DIV
+><P
+><A
+NAME="SEDREF"
+></A
+></P
+><P
+>这是一份关于<B
+CLASS="COMMAND"
+>sed</B
+>和<B
+CLASS="COMMAND"
+>awk</B
+>文本处理工具的概要介绍. 
+		  我们在这里只讨论一些基本命令, 
+		  但是这些基本命令已经足够让我们了解如何在shell脚本中使用简单的sed和awk结构. 
+	</P
+><P
+><B
+CLASS="COMMAND"
+>sed</B
+>: 一个非交互的文本文件编辑器</P
+><P
+><B
+CLASS="COMMAND"
+>awk</B
+>: 一个面向域的模式处理语言, 使用类似C的语法</P
+><P
+>在我们讨论这两个工具的差异性之前, 我们先说一下它们的共性, 
+		   这两个工具都使用类似的调用语法, 都使用<A
+HREF="regexp.html#REGEXREF"
+>正则表达式</A
+>, 
+		   默认情况下都从<TT
+CLASS="FILENAME"
+>stdin</TT
+>中读取输入, 
+		   并且都输出到<TT
+CLASS="FILENAME"
+>stdout</TT
+>. 
+		   它们都是行为良好的UNIX工具, 并且它们能够很好的在一起工作. 
+		   其中一个的输出可以通过管道传递给另一个, 正是由于它们组合能力, 
+		   才使得shell脚本能够具备一些Perl的特性. 
+	 </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>注意一下这两个工具之间的一个非常重要的区别, 
+			 shell脚本可以很容易的给sed传递参数, 
+			 但是传递参数给awk就比较复杂(请参考<A
+HREF="wrapper.html#COLTOTALER"
+>例子 33-5</A
+>和<A
+HREF="ivr.html#COLTOTALER2"
+>例子 9-24</A
+>). 
+	 </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="refcards.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x17814.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>参考卡片</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Sed</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,6749 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>系统与管理命令</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="高级Bash脚本编程指南"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="进阶"
+HREF="part3.html"><LINK
+REL="PREVIOUS"
+TITLE="混杂命令"
+HREF="extmisc.html"><LINK
+REL="NEXT"
+TITLE="分析一个系统脚本"
+HREF="sysscripts.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>高级Bash脚本编程指南: 一本深入学习shell脚本艺术的书籍</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="extmisc.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sysscripts.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="SYSTEM"
+></A
+>13. 系统与管理命令</H1
+><P
+>在<TT
+CLASS="FILENAME"
+>/etc/rc.d</TT
+>目录中的启动和关机脚本中包含了好多有用的(和没用的)系统管理命令. 
+		  这些命令通常总是被root用户使用, 用于系统维护或者是紧急系统文件修复. 
+		  一定要小心使用这些工具, 因为如果滥用的话, 它们会损坏你的系统. </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="USERSGROUPS1"
+></A
+>User和Group类</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>users</B
+></DT
+><DD
+><P
+>显示所有的登录用户. 这个命令与<B
+CLASS="COMMAND"
+>who -q</B
+>基本一致. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>groups</B
+></DT
+><DD
+><P
+>列出当前用户和他所属的组. 这相当于<A
+HREF="internalvariables.html#GROUPSREF"
+>$GROUPS</A
+>内部变量, 
+			但是这个命令将会给出组名字, 而不是数字. </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>groups</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bozita cdrom cdwriter audio xgrp</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo $GROUPS</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>501</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>chown</B
+>, <B
+CLASS="COMMAND"
+>chgrp</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>chown</B
+>命令将会修改一个或多个文件的所有权. 
+			对于<TT
+CLASS="REPLACEABLE"
+><I
+>root</I
+></TT
+>用户来说, 
+		   如果他想将文件的所有权从一个用户换到另一个用户的话, 
+	      那么使用这个命令是非常好的选择. 
+	      一个普通用户不能修改文件的所有权, 即使他是文件的宿主也不行. 
+	         <A
+NAME="AEN10989"
+HREF="#FTN.AEN10989"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>root# </SAMP
+><KBD
+CLASS="USERINPUT"
+>chown bozo *.txt</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+></SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+><B
+CLASS="COMMAND"
+>chgrp</B
+>将会修改一个或多个文件的<TT
+CLASS="REPLACEABLE"
+><I
+>group</I
+></TT
+>所有权. 
+			但前提是你必须是这些文件的宿主, 并且必须是目的组的成员(或者是<TT
+CLASS="REPLACEABLE"
+><I
+>root</I
+></TT
+>), 
+			这样你才能够使用这个命令. 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;chgrp --recursive dunderheads *.data
+  2&nbsp;#  "dunderheads"(译者: 晕,蠢才...) 组现在拥有了所有的"*.data"文件. 
+  3&nbsp;#+ 包括所有$PWD目录下的子目录中的文件(--recursive的作用就是包含子目录). </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>useradd</B
+>, <B
+CLASS="COMMAND"
+>userdel</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>useradd</B
+>管理命令将会在系统上添加一个用户帐号, 
+			  并且如果指定的话, 还会为特定的用户创建home目录. 
+	      相应的, <B
+CLASS="COMMAND"
+>userdel</B
+>命令将会从系统上删除一个用户帐号, 
+		 <A
+NAME="AEN11020"
+HREF="#FTN.AEN11020"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+	      并且会删除相应的文件. </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>adduser</B
+>与<B
+CLASS="COMMAND"
+>useradd</B
+>是完全相同的, 
+			<B
+CLASS="COMMAND"
+>adduser</B
+>通常仅仅是个符号链接. 
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>usermod</B
+></DT
+><DD
+><P
+>修改用户帐号. 可以修改给定用户帐号的密码, 
+			  组身份, 截止日期, 或者其他一些属性. 
+			  使用这个命令, 用户的密码可能会被锁定, 因为密码会影响到帐号的有效性. 
+	      </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>groupmod</B
+></DT
+><DD
+><P
+>修改指定组. 组名字或者ID号都可以用这个命令来修改. 
+	      </P
+></DD
+><DT
+><A
+NAME="IDREF"
+></A
+><B
+CLASS="COMMAND"
+>id</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>id</B
+>命令将会列出当前进程真实有效的用户ID, 还有用户的组ID. 
+			  这与Bash内部变量<A
+HREF="internalvariables.html#UIDREF"
+>$UID</A
+>,
+	      <A
+HREF="internalvariables.html#EUIDREF"
+>$EUID</A
+>, 和<A
+HREF="internalvariables.html#GROUPSREF"
+>$GROUPS</A
+>很相像. 
+	      </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>id</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>uid=501(bozo) gid=501(bozo) groups=501(bozo),22(cdrom),80(cdwriter),81(audio)</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo $UID</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>501</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>id</B
+>命令只有在<EM
+>有效</EM
+>ID与<EM
+>实际</EM
+>ID不符时, 
+				才会显示<EM
+>有效</EM
+>ID. </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>请参考<A
+HREF="internalvariables.html#AMIROOT"
+>例子 9-5</A
+>. </P
+></DD
+><DT
+><A
+NAME="WHOREF"
+></A
+><B
+CLASS="COMMAND"
+>who</B
+></DT
+><DD
+><P
+>显示系统上所有已经登录的用户. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>who</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bozo  tty1     Apr 27 17:45
+ bozo  pts/0    Apr 27 17:46
+ bozo  pts/1    Apr 27 17:47
+ bozo  pts/2    Apr 27 17:49</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+><CODE
+CLASS="OPTION"
+>-m</CODE
+>选项将会给出当前用户的详细信息. 
+			将任意两个参数传递到<B
+CLASS="COMMAND"
+>who</B
+>中, 
+			都等价于<B
+CLASS="COMMAND"
+>who -m</B
+>, 
+			就像<B
+CLASS="COMMAND"
+>who am i</B
+>或<B
+CLASS="COMMAND"
+>who The Man</B
+>. 
+		</P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>who -m</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>localhost.localdomain!bozo  pts/2    Apr 27 17:49</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+><A
+NAME="WHOAMIREF"
+></A
+><B
+CLASS="COMMAND"
+>whoami</B
+>与<B
+CLASS="COMMAND"
+>who
+	      -m</B
+>很相似, 但是只列出用户名. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>whoami</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bozo</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>w</B
+></DT
+><DD
+><P
+>显示所有的登录用户和属于它们的进程. 
+			  这是一个<B
+CLASS="COMMAND"
+>who</B
+>命令的扩展版本. 
+			  <B
+CLASS="COMMAND"
+>w</B
+>的输出可以通过管道传递到<B
+CLASS="COMMAND"
+>grep</B
+>命令中, 
+			  这样就可以查找指定的用户或进程. </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>w | grep startx</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bozo  tty1     -                 4:22pm  6:41   4.47s  0.45s  startx</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>logname</B
+></DT
+><DD
+><P
+>显示当前用户的登录名(可以在<TT
+CLASS="FILENAME"
+>/var/run/utmp</TT
+>中找到). 
+			  这与上边的<A
+HREF="system.html#WHOAMIREF"
+>whoami</A
+>很相近. 
+	      </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>logname</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bozo</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>whoami</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bozo</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>然而...</P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>su</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Password: ......</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash# </SAMP
+><KBD
+CLASS="USERINPUT"
+>whoami</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>root</SAMP
+>
+<SAMP
+CLASS="PROMPT"
+>bash# </SAMP
+><KBD
+CLASS="USERINPUT"
+>logname</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bozo</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>logname</B
+>只会打印出登录的用户名, 
+				而<B
+CLASS="COMMAND"
+>whoami</B
+>将会给出附着到当前进程的用户名. 
+				就像我们上边看到的那样, 这两个名字有时会不同. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="SUREF"
+></A
+><B
+CLASS="COMMAND"
+>su</B
+></DT
+><DD
+><P
+>使用替换的用户(<EM
+>s</EM
+>ubstitute <EM
+>u</EM
+>ser)身份来运行一个程序或脚本. 
+			<B
+CLASS="COMMAND"
+>su rjones</B
+>将会以用户<EM
+>rjones</EM
+>的身份来启动shell. 
+			使用<B
+CLASS="COMMAND"
+>su</B
+>命令时, 如果不使用任何参数的话, 
+			那默认就是<EM
+>root</EM
+>用户. 请参考<A
+HREF="contributed-scripts.html#FIFO"
+>例子 A-15</A
+>. 
+			</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>sudo</B
+></DT
+><DD
+><P
+>以root(或其他用户)的身份来运行一个命令. 
+			  这个命令可以用在脚本中, 这样就允许以正规的用户身份来运行脚本. 
+	      </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# 某些命令. 
+  4&nbsp;sudo cp /root/secretfile /home/bozo/secret
+  5&nbsp;# 其余的命令. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>文件<TT
+CLASS="FILENAME"
+>/etc/sudoers</TT
+>中保存有允许调用<B
+CLASS="COMMAND"
+>sudo</B
+>命令的用户名. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>passwd</B
+></DT
+><DD
+><P
+>设置, 修改, 或者管理用户的密码. </P
+><P
+><B
+CLASS="COMMAND"
+>passwd</B
+>命令可以用在脚本中, 
+	      但是<EM
+>估计你不想这么用</EM
+>, 呵呵. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="SETNEWPW"
+></A
+><P
+><B
+>例子 13-1. 设置一个新密码</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;#  setnew-password.sh: 这个脚本仅仅用于说明passwd命令. 
+  3&nbsp;#                      如果你真想运行这个脚本, 很遗憾, 这可不是个好主意. 
+  4&nbsp;#  这个脚本必须以root身份来运行. 
+  5&nbsp;
+  6&nbsp;ROOT_UID=0         # Root的$UID为0.
+  7&nbsp;E_WRONG_USER=65    # 不是root用户?
+  8&nbsp;
+  9&nbsp;E_NOSUCHUSER=70
+ 10&nbsp;SUCCESS=0
+ 11&nbsp;
+ 12&nbsp;
+ 13&nbsp;if [ "$UID" -ne "$ROOT_UID" ]
+ 14&nbsp;then
+ 15&nbsp;  echo; echo "Only root can run this script."; echo
+ 16&nbsp;  exit $E_WRONG_USER
+ 17&nbsp;else
+ 18&nbsp;  echo
+ 19&nbsp;  echo "You should know better than to run this script, root."
+ 20&nbsp;  echo "Even root users get the blues... "
+ 21&nbsp;  echo
+ 22&nbsp;fi  
+ 23&nbsp;
+ 24&nbsp;
+ 25&nbsp;username=bozo
+ 26&nbsp;NEWPASSWORD=security_violation
+ 27&nbsp;
+ 28&nbsp;# 检查bozo是否在这里. 
+ 29&nbsp;grep -q "$username" /etc/passwd
+ 30&nbsp;if [ $? -ne $SUCCESS ]
+ 31&nbsp;then
+ 32&nbsp;  echo "User $username does not exist."
+ 33&nbsp;  echo "No password changed."
+ 34&nbsp;  exit $E_NOSUCHUSER
+ 35&nbsp;fi  
+ 36&nbsp;
+ 37&nbsp;echo "$NEWPASSWORD" | passwd --stdin "$username"
+ 38&nbsp;#  'passwd'命令的'--stdin'选项允许
+ 39&nbsp;#+ 从stdin(或者管道)中获得一个新的密码. 
+ 40&nbsp;
+ 41&nbsp;echo; echo "User $username's password changed!"
+ 42&nbsp;
+ 43&nbsp;# 在脚本中使用'passwd'命令是非常危险的. 
+ 44&nbsp;
+ 45&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+><B
+CLASS="COMMAND"
+>passwd</B
+>命令的<CODE
+CLASS="OPTION"
+>-l</CODE
+>,
+				<CODE
+CLASS="OPTION"
+>-u</CODE
+>, 和<CODE
+CLASS="OPTION"
+>-d</CODE
+>选项允许锁定, 
+				解锁, 和删除一个用户的密码. 只有root用户可以使用这些选项. 
+			</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>ac</B
+></DT
+><DD
+><P
+>显示用户登录的连接时间, 
+			  就像从<TT
+CLASS="FILENAME"
+>/var/log/wtmp</TT
+>中读取一样. 
+			  这是一个GNU统计工具. 
+	      </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ac</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>        total       68.08</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>last</B
+></DT
+><DD
+><P
+>用户<EM
+>最后</EM
+>登录的信息, 
+			  就像从<TT
+CLASS="FILENAME"
+>/var/log/wtmp</TT
+>中读出来一样. 
+			  这个命令也可以用来显示远端登录. 
+	      </P
+><P
+>比如, 显示最后几次系统的重启信息: </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>last reboot</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>reboot   system boot  2.6.9-1.667      Fri Feb  4 18:18          (00:02)    
+ reboot   system boot  2.6.9-1.667      Fri Feb  4 15:20          (01:27)    
+ reboot   system boot  2.6.9-1.667      Fri Feb  4 12:56          (00:49)    
+ reboot   system boot  2.6.9-1.667      Thu Feb  3 21:08          (02:17)    
+ . . .
+
+ wtmp begins Tue Feb  1 12:50:09 2005</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>newgrp</B
+></DT
+><DD
+><P
+>不用登出就可以修改用户的组ID. 并且允许访问新组的文件. 
+			  因为用户可能同时属于多个组, 这个命令很少被使用. 
+	      </P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="TERMINALSSYS1"
+></A
+>终端类命令</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>tty</B
+></DT
+><DD
+><P
+>显示当前用户终端的名字. 
+			  注意每一个单独的<I
+CLASS="FIRSTTERM"
+>xterm</I
+>窗口都被算作一个不同的终端.
+	      </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>tty</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/dev/pts/1</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><A
+NAME="STTYREF"
+></A
+><B
+CLASS="COMMAND"
+>stty</B
+></DT
+><DD
+><P
+>显示并(或)修改终端设置. 这个复杂命令可以用在脚本中, 
+			  并可以用来控制终端的行为和其显示输出的方法. 参见这个命令的info页, 并仔细学习它.
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ERASE"
+></A
+><P
+><B
+>例子 13-2. 设置一个擦除字符</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# erase.sh: 在读取输入时使用"stty"来设置一个擦除字符. 
+  3&nbsp;
+  4&nbsp;echo -n "What is your name? "
+  5&nbsp;read name                      #  试试用退格键
+  6&nbsp;                               #+ 来删除输入的字符. 
+  7&nbsp;                               #  有什么问题? 
+  8&nbsp;echo "Your name is $name."
+  9&nbsp;
+ 10&nbsp;stty erase '#'                 #  将"hashmark"(#)设置为退格字符. 
+ 11&nbsp;echo -n "What is your name? "
+ 12&nbsp;read name                      #  使用#来删除最后键入的字符. 
+ 13&nbsp;echo "Your name is $name."
+ 14&nbsp;
+ 15&nbsp;# 警告: 即使在脚本退出后, 新的键值还是保持着这个设置. (译者: 可以使用stty erase '^?'进行恢复)
+ 16&nbsp;
+ 17&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="SECRETPW"
+></A
+><P
+><B
+>例子 13-3. <B
+CLASS="COMMAND"
+>保密密码</B
+>: 关闭终端对于密码的echo</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# secret-pw.sh: 保护密码不被显示
+  3&nbsp;
+  4&nbsp;echo
+  5&nbsp;echo -n "Enter password "
+  6&nbsp;read passwd
+  7&nbsp;echo "password is $passwd"
+  8&nbsp;echo -n "If someone had been looking over your shoulder, "
+  9&nbsp;echo "your password would have been compromised."
+ 10&nbsp;
+ 11&nbsp;echo &#38;&#38; echo  # 在一个"与列表"中产生两个换行. 
+ 12&nbsp;
+ 13&nbsp;
+ 14&nbsp;stty -echo    # 关闭屏幕的echo. 
+ 15&nbsp;
+ 16&nbsp;echo -n "Enter password again "
+ 17&nbsp;read passwd
+ 18&nbsp;echo
+ 19&nbsp;echo "password is $passwd"
+ 20&nbsp;echo
+ 21&nbsp;
+ 22&nbsp;stty echo     # 恢复屏幕的echo. 
+ 23&nbsp;
+ 24&nbsp;exit 0
+ 25&nbsp;
+ 26&nbsp;# 详细的阅读stty命令的info页, 以便于更好的掌握这个有用并且狡猾的工具. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>一个创造性的<B
+CLASS="COMMAND"
+>stty</B
+>命令的用法, 
+			检测用户所按的键(不用敲<B
+CLASS="KEYCAP"
+>回车</B
+>). 
+		</P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="KEYPRESS"
+></A
+><P
+><B
+>例子 13-4. 按键检测</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# keypress.sh: 检测用户按键("hot keys").
+  3&nbsp;
+  4&nbsp;echo
+  5&nbsp;
+  6&nbsp;old_tty_settings=$(stty -g)   # 保存老的设置(为什么?). 
+  7&nbsp;stty -icanon
+  8&nbsp;Keypress=$(head -c1)          # 或者使用$(dd bs=1 count=1 2&#62; /dev/null)
+  9&nbsp;                              # 在非GNU系统上
+ 10&nbsp;
+ 11&nbsp;echo
+ 12&nbsp;echo "Key pressed was \""$Keypress"\"."
+ 13&nbsp;echo
+ 14&nbsp;
+ 15&nbsp;stty "$old_tty_settings"      # 恢复老的设置. 
+ 16&nbsp;
+ 17&nbsp;# 感谢, Stephane Chazelas.
+ 18&nbsp;
+ 19&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>请参考<A
+HREF="internalvariables.html#TIMEOUT"
+>例子 9-3</A
+>. </P
+><TABLE
+CLASS="SIDEBAR"
+BORDER="1"
+CELLPADDING="5"
+><TR
+><TD
+><DIV
+CLASS="SIDEBAR"
+><A
+NAME="AEN11305"
+></A
+><P
+><B
+>终端与模式terminals and modes</B
+></P
+><P
+>一般情况下, 一个终端都是工作在<EM
+>canonical</EM
+>(标准)模式下. 
+				当用户按键后, 事实上所产生的字符并没有马上传递到运行在当前终端上的程序. 
+				终端上的一个本地缓存保存了这些按键. 当用按下<B
+CLASS="KEYCAP"
+>回车</B
+>键的时候, 
+				才会将所有保存的按键信息传递到运行的程序中. 
+				这就意味着在终端内部存在一个基本的行编辑器. 
+			</P
+><P
+>	        <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>stty -a</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>speed 9600 baud; rows 36; columns 96; line = 0;
+ intr = ^C; quit = ^\; erase = ^H; kill = ^U; eof = ^D; eol = &#60;undef&#62;; eol2 = &#60;undef&#62;;
+ start = ^Q; stop = ^S; susp = ^Z; rprnt = ^R; werase = ^W; lnext = ^V; flush = ^O;
+ ...
+ isig icanon iexten echo echoe echok -echonl -noflsh -xcase -tostop -echoprt</SAMP
+>
+                </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>在使用canonical模式的时候, 可以对本地终端行编辑器所定义的特殊按键进行重新定义. 
+
+	        <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cat &#62; filexxx</KBD
+>
+<KBD
+CLASS="USERINPUT"
+>wha&#60;ctl-W&#62;I&#60;ctl-H&#62;foo bar&#60;ctl-U&#62;hello world&#60;ENTER&#62;</KBD
+>
+<KBD
+CLASS="USERINPUT"
+>&#60;ctl-D&#62;</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cat filexxx</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>hello world</SAMP
+>		
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>wc -c &#60; filexxx</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>12</SAMP
+>		
+                </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+				控制终端的进程只保存了12个字符(11个字母加上一个换行), 
+				虽然用户敲了26个按键. 
+            </P
+><P
+>在non-canonical((<SPAN
+CLASS="QUOTE"
+>"raw"</SPAN
+>)模式下, 
+				每次按键(包括特殊定义的按键, 
+				比如<B
+CLASS="KEYCAP"
+>ctl-H</B
+>)都将会立即发送一个字符到控制进程中. 
+              </P
+><P
+>Bash提示符禁用了<CODE
+CLASS="OPTION"
+>icanon</CODE
+>和<CODE
+CLASS="OPTION"
+>echo</CODE
+>, 
+				  因为它用自己的行编辑器代替了终端的基本行编辑器, 因为Bash的行编辑器更好. 
+				  比如, 当你在Bash提示符下敲<B
+CLASS="KEYCAP"
+>ctl-A</B
+>的时候, 
+				  终端将不会显示<B
+CLASS="KEYCAP"
+>^A</B
+>, 
+				  但是Bash将会获得<B
+CLASS="KEYCAP"
+>\1</B
+>字符, 
+				  然后解释这个字符, 这样光标就移动到行首了.
+              </P
+><P
+><EM
+>Stephane Chazelas</EM
+></P
+></DIV
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>setterm</B
+></DT
+><DD
+><P
+>设置特定的终端属性. 
+			这个命令将向它所在终端的<TT
+CLASS="FILENAME"
+>stdout</TT
+>发送一个字符串, 
+			这个字符串将修改终端的行为.
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>setterm -cursor off</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bash$</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+><B
+CLASS="COMMAND"
+>setterm</B
+>命令可以放在脚本中用来修改写入到<TT
+CLASS="FILENAME"
+>stdout</TT
+>上的文本的外观. 
+			当然, 如果你只想完成这个目的的话, 
+			还有<A
+HREF="colorizing.html#COLORIZINGREF"
+>更合适的工具</A
+>可以用. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;setterm -bold on
+  2&nbsp;echo bold hello
+  3&nbsp;
+  4&nbsp;setterm -bold off
+  5&nbsp;echo normal hello</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>tset</B
+></DT
+><DD
+><P
+>显示或初始化终端设置. 
+	      可以把它看成一个功能比较弱的<B
+CLASS="COMMAND"
+>stty</B
+>命令. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>tset -r</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Terminal type is xterm-xfree86.
+ Kill is control-U (^U).
+ Interrupt is control-C (^C).</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>setserial</B
+></DT
+><DD
+><P
+>设置或者显示串口参数. 
+			  这个脚本只能被root用户来运行, 
+			  并且通常都在系统安装脚本中使用.
+	      </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 来自于/etc/pcmcia/serial脚本: 
+  2&nbsp;
+  3&nbsp;IRQ=`setserial /dev/$DEVICE | sed -e 's/.*IRQ: //'`
+  4&nbsp;setserial /dev/$DEVICE irq 0 ; setserial /dev/$DEVICE irq $IRQ</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>getty</B
+>, <B
+CLASS="COMMAND"
+>agetty</B
+></DT
+><DD
+><P
+>一个终端的初始化过程通常都是使用<B
+CLASS="COMMAND"
+>getty</B
+>或<B
+CLASS="COMMAND"
+>agetty</B
+>来建立, 
+			  这样才能让用户登录. 这些命令并不用在用户的shell脚本中. 
+			  它们的行为与<B
+CLASS="COMMAND"
+>stty</B
+>很相似. 
+		  </P
+></DD
+><DT
+><A
+NAME="MESGREF"
+></A
+><B
+CLASS="COMMAND"
+>mesg</B
+></DT
+><DD
+><P
+>启用或禁用当前用户终端的访问权限. 
+			  禁用访问权限将会阻止网络上的另一用户向这个终端<A
+HREF="communications.html#WRITEREF"
+>写</A
+>消息. 
+	      </P
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>当你正在编写文本文件的时候, 在文本中间突然来了一个莫名其妙的消息, 
+				  你会觉得非常烦人. 在多用户的网络环境下, 如果你不想被打断, 
+				那么你必须关闭其他用户对你终端的写权限. 
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="WALLREF"
+></A
+><B
+CLASS="COMMAND"
+>wall</B
+></DT
+><DD
+><P
+>这是一个缩写单词<SPAN
+CLASS="QUOTE"
+>"<A
+HREF="communications.html#WRITEREF"
+>write</A
+> all"</SPAN
+>, 
+			 也就是, 向登录到网络上的所有终端的所有用户都发送一个消息. 
+			 最早这是一个管理员的工具, 很有用, 比如, 
+			 当系统有问题的时候, 
+			 管理可以警告系统上的所有人暂时离开(请参考<A
+HREF="here-docs.html#EX70"
+>例子 17-1</A
+>). 
+			 </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>wall System going down for maintenance in 5 minutes!</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Broadcast message from bozo (pts/1) Sun Jul  8 13:53:27 2001...
+
+ System going down for maintenance in 5 minutes!</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果某个特定终端使用<B
+CLASS="COMMAND"
+>mesg</B
+>来禁止了写权限, 
+				那么<B
+CLASS="COMMAND"
+>wall</B
+>将不会给它发消息. 
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="STATISTICSSYS1"
+></A
+>信息与统计类</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>uname</B
+></DT
+><DD
+><P
+>显示系统信息(OS, 内核版本, 等等.) ,输出到<TT
+CLASS="FILENAME"
+>stdout</TT
+>上. 
+			  使用<CODE
+CLASS="OPTION"
+>-a</CODE
+>选项, 将会给出详细的系统信息(请参考<A
+HREF="moreadv.html#EX41"
+>例子 12-5</A
+>). 
+				  使用<CODE
+CLASS="OPTION"
+>-s</CODE
+>选项只会输出OS类型. </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>uname -a</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Linux localhost.localdomain 2.2.15-2.5.0 #1 Sat Feb 5 00:13:43 EST 2000 i686 unknown</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>uname -s</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Linux</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>arch</B
+></DT
+><DD
+><P
+>显示系统的硬件体系结构. 
+			  等价于<B
+CLASS="COMMAND"
+>uname -m</B
+>. 
+			  请参考<A
+HREF="testbranch.html#CASECMD"
+>例子 10-26</A
+>. </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>arch</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>i686</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>uname -m</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>i686</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>lastcomm</B
+></DT
+><DD
+><P
+>给出前一个命令的信息, 存储在<TT
+CLASS="FILENAME"
+>/var/account/pacct</TT
+>文件中. 
+			  命令名字和用户名字都可以通过选项来指定. 这是GNU的一个统计工具. 
+	      </P
+></DD
+><DT
+><A
+NAME="LASTLOGREF"
+></A
+><B
+CLASS="COMMAND"
+>lastlog</B
+></DT
+><DD
+><P
+>列出系统上所有用户最后登录的时间. 
+			  然后保存到<TT
+CLASS="FILENAME"
+>/var/log/lastlog</TT
+>文件中. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>lastlog</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>root          tty1                      Fri Dec  7 18:43:21 -0700 2001
+ bin                                     **Never logged in**
+ daemon                                  **Never logged in**
+ ...
+ bozo          tty1                      Sat Dec  8 21:14:29 -0700 2001</SAMP
+>
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>lastlog | grep root</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>root          tty1                      Fri Dec  7 18:43:21 -0700 2001</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>如果用户对于文件<TT
+CLASS="FILENAME"
+>/var/log/lastlog</TT
+>没有读权限的话, 
+				  那么调用这个命令就会失败. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>lsof</B
+></DT
+><DD
+><P
+>列出打开的文件. 这个命令将会把所有当前打开的文件都列出到一份详细的表格中, 
+			  包括文件的宿主信息, 尺寸, 还有与它们相关的信息等等. 
+			  当然, <B
+CLASS="COMMAND"
+>lsof</B
+>也可以通过管道输出到<A
+HREF="textproc.html#GREPREF"
+>grep</A
+>和(或)<A
+HREF="awk.html#AWKREF"
+>awk</A
+>中, 
+			  来分析它的内容. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>lsof</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>COMMAND    PID    USER   FD   TYPE     DEVICE    SIZE     NODE NAME
+ init         1    root  mem    REG        3,5   30748    30303 /sbin/init
+ init         1    root  mem    REG        3,5   73120     8069 /lib/ld-2.1.3.so
+ init         1    root  mem    REG        3,5  931668     8075 /lib/libc-2.1.3.so
+ cardmgr    213    root  mem    REG        3,5   36956    30357 /sbin/cardmgr
+ ...</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>strace</B
+></DT
+><DD
+><P
+>系统跟踪(<B
+CLASS="COMMAND"
+>S</B
+>ystem <B
+CLASS="COMMAND"
+>trace</B
+>): 
+			是跟踪<I
+CLASS="FIRSTTERM"
+>系统调用</I
+>和信号的诊断和调试工具. 
+			如果你想了解特定的程序或者工具包为什么运行失败的话, 
+			那么这个命令和下边的<B
+CLASS="COMMAND"
+>ltrace</B
+>命令就显得非常有用了, 
+	       . . . 当然, 这种失败现象可能是由缺少相关的库, 或者其他问题所引起. 
+	      </P
+><P
+>	    <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>strace df</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>execve("/bin/df", ["df"], [/* 45 vars */]) = 0
+ uname({sys="Linux", node="bozo.localdomain", ...}) = 0
+ brk(0)                                  = 0x804f5e4
+
+ ...</SAMP
+>
+	    </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>这是Solaris <B
+CLASS="COMMAND"
+>truss</B
+>命令的Linux的等价工具. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>ltrace</B
+></DT
+><DD
+><P
+>库跟踪工具(<B
+CLASS="COMMAND"
+>L</B
+>ibrary <B
+CLASS="COMMAND"
+>trace</B
+>): 
+	      跟踪给定命令的<I
+CLASS="FIRSTTERM"
+>调用库</I
+>的相关信息. 
+	      </P
+><P
+>	    <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ltrace df</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>__libc_start_main(0x804a910, 1, 0xbfb589a4, 0x804fb70, 0x804fb68 &#60;unfinished ...&#62;:
+ setlocale(6, "")                                 = "en_US.UTF-8"
+bindtextdomain("coreutils", "/usr/share/locale") = "/usr/share/locale"
+textdomain("coreutils")                          = "coreutils"
+__cxa_atexit(0x804b650, 0, 0, 0x8052bf0, 0xbfb58908) = 0
+getenv("DF_BLOCK_SIZE")                          = NULL
+
+ ...</SAMP
+>
+	    </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><A
+NAME="NMAPREF"
+></A
+><B
+CLASS="COMMAND"
+>nmap</B
+></DT
+><DD
+><P
+>网络映射(<B
+CLASS="COMMAND"
+>N</B
+>etwork <B
+CLASS="COMMAND"
+>map</B
+>per)与端口扫描程序. 
+			这个命令将会扫描一个服务器来定位打开的端口, 
+			并且定位与这些端口相关的服务. 
+	      这个命令也能够上报一些包过滤与防火墙的信息. 
+	     这是一个防止网络被黑客入侵的非常重要的安全工具. 
+	      </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;SERVER=$HOST                           # localhost.localdomain (127.0.0.1).
+  4&nbsp;PORT_NUMBER=25                         # SMTP端口.
+  5&nbsp;
+  6&nbsp;nmap $SERVER | grep -w "$PORT_NUMBER"  # 察看指定端口是否打开?
+  7&nbsp;#              grep -w 匹配整个单词. 
+  8&nbsp;#+             这样就不会匹配类似于1025这种含有25的端口了. 
+  9&nbsp;
+ 10&nbsp;exit 0
+ 11&nbsp;
+ 12&nbsp;# 25/tcp     open        smtp</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>nc</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>nc</B
+>(<EM
+>netcat</EM
+>)工具是一个完整的工具包, 
+			  可以用它连接和监听TCP和UDP端口. 
+			  它能作为诊断和测试工具, 
+			  也能作为基于脚本的HTTP客户端和服务器组件. 
+	      </P
+><P
+>	    <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>nc localhost.localdomain 25</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>220 localhost.localdomain ESMTP Sendmail 8.13.1/8.13.1; Thu, 31 Mar 2005 15:41:35 -0700</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ISCAN"
+></A
+><P
+><B
+>例子 13-5. 扫描远程机器上的<EM
+>identd</EM
+>服务进程</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#! /bin/sh
+  2&nbsp;## 使用netcat工具写的和DaveG写的ident-scan扫描器有同等功能的东西. 噢, 他会被气死的. 
+  3&nbsp;## 参数: target port [port port port ...]
+  4&nbsp;## 标准输出和标准输入被混到一块.
+  5&nbsp;##
+  6&nbsp;##  优点: 运行起来比ident-scan慢, 这样使远程机器inetd进程更不易注意而不会产生警告, 
+  7&nbsp;##+ 并且只有很少的知名端口会被指定. 
+  8&nbsp;##  缺点: 要求数字端口参数, 输出中无法区分标准输出和标准错误, 
+  9&nbsp;##+ 并且当远程服务监听在很高的端口时无法工作. 
+ 10&nbsp;# 脚本作者: Hobbit &#60;hobbit@avian.org&#62;
+ 11&nbsp;# 已征得作者同意在ABS指南中使用. 
+ 12&nbsp;
+ 13&nbsp;# ---------------------------------------------------
+ 14&nbsp;E_BADARGS=65       # 至少需要两个参数. 
+ 15&nbsp;TWO_WINKS=2        # 睡眠多长时间. 
+ 16&nbsp;THREE_WINKS=3
+ 17&nbsp;IDPORT=113         # indent协议的认证端口. 
+ 18&nbsp;RAND1=999
+ 19&nbsp;RAND2=31337
+ 20&nbsp;TIMEOUT0=9
+ 21&nbsp;TIMEOUT1=8
+ 22&nbsp;TIMEOUT2=4
+ 23&nbsp;# ---------------------------------------------------
+ 24&nbsp;
+ 25&nbsp;case "${2}" in
+ 26&nbsp;  "" ) echo "Need HOST and at least one PORT." ; exit $E_BADARGS ;;
+ 27&nbsp;esac
+ 28&nbsp;
+ 29&nbsp;# 测试目标主机看是否运行了identd守护进程.
+ 30&nbsp;nc -z -w $TIMEOUT0 "$1" $IDPORT || { echo "Oops, $1 isn't running identd." ; exit 0 ; }
+ 31&nbsp;#  -z 选项扫描监听进程.
+ 32&nbsp;#     -w $TIMEOUT = 尝试连接多长时间.
+ 33&nbsp;
+ 34&nbsp;# 产生一个随机的本地起点源端口.
+ 35&nbsp;RP=`expr $$ % $RAND1 + $RAND2`
+ 36&nbsp;
+ 37&nbsp;TRG="$1"
+ 38&nbsp;shift
+ 39&nbsp;
+ 40&nbsp;while test "$1" ; do
+ 41&nbsp;  nc -v -w $TIMEOUT1 -p ${RP} "$TRG" ${1} &#60; /dev/null &#62; /dev/null &#38;
+ 42&nbsp;  PROC=$!
+ 43&nbsp;  sleep $THREE_WINKS
+ 44&nbsp;  echo "${1},${RP}" | nc -w $TIMEOUT2 -r "$TRG" $IDPORT 2&#62;&#38;1
+ 45&nbsp;  sleep $TWO_WINKS
+ 46&nbsp;
+ 47&nbsp;# 这看上去是不是像个残疾的脚本或是其他类似的东西... ?
+ 48&nbsp;# ABS作者评注 : "这不是真的那么糟糕,
+ 49&nbsp;#+               事实上, 做得非常聪明."
+ 50&nbsp;
+ 51&nbsp;  kill -HUP $PROC
+ 52&nbsp;  RP=`expr ${RP} + 1`
+ 53&nbsp;  shift
+ 54&nbsp;done
+ 55&nbsp;
+ 56&nbsp;exit $?
+ 57&nbsp;
+ 58&nbsp;#  注意事项:
+ 59&nbsp;#  ---------
+ 60&nbsp;
+ 61&nbsp;#  试着把第30行去掉, 
+ 62&nbsp;#+ 然后以"localhost.localdomain 25"为参数来运行脚本.
+ 63&nbsp;
+ 64&nbsp;#  关于Hobbit写的更多'nc'例子脚本,
+ 65&nbsp;#+ 可以在以下文档中找到:
+ 66&nbsp;#+ /usr/share/doc/nc-X.XX/scripts 目录.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>			并且, 当然, 
+			这里还有Dr. Andrew Tridgell在BistKeeper事件中臭名卓著的一行脚本: 
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;echo clone | nc thunk.org 5000 &#62; e2fsprogs.dat</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><A
+NAME="FREEREF"
+></A
+><B
+CLASS="COMMAND"
+>free</B
+></DT
+><DD
+><P
+>使用表格形式来显示内存和缓存的使用情况. 
+			  这个命令的输出非常适合于使用<A
+HREF="textproc.html#GREPREF"
+>grep</A
+>, 
+			  <A
+HREF="awk.html#AWKREF"
+>awk</A
+>或者<B
+CLASS="COMMAND"
+>Perl</B
+>来分析. 
+			  <B
+CLASS="COMMAND"
+>procinfo</B
+>将会显示<B
+CLASS="COMMAND"
+>free</B
+>命令所能显示的所有信息, 而且更加详细. 
+	      </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><B
+CLASS="COMMAND"
+>free</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>                total       used       free     shared    buffers     cached
+   Mem:         30504      28624       1880      15820       1608       16376
+   -/+ buffers/cache:      10640      19864
+   Swap:        68540       3128      65412</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>打印出未使用的RAM内存: </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><B
+CLASS="COMMAND"
+>free | grep Mem | awk '{ print $4 }'</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>1880</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><A
+NAME="PROCINFOREF"
+></A
+><B
+CLASS="COMMAND"
+>procinfo</B
+></DT
+><DD
+><P
+>从<A
+HREF="devproc.html#DEVPROCREF"
+><TT
+CLASS="FILENAME"
+>/proc</TT
+>
+	  pseudo-filesystem</A
+>中提取并显示所有信息和统计资料. 
+	  这个命令将给出更详细的信息. 
+	      </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>procinfo | grep Bootup</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Bootup: Wed Mar 21 15:15:50 2001    Load average: 0.04 0.21 0.34 3/47 6829</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><A
+NAME="LSDEVREF"
+></A
+><B
+CLASS="COMMAND"
+>lsdev</B
+></DT
+><DD
+><P
+>列出系统设备, 也就是显示所有安装的硬件. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>lsdev</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Device            DMA   IRQ  I/O Ports
+ ------------------------------------------------
+ cascade             4     2 
+ dma                          0080-008f
+ dma1                         0000-001f
+ dma2                         00c0-00df
+ fpu                          00f0-00ff
+ ide0                     14  01f0-01f7 03f6-03f6
+ ...</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+></DD
+><DT
+><A
+NAME="DUREF"
+></A
+><B
+CLASS="COMMAND"
+>du</B
+></DT
+><DD
+><P
+>递归的显示(磁盘)文件的使用状况. 除非特殊指定, 否则默认是当前工作目录. 
+	      </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><B
+CLASS="COMMAND"
+>du -ach</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>1.0k    ./wi.sh
+ 1.0k    ./tst.sh
+ 1.0k    ./random.file
+ 6.0k    .
+ 6.0k    total</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><A
+NAME="DFREF"
+></A
+><B
+CLASS="COMMAND"
+>df</B
+></DT
+><DD
+><P
+>使用列表的形式显示文件系统的使用状况. </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><B
+CLASS="COMMAND"
+>df</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Filesystem           1k-blocks      Used Available Use% Mounted on
+ /dev/hda5               273262     92607    166547  36% /
+ /dev/hda8               222525    123951     87085  59% /home
+ /dev/hda7              1408796   1075744    261488  80% /usr</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>dmesg</B
+></DT
+><DD
+><P
+>将所有的系统启动消息输出到<TT
+CLASS="FILENAME"
+>stdout</TT
+>上. 
+			  方便除错, 并且可以查出安装了哪些设备驱动和察看使用了哪些系统中断. 
+	      <B
+CLASS="COMMAND"
+>dmesg</B
+>命令的输出当然也放在脚本中, 并使用<A
+HREF="textproc.html#GREPREF"
+>grep</A
+>, 
+	      <A
+HREF="sedawk.html#SEDREF"
+>sed</A
+>, 或<A
+HREF="awk.html#AWKREF"
+>awk</A
+>来进行分析. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>dmesg | grep hda</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Kernel command line: ro root=/dev/hda2
+ hda: IBM-DLGA-23080, ATA DISK drive
+ hda: 6015744 sectors (3080 MB) w/96KiB Cache, CHS=746/128/63
+ hda: hda1 hda2 hda3 &#60; hda5 hda6 hda7 &#62; hda4</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>stat</B
+></DT
+><DD
+><P
+>显示一个或多个给定文件(也可以是目录文件或设备文件)的详细统计信息(<EM
+>stat</EM
+>istic).  
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>stat test.cru</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>  File: "test.cru"
+   Size: 49970        Allocated Blocks: 100          Filetype: Regular File
+   Mode: (0664/-rw-rw-r--)         Uid: (  501/ bozo)  Gid: (  501/ bozo)
+ Device:  3,8   Inode: 18185     Links: 1    
+ Access: Sat Jun  2 16:40:24 2001
+ Modify: Sat Jun  2 16:40:24 2001
+ Change: Sat Jun  2 16:40:24 2001</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>如果目标文件不存在, 
+			<B
+CLASS="COMMAND"
+>stat</B
+>将会返回一个错误消息. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>stat nonexistent-file</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>nonexistent-file: No such file or directory</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><A
+NAME="VMSTATREF"
+></A
+><B
+CLASS="COMMAND"
+>vmstat</B
+></DT
+><DD
+><P
+>显示虚拟内存的统计信息. </P
+><P
+>	    <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>vmstat</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>   procs                      memory    swap          io system         cpu
+ r  b  w   swpd   free   buff  cache  si  so    bi    bo   in    cs  us  sy id
+ 0  0  0      0  11040   2636  38952   0   0    33     7  271    88   8   3 89</SAMP
+>
+	    </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>netstat</B
+></DT
+><DD
+><P
+>显示当前网络的统计状况和信息, 
+			  比如路由表和激活的连接, 
+			  这个工具将访问<TT
+CLASS="FILENAME"
+>/proc/net</TT
+>(<A
+HREF="devproc.html"
+> 27</A
+>)中的信息. 
+				  请参考<A
+HREF="procref1.html#CONSTAT"
+>例子 27-3</A
+>. </P
+><P
+><B
+CLASS="COMMAND"
+>netstat -r</B
+>等价于<A
+HREF="system.html#ROUTEREF"
+>route</A
+>命令. </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>netstat</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Active Internet connections (w/o servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+ Active UNIX domain sockets (w/o servers)
+ Proto RefCnt Flags       Type       State         I-Node Path
+ unix  11     [ ]         DGRAM                    906    /dev/log
+ unix  3      [ ]         STREAM     CONNECTED     4514   /tmp/.X11-unix/X0
+ unix  3      [ ]         STREAM     CONNECTED     4513
+ . . .</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><A
+NAME="UPTIMEREF"
+></A
+><B
+CLASS="COMMAND"
+>uptime</B
+></DT
+><DD
+><P
+>显示系统运行的时间, 
+			  还有其他的一些统计信息. 
+	      </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>uptime</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>10:28pm  up  1:57,  3 users,  load average: 0.17, 0.34, 0.27</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><I
+CLASS="FIRSTTERM"
+>load average</I
+>如果小于或等于1, 
+					那么就意味着系统会马上处理. 
+					如果大于1, 那么就意味着进程需要排队. 
+					如果大于3, 那么就意味着, 系统性能已经显著下降了.
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="HNAMEREF"
+></A
+><B
+CLASS="COMMAND"
+>hostname</B
+></DT
+><DD
+><P
+>显示系统的主机名字. 
+			  这个命令在<TT
+CLASS="FILENAME"
+>/etc/rc.d</TT
+>安装脚本(或类似的<TT
+CLASS="FILENAME"
+>/etc/rc.d/rc.sysinit</TT
+>)中设置主机名. 
+			  等价于<B
+CLASS="COMMAND"
+>uname -n</B
+>, 
+			  并且与<A
+HREF="internalvariables.html#HOSTNAMEREF"
+>$HOSTNAME</A
+>内部变量很相像. </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>hostname</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>localhost.localdomain</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>echo $HOSTNAME</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>localhost.localdomain</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>与<B
+CLASS="COMMAND"
+>hostname</B
+>命令很相像的命令还有<B
+CLASS="COMMAND"
+>domainname</B
+>, 
+	      <B
+CLASS="COMMAND"
+>dnsdomainname</B
+>, 
+	      <B
+CLASS="COMMAND"
+>nisdomainname</B
+>, 
+		  和<B
+CLASS="COMMAND"
+>ypdomainname</B
+>命令. 
+		  使用这些命令来显示(或设置)系统DNS或NIS/YP域名. 
+		  对于<B
+CLASS="COMMAND"
+>hostname</B
+>命令来说, 
+		  使用不同的选项就可以分别达到上边这些命令的目的. </P
+></DD
+><DT
+><A
+NAME="HOSTIDREF"
+></A
+><B
+CLASS="COMMAND"
+>hostid</B
+></DT
+><DD
+><P
+>用16进制表示法来显示主机的32位ID. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>hostid</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>7f0100</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>这个命令据说对于特定系统可以获得一个<SPAN
+CLASS="QUOTE"
+>"唯一"</SPAN
+>的序号. 
+	      某些产品的注册过程可能会需要这个序号来作为用户的许可证. 
+	      不幸的是, <B
+CLASS="COMMAND"
+>hostid</B
+>只会使用字节对转换的方法来返回机器的网络地址, 网络地址用16进制表示. 
+	      </P
+><P
+>对于一个典型的没有网络的Linux机器来说, 
+			  它的网络地址保存在<TT
+CLASS="FILENAME"
+>/etc/hosts</TT
+>中. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>cat /etc/hosts</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>127.0.0.1               localhost.localdomain localhost</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>碰巧, 通过对<KBD
+CLASS="USERINPUT"
+>127.0.0.1</KBD
+>进行字节转换, 
+			我们获得了<KBD
+CLASS="USERINPUT"
+>0.127.1.0</KBD
+>, 
+			用16进制表示就是<KBD
+CLASS="USERINPUT"
+>007f0100</KBD
+>, 
+			这就是上边<B
+CLASS="COMMAND"
+>hostid</B
+>命令返回的结果. 
+			这样几乎所有的无网络的Linux机器都会得到这个<EM
+>hostid</EM
+>. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>sar</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>sar</B
+>(System Activity Reporter系统活动报告)命令将会给出系统统计的一个非常详细的概要. 
+	      Santa Cruz Operation(<SPAN
+CLASS="QUOTE"
+>"以前的"</SPAN
+>SCO)公司在1999年4月份以开源软件的形式发布了<B
+CLASS="COMMAND"
+>sar</B
+>. </P
+><P
+>这个命令并不是基本Linux发行版的一部分, 
+		  但是你可以从<A
+HREF="http://perso.wanadoo.fr/sebastien.godard/"
+TARGET="_top"
+>sysstat 
+			  utilities</A
+>所编写的<A
+HREF="mailto:sebastien.godard@wanadoo.fr"
+TARGET="_top"
+>Sebastien
+	      Godard</A
+>包中获得这个工具. </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>sar</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Linux 2.4.9 (brooks.seringas.fr) 	09/26/03
+
+10:30:00          CPU     %user     %nice   %system   %iowait     %idle
+10:40:00          all      2.21     10.90     65.48      0.00     21.41
+10:50:00          all      3.36      0.00     72.36      0.00     24.28
+11:00:00          all      1.12      0.00     80.77      0.00     18.11
+Average:          all      2.23      3.63     72.87      0.00     21.27
+
+14:32:30          LINUX RESTART
+
+15:00:00          CPU     %user     %nice   %system   %iowait     %idle
+15:10:00          all      8.59      2.40     17.47      0.00     71.54
+15:20:00          all      4.07      1.00     11.95      0.00     82.98
+15:30:00          all      0.79      2.94      7.56      0.00     88.71
+Average:          all      6.33      1.70     14.71      0.00     77.26</SAMP
+>
+           </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>readelf</B
+></DT
+><DD
+><P
+>这个命令会显示<EM
+>elf</EM
+>格式的二进制文件的统计信息. 这个工具是<EM
+>binutils</EM
+>工具包的一部分. </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>readelf -h /bin/bash</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>ELF Header:
+   Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+   Class:                             ELF32
+   Data:                              2's complement, little endian
+   Version:                           1 (current)
+   OS/ABI:                            UNIX - System V
+   ABI Version:                       0
+   Type:                              EXEC (Executable file)
+   . . .</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>size</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>size [/path/to/binary]</B
+>命令可以显示2进制可执行文件或归档文件每部分的尺寸. 
+			  这个工具主要提供给程序员使用. 
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>size /bin/bash</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>   text    data     bss     dec     hex filename
+  495971   22496   17392  535859   82d33 /bin/bash</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="SYSLOG1"
+></A
+>系统日志类</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>logger</B
+></DT
+><DD
+><P
+>附加一个用户产生的消息到系统日志中(<TT
+CLASS="FILENAME"
+>/var/log/messages</TT
+>). 
+			  即使不是root用户, 也可以调用<B
+CLASS="COMMAND"
+>logger</B
+>. 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;logger Experiencing instability in network connection at 23:10, 05/21.
+  2&nbsp;# 现在, 运行'tail /var/log/messages'.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>通过在脚本中调用<B
+CLASS="COMMAND"
+>logger</B
+>命令, 
+				就可以将调试信息写到<TT
+CLASS="FILENAME"
+>/var/log/messages</TT
+>中. 
+                 <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;logger -t $0 -i Logging at line "$LINENO".
+  2&nbsp;# "-t"选项可以为日志入口指定标签. 
+  3&nbsp;# "-i"选项记录进程ID.
+  4&nbsp;
+  5&nbsp;# tail /var/log/message
+  6&nbsp;# ...
+  7&nbsp;# Jul  7 20:48:58 localhost ./test.sh[1712]: Logging at line 3.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>logrotate</B
+></DT
+><DD
+><P
+>这个工具用来管理系统的log文件, 
+			  可以在合适的时候轮换, 压缩, 删除, 或(和)e-mail它们. 
+			  这个工具将从旧的log文件中取得一些杂乱的记录, 
+			  并保存到<TT
+CLASS="FILENAME"
+>/var/log</TT
+>中. 
+	      一般的, 每天都是通过<A
+HREF="system.html#CRONREF"
+>cron</A
+>来运行<B
+CLASS="COMMAND"
+>logrotate</B
+>. </P
+><P
+>在<TT
+CLASS="FILENAME"
+>/etc/logrotate.conf</TT
+>中添加合适的入口就可以管理自己的log文件了, 
+		  就像管理系统log文件一样. 
+	       </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Stefano Falsetto创造了<A
+HREF="http://www.gnu.org/software/rottlog/"
+TARGET="_top"
+>rottlog</A
+>,
+	     他认为这是<B
+CLASS="COMMAND"
+>logrotate</B
+>的改进版本. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="JOBCONTROLSYS1"
+></A
+>作业控制类</B
+></P
+><DL
+><DT
+><A
+NAME="PPSSREF"
+></A
+><B
+CLASS="COMMAND"
+>ps</B
+></DT
+><DD
+><P
+>进程统计(<TT
+CLASS="REPLACEABLE"
+><I
+>P</I
+></TT
+>rocess
+			<TT
+CLASS="REPLACEABLE"
+><I
+>S</I
+></TT
+>tatistics): 
+			通过进程宿主或PID(进程ID)来列出当前正在执行的进程. 
+			通常都是使用<CODE
+CLASS="OPTION"
+>ax</CODE
+>或<CODE
+CLASS="OPTION"
+>aux</CODE
+>选项来调用这个命令, 
+			并且结果可以通过管道传递到<A
+HREF="textproc.html#GREPREF"
+>grep</A
+>或<A
+HREF="sedawk.html#SEDREF"
+>sed</A
+>中来搜索特定的进程(请参考<A
+HREF="internal.html#EX44"
+>例子 11-12</A
+>和<A
+HREF="procref1.html#PIDID"
+>例子 27-2</A
+>). </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+> ps ax | grep sendmail</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>295 ?	   S	  0:00 sendmail: accepting connections on port 25</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>如果想使用<SPAN
+CLASS="QUOTE"
+>"树"</SPAN
+>的形式来显示系统进程: 
+	      那么就使用<B
+CLASS="COMMAND"
+>ps afjx</B
+>或<B
+CLASS="COMMAND"
+>ps ax --forest</B
+>. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>pgrep</B
+>, <B
+CLASS="COMMAND"
+>pkill</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>ps</B
+>命令可以与<A
+HREF="textproc.html#GREPREF"
+>grep</A
+>或<A
+HREF="x6756.html#KILLREF"
+>kill</A
+>结合使用. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ps a | grep mingetty</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>2212 tty2     Ss+    0:00 /sbin/mingetty tty2
+ 2213 tty3     Ss+    0:00 /sbin/mingetty tty3
+ 2214 tty4     Ss+    0:00 /sbin/mingetty tty4
+ 2215 tty5     Ss+    0:00 /sbin/mingetty tty5
+ 2216 tty6     Ss+    0:00 /sbin/mingetty tty6
+ 4849 pts/2    S+     0:00 grep mingetty</SAMP
+>
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>pgrep mingetty</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>2212 mingetty
+ 2213 mingetty
+ 2214 mingetty
+ 2215 mingetty
+ 2216 mingetty</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>pstree</B
+></DT
+><DD
+><P
+>使用<SPAN
+CLASS="QUOTE"
+>"树"</SPAN
+>形式列出当前执行的进程. 
+			  <CODE
+CLASS="OPTION"
+>-p</CODE
+>选项显示PID, 也就是进程名字. 
+		  </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>top</B
+></DT
+><DD
+><P
+>连续不断的显示cpu占有率最高的进程. 
+			  <CODE
+CLASS="OPTION"
+>-b</CODE
+>选项将会以文本方式来显示, 
+			  以便于可以在脚本中进行分析或访问. 
+		  </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>top -b</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>  8:30pm  up 3 min,  3 users,  load average: 0.49, 0.32, 0.13
+ 45 processes: 44 sleeping, 1 running, 0 zombie, 0 stopped
+ CPU states: 13.6% user,  7.3% system,  0.0% nice, 78.9% idle
+ Mem:    78396K av,   65468K used,   12928K free,       0K shrd,    2352K buff
+ Swap:  157208K av,       0K used,  157208K free                   37244K cached
+
+   PID USER     PRI  NI  SIZE  RSS SHARE STAT %CPU %MEM   TIME COMMAND
+   848 bozo      17   0   996  996   800 R     5.6  1.2   0:00 top
+     1 root       8   0   512  512   444 S     0.0  0.6   0:04 init
+     2 root       9   0     0    0     0 SW    0.0  0.0   0:00 keventd
+   ...</SAMP
+>  
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>nice</B
+></DT
+><DD
+><P
+>使用经过修改的优先级来运行一个后台作业. 
+			  优先级从19(最低)到-20(最高)
+			  只有<EM
+>root</EM
+>用户可以设置负的(相对比较高的)优先级. 
+			  相关的命令还有<B
+CLASS="COMMAND"
+>renice</B
+>, 
+			  <B
+CLASS="COMMAND"
+>snice</B
+>, 
+	      和<B
+CLASS="COMMAND"
+>skill</B
+>. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>nohup</B
+></DT
+><DD
+><P
+>保持一个命令进程处于运行状态, 即使这个命令进程所属的用户登出系统. 
+		  这个命令进程将会运行在前台, 除非在它前面加上<SPAN
+CLASS="TOKEN"
+>&#38;</SPAN
+>. 
+		  如果你在脚本中使用<B
+CLASS="COMMAND"
+>nohup</B
+>命令, 
+		  那么你最好同时使用<A
+HREF="x6756.html#WAITREF"
+>wait</A
+>命令, 
+		  这样就可以避免产生孤儿进程或僵尸进程. </P
+></DD
+><DT
+><A
+NAME="PIDOFREF"
+></A
+><B
+CLASS="COMMAND"
+>pidof</B
+></DT
+><DD
+><P
+>获取一个正在运行作业的<EM
+>进程ID(PID)</EM
+>. 
+			  因为一些作业控制命令, 比如<A
+HREF="x6756.html#KILLREF"
+>kill</A
+>和<B
+CLASS="COMMAND"
+>renice</B
+>只能使用进程的<EM
+>PID</EM
+>(而不是它的名字)作为参数, 
+	    所以有的时候必须得取得<EM
+>PID</EM
+>. 
+	    <B
+CLASS="COMMAND"
+>pidof</B
+>命令与<A
+HREF="internalvariables.html#PPIDREF"
+>$PPID</A
+>内部变量非常相似. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>pidof xclock</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>880</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="KILLPROCESS"
+></A
+><P
+><B
+>例子 13-6. 使用<B
+CLASS="COMMAND"
+>pidof</B
+>命令帮忙kill一个进程</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# kill-process.sh
+  3&nbsp;
+  4&nbsp;NOPROCESS=2
+  5&nbsp;
+  6&nbsp;process=xxxyyyzzz  # 使用不存在的进程. 
+  7&nbsp;# 只不过是为了演示...
+  8&nbsp;# ... 并不想在这个脚本中杀掉任何真正的进程. 
+  9&nbsp;#
+ 10&nbsp;# 举个例子, 如果你想使用这个脚本来断线Internet, 
+ 11&nbsp;#     process=pppd
+ 12&nbsp;
+ 13&nbsp;t=`pidof $process`       # 取得$process的pid(进程id). 
+ 14&nbsp;# 'kill'只能使用pid(不能用程序名)作为参数. 
+ 15&nbsp;
+ 16&nbsp;if [ -z "$t" ]           # 如果没这个进程, 'pidof' 返回空. 
+ 17&nbsp;then
+ 18&nbsp;  echo "Process $process was not running."
+ 19&nbsp;  echo "Nothing killed."
+ 20&nbsp;  exit $NOPROCESS
+ 21&nbsp;fi  
+ 22&nbsp;
+ 23&nbsp;kill $t                  # 对于某些顽固的进程可能需要使用'kill -9'. 
+ 24&nbsp;
+ 25&nbsp;# 这里需要做一个检查, 看看进程是否允许自身被kill. 
+ 26&nbsp;# 或许另一个 " t=`pidof $process` " 或许 ...
+ 27&nbsp;
+ 28&nbsp;
+ 29&nbsp;# 整个脚本都可以使用下边这句来替换: 
+ 30&nbsp;#        kill $(pidof -x process_name)
+ 31&nbsp;# 或者
+ 32&nbsp;#        killall process_name
+ 33&nbsp;# 但是这就没有教育意义了. 
+ 34&nbsp;
+ 35&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>fuser</B
+></DT
+><DD
+><P
+>或取一个正在访问某个或某些文件(或目录)的进程ID. 
+			使用<CODE
+CLASS="OPTION"
+>-k</CODE
+>选项将会kill这些进程. 
+			对于系统安全来说, 
+	      尤其是在脚本中想阻止未被授权的用户访问系统服务的时候, 
+	      这个命令就显得非常有用了. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>fuser -u /usr/bin/vim</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/usr/bin/vim:         3207e(bozo)</SAMP
+>
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>fuser -u /dev/null</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/dev/null:            3009(bozo)  3010(bozo)  3197(bozo)  3199(bozo)</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>在进行正常插入或删除保存的媒体(比如CD ROM或者USB闪存设备)的时候, <B
+CLASS="COMMAND"
+>fuser</B
+>命令非常的有用. 
+			   某些情况下, 也就是当你<A
+HREF="system.html#UMOUNTREF"
+>umount</A
+>一个设备失败的时候, 
+			   会出现<SPAN
+CLASS="ERRORNAME"
+>设备忙</SPAN
+>错误消息. 
+		这意味着某些用户或进程正在访问这个设备.	
+		可以使用<B
+CLASS="COMMAND"
+>fuser -um /dev/device_name</B
+>来解决这种问题, 
+		这样你就可以kill所有相关的进程. 
+	     </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>umount /mnt/usbdrive</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>umount: /mnt/usbdrive: device is busy</SAMP
+>
+
+
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>fuser -um /dev/usbdrive</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/mnt/usbdrive:        1772c(bozo)</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>kill -9 1772</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>umount /mnt/usbdrive</KBD
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+><B
+CLASS="COMMAND"
+>fuser</B
+>命令的<CODE
+CLASS="OPTION"
+>-n</CODE
+>选项可以获得正在访问某一<EM
+>端口</EM
+>的进程. 
+	      当和<A
+HREF="system.html#NMAPREF"
+>nmap</A
+>命令结合使用的时候尤其有用. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>root# </SAMP
+><KBD
+CLASS="USERINPUT"
+>nmap localhost.localdomain</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>PORT     STATE SERVICE
+ 25/tcp   open  smtp</SAMP
+>
+
+
+
+<SAMP
+CLASS="PROMPT"
+>root# </SAMP
+><KBD
+CLASS="USERINPUT"
+>fuser -un tcp 25</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>25/tcp:               2095(root)</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>root# </SAMP
+><KBD
+CLASS="USERINPUT"
+>ps ax | grep 2095 | grep -v grep</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>2095 ?        Ss     0:00 sendmail: accepting connections</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+></DD
+><DT
+><A
+NAME="CRONREF"
+></A
+><B
+CLASS="COMMAND"
+>cron</B
+></DT
+><DD
+><P
+>管理程序调度器, 用来执行一些日常任务, 
+			  比如清除和删除系统log文件, 或者更新<SPAN
+CLASS="DATABASE"
+>slocate</SPAN
+>数据库. 
+			  这是<A
+HREF="timedate.html#ATREF"
+>at</A
+>命令的超级用户版本(虽然每个用户都可以有自己的<TT
+CLASS="FILENAME"
+>crontab</TT
+>文件, 
+			  并且这个文件可以使用<B
+CLASS="COMMAND"
+>crontab</B
+>命令来修改). 
+	      它以<A
+HREF="communications.html#DAEMONREF"
+>幽灵进程</A
+>的身份来运行, 
+		  并且从<TT
+CLASS="FILENAME"
+>/etc/crontab</TT
+>中获得执行的调度入口. 
+			</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>一般Linux风格的系统都使用<B
+CLASS="COMMAND"
+>crond</B
+>, 
+					用的是Matthew Dillon版本的<B
+CLASS="COMMAND"
+>cron</B
+>. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="RUNCONTROLSYS1"
+></A
+>启动与进程控制类</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>init</B
+></DT
+><DD
+><P
+><A
+NAME="INITTABREF"
+></A
+></P
+><P
+><B
+CLASS="COMMAND"
+>init</B
+>命令是所有进程的<A
+HREF="internal.html#FORKREF"
+>父进程</A
+>. 
+			在系统启动的最后一步调用, 
+			<B
+CLASS="COMMAND"
+>init</B
+>将会依据<TT
+CLASS="FILENAME"
+>/etc/inittab</TT
+>来决定系统的运行级别. 
+			只能使用root身份来运行它的别名 - <B
+CLASS="COMMAND"
+>telinit</B
+>. 
+		</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>telinit</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>init</B
+>命令的符号链接, 
+			  这是一种修改系统运行级别的手段, 
+	      通常在系统维护的时候, 或者在紧急的文件系统修复的时候才能用. 
+		  只能使用root身份调用. 
+		  调用这个命令是非常危险的 -
+	      在你使用之前确定你已经很好地了解它! </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>runlevel</B
+></DT
+><DD
+><P
+>显示当前的和最后的运行级别, 也就是, 
+			  判断系统是处于终止状态(runlevel为<TT
+CLASS="LITERAL"
+>0</TT
+>), 
+			  单用户模式(<TT
+CLASS="LITERAL"
+>1</TT
+>), 多用户模式(<TT
+CLASS="LITERAL"
+>2</TT
+>或<TT
+CLASS="LITERAL"
+>3</TT
+>), 
+	      X Windows(<TT
+CLASS="LITERAL"
+>5</TT
+>), 
+		  还是正处于重起状态(<TT
+CLASS="LITERAL"
+>6</TT
+>). 
+		  这个命令将会访问<TT
+CLASS="FILENAME"
+>/var/run/utmp</TT
+>文件. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>halt</B
+>, <B
+CLASS="COMMAND"
+>shutdown</B
+>, <B
+CLASS="COMMAND"
+>reboot</B
+></DT
+><DD
+><P
+>设置系统关机的命令, 通常比电源关机的优先级高. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>service</B
+></DT
+><DD
+><P
+>开启或停止一个系统<I
+CLASS="FIRSTTERM"
+>服务</I
+>. 
+	    在<TT
+CLASS="FILENAME"
+>/etc/init.d</TT
+>
+	    和<TT
+CLASS="FILENAME"
+>/etc/rc.d</TT
+>中的启动脚本使用这个命令来启动服务. 
+	  </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>root# </SAMP
+><KBD
+CLASS="USERINPUT"
+>/sbin/service iptables stop</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Flushing firewall rules:                                   [  OK  ]
+ Setting chains to policy ACCEPT: filter                    [  OK  ]
+ Unloading iptables modules:                                [  OK  ]</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="NETWORKSYS1"
+></A
+>网络类</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>ifconfig</B
+></DT
+><DD
+><P
+>网络的<EM
+>接口配置</EM
+>和调试工具. </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ifconfig -a</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>lo        Link encap:Local Loopback
+           inet addr:127.0.0.1  Mask:255.0.0.0
+           UP LOOPBACK RUNNING  MTU:16436  Metric:1
+           RX packets:10 errors:0 dropped:0 overruns:0 frame:0
+           TX packets:10 errors:0 dropped:0 overruns:0 carrier:0
+           collisions:0 txqueuelen:0 
+           RX bytes:700 (700.0 b)  TX bytes:700 (700.0 b)</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+><B
+CLASS="COMMAND"
+>ifconfig</B
+>命令绝大多数情况都是在启动的时候设置接口, 
+	   或者在重启的时候关闭它们. 
+	      </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 来自于/etc/rc.d/init.d/network中的代码片断
+  2&nbsp;
+  3&nbsp;# ...
+  4&nbsp;
+  5&nbsp;# 检查网络是否启动. 
+  6&nbsp;[ ${NETWORKING} = "no" ] &#38;&#38; exit 0
+  7&nbsp;
+  8&nbsp;[ -x /sbin/ifconfig ] || exit 0
+  9&nbsp;
+ 10&nbsp;# ...
+ 11&nbsp;
+ 12&nbsp;for i in $interfaces ; do
+ 13&nbsp;  if ifconfig $i 2&#62;/dev/null | grep -q "UP" &#62;/dev/null 2&#62;&#38;1 ; then
+ 14&nbsp;    action "Shutting down interface $i: " ./ifdown $i boot
+ 15&nbsp;  fi
+ 16&nbsp;# grep命令的GNU指定选项"-q"的意思是"安静", 也就是, 不产生输出. 
+ 17&nbsp;# 这样, 后边重定向到/dev/null的操作就有点多余了.
+ 18&nbsp;       
+ 19&nbsp;# ...
+ 20&nbsp;
+ 21&nbsp;echo "Currently active devices:"
+ 22&nbsp;echo `/sbin/ifconfig | grep ^[a-z] | awk '{print $1}'`
+ 23&nbsp;#                            ^^^^^  应该被引用以防止通配(globbing). 
+ 24&nbsp;#  下边这段也能工作. 
+ 25&nbsp;#    echo $(/sbin/ifconfig | awk '/^[a-z]/ { print $1 })'
+ 26&nbsp;#    echo $(/sbin/ifconfig | sed -e 's/ .*//')
+ 27&nbsp;#  感谢, S.C., 做了额外的注释. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>请参考<A
+HREF="debugging.html#ONLINE"
+>例子 29-6</A
+>. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>iwconfig</B
+></DT
+><DD
+><P
+>这是为了配置无线网络的命令集合. 
+			  可以说是上边的<B
+CLASS="COMMAND"
+>ifconfig</B
+>的无线版本. 
+	      </P
+></DD
+><DT
+><A
+NAME="ROUTEREF"
+></A
+><B
+CLASS="COMMAND"
+>route</B
+></DT
+><DD
+><P
+>显示内核路由表信息, 或者查看内核路由表的修改情况. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>route</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+ pm3-67.bozosisp *               255.255.255.255 UH       40 0          0 ppp0
+ 127.0.0.0       *               255.0.0.0       U        40 0          0 lo
+ default         pm3-67.bozosisp 0.0.0.0         UG       40 0          0 ppp0</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>chkconfig</B
+></DT
+><DD
+><P
+>检查网络配置. 
+			  这个命令负责显示和管理在启动过程中所开启的网络服务
+	      (这些服务都是从<TT
+CLASS="FILENAME"
+>/etc/rc?.d</TT
+>目录中开启的). 
+	      </P
+><P
+>最开始是从IRIX到Red Hat Linux的一个接口, 
+	      <B
+CLASS="COMMAND"
+>chkconfig</B
+>在某些Linux发行版中并不是核心安装的一部分. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>chkconfig --list</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>atd             0:off   1:off   2:off   3:on    4:on    5:on    6:off
+ rwhod           0:off   1:off   2:off   3:off   4:off   5:off   6:off
+ ...</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>tcpdump</B
+></DT
+><DD
+><P
+>网络包的<SPAN
+CLASS="QUOTE"
+>"嗅探器"</SPAN
+>. 
+			  这是一个用来分析和调试网络上传输情况的工具, 
+			  它所使用的手段是把所有匹配指定规则的包头都显示出来. 
+	      </P
+><P
+>显示主机<EM
+>bozoville</EM
+>和主机<EM
+>caduceus</EM
+>之间所有传输的ip包. 
+	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>tcpdump ip host bozoville and caduceus</KBD
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	      </P
+><P
+>当然, <B
+CLASS="COMMAND"
+>tcpdump</B
+>的输出是可以进行分析的, 
+	        可以用我们之前讨论的<A
+HREF="textproc.html#TPCOMMANDLISTING1"
+>文本处理工具</A
+>来分析结果. </P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="FILESYSTEMSYS1"
+></A
+>文件系统类</B
+></P
+><DL
+><DT
+><A
+NAME="MOUNTREF"
+></A
+><B
+CLASS="COMMAND"
+>mount</B
+></DT
+><DD
+><P
+>加载一个文件系统, 通常都用来安装外部设备, 比如软盘或CDROM. 
+			文件<TT
+CLASS="FILENAME"
+>/etc/fstab</TT
+>将会提供一个方便的列表, 
+			这个列表列出了所有可用的文件系统, 分区和设备, 
+			另外还包括某些选项, 比如是否可以自动或者手动的mount. 
+			文件<TT
+CLASS="FILENAME"
+>/etc/mtab</TT
+>显示了当前已经mount的文件系统和分区(包括虚拟的, 
+			比如<TT
+CLASS="FILENAME"
+>/proc</TT
+>). </P
+><P
+><B
+CLASS="COMMAND"
+>mount -a</B
+>将会mount所有出现在<TT
+CLASS="FILENAME"
+>/etc/fstab</TT
+>中的文件系统和分区, 
+	      除了那些标记有<CODE
+CLASS="OPTION"
+>noauto</CODE
+>(非自动)选项的. 
+		  启动的时候, 
+		  在<TT
+CLASS="FILENAME"
+>/etc/rc.d</TT
+>中的一个启动脚本(<TT
+CLASS="FILENAME"
+>rc.sysinit</TT
+>或者一些相似的脚本)将会调用<B
+CLASS="COMMAND"
+>mount -a</B
+>, 
+	      目的是mount所有可用的文件系统和分区. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;mount -t iso9660 /dev/cdrom /mnt/cdrom
+  2&nbsp;# 加载CDROM
+  3&nbsp;mount /mnt/cdrom
+  4&nbsp;# 如果/mnt/cdrom包含在/etc/fstab中的话, 那么这么调用就是一种简便的方法. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+     </P
+><P
+>这个多功能的命令甚至可以将一个普通文件mount到块设备中, 
+       这样一来, 就可以象做操作文件系统一样来操作这个文件. 
+	   先将这个文件与一个<A
+HREF="devref1.html#LOOPBACKREF"
+>loopback
+       device</A
+>设备相关联, 然后<B
+CLASS="COMMAND"
+>Mount</B
+>就能达到这个目的了. 
+       这种应用一般都是用来mount或检查一个ISO9660镜像, 经过检查后这个镜像会被烧录到CDR上. 
+       
+	  <A
+NAME="AEN12376"
+HREF="#FTN.AEN12376"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+>
+
+       </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ISOMOUNTREF"
+></A
+><P
+><B
+>例子 13-7. 检查一个CD镜像</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;# 以root身份...
+  2&nbsp;
+  3&nbsp;mkdir /mnt/cdtest  # 准备一个mount入口, 如果你没准备的话. 
+  4&nbsp;
+  5&nbsp;mount -r -t iso9660 -o loop cd-image.iso /mnt/cdtest   # mount这个镜像.
+  6&nbsp;#                  "-o loop" option equivalent to "losetup /dev/loop0"
+  7&nbsp;cd /mnt/cdtest     # 现在检查这个镜像. 
+  8&nbsp;ls -alR            # 列出目录树中的文件. 
+  9&nbsp;                   # 诸如此类. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><A
+NAME="UMOUNTREF"
+></A
+><B
+CLASS="COMMAND"
+>umount</B
+></DT
+><DD
+><P
+>卸除一个当前已经mount的文件系统. 
+			  在删除已经mount上的软盘或CDROM之前, 这个设备必须被<B
+CLASS="COMMAND"
+>umount</B
+>, 
+			  否则文件系统将会被损坏. 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;umount /mnt/cdrom
+  2&nbsp;# 现在你可以按下弹出键(指的是cdrom或软盘驱动器上的弹出按键), 并安全的弹出光盘. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="COMMAND"
+>automount</B
+>工具, 
+				  如果对这个工具进行了适当的安装, 
+				  那么当需要访问或退出磁盘(或软盘)的时候, 
+				  就能够自动的mount和unmount它们了. 
+				  但是如果在带有软躯或光驱的笔记本电脑上使用的话, 
+				  可能会引起问题. 
+		</P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>sync</B
+></DT
+><DD
+><P
+>当你需要更新硬盘buffer中的数据时, 这个命令可以强制将你buffer上的数据立即写入到硬盘上(同步带有buffer的驱动器). 
+	      在某些情况下, 
+		  一个<B
+CLASS="COMMAND"
+>sync</B
+>命令可能会挽救你刚刚更新的数据, 比如说突然断电, 
+		 所以这个命令可以给系统管理员和普通用户一些保障. 
+	      以前, 系统重启前都使用<KBD
+CLASS="USERINPUT"
+>sync;
+		  sync</KBD
+> (两次, 为了保证绝对可靠), 
+		  这是一种谨慎小心的可靠方法. 
+	      </P
+><P
+>某些时候, 比如说当你想安全删除文件的时候(请参考<A
+HREF="extmisc.html#BLOTOUT"
+>例子 12-55</A
+>), 或者当磁盘灯开始闪烁的时候, 
+				你可能需要强制对buffer进行立即刷新. 
+	      </P
+></DD
+><DT
+><A
+NAME="LOSETUPREF"
+></A
+><B
+CLASS="COMMAND"
+>losetup</B
+></DT
+><DD
+><P
+>建立和配置<A
+HREF="devref1.html#LOOPBACKREF"
+>loopback设备</A
+>. </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="CREATEFS"
+></A
+><P
+><B
+>例子 13-8. 在一个文件中创建文件系统</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;SIZE=1000000  # 1 meg
+  2&nbsp;
+  3&nbsp;head -c $SIZE &#60; /dev/zero &#62; file  # 建立指定尺寸的文件. 
+  4&nbsp;losetup /dev/loop0 file           # 作为loopback设备来创建. 
+  5&nbsp;mke2fs /dev/loop0                 # 创建文件系统. 
+  6&nbsp;mount -o loop /dev/loop0 /mnt     # mount.
+  7&nbsp;
+  8&nbsp;# 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>mkswap</B
+></DT
+><DD
+><P
+>创建一个交换分区或文件. 
+			  交换区域随后必须马上使用<B
+CLASS="COMMAND"
+>swapon</B
+>来启用. 
+	      </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>swapon</B
+>, <B
+CLASS="COMMAND"
+>swapoff</B
+></DT
+><DD
+><P
+>启用/禁用交换分区或文件. 
+			  这两个命令通常在启动和关机的时候才有效. 
+	      </P
+></DD
+><DT
+><A
+NAME="MKE2FSREF"
+></A
+><B
+CLASS="COMMAND"
+>mke2fs</B
+></DT
+><DD
+><P
+>创建Linux ext2文件系统. 这个命令必须以root身份调用. 
+	      </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ADDDRV"
+></A
+><P
+><B
+>例子 13-9. 添加一个新的硬盘驱动器</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;
+  3&nbsp;# 在系统上添加第二块硬盘驱动器. 
+  4&nbsp;# 软件配置. 假设硬件已经安装了. 
+  5&nbsp;# 来自于本书作者的一篇文章. 
+  6&nbsp;# 在"Linux Gazette"的问题#38上, http://www.linuxgazette.com. 
+  7&nbsp;
+  8&nbsp;ROOT_UID=0     # 这个脚本必须以root身份运行. 
+  9&nbsp;E_NOTROOT=67   # 非root用户将会产生这个错误. 
+ 10&nbsp;
+ 11&nbsp;if [ "$UID" -ne "$ROOT_UID" ]
+ 12&nbsp;then
+ 13&nbsp;  echo "Must be root to run this script."
+ 14&nbsp;  exit $E_NOTROOT
+ 15&nbsp;fi  
+ 16&nbsp;
+ 17&nbsp;# 要非常谨慎小心的使用! 
+ 18&nbsp;# 如果某步错了, 可能会彻底摧毁你当前的文件系统. 
+ 19&nbsp;
+ 20&nbsp;
+ 21&nbsp;NEWDISK=/dev/hdb         # 假设/dev/hdb空白. 检查一下!
+ 22&nbsp;MOUNTPOINT=/mnt/newdisk  #或者选择其他的mount入口. 
+ 23&nbsp;
+ 24&nbsp;
+ 25&nbsp;fdisk $NEWDISK
+ 26&nbsp;mke2fs -cv $NEWDISK1   # 检查坏块, 并且详细输出. 
+ 27&nbsp;#  注意:    /dev/hdb1, *不是* /dev/hdb!
+ 28&nbsp;mkdir $MOUNTPOINT
+ 29&nbsp;chmod 777 $MOUNTPOINT  # 让所有用户都具有全部权限. 
+ 30&nbsp;
+ 31&nbsp;
+ 32&nbsp;# 现在, 测试一下...
+ 33&nbsp;# mount -t ext2 /dev/hdb1 /mnt/newdisk
+ 34&nbsp;# 尝试创建一个目录. 
+ 35&nbsp;# 如果运行起来了, umount它, 然后继续. 
+ 36&nbsp;
+ 37&nbsp;# 最后一步:
+ 38&nbsp;# 将下边这行添加到/etc/fstab.
+ 39&nbsp;# /dev/hdb1  /mnt/newdisk  ext2  defaults  1 1
+ 40&nbsp;
+ 41&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+><P
+>请参考<A
+HREF="system.html#CREATEFS"
+>例子 13-8</A
+>和<A
+HREF="zeros.html#RAMDISK"
+>例子 28-3</A
+>.</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>tune2fs</B
+></DT
+><DD
+><P
+>调整ext2文件系统. 可以用来修改文件系统参数, 
+			  比如mount的最大数量. 必须以root身份调用. 
+	      </P
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/warning.gif"
+HSPACE="5"
+ALT="Warning"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>这是一个非常危险的命令. 一旦用错, 你需要自己负责, 因为它可能会破坏你的文件系统. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>dumpe2fs</B
+></DT
+><DD
+><P
+>打印(输出到<TT
+CLASS="FILENAME"
+>stdout</TT
+>)非常详细的文件系统信息. 
+			  必须以root身份调用. 
+	      </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>root# </SAMP
+><B
+CLASS="COMMAND"
+>dumpe2fs /dev/hda7 | grep 'ount count'</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>dumpe2fs 1.19, 13-Jul-2000 for EXT2 FS 0.5b, 95/08/09
+ Mount count:              6
+ Maximum mount count:      20</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>hdparm</B
+></DT
+><DD
+><P
+>显示或修改硬盘参数. 这个命令必须以root身份调用, 
+			  如果滥用的话会有危险.
+	      </P
+></DD
+><DT
+><A
+NAME="FDISKREF"
+></A
+><B
+CLASS="COMMAND"
+>fdisk</B
+></DT
+><DD
+><P
+>在存储设备上(通常都是硬盘)创建和修改一个分区表. 必须以root身份使用. 
+	      </P
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/warning.gif"
+HSPACE="5"
+ALT="Warning"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>谨慎使用这个命令. 如果出错, 会破坏你现存的文件系统. 
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="FSCKREF"
+></A
+><B
+CLASS="COMMAND"
+>fsck</B
+>, <B
+CLASS="COMMAND"
+>e2fsck</B
+>, <B
+CLASS="COMMAND"
+>debugfs</B
+></DT
+><DD
+><P
+>文件系统的检查, 修复, 和除错命令集合. </P
+><P
+><B
+CLASS="COMMAND"
+>fsck</B
+>: 
+			检查UNIX文件系统的前端工具(也可以调用其它的工具). 
+			文件系统的类型一般都是默认的ext2. 
+	      </P
+><P
+><B
+CLASS="COMMAND"
+>e2fsck</B
+>: ext2文件系统检查器. </P
+><P
+><B
+CLASS="COMMAND"
+>debugfs</B
+>: ext2文件系统除错器. 
+			这个功能多 - 并且危险的工具, 主要用处之一就是(尝试)恢复删除的文件. 
+			只有高级用户才能用! 
+	      </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>上边的这几个命令都必须以root身份调用, 
+				  这些命令都很危险, 如果滥用的话会破坏文件系统. 
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>badblocks</B
+></DT
+><DD
+><P
+>检查存储设备的坏块(物理损坏). 
+			  这个命令在格式化新安装的硬盘时候, 或者在测试"备份媒体"完整性的时候会被用到. 
+	        <A
+NAME="AEN12567"
+HREF="#FTN.AEN12567"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+>
+	      举个例子, <B
+CLASS="COMMAND"
+>badblocks /dev/fd0</B
+>用来测试软盘. </P
+><P
+>如果<B
+CLASS="COMMAND"
+>badblocks</B
+>使用不慎的话, 可能会引起比较糟糕的结果(覆盖所有数据), 但是在只读模式下就不会发生这种情况. 
+	      如果root用户要测试某个设备(这是通常情况), 
+	      那么root用户必须使用这个命令. 
+	      </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>lsusb</B
+>, <B
+CLASS="COMMAND"
+>usbmodules</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>lsusb</B
+>命令会显示所有USB(Universal 
+			  Serial Bus通用串行总线)总线和使用USB的设备. 
+	      </P
+><P
+><B
+CLASS="COMMAND"
+>usbmodules</B
+>命令会输出连接USB设备的驱动模块的信息. 
+	      </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>root# </SAMP
+><KBD
+CLASS="USERINPUT"
+>lsusb</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Bus 001 Device 001: ID 0000:0000  
+ Device Descriptor:
+   bLength                18
+   bDescriptorType         1
+   bcdUSB               1.00
+   bDeviceClass            9 Hub
+   bDeviceSubClass         0 
+   bDeviceProtocol         0 
+   bMaxPacketSize0         8
+   idVendor           0x0000 
+   idProduct          0x0000
+
+   . . .</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>lspci</B
+></DT
+><DD
+><P
+>显示<I
+CLASS="FIRSTTERM"
+>pci</I
+>总线及其设备. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>lspci</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>00:00.0 Host bridge: Intel Corporation 82845 845 (Brookdale) Chipset Host Bridge (rev 04)
+ 00:01.0 PCI bridge: Intel Corporation 82845 845 (Brookdale) Chipset AGP Bridge (rev 04)
+ 00:1d.0 USB Controller: Intel Corporation 82801CA/CAM USB (Hub #1) (rev 02)
+ 00:1d.1 USB Controller: Intel Corporation 82801CA/CAM USB (Hub #2) (rev 02)
+ 00:1d.2 USB Controller: Intel Corporation 82801CA/CAM USB (Hub #3) (rev 02)
+ 00:1e.0 PCI bridge: Intel Corporation 82801 Mobile PCI Bridge (rev 42)
+
+   . . .</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>mkbootdisk</B
+></DT
+><DD
+><P
+>创建启动软盘, 启动盘可以唤醒系统, 
+			  比如当MBR(master boot record主启动记录)坏掉的时候. 
+			  <B
+CLASS="COMMAND"
+>mkbootdisk</B
+>命令其实是一个Bash脚本, 
+			  由Erik Troan所编写, 放在<TT
+CLASS="FILENAME"
+>/sbin</TT
+>目录中. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>chroot</B
+></DT
+><DD
+><P
+>修改ROOT目录. 一般的命令都是从<A
+HREF="internalvariables.html#PATHREF"
+>$PATH</A
+>中获得的, 
+			  相对的, 默认根目录是 /.
+	      这个命令将会把根目录修改为另一个目录(并且也将把工作目录修改到那). 
+		  这个命令对于安全目的非常有用, 
+		  举个例子, 某些情况下, 系统管理员希望限制一些特定的用户, 
+		  比如那些<A
+HREF="communications.html#TELNETREF"
+>telnet</A
+>上来的用户, 
+		  将他们限定到文件系统上一个安全的地方(有时候, 
+		  这被称为将一个guest用户限制在<SPAN
+CLASS="QUOTE"
+>"chroot监牢"</SPAN
+>中). 
+		  注意, 在使用<B
+CLASS="COMMAND"
+>chroot</B
+>命令后, 
+		  系统的二进制可执行文件的目录就不再可用了. 
+	      </P
+><P
+><KBD
+CLASS="USERINPUT"
+>chroot /opt</KBD
+>将会使得原来的<TT
+CLASS="FILENAME"
+>/usr/bin</TT
+>变为<TT
+CLASS="FILENAME"
+>/opt/usr/bin</TT
+>. 
+		同样, <KBD
+CLASS="USERINPUT"
+>chroot /aaa/bbb /bin/ls</KBD
+>将会使得<B
+CLASS="COMMAND"
+>ls</B
+>命令以<TT
+CLASS="FILENAME"
+>/aaa/bbb</TT
+>作为根目录, 
+		而不是之前的<TT
+CLASS="FILENAME"
+>/</TT
+>. 
+		如果使用<B
+CLASS="COMMAND"
+>alias XX 'chroot /aaa/bbb ls'</B
+>, 
+		并把这句放到用户的<TT
+CLASS="FILENAME"
+>~/.bashrc</TT
+>文件中的话, 
+		这样可以有效地限制运行命令<SPAN
+CLASS="QUOTE"
+>"XX"</SPAN
+>时, 
+		命令<SPAN
+CLASS="QUOTE"
+>"XX"</SPAN
+>可以使用文件系统的范围. </P
+><P
+>当从启动盘恢复的时候(<B
+CLASS="COMMAND"
+>chroot</B
+>到<TT
+CLASS="FILENAME"
+>/dev/fd0</TT
+>), 
+		或者当系统从死机状态恢复过来并作为<B
+CLASS="COMMAND"
+>lilo</B
+>选项的时候, 
+		<B
+CLASS="COMMAND"
+>chroot</B
+>命令都是非常方便的. 
+		其它的应用还包括从不同的文件系统进行安装(一个<A
+HREF="filearchiv.html#RPMREF"
+>rpm</A
+>选项)或者从CDROM上运行一个只读文件系统. 
+		只能以root身份调用, 小心使用. 
+	      </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>由于正常的<CODE
+CLASS="VARNAME"
+>$PATH</CODE
+>不再被关联, 
+				  所以可能需要将一些特定的系统文件拷贝到<EM
+>chroot</EM
+>之后的目录中, 
+	      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>lockfile</B
+></DT
+><DD
+><P
+>这个工具是<B
+CLASS="COMMAND"
+>procmail</B
+>包的一部分(<A
+HREF="http://www.procmail.org"
+TARGET="_top"
+>www.procmail.org</A
+>). 
+			  它可以创建一个<EM
+>锁定文件</EM
+>, 
+			  <EM
+>锁定文件</EM
+>是一种用来控制访问文件, 设备或资源的标记文件. 
+			  锁定文件就像一个标记一样被使用, 如果特定的文件, 设备, 
+			  或资源正在被一个特定的进程所使用(<SPAN
+CLASS="QUOTE"
+>"busy"</SPAN
+>), 
+			  那么对于其它进程来说, 就只能进行受限访问(或者不能访问). 
+	      </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;lockfile /home/bozo/lockfiles/$0.lock
+  2&nbsp;# 创建一个以脚本名字为前缀的写保护锁定文件. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+>锁定文件用在一些特定的场合, 
+			比如说保护系统的mail目录以防止多个用户同时修改, 
+			或者提示一个modem端口正在被访问, 
+			或者显示<SPAN
+CLASS="APPLICATION"
+>Netscape</SPAN
+>的一个实例正在使用它的缓存. 
+			脚本可以做一些检查工作, 
+			比如说一个特定的进程可以创建一个锁定文件, 
+			那么只要检查这个特定的进程是否在运行, 
+			就可以判断出锁定文件是否存在了. 
+			注意如果脚本尝试创建一个已经存在的锁定文件的话, 
+			那么脚本很可能被挂起. 
+	      </P
+><P
+>一般情况下, 应用对于锁定文件的创建和检查都放在<TT
+CLASS="FILENAME"
+>/var/lock</TT
+>目录中. 
+			  <A
+NAME="AEN12688"
+HREF="#FTN.AEN12688"
+><SPAN
+CLASS="footnote"
+>[5]</SPAN
+></A
+>
+	      脚本可以使用下面的方法来检测锁定文件是否存在.
+	        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;appname=xyzip
+  2&nbsp;# 应用"xyzip"创建锁定文件"/var/lock/xyzip.lock". 
+  3&nbsp;
+  4&nbsp;if [ -e "/var/lock/$appname.lock" ]
+  5&nbsp;then
+  6&nbsp;  ...</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>flock</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>flock</B
+>命令不像<B
+CLASS="COMMAND"
+>lockfile</B
+>那么有用. 
+			它在一个文件上设置一个<SPAN
+CLASS="QUOTE"
+>"咨询性"</SPAN
+>的锁, 
+			(译者注: <SPAN
+CLASS="QUOTE"
+>"咨询性"</SPAN
+>的锁有时也称为<SPAN
+CLASS="QUOTE"
+>"建议性"</SPAN
+>的锁, 
+			这种锁只对协同进程起作用, 还有一种锁叫<SPAN
+CLASS="QUOTE"
+>"强制性"</SPAN
+>锁, 
+			这种锁加锁的对象读写操作都会由内核做检查, 
+			更多的细节请参考flock(1), flock(2), 
+			/usr/src/linux/Documentation/locks.txt和mandatory.txt), 
+			然后在锁持续的期间可以执行一个命令. 
+	      这样可以避免这个命令完成前有另外的进程试图在这个文件上设置锁. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;flock $0 cat $0 &#62; lockfile__$0
+  2&nbsp;#  上面这行表示脚本正处于列出自身内容到标准输出的过程中, 
+  3&nbsp;#+ 设置一把锁锁住脚本文件自身. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>与<B
+CLASS="COMMAND"
+>lockfile</B
+>不同, 
+	      <B
+CLASS="COMMAND"
+>flock</B
+><EM
+>不会</EM
+>自动创建一个锁定文件. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>mknod</B
+></DT
+><DD
+><P
+>创建块或者字符设备文件(当在系统上安装新硬盘时, 必须这么做). 
+	      <B
+CLASS="COMMAND"
+>MAKEDEV</B
+>工具事实上具有<B
+CLASS="COMMAND"
+>mknod</B
+>的全部功能, 
+	      而且更容易使用. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>MAKEDEV</B
+></DT
+><DD
+><P
+>创建设备文件的工具. 
+			  必须在<TT
+CLASS="FILENAME"
+>/dev</TT
+>目录下, 
+	      并且以root身份使用. 
+
+	    <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>root# </SAMP
+><B
+CLASS="COMMAND"
+>./MAKEDEV</B
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+
+	      这是<B
+CLASS="COMMAND"
+>mknod</B
+>的高级版本. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>tmpwatch</B
+></DT
+><DD
+><P
+>自动删除在指定时间内未被访问过的文件. 
+			  通常都是被<A
+HREF="system.html#CRONREF"
+>cron</A
+>调用, 
+			  用来删掉旧的log文件. </P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="PERIPHSYS1"
+></A
+>备份类</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>dump</B
+>, <B
+CLASS="COMMAND"
+>restore</B
+></DT
+><DD
+><P
+><B
+CLASS="COMMAND"
+>dump</B
+>命令是一个精巧的文件系统备份工具, 
+			  通常都用在比较大的安装版本和网络上. 
+			  <A
+NAME="AEN12775"
+HREF="#FTN.AEN12775"
+><SPAN
+CLASS="footnote"
+>[6]</SPAN
+></A
+>
+		它读取原始的磁盘分区并且以二进制形式来写备份文件. 
+		需要备份的文件可以保存到各种各样的存储设备上, 包括磁盘和磁带. 
+	      <B
+CLASS="COMMAND"
+>restore</B
+>命令用来恢复
+	      <B
+CLASS="COMMAND"
+>dump</B
+>所产生的备份. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>fdformat</B
+></DT
+><DD
+><P
+>对软盘进行低级格式化. </P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="SYSRESOURCES1"
+></A
+>系统资源类</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>ulimit</B
+></DT
+><DD
+><P
+>设置系统资源的使用<EM
+>上限</EM
+>. 
+			通常情况下都是使用<CODE
+CLASS="OPTION"
+>-f</CODE
+>选项来调用, 
+			<CODE
+CLASS="OPTION"
+>-f</CODE
+>用来设置文件尺寸的限制(<B
+CLASS="COMMAND"
+>ulimit 
+				-f 1000</B
+>就是将文件大小限制为1M). 
+			<CODE
+CLASS="OPTION"
+>-c</CODE
+>(译者注: 这里应该是作者笔误, 
+			作者写的是<CODE
+CLASS="OPTION"
+>-t</CODE
+>)选项来限制coredump尺寸(<B
+CLASS="COMMAND"
+>ulimit
+			 -c 0</B
+>就是不要coredump). 
+		 一般情况下, 
+		 <B
+CLASS="COMMAND"
+>ulimit</B
+>的值应该设置在<TT
+CLASS="FILENAME"
+>/etc/profile</TT
+>和(或)<TT
+CLASS="FILENAME"
+>~/.bash_profile</TT
+>中(请参考<A
+HREF="files.html"
+>Appendix G</A
+>). </P
+><DIV
+CLASS="IMPORTANT"
+><P
+></P
+><TABLE
+CLASS="IMPORTANT"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/important.gif"
+HSPACE="5"
+ALT="Important"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>合理的使用<B
+CLASS="COMMAND"
+>ulimit</B
+>命令可以保护系统免受可怕的<EM
+>fork炸弹</EM
+>的迫害. </P
+><P
+>	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# 这个脚本只是为了展示用. 
+  3&nbsp;# 你要自己为运行这个脚本的后果负责 -- 它*将*凝固你的系统. 
+  4&nbsp;
+  5&nbsp;while true  #  死循环. 
+  6&nbsp;do
+  7&nbsp;  $0 &#38;      #  这个脚本调用自身 . . .
+  8&nbsp;            #+ fork无限次 . . .
+  9&nbsp;            #+ 直到系统完全不动, 因为所有的资源都耗尽了. 
+ 10&nbsp;done        #  这就像令人郁闷的<SPAN
+CLASS="QUOTE"
+>"魔术师不断变出雨伞"</SPAN
+>的场景. 
+ 11&nbsp;
+ 12&nbsp;exit 0      #  这里不会真正的退出, 因为这个脚本不会终止. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>当这个脚本超过预先设置的限制时, 
+			在<TT
+CLASS="FILENAME"
+>/etc/profile</TT
+>中的<B
+CLASS="COMMAND"
+>ulimit -Hu 
+			XX</B
+>(<EM
+>XX</EM
+>就是需要限制的用户进程)可以终止这个脚本的运行. 
+	    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="QUOTAREF"
+></A
+><B
+CLASS="COMMAND"
+>quota</B
+></DT
+><DD
+><P
+>显示用户或组的磁盘配额. </P
+></DD
+><DT
+><A
+NAME="SETQUOTAREF"
+></A
+><B
+CLASS="COMMAND"
+>setquota</B
+></DT
+><DD
+><P
+>从命令行中设置用户或组的磁盘配额. </P
+></DD
+><DT
+><A
+NAME="UMASKREF"
+></A
+><B
+CLASS="COMMAND"
+>umask</B
+></DT
+><DD
+><P
+>设定用户创建文件时缺省的权限<I
+CLASS="FIRSTTERM"
+>mask</I
+>(掩码). 
+	      也可以用来限制特定用户的默认文件属性. 
+		  所有用户创建的文件属性都是由<B
+CLASS="COMMAND"
+>umask</B
+>所指定的. 
+		  传递给umask命令的值(8进制)定义了文件的<I
+CLASS="FIRSTTERM"
+>屏蔽</I
+>权限. 
+	      比如, <B
+CLASS="COMMAND"
+>umask
+			  022</B
+>将会使得新文件的权限最多为755(777与022进行<SPAN
+CLASS="QUOTE"
+>"与非"</SPAN
+>操作). 
+
+		  <A
+NAME="AEN12863"
+HREF="#FTN.AEN12863"
+><SPAN
+CLASS="footnote"
+>[7]</SPAN
+></A
+>
+
+	     当然, 用户随后可以使用<A
+HREF="basic.html#CHMODREF"
+>chmod</A
+>来修改指定文件的属性. 
+	     用户一般都将设置<B
+CLASS="COMMAND"
+>umask</B
+>值得地方放在<TT
+CLASS="FILENAME"
+>/etc/profile</TT
+>或(和)<TT
+CLASS="FILENAME"
+>~/.bash_profile</TT
+>中(请参考<A
+HREF="files.html"
+>Appendix G</A
+>). </P
+><DIV
+CLASS="EXAMPLE"
+><HR><A
+NAME="ROT13A"
+></A
+><P
+><B
+>例子 13-10. 用<B
+CLASS="COMMAND"
+>umask</B
+>将输出文件隐藏起来</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#!/bin/bash
+  2&nbsp;# rot13a.sh: 与"rot13.sh"脚本相同, 但是会将输出写到"安全"文件中. 
+  3&nbsp;
+  4&nbsp;# 用法: ./rot13a.sh filename
+  5&nbsp;# 或     ./rot13a.sh &#60;filename
+  6&nbsp;# 或     ./rot13a.sh同时提供键盘输入(stdin)
+  7&nbsp;
+  8&nbsp;umask 177               #  文件创建掩码. 
+  9&nbsp;                        #  被这个脚本所创建的文件
+ 10&nbsp;                        #+ 将具有600权限. 
+ 11&nbsp;
+ 12&nbsp;OUTFILE=decrypted.txt   #  结果保存在"decrypted.txt"中
+ 13&nbsp;                        #+ 这个文件只能够被
+ 14&nbsp;                        #  这个脚本的调用者(或者root)所读写. 
+ 15&nbsp;
+ 16&nbsp;cat "$@" | tr 'a-zA-Z' 'n-za-mN-ZA-M' &#62; $OUTFILE 
+ 17&nbsp;#    ^^ 从stdin 或文件中输入.         ^^^^^^^^^^ 输出重定向到文件中. 
+ 18&nbsp;
+ 19&nbsp;exit 0</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><HR></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>rdev</B
+></DT
+><DD
+><P
+>取得root device, swap space, 或video mode的相关信息, 或者对它们进行修改. 
+			  一般情况下, <B
+CLASS="COMMAND"
+>rdev</B
+>的功能都是被<B
+CLASS="COMMAND"
+>lilo</B
+>所使用, 
+			  但是在建立一个ram disk的时候, 这个命令也很有用. 
+			  小心使用, 这是一个危险的命令. 
+	     </P
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="MODULESSYS1"
+></A
+>模块类</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>lsmod</B
+></DT
+><DD
+><P
+>显示所有安装的内核模块. </P
+><P
+>	      <TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>lsmod</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Module                  Size  Used by
+ autofs                  9456   2 (autoclean)
+ opl3                   11376   0
+ serial_cs               5456   0 (unused)
+ sb                     34752   0
+ uart401                 6384   0 [sb]
+ sound                  58368   0 [opl3 sb uart401]
+ soundlow                 464   0 [sound]
+ soundcore               2800   6 [sb sound]
+ ds                      6448   2 [serial_cs]
+ i82365                 22928   2
+ pcmcia_core            45984   0 [serial_cs ds i82365]</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+	    </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>使用<B
+CLASS="COMMAND"
+>cat /proc/modules</B
+>可以得到同样的结果. </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>insmod</B
+></DT
+><DD
+><P
+>强制安装一个内核模块(如果可能的话, 
+			  使用<B
+CLASS="COMMAND"
+>modprobe</B
+>来代替). 
+			  必须以root身份调用. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>rmmod</B
+></DT
+><DD
+><P
+>强制卸载一个内核模块. 必须以root身份调用. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>modprobe</B
+></DT
+><DD
+><P
+>模块装载器, 一般情况下都是在启动脚本中自动调用. 必须以root身份来运行. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>depmod</B
+></DT
+><DD
+><P
+>创建模块依赖文件, 一般都是在启动脚本中调用. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>modinfo</B
+></DT
+><DD
+><P
+>输出一个可装载模块的信息. </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>modinfo hid</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>filename:    /lib/modules/2.4.20-6/kernel/drivers/usb/hid.o
+ description: "USB HID support drivers"
+ author:      "Andreas Gal, Vojtech Pavlik &#60;vojtech@suse.cz&#62;"
+ license:     "GPL"</SAMP
+>
+	      </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+></DL
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><P
+><B
+><A
+NAME="MISCSYS1"
+></A
+>杂项类</B
+></P
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>env</B
+></DT
+><DD
+><P
+>使用设置过的或修改过(并不是修改整个系统环境)的<A
+HREF="othertypesv.html#ENVREF"
+>环境变量</A
+>来运行一个程序或脚本. 
+	      使用<CODE
+CLASS="OPTION"
+>[varname=xxx]</CODE
+>形式可以在脚本中修改环境变量. 
+	     如果没有指定参数, 那么这个命令将会显示所有设置的环境变量. 
+	      </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/note.gif"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>在Bash或其它Bourne shell的衍生物中, 
+				  是可以在同一命令行上设置多个变量的. 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;var1=value1 var2=value2 commandXXX
+  2&nbsp;# $var1和$var2只设置在'commandXXX'的环境中. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+>	      
+            </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./images/tip.gif"
+HSPACE="5"
+ALT="Tip"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>当不知道shell或解释器路径的时候, 
+					脚本的第一行(#!<SPAN
+CLASS="QUOTE"
+>"sha-bang"</SPAN
+>行)可以使用<B
+CLASS="COMMAND"
+>env</B
+>. 
+	      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;#! /usr/bin/env perl
+  2&nbsp;
+  3&nbsp;print "This Perl script will run,\n";
+  4&nbsp;print "even when I don't know where to find Perl.\n";
+  5&nbsp;
+  6&nbsp;# 在不知道perl程序路径的时候, 
+  7&nbsp;# 这么写有利于跨平台移植. 
+  8&nbsp;# 感谢, S.C.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+            </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>ldd</B
+></DT
+><DD
+><P
+>显示一个可执行文件和它所需要共享库之间依赖关系. </P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>bash$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>ldd /bin/ls</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>libc.so.6 =&#62; /lib/libc.so.6 (0x4000c000)
+/lib/ld-linux.so.2 =&#62; /lib/ld-linux.so.2 (0x80000000)</SAMP
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><A
+NAME="WATCHREF"
+></A
+><B
+CLASS="COMMAND"
+>watch</B
+></DT
+><DD
+><P
+>以指定的时间间隔来重复运行一个命令. </P
+><P
+>默认的时间间隔是2秒, 但是可以使用<CODE
+CLASS="OPTION"
+>-n</CODE
+>选项进行修改. </P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>  1&nbsp;watch -n 5 tail /var/log/messages
+  2&nbsp;# 每隔5秒钟显示系统log文件(/var/log/messages)的结尾. </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>strip</B
+></DT
+><DD
+><P
+>从可执行文件中去掉调试符号的引用. 这样做可以减小可执行文件的尺寸, 但是就不能调试了. 
+		  </P
+><P
+>这个命令一般都用在<A
+HREF="filearchiv.html#MAKEFILEREF"
+>Makefile</A
+>中, 
+	      但是很少用在shell脚本中. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>nm</B
+></DT
+><DD
+><P
+>列出未strip过的, 经过编译的, 2进制文件的全部符号. </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>rdist</B
+></DT
+><DD
+><P
+>远程分布客户端: 在远端服务器上同步, 克隆, 或者备份一个文件系统. </P
+></DD
+></DL
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>注意事项</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN10989"
+HREF="system.html#AEN10989"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>这是在Linux机器上或者在带有磁盘配额的UNIX系统上的真实情况. </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN11020"
+HREF="system.html#AEN11020"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>如果正在被删除的特定用户已经登录了主机, 那么<B
+CLASS="COMMAND"
+>userdel</B
+>命令将会失败. </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN12376"
+HREF="system.html#AEN12376"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>关于烧录CDR的更多细节, 可以参考Alex
+	    Withers的文章, <A
+HREF="http://www2.linuxjournal.com/lj-issues/issue66/3335.html"
+TARGET="_top"
+>创建
+	    CD</A
+>, 这篇文章是1999年10月在<A
+HREF="http://www.linuxjournal.com"
+TARGET="_top"
+><I
+CLASS="CITETITLE"
+>Linux
+	     Journal</I
+></A
+>上发表的. </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN12567"
+HREF="system.html#AEN12567"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+><A
+HREF="system.html#MKE2FSREF"
+>mke2fs</A
+>的<CODE
+CLASS="OPTION"
+>-c</CODE
+>选项也会进行磁盘坏块检查. 
+		</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN12688"
+HREF="system.html#AEN12688"
+><SPAN
+CLASS="footnote"
+>[5]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>因为只有<I
+CLASS="FIRSTTERM"
+>root</I
+>用户才具有对<TT
+CLASS="FILENAME"
+>/var/lock</TT
+>目录的写权限, 
+				一般的用户脚本不能在那里设置一个锁定文件. 
+		 </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN12775"
+HREF="system.html#AEN12775"
+><SPAN
+CLASS="footnote"
+>[6]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>单用户Linux系统的操作更倾向于使用简单的备份工具, 
+				比如<B
+CLASS="COMMAND"
+>tar</B
+>. </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN12863"
+HREF="system.html#AEN12863"
+><SPAN
+CLASS="footnote"
+>[7]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>NAND<SPAN
+CLASS="QUOTE"
+>"<I
+CLASS="FIRSTTERM"
+>与非</I
+>"</SPAN
+>是一种逻辑操作. 
+		  事实上, 这种操作与减法很相像. </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="extmisc.html"
+ACCESSKEY="P"
+>前一页</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>首页</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sysscripts.html"
+ACCESSKEY="N"
+>下一页</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>混杂命令</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part3.html"
+ACCESSKEY="U"
+>上一级</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>分析一个系统脚本</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
