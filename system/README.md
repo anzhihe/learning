@@ -1,4 +1,5 @@
 ## System learning
+百度网盘：https://pan.baidu.com/s/1LKEwSfBjiqkIs87NCsZVPA
 - CPU源代码分析与芯片设计及Linux移植
 - Debug.Hacks中文版_深入调试的技术和工具
 - Linux-UNIX系统编程手册（上、下册）
