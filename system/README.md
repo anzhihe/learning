@@ -1,4 +1,4 @@
-## System learning
+## Operating systems learning
 百度网盘：https://pan.baidu.com/s/1LKEwSfBjiqkIs87NCsZVPA
 - 《穿越计算机的迷雾》
 - 《码农翻身：用故事给技术加点料》
