@@ -5,6 +5,9 @@ Python learning [**book**](/python/book) and source code
 - head first python [[Download]](/python/book/head%20first%20python.pdf)
 - Head First Python（中文版） [[Download]](/python/book/Head%20First%20Python（中文版）.pdf)
 - Python自动化运维技术与最佳实践 [[Download]](/python/book/Python自动化运维技术与最佳实践.pdf)
+- Oreilly.Regular.Expressions.Cookbook.2nd.edition [[Download]](/python/book/Oreilly.Regular.Expressions.Cookbook.2nd.edition.pdf)
+- 精通正则表达式 [[Download]](/python/book/精通正则表达式.pdf)
+- 正则表达式经典实例 [[Download]](/python/book/正则表达式经典实例.pdf)
 ---
 - [Getting started with python](https://www.cnblogs.com/vamei/tag/Python/)
 - [简明 Python 教程](https://woodpecker.org.cn/abyteofpython_cn/chinese/index.html)
