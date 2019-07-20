@@ -30,4 +30,6 @@
 - 性能之巅(洞悉系统、企业与云计算)
 - Site Reliability Engineering
 - Python.UNIX和Linux系统管理指南
+- AppleScript初学者(中文版)
+- AppleScript权威指南
 - Mac OS X for Unix Geeks
