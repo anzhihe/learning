@@ -1,8 +1,9 @@
 ## Operating systems learning
 百度网盘：https://pan.baidu.com/s/1LKEwSfBjiqkIs87NCsZVPA
 - 《穿越计算机的迷雾》
-- 《码农翻身：用故事给技术加点料》
+- 《计算机的心智：操作系统之哲学原理》
 - 编码：隐匿在计算机软硬件背后的语言（美.佩措尔德）
+- 《码农翻身：用故事给技术加点料》
 - 深入理解计算机系统（原书第三版3）
 - 现代操作系统原书第4版
 - UNIX Systems for Modern Architecture
@@ -34,3 +35,4 @@
 - AppleScriptLanguageGuide
 - AppleScript权威指南
 - Mac OS X for Unix Geeks
+- 《深入解析 MAC OS X & IOS 操作系统》
