@@ -9,6 +9,8 @@ Python learning [**book**](/python/book) and source code
 - 精通正则表达式 [[Download]](/python/book/精通正则表达式.pdf)
 - 正则表达式经典实例 [[Download]](/python/book/正则表达式经典实例.pdf)
 ---
+- [python官网](https://www.python.org/)
+- [python docs](https://docs.python.org/3/)
 - [Getting started with python](https://www.cnblogs.com/vamei/tag/Python/)
 - [简明 Python 教程](https://woodpecker.org.cn/abyteofpython_cn/chinese/index.html)
 - [Python tutorial](https://www.liaoxuefeng.com/wiki/1016959663602400)
