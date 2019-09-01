@@ -61,6 +61,8 @@ awk 'BEGIN{RS="<!--|-->"}NR%2' server.xml.bak|awk NF
 sed '/<!--/{:a;/-->/!{N;ba}};/<!--/d;/^\s*$/d' server.xml.bak 
 # 处理两个文件公共字段
 awk 'NR==FNR{a[$2]=$0} NR>FNR && ($1 in a) { print a[$1]}' g1 g2
+# 更改输出格式
+awk -v OFS=" | " '{$1=$1;print}'
 
 #################################################################
 
