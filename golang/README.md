@@ -1,6 +1,6 @@
 ## Golang learning
 Golang learning [**book**](/golang/book) and source code
-go go go 
+- go go go 
 ---
 - [Golang官网](https://golang.org/)
 - [Golang doc](https://golang.org/doc/)
