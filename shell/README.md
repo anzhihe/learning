@@ -14,6 +14,7 @@
 - [AWK 简明教程](https://coolshell.cn/articles/9070.html)
 - [sed 和 awk](http://wanggen.myweb.hinet.net/ach3/ach3.html?MywebPageId=2017191508402748485&MywebPageId=2017191508403803949#sed_and_awk)
 - [sed & awk单行常用命令](https://chegva.com/2647.html)
+- [Shell学习宝典](https://chegva.com/3401.html)
 - [Shell Script](https://bash.cyberciti.biz/)
 - [explainshell](https://explainshell.com/)
 - [ShellCheck](https://www.shellcheck.net/)
