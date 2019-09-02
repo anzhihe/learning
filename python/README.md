@@ -20,6 +20,7 @@ Python learning [**book**](/python/book) and source code
 - [stackoverflow-py-top-qa](https://github.com/wklken/stackoverflow-py-top-qa)
 - [Python Cookbook](http://python3-cookbook.readthedocs.org/zh_CN/latest/)
 - [Python中文学习大本营](http://www.pythondoc.com/)
+- [Django 基础教程](https://code.ziqiangxuetang.com/django/django-tutorial.html)
 - [The Algorithms - Python](https://github.com/TheAlgorithms/Python)
 - [PythonTab](https://www.pythontab.com/)
 - [Visualize Python](http://pythontutor.com/visualize.html#mode=edit)
