@@ -1,6 +1,14 @@
 ## Golang learning
 Golang learning [**book**](/golang/book) and source code
-- go go go 
+- [Go学习笔记 第四版](https://github.com/anzhihe/learning/blob/master/golang/book/Go%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20%E7%AC%AC%E5%9B%9B%E7%89%88.pdf)
+- [Go程序设计语言](https://github.com/anzhihe/learning/blob/master/golang/book/Go%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%EF%BC%88%E8%AF%A6%E7%BB%86%E4%B9%A6%E7%AD%BE%E3%80%81%E6%B8%85%E6%99%B0%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.pdf)
+- [Go_web_编程](https://github.com/anzhihe/learning/blob/master/golang/book/Go_web_%E7%BC%96%E7%A8%8B.pdf)
+- [Go Web 编程](https://github.com/anzhihe/learning/blob/master/golang/book/Go%20Web%20%E7%BC%96%E7%A8%8B.pdf)
+- [Go语言实战](https://github.com/anzhihe/learning/blob/master/golang/book/Go%20%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98.pdf)
+- [Go并发编程实战_第1版](https://github.com/anzhihe/learning/blob/master/golang/book/Go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98_%E7%AC%AC1%E7%89%88.pdf)
+- [Go并发编程实战_第2版_Lite](https://github.com/anzhihe/learning/blob/master/golang/book/Go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98_%E7%AC%AC2%E7%89%88_Lite.pdf)
+- [Go网络编程](https://github.com/anzhihe/learning/blob/master/golang/book/Go%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.pdf)
+- [Go语言圣经(中文版)](https://github.com/anzhihe/learning/blob/master/golang/book/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F(%E4%B8%AD%E6%96%87%E7%89%88).pdf)
 ---
 - [Golang官网](https://golang.org/)
 - [Golang doc](https://golang.org/doc/)
