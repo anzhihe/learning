@@ -63,7 +63,7 @@ sed '/<!--/{:a;/-->/!{N;ba}};/<!--/d;/^\s*$/d' server.xml.bak
 awk 'NR==FNR{a[$2]=$0} NR>FNR && ($1 in a) { print a[$1]}' g1 g2
 # 更改输出格式
 awk -v OFS=" | " '{$1=$1;print}'
-# 输入变量添加双绰号
+# 输入变量添加特殊符号
 # sub匹配第一次出现的符合模式的字符串，相当于 sed 's//'
 # gsub匹配所有的符合模式的字符串，相当于 sed 's//g'
 awk -F "[/-]+" '{print "[aplayer_trac title=\""$6"\" author=\""'\$5'"\"  src=\""'\$0'"\"]"}' |awk '{sub(/.mp3/,"");print}'
