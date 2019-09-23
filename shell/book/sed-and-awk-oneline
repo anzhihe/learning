@@ -67,6 +67,8 @@ awk -v OFS=" | " '{$1=$1;print}'
 # sub匹配第一次出现的符合模式的字符串，相当于 sed 's//'
 # gsub匹配所有的符合模式的字符串，相当于 sed 's//g'
 awk -F "[/-]+" '{print "[aplayer_trac title=\""$6"\" author=\""'\$5'"\"  src=\""'\$0'"\"]"}' |awk '{sub(/.mp3/,"");print}'
+# iotop 打印出IO使用率超过10%的进程
+iotop -b | awk -F'%' '{if($(NF-1) > 10 && $(NF-1) ~ /[0-9]/ && $0 !~ /DISK/)printf "TIME: %s,PID:%s,IO:%s%,COMMAND:%s\n",strftime("%F %T"),$1,$(NF-1),$NF}' 
 
 #################################################################
 
