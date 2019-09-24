@@ -18,3 +18,4 @@
 - [Shell Script](https://bash.cyberciti.biz/)
 - [explainshell](https://explainshell.com/)
 - [ShellCheck](https://www.shellcheck.net/)
+- [pure-bash-bible](https://github.com/dylanaraps/pure-bash-bible)
