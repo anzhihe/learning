@@ -23,6 +23,7 @@
 - Debug.Hacks中文版_深入调试的技术和工具
 - Understanding_the_linux_virtual_memory_manager
 - Linux_Kernel_Delay_Write
+- A_Directory_Index_for_Ext2
 - Linux网络编程
 - UNIX网络编程+第1卷：套接字API
 - Unix网络编程 第2卷：进程间的通信
