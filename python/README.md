@@ -6,6 +6,7 @@ Python learning [**book**](/python/book) and source code
 - Head First Python（中文版） [[Download]](/python/book/Head%20First%20Python（中文版）.pdf)
 - Python自动化运维技术与最佳实践 [[Download]](/python/book/Python自动化运维技术与最佳实践.pdf)
 - Oreilly.Regular.Expressions.Cookbook.2nd.edition [[Download]](/python/book/Oreilly.Regular.Expressions.Cookbook.2nd.edition.pdf)
+- 正则表达式必知必会(修订版) [[Download]](/python/book/正则表达式必知必会(修订版).pdf)
 - 精通正则表达式 [[Download]](/python/book/精通正则表达式.pdf)
 - 正则表达式经典实例 [[Download]](/python/book/正则表达式经典实例.pdf)
 ---
