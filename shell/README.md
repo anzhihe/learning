@@ -11,6 +11,9 @@
 - 跟老男孩学Linux运维：Shell编程实战 [[Download]](/shell/book/跟老男孩学Linux运维：Shell编程实战.pdf)
 ---
 - [SED 简明教程](https://coolshell.cn/articles/9104.html)
+- [sed 基础教程](https://www.twle.cn/c/yufei/sed/sed-basic-index.html)
+- [文本处理之三剑客之sed](https://www.devopssec.cn/2018/08/08/Shell%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2%E4%B9%8Bsed/)
+- [Sed 命令完全指南](https://linux.cn/article-10232-1.html)
 - [AWK 简明教程](https://coolshell.cn/articles/9070.html)
 - [sed 和 awk](http://wanggen.myweb.hinet.net/ach3/ach3.html?MywebPageId=2017191508402748485&MywebPageId=2017191508403803949#sed_and_awk)
 - [sed & awk单行常用命令](https://github.com/anzhihe/learning/blob/master/shell/book/sed-and-awk-oneline)
