@@ -75,6 +75,8 @@ for i in *.mp3;do mv -f $i `echo $i | sed 's/^...//'`;done
 rename -n -v 's/ //' *.mp3
 # sed 打印匹配行接下来的连续 n+1 行
 sed -n -e '/SrcTrp/,+4p' -e '/DstTrp/,+4p' xxx.json
+# 列出机器连接数top10及内网主机名
+netstat -na|grep ESTABLISHED|grep -v 127.0.0.1|awk '{print $5}'|awk -F: '{print $1}'|sort|uniq -c|sort -rn |head |xargs -n1 -r -i bash -c "echo -n {};echo  {}|awk '{ print \$2 }'|xargs host |awk -v OFS=' ' '{ print \$10,\$NF }'"
 
 #################################################################
 
