@@ -4,6 +4,7 @@ Python learning [**book**](/python/book) and source code
 - Python核心编程第三版 [[Download]](/python/book/Python核心编程第三版.pdf)
 - head first python [[Download]](/python/book/head%20first%20python.pdf)
 - Head First Python（中文版） [[Download]](/python/book/Head%20First%20Python（中文版）.pdf)
+- Python编程快速上手-让繁琐工作自动化 [[Download]](/python/book/Python编程快速上手-让繁琐工作自动化.pdf)
 - Python自动化运维技术与最佳实践 [[Download]](/python/book/Python自动化运维技术与最佳实践.pdf)
 - Oreilly.Regular.Expressions.Cookbook.2nd.edition [[Download]](/python/book/Oreilly.Regular.Expressions.Cookbook.2nd.edition.pdf)
 - 正则表达式必知必会(修订版) [[Download]](/python/book/正则表达式必知必会(修订版).pdf)
