@@ -77,6 +77,15 @@ rename -n -v 's/ //' *.mp3
 sed -n -e '/SrcTrp/,+4p' -e '/DstTrp/,+4p' xxx.json
 # 列出机器TOP10连接数的IP及内网主机名
 netstat -na|grep ESTABLISHED|grep -v 127.0.0.1|awk '{print $5}'|awk -F: '{print $1}'|sort|uniq -c|sort -rn |head |xargs -n1 -r -i bash -c "echo -n {};echo  {}|awk '{ print \$2 }'|xargs host |awk -v OFS=' ' '{ print \$10,\$NF }'"
+# echo 提取文件名或文件后缀
+# 从右向左匹配 ：% ，从左向右匹配：#，贪婪操作符%%,##，# echo 提取文件名或文件后缀
+# 以url="www.chegva.com"为例
+# echo ${url%.*}      #移除 .* 所匹配的最右边的内容。-> www.chegva
+# echo ${url%%.*}     #将从右边开始一直匹配到最左边的 *. 移除，贪婪操作符。-> www
+# echo ${url#*.}      #移除 *. 所有匹配的最左边的内容。-> chegva.com
+# echo ${url##*.}     #将从左边开始一直匹配到最右边的 *. 移除，贪婪操作符。-> com
+for i in *.mp4;do echo ${i%.*};done | awk '{ printf "%s,", $0}' |sed 's/,$//'
+
 
 #################################################################
 
