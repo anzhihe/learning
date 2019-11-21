@@ -85,6 +85,15 @@ netstat -na|grep ESTABLISHED|grep -v 127.0.0.1|awk '{print $5}'|awk -F: '{print 
 # echo ${url#*.}      #移除 *. 所有匹配的最左边的内容。-> chegva.com
 # echo ${url##*.}     #将从左边开始一直匹配到最右边的 *. 移除，贪婪操作符。-> com
 for i in *.mp4;do echo ${i%.*};done | awk '{ printf "%s,", $0}' |sed 's/,$//'
+# sed 交换行
+# 相邻行：已知行号 & 不知行号
+sed '1{h;d};2{G}' test 
+sed '/baidu/{h;d};/microsoft/{G}' test
+# 两行不相邻情况，将包含xxx与zzz的行交换（zzz在xxx行之后），yyy是zzz行前面的那一行
+sed -n '/xxx/{h;n;/zzz/!{:a;N;/yyy/!ba;x;H;n};x;H;x};p' 文件名
+sed -n '/"ChunkAddr": "10.69.184.12:9090"/{h;n;/"ChunkAddr":/!{:a;N;/"PartitionId"/!ba;x;H;n};x;H;x};p' xx.json
+# 删除多个空行为一个空行
+sed '/^$/{N;/^\n*$/D}' test
 
 
 #################################################################
