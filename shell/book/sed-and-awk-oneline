@@ -93,9 +93,22 @@ sed -n '/xxx/{h;n;/zzz/!{:a;N;/yyy/!ba;x;H;n};x;H;x};p' 文件名
 sed -n '/"ChunkAddr": "10.69.184.12:9090"/{h;n;/"ChunkAddr":/!{:a;N;/"PartitionId"/!ba;x;H;n};x;H;x};p' xx.json
 # 删除多个空行为一个空行
 sed '/^$/{N;/^\n*$/D}' test
+# 打印匹配行的上一行
+sed -n '/^+/{x;p};h'
+# 删除指定行的上一行
+sed -i -e :a -e '$!N;s/.*\n\(.*chegva.com\)/\1/;ta' -e 'P;D' test
+# 打印匹配行的下一行,将p改成d为删除下一行
+sed -n '/^+/{n;p}'
+# 删除匹配的下一行到最后一行
+sed '/chegva.com/{p;:a;N;$!ba;d}' test
+# 删除匹配行和匹配行后的2行
+sed '/chegva.com/,+1d' test
+# 删除包含chegva.com的行，同时删除这行的后面2行和上面3行,:go 设一个go标签,bgo 返回go标签go
+sed -i '/chegva.com/,+2d;:go;1,3!{P;N;D};N;bgo’ test
 
 
 #################################################################
+
 
 文本间隔：
 # 在每一行后面增加一空行
@@ -740,32 +753,67 @@ sed -n '/^$/{p;h;};/./{x;/./p;}'
 特殊应用：
 --------
 # 移除手册页（man page）中的nroff标记。在Unix System V或bash shell下使
-# 用'echo'命令时可能需要加上 -e 选项。
+# 用’echo’命令时可能需要加上 -e 选项。
 sed "s/.`echo \\\b`//g"    # 外层的双括号是必须的（Unix环境）
 sed 's/.^H//g'             # 在bash或tcsh中, 按 Ctrl-V 再按 Ctrl-H
 sed 's/.\x08//g'           # sed 1.5，GNU sed，ssed所使用的十六进制的表示方法
+awk '{gsub(/.\x08/,"",$0);print}'
 
 # 提取新闻组或 e-mail 的邮件头
 sed '/^$/q'                # 删除第一行空行后的所有内容
+awk '{print}/^$/{exit}'
 
 # 提取新闻组或 e-mail 的正文部分
 sed '1,/^$/d'              # 删除第一行空行之前的所有内容
+awk '{if(F)print}/^$/{F=1}'
 
 # 从邮件头提取“Subject”（标题栏字段），并移除开头的“Subject:”字样
 sed '/^Subject: */!d; s///;q'
+awk '/^Subject:.*/{print substr($0,10)}/^$/{exit}'
 
 # 从邮件头获得回复地址
 sed '/^Reply-To:/q; /^From:/h; /./d;g;q'
 
-# 获取邮件地址。在上一个脚本所产生的那一行邮件头的基础上进一步的将非电邮
-# 地址的部分剃除。（见上一脚本）
+#好像是输出第一个Reply-To:开头的行？From是干啥用的？不清楚规则。。
+awk '/^Reply-To:.*/{print;exit}/^$/{exit}'
+
+# 获取邮件地址。在上一个脚本所产生的那一行邮件头的基础上进一步的将非电邮地址的部分剃除。（见上一脚本）
 sed 's/ *(.*)//; s/>.*//; s/.*[:<] *//'
+
+#取尖括号里的东西吧？
+awk -F'[<>]+' '{print $2}'
 
 # 在每一行开头加上一个尖括号和空格（引用信息）
 sed 's/^/> /'
+awk '{print "> " $0}'
 
 # 将每一行开头处的尖括号和空格删除（解除引用）
 sed 's/^> //'
+awk '/^> /{print substr($0,3)}'
 
 # 移除大部分的HTML标签（包括跨行标签）
 sed -e :a -e 's/<[^>]*>//g;/</N;//ba'
+awk '{gsub(/<[^>]*>/,"",$0);print}'
+
+# 将分成多卷的uuencode文件解码。移除文件头信息，只保留uuencode编码部分。
+# 文件必须以特定顺序传给sed。下面第一种版本的脚本可以直接在命令行下输入；
+# 第二种版本则可以放入一个带执行权限的shell脚本中。（由Rahul Dhesi的一
+# 个脚本修改而来。）
+sed '/^end/,/^begin/d' file1 file2 ... fileX | uudecode   # vers. 1
+sed '/^end/,/^begin/d' "$@" | uudecode                    # vers. 2
+
+#我不想装个uudecode验证，大致写个吧
+awk '/^end/{F=0}{if(F)print}/^begin/{F=1}' file1 file2 ... fileX
+
+# 将文件中的段落以字母顺序排序。段落间以（一行或多行）空行分隔。GNU sed使用
+# 字元“\v”来表示垂直制表符，这里用它来作为换行符的占位符??当然你也可以
+# 用其他未在文件中使用的字符来代替它。
+sed '/./{H;d;};x;s/\n/={NL}=/g' file | sort | sed '1s/={NL}=//;s/={NL}=/\n/g'
+gsed '/./{H;d};x;y/\n/\v/' file | sort | sed '1s/\v//;y/\v/\n/'
+awk -vRS= '{gsub(/\n/,"\v",$0);print}' ll.txt | sort | awk '{gsub(/\v/,"\n",$0);print;print ""}'
+
+# 分别压缩每个.TXT文件，压缩后删除原来的文件并将压缩后的.ZIP文件
+# 命名为与原来相同的名字（只是扩展名不同）。（DOS环境：“dir /b”
+# 显示不带路径的文件名）。
+echo @echo off >zipup.bat
+dir /b *.txt | sed "s/^\(.*\)\.TXT/pkzip -mo \1 \1.TXT/" >>zipup.bat
