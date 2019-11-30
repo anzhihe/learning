@@ -25,6 +25,7 @@ Python learning [**book**](/python/book) and source code
 - [Python Cookbook](http://python3-cookbook.readthedocs.org/zh_CN/latest/)
 - [Python中文学习大本营](http://www.pythondoc.com/)
 - [Django 基础教程](https://code.ziqiangxuetang.com/django/django-tutorial.html)
+- [Django2.2教程](http://www.liujiangblog.com/course/django/2)
 - [The Algorithms - Python](https://github.com/TheAlgorithms/Python)
 - [PythonTab](https://www.pythontab.com/)
 - [Visualize Python](http://pythontutor.com/visualize.html#mode=edit)
