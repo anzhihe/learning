@@ -37,5 +37,5 @@ Python learning [**book**](/python/book) and source code
 - [curl syntax to Python](https://curl.trillworks.com/)
 - [debuggex](https://www.debuggex.com/)
 - [sql tool](https://tool.lu/sql/)
-- [URL Decoding](https://ascii.cl/url-decoding.htm)
+- [RegEx Pal](https://www.regexpal.com/)
 
