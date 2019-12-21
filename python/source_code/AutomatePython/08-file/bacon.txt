@@ -1,0 +1,2 @@
+Hello world!
+Bacon is not a vegetable.
