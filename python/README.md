@@ -39,4 +39,4 @@ Python learning [**book**](/python/book) and source code
 - [debuggex](https://www.debuggex.com/)
 - [sql tool](https://tool.lu/sql/)
 - [RegEx Pal](https://www.regexpal.com/)
-- [Online Tools](https://emn178.github.io/online-tools/index.html)
+- [Online Tools](http://emn178.github.io/online-tools/index.html)
