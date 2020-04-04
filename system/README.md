@@ -9,6 +9,7 @@
 - UNIX Systems for Modern Architecture
 - the_design_of_the_unix_operating_system
 - Linux内核设计的艺术_图解Linux操作系统架构设计与实现原理
+- Linux内核源代码情景分析上下册带目录
 - 深入Linux设备驱动程序内核机制
 - Linux设备驱动程序(中文版第三版)
 - 深入理解Linux内核第3版+英文版
