@@ -105,7 +105,12 @@ sed '/chegva.com/{p;:a;N;$!ba;d}' test
 sed '/chegva.com/,+1d' test
 # 删除包含chegva.com的行，同时删除这行的后面2行和上面3行,:go 设一个go标签,bgo 返回go标签go
 sed -i '/chegva.com/,+2d;:go;1,3!{P;N;D};N;bgo’ test
-
+# 奇数行和偶数行合并一行输出
+awk '{printf "%s ",$0;getline;print;}' 
+awk '{if(FNR==2) {printf "%s ",$0;getline;};print;}'
+# 将文本的三行合并成一行输出
+sed 'N;N;s/\n/ /g'  #N 追加下一个输入行到模式空间
+awk 'ORS=NR%3?" ":"\n"{print}'  #NR当前行记录数，ORS输出记录分隔符
 
 #################################################################
 
