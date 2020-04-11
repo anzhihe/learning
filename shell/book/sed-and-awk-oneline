@@ -41,6 +41,7 @@ sed -i '/^SELINUX=/c\SELINUX=disabled' /etc/selinux/config
 # sed删除不连续行
 sed -i '4,5d;56d;78d;82d' abc.txt
 # sed 开始或结尾插入字符串
+# Mac上执行报sed: RE error: illegal byte sequence错误，加LC_ALL=C  sed -i '' 's/^/[&/g' 执行
 sed -i 's/^/hello world &/g' data
 sed -i 's/$/& hello world/g' data
 我们还可以把两条命令放在一起使用：
