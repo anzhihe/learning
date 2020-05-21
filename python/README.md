@@ -40,3 +40,4 @@ Python learning [**book**](/python/book) and source code
 - [sql tool](https://tool.lu/sql/)
 - [RegEx Pal](https://www.regexpal.com/)
 - [Online Tools](http://emn178.github.io/online-tools/index.html)
+- [Awesome Open Source](https://awesomeopensource.com)
