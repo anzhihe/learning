@@ -48,7 +48,7 @@
   - 9.TCP协议图解.zip
 - **网络工程实战**
   - [CCNA完全配置宝典](https://chegva.com/1128.html)
-  - [CCIE网络工程师成长之路 | 红茶三杯CCNA、CCNP、CCIE网络工程知识合集](http://ccietea.com/),朱sir网络教程视频全集(链接:https://pan.baidu.com/s/1qVfQPxJuxlB5xWS1yiPkcg  密码:2fh6)
+  - [CCIE网络工程师成长之路](http://ccietea.com/),朱sir网络教程视频全集(链接:https://pan.baidu.com/s/1qVfQPxJuxlB5xWS1yiPkcg  密码:2fh6)
   - 网络工程实战项目视频教程（含3个综合项目部署）
 
 ---
