@@ -6,6 +6,7 @@ Python learning [**book**](/python/book) and source code
 - Head First Python（中文版） [[Download]](/python/book/Head%20First%20Python（中文版）.pdf)
 - Learn_Python_The_Hard_Way_zh-cn [[Download]](/python/book/Learn_Python_The_Hard_Way_zh-cn.pdf)
 - 笨办法学Python-第3版 [[Download]](/python/book/笨办法学Python-第3版.pdf)
+- Python3学习笔记第三版上卷 [[Download]](/python/book/Python3学习笔记第三版上卷.pdf)
 - Head First 设计模式(中文版) [[Download]](/python/book/Head%20First%20设计模式(中文版).pdf)
 - Python编程快速上手-让繁琐工作自动化 [[Download]](/python/book/Python编程快速上手-让繁琐工作自动化.pdf)
 - Python自动化运维技术与最佳实践 [[Download]](/python/book/Python自动化运维技术与最佳实践.pdf)
