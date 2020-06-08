@@ -13,6 +13,7 @@ Golang learning [**book**](/golang/book) and source code
 ---
 - [Golang官网](https://golang.org/)
 - [Golang doc](https://golang.org/doc/)
+- [The Go Blog](https://blog.golang.org/)
 - [Golang github](https://github.com/golang/go)
 - [Go语言中文网](https://studygolang.com)
 - [Go 语言学习资料与社区索引](https://github.com/unknwon/go-study-index)
