@@ -17,6 +17,7 @@ Python learning [**book**](/python/book) and source code
 - 正则表达式必知必会(修订版) [[Download]](/python/book/正则表达式必知必会(修订版).pdf)
 - 精通正则表达式 [[Download]](/python/book/精通正则表达式.pdf)
 - 正则表达式经典实例 [[Download]](/python/book/正则表达式经典实例.pdf)
+- Head First SQL中文版 [[Download]](/python/book/Head%20First%20SQL中文版.pdf)
 - SQL进阶教程 [[Download]](/python/book/SQL进阶教程.pdf)
 ---
 - [code.org](https://code.org/)
