@@ -1,0 +1,14 @@
+.error {
+  font-weight: bold;
+  color: #FF0000;
+}
+
+.score {
+  font-size:150%;
+  color: #36407F;
+}
+
+.scoreinfo {
+  vertical-align: top;
+  padding-right:15px;
+}

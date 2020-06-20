@@ -1,0 +1,28 @@
+tr.heading {
+  color: #882E2C;
+}
+
+tr.results {
+  font-size: smaller;
+  color: #000000;
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:link {
+  color: #882E2C;
+}
+
+a:hover {
+  background-color: #E2F345;
+}
+a:visited {
+  color: #882E2C;
+}
+
+a:active {
+  color: #000000;
+}
