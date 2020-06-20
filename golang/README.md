@@ -1,6 +1,7 @@
 ## Golang learning
 Golang learning [**book**](/golang/book) and source code
 - [Go程序设计语言](https://github.com/anzhihe/learning/blob/master/golang/book/Go%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%EF%BC%88%E8%AF%A6%E7%BB%86%E4%B9%A6%E7%AD%BE%E3%80%81%E6%B8%85%E6%99%B0%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.pdf)
+- [Head First Go英文版](/golang/book/Head%20First%20Go英文版.pdf)
 - [Go语言实战](https://github.com/anzhihe/learning/blob/master/golang/book/Go%20%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98.pdf)
 - [Go学习笔记 第四版](https://github.com/anzhihe/learning/blob/master/golang/book/Go%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20%E7%AC%AC%E5%9B%9B%E7%89%88.pdf)
 - [Go源码剖析（书签版）](https://github.com/anzhihe/learning/blob/master/golang/book/Go%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%EF%BC%88%E4%B9%A6%E7%AD%BE%E7%89%88%EF%BC%89.pdf)
