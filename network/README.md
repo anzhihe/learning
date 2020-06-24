@@ -3,6 +3,7 @@
 百度网盘：https://pan.baidu.com/s/1HtpncYv2FR-aBYdKsCxh_Q  密码:rs9i
 
 - **初级网络技术书籍**
+  - 深入浅出Networking.pdf
   - TCP-IP详解卷一：协议.rar
   - CCNA学习指南第七版.zip
   - Cisco_ACL配置技术
