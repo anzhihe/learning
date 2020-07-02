@@ -1,6 +1,6 @@
 ## shell awk sed learning books
 - bash4.0中文手册 [[Download]](/shell/book/bash4.0中文手册.pdf)
-- The Linux Command Line中文版 [Download]](/shell/book/The%20Linux%20Command%20Line中文版.pdf)
+- The Linux Command Line中文版 [Download](/shell/book/The%20Linux%20Command%20Line中文版.pdf)
 - abs-guide [[Download]](/shell/book/abs-guide.pdf)
 - awk手册 [[Download]](/shell/book/awk手册.pdf)
 - The AWK Programming Language [[Download]](/shell/book/The.AWK.Programming.Language.pdf)
