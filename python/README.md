@@ -43,5 +43,6 @@ Python learning [**book**](/python/book) and source code
 - [debuggex](https://www.debuggex.com/)
 - [sql tool](https://tool.lu/sql/)
 - [RegEx Pal](https://www.regexpal.com/)
+- [i Hate Regex - The Regex Cheat Sheet](https://ihateregex.io/)
 - [Online Tools](http://emn178.github.io/online-tools/index.html)
 - [Awesome Open Source](https://awesomeopensource.com)
