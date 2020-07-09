@@ -10,6 +10,7 @@
 - LINUX SHELL脚本攻略 [[Download]](/shell/book/LINUX%20SHELL脚本攻略(中文版带书签).pdf)
 - Linux命令行与shell脚本编程大全-第3版 [[Download]](/shell/book/Linux命令行与shell脚本编程大全%20%20第3版.pdf)
 - 跟老男孩学Linux运维：Shell编程实战 [[Download]](/shell/book/跟老男孩学Linux运维：Shell编程实战.pdf)
+- ECS运维指南之Linux系统诊断 [[Download]](/shell/book/ECS运维指南之Linux系统诊断.pdf)
 ---
 - [SED 简明教程](https://coolshell.cn/articles/9104.html)
 - [sed 基础教程](https://www.twle.cn/c/yufei/sed/sed-basic-index.html)
