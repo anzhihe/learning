@@ -21,6 +21,7 @@ Python learning [**book**](/python/book) and source code
 - Head First PHP & MySQL中文版 [[Download]](/python/book/Head%20First%20PHP%20&%20MySQL.pdf)
 - Head First Programming 中文版 [[Download]](/python/book/Head%20First%20Programming%20中文版.pdf)
 - Head First 设计模式(中文版) [[Download]](/python/book/Head%20First%20设计模式(中文版).pdf)
+- Head First ObjectOriented Analysis and Design(中文版) [[Download]](https://drive.google.com/file/d/1oM6dxlMu4oTb-SQfHMXrO5JlAqao_19i/view?usp=sharing)
 - Head Fisrt PMP中文版 [[Download]](/python/book/Head%20Fisrt%20PMP中文版.pdf)
 ---
 - [code.org](https://code.org/)
