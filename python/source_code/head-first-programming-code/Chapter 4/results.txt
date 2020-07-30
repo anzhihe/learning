@@ -1,0 +1,7 @@
+Johnny  8.65 
+Juan  9.12 
+Joseph  8.45 
+Stacey  7.81 
+Aideen  8.05 
+Zack  7.21
+Aaron  8.31

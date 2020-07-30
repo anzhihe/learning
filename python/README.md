@@ -19,7 +19,9 @@ Python learning [**book**](/python/book) and source code
 - 正则表达式经典实例 [[Download]](/python/book/正则表达式经典实例.pdf)
 - Head First SQL中文版 [[Download]](/python/book/Head%20First%20SQL中文版.pdf)
 - SQL进阶教程 [[Download]](/python/book/SQL进阶教程.pdf)
+- Head First Programming 中文版 [[Download]](/python/book/Head%20First%20Programming%20中文版.pdf)
 - Head First PHP & MySQL中文版 [[Download]](/python/book/Head%20First%20PHP%20&%20MySQL.pdf)
+- Head Fisrt PMP中文版 [[Download]](/python/book/Head%20First%20PMP中文版.pdf)
 ---
 - [code.org](https://code.org/)
 - [Python官网](https://www.python.org/)
