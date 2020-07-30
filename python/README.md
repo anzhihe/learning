@@ -9,7 +9,6 @@ Python learning [**book**](/python/book) and source code
 - Python3学习笔记第三版上卷 [[Download]](/python/book/Python3学习笔记第三版上卷.pdf)
 - Python编程快速上手-让繁琐工作自动化 [[Download]](/python/book/Python编程快速上手-让繁琐工作自动化.pdf)
 - Python自动化运维技术与最佳实践 [[Download]](/python/book/Python自动化运维技术与最佳实践.pdf)
-- Oreilly.Regular.Expressions.Cookbook.2nd.edition [[Download]](/python/book/Oreilly.Regular.Expressions.Cookbook.2nd.edition.pdf)
 - Python Cookbook(第2版)中文版 [[Download]](/python/book/Python%20Cookbook(第2版)中文版.pdf)
 - 编写高质量代码-改善Python程序的91个建议 [[Download]](/python/book/编写高质量代码-改善Python程序的91个建议.pdf)
 - Python源码剖析(完整版) [[Download]](/python/book/Python源码剖析(完整版).pdf)
