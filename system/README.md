@@ -4,6 +4,8 @@
 - 《计算机的心智：操作系统之哲学原理》
 - 编码：隐匿在计算机软硬件背后的语言（美.佩措尔德）
 - 《码农翻身：用故事给技术加点料》
+- computer-basic
+- cxuan-os-修改
 - 深入理解计算机系统（原书第三版3）
 - 现代操作系统原书第4版
 - UNIX Systems for Modern Architecture
