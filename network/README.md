@@ -4,6 +4,7 @@
 
 - **初级网络技术书籍**
   - 深入浅出Networking.pdf
+  - 网络是怎样连接的-[日]户根勤.pdf
   - TCP-IP详解卷一：协议.rar
   - CCNA学习指南第七版.zip
   - Cisco_ACL配置技术
