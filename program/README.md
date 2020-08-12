@@ -5,6 +5,8 @@ Program learning [**book**](/program/book) and source code
 - Head First ObjectOriented Analysis and Design(中文版) [[Download]](https://drive.google.com/file/d/1oM6dxlMu4oTb-SQfHMXrO5JlAqao_19i/view?usp=sharing)
 - Head First 设计模式(中文版) [[Download]](/program/book/Head%20First%20设计模式(中文版).pdf)
 - Head Fisrt PMP中文版 [[Download]](/program/book/Head%20Fisrt%20PMP中文版.pdf)
+- SRE Google运维解密 [[Download]](/program/book/SRE%20Google运维解密.pdf)
+- 凤凰项目：一个IT运维的传奇故事 [[Download]](/program/boo/凤凰项目：一个IT运维的传奇故事.pdf)
 - Oreilly.Regular.Expressions.Cookbook.2nd.edition [[Download]](/program/book/Oreilly.Regular.Expressions.Cookbook.2nd.edition.pdf)
 - 正则表达式必知必会(修订版) [[Download]](/program/book/正则表达式必知必会(修订版).pdf)
 - 精通正则表达式 [[Download]](/program/book/精通正则表达式.pdf)
