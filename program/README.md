@@ -18,6 +18,7 @@ Program learning [**book**](/program/book) and source code
 - Head First SQL中文版 [[Download]](/program/book/Head%20First%20SQL中文版.pdf)
 - SQL进阶教程 [[Download]](/program/book/SQL进阶教程.pdf)
 - Head First PHP & MySQL中文版 [[Download]](/program/book/Head%20First%20PHP%20&%20MySQL.pdf)
+- 嗨翻C语言（Head_First_C_中文版) [[Download]](https://drive.google.com/file/d/18rcDg9sFCm2HB4ylWVJaW-f8qTLMaywf)
 ---
 - [code.org](https://code.org/)
 - [stackoverflow-py-top-qa](https://github.com/wklken/stackoverflow-py-top-qa)
