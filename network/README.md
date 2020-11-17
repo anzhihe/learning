@@ -6,6 +6,7 @@
   - 深入浅出Networking.pdf
   - 网络是怎样连接的-[日]户根勤.pdf
   - B0050-图解网络-v2.0.pdf
+  - 计算机网络 自顶向下方法（第七版）中文版.pdf
   - TCP-IP详解卷一：协议.rar
   - CCNA学习指南第七版.zip
   - Cisco_ACL配置技术
@@ -20,7 +21,7 @@
   - Cisco.Press.LAN.Switch.Security.Sep.2007.eBook-BBL.rar
 
 - **高级网络技术书籍**
-  - Cisco  VPN 完全配置指南（中文）高清扫描版.pdf
+  - Cisco VPN 完全配置指南（中文）高清扫描版.pdf
   - MPLS技术架构 中文版 高清 带标签.7z
   - IP多播网络的设计与部署 第1卷.pdf
   - MPLS和VPN体系结构（第2卷）.pdf
