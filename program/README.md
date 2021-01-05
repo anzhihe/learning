@@ -17,6 +17,7 @@ Program learning [**book**](/program/book) and source code
 - SQL基础知识第2版 [[Download]](/program/book/SQL基础知识第2版.zip)
 - Head First SQL中文版 [[Download]](/program/book/Head%20First%20SQL中文版.pdf)
 - SQL进阶教程 [[Download]](/program/book/SQL进阶教程.pdf)
+- MySQL资源合集 [[Download]](https://chegva.com/4181.html)
 - Head First PHP & MySQL中文版 [[Download]](/program/book/Head%20First%20PHP%20&%20MySQL.pdf)
 - 嗨翻C语言（Head_First_C_中文版) [[Download]](https://drive.google.com/file/d/18rcDg9sFCm2HB4ylWVJaW-f8qTLMaywf)
 ---
