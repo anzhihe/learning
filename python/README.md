@@ -33,6 +33,7 @@ Python learning [**book**](/python/book) and source code
 - [The Algorithms - Python](https://github.com/TheAlgorithms/Python)
 - [PythonTab](https://www.pythontab.com/)
 - [Visualize Python](http://pythontutor.com/visualize.html#mode=edit)
+- [Python资源大全中文版](https://github.com/jobbole/awesome-python-cn)
 - [Code Examples](https://www.programcreek.com/)
 - [curl syntax to Python](https://curl.trillworks.com/)
 - [debuggex](https://www.debuggex.com/)
