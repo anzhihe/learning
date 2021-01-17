@@ -20,6 +20,9 @@ Program learning [**book**](/program/book) and source code
 - MySQL资源合集 [[Download]](https://chegva.com/4181.html)
 - Head First PHP & MySQL中文版 [[Download]](/program/book/Head%20First%20PHP%20&%20MySQL.pdf)
 - 嗨翻C语言（Head_First_C_中文版) [[Download]](https://drive.google.com/file/d/18rcDg9sFCm2HB4ylWVJaW-f8qTLMaywf)
+- 程序员内功修炼-V1.0 [[Download]](/program/book/程序员内功修炼-V1.0.pdf)
+- labuladong的算法小抄官方完整版 [[Download]](/program/book/labuladong的算法小抄官方完整版.pdf)
+- LeetCode刷题手册 [[Download]](/program/book/LeetCode刷题手册.pdf)
 ---
 - [code.org](https://code.org/)
 - [stackoverflow-py-top-qa](https://github.com/wklken/stackoverflow-py-top-qa)
