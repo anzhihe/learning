@@ -15,6 +15,7 @@ Python learning [**book**](/python/book) and source code
 - Python源码剖析(完整版)  [[Download]](/python/book/Python源码剖析(完整版).pdf)
 - 110道Python面试题汇总 [[Download]](/python/book/110道Python面试题汇总.pdf)
 - Python面试大全 [[Download]](/python/book/Python面试大全.pdf)
+- python操作excel、word、pdf [[Download]](/python/book/python操作excel、word、pdf.zip)
 ---
 - [code.org](https://code.org/)
 - [Python官网](https://www.python.org/)
