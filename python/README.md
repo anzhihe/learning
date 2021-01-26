@@ -6,6 +6,7 @@ Python learning [**book**](/python/book) and source code
 - 笨办法学Python-第3版 [[Download]](/python/book/笨办法学Python-第3版.pdf)
 - Python3学习笔记第三版上卷 [[Download]](/python/book/Python3学习笔记第三版上卷.pdf)
 - Python编程快速上手-让繁琐工作自动化 [[Download]](/python/book/Python编程快速上手-让繁琐工作自动化.pdf)
+- Python知识手册 [[Download]](/python/book/Python知识手册-V3.0.pdf)
 - Python核心编程第二版 [[Download]](/python/book/Python核心编程第二版.pdf)
 - Python核心编程第三版 [[Download]](/python/book/Python核心编程第三版.pdf)
 - Python自动化运维技术与最佳实践 [[Download]](/python/book/Python自动化运维技术与最佳实践.pdf)
