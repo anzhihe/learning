@@ -40,3 +40,9 @@
 - AppleScript权威指南
 - Mac OS X for Unix Geeks
 - 《深入解析 MAC OS X & IOS 操作系统》
+---
+- [Linux source code (v3.10) - Bootlin](https://elixir.bootlin.com/linux/v3.10/source)
+- [Kernel.org git repositories](https://git.kernel.org/)
+- [Linux docs](https://www.die.net/)
+- [Woboq Code Browser - Explore C++ code on the web](https://code.woboq.org/)
+- [CPU性能天梯表](http://cdn.malu.me/cpu/)
