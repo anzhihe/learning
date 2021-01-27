@@ -21,6 +21,8 @@ Python learning [**book**](/python/book) and source code
 - [code.org](https://code.org/)
 - [Python官网](https://www.python.org/)
 - [Python docs](https://docs.python.org/3/)
+- [Planet Python](https://planetpython.org/)
+- [Python Awesome](https://pythonawesome.com/)
 - [Getting started with python](https://www.cnblogs.com/vamei/tag/Python/)
 - [简明 Python 教程](https://woodpecker.org.cn/abyteofpython_cn/chinese/index.html)
 - [Python tutorial](https://www.liaoxuefeng.com/wiki/1016959663602400)
