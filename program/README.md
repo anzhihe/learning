@@ -30,6 +30,7 @@ Program learning [**book**](/program/book) and source code
 - [curl syntax to Python](https://curl.trillworks.com/)
 - [debuggex](https://www.debuggex.com/)
 - [sql tool](https://tool.lu/sql/)
+- [正则表达式30分钟入门教程](https://deerchao.cn/tutorials/regex/regex.htm#mission)
 - [RegEx Pal](https://www.regexpal.com/)
 - [i Hate Regex - The Regex Cheat Sheet](https://ihateregex.io/)
 - [Online Tools](http://emn178.github.io/online-tools/index.html)
