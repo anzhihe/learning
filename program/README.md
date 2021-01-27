@@ -15,6 +15,7 @@ Program learning [**book**](/program/book) and source code
 - 精通正则表达式 [[Download]](/program/book/精通正则表达式.pdf)
 - 正则表达式经典实例 [[Download]](/program/book/正则表达式经典实例.pdf)
 - SQL基础知识第2版 [[Download]](/program/book/SQL基础知识第2版.zip)
+- MySQL经典50题 [[Download]](/program/book/MySQL经典50题.pdf)
 - Head First SQL中文版 [[Download]](/program/book/Head%20First%20SQL中文版.pdf)
 - SQL进阶教程 [[Download]](/program/book/SQL进阶教程.pdf)
 - MySQL资源合集 [[Download]](https://chegva.com/4181.html)
