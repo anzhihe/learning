@@ -18,7 +18,6 @@ Python learning [**book**](/python/book) and source code
 - Python面试大全 [[Download]](/python/book/Python面试大全.pdf)
 - python操作excel、word、pdf [[Download]](/python/book/python操作excel、word、pdf.zip)
 ---
-- [code.org](https://code.org/)
 - [Python官网](https://www.python.org/)
 - [Python docs](https://docs.python.org/3/)
 - [Planet Python](https://planetpython.org/)
