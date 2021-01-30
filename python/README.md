@@ -10,6 +10,7 @@ Python learning [**book**](/python/book) and source code
 - Python核心编程第二版 [[Download]](/python/book/Python核心编程第二版.pdf)
 - Python核心编程第三版 [[Download]](/python/book/Python核心编程第三版.pdf)
 - Python自动化运维技术与最佳实践 [[Download]](/python/book/Python自动化运维技术与最佳实践.pdf)
+- Python爬虫开发与项目实战 [[Download]](https://pan.baidu.com/s/1muu557bBjXj2kiIplqevwA) 提取码：6dy9
 - Python.UNIX和Linux系统管理指南 [[Download]](/python/book/Python.UNIX和Linux系统管理指南.pdf)
 - Python Cookbook(第2版)中文版 [[Download]](/python/book/Python%20Cookbook(第2版)中文版.pdf)
 - 编写高质量代码-改善Python程序的91个建议 [[Download]](/python/book/编写高质量代码-改善Python程序的91个建议.pdf)
