@@ -25,6 +25,7 @@ Program learning [**book**](/program/book) and source code
 - 程序员内功修炼-V1.0 [[Download]](https://drive.google.com/file/d/1BWErWP1MBA-wEV_NT5VC0uKE-OjdAUdq/view?usp=sharing)
 - labuladong的算法小抄官方完整版 [[Download]](https://drive.google.com/file/d/17EJRjk5apM955tCpQyOcnh5i44PnSAvs/view?usp=sharing)
 - LeetCode刷题手册 [[Download]](/program/book/LeetCode刷题手册.pdf)
+- LeetCode 101 - A LeetCode Grinding Guide (C++ Version) [[Download]](/program/book/LeetCode%20101%20-%20A%20LeetCode%20Grinding%20Guide%20(C%2B%2B%20Version).pdf)
 ---
 - [code.org](https://code.org/)
 - [stackoverflow-py-top-qa](https://github.com/wklken/stackoverflow-py-top-qa)
