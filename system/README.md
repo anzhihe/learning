@@ -1,4 +1,5 @@
 ## Operating systems learning
+Google drive：https://drive.google.com/drive/folders/1w9w2vcRbGoJxHicTs4JafikA9j5SlIjP
 百度网盘：https://pan.baidu.com/s/1LKEwSfBjiqkIs87NCsZVPA
 - 《穿越计算机的迷雾》
 - 《计算机的心智：操作系统之哲学原理》
