@@ -1,6 +1,6 @@
 ## Network learning
 
-百度网盘：https://pan.baidu.com/s/1VQEhBZbPDe3R9tHFEppB-Q  密码: 4675
+Google drive：https://drive.google.com/drive/folders/1-eD8rG-EDj4qu4SNX5paa8OcgXB3Fp7c
 
 - **初级网络技术书籍**
   - 深入浅出Networking.pdf
@@ -39,7 +39,7 @@
   - QoS技术介绍.pdf
 
 - **网络协议分析**
-  - 网络数据包分析从入门到精通
+  - [网络数据包分析从入门到精通](https://pan.baidu.com/s/1vdAJHYyzVnGQPQKvLgvI7g)，提取码: tlbi
   - 网络协议报文格式大全(V1.0).chm
   - OSI七层网络协议详细图解.png
   - 1.协议栈介绍图解.zip
@@ -55,6 +55,7 @@
 - **网络工程实战**
   - [CCNA完全配置宝典](https://chegva.com/1128.html)
   - [CCIE网络工程师成长之路](http://ccietea.com/),朱sir网络教程视频全集(链接:https://pan.baidu.com/s/1qVfQPxJuxlB5xWS1yiPkcg  密码:2fh6)
+  - [网络安全学习资料](https://pan.baidu.com/s/1rOBzhQPLNPGU8ZMjGRSC5A)，提取码：i2er
   - 网络工程实战项目视频教程（含3个综合项目部署）
 
 ---
