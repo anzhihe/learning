@@ -8,6 +8,7 @@
 - Sed-and-Awk-101-Hacks [[Download]](/shell/book/Sed-and-Awk-101-Hacks.pdf)
 - awk and sed修订第三版 [[Download]](/shell/book/awk%20and%20sed修订第三版.pdf)
 - AWK程序设计语言 [[Download]](/shell/book/AWK程序设计语言.pdf)
+- shell脚本编程课件 [[Download]](/shell/book/shell脚本编程课件.pdf)
 - LINUX SHELL脚本攻略 [[Download]](/shell/book/LINUX%20SHELL脚本攻略(中文版带书签).pdf)
 - Linux命令行与shell脚本编程大全-第3版 [[Download]](/shell/book/Linux命令行与shell脚本编程大全%20%20第3版.pdf)
 - 跟老男孩学Linux运维：Shell编程实战 [[Download]](/shell/book/跟老男孩学Linux运维：Shell编程实战.pdf)
