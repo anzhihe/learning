@@ -16,7 +16,7 @@
     - 鸟哥的Linux私房菜基础篇-第三版 [[Download]](/shell/book/鸟哥的Linux私房菜基础篇-第三版.pdf)
     - 鸟哥的Linux私房菜服务器架设篇-第三版 [[Download]](/shell/book/鸟哥的Linux私房菜服务器架设篇-第三版.pdf)
 
-    ......
+        ......
 
 - [[**python**]](/python)：python learning
     - Head First Python（中文版） [[Download]](/python/book/Head%20First%20Python（中文版）.pdf)
