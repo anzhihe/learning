@@ -15,7 +15,9 @@
     - ECS运维指南之Linux系统诊断 [[Download]](/shell/book/ECS运维指南之Linux系统诊断.pdf)
     - 鸟哥的Linux私房菜基础篇-第三版 [[Download]](/shell/book/鸟哥的Linux私房菜基础篇-第三版.pdf)
     - 鸟哥的Linux私房菜服务器架设篇-第三版 [[Download]](/shell/book/鸟哥的Linux私房菜服务器架设篇-第三版.pdf)
+
     ......
+
 - [[**python**]](/python)：python learning
     - Head First Python（中文版） [[Download]](/python/book/Head%20First%20Python（中文版）.pdf)
     - head first python [[Download]](/python/book/head%20first%20python.pdf)
@@ -38,7 +40,9 @@
     - 100道Python练手题目 [[Download]](/python/book/100道Python练手题目.docx)
     - python操作excel、word、pdf [[Download]](/python/book/python操作excel、word、pdf.zip)
     - python爬虫_小游戏教程&源码 [[Download]](https://pan.baidu.com/s/1F6xJx_b4LLc8bbWrfZhaZw)，百度网盘提取码：ka2l
+    
     ......
+
 - [[**golang**]](/golang)：golang learning
     - [Head First Go英文版](/golang/book/Head%20First%20Go.pdf)
     - [Go程序设计语言](/golang/book/Go%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%EF%BC%88%E8%AF%A6%E7%BB%86%E4%B9%A6%E7%AD%BE%E3%80%81%E6%B8%85%E6%99%B0%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.pdf)
@@ -52,7 +56,9 @@
     - [Go语言并发之道](https://drive.google.com/file/d/1_i-G4EQABtfhTsfgbPmXS5MOIjn6qd7M/view?usp=sharing)
     - [Go网络编程](/golang/book/Go%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.pdf)
     - [Go语言圣经(中文版)](/golang/book/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F(%E4%B8%AD%E6%96%87%E7%89%88).pdf)
+    
     ......
+
 - [[**program**]](/program)：program learning
     - 程序是怎样跑起来的 [[Download]](/program/book/程序是怎样跑起来的_矢泽久雄.pdf)
     - Head First Programming 中文版 [[Download]](/program/book/Head%20First%20Programming%20中文版.pdf)
@@ -81,7 +87,9 @@
     - labuladong的算法小抄官方完整版 [[Download]](https://drive.google.com/file/d/17EJRjk5apM955tCpQyOcnh5i44PnSAvs/view?usp=sharing)
     - LeetCode刷题手册 [[Download]](/program/book/LeetCode刷题手册.pdf)
     - LeetCode 101 - A LeetCode Grinding Guide (C++ Version) [[Download]](/program/book/LeetCode%20101%20-%20A%20LeetCode%20Grinding%20Guide%20(C%2B%2B%20Version).pdf)
+    
     ......
+
 - [[**network**]](/network)：network learning
 
     Google drive：https://drive.google.com/drive/folders/1-eD8rG-EDj4qu4SNX5paa8OcgXB3Fp7c
@@ -141,7 +149,9 @@
       - [CCIE网络工程师成长之路](http://ccietea.com/),朱sir网络教程视频全集(链接:https://pan.baidu.com/s/1qVfQPxJuxlB5xWS1yiPkcg  密码:2fh6)
       - [网络安全学习资料](https://pan.baidu.com/s/1rOBzhQPLNPGU8ZMjGRSC5A)，提取码：i2er
       - 网络工程实战项目视频教程（含3个综合项目部署）
+     
       ......
+
 - [[**system**]](/system)：system learning
 
     Google drive：https://drive.google.com/drive/folders/1w9w2vcRbGoJxHicTs4JafikA9j5SlIjP
@@ -189,4 +199,6 @@
     - AppleScript权威指南
     - Mac OS X for Unix Geeks
     - 《深入解析 MAC OS X & IOS 操作系统》
+    
     ......
+
