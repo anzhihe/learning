@@ -1,6 +1,6 @@
 ## Good Good study，Day Day up!
 
-> [[**shell**]](/shell)：shell learning
+- [[**shell**]](/shell)：shell learning
 
     - Linux学习笔记 [[Download]](/shell/book/Linux学习笔记.pdf)
     - The Linux Command Line中文版 [[Download]](/shell/book/The%20Linux%20Command%20Line中文版.pdf)
@@ -20,7 +20,7 @@
 
         ......
 
-> [[**python**]](/python)：python learning
+- [[**python**]](/python)：python learning
 
     - Head First Python（中文版） [[Download]](/python/book/Head%20First%20Python（中文版）.pdf)
     - head first python [[Download]](/python/book/head%20first%20python.pdf)
@@ -46,7 +46,7 @@
     
         ......
 
-> [[**golang**]](/golang)：golang learning
+- [[**golang**]](/golang)：golang learning
 
     - [Head First Go英文版](/golang/book/Head%20First%20Go.pdf)
     - [Go程序设计语言](/golang/book/Go%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%EF%BC%88%E8%AF%A6%E7%BB%86%E4%B9%A6%E7%AD%BE%E3%80%81%E6%B8%85%E6%99%B0%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.pdf)
@@ -63,7 +63,7 @@
     
         ......
 
-> [[**program**]](/program)：program learning
+- [[**program**]](/program)：program learning
 
     - 程序是怎样跑起来的 [[Download]](/program/book/程序是怎样跑起来的_矢泽久雄.pdf)
     - Head First Programming 中文版 [[Download]](/program/book/Head%20First%20Programming%20中文版.pdf)
@@ -95,7 +95,7 @@
     
         ......
 
-> [[**network**]](/network)：network learning
+- [[**network**]](/network)：network learning
 
     Google drive：https://drive.google.com/drive/folders/1-eD8rG-EDj4qu4SNX5paa8OcgXB3Fp7c
 
@@ -157,7 +157,7 @@
      
           ......
 
-> [[**system**]](/system)：system learning
+- [[**system**]](/system)：system learning
 
     Google drive：https://drive.google.com/drive/folders/1w9w2vcRbGoJxHicTs4JafikA9j5SlIjP
 
