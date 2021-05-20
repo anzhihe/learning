@@ -1,5 +1,20 @@
 ## Good Good study，Day Day up!
 - [[**shell**]](/shell)：shell learning
+    - Linux学习笔记 [[Download]](/shell/book/Linux学习笔记.pdf)
+    - The Linux Command Line中文版 [[Download]](/shell/book/The%20Linux%20Command%20Line中文版.pdf)
+    - abs-guide [[Download]](/shell/book/abs-guide.pdf)
+    - awk手册 [[Download]](/shell/book/awk手册.pdf)
+    - The AWK Programming Language [[Download]](/shell/book/The.AWK.Programming.Language.pdf)
+    - Sed-and-Awk-101-Hacks [[Download]](/shell/book/Sed-and-Awk-101-Hacks.pdf)
+    - awk and sed修订第三版 [[Download]](/shell/book/awk%20and%20sed修订第三版.pdf)
+    - AWK程序设计语言 [[Download]](/shell/book/AWK程序设计语言.pdf)
+    - shell脚本编程课件 [[Download]](/shell/book/shell脚本编程课件.pdf)
+    - LINUX SHELL脚本攻略 [[Download]](/shell/book/LINUX%20SHELL脚本攻略(中文版带书签).pdf)
+    - Linux命令行与shell脚本编程大全-第3版 [[Download]](/shell/book/Linux命令行与shell脚本编程大全%20%20第3版.pdf)
+    - 跟老男孩学Linux运维：Shell编程实战 [[Download]](/shell/book/跟老男孩学Linux运维：Shell编程实战.pdf)
+    - ECS运维指南之Linux系统诊断 [[Download]](/shell/book/ECS运维指南之Linux系统诊断.pdf)
+    - 鸟哥的Linux私房菜基础篇-第三版 [[Download]](/shell/book/鸟哥的Linux私房菜基础篇-第三版.pdf)
+    - 鸟哥的Linux私房菜服务器架设篇-第三版 [[Download]](/shell/book/鸟哥的Linux私房菜服务器架设篇-第三版.pdf)
 - [[**python**]](/python)：python learning
 - [[**golang**]](/golang)：golang learning
 - [[**program**]](/program)：program learning
