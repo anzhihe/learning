@@ -29,3 +29,4 @@ Golang learning [**book**](/golang/book) and source code
 - [《Go语言入门教程》](http://c.biancheng.net/golang/)
 - [build-web-application-with-golang](https://github.com/astaxie/build-https://github.com/unknwon/go-study-indexweb-application-with-golang)
 - [Go 程序设计语言代码示例和练习题参考答案](https://github.com/linehk/gopl)
+- [Go 语言原本](https://golang.design/under-the-hood/)
