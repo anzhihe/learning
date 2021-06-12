@@ -10,6 +10,7 @@ Program learning [**book**](/program/book) and source code
 - 架构整洁之道 [[Download]](https://drive.google.com/file/d/1uKLy8MdlLzC073OfH4zfF-bRwXQw04w-/view?usp=sharing)
 - 《程序员修炼之道：从小工到专家》高清扫描版 [[Download]](https://pan.baidu.com/s/1rqECrAtQdBg3d_oQ7zYPGA) 提取码：vjxt
 - 程序员的自我修养--链接、装载与库(高清带完整书签版)  [[Download]](/program/book/程序员的自我修养--链接、装载与库(高清带完整书签版).pdf)
+- 计算机程序的构造和解释（SICP中文第2版) [[Download]](/program/book/计算机程序的构造和解释（SICP中文第2版）.pdf)
 - SRE Google运维解密 [[Download]](/program/book/SRE%20Google运维解密.pdf)
 - 凤凰项目：一个IT运维的传奇故事 [[Download]](/program/book/凤凰项目：一个IT运维的传奇故事.pdf)
 - BPF.Performance.Tools.2019.12 [[Download]](/program/book/BPF.Performance.Tools.2019.12.pdf)
