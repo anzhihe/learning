@@ -34,6 +34,7 @@ Python learning [**book**](/python/book) and source code
 - [wtfpython-cn](https://github.com/leisurelicht/wtfpython-cn)
 - [stackoverflow-py-top-qa](https://github.com/wklken/stackoverflow-py-top-qa)
 - [Python Cookbook](http://python3-cookbook.readthedocs.org/zh_CN/latest/)
+- [Python并行编程](https://python-parallel-programmning-cookbook.readthedocs.io/zh_CN/latest/index.html)
 - [Python中文学习大本营](http://www.pythondoc.com/)
 - [Django 基础教程](https://code.ziqiangxuetang.com/django/django-tutorial.html)
 - [Django2.2教程](http://www.liujiangblog.com/course/django/2)
