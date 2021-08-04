@@ -38,6 +38,7 @@ Program learning [**book**](/program/book) and source code
 - [code.org](https://code.org/)
 - [stackoverflow-py-top-qa](https://github.com/wklken/stackoverflow-py-top-qa)
 - [Code Examples](https://www.programcreek.com/)
+- [编程示例](https://vimsky.com/zh-tw/examples/)
 - [curl syntax to Python](https://curl.trillworks.com/)
 - [debuggex](https://www.debuggex.com/)
 - [sql tool](https://tool.lu/sql/)
