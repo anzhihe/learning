@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
  @FileName:    list_reverse_sort.py
- @Function:    
+ @Function:    列表的反转、排序和多维列表
  @Author:      Zhihe An
  @Site:        https://chegva.com
  @Time:        2021/6/23
