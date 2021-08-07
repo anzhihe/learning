@@ -116,7 +116,8 @@ awk 'ORS=NR%3?" ":"\n"{print}'  #NR当前行记录数，ORS输出记录分隔符
 ls *.gif| awk 'BEGIN{ a=1 }{ printf "mv %s icon_%02d.gif\n", $0, a++ }' | bash
 # 通过nginx日志查询接口访问量前十的主机名，使用 tc /chegva/get_name
 tc(){ tail -200000 /home/anzhihe/nginx/logs/access.log |grep "$@" |awk '{print $3}' |sort -n|uniq -c|sort -rnk1|xargs -r -i bash -c "echo {}|awk '{print \$1}' && echo {}|awk '{print \$2}' |xargs -n1 host|awk '{print \$NF}' | sed 's/.chegva.com.//g'" |awk '{printf "%s ",$0;getline;print;}' | head -10; };tc 
-
+# 将word文档目录插入Typora表格
+sed -i '/^\s*$/d' tmp && sed -i '/./{s/^/|&/;}' tmp && awk 'ORS=NR%4?" ":"\n"{print}' tmp > tmp1 && sed -i '/./{s/$/&|/}' tmp1 && sed -i '1a\| ---- | ---- | ---- | ---- |' tmp1
 
 #################################################################
 
