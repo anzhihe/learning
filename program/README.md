@@ -29,6 +29,7 @@ Program learning [**book**](/program/book) and source code
 - Head First PHP & MySQL中文版 [[Download]](/program/book/Head%20First%20PHP%20&%20MySQL.pdf)
 - 嗨翻C语言（Head_First_C_中文版) [[Download]](https://drive.google.com/file/d/18rcDg9sFCm2HB4ylWVJaW-f8qTLMaywf)
 - 程序员内功修炼-V1.0 [[Download]](https://drive.google.com/file/d/1BWErWP1MBA-wEV_NT5VC0uKE-OjdAUdq/view?usp=sharing)
+- 漫画算法：小灰的算法之旅 [[Download]](/program/book/漫画算法：小灰的算法之旅.pdf)·[github](https://github.com/bjweimengshu)
 - 剑指Offer纪念版 [[Download]](/program/book/剑指Offer纪念版.pdf.zip)
 - labuladong的算法小抄官方完整版 [[Download]](https://drive.google.com/file/d/17EJRjk5apM955tCpQyOcnh5i44PnSAvs/view?usp=sharing)
 - LeetCode刷题手册 [[Download]](/program/book/LeetCode刷题手册.pdf)
