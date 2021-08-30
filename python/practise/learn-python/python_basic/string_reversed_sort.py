@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
  @FileName:    string_reversed_sort.py
- @Function:    string erversed & sort
+ @Function:    string rerversed & sort
  @Author:      Zhihe An
  @Site:        https://chegva.com
  @Time:        2021/6/24
