@@ -38,6 +38,7 @@
     - 编写高质量代码-改善Python程序的91个建议 [[Download]](/python/book/编写高质量代码-改善Python程序的91个建议.pdf)
     - Python编程参考 [[Download]](/python/book/Python编程参考原稿.pdf)
     - Python源码剖析(完整版)  [[Download]](/python/book/Python源码剖析(完整版).pdf)
+    - 流畅的Python [[Download]](/python/book/流畅的Python.pdf)
     - 110道Python面试题汇总 [[Download]](/python/book/110道Python面试题汇总.pdf)
     - Python面试大全 [[Download]](/python/book/Python面试大全.pdf)
     - 100道Python练手题目 [[Download]](/python/book/100道Python练手题目.docx)
