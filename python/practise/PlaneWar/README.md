@@ -24,3 +24,5 @@ python3 -m pygame.examples.aliens
 3. 设置窗口的标题和背景色
 4. 在窗口的底部居中位置绘制一架飞机
 5. 让飞机向上匀速移动
+
+![image](/images/planewar.png)
