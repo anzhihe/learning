@@ -25,4 +25,4 @@ python3 -m pygame.examples.aliens
 4. 在窗口的底部居中位置绘制一架飞机
 5. 让飞机向上匀速移动
 
-![image](/images/planewar.png)
+![image](images/planewar.png)
