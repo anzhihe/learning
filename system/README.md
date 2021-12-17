@@ -41,6 +41,7 @@ Google drive：https://drive.google.com/drive/folders/1w9w2vcRbGoJxHicTs4JafikA9
 - BPF.Performance.Tools.2019.12
 - Site Reliability Engineering
 - AppleScript初学者(中文版)
+- AppleScript: A Beginner's Guide
 - AppleScriptLanguageGuide
 - AppleScript权威指南
 - Mac OS X for Unix Geeks
