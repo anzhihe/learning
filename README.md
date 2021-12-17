@@ -214,6 +214,7 @@
     - Site Reliability Engineering
     - AppleScript初学者(中文版)
     - AppleScriptLanguageGuide
+    - AppleScript: A Beginner's Guide
     - AppleScript权威指南
     - Mac OS X for Unix Geeks
     - 《深入解析 MAC OS X & IOS 操作系统》
