@@ -72,7 +72,7 @@ awk -F "[/-]+" '{print "[aplayer_trac title=\""$6"\" author=\""'\$5'"\"  src=\""
 iotop -b | awk -F'%' '{if($(NF-1) > 10 && $(NF-1) ~ /[0-9]/ && $0 !~ /DISK/)printf "TIME: %s,PID:%s,IO:%s%,COMMAND:%s\n",strftime("%F %T"),$1,$(NF-1),$NF}' 
 # 去掉文件名前3个字符，重命名文件
 for i in *.mp3;do mv -f $i `echo $i | sed 's/^...//'`;done
-# rename 去掉文件名中的空格
+# rename 去掉文件名中的空格,'-n'选项告诉rename命令在不实际改变名称的情况下显示文件将会重命名的情况
 rename -n -v 's/ //' *.mp3
 # sed 打印匹配行接下来的连续 n+1 行
 sed -n -e '/SrcTrp/,+4p' -e '/DstTrp/,+4p' xxx.json
