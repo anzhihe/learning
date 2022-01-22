@@ -105,6 +105,7 @@
     - LeetCode 101 - A LeetCode Grinding Guide (C++ Version) [[Download]](/program/book/LeetCode%20101%20-%20A%20LeetCode%20Grinding%20Guide%20(C%2B%2B%20Version).pdf)
     - 中文make(v3.80)手册 [[Download]](/program/book/中文make(v3.80)手册.pdf)
     - [GNU.Make.项目管理].Robert.Mecklenburg [[Download]](/program/book/[GNU.Make.项目管理].Robert.Mecklenburg.pdf)
+    - [2017-2021美团技术年货合集](https://chegva.com/5087.htm
     
         ......
 
