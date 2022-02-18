@@ -1,5 +1,7 @@
 ## Good Good study，Day Day up!
 
+Books and materials are only for personal learning and use, and the copyright belongs to the original author. If there is any infringement, please contact me!（书籍和资料仅供个人学习使用，版权归原作者所有，如有侵权请联系我！）
+
 - [[**shell**]](/shell)：shell learning
 
     - Linux学习笔记 [[Download]](/shell/book/Linux学习笔记.pdf)
