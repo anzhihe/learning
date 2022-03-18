@@ -13,6 +13,7 @@ Golang learning [**book**](/golang/book) and source code
 - [Go语言并发之道](https://drive.google.com/file/d/1_i-G4EQABtfhTsfgbPmXS5MOIjn6qd7M/view?usp=sharing)
 - [Go网络编程](/golang/book/Go%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.pdf)
 - [Go语言圣经(中文版)](/golang/book/Go%E8%AF%AD%E8%A8%80%E5%9C%A3%E7%BB%8F(%E4%B8%AD%E6%96%87%E7%89%88).pdf)
+- [2020最新Gin框架中文文档](/golang/book/2020最新Gin框架中文文档-翻译-asong-无水印版本V1.1.pdf)
 - [大厂Go工程师面试题集锦](/golang/book/大厂Go工程师面试题集锦.docx)
 - [Golang常见面试题目解析](/golang/book/Golang常见面试题目解析.pdf)
 ---
