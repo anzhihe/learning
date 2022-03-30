@@ -35,3 +35,4 @@ Golang learning [**book**](/golang/book) and source code
 - [Go 语言编程之旅](https://golang2.eddycjy.com/)
 - [Go设计模式](https://lailin.xyz/post/singleton.html)
 - [地鼠文档](https://www.topgoer.cn/)
+- [Go语言快速入门实战开发](https://chegva.com/5202.html)
