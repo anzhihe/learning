@@ -120,6 +120,8 @@ tc(){ tail -200000 /home/anzhihe/nginx/logs/access.log |grep "$@" |awk '{print $
 sed -i '/^\s*$/d' tmp && sed -i '/./{s/^/|&/;}' tmp && awk 'ORS=NR%4?" ":"\n"{print}' tmp > tmp1 && sed -i '/./{s/$/&|/}' tmp1 && sed -i '1a\| ---- | ---- | ---- | ---- |' tmp1
 # cp目录下的所有文件，包括子目录和隐藏文件
 yes | cp -r thor-backend/. thor-backend-example
+# Linux 显示隐藏目录或隐藏文件的占用空间
+du -shc .[!.]* * | sort -hr | head
 
 #################################################################
 
