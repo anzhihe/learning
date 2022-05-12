@@ -798,7 +798,7 @@ check_service(){
   do
     # apachectl命令所在路径
     /usr/local/apache2/bin/apachectl restart 2> /tmp/apache.err
-    if [$? -ne 0 ]
+    if [ $? -ne 0 ]
     then
        n=$[$n-1]
     else
