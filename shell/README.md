@@ -25,6 +25,7 @@
 - [sed & awk单行常用命令](https://github.com/anzhihe/learning/blob/master/shell/book/sed-and-awk-oneline)
 - [Shell速查宝典](https://chegva.com/2056.html)
 - [Shell学习宝典](https://chegva.com/3401.html)
+- [BashGuide - Greg's Wiki](http://mywiki.wooledge.org/BashGuide)
 - [脚本之家·linux shell专栏](https://www.jb51.net/list/list_235_1.htm)
 - [101 shell script](https://github.com/anzhihe/learning/blob/master/shell/book/101_shell_script.md)
 - [Shell Script](https://bash.cyberciti.biz/)
