@@ -90,7 +90,7 @@ print(MyClass.__doc__)  # 这是类对象的文档字符串
 print(help(list))
 print(help(MyClass))
 
-"""三、特殊属性__slots__"""
+"""四、特殊属性__slots__"""
 
 """
     python是动态语言，所以，在创建对象之后，可以对其动态地绑定属性和方法
