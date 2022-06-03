@@ -1,0 +1,202 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/index.basic.css'%}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <!-- 加载jquery脚本 -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <!--加载bootstrap脚本 -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- 脚本 : 响应选择item --->
+    <script>
+        $(function () {
+            // =============点击查询条目==============
+            $(".item").click(function () {
+                // 获取点击的Item名称
+                item_name = $(this).text();
+                // 获取点击的类型
+                item_type = $(this).parent().children('div').eq(0).html();
+                //跳转
+                location.href = "{% url 'select' %}?type=" + item_type + "&name="+ item_name;
+            });
+            //===========跳出tips===============
+            $("[data-toggle='tooltip']").tooltip();
+            //===========响应关键字的点击 ============
+            $("#btn_keyword").on('click',function () {
+                // 获取填入的文本
+                keyword = $("#input_keyword").val();
+                // 跳转
+                location.href = "{% url 'keyword' %}?keyword=" + keyword;
+            });
+            //===========响应显示全部 ============
+            $("#btn_getall").on('click',function () {
+                // 跳转
+                location.href = "{% url 'getall' %}";
+            });
+            //============点击降序 ===========
+            $("#order_desc").on('click',function () {
+                 $("#order_desc").css("background-color",'#333333');
+                 $("#order_asc").css("background-color",'#337ab7');
+                 //触发链接
+                 location.href = "{% url 'order' %}?tag=1";
+            });
+            // ========= 双击取消排序  ==============
+            $("#order_desc,#order_asc").on('dblclick',function() {
+                $("#order_asc").css("background-color",'#337ab7');
+                $("#order_desc").css("background-color",'#337ab7');
+                //触发链接
+                location.href = "{% url 'order' %}?tag=0";
+            });
+            //============点击升序 ===========
+            $("#order_asc").on('click',function () {
+                $("#order_asc").css("background-color",'#333333');
+                $("#order_desc").css("background-color",'#337ab7');
+                 //触发链接
+                location.href = "{% url 'order' %}?tag=2";
+            })
+        });
+    </script>
+
+</head>
+<body>
+    <div id="header">
+        <div><img src="{% static 'img/book_logo.png' %}"> </div>
+    </div>
+    <div id="select" >
+        <div id="select_type">
+            <div class="title">类别：</div>
+                {% for item in select_item.type %}
+                    {% if item == active.type.1 %}
+                        <div class="item" style="color:red;">{{ item }}</div>
+                    {% else %}
+                        <div class="item">{{ item }}</div>
+                    {% endif %}
+                {% endfor %}
+        </div>
+        <div id="select_price">
+            <div class="title">价格：</div>
+                {% for item in select_item.price %}
+                    {% if item == active.price.1 %}
+                        <div class="item" style="color:red;">{{ item }}</div>
+                    {% else %}
+                        <div class="item">{{ item }}</div>
+                    {% endif %}
+                {% endfor %}
+        </div>
+        <div id="select_press">
+            <div class="title">难度：</div>
+                {% for item in select_item.difficult %}
+                    {% if item == active.difficult.1 %}
+                        <div class="item" style="color:red;">{{ item }}</div>
+                    {% else %}
+                        <div class="item">{{ item }}</div>
+                    {% endif %}
+                {% endfor %}
+        </div>
+        <div id="select_author">
+            <div class="title">作者：</div>
+                {% for item in select_item.author %}
+                    {% if item == active.author.1 %}
+                        <div class="item" style="color:red;">{{ item }}</div>
+                    {% else %}
+                        <div class="item">{{ item }}</div>
+                    {% endif %}
+                {% endfor %}
+
+        </div>
+        <div id="keyword">
+            <div class="title">图书关键字：</div>
+            <div class="input_keyword" ><input type="text" id="input_keyword" class="input-group" value="{{ active.keyword }}"></div>
+            <div class="btn_submit"><input type="button" id="btn_keyword" class="btn btn-sm" value="查询"> </div>
+            <div class="btn_submit"><input type="button" id="btn_getall" class="btn btn-sm" value="显示全部" > </div>
+        </div>
+    </div>
+
+    <div id="top_content" >
+
+        <div class="left">符合条件的图书：</div>
+        <div class="right">
+
+             <!-- 判断是不是升序 -->
+            {% if active.order == 1 %}
+                 <div  class="order" id="order_desc" style="background-color:#333333;">
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt" ></span>
+                </div>
+            {% else %}
+                <div  class="order" id="order_desc"  style="background-color:#337ab7;">
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt" ></span>
+                </div>
+            {% endif %}
+             <!-- 判断是不是降序 -->
+            {% if active.order == 2 %}
+                <div class="order" id="order_asc" style="background-color:#333333;">
+                    <span class="glyphicon glyphicon-sort-by-attributes" ></span>
+                </div>
+            {% else %}
+                <div class="order" id="order_asc" style="background-color:#337ab7;">
+                    <span class="glyphicon glyphicon-sort-by-attributes" ></span>
+                </div>
+            {% endif %}
+
+            <div>排序：</div>
+        </div>
+    </div>
+    <div id="content_container" class="container">
+        {% if books|length == 0 %}
+            <div style="font-size:20px;margin:0 20px;color:red;font-weight: bold;">没有符合条件的图书！</div>
+        {% else %}
+            {% for book in books %}
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="thumbnail">
+                        <img src={{ book.img }}>
+                        <div id="price_author">
+                            <div class="left">{{ book.bookprice }}</div>
+                            <div class="right">{{ book.author }}</div>
+                        </div>
+                        <h4>{{ book.bookname }}</h4>
+                        <h5>
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="{{ book.tip.1 }}">
+                                {{ book.tip.0 }}
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+            {% endfor %}
+            <nav class="pagination">
+                <span class="step-links">
+                    {% if books.has_previous %}
+                        <a href="?page=1">&laquo; 首页</a>
+                        <a href="?page={{ books.previous_page_number }}">上一页</a>
+                    {% endif %}
+
+                    <span class="current">
+                        {{ books.number }}/{{ books.paginator.num_pages }}
+                    </span>
+
+                    {% if books.has_next %}
+                        <a href="?page={{ books.next_page_number }}">下一页</a>
+                        <a href="?page={{ books.paginator.num_pages }}">末页 &raquo;</a>
+                    {% endif %}
+                </span>
+            </nav>
+        {% endif %}
+    </div>
+    <div id="footer">
+        <div class="content">
+            <div><span class="glyphicon glyphicon-user"></span>跟着王进老师学Python之基础入门</div>
+            <div><span class="glyphicon glyphicon-user"></span>跟着王进老师学Python之GUI开发</div>
+            <div><span class="glyphicon glyphicon-user"></span>跟着王进老师学Python之前端开发</div>
+            <div><span class="glyphicon glyphicon-user"></span>跟着王进老师学Python之数据库</div>
+            <div><span class="glyphicon glyphicon-user"></span>跟着王进老师学Python之Web框架</div>
+            <div><span class="glyphicon glyphicon-user"></span>跟着王进老师学Python之爬网</div>
+            <div><span class="glyphicon glyphicon-user"></span>跟着王进老师学Python之数据分析</div>
+            <div><span class="glyphicon glyphicon-user"></span>跟着王进老师学Python之数据可视化</div>
+            <div><span class="glyphicon glyphicon-user"></span>跟着王进老师学Python之人工智能</div>
+        </div>
+    </div>
+</body>
+</html>

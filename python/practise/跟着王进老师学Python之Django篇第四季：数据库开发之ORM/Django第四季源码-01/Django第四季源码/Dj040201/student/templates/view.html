@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生详情页</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/view.basic.css' %}">
+</head>
+<body>
+    <div id="header_outer">
+        <div id="header_container">
+            <div id="left">
+                <div><img src="{% static 'img/logo1.png' %}"></div>
+                <div>学员详情</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content_container">
+        <div><img src="{% static 'img/bigpic.png' %}"></div>
+        <div class="detail">
+            <div  class='label'  >学号：</div>
+            <div><input type="text" id="sno" name="sno" readonly="readonly" value='{{ student.sno }}' class="form-control" style="width:100px"></div>
+            <div class='label' >姓名：</div>
+            <div><input type="text" id="name" name="name"  readonly="readonly" value='{{ student.name }}' class="form-control" style="width:100px"></div>
+            <div class='label'>性别：</div>
+            <div><input type="text" id="gender" name="gender" readonly="readonly" value='{{ student.gender }}' class="form-control" style="width:100px"></div>
+            <div class='label'>出生日期：</div>
+            <div><input type="text" id="birthday" name="birthday" readonly="readonly" value='{{ student.address }}' class="form-control" style="width:300px"></div>
+            <div class='label'>手机号码：</div>
+            <div><input type="text" id="mobile" name="mobile" readonly="readonly" value='{{ student.mobile }}' class="form-control" style="width:300px;"></div>
+            <div class='label'>邮箱地址：</div>
+            <div><input type="text" id="email" name="email" readonly="readonly" value='{{ student.email }}' class="form-control" style="width:350px;"></div>
+            <div class='label'>家庭住址：</div>
+            <div><input type="text" id="address" name="address" readonly="readonly" value='{{ student.address }}' class="form-control" style="width:350px;"></div>
+        </div>
+    </div>
+    <div id="footer_container">
+        学生信息管理系统v1.10 @ 版权所有 Steven Wang
+    </div>
+</body>
+</html>

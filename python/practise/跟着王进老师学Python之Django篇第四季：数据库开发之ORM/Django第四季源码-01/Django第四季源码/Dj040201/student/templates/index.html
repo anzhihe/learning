@@ -1,0 +1,162 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/index.basic.css' %}">
+    <!-- 加载DataTables CSS文件 -->
+    <link type="text/css" rel="stylesheet" href="{% static 'extranal/datatables/css/jquery.dataTables.css' %}">
+
+    <!-- 加载DataTables 依赖的js文件 -->
+    <script src="{% static 'extranal/datatables/js/jquery.js' %}"></script>
+    <script src="{% static 'extranal/datatables/js/jquery.dataTables.js' %}"></script>
+    <script>
+         $(document).ready(function(){
+            $('#student').DataTable({
+                language: {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                },
+                "columnDefs":[
+                    {
+                        // targets用于指定操作的列，从第0列开始，-1为最后一列，这里第六列
+                        // return后边是我们希望在指定列填入的按钮代码
+                        "targets": -1,
+                        "render": function ( data, type, full, meta ) {
+                            return "<input type = 'button' class='btn btn-sm' id = 'view' value = '查看' style='background-color:navy;color:white;'> &nbsp" +
+                                 "<input type = 'button'  class='btn btn-sm' id = 'modify' value = '修改' style='background-color:navy;color:white;'> &nbsp" +
+                                "<input type = 'button' class='btn btn-sm' id = 'delete' value = '删除' style='background-color:navy;color:white;'>"
+                        }
+                    }
+                ]
+            });
+            $("#student").on("click", "#view", function () {
+                //获取行
+                var row = $("table#student tr").index($(this).closest("tr"));
+	            //获取某列（从0列开始计数）的值
+                var currentSNO= $("table#student").find("tr").eq(row).find("td").eq(1).text();
+                // 展示获取的SNO
+                location.href = "{% url 'view_student' %}?sno=" + currentSNO;
+            });
+            $("#student").on("click", "#modify", function () {
+                //获取行
+                var row = $("table#student tr").index($(this).closest("tr"));
+	            //获取某列（从0列开始计数）的值
+                var currentSNO= $("table#student").find("tr").eq(row).find("td").eq(1).text();
+                // 展示获取的SNO
+                location.href = "{% url 'modify_student' %}?sno=" + currentSNO;
+            });
+            $("#student").on("click", "#delete", function () {
+
+                //获取行
+                var row = $("table#student tr").index($(this).closest("tr"));
+	            //获取某列（从0列开始计数）的值
+                var currentSNO= $("table#student").find("tr").eq(row).find("td").eq(1).text();
+                var currentName = $("table#student").find("tr").eq(row).find("td").eq(2).text();
+                // 提示
+                var result = confirm("确实删除学生信息【学号：" + currentSNO + "   姓名：" + currentName + "】吗？")
+                //根据结果判断
+                if (result == true){
+                    //执行删除的动作
+                    location.href = "{% url 'delete_student' %}?sno=" + currentSNO;
+                }
+
+            });
+            $("#query_container").on("click", "#add", function () {
+                location.href = {% url "add_student" %};
+            });
+            $("#query_container").on("click", "#fileadd", function () {
+                location.href = {% url "addmany_student" %};
+            });
+            $('#getall').on('click',function () {
+                location.href = "{% url 'index' %}";
+            })
+        });
+    </script>
+</head>
+<body>
+    <div id="header_outer">
+        <div id="header_container">
+            <div id="left">
+                <div><img src="{% static 'img/logo1.png' %}"></div>
+                <div>学员详情</div>
+            </div>
+        </div>
+    </div>
+    <div id="query_container" style="width:1230px;">
+        <form action="" method="post">
+            <div style="line-height: 40px;">学号：</div>
+            <div><input type="text" id="sno" name="sno" value="{{ query.0 }}" class="form-control" style="width:100px;margin-right: 20px;"></div>
+            <div style="line-height: 40px;">姓名：</div>
+            <div><input type="text" id="name" name="name" value="{{ query.1 }}" class="form-control" style="width:100px;margin-right: 20px"></div>
+            <div style="line-height: 40px;">手机号码：</div>
+            <div><input type="text" id="mobile" name="mobile" value="{{ query.2}}" class="form-control" style="width:150px;margin-right: 20px"></div>
+            <div style="line-height: 40px;">邮箱地址：</div>
+            <div><input type="text" id="email" name="email"  value="{{ query.3}}" class="form-control" style="width:200px;margin-right: 20px"></div>
+            <div><input type='submit' class="btn" value="查询" id="getresult" style="width:60px;margin-left: 20px;background-color: navy;color:#FFF"></div>
+            <div><input type='button' class="btn" value="全部" id="getall" style="width:60px;margin-left: 20px;background-color: navy;color:#FFF"></div>
+            <div><input type='button' class="btn" value="添加" id="add" style="width:60px;margin-left: 20px;background-color: navy;color:#FFF"></div>
+            <div><input type='button' class="btn" value="文件导入" id="fileadd" style="width:80px;margin-left: 20px;background-color: navy;color:#FFF"></div>
+        </form>
+    </div>
+    <div id="content_container" class="container" style="margin: 30px auto;">
+        <table class="table table-striped table-hover table-bordered" id="student">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>出生日期</th>
+                    <th>手机号码</th>
+                    <th>邮箱地址</th>
+                    <th>家庭住址</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td style="background-color: navy;color:#FFF">{{ forloop.counter }}</td>
+                        <td>{{ student.sno }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.gender }}</td>
+                        <td>{{ student.birthday|date:'Y-m-d'}}</td>
+                        <td>{{ student.mobile }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.address }}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <div id="footer_container">
+        学生信息管理系统v1.10 @ 版权所有 Steven Wang
+    </div>
+</body>
+</html>
