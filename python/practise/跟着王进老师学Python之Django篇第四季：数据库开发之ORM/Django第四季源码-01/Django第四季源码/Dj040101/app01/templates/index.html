@@ -1,0 +1,87 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据库操作</title>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        #header{
+            width:100%;
+            height: 100px;
+            background-color: yellowgreen;
+            font-size: 42px;
+            line-height: 100px;
+            color:white;
+            padding-left: 100px;
+        }
+        #container{
+
+            background-color: lightblue;
+            margin:  40px auto;
+        }
+        #container>div{
+             float:left
+        }
+        #container>#left>div{
+            width:400px;
+            height: 100px;
+            margin: 20px;
+            background-color: coral;
+            line-height: 100px;
+            font-size: 24px;
+            text-align: center;
+        }
+        #container>#right{
+            width:900px;
+            height: 460px;
+            margin:20px ;
+            background-color: lightblue;
+            font-size: 25px;
+            color:navy;
+            line-height: 50px;
+
+        }
+        #container>#left>div:hover{
+             background-color: navy;
+             font-weight: bold;
+             color:white
+         }
+    </style>
+    <script>
+        $(function () {
+            $('#add').on('click', function () {
+                location.href = "{% url 'index' %}?action=add"
+            });
+            $('#modify').on('click', function () {
+                location.href = "{% url 'index' %}?action=modify"
+            });
+            $('#show').on('click', function () {
+                location.href = "{% url 'index' %}?action=show"
+            });
+            $('#delete').on('click', function () {
+                location.href = "{% url 'index' %}?action=delete"
+            });
+        })
+    </script>
+</head>
+<body>
+    <div id="header">数据库操作 --- ORM模型</div>
+    <div id="container">
+        <div id="left">
+            <div id="add">添加记录--张三</div>
+            <div id="modify">修改记录--把张三性别改成男</div>
+            <div id="delete">删除记录--删除张三</div>
+            <div id="show">展示记录--获取数据</div>
+        </div>
+
+        <div id="right">
+            {{ info }}
+        </div>
+    </div>
+</body>
+</html>

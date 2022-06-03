@@ -1,0 +1,108 @@
+body{
+    padding: 0;
+    margin: 0;
+    background-color: #e6e6e6;
+}
+/*标题*/
+#header_outer{
+    width:100%;
+    height: 80px;
+    background-color: navy;
+}
+#header_container{
+    width:1200px;
+    height: 100px;
+    margin: auto;
+}
+#header_container>div{
+    float:left;
+    width:50%;
+    height:80px;
+}
+#header_container>#left>div{
+    float:left;
+    font-size: 32px;
+    line-height: 80px;
+    margin-right: 30px;
+    color:#FFF;
+}
+#header_container>#right{
+    text-align: right;
+    font-size:18px;
+    line-height: 80px;
+    color:white;
+    font-weight: bold;
+}
+#header_container>#right>a{
+    font-size:18px;
+    line-height: 80px;
+    color:white;
+    font-weight: bold;
+}
+#header_container>#right>a:hover{
+    color:blue;
+}
+
+/*查询区域*/
+#query_container{
+    width:1200px;
+    height: 56px;
+    background-color: cornflowerblue;
+    margin: 20px auto;
+    padding:10px;
+}
+#query_container>form>div{
+    float:left;
+}
+
+/*数据区域*/
+#content_container{
+    width:1300px;
+    height:436px;
+    background-color: #5bc0de;
+    border-radius: 30px;
+    margin:40px auto;
+}
+
+#content_container>div{
+    float:left;
+}
+#content_container>div>img{
+    border-radius: 30px;
+}
+#content_container>.detail{
+    background-color:#e6e6e6;
+    width: 550px;
+    height: 400px;
+    margin: 20px;
+    border-radius: 15px;
+    padding: 10px;
+}
+#content_container>.detail>form>div{
+    float:left;
+
+}
+#content_container>.detail>form >.label{
+    width:130px;
+    text-align: right;
+    color:navy;
+    font-size: 18px;
+    line-height: 20px;
+    clear: both;
+    margin: 10px 0;
+}
+#content_container>.detail>div>input{
+    font-size:18px;
+
+}
+/*页脚区域*/
+#footer_container{
+    width: 100%;
+    height: 50px;
+    background-color: navy;
+    text-align: center;
+    font-size: 18px;
+    line-height: 50px;
+    color:#FFF;
+
+}

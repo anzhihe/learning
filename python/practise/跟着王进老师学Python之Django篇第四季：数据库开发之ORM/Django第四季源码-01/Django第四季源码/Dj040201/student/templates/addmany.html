@@ -1,0 +1,51 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生详情页</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/modify.basic.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script>
+        $(function () {
+            $('#content_container').on('click','#read',function () {
+                //获取填入的路径
+                path = $('#path').val();
+                //跳转
+                location.href = "{% url 'read' %}?path=" + path;
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="header_outer">
+        <div id="header_container">
+            <div id="left">
+                <div><img src="{% static 'img/logo1.png' %}"></div>
+                <div>批量添加学生</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content_container">
+        <div><img src="{% static 'img/bigpic.png' %}"></div>
+        <div class="detail" style="padding: 50px;">
+            <form action="{% url 'addmany_student'  %}" method="post">
+                <div>
+                    <input type="text" id='path' value="{{ path }}" style="margin:5px 0;width:385px;font-size: 18px">
+                    <button type="button" class="btn btn-sm" id='read' style="margin-bottom:5px;background-color: navy;width:60px;height:30px;color:white;">读取</button>
+                </div>
+                <div style="width:450px; height: 200px; background-color:lightblue;color:red;text-align: center;line-height: 60px;font-size:26px">
+                    {{ info }}
+                </div>
+                <div><input type="submit" class="btn" value="提交" style="width:80px;clear:both; background-color: navy;color:white; margin:20px 0 0 370px"></div>
+            </form>
+        </div>
+    </div>
+
+    <div id="footer_container">
+        学生信息管理系统v1.10 @ 版权所有 Steven Wang
+    </div>
+</body>
+</html>

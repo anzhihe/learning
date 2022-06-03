@@ -1,0 +1,112 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/index.basic.css'%}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script>
+        $(function(){
+            $('.item').click(function () {
+                current = $(this).text();
+                currenttype = $(this).parent().children('div').eq(0).html();
+                type = "";
+                if (currenttype.indexOf("类别") != -1){
+                    type ='course';
+                } else if(currenttype.indexOf("价格") != -1){
+                    type ='price';
+                } else if(currenttype.indexOf("难度") != -1){
+                    type ='difficult';
+                } else if(currenttype.indexOf("作者") != -1){
+                    type ='author';
+                }
+                location.href= "{% url 'select' %}?type=" + type +"&course=" + current;
+            });
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
+</head>
+<body>
+    <div id="header">
+        <div><img src="{% static 'img/book_logo.png' %}"> </div>
+    </div>
+    <div id="select" >
+        <div id="select_type">
+            <div class="title">类别：</div>
+            {% for item in items.course %}
+                {% if active.course == item %}
+                    <div class="item" style="color:red;">{{ item }}</div>
+                {% else %}
+                     <div class="item">{{ item }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div id="select_price">
+            <div class="title">价格：</div>
+              {% for item in items.price %}
+                {% if active.price == item %}
+                    <div class="item" style="color:red">{{ item }}</div>
+                {% else %}
+                     <div class="item">{{ item }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div id="select_press">
+            <div class="title">难度：</div>
+              {% for item in items.difficult %}
+                {% if active.difficult == item %}
+                    <div class="item" style="color:red">{{ item }}</div>
+                {% else %}
+                     <div class="item">{{ item }}</div>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+        <div id="select_author">
+            <div class="title">作者：</div>
+              {% for item in items.author %}
+                {% if active.author == item %}
+                    <div class="item" style="color:red">{{ item }}</div>
+                {% else %}
+                     <div class="item">{{ item }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div id="keyword">
+            <div class="title">图书关键字：</div>
+            <div class="input_keyword"><input type="text" class="input-group"></div>
+            <div class="btn_submit"><input type="button" class="btn btn-sm" value="查询"> </div>
+            <div class="btn_submit"><input type="button" class="btn btn-sm" value="显示全部" > </div>
+        </div>
+    </div>
+    <div id="top_content" style="">
+        符合条件的图书：
+    </div>
+    <div id="content_container" class="container">
+            {% for book in books %}
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="thumbnail">
+                        <img src={{ book.img }}>
+                        <div id="price_author">
+                            <div class="left">
+                                ¥{{ book.bookprice}}
+                            </div>
+                            <div class="right" style="" >
+                                {{ book.author }}
+                            </div>
+                        </div>
+                        <h4  >{{ book.bookname}}</h4>
+                        <h5 style="color:orange">
+                            <a href="#" data-toggle="tooltip" data-placement="right" title="{{ book.tip.1 }}">
+                                {{ book.tip.0 }}
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+            {% endfor %}
+    </div>
+</body>
+</html>

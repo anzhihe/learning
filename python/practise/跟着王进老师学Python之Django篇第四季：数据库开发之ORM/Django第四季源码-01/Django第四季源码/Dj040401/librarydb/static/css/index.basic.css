@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: whitesmoke;
+}
+/* ======== header=============*/
+
+#header{
+    width:100%;
+    height:120px;
+    background-color: #333333;
+}
+#header>div{
+    width:1200px;
+    height:1200px;
+    margin: auto;
+}
+
+/* ======== select =============*/
+
+#select{
+    width: 1200px;
+    height: 320px;
+    margin: 20px auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #EEEEEE;
+}
+#select>div{
+    width:1160px;
+    height: 40px;
+    margin-bottom: 20px;
+    /*background-color: lightgoldenrodyellow;*/
+    box-sizing: border-box;
+}
+#select>div>div{
+    float:left;
+    height:auto;
+}
+#select>div>.title{
+    clear: both;
+    width: 80px;
+    font-weight: bold;
+    font-family: "微软雅黑";
+    font-size: 18px;
+}
+#select>div>.item{
+    margin-right: 25px;
+    font-size: 16px;
+}
+#select>div>.item:hover{
+    background-color: navy;
+    color:white;
+    cursor: pointer;
+}
+#select>#keyword{
+    width:1000px;
+}
+#select>#keyword>div{
+    float:left;
+}
+#select>#keyword>.title{
+    width: 120px;
+    font-size:18px;
+    font-weight: bold
+}
+#select>#keyword>.input_keyword>input{
+    width: 400px;
+    height: 28px;
+    font-size: 18px;
+}
+#select>#keyword>.btn_submit>input{
+    width:80px;
+    background-color: navy;
+    color:white;
+    margin-left:30px;
+}
+
+/* ======== top_content=============*/
+
+#top_content{
+    width:1200px;
+    height: 40px;
+    background-color: #337ab7;
+    margin: 30px auto;
+    color:white;
+    font-weight: bold;
+    line-height: 40px;
+    font-size:18px;
+    box-sizing: border-box;
+    padding-left: 20px;
+}
+
+/* ======== content=============*/
+
+#content_container{
+    width: 1260px;
+    height: 800px;
+    margin: auto;
+}
+#content_container>div{
+    box-sizing: border-box;
+    border: 3px white solid;
+}
+#content_container>div:hover{
+    box-sizing: border-box;
+    border: 3px orange solid;
+}
+#content_container>div>div{
+    overflow: hidden;
+}
+#content_container>div>div>#price_author{
+    margin-top: 15px;
+}
+#content_container>div>div>#price_author>.left{
+    color:red;
+    font-size: 22px;
+    float:left;
+    width:50%;
+    padding-left: 15px
+}
+#content_container>div>div>#price_author>.right{
+    float:left;
+    width:50%;
+    text-align: right;
+    font-size: 18px;
+    padding-right: 15px;
+    box-sizing: border-box;
+    color:red;
+}
+#content_container>div>div>h4,h5{
+    clear: both;
+}
+#content_container>div>div>img{
+    cursor: pointer;
+    transition: all 0.6s;
+}
+#content_container>div>div>img:hover{
+    transform: scale(1.8);
+}
+#content_container>div>div>h4:hover{
+    color:navy;
+    cursor:pointer;
+    font-weight: bold;
+}
+
+
+
