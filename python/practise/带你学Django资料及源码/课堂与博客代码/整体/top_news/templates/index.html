@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+
+
+<div>
+    {% for category in categorys %}
+        <h3>{{ category.name }}</h3>
+        <ul>
+            {% for news in category.news_set.all %}
+                {% if not news.isdelete %}
+                    <li><a href="/news/{{ news.id }}/">{{ news.title }}</a>-----------<a
+                            href="/del/{{ news.id }}/">删除</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+    {% endfor %}
+
+
+</div>
+<ul>
+
+
+</ul>
+
+</body>
+</html>

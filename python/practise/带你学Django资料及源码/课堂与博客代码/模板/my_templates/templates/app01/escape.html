@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>转义</h3>
+{{ content }}
+<h3>非转义</h3>
+{{ content|safe }}
+
+标签写法
+{% autoescape on %}
+    {{ content }}
+{% endautoescape %}
+
+<h3>硬编码</h3>
+默认非转义：{{ content1|default:'<h2>硬编码111</h2>' }}
+转义：{{ content1|default:'&lt;h2&gt;硬编码&lt;/h2&gt;' }}
+</body>
+</html>

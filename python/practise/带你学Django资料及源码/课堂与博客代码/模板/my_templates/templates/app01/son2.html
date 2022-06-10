@@ -1,0 +1,24 @@
+{% extends 'app01/base.html' %}
+
+{% block title %}son2{% endblock %}
+
+{% block style %}
+    <style>
+        div{
+            color: red;
+        }
+
+    </style>
+
+{% endblock %}
+
+{% block content %}
+    <div>
+
+        我是son2
+
+
+    </div>
+
+    {{ block.super }}
+{% endblock %}

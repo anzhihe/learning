@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/mysession/login/" method="post">
+    {% csrf_token %}
+
+    手机号：<input type="text" name="phone" placeholder="请输入手机号" maxlength="11"><br>
+    密码：<input type="password" name="pwd" placeholder="请输入密码" minlength="6"><br>
+    验证码：<input type="text" name="code" placeholder="请输入验证码"><br>
+    <input type="submit" value="提交">
+</form>
+
+
+</body>
+</html>

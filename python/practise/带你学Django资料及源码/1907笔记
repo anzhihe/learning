@@ -1,0 +1,757 @@
+
+不管遇到资料、学习问题，还是其他问题，我们都不要慌。
+先加群：567597134。找老司机帮忙
+
+讲课环境
+python版本：3.8
+Django版本：2.1.5
+部署项目视频4笔记 uwsgi --reload uwsgi.pip 改成 uwsgi --reload uwsgi.pid
+部署项目一定要配置虚拟环境，
+安装虚拟环境的命令是
+sudo pip3 install virtualenv
+sudo pip3 install virtualenvwrapper
+并且需要在虚拟环境下安装uwsgi
+安装的命令是pip install uwsgi
+部署的服务用的Ubuntu16.04
+windows上传项目用winscp 当然可以用git
+
+注意一些单词不要写错哦~~~
+
+
+
+
+
+
+
+
+
+
+第一天：
+	B/S(Brower/Server):浏览器和服务端,维护成本相对较低。
+	C/S(Client/Server):客户端和服务端，维护成本比较高。
+
+
+	浏览器和服务器之间主要通过是HTTP协议传输。
+
+	HTTP:
+		超文本传输协议,基于TCP的、默认端口80、明文传输
+
+		1、客户端/服务器模式
+			只有客户端发起请求，服务器接收请求，然后返回响应
+		2、简单快速：
+			只要资源请求路径，加上请求方式（GET、POST、DELETE、PUT、OPTIONS）	
+			GET:获取资源
+			POST:新增资源
+			DELETE:删除资源
+			PUT:更新资源
+			OPTIONS:询问
+
+		3、灵活
+			可以发任何资源，content-type	
+
+		4、无连接（短连接）
+			每次请求都是新的请求。也支持长连接
+
+		5、无状态
+			为了知道用户上一步干了什么。是否登录，Cookie、Session
+
+		IP:标记网络任何一台设备
+		PORT：标记进程的
+
+		TCP:面向连接 安全、速度稍微慢
+		UDP:面向传输 不安全、速度快
+			
+		当浏览器输入一个地址，回车了一下，都做了什么操作
+
+		baidu.com->DNS(把域名变成IP的一种技术)->（TCP）三次握手--->传输消息
+
+	坏处：不安全	
+
+
+	HTTPS: 
+		安全的
+
+		https = http+ssl/tls
+
+	加密：
+		对称加密：DES、3DES、AES
+
+		算法是公开的
+
+			一个密钥加密，只能用这个密钥解密
+
+			加密解密的速度快，适合大文本
+
+
+		非对称加密：RSA
+		算法公开
+
+		公钥 私钥
+
+		公钥加的密、私钥能解开
+		私钥加的密、公钥能解开
+
+		加密速度的速度慢
+
+
+
+	Https与HTTP的不同
+	
+		1、https是安全的，它不是绝对的安全，破解时间和成本问题
+		2、https传输数据，认证身份、保证的数据完整性
+
+		3、https比http要慢，要慢50%左右，耗电
+
+		4、http默认端口80  https默认端口443
+
+
+	虚拟环境
+		给每一个项目都有独立的环境，方便包管理
+
+
+		mkvirtualenv  创建虚拟环境
+		workon  切换虚拟环境		
+		rmvirtualenv 删除虚拟环境
+		deactivate 退出虚拟环境
+
+		pip install  xxxx 删除
+		pip uninstall 卸载	
+
+		pip install -i https://pypi.douban.com/simple django
+
+		pip list 
+		pip freeze  查看安装过哪些包
+
+
+第二天：
+    提问：
+       1、什么是事务
+       2、HTTP协议特点
+       3、面向对象三大特性，主要表现子哪方面
+            1、把属性封装对象当中
+            2、把相同的功能封装到方法中
+       4、新式类和经典类有什么不同？
+            新式类广度继承
+            经典类深度继承
+       5、__init__ 和__new__方法区别
+       6、端口和IP有什么作用
+       7、左链接和右链接有什么不同
+       8、GIL是什么？
+       9、append方法和extend方法区别
+       10、什么是可迭代对象，什么是迭代器、生成器是可迭代对象吗?
+       11、对称加密有哪些算法 非对称加密
+       Class Dog():
+            def __init__(self)
+                self.name = 'ccc'
+                self.age = 12
+
+            def eat(self):
+                pass
+
+            def sleep(self):
+                pass
+
+        dog = Dog()
+        dog.name
+        dog.age
+
+        M（模型）: 主要负责数据
+        V（视图）：主要负责视图
+        C（控制器）：接受用户请求，处理业务逻辑
+
+        MVC核心作用：解耦
+
+        MTV:
+        Model(模型): 主要负责数据
+        Template（模板）:主要负责模板
+        View（视图）: 接受用户请求，处理业务逻辑
+
+
+       框架：提供路由和视图
+
+     创建项目
+     django-admin startproject  xxxx
+
+     创建应用
+     python manage.py startapp  xxx(应用的名字)
+
+     启动项目
+     python manage.py runserver
+
+
+
+     ORM 对象关系映射
+
+     作用：简化SQL语句编写，用对象的方式去代替
+
+     O：object
+     R: relation
+     M: mapping
+
+
+     create table xxx 
+
+
+
+     class xxx:
+     	 name = xxx
+
+
+    生成迁移文件
+    python manage.py makemigrations
+
+    迁移
+    python manage.py migrate
+
+    打开shell
+    python manage.py shell
+
+
+    对象.save() 相当于insert into
+
+    类.objects.all() 相当于select *
+
+
+
+第三天：
+	1、什么是MVC
+	2、当浏览器输入域名做了什么操作
+	3、HTTP协议
+	4、什么是可迭代对象？集合有什么特点
+	5、什么是迭代器、生成器有几种写法
+	6、什么是MTV 
+	7、什么是索引，知道哪些索引
+
+
+	创建管理员的
+	python manage.py createsuperuser
+
+	报没有表问题解决
+	升级2.1.5
+	pip install Django==2.1.5
+	别忘记迁移
+	python manage.py migrate
+
+
+
+
+	英雄和技能之间有什么关系
+
+	创建一个技能表
+
+	技能名字
+	冷却时间
+	伤害
+
+
+	/kill/{{ hero.id }}/
+	http://127.0.0.1:8000/kill/1/
+
+
+	kill/{{ hero.id }}/
+	http://127.0.0.1:8000/type/1/kill/1/
+
+
+
+
+	创建一个项目
+
+		班级
+			班级的名字
+		学生
+			名字
+			年龄
+			性别
+
+第三天：
+	1、什么叫MVC
+	2、什么是索引、数据库哪有索引
+	3、面向对象有什么特性	封装表现哪些方面、
+	4、经典类继承和新式类继承有什么区别
+	5、数据库的事务有什么特性
+
+	class D()
+		def a1(self)：
+			pass
+
+	class C(D)
+
+	class B(D)
+
+
+
+	class A(B,C)
+
+
+	a  = A()
+	a.a1()
+
+	物理性删除：从磁盘中真正的抹去
+	非物理性删除：用字段来表示是否删除
+
+
+	需要用pymysql 先安装
+
+	在settings里面配置mysql的一些信息
+		DATABASES = {
+    	'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'db_1907',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
+	pip install pymysql
+
+	跟项目同级的__init__文件加入
+	import pymysql
+	pymysql.install_as_MySQLdb()
+
+
+
+
+	python manage.py runserver  端口
+
+
+	静态文件配置
+	删除
+	get方法
+	重定向
+		302 临时重定向
+		301 永久重定向
+
+	管理后台显示字段
+	Meta
+	一些查询方法
+
+	对象.类名小写_set.all()
+
+
+	作业：
+		1、新闻网站搞定
+		2、个人简历 如果一对一搞不定 就一张表
+		3、导航网站
+		4、我平常上课的问题
+
+第5天：
+	如果模型类有choices 想在前端显示的话，get_属性名字_display
+
+
+	扩展字段：ext:''
+
+
+	s= {"a":1,"b":2,"c":3,"d":4,'f':5}
+
+	a   b  c   d    f
+
+
+	写一个博客
+
+	分类   
+		个人日记
+		技术杂谈
+		说说
+
+	文章
+		标题
+		内容
+		。。。
+第六天
+	
+一对多
+	外键是在多的那方
+
+	一对多 查询
+	多对一 查询
+
+多对多
+
+
+article
+
+id    title
+
+1     xxx
+2     xxx
+
+
+tag 
+id     name
+
+1      xxx
+2      xxx
+
+
+xxxx中间表
+
+id  article_id  tag_id
+  
+1     1          1
+2     1 	     2
+
+3     2          1
+
+
+查询集有两大特性：
+	1、惰性查询
+	2、缓存
+
+
+
+自关联
+省  市  区
+
+
+id  name  parent
+1   河南    Null
+2   山东    Null
+3   商丘    1
+4   济南    2
+5   河中区   3
+
+
+
+
+第七天：
+
+class Category;
+	pass
+
+class Article :
+	cat = models
+	pass
+
+
+	1、\t  \n
+	2、说说MVC
+	3、说说MTV
+	4、cat.article_set.all
+	 article.cat
+	5、ORM有什么作用，有什么好处，有什么坏处
+	6、左连接和右链接
+
+
+
+	视图参数过少的时候，可以单独写形参
+	如果参数过多的时候，视图用*args或者**kwargs
+
+	如果你的参数带有/ 需要用到path转换器
+
+
+	uuid是代替主键的最好的选择
+
+	https://127.0.0.0/center/075194d3-6885-417e-a8a8-6c931e272f00
+	https://127.0.0.0/center/2
+
+	id uuid
+	1  075194d3-6885-417e-a8a8-6c931e272f00
+
+	2  075194d3-6885-417e-a8a8-6c931e272f01
+
+
+	如果正则去匹配地址的，参数需要传到视图里面，需要加()
+
+	响应码
+		200
+		404
+		405
+		403
+		500
+		301
+		302
+
+
+
+	https://www.baidu.com/s?wd=%E5%93%88%E5%93%88
+
+
+	get:不安全
+	post:安全	
+
+
+
+
+	e10adc3949ba59abbe56e057f20f883e   123456
+		 
+	e10adc3949ba59abbe56e057f20f8831   12434567
+
+
+	Cookie默认的有效期是关闭浏览器就过期了
+	Cookie是保存在浏览器上的
+	Cookie基于域名安全的
+
+
+第九天
+	1、Cookie有什么特点
+	2、request对象有什么属性和方法
+	request.path
+	request.GET
+	request.POST
+	request.COOKIES
+	3、面向对象封装哪些方面
+	4、一键多值用哪个方法取 getlist()
+	5、Cookie设置过期时间有几种
+	6、HTTP协议有什么特点
+
+
+	session依赖于Cookie
+	Cookie存着session_id
+	session存在服务器
+
+	session采用base64加密
+
+	request.session.set_expiry(value)
+	```
+	- 如果value是一个整数，会话将在value秒没有活动后过期。
+	- 如果value为0，那么用户会话的Cookie将在用户的浏览器关闭时过期。
+	- 如果value为None，那么会话永不过期。
+	- 如果value为datetime，那么会话具体日期过期
+
+
+
+
+	三种删除
+	删除值 clear()
+	删除全部 flush()
+	删除指定键值对 del request.session['键']
+
+	xml  也是数据交付格式
+	Json 是一种数据交互格式 它就是字符串
+
+	loads 把json转成字典
+	dumps 把字典转成json’
+
+	所写的路由就是接口或者API
+
+第10天：
+	1、Cookie和Session不同
+	2、面向对象封装哪方面
+	3、字符串分割方法、去掉两端空格
+	4、数据库的索引有哪些类型
+	5、端口有什么作用 22 80 443 3306
+	6、简单说HTTP协议
+		200、404、403、301、302、500
+		HTTPS有什么
+		
+	from django.views.generic import View
+	类视图要继承View
+	类视图要重写get和post方法
+	类视图路由要as_view()
+	类视图可以用继承，方便返回通用数据			
+
+
+	模板
+	
+	变量、标签、过滤器、注释
+
+
+第十一天：
+	1、模板哪些知识点 
+		变量.name
+	2、C	ookie和Session
+		cookie默认关闭浏览器救过
+		session默认过期是两周
+
+	3、过滤器
+
+	4、说说HTTP与HTTPS
+		http应用层
+		https传输层
+	5、七层网络协议
+		
+
+	后台返回内容默认 转义的
+	硬编码是非转义
+
+
+	反向解析
+		以前我那地址去匹配路由，现在是根据路由就生成地址 
+		1、模板超链接
+			是关键字传参还是位置参数 得看路由具体写法
+		2、重定向						
+
+
+第十二天：
+		常用
+
+第十三天：
+		常用
+
+		我经常哈哈哈大笑
+
+		我 经常哈哈哈 大笑
+
+		我 经常 哈哈哈 大笑
+
+		我经常 哈哈哈 大笑
+
+		我 经 常 哈哈 哈 大笑
+
+第十四天：
+	序列化：把数据变成能传输的过程的就序列化
+	反序列化：把传输的数据变成可储存的数据叫反序列化
+
+
+
+	接口就是API
+	返回数据
+
+	中间件
+	中间件的应用
+		认证
+		拉黑
+		限制频率
+		CSRF
+	中间执行流程
+
+	博客
+		idea
+
+		产品
+
+		产品图
+
+		设计
+
+		前端和后端
+
+		测试
+
+		上线
+
+
+
+
+
+
+		模型类
+
+			用户
+
+			轮播图
+
+
+			文章
+
+
+			分类
+
+
+			标签
+
+			评论
+
+			友情链接
+
+
+
+
+部署：
+
+	服务器 
+
+		centos
+
+
+		ubuntu
+
+
+		windows 很少
+
+
+
+		Nginx: 支持高并发、高性能web服务器
+
+			正向代理：具体知道目标，代理客户端，目标用户不知道客户端
+
+
+
+			反向代理：不知道具体目标，知道一个地址
+
+			负载均衡：
+
+
+
+		虚拟环境
+		mysql
+		nginx
+		uwsgi
+
+		依赖的包
+
+		nginx配置
+		uwsgi配置
+
+
+		uwsgi --ini uwsgi.ini 启动
+		uwsgi --reload uwsgi.pid 重启
+
+
+
+		/etc/init.d/nginx restart 重启
+		/etc/init.d/nginx start 启动
+
+
+
+		killall -9 uwsgi/nginx  杀进程
+
+
+		ps -aux | grep uwsgi
+
+
+
+
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
+100个post 请求  99个不需要  1个需要(csrf_protect) 注销掉csrf中间件
+100个post 请求  99需要   1个不需要（@csrf_exempt）不注销掉csrf中间件
+
+
+类视图
+@method_decorator(csrf_exempt,name='dispatch')
+@method_decorator(csrf_protect,name='dispatch')
+
+
+
+
+
+
+csrf 中间件  
+
+
+	process_request
+
+	process_view   # 验证   
+
+	#process_response
+
+
+
+
+
+复习：
+	1 、HTTP HTTPS 加密 MVC MTV
+	2、 虚拟环境
+	3、如何创建项目、如何创建应用、项目所有文件的作用、创建管理员
+	4、模型：分析一对一、一对多、多对多、查询、api、模型管理器objects自定义
+	5、视图： cookie、session、request、response、上传文件、路由
+	6、模板： 变量、过滤器、注释、标签、继承、转义
+	7、常用：分页、富文本、全文检索、缓存、中间件、form表单、验证码等等
+	8、博客
+	9、部署：nginx、uWsgi、django生命周期、配置文件
+	10、安全：点击劫持、sql注入、csrf、xss
+	11、管理后台一些配置
+	12、django内置的用户系统
+
+	13、权限、信号、单元测试
+
+	表达能力、解决错误能力、搜索问题能力、技术能力、逻辑能力
+
+
+
+
+
+
+

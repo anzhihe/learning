@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>人员列表</title>
+</head>
+<body>
+<ul>
+
+    {% for person in persons %}
+
+        <li><a href="/person/{{ person.id }}/">{{ person.name }}</a></li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
