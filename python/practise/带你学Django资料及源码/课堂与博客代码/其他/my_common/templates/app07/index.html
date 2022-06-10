@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>验证码</title>
+</head>
+<body>
+<form action="/app07/" method="post">
+
+    {% csrf_token %}
+
+    <div>
+        名字：{{ contactform.name }}
+
+    </div>
+
+    <div>
+        手机号：{{ contactform.phone }}
+
+        {% for error in contactform.errors.phone %}
+
+
+            <span>{{ error }}</span>
+
+        {% endfor %}
+    </div>
+
+    <div>
+        验证码：{{ contactform.captcha }}
+
+        {% for error in contactform.errors.captcha %}
+
+
+            <span>{{ error }}</span>
+
+        {% endfor %}
+    </div>
+
+    <input type="submit" value="提交">
+
+</form>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script>
+    $('.captcha').click(function () {
+        $.getJSON("/captcha/refresh/", function (result) {
+            $('.captcha').attr('src', result['image_url']);
+            $('#id_captcha_0').val(result['key'])
+        });
+
+    });
+</script>
+</body>
+</html>

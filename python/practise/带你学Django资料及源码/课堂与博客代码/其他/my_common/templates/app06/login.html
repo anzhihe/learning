@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django form</title>
+</head>
+<body>
+<form action="/app06/login/" method="post">
+    {% csrf_token %}
+    <div>
+
+        手机号： {{ loginform.phone }}
+        <input type="submit" value="提交">
+
+    </div>
+
+
+</form>
+
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}默认标题{% endblock %}</title>
+
+    {% block link%}<link rel="stylesheet" href="" type="text/css">{% endblock %}
+</head>
+
+{% block style %}
+
+    <style>
+
+        div {
+            color: blue;
+        }
+    </style>
+{% endblock %}
+<body>
+<h1>头部</h1>
+
+{% block content %}
+
+    默认内容
+{% endblock %}
+<h1>脚1</h1>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>我是center页面</h1>
+写死的：<a href="/app01/center1/">点击跳转</a> <br>
+反向生成：<a href="{% url 'app01:center1' %}">点击跳转</a> <br>
+
+
+带有参数 <a href="/app01/center2/1234/"> 点击跳转center</a>
+{#反向生成带有参数 <a href="{% url 'app01:center2' id=1234 %}"> 点击跳转center</a>#}
+
+
+反向生成带有参数 <a href="{% url 'app01:center2' 1234  %}"> 点击跳转center</a>
+
+
+</body>
+</html>

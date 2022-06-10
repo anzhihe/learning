@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>聚客网络-国内主机6元1年_美国/香港免备案空间35元-景安空间</title>
+    <meta name="keywords" content="微粉网-每天千款优惠券秒杀,微粉网-找优惠券"/>
+    <meta name="description" content="微粉网-每天千款优惠券秒杀"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/zui/1.8.1/css/zui.min.css">
+    <script src="https://cdn.bootcss.com/zui/1.8.1/lib/jquery/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/zui/1.8.1/js/zui.min.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<!--  来自聚客网络：www.jukeidc.cn  -->
+<body>
+<header>
+    <div class="container" style="padding-right: 0px;padding-left: 0px;">
+        <div class="main">
+            <h1 class="logo">
+                <a href="index.html">
+                    <img src="/static/images/ico.png">
+                    <span>聚客导航</span>
+                </a>
+            </h1>
+            <!--
+            <nav class="nav">
+                <ul>
+                    <li><a href="https://www.haorenka.org" target="_blank"></a></li>
+                </ul>
+            </nav>
+            <button class="nav-btn visible-xs visible-sm">
+                <span class="icon-line top"></span>
+                <span class="icon-line middle"></span>
+                <span class="icon-line bottom"></span>
+            </button>-->
+        </div>
+    </div>
+    <div class="not_operational"></div>
+</header>
+<div id="content" data-customize="true" data-customtheme="true" class="default-bg">
+    <div class="main-index">
+        <div class="container content-box">
+            <section class="sousuo">
+                <div class="search">
+                    <div class="search-box">
+                        <img class="search-icon" src="/static/images/logo_4.jpg">
+                        <input type="text" id="txt" class="search-input" placeholder="善用搜索">
+                        <button class="search-btn visible-sm visible-md visible-lg" id="search-btn">搜索</button>
+                        <i class="search-clear icon icon-remove-sign" style="display: none;"></i>
+                    </div>
+                    <!-- 搜索热词 -->
+                    <div class="box search-hot-text" id="box" style="display: none;">
+                        <ul></ul>
+                    </div>
+                    <!-- 搜索引擎 -->
+                    <div class="search-engine" style="display: none;">
+                        <div class="search-engine-head">
+                            <strong class="search-engine-tit">选择默认搜索引擎：</strong>
+                            <div class="search-engine-tool">搜索热词： <span id="hot-btn" class="off"></span></div>
+                        </div>
+                        <ul class="search-engine-list">
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <div class="row dh">
+                {% for cat in navcategorys %}
+                    <div class="col-sm-6 col-md-4 mb-3 dh">
+                        <div class="row">
+                            <div class="col-xs-12"><strong class="dhname" id="1">{{ cat.name }}</strong></div>
+                            {% for nav in cat.nav_set.all %}
+                                <div class="col-xs-4 mb-2">
+                                    <a href="{{ nav.href }}" target="_blank">{{ nav.name }}</a>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  来自小高教学网：www.12580sky.com  -->
+</div>
+</div>
+<footer class="footer text-center bg-white">
+    <div class="container">
+        <span id="hitokoto">:D 获取中...</span>
+    </div>
+</footer>
+<div id="get-top" title="回到顶部" style="display: none;"><i class="icon icon-arrow-up"></i></div>
+<script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+<script src="/static/js/js.js"></script>
+<script type="text/javascript" src="https://js.users.51.la/19916167.js"></script>
+</body>
+</html>

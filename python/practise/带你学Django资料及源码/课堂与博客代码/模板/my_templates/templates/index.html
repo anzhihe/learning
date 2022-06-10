@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>变量</h1>
+姓名：{{ name }}
+年龄：{{ age }}
+性别：{{ dict.name }} 字典
+性别：{{ dict.name }} 属性
+性别：{{ dict.name }} 方法
+性别：{{ dict.1 }} 相当于取列表
+
+<h1>标签</h1>
+<ul>
+    {% for dog in dogs %}
+        {% if forloop.counter0 == 1 %}
+            <li style="background: red">{{ dog.name }}</li>
+
+        {% else %}
+            <li style="background: blue">{{ dog.name }}</li>
+        {% endif %}
+
+    {% empty %}
+        没有小狗
+    {% endfor %}
+
+</ul>
+
+<ul>
+    {% for l in dict %}
+        <li>{{ l }}</li>
+    {% endfor %}
+
+</ul>
+
+<h1>过滤器</h1>
+默认过滤器：{{ hobby|default:'抽烟' }} <br>
+时间过滤器：{{ dog.created_time|date:'Y*m*d H:m:s' }} <br>
+长度过滤器：{{ dogs|length }} <br>
+截取过滤器：{{ dog.name|truncatechars:'8' }} <br>
+
+整除过滤器：
+
+<ul>
+    {% for dog in dogs %}
+        {% if forloop.counter0|divisibleby:2 %}
+            <li style="background: red">{{ dog.name }}</li>
+
+        {% else %}
+            <li style="background: blue">{{ dog.name }}</li>
+        {% endif %}
+
+    {% empty %}
+        没有小狗
+    {% endfor %}
+
+</ul>
+
+百度搜索一下：Django 过滤器大全
+
+<h3>自定义过滤器</h3>
+{% load filters %}
+名字：{{ name1|is_laowang }} <br>
+名字：{{ name1|add_arg }} <br>
+名字：{{ name1|add_arg:'你爱他' }}
+
+
+<h3>注释</h3>
+
+{#{{ name1 }}#}
+
+{% comment %}
+{{ name1 }}
+{{ name1 }}
+{% endcomment %}
+</body>
+</html>

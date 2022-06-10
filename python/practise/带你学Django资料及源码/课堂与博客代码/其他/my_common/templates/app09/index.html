@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>缓存</title>
+</head>
+<body>
+<h1>企业官网</h1>
+
+{% load cache %}
+
+
+{% cache 60 content %}
+    {#    <span>哈哈哈</span>#}
+    <span>呵呵呵呵</span>
+{% endcache %}
+
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+    {% for art in articls %}
+        <li>{{ art.title }}---{{ art.cat.name }}</li>
+    {% endfor %}
+</ul>
+
+{#<h1>{{ articls.title }}</h1>#}
+
+</body>
+</html>

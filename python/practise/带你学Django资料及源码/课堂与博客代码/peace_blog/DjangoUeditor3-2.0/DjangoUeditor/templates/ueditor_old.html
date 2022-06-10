@@ -1,0 +1,24 @@
+<textarea name={{ UEditor.name }} id=id_{{ UEditor.name }} style="display:inline-block;width:{{ UEditor.width }}px;{{ UEditor.css }}">{{UEditor.value}}</textarea>
+<script type="text/javascript">
+     var id_{{ UEditor.name  }}= new baidu.editor.ui.Editor({
+         "UEDITOR_HOME_URL":"{{ STATIC_URL }}ueditor/",
+         {% ifnotequal UEditor.toolbars None %}"toolbars":{{ UEditor.toolbars|safe }},{% endifnotequal %}
+         "imageUrl":"/ueditor/ImageUp/{{ UEditor.imagePath }}",
+         "imagePath":"{{ MEDIA_URL }}{{ UEditor.imagePath }}",
+         "scrawlUrl":"/ueditor/scrawlUp/{{ UEditor.scrawlPath }}",
+         "scrawlPath":"{{ MEDIA_URL }}{{ UEditor.scrawlPath }}",
+         "imageManagerUrl":"/ueditor/ImageManager/{{ UEditor.imageManagerPath }}",
+         "imageManagerPath":"{{ MEDIA_URL }}{{ UEditor.imageManagerPath }}",
+         "catcherUrl":"/ueditor/RemoteCatchImage/{{ UEditor.imagePath }}",
+         "catcherPath":"{{ MEDIA_URL }}{{ UEditor.imagePath }}",
+         "fileUrl":"/ueditor/FileUp/{{ UEditor.filePath }}",
+         "filePath":"{{ MEDIA_URL }}{{ UEditor.filePath }}",
+         "getMovieUrl":"/ueditor/SearchMovie/",
+         "sourceEditorFirst":{{ UEditor.sourceEditorFirst }}
+         {% ifnotequal UEditor.options '' %},{{ UEditor.options|safe }}{% endifnotequal %}
+     });
+     id_{{UEditor.name}}.render('id_{{ UEditor.name }}');
+     id_{{UEditor.name}}.addListener('ready',function(){
+         id_{{UEditor.name}}.setHeight({{ UEditor.height }});
+     });
+</script>

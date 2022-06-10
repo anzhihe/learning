@@ -1,0 +1,2 @@
+{{object.name}} #object就代表get_model()方法返回的对象
+{{object.content}}

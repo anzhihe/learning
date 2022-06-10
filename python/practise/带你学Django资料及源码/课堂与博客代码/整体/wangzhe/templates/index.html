@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<h1>欢迎来到王者学院</h1>
+<ul>
+    {% for ht in hts %}
+        <li><a href="/type/{{ ht.id }}/">{{ ht.title }}</a></li>
+    {% endfor %}
+
+</ul>
+
+</body>
+</html>

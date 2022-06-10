@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}列表页{% endblock %}
+
+{% block content %}
+    <section class="container">
+        <div class="content-wrap">
+            <div class="content">
+                <div class="title">
+                    <h3 style="line-height: 1.3">所有文章</h3>
+                </div>
+                {% for article in all_articles.object_list %}
+                    <article class="excerpt excerpt-1" style="">
+                        <a class="focus" href="{% url 'blog:detail' id=article.id %}" title="{{ article.title }}"
+                           target="_blank"><img class="thumb" data-original="{{ MEDIA_URL }}{{ article.cover }}"
+                                                src="{{ MEDIA_URL }}{{ article.cover }}"
+                                                alt="{{ article.title }}"
+                                                style="display: inline;"></a>
+                        <header><a class="cat" href="{% url 'blog:detail' id=article.id %}"
+                                   title="{{ article.category.name }}">{{ article.category.name }}<i></i></a>
+                            <h2><a href="{% url 'blog:detail' id=article.id %}" title="{{ article.title }}"
+                                   target="_blank">{{ article.title }}</a>
+                            </h2>
+                        </header>
+                        <p class="meta">
+                            <time class="time"><i
+                                    class="glyphicon glyphicon-time"></i> {{ article.created_time|date:'Y-m-d' }}</time>
+                            <span class="views"><i class="glyphicon glyphicon-eye-open"></i> {{ article.vnum }}</span>
+                            <a
+                                    class="comment"
+                                    href="{% url 'blog:detail' id=article.id %}"
+                                    title="评论"
+                                    target="_blank"><i
+                                    class="glyphicon glyphicon-comment"></i> {{ article.comment_set.count }}</a>
+                        </p>
+                        <p class="note">{{ article.intro }}</p>
+                    </article>
+                {% endfor %}
+                {% include '_pagination.html' %}
+            </div>
+        </div>
+        <aside class="sidebar">
+            <div class="fixed">
+                <div class="widget widget_search">
+                    <form class="navbar-form" action="{% url 'blog:search' %}" method="get">
+                        <div class="input-group">
+                            <input type="text" name="kw" class="form-control" size="35" placeholder="请输入关键字"
+                                   maxlength="15" autocomplete="off">
+                            <span class="input-group-btn">
+		<button class="btn btn-default btn-search" name="search" type="submit">搜索</button>
+		</span></div>
+                    </form>
+                </div>
+                <div class="widget widget_sentence">
+                    <h3>标签云</h3>
+                    <div class="widget-sentence-content">
+                        <ul class="plinks ptags">
+
+                            {% for tag in tags %}
+                                <li><a href="#list/67/" title="{{ tag.name }}" draggable="false">{{ tag.name }} <span
+                                        class="badge">{{ tag.article_set.count }}</span></a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="widget widget_hot">
+                <h3>最新评论文章</h3>
+                <ul>
+
+                    {% for comment in new_comments %}
+                        <li><a title="{{ comment.article.title }}"
+                               href="{% url 'blog:detail' id=comment.article.id %}"><span class="thumbnail">
+				<img class="thumb"
+                     data-original="{{ MEDIA_URL }}{{ comment.article.cover }}"
+                        {{ MEDIA_URL }}{{ comment.article.cover }}
+                     alt="{{ comment.article.title }}" style="display: block;">
+			</span><span class="text">{{ comment.article.title }}</span><span class="muted"><i
+                                class="glyphicon glyphicon-time"></i>
+				{{ comment.article.created_time|date:"Y-m-d" }}
+			</span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i>{{ comment.article.vnum }}</span></a>
+                        </li>
+
+                    {% endfor %}
+
+                </ul>
+            </div>
+            <div class="widget widget_sentence">
+
+                <a href="#" target="_blank" rel="nofollow" title="MZ-NetBlog主题">
+                    <img style="width: 100%" src="/static/images/ad.jpg" alt="MZ-NetBlog主题"></a>
+
+            </div>
+            <div class="widget widget_sentence">
+
+                <a href="#" target="_blank" rel="nofollow" title="专业网站建设">
+                    <img style="width: 100%" src="/static/images/201610241224221511.jpg" alt="专业网站建设"></a>
+
+            </div>
+        </aside>
+    </section>
+{% endblock %}

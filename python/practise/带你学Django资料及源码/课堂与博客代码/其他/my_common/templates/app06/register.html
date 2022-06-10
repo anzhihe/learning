@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django form</title>
+</head>
+
+<style>
+    .pwd {
+        height: 100px;
+    }
+
+    span {
+        color: red;
+    }
+
+</style>
+<body>
+
+<form action="/app06/register/" method="post">
+
+    {% csrf_token %}
+    <div>
+        {{ registerform.user.label }}:{{ registerform.user }}
+        {% for err in obj_post.errors.user %}
+            <span>{{ err }}</span>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ registerform.phone.label }}:{{ registerform.phone }}
+
+        {% for err in obj_post.errors.phone %}
+            <span>{{ err }}</span>
+        {% endfor %}
+
+    </div>
+
+
+    <div>
+        {{ registerform.pwd.label }}:{{ registerform.pwd }}
+
+        {% for err in obj_post.errors.pwd %}
+            <span>{{ err }}</span>
+        {% endfor %}
+
+    </div>
+
+
+    <div>
+        {{ registerform.pwd1.label }}:{{ registerform.pwd1 }}
+
+        {% for err in obj_post.errors.pwd1 %}
+            <span>{{ err }}</span>
+        {% endfor %}
+
+    </div>
+
+
+    {% for err in obj_post.non_field_errors %}
+        <span>{{ err }}</span>
+    {% endfor %}
+
+    <input type="submit" value="提交">
+
+
+</form>
+
+</body>
+</html>

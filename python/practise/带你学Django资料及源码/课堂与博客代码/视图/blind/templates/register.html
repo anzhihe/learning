@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<span style="color: red">{{ error }}</span>
+<form action="/app/register/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    手机号：<input type="text" name="phone" placeholder="请输入手机号" maxlength="11" value="{{ phone }}"><br>
+    昵称：<input type="text" name="nickname" placeholder="请输入昵称" maxlength="11" value="{{ nickname }}"><br>
+    密码：<input type="password" name="pwd" placeholder="请输入密码" minlength="6" value="{{ pwd }}"><br>
+    重复密码：<input type="password" name="pwd1" placeholder="请输入密码" minlength="6" value="{{ pwd1 }}"><br>
+    性别：
+
+
+    <br>
+    {% if gender == '0' %}
+        男：<input type="radio" name="gender" value=0 checked><br>
+        女：<input type="radio" name="gender" value=1><br>
+    {% elif gender == '1' %}
+        男：<input type="radio" name="gender" value=0><br>
+        女：<input type="radio" name="gender" value=1 checked><br>
+    {% else %}
+        男：<input type="radio" name="gender" value=0><br>
+        女：<input type="radio" name="gender" value=1><br>
+    {% endif %}
+    爱好：<br>抽烟<input type="checkbox" name="hobby" value="抽烟"><br>
+    喝酒<input type="checkbox" name="hobby" value="喝酒"><br>
+    烫头<input type="checkbox" name="hobby" value="烫头"><br>
+
+    头像<input type="file" name="avator" value="file"><br>
+
+    <input type="submit" value="提交">
+
+
+</form>
+
+<a href="/app/login/">已有账号去登陆</a>
+
+
+</body>
+</html>

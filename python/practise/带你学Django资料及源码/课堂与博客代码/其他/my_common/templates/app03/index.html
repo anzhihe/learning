@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>富文本</title>
+
+</head>
+<body>
+
+{% for article in news %}
+    <h1>{{ article.title }}</h1>
+    {{ article.content|safe }}
+
+{% endfor %}
+
+
+</body>
+</html>

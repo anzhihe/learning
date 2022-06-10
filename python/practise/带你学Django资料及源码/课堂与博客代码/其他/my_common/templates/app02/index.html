@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分页</title>
+
+</head>
+<body>
+{#<ul>#}
+{##}
+{#    {% for cat in cats %}#}
+{#        <li>{{ cat.name }}</li>#}
+{#    {% endfor %}#}
+{#</ul>#}
+
+
+<ul>
+
+    {% for cat in cats.object_list %}
+        <li>{{ cat.name }}</li>
+    {% endfor %}
+</ul>
+{% include '_pagination.html' %}
+
+</body>
+</html>
