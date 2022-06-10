@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生页</title>
+</head>
+<body>
+
+<h1>学生列表</h1>
+
+<ul>
+
+    {% for stu in stus %}
+        <li>姓名:{{ stu.name }}---年龄:{{ stu.age }}---性别：{{ stu.get_gender_display }}</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

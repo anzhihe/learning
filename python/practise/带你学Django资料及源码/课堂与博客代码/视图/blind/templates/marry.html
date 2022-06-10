@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页 </title>
+</head>
+<body>
+{% if user %}
+    <h1>欢迎你：{{ user.nickname }}</h1>
+    <a href="/app/logout/">退出</a>
+{% else %}
+    <a href="/app/login/">登录</a>
+    <a href="/app/register/">注册</a>
+{% endif %}
+
+<h3>根据性别推荐</h3>
+<ul>
+    {% for user in all_users %}
+        <li><img
+                src="{{ MEDIA_URL }}{{ user.avator }}"
+                alt="" width="100px" height="100px">{{ user.nickname }}
+        </li>
+    {% endfor %}
+
+
+</ul>
+
+<h3>根据爱好推荐</h3>
+<ul>
+
+    {% for user in hobbys_users %}
+        <li><img
+                src="{{ MEDIA_URL }}{{ user.avator }}"
+                alt="" width="100px" height="100px">{{ user.nickname }}
+        </li>
+    {% endfor %}
+
+</ul>
+
+</body>
+</html>

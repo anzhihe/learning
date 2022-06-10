@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全文检索</title>
+
+</head>
+<style>
+    span.highlighted {
+        color: red;
+    }
+</style>
+<body>
+
+
+{% if query %}
+    {% load highlight %}
+
+    <ul class="list-pro" style="margin-top: 20px">
+        {% for result in page %}
+            <li>
+                <a href="{% url 'app08:detail' result.object.pk %}"></a>
+                <div class="shop-list-mid" style="width: 65%;">
+                    <div class="tit">
+                        <a href="{% url 'app08:detail' result.object.pk %}">
+                            {{ result.object.name }}
+                            <br>
+                            {% highlight result.object.content with query %}
+                        </a>
+                    </div>
+                </div>
+            </li>
+        {% empty %}
+            <li>没有找到您搜索的内容</li>
+        {% endfor %}
+
+    </ul>
+
+
+    {% if page.has_previous or page.has_next %}
+        <div>
+            {% if page.has_previous %}
+                <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; 上一页
+            {% if page.has_previous %}</a>{% endif %}
+            |
+            {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}下一页 &raquo;
+            {% if page.has_next %}</a>{% endif %}
+        </div>
+    {% endif %}
+{% else %}
+{% endif %}
+
+
+</body>
+</html>

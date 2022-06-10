@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<ul>
+
+    {% for comment in comments %}
+        <li>{{ comment.content|safe }}</li>
+
+    {% endfor %}
+
+</ul>
+<form action="/app02/add/" method="post">
+    {% csrf_token %}
+    <input type="text" name="content">
+    <input type="submit" value="提交">
+
+
+</form>
+
+
+
+</body>
+</html>

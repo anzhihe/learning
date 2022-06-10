@@ -1,0 +1,25 @@
+{% load i18n %}
+<div class="pagination">
+    {% if cats.has_previous %}
+        <a href="?{{ cats.previous_page_number.querystring }}"
+           class="prev">上一页</a>
+    {% else %}
+        <span class="disabled prev">上一页 </span>
+    {% endif %}
+    {% for page in cats.pages %}
+        {% if page %}
+            {% ifequal page cats.number %}
+                <span class="current page">{{ page }}</span>
+            {% else %}
+                <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+            {% endifequal %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+    {% if cats.has_next %}
+        <a href="?{{ cats.next_page_number.querystring }}" class="next">下一页</a>
+    {% else %}
+        <span class="disabled next">下一页</span>
+    {% endif %}
+</div>

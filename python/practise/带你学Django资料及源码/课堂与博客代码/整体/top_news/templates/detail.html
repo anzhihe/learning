@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ news.title }}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="center">
+    <h1>{{ news.title }}</h1>
+    <span>时间：{{ news.created_time }}</span>
+    <span>浏览量：{{ news.vnum }}</span>
+    <div>
+        <img src="{{ news.src }}" alt="">
+        <p>{{ news.content }}</p>
+    </div>
+
+</div>
+
+</body>
+</html>

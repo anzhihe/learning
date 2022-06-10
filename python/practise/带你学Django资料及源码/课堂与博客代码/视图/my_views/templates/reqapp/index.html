@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% if not user %}
+    <a href="/reqapp/login">登录</a>
+    <a href="/reqapp/register1/">注册</a>
+{% else %}
+    <span>欢迎您：{{ user.phone }}</span>
+    <a href="/reqapp/logout/">退出</a>
+{% endif %}
+
+<ul>
+    <li>今天好高兴</li>
+    <li>今天电脑崩溃了</li>
+    <li>我也崩溃了</li>
+</ul>
+
+</body>
+</html>

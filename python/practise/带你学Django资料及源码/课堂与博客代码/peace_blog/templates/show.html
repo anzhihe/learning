@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block title %}详情页{% endblock %}
+
+{% block  single %}single{% endblock %}
+{% block content %}
+    <section class="container">
+        <div class="content-wrap">
+            <div class="content">
+                <header class="article-header">
+                    <h1 class="article-title"><a href="#" title="{{ article.title }}">{{ article.title }}</a></h1>
+                    <div class="article-meta"> <span class="item article-meta-time">
+	                <time class="time" data-toggle="tooltip" data-placement="bottom" title=""
+                          data-original-title="发表时间：{{ article.created_time|date:'Y-m-d' }}"><i
+                            class="glyphicon glyphicon-time"></i> {{ article.created_time|date:'Y-m-d' }}</time>
+	            </span> <span class="item article-meta-source" data-toggle="tooltip" data-placement="bottom" title=""
+                              data-original-title="来源：{{ article.user.username }}"><i
+                            class="glyphicon glyphicon-globe"></i> {{ article.user.username }}</span> <span
+                            class="item article-meta-category" data-toggle="tooltip" data-placement="bottom" title=""
+                            data-original-title="{{ article.category.name }}"><i
+                            class="glyphicon glyphicon-list"></i> <a href="#"
+                                                                     title="{{ article.category.name }}">{{ article.category.name }}</a></span>
+                        <span class="item article-meta-views" data-toggle="tooltip" data-placement="bottom" title=""
+                              data-original-title="浏览量：{{ article.vnum }}"><i
+                                class="glyphicon glyphicon-eye-open"></i> {{ article.vnum }}</span>
+                        <span
+                                class="item article-meta-comment" data-toggle="tooltip" data-placement="bottom" title=""
+                                data-original-title="评论量"><i
+                                class="glyphicon glyphicon-comment"></i> {{ article.comment_set.count }}</span></div>
+                </header>
+                <article class="article-content">
+
+
+                    {{ article.content|safe }}
+                </article>
+                <div class="article-tags">标签：
+
+                    {% for tag in article.tag.all %}
+                        <a href="{% url 'blog:tag' id=tag.id %}" rel="tag">{{ tag.name }}</a>
+
+                    {% endfor %}
+                </div>
+                <div class="relates">
+                    <div class="title">
+                        <h3>相关推荐</h3>
+                    </div>
+                    <ul>
+                        {% for art in recommend_articles %}
+                            {% if art.id != article.id %}
+                                <li><a href="{% url 'blog:detail' id=art.id %}" title="">{{ art.title }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                    </ul>
+                </div>
+                <div class="title" id="comment">
+                    <h3>评论</h3>
+                </div>
+                <div id="respond">
+                    <form id="comment-form" name="comment-form" action="{% url 'blog:comment' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="comment">
+                            <div class="comment-box">
+                            <textarea placeholder="您的评论或留言（必填）" name="content" id="comment-textarea"
+                                      cols="100%" rows="3" tabindex="3">
+                                ¬
+                            </textarea>
+                                <div class="comment-ctrl">
+                                    <div class="comment-prompt" style="display: none;"><i
+                                            class="fa fa-spin fa-circle-o-notch"></i> <span class="comment-prompt-text">评论正在提交中...请稍后</span>
+                                    </div>
+                                    <div class="comment-success" style="display: none;"><i class="fa fa-check"></i>
+                                        <span
+                                                class="comment-prompt-text">评论提交成功...</span></div>
+                                    <input type="hidden" name="id" tabindex="4" value="{{ article.id }}"></input>
+                                    <input type="submit" name="comment-submit"
+                                           id="comment-submit" tabindex="4"></input>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div id="postcomments">
+                    <ol id="comment_list" class="commentlist">
+
+                        {% for comment in comments %}
+                            <li class="comment-content"><span class="comment-f">#{{ forloop.revcounter }}</span>
+                                <div class="comment-main"><p><a class="address" href="#" rel="nofollow"
+                                                                target="_blank">{{ comment.users.username }}</a><span
+                                        class="time">({{ comment.created_time|date:"Y/m/d h:m:s" }})</span><br>{{ comment.content }}
+                                </p></div>
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <aside class="sidebar">
+            <div class="fixed">
+                <div class="widget widget-tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#notice" aria-controls="notice" role="tab"
+                                                                  data-toggle="tab" draggable="false">统计信息</a></li>
+                        <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab"
+                                                   draggable="false">联系站长</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane contact active" id="notice">
+                            <h2>日志总数:
+                                {{ count }}篇
+                            </h2>
+                            <h2>网站运行:
+                                <span id="sitetime">88天 </span></h2>
+                        </div>
+                        <div role="tabpanel" class="tab-pane contact" id="contact">
+                            <h2>QQ:
+                                <a href="" target="_blank" rel="nofollow" data-toggle="tooltip" data-placement="bottom"
+                                   title="" draggable="false" data-original-title="QQ:"></a>
+                            </h2>
+                            <h2>Email:
+                                <a href="mailto:" target="_blank" data-toggle="tooltip" rel="nofollow"
+                                   data-placement="bottom" title="" draggable="false" data-original-title="Email:"></a>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget widget_search">
+                    <form class="navbar-form" action="{% url 'blog:search' %}" method="get">
+                        <div class="input-group">
+                            <input type="text" name="kw" class="form-control" size="35" placeholder="请输入关键字"
+                                   maxlength="15" autocomplete="off">
+                            <span class="input-group-btn">
+		<button class="btn btn-default btn-search" name="search" type="submit">搜索</button>
+		</span></div>
+                    </form>
+                </div>
+            </div>
+            <div class="widget widget_hot">
+                <h3>最新评论文章</h3>
+                <ul>
+
+                    {% for comment in new_comments %}
+                        <li><a title="{{ comment.article.title }}"
+                               href="{% url 'blog:detail' id=comment.article.id %}"><span class="thumbnail">
+				<img class="thumb"
+                     data-original="{{ MEDIA_URL }}{{ comment.article.cover }}"
+                        {{ MEDIA_URL }}{{ comment.article.cover }}
+                     alt="{{ comment.article.title }}" style="display: block;">
+			</span><span class="text">{{ comment.article.title }}</span><span class="muted"><i
+                                class="glyphicon glyphicon-time"></i>
+				{{ comment.article.created_time|date:"Y-m-d" }}
+			</span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i>{{ comment.article.vnum }}</span></a>
+                        </li>
+
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="widget widget_sentence">
+
+                <a href="#" target="_blank" rel="nofollow" title="MZ-NetBlog主题">
+                    <img style="width: 100%" src="/static/images/ad.jpg" alt="MZ-NetBlog主题"></a>
+
+            </div>
+            <div class="widget widget_sentence">
+
+                <a href="#" target="_blank" rel="nofollow" title="专业网站建设">
+                    <img style="width: 100%" src="/static/images/201610241224221511.jpg" alt="专业网站建设"></a>
+
+            </div>
+        </aside>
+    </section>
+    <script>
+
+        var sdate = new Date("2019-12-28");//开始日期
+        var edate = new Date();//结束日期
+        var days = edate.getTime() - sdate.getTime();//日期相差毫秒数
+        var time = parseInt(days / (1000 * 60 * 60 * 24));//毫秒数转天数
+        sitetime = window.document.getElementById("sitetime")
+        sitetime.innerHTML = time + "天"
+
+    </script>
+{% endblock %}
