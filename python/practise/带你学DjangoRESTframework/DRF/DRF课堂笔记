@@ -1,0 +1,359 @@
+
+不管遇到资料、学习问题，还是其他问题，我们都不要慌。
+加微信：496155678。找老司机帮忙
+
+基于Django基础的观看，Python基础、环境配置
+
+前后端不分离
+	耦合度比较高
+
+
+前后端分离  返回的数据Json数据或者xml
+	
+	后端提供接口、提供数据
+
+	前端调用接口、展示数据
+
+	耦合度比较低
+
+前后端分离有什么优势
+	
+	耦合度的问题
+
+		django ---->django模板语言
+
+		thinkphp---->php模板语言
+
+		django/springmvc ---- Json
+
+	多端使用
+
+	解决职责不清晰的一个问题
+
+	解决开发效率
+
+	提高前端程序员的能力
+
+
+	解决服务器压力
+
+缺点：
+		
+	前端程序员学习的东西增加
+
+	后端程序员需要一个详细文档
+
+	SEO
+
+
+
+前后端分离后端
+
+RESTful API
+
+	一、域名
+
+		https://api.xxx.com/
+
+		https://xxx.com/api
+	二、协议
+
+		推荐用HTTPS	
+
+
+	三、版本
+	
+		6.0版本 ----5000人
+
+		7.0版本 ----2500人
+
+
+		https://xxx.com/api/v1.0/
+			{
+			"name":"laowang"
+			}
+		https://xxx.com/api/v2.0/
+			{
+			"name":"laowang",
+			"age":12
+			}
+	四、路径
+	
+		推荐用名词+复数	
+
+		https://xxx.com/api/v2.0/apples/	
+		https://xxx.com/api/v2.0/students/
+
+	五、HTTP请求方法
+
+		对数据的元操作CRUD 
+
+			create
+			read
+			update
+			delete
+
+		GET----> 获取资源
+			https://xxx.com/api/v2.0/students/
+		POST----> 新增资源	
+			https://xxx.com/api/v2.0/students/
+		PUT----> 更新资源
+			{
+			"id":1
+			"name":"laowang",
+			"age":13
+			}
+			https://xxx.com/api/v2.0/students/1/
+		PATCH----> 部分更新
+			{
+			"id":1
+			"age":13
+			}
+			https://xxx.com/api/v2.0/students/1/
+
+		DELETE--->删除资源	
+			https://xxx.com/api/v2.0/students/1/	
+	六、过滤信息
+		https://xxx.com/api/v2.0/students/1/?page=2
+
+	七、状态码
+
+		
+
+
+	八、错误处理
+
+		移动端要求这样格式
+		{
+		"code":1
+		"msg":"xxxxx"
+		"data":{}
+
+		}
+
+	九、返回数据都是JSON	
+			
+
+用Django实现RESTful api
+
+
+Django REST framework =====》DRF
+
+	序列化
+
+		把模型数据转成可传输的数据叫序列化
+
+	反序列化
+
+		把可传输的数据转成模型数据叫反序列化
+
+
+	小组和学生之间 一对多
+
+
+	当我们反序列化的时候，会帮我们校验数据是否合法
+
+
+
+	当序列化的时候 如果是多个数据 需要加many=True,单个对象不需要。
+
+	当我们序列化的时候 ，要不用关键字instance，或者不用
+	当我们反序列化的时候 要用data关键字
+
+	当请求方法为PATCH 序列化需要加 partial=True 让支持增量更新
+
+	返回Json数据的content_type 一定是application/json
+
+	路由里面的参数跟视图里面的参数一定要一样，因为是关键字传参
+
+
+
+
+	如果属性需要自定义验证
+
+	vilidate_xxx(self,value)
+		return 一定要要有返回值
+
+	vilidate(self,attrs)
+		return attrs 一定要返回值	
+
+
+	如果想让字段不支持序列化、但是要支持反序列化
+
+	extra_kwargs = {
+            "pwd": {"write_only": True}
+        }
+
+
+    to_representation 决定每个字段的具体返回的格式
+
+    source 这可以自定义ChoiceDisplayField 让支持可读可写
+
+
+
+
+
+
+
+
+
+
+请求和响应
+	目前 用的django里面的request、也是django 里面的response、状态码也是
+
+
+	DRF里面的request是基于django里面的request封装
+
+
+
+	如果用装饰器 @api_view(['GET','POST'])
+	如果是类视图 就用APIView
+
+
+	如果通用类视图的ListCreateAPIView和RetrieveUpdateDestroyAPIView
+
+	然后我们只要提供序列化类和元数据就可以了
+
+ 
+认证 和权限
+
+
+	DRF默认认证是SessionAuthentication、BasicAuthentication
+
+	目前采用BasicAuthentication、通过浏览器传递账号密码，base64加密 ，认证成功后，返回一个元组
+	元组的第一个用户对象，赋值给request
+
+	我们重写perform_create 就可以从request拿到user
+
+	在序列化里面取当前用户
+	HiddenField  serializers.CurrentUserDefault
+
+
+
+	修改数据成功
+
+		不认证也能修改成功-----》permissions.IsAuthenticatedOrReadOnly 可以解决
+		其他人认证 ------》自定义权限IsOwnOrReadOnly 重写 has_object_permission
+
+
+		has_object_permission
+
+		has_permission
+
+
+	DRF默认认证是SessionAuthentication、BasicAuthentication  支持多个认证，取认证成功的那个认证方法		
+
+
+
+	Token 5010893a3fbfe7f259a6dd6e0606fba6155c0a12
+
+	JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InhpYW95dWFuIiwiZXhwIjoxNTgyMzc3NzkzLCJlbWFpbCI6InhpYW95dWFuQHFxLmNvbSJ9.O0c0KO5xvIrzRdmF5B28OuwN2v5bGghTXccrWscSpIM
+
+
+
+	无状态
+	解决csrf
+	比较适合移动
+
+	缺点就是token失效问题，可以把token放到redis中，当我们操作用户的，删除token
+
+
+节流
+	
+	3/min
+
+	{"127.0.0.1":["12.29.50","12.29.40","12.29.20"]}
+
+
+	12.30.10   访问记录大于3 访问不了
+
+
+	12.30.21   能访问
+	"127.0.0.1":["12.30.21","12.29.50","12.29.40"]}
+
+	12.30.42
+
+
+	我用代理池、多注册几个账号
+
+	
+版本	
+
+	class GameList(generics.ListCreateAPIView):
+    serializer_class = GameSerializer
+
+    def get_queryset(self):
+        if self.request.version == 'v1':
+            queryset = Game.objects.filter(status=1).all()
+        else:
+            queryset = Game.objects.filter(status=0).all()
+        return queryset
+	
+
+解析器：
+
+	请求头为application/x-www-form-urlencoded  需要解析器FormParser
+	请求头为application/json 需要解析器JSONParser
+
+
+	MultiPartParser 用来解析form-data
+
+
+ 	application/x-www-form-urlencoded 或 multipart/form-data时，request.POST中才有值
+
+ 	application/json  request.POST中没有值
+
+
+ModelViewSet
+
+	提供了更抽象的封装，我们实现CRUD只需要继承一个ModelViewSet就可以实现
+	路由
+game_list = views.GameViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+game_detail = views.GameViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+
+路由器
+
+	帮我们快速生成api
+
+文档
+	利用coreapi生成文档
+
+
+
+JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InhpYW95dWFuIiwiZXhwIjoxNTgyNDI0MDY5LCJlbWFpbCI6InhpYW95dWFuQHFxLmNvbSJ9.5rlTqyO-HsVt_15QPmFs538vzowTXwZych6hJN727LA
+
+
+
+过滤、排序、搜索 这些功能都可以通过get_queryset()来实现
+
+
+总结	
+	1、前后端分离、优点、需要学哪些知识
+	2、什么RESTful APi
+	3、DRF 好处
+	4、序列化 ***
+	5、视图@api_view([])和类视图(APIView)**
+	6、请求和响应、状态码
+	7、认证和权限 ****
+	8、JWT认证、好处、缺点 
+	9、节流
+	10、版本
+	11、分页
+	12、解析器
+	13、视图集
+	14、路由器
+	15、api文档
+	16、自定义异常
+	17、自定义响应
+	18、过滤、搜索、排序
+	19、接口后缀
+
