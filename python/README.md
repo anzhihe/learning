@@ -46,6 +46,7 @@ Python learning [**book**](/python/book) and source code
 - [PythonTab](https://www.pythontab.com/)
 - [Visualize Python](http://pythontutor.com/visualize.html#mode=edit)
 - [Code Examples](https://www.programcreek.com/)
+- [My Python Examples](https://github.com/geekcomputers/Python)
 - [curl syntax to Python](https://curl.trillworks.com/)
 - [debuggex](https://www.debuggex.com/)
 - [sql tool](https://tool.lu/sql/)
