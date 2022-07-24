@@ -1,0 +1,1137 @@
+
+在学习的过程中，如果遇到任何问题，不要慌。加微信：496155678，找老司机帮忙
+
+
+数据库：存放数据的仓库
+
+MySQL关系型数据库
+
+	库
+	表  
+
+	表和表之间可能会存在一定关系
+
+数据的元操作：CRUD
+
+	C:create----创建数据
+	R:retrieve/read ----获取数据\读取数据
+	U：update  ----更新数据
+	D：delete ----删除数据
+
+
+
+
+数据库名字一定要起的有意义
+
+
+计算机编码：
+	
+		ASCII ----> 1个字节
+
+		GBK -----> 1个字节
+
+		分手--->110---->和好
+
+		unicode 万国码  占内存
+
+		utf8 动态编码  1-4个字节  中文3字节
+
+create database 数据库名 charset=utf8;
+
+show databases;
+
+use 数据库名;
+
+drop database 数据库名;
+
+
+
+创建两个重要知识点
+
+	1、表中的字段 
+
+	2、表中可以一个扩展字段  可以存json
+
+
+表中一定要有个主键、自定义、不能重复
+
+表名 起的要有意义   tbl_xxxx /db_test_xxx
+
+网站用户
+	
+	用户名
+	年龄
+	性别
+	账号
+	密码
+	......
+
+
+create table users (
+	
+	id int not null primary key auto_increment,
+
+	name varchar(50) not null,
+
+	birth_date date,
+
+	phone varchar(11) not null unique
+	
+)engine = innodb default charset=utf8;
+
+
+float(5,2) ----> 9999.9   
+
+99.2 ---->到数据库存的值可能变成99.1 
+
+
+decimal(19,2)  插入数据库多少就是多少
+
+
+
+char(50)   存4个字符  占50个字符大小  查出来后面跟着空格 
+
+varchar(50) 存4个字符串  占4个字符大小，查出来也是4个字符
+
+text 大于4000个字符
+
+
+
+存储引擎：就是我们多数据增删改查的一种实现的技术方式
+
+
+数字类型能用最下 不用最大
+
+固定字符 能用char不用varchar 因为char的查询效率比varchar更高
+
+
+
+alter table users add age tinyint unsigned default 1;
+
+alter table users add user_desc varchar(50) default '哈哈';
+
+alter table users change user_desc userdesc varchar(50) default '哈哈';
+
+alter table users drop userdesc;
+
+当项目运行的时候，尽量不要修改字段 会引起一些麻烦。
+
+drop table users;
+
+
+插入
+
+	insert into users (name,birth_date,phone,age) values ("老王","1938-03-08","13812345678",82);
+
+	insert into users values (1000,"老宋","1958-03-08","13812345679",62);
+
+	insert into users values (0,"老张","1948-03-08","13812345689",72);
+
+	当全列插入的时候，我们一般选择主键用0代替
+
+
+	select * from users;
+
+
+
+	create table tbl_test(
+		id int not null primary key auto_increment,
+		price1 float(9,3) not null, 
+		price2 double(9,3) not null, 
+		price3 decimal(9,3) not null 	
+	)engine=innodb default charset=utf8;
+	  
+
+
+	insert into tbl_test values (0,123456.7,123456.7,123456.7)
+
+	对于精度要求特别准确的 用decimal 
+
+
+
+
+查询
+	
+	查询全部数据的全部字段
+	
+		select * from users;
+
+	查询全部数据的指定字段	
+
+		 select id,name from users;
+
+
+根据条件去查询
+		
+		比较运算符
+
+		查询id = 1的数据
+
+		select * from users where id = 1;
+
+		查询id > 1 的数据
+
+		select * from users where id > 1;
+
+		查询年龄<= 72的数据
+
+		select * from users where age <= 72;
+
+		查询名字不等于老宋的数据
+
+		select * from users where name != '老宋';
+
+
+		逻辑运算符
+
+		查询id=1并且年龄小于等于82
+		select * from users where id = 1 and age <= 82;
+
+
+		查询id=1或者年龄小于72的
+		select * from users where id = 1 or age < 72; 
+
+
+		select * from users where id > 1;
+
+
+		查询id不等于1的数据
+		select * from users where not id = 1;
+
+		查询名字不等于老王的数据
+		select * from users where not name = '老王';
+
+
+		范围查询
+
+		查询id为的1或者为1000的数据
+		select * from users where id in (1,1000);
+
+		select * from users where birth_date in ('1938-03-08','1948-03-08')
+
+
+		查询id在1-5之间的
+		select * from users where id between 1 and 5;
+
+		查询'1938-01-01' 到'1948-06-08'出生的人
+		select * from users where birth_date between '1938-01-01' and '1948-06-08';
+
+
+
+
+		null与''是不一样的
+
+		null  空值
+		''  有值 长度是0  空字符串
+
+
+		insert into users (name, birth_date, phone,age) values ('老赵',null,'13898765431',52);
+
+
+		空判断
+
+		查询生日是空值的数据
+		select * from users where birth_date  is null;
+
+		查询生日不是空值的数据
+
+		select * from users where birth_date  is not null;
+
+		查询生日是空字符串的数据
+		select * from users where birth_date  = '';
+
+
+		insert into users (name, birth_date, phone,age) values ('','1918-02-03','13898775431',43);
+
+
+		查询名字为空值的数据
+		select * from users where name is null;
+
+		查询名字为空字符串的数据
+		select * from users where name = '';
+
+
+		模糊查询
+
+		查询名字开头是老的数据
+		select * from users where name like '老%';
+
+		查询名字结尾是老的数据
+		select * from users where name like '%王';
+
+
+		查询名字任意地方包含老的数据
+		select * from users where name like '%老%';
+
+
+		查询名字任意地方不包含老的数据
+		select * from users where name not like '%老%';
+
+
+
+
+		select * from users where age <= 67 and name = '' or age = 82;
+
+
+		select * from users where age <= 67 or name = '' and age = 82;
+
+
+		select * from users where (age <= 67 or name = '') and age = 82;  
+
+
+		如果想让or先执行 需要加括号
+
+排序
+
+
+		
+		根据id进行倒序
+		select * from users order by id desc;
+
+
+		查询年龄大于等于72岁 然后在同个id倒序
+		select * from users where age >= 72 order by id desc;
+
+
+
+		insert into users (name, birth_date, phone,age) values ('老孙','1918-10-03','13798775431',43);
+
+
+
+		首先按照年龄降序，然后如果年龄一样，在按照主键降序
+
+		select * from users order by age desc,id desc;
+
+
+
+限制查询
+	
+		返回一条数据
+
+		select * from users limit 1;
+
+
+		select *  from users limit 2,3;
+
+		相当于
+
+		select *  from users limit 3 offset 2;
+
+
+		取最大年龄
+
+		select *  from users order by age desc limit 1;
+
+
+		取最小年龄
+
+		select *  from users order by age asc limit 1;
+
+
+
+		select *  from users order by age asc,id asc limit 1;
+
+
+		有坑问题
+		https://www.cnblogs.com/cjsblog/p/10874938.html
+
+		“在MySQL 5.6的版本上，优化器在遇到order by limit语句的时候，做了一个优化，即使用了priority queue。……
+		使用 priority queue 的目的，就是在不能使用索引有序性的时候，如果要排序，并且使用了limit
+		n，那么只需要在排序的过程中，保留n条记录即可，这样虽然不能解决所有记录都需要排序的开销，但是只需要 sort buffer
+		少量的内存就可以完成排序。
+
+		之所以5.6出现了第二页数据重复的问题，是因为 priority queue使用了堆排序的排序方法，而堆排序是一个不稳定的排序方法，也就是相同的值可能排序出来的结果和读出来的数据顺序不一致。
+
+		5.5 没有这个优化，所以也就不会出现这个问题。
+
+		也就是说，mysql5.5是不存在本文提到的问题的，5.6版本之后才出现了这种情况。
+
+
+
+		select * from users limit(page-1)*pagesize,pangsize
+
+
+		一页一条数据
+
+		第一页
+		select * from users limit 0,1；
+
+		第二页
+		select * from users limit 1,1;
+
+		第三页
+		select * from users limit 2,1;
+
+
+去重
+
+		select distinct age from users;
+
+		select distinct id,age from users;
+
+		select distinct * from users;
+
+		distinct只能返回目标，不能返回全字段
+
+更新
+		
+		单个字段更新
+		update users  set name = '老王' where id = 1003;
+
+
+		多个字段更新
+		update  users set phone = '15112345678',age = 78 where name = '老孙'
+
+
+		只要符合条件的数据 都会更新
+		update users set age = 99 where name = '老王';
+
+
+
+
+
+聚合
+
+		select count(*) from users; 		
+
+
+		select count(*) as count from users; # 起个别名
+
+
+		select count(name) from users;
+		
+
+		select max(age) from users;
+
+
+		select min(age) from users;
+
+		select min(id) from users;
+
+
+		select sum(age) from users;
+
+
+		select avg(age) from users;
+
+
+分组
+
+		select name,count(*) from users group by name;
+
+		select name,count(*) as count from users group by name;
+
+
+
+
+		where 分组前过滤数据
+
+		select name,count(*) as count from users where id > 1001 group by name ;
+
+
+		having 分组后过滤数据
+
+		select name,count(*) as count from users group by name having count >= 2;
+
+
+
+
+		select age,count(*) as count from users where id != 1000 group by age having count != 2 order by age desc limit 2;
+		
+
+		where 
+
+		group by
+
+		having 
+
+		order by
+
+		limit
+
+
+		select * from users\G; 竖着展示数据 后面会有用
+
+
+删除
+
+		delete from users where id = 1;
+
+
+		delete from users;清空表数据
+
+
+		truncate table users ;
+
+删除表和库
+
+		drop table users;
+
+		drop database db_test;	
+
+
+三范式
+
+	第三范式依赖第二范式
+	第二方式依赖第一范式
+
+
+	第一范式：列不可拆分
+
+	
+		电商系统
+			姓名：王富贵
+
+		公安局系统：
+			姓：王
+			名：富贵
+
+	第二范式：依赖主键	 唯一性
+
+		我们可以通过唯一的主键找到这条唯一数据
+
+	第三范式：引用主键
+
+
+		订单表
+
+			多存了一份用户信息
+
+		用户表	
+
+
+
+表关系
+
+一对一
+
+	用户表
+	id  名字  年龄 性别  		
+
+	1   老王  12   男    
+     
+    2   老宋  13   女   
+	
+	
+	用户信息表
+
+	id  是否结婚  民族  用户
+
+	1   否      汉     1
+
+	2   是      汉     2
+
+
+一对多
+
+	班级表
+
+	id  name 
+
+	1   10班
+
+	2   20班
+
+	学生表
+
+	id   name  班级
+
+	1    老王   1
+
+	2    老宋   1
+
+	3    老赵   2
+
+	一个班级有个多个学生
+
+
+	科技分类--->多篇科技新闻
+
+
+多对多
+
+
+	标签：一个标签对应多篇文章
+
+
+	文章：一篇文章有个多个标签
+
+
+	学生：一个学生可以选多门课
+
+
+	课程：一门课被多个学生选
+
+
+	学生表：
+
+	id  name
+
+	1   laowang
+
+	2   laosong
+
+
+	课程表
+
+	id  name
+
+	1   语文
+
+	2   数学
+
+	3   英语
+
+	学生课程表(中间表)
+
+	id  学生  课程
+ 
+	1   1     1
+	2   1     2
+	3   1     3
+	4   2     1
+	5   2     2
+
+ 
+自关联
+
+省市区
+
+	省表
+
+	ID  name
+	1   黑龙江
+
+	市表 
+
+	id  name   省  
+	1   哈尔滨市 1
+
+
+	区表
+
+	ID name  市
+
+	1  南岗区  1
+
+
+	地区表
+
+	id name   父亲
+
+	1  黑龙江  Null
+
+	2  哈尔滨市  1
+
+	3  南岗区    2
+
+	4  广东    Null
+
+	5  白山市   4
+
+	6  xxx区    5   
+
+
+
+
+创建班级表
+
+	create table  tbl_classes (
+
+	id int not null primary key auto_increment, 
+	
+	name varchar(20) not null		
+
+	)engine = innodb default charset=utf8;
+
+创建学生表
+
+create table tbl_students (
+	id int not null primary key auto_increment,
+	name varchar(50) not null,
+	gender varchar(1) not null,
+	age int(11) not null,
+	cls_id int(11)
+)engine = innodb default charset=utf8;
+
+	
+	连接查询
+
+
+
+		内连接
+
+
+		select * from tbl_students inner join tbl_classes on tbl_students.cls_id = tbl_classes.id;
+
+
+		select * from tbl_students as s inner join tbl_classes as c on s.cls_id = c.id;
+
+
+		select s.id,s.name,s.gender,s.age,c.name from tbl_students as s inner join tbl_classes as c on s.cls_id = c.id;
+
+		select s.*,c.name from tbl_students as s inner join tbl_classes as c on s.cls_id = c.id;
+
+
+		select c.name,s.* from tbl_students as s inner join tbl_classes as c on s.cls_id = c.id;
+
+		select c.name,s.* from tbl_students as s inner join tbl_classes as c on s.cls_id = c.id order by s.age desc;
+
+		select * from tbl_classes inner join tbl_students on tbl_classes.id = tbl_students.cls_id;
+
+
+
+		
+	
+	左连接  以左表为准
+
+	select * from tbl_classes as c left join tbl_students as s on s.cls_id  = c.id;
+
+
+	select * from tbl_students as s left join tbl_classes as c on s.cls_id  = c.id;
+
+	
+	右连接  以右表为准
+
+	select * from tbl_classes as c right join tbl_students as s on s.cls_id  = c.id;
+
+
+	select * from tbl_students as s right join tbl_classes as c on s.cls_id  = c.id;
+
+
+
+	过滤
+
+	select * from tbl_students as s left join tbl_classes as c on s.cls_id  = c.id having c.name is null;
+
+
+
+	创建表的时候就添加外键约束
+	create table tbl_students (
+	id int not null primary key auto_increment,
+	name varchar(50) not null,
+	gender varchar(1) not null,
+	age int(11) not null,
+	cls_id int(11),
+	constraint stu_cls foreign key(cls_id) references tbl_classes(id)
+)engine = innodb default charset=utf8;
+
+	
+	
+	通过更新的方式把字段改成外键约束
+	alter table tbl_students add constraint stu_cls foreign key(cls_id) references tbl_classes(id);
+
+
+	insert into tbl_classes values (0,"精英4班");
+	insert into tbl_classes values (0,"精英5班");
+
+
+
+
+	create table tbl_students (
+	
+	id int not null primary key auto_increment,
+
+	name varchar(50) not null,
+
+	gender varchar(1) not null,
+
+	age int(11) not null,
+
+	cls_id int(11),
+
+	constraint stu_cls foreign key(cls_id) references tbl_classes(id) on delete cascade
+	
+)engine = innodb default charset=utf8;
+
+
+	# 删除外键
+	alter table tbl_students drop foreign key stu_cls;
+
+	# 更新外键删除模式
+	alter table tbl_students add constraint stu_cls foreign key(cls_id) references tbl_classes(id) on delete cascade;
+
+
+	
+
+	学生表
+
+	ID   name
+
+	1    小红
+
+	2    小蓝
+
+
+	科目表
+
+	ID  name
+
+	1   数学
+
+	2   语文
+
+
+	分数表
+
+	ID  score  sub_id stu_id
+
+	1    90      1      1
+
+	2    80      2       1
+
+	3    70      2       2
+
+	4    90      1       2
+
+
+
+	create table tbl_stu (
+id int not null primary key auto_increment,
+name varchar(45) not null 
+)engine=innodb default charset=utf8;
+
+
+	create table tbl_sub (
+id int not null primary key auto_increment,
+subject varchar(45) not null 
+)engine=innodb default charset=utf8;
+
+
+
+create table tbl_scores(
+id int not null primary key auto_increment,
+stu_id int,
+sub_id int,
+score decimal(5,2),
+constraint sco_stu foreign key(stu_id) references tbl_stu(id),
+constraint sco_sub foreign key(sub_id) references tbl_sub(id)
+);
+
+
+查出全部数据
+select s3.name,s2.subject,s1.score from tbl_scores as s1
+
+inner join tbl_sub as s2 on s1.sub_id = s2.id
+
+inner join tbl_stu as s3 on s1.stu_id = s3.id;
+
+
+取平均分
+
+select s3.name,avg(s1.score) as score from tbl_scores as s1
+
+inner join tbl_stu as s3 on s1.stu_id = s3.id
+
+group by s3.name;
+
+
+排行榜
+
+select s3.name,sum(s1.score) as score from tbl_scores as s1
+
+inner join tbl_stu as s3 on s1.stu_id = s3.id
+
+group by s3.name order by score desc;
+
+
+学生
+	id name  
+
+	1   小红   
+	2   小蓝
+
+课程
+
+	id name  
+
+	1  数学    
+	2  语文
+	3  英文
+
+中间表
+
+
+	id stu_id cour_id
+
+	1    1        1
+	2    1        2
+
+	3    2        1
+
+
+学生表
+	create table students (id int not null primary key auto_increment,name varchar(45) not null )engine=innodb default charset=utf8;
+
+
+课程表
+
+	create table courses (
+	id int not null primary key auto_increment,
+name varchar(45) not null 
+)engine=innodb default charset=utf8;
+
+
+中间表
+
+	create table stu_cour (
+id int not null primary key auto_increment,
+course_id int not null,
+stu_id int not null,
+constraint cour foreign key(course_id) references courses(id),
+constraint stu foreign key(stu_id) references students(id)
+)engine=innodb default charset=utf8;
+
+
+查询id = 1的学生选择了那些课
+
+
+1、查询课选择的一个情况
+
+
+select * from courses as c
+
+inner join stu_cour as sc on sc.course_id = c.id
+
+inner join students as s on s.id = 1 and s.id = sc.stu_id ; 
+
+
+select s.id,s.name,c.name from courses as c
+
+inner join stu_cour as sc on sc.course_id = c.id
+
+inner join students as s on s.id = 1 and s.id = sc.stu_id ; 
+
+
+查询 id = 1的课程被哪些学生了
+
+select * from students as s
+
+inner join stu_cour as sc on sc.stu_id = s.id
+
+inner join courses  as c  on c.id = 1 and c.id= sc.course_id;
+
+
+
+
+select s.id,s.name,c.name from students as s
+
+inner join stu_cour as sc on sc.stu_id = s.id
+
+inner join courses  as c  on c.id = 1 and c.id= sc.course_id;
+
+
+
+一对一
+
+用户表
+id  name  phone  gender  
+
+
+地址表
+
+id  address  user_id
+
+
+
+
+用户表
+
+id  name
+
+token表
+
+id  token  user_id
+
+
+CREATE TABLE users (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE users_info (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    age int NOT NULL,
+    phone varchar(11) NOT NULL,
+  	user_id int not null,
+  	constraint user_info foreign key(user_id) references users(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+select * from users;
+
+select * from users inner join users_info as ui on ui.user_id = users.id  ;
+
+
+自关联
+
+
+ID name parent
+
+1  黑龙江  null
+
+2  哈尔滨市  1
+
+3  呼兰区    2
+
+4   北京    null
+
+5   北京     5
+
+6  朝阳区    5
+
+
+create table areas (
+	id int not null primary key auto_increment,
+	name varchar(100) not null,
+	parent_id int,
+	constraint parent foreign key (parent_id) references areas(id)	
+)engine = innodb default charset=utf8;
+
+
+导入数据
+
+source  xxxxx/area.sql
+
+查询黑龙江省所有的市
+
+select * from areas as c
+
+inner join areas as p on c.parent_id = p.id
+
+where p.name = '黑龙江省'; 
+
+查询广州市下所有的区县
+
+select * from  areas as dis 
+
+inner join areas as city on city.id = dis.parent_id
+
+left join areas as dis1 on dis.id =  dis1.parent_id
+							
+where city.name = '广州市';
+
+
+
+子查询
+
+select max(age) from tbl_students;
+
+select * from tbl_students where age = 15;
+
+
+select * from tbl_students where age = (select max(age) from tbl_students);
+
+
+ 
+select * from areas where parent_id = (select id from areas where name ="黑龙江省");
+
+
+
+SQL如何优化
+
+
+视图就是对复杂的SQL语句的一种封装
+
+
+
+select s.*,c.name from tbl_students as s inner join tbl_classes as c on s.cls_id = c.id;
+
+创建视图(不能重复字段)
+create view v_stu_cls  as select s.name as s_name,c.name as c_name from tbl_students as s inner join tbl_classes as c on s.cls_id = c.id;
+
+
+select * from v_stu_cls;
+
+
+更新视图
+alter view v_stu_cls as select s.name as s_name,c.name as c_name from tbl_students as s inner join tbl_classes as c on s.cls_id = c.id where s.id > 3;
+
+删除视图
+
+drop view v_stu_cls;
+
+
+事务（ACID）
+
+为了解决数据的一致性
+
+
+原子性：要不成功，要不失败
+
+一致性：其他人看到数据的状态，要不是执行之前，要不是执行之后
+
+隔离性：A客户端开启了事务要id=11的那行数据， B客户端增删改表中的id=11那一行数据,B只能等着。等到超时或者A客户端提交事务
+
+持久性：改完数据，会永久性保存到数据库当中
+
+
+		
+create table tbl_money (
+	id int not null primary key auto_increment,
+
+	money int not null
+	
+);
+
+
+
+
+insert into tbl_money values (0,100),(0,200),(0,300);
+
+
+begin;
+
+update tbl_money set money = money - 100 where id = 1;
+
+update tbl_money set money =  money + 100 where id = 2;
+
+commit;
+
+update tbl_money set money = money + 100 where id = 1;
+
+
+
+
+update tbl_money set money = money - 100 where id = 1;
+
+
+source ...../sql   导入数据
+
+
+索引就是一列或者多列排序的一种数据结构
+
+索引的好处 快速检索到我们要找的数据
+
+
+索引只能提高检索速度
+	
+create table test_index(
+
+	id int not null primary key auto_increment,
+
+	name varchar(10) not null
+)
+
+
+create index name_index on test_index(name(10));
+
+
+show index from test_index；
+
+
+drop index name_index on test_index;
+
+
+
+
+
+mysqldump -uroot -p db_test > /Users/liyang/Desktop/backup.sql
+
+
+mysqldump -uroot -p db_test tbl_stu > /Users/liyang/Desktop/backup.sql
+
+
+	
+
