@@ -1,0 +1,73 @@
+### 多对多
+
+- 学生表
+
+```sql
+create table students (
+	id int not null primary key auto_increment,
+	name varchar(45) not null 
+)engine=innodb default charset=utf8;
+```
+
+- 课程表
+
+```
+create table courses (
+	id int not null primary key auto_increment,
+	name varchar(45) not null 
+)engine=innodb default charset=utf8;
+```
+
+- 中间表
+
+```sql
+create table stu_cour (
+	id int not null primary key auto_increment,
+	course_id int not null,
+	stu_id int not null,
+	constraint cour foreign key(course_id) references courses(id),
+	constraint stu foreign key(stu_id) references students(id)
+)engine=innodb default charset=utf8;
+```
+
+### 插入数据
+
+```
+insert into students values (0,"小王");
+insert into students values (0,"小宋");
+insert into students values (0,"小李");
+
+
+insert into courses values (0,"语文");
+insert into courses values (0,"数学");
+insert into courses values (0,"英语");
+
+
+insert into stu_cour values (0,1,1);
+insert into stu_cour values (0,1,2);
+insert into stu_cour values (0,1,3);
+insert into stu_cour values (0,2,1);
+insert into stu_cour values (0,2,3);
+insert into stu_cour values (0,3,2);
+insert into stu_cour values (0,3,3);
+```
+
+查询学生1选了哪些科目
+
+```sql
+SELECT courses.id,courses.name FROM courses 
+INNER JOIN stu_cour ON stu_cour.course_id=courses.id
+INNER JOIN students ON students.id= 1 and students.id = stu_cour.stu_id;
+```
+
+![](https://tva1.sinaimg.cn/large/00831rSTly1gdcbl6rgm6j31z40b6abj.jpg)
+
+查询id=2数学被谁选了
+
+```sql
+SELECT students.name FROM students 
+INNER JOIN stu_cour ON stu_cour.stu_id =students.id
+INNER JOIN courses ON courses.id= 2 and stu_cour.course_id = courses.id;
+```
+
+![](https://tva1.sinaimg.cn/large/00831rSTly1gdcblzr8inj31ym0a8dh3.jpg)
