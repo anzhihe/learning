@@ -1,0 +1,397 @@
+<!-- 引入页面模板 -->
+{% extends 'layout/base_page.html' %}
+
+{% load static %}
+<!-- 设置标题 -->
+{% block title %}
+    学生照片
+{% endblock %}
+
+<!-- 添加页面CSS -->
+{% block css %}
+    <style>
+        .layui-form .layui-form-label {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .layui-form-select dl {
+            max-height: 160px;
+        }
+
+        .contentArea i:hover {
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+
+{% endblock %}
+
+<!-- 添加页面内容 -->
+{% block content %}
+    <!-- 内容01：面包屑导航 -->
+     <span class="layui-breadcrumb">
+      <a href="javascript:;">首页</a>
+      <a href="javascript:;">学生管理</a>
+      <a><b>学生照片</b></a>
+    </span>
+    <!-- 内容02：查询区域 -->
+    <div class="queryArea" style="margin-top: 20px;">
+        <form class="layui-form" id="queryForm">
+            {% csrf_token %}
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="q_input"><b>查询条件：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="q_input" id="q_input" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="q_start"><b>开始时间：</b></label>
+                    <div class="layui-input-inline">
+                        <!-- input type="text" name="q_faculty" id="q_faculty" class="layui-input" -->
+                        <input type="text" name="q_start" id="q_start" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="q_end"><b>结束时间：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="q_end" id="q_end" class="layui-input">
+                    </div>
+                </div>
+
+
+                <div class="layui-inline">
+                    <button type="button" id="btnQuery" class="layui-btn">
+                        <i class="fa fa-search" aria-hidden="true"></i>&nbsp;查询
+                    </button>
+                    <button type="button" id="btnAll" class="layui-btn">
+                        <i class="fa fa-bars" aria-hidden="true"></i>&nbsp; 全部
+                    </button>
+                    <button type="button" id="btnUpload" class="layui-btn">
+                        <i class="fa fa-upload" aria-hidden="true"></i>&nbsp; 上传
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+    <!-- 内容03：图片内容区域 -->
+    <div class="contentArea"></div>
+
+    <!-- 内容04： 分页-->
+    <div id="pageArea" style="clear: both"></div>
+
+{% endblock %}
+
+
+<!-- 添加JS -->
+{% block js %}
+    <script>
+
+        // 入口函数
+        $(function () {
+
+            // === 页面初始化 ===
+            initPage();
+            // === 获取数据===
+            loadData();
+            // === 文件的上传 ===
+            uploadFile();
+            // === 按钮点击事件 ====
+            buttonClick();
+
+        });
+
+        // ========== 页面初始化的具体实现 ============
+        function initPage() {
+            layui.use(['laydate', 'form'], function () {
+                let form = layui.form;
+                let laydate1 = layui.laydate;
+                let laydate2 = layui.laydate;
+
+                // 渲染日期
+                laydate1.render({
+                    elem: '#q_start',
+                });
+                laydate2.render({
+                    elem: '#q_end',
+                })
+            })
+        }
+
+        // ========== 实现文件的上传 =================
+        function uploadFile() {
+            layui.use(['upload', 'layer'], function () {
+                let upload = layui.upload;
+                let layer = layui.layer;
+
+                upload.render({
+                    elem: '#btnUpload'
+                    , url: "{% url 'student_image_upload' %}"
+                    , method: 'post'
+                    , data: {
+                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                    }
+                    , size: 10240     // 上传文件最大的限制, 单位：kB
+                    , auto: true     // 自动上传
+                    , accept: 'file'  // 可以支持所有的文件
+                    , exts: 'jpg|png|jpeg'     // 上传文件可接受的后缀名
+
+                    // ======= 三个回调函数=======
+                    , before: function (obj) {
+                        // === 选择文件在上传前的回调 ====
+                        layer.load(); //上传loading
+                    }
+                    , done: function (res, index, upload) {
+                        // === 上传成功后的回调 ====
+                        layer.closeAll('loading'); //关闭loading
+                        // 根据返回值判断
+                        if (res.status) {
+                            layer.msg("照片上传完成！");
+                            location.reload();
+                        } else {
+                            layer.msg(res.error, {
+                                icon: 2,
+                                area: ['400px', '200px'],
+                                time: -1,
+                                btn: ['关闭']
+                            })
+                        }
+
+                    }
+                    , error: function (index, upload) {
+                        // === 上传时前端出现问题 ====
+                        layer.closeAll('loading'); //关闭loading
+                    }
+                })
+            })
+        }
+
+        // ========== 获取图片并展示图片 =============
+        function loadData() {
+            // Ajax请求
+            $.ajax({
+                url: "{% url 'list_student_image' %}",
+                method: 'post',
+                data: {
+                    q_str: $('#q_input').val(),
+                    q_start: $('#q_start').val(),
+                    q_end: $('#q_end').val(),
+                    page: 1,
+                    limit: 18,
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                dataType: 'json',
+                success: function (res) {
+                    // 加载数据
+                    //buildImagePage(res.data);
+                    loadDataPages(res)
+
+                }
+            })
+        }
+
+        // =========== 使用分页展示数据==============
+        function loadDataPages(value) {
+            layui.use(['laypage'], function () {
+                let laypage = layui.laypage;
+
+                laypage.render({
+                    elem: 'pageArea'
+                    , count: value.count  // 当前数据的总量
+                    , page: 1
+                    , limit: 18
+                    , limits: [6, 12, 18, 24, 30, 36]
+                    , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                    , jump: function (obj) {
+
+
+                        $.ajax({
+                            url: "{% url 'list_student_image' %}",
+                            method: 'post',
+                            data: {
+                                q_str: $('#q_input').val(),
+                                q_start: $('#q_start').val(),
+                                q_end: $('#q_end').val(),
+                                page: obj.curr,
+                                limit: obj.limit,
+                                csrfmiddlewaretoken: "{{ csrf_token }}"
+                            },
+                            dataType: 'json',
+                            success: function (res) {
+                                 buildImagePage(res.data);
+                            }
+                        })
+                    }
+                });
+            })
+        }
+
+        // ========== 按钮的点击事件 ================
+        function buttonClick() {
+            // === 查询====
+            $('#btnQuery').on('click', function () {
+                loadData();
+            });
+
+            // ==== 显示全部===
+            $('#btnAll').on('click', function () {
+                // === 清空查询条件===
+                $('#q_str').val("");
+                $('#q_start').val("");
+                $('#q_end').val("");
+
+                loadData();
+            })
+        }
+
+
+        // ======= 构建交接单的前段展示 ==========
+        function buildImagePage(data) {
+            // == 获取父容器 ==
+            let parentContainer = $('.contentArea');
+            // == 清空所有的所货单 ==
+            parentContainer.html("");
+            // 循环遍历
+            $.each(data, (index, value) => {
+                // 新建顶层div
+                let topContainer = $('<div>').attr({
+                    'class': 'layui-col-xs6 layui-col-sm6 layui-col-md4 layui-col-lg2',
+                    'style': 'margin-bottom: 20px;'
+                }).appendTo(parentContainer);
+
+                // 新建居中的容器
+                let centerTopContainer = $('<div>').attr({
+                    'style': "width: 80%; height: 210px;margin: auto;font-size:18px; text-align:center;color:white"
+                }).appendTo(topContainer);
+                //新建img 标签并加载顶层div
+                let imgContent = $('<img>').attr({
+                    'src': value.url,
+                    'alt': '图片',
+                    'title': value.remark,
+                    'style': "width: 100%;height: 190px;border: 1px #009688 solid;box-sizing:border-box; ",
+                    'onclick': 'previewImg(this)'
+                }).appendTo(centerTopContainer);
+
+                let bottomArea = $('<div>').attr({'style': 'width:100%;height:20px;background-color:#009688'}).appendTo(centerTopContainer);
+                $('<div>').attr({
+                    'style': "width:75%; height:100%;float:left;font-size:14px;text-align:left;",
+                    'class': 'left'
+                }).html("&nbsp&nbsp上传日期:" + value.date).appendTo(bottomArea);
+                $('<div>').attr({
+                    'style': "width:25%; height:100%; float:left;",
+                    'class': 'right',
+                }).html("<i id='btnEdit' name='" + value.id + "' + tag='" + value.remark + "' class='fa fa-edit' aria-hidden='true' style='font-size:14px;text-align:right'" +
+                    " onclick='editValue(this)'></i>  &nbsp&nbsp" +
+                    "<i id='btnDel' name='" + value.id + "'class='fa fa-trash' aria-hidden='true' style='font-size:14px;text-align:right'" +
+                    " onclick='deleteValue(this)'></i>").appendTo(bottomArea)
+
+                // 附加到父容器
+
+            });
+        }
+
+        // ======= 在弹出层显示图片 ========
+        function previewImg(obj) {
+            var img = new Image();
+            img.src = obj.src;
+
+            var height = img.naturalHeight + 50; // 原图片大小
+            var width = img.naturalWidth; //原图片大小
+            var imgHtml = "<img src=" + obj.src + " style='width:" + width + "height:" + height + "'/>";
+            //弹出层
+            layer.open({
+                type: 1,
+                shade: 0.8,
+                offset: 'auto',
+                area: 'auto',
+                //area: [width.toString() + 'px', height.toString() + 'px'],// [500 + 'px',550+'px'],  //  //原图显示
+                maxWidth: '1000px',
+                maxHeight: '700px',
+                shadeClose: true,
+                scrollbar: true,
+                title: "<b style='color:navy'>【图片预览】</b>", //不显示标题
+                content: imgHtml, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                cancel: function () {
+                    //layer.msg('捕获就是从页面已经存在的元素上，包裹layer的结构', { time: 5000, icon: 6 });
+                }
+            });
+        }
+
+        // ======= 编辑按钮 ==============
+        function editValue(obj) {
+            // 获取当前图片的id
+            let id = $(obj).attr('name');
+            let remark = $(obj).attr('tag');
+            // 弹出层
+            layui.use('layer', function () {
+                layer.prompt({
+                    title: "输入图片的标注，然后确定",
+                    value: remark,
+                    area: ['500px', '200px'],
+                    formType: 0,
+                }, function (value, index, elem) {
+
+                    // 后台的修改
+                    $.ajax({
+                        url: "{% url 'edit_student_image' %}",
+                        method: 'post',
+                        data: {
+                            id: id,
+                            remark: value,
+                            csrfmiddlewaretoken: "{{ csrf_token }}"
+                        },
+                        success: function (res) {
+                            if (res.status) {
+                                layer.msg("照片标注添加成功！")
+                                layer.close(index)
+                            }
+                        }
+                    })
+
+                })
+            })
+        }
+
+        //======== 删除按钮 ===========
+        function deleteValue(obj) {
+            // 获取id
+            id = $(obj).attr('name');
+            // 确认删除
+            layui.layer.confirm("确认要删除当前图片吗？", {
+                icon: 1,
+                area: ['400px', '200px'],
+                btn: ['确定', '关闭']
+
+            }, function (index) {
+                // 点击确认之后的操作
+                $.ajax({
+                    url: "{% url 'del_student_image' %}",
+                    method: 'post',
+                    data: {
+                        id: id,
+                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                    },
+                    success: function (res) {
+                        if (res.status) {
+                            layui.layer.msg("照片删除成功！");
+                            layui.layer.close(index);
+                            location.reload();
+                        } else {
+                            layui.layer.msg(res.error, {
+                                icon: 2,
+                                area: ['400px', '200px'],
+                                time: -1,
+                                btn: ['关闭']
+                            })
+                        }
+                    }
+                })
+            })
+
+        }
+    </script>
+{% endblock %}

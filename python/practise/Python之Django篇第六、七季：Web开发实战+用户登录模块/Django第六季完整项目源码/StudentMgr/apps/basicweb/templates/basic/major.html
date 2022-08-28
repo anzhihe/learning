@@ -1,0 +1,308 @@
+<!-- 引入页面模板 -->
+{% extends 'basic/layout/basic_base_page.html' %}
+
+<!-- 修改标题 -->
+{% block title %}
+    专业管理
+{% endblock %}
+
+<!-- 添加当前页面的CSS样式 -->
+{% block css %}
+
+{% endblock %}
+
+<!-- 添加面包屑导航的名称 -->
+{% block breadcrumb %}
+    专业管理
+{% endblock %}
+
+
+<!--  添加当前页面的内容 -->
+{% block content %}
+    <!-- 内容03：表格 -->
+    <table class="layui-hide" id="tableArea" lay-filter="tableDemo"></table>
+
+    <!-- 内容04：表格中的按钮 -->
+    <script type="text/html" id="tableButton">
+        <a id="btnEdit" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">
+            <i class="fa fa-edit" aria-hidden="true"></i> &nbsp;编辑
+        </a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+            <i class="fa fa-trash" aria-hidden="true"></i>&nbsp; 删除
+        </a>
+    </script>
+
+    <!-- 内容05： 弹出层的内容-->
+    <div id="layerContent" style="display: none; padding: 30px 40px 0 0;">
+        <form class="layui-form" id="layerForm" lay-filter="layerForm">
+            {% csrf_token %}
+            <div class="layui-form-item">
+                <label class="layui-form-label" for="faculty"><b>院系名称：</b></label>
+                <div class="layui-input-block">
+                    <!-- input type="text" id="faculty" name="faculty" class="layui-input" -->
+                    <select id="faculty" name="faculty" lay-search="">
+
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item" style="display: none;">
+                <label class="layui-form-label" for="major_id"><b>专业编号：</b></label>
+                <div class="layui-input-block">
+                    <input type="text" id="major_id" name="major_id" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" for="major"><b>专业名称：</b></label>
+                <div class="layui-input-block">
+                    <input type="text" id="major" name="major" class="layui-input">
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}
+
+<!--  添加当前页面的JS文件 -->
+{% block js %}
+    <script>
+        // 定义一个全局变量，用来标识是添加还是修改  1-添加 2-修改
+        let Operation = 0;
+        // 入口函数
+        $(function () {
+            // ==== 初识化表格 ====
+            initTable();
+            // ==== 响应按钮点击事件 ====
+            buttonClick();
+        });
+
+        // ============== 初始化表格 ==============
+        function initTable(queryStr = "") {
+            // 使用Layui table插件
+            layui.use('table', function () {
+                // 实例化一个表格对象
+                let table = layui.table;
+
+                // 开始渲染表格
+                table.render({
+                    elem: '#tableArea'
+                    , url: "{% url 'list_major' %}"  // 请求数据的后台接口
+                    , method: 'post'
+                    , where: {
+                        inputStr: queryStr,
+                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                    }
+                    , even: true // 表格的斑马线效果
+                    , cols: [[
+                        {type: 'numbers', width: 60, title: '编号', align: 'center', sort: true}
+                        , {field: 'faculty__name', width: 280, title: '院系名称', align: 'center', sort: true}
+                        , {field: 'name', title: '专业名称', align: 'center', sort: true}
+                        , {fixed: 'right', title: '操作', width: '20%', align: 'center', toolbar: '#tableButton'}
+                    ]]
+                    , page: true  // 启用表格的分页
+                    , limit: 12
+                    , limits: [12, 15, 20, 30, 50, 75, 100]
+                    , toolbar: false // 是否展示顶部工具栏
+                    , text: '加载数据出现异常，请联系管理员！'  // 加载数据出现异常时的文字展示
+                    , done: function (res, current, count) {
+                        $('thead tr').css({'background-color': '#009688', 'color': 'white'});
+                    }
+                });
+
+                // 侦听表格的操作 -- 按钮点击 
+                table.on('tool(tableDemo)', function (obj) {
+                    // 获取操作行的数据
+                    let oneLineData = obj.data;
+
+                    // 判断是点击了拿个按钮
+                    if (obj.event === 'edit') {
+                        // 修改Operation
+                        Operation = 2;
+                        // 修改按钮的操作
+                        loadLayer(oneLineData);
+                    } else if (obj.event === 'del') {
+                        // 删除按钮的操作
+                        deleteValue(oneLineData);
+                    }
+
+                })
+
+            })
+        }
+
+        // ============== 按钮点击的事件 =============
+        function buttonClick() {
+            // == 查询按钮 ==
+            $('#btnQuery').on('click', function () {
+                // 获取文本框的值
+                let inputStr = $('#queryStr').val();
+                initTable(inputStr);
+            });
+
+            // === 显示全部的按钮 ===
+            $('#btnAll').on('click', function () {
+                // 让页面重新加载
+                location.reload();
+            });
+
+            // === 添加按钮 =====
+            $('#btnAdd').on('click', function () {
+                // 修改Operation
+                Operation = 1;
+                // 加载弹出层
+                loadLayer();
+            });
+
+        }
+
+        // ============== 加载弹出层 ==============
+        function loadLayer(value = "") {
+            // 判断是添加还是修改 ，定制标题
+            let titleStr = "";
+            if (Operation === 1) {
+                titleStr = "添加数据"
+            } else if (Operation === 2) {
+                titleStr = "修改数据"
+            }
+            // 弹出层
+            layui.use(['layer', 'form'], function () {
+                // 实例化一个弹出层对象
+                let layer = layui.layer;
+                let form = layui.form;
+
+                // 展示
+                layer.open({
+                    type: 1,  // 弹出层的类型 ： 0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                    title: "<b style='color:navy;'>" + titleStr + "</b>", // 弹出层的标题
+                    area: ['40%', '60%'], // 设置弹出层的大小
+                    btn: ['确定', '取消'],  // 设置弹出的按钮
+                    content: $('#layerContent'), // 设置弹出层的内容
+                    shade: [0.6, '#000000'], // 设置弹出层的其他区域的颜色
+                    shadeClose: false,   // 点击其他区域是否自动关闭弹出层
+                    anim: 0,  // 设置弹出层的动画
+                    resize: false, // 弹出层的窗体是否可以拉伸
+                    offset: 'auto', // 设置弹出层的位置
+
+                    // ==== 响应的函数 ====
+                    success: function (layero, index) {
+                        // 弹出层加载后自动执行的回调函数, 一般用户弹出层的数据准备！
+                        // === 自动获取所有的院系信息 ==
+                        $.ajax({
+                            url: "{% url 'list_faculty' %}",
+                            method: 'get',
+                            dataType: 'json',
+                            success: function (res) {
+                                // 判断
+                                if (res.status) {
+                                    // 使用jquery拼接成option标签写入select
+                                    // 获取要放置的父容器
+                                    let parentContainer = $('#faculty');
+                                    // 清空下拉选项
+                                    parentContainer.html("");
+                                    // 添加下拉选项
+                                    $('<option>').attr('value', 0).text("请选择").appendTo(parentContainer);
+                                    // 遍历
+                                    $.each(res.data, function (index, value) {
+                                        // 使用jquery创建option标签并写入
+                                        $('<option>').attr('value', value.id).text(value.name).appendTo(parentContainer);
+                                    });
+                                    // 修改时 ---- 为表单赋值
+                                    if (Operation === 2) {
+                                        form.val('layerForm', {
+                                            'faculty': value.faculty_id,
+                                            'major_id': value.id,
+                                            'major': value.name,
+                                        });
+                                    }
+                                    // 重新渲染表单
+                                    form.render();
+                                } else {
+                                    layer.msg('院系信息获取失败！', {icon: 2, area: ['350px', '150px'], time: -1, btn: ['关闭']})
+                                }
+                            }
+                        });
+
+
+                    },
+                    yes: function (index, layero) {
+                        // 定义变量存储url
+                        let commitURL = "";
+                        if (Operation === 1) {
+                            commitURL = "{% url 'add_major' %}";
+                        } else if (Operation === 2) {
+                            commitURL = "{% url 'edit_major' %}";
+                        }
+
+                        // === 提交 ===
+                        $.ajax({
+                            url: commitURL,
+                            method: 'post',
+                            data: $('#layerForm').serialize(),
+                            dataType: 'json',
+                            success: function (res) {
+                                if (res.status) {
+                                    location.reload();
+                                } else {
+                                    //错误
+                                    layer.msg(res.error, {icon: 2, area: ['350px', '150px'], time: -1, btn: ['关闭']})
+                                }
+                            }
+                        })
+
+                    },
+                    btn1: function (index, layero) {
+                        // 点击第一个按钮的事件响应
+
+                    },
+                    btn2: function (index, layero) {
+                        // 点击第二个按钮的事件响应
+
+                    },
+                    cancel: function (index, layero) {
+                        // 点击右上角X关闭的函数
+
+                    },
+                    end: function (index, layero) {
+                        // 弹出层销毁后，自动执行的函数: 一般数据的清理
+                        form.val('layerForm', {
+                            'faculty': -1,
+                            'major_id': "",
+                            'major': "",
+                        });
+                    }
+                })
+            });
+        }
+
+        // ============== 实现数据的删除 ===========
+        function deleteValue(value) {
+            // 用户确认
+            layui.use('layer', function () {
+                // 删除确认的字符串
+                let confirmStr = "您确认删除 专业【" + value.id + "-" + value.name + "】数据嘛?";
+                // 用户确认
+                layer.confirm(confirmStr, {icon: 3, area: ['350px', '200px']}, function (index) {
+                        // 实现ajax
+                        $.ajax({
+                            url: "{% url 'del_major' %}",
+                            method: 'POST',
+                            data: {
+                                id: value.id,
+                                csrfmiddlewaretoken: "{{ csrf_token }}",
+                            },
+                            dataType: 'json',
+                            success: function (res) {
+                                if (res.status) {
+                                    location.reload();
+                                } else {
+                                    layer.msg(res.error, {icon: 2, area: ['350px', '150px'], time: -1, btn: ['关闭']})
+                                }
+                            }
+                        })
+                    }
+                )
+            })
+        }
+
+    </script>
+{% endblock %}
