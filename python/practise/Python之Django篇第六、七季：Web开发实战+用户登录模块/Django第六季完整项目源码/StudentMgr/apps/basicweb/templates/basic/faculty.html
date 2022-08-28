@@ -1,0 +1,224 @@
+<!-- 引入页面模板 -->
+{% extends 'basic/layout/basic_base_page.html' %}
+
+<!-- 修改标题 -->
+{% block title %}
+    院系管理
+{% endblock %}
+
+<!-- 添加当前页面的CSS样式 -->
+{% block css %}
+    <style>
+        .contentArea i:hover {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+
+<!-- 添加面包屑导航的名称 -->
+{% block breadcrumb %}
+    院系管理
+{% endblock %}
+
+<!--  添加当前页面的内容 -->
+{% block content %}
+    <!-- 内容03: 展示院系 -->
+    <div class="contentArea">
+    </div>
+
+{% endblock %}
+
+<!--  添加当前页面的JS文件 -->
+{% block js %}
+    <script>
+        // 入口函数
+        $(function () {
+            // 加载院系数据展示在页面
+            loadData();
+
+            // 响应所有的按钮点击
+            buttonClick();
+        });
+
+        // =========== 加载数据 ===================
+        function loadData() {
+            // 使用异步请求获取数据
+            $.ajax({
+                url: "{% url 'list_faculty' %}",
+                method: 'get',
+                dataType: 'json',
+                success: function (res) {
+                    // 判断
+                    if (res.status) {
+                        showInPage(res.data);
+                    } else {
+                        alert(res.error);
+                    }
+                }
+            })
+        }
+
+        // ========== 把院系信息以块状展示在页面 ==========
+        function showInPage(data) {
+            // 获取对象
+            let targetContainer = $('.contentArea');
+            // 清空集合
+            targetContainer.empty();
+            // 遍历
+            $.each(data, function (name, value) {
+
+                // 新建一个外层的集合
+                let child = $('<div>').attr('class', 'layui-col-xs6 layui-col-sm6 layui-col-md4 layui-col-lg2').css('margin-bottom', '20px');
+                // 新建一个子集集合
+                let childInner = $('<div>').attr('style', 'width: 80%;height: 200px;background-color:lightblue;border-radius: 10px;margin: auto;text-align: center;font-size:18px;').appendTo(child);
+                // 新建一个div
+                $('<div>').text(value.name).attr('name', value.id).attr('style', 'font-weight: bold;color:darkred;line-height:80px;').appendTo(childInner);
+                // 附加专业数量
+                $('<div>').html("专业数：" + value.number).attr('style', 'line-height:80px').appendTo(childInner);
+                // 附加
+                $('<i>').attr('id', 'btnEdit').attr('name', value.name).attr('code', value.id).attr('class', 'fa fa-edit').attr('aria-hidden', true).appendTo(childInner);
+                $('<span>').html("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp").appendTo(childInner);
+                $('<i>').attr('id', 'btnDel').attr('name', value.name).attr('code', value.id).attr('class', 'fa fa-trash').attr('aria-hidden', true).appendTo(childInner);
+                // 附加到
+                child.appendTo(targetContainer);
+
+            });
+        }
+
+        // ========== 响应按钮的点击 =================
+        function buttonClick() {
+            // == 查询按钮 ==
+            $('#btnQuery').on('click', function () {
+                // 发起Ajax请求
+                $.ajax({
+                    url: "{% url 'list_faculty' %}",
+                    method: 'post',
+                    data: {
+                        'queryStr': $('#queryStr').val().replace(" ", ""),
+                        'csrfmiddlewaretoken': "{{ csrf_token }}"
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        // 判断
+                        if (res.status) {
+                            showInPage(res.data);
+                        } else {
+                            alert(res.error);
+                        }
+                    }
+                })
+            });
+            // == 显示全部 ==
+            $('#btnAll').on('click', function () {
+                // 页面重新加载
+                location.reload();
+            });
+            // == 添加按钮 ==
+            $('#btnAdd').on('click', function () {
+                // 弹出框输入
+                layui.use('layer', function () {
+                    // 输入框
+                    layer.prompt({
+                        title: '输入院系的名称，并确定！',
+                        area: ['300px', '100px'],
+                        formType: 0,  // 0 -- 当行文本  1--- 密码   2 -- 多行文本
+                    }, function (value, index, elem) {
+                        // 使用Ajax把名称提交到后台
+                        $.ajax({
+                            url: "{% url 'add_faculty' %}",
+                            method: 'post',
+                            data: {
+                                name: value,
+                                csrfmiddlewaretoken: "{{ csrf_token }}"
+                            },
+                            dataType: 'json',
+                            success: function (res) {
+                                if (res.status) {
+                                    // 关系
+                                    layer.close(index);
+                                    // 重新加载页面
+                                    location.reload()
+                                } else {
+                                    alert(res.error);
+                                }
+                            }
+
+                        });
+                        layer.close(index); //关闭
+                    })
+                })
+            });
+            // == 修改按钮 ==
+            $('body').on('click', '#btnEdit', function () {
+                // 获取当前的id
+                let id = $(this).attr('code');
+                let name = $(this).attr('name');
+                // 弹出框
+                layui.use('layer', function () {
+                    layer.prompt({
+                        title: '修改院系的名称，然后确定',
+                        value: name,
+                        area: ['300px', '100px'],
+                        formType: 0,
+                    }, function (value, index, elem) {
+                        // 开始Ajax
+                        $.ajax({
+                            url: "{% url 'edit_faculty' %}",
+                            method: 'post',
+                            data: {
+                                id: id,
+                                name: value,
+                                csrfmiddlewaretoken: "{{ csrf_token }}"
+                            },
+                            dataType: 'json',
+                            success: function (res) {
+                                if (res.status) {
+                                    layer.close(index);
+                                    location.reload();
+                                } else {
+                                    alert(res.error);
+                                }
+                            }
+                        })
+                    })
+                })
+            });
+            // == 删除按钮 ==
+            $('body').on('click', '#btnDel', function () {
+                // 获取Id和name
+                let id = $(this).attr('code');
+                let name = $(this).attr('name');
+                let confirmStr = "您是否确认删除院系信息【" + name + "】?";
+                // 弹出确认删除的框
+                layui.use('layer', function () {
+                    layer.confirm(confirmStr, {icon: 3, title: '删除确认', area: ['40%','30%']}, function (index) {
+                        // Ajax请求
+                        $.ajax({
+                            url: "{% url 'del_faculty' %}",
+                            method: 'post',
+                            data: {
+                                id: id,
+                                csrfmiddlewaretoken: "{{ csrf_token }}",
+                            },
+                            dataType: 'json',
+                            success: function (res) {
+                                if (res.status) {
+                                    layer.close(index);
+                                    //重新刷新数据
+                                    location.reload();
+                                } else {
+                                    alert(res.error);
+                                }
+                            }
+                        })
+                    })
+                })
+            })
+
+
+        }
+
+
+    </script>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 后台大布局 - Layui</title>
+    <!-- 引入LayUI的样式文件 -->
+    <link rel="stylesheet" href="{% static 'plugin/layui/css/layui.css' %}">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <!-- 页面的header: 标题、顶部导航、登陆信息 -->
+    <div class="layui-header">
+        <!-- 标题 -->
+        <div class="layui-logo"><b>学生信息管理系统</b></div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="{% static 'images/1.jpg' %}" class="layui-nav-img" alt="头像">
+                    张三
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                    <dd><a href="">退出</a></dd>
+                </dl>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- 页面的侧边栏 -->
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">基础数据</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{% url 'faculty' %}" target="rightArea">院系管理</a></dd>
+                        <dd><a href="{% url 'major' %}" target="rightArea" >专业管理</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">学生管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{% url 'student' %}" target="rightArea" >学生信息</a></dd>
+                        <dd><a href="javascript:;">考试信息</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">用户权限</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">用户管理</a></dd>
+                        <dd><a href="javascript:;">角色管理</a></dd>
+                        <dd><a href="javascript:;">权限分配</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 主体区域 -->
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">
+            <iframe id="rightArea" name="rightArea" frameborder="0" height="650px" width="100%" ></iframe>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="layui-footer" style="text-align: center">
+        <!-- 底部固定区域 -->
+        © 学生信息管理系统 2020  版权归****学校所有
+    </div>
+</div>
+
+<!-- 引入 LayUI的JS文件 -->
+<script src="{% static 'plugin/layui/layui.js' %}"></script>
+
+<script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>
