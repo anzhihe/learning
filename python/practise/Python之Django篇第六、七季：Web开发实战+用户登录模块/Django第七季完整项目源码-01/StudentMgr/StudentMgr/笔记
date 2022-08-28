@@ -1,0 +1,65 @@
+1. 项目代码的优化
+   1） 优化目录结构
+        --apps
+           | -- resources_base 【基础资源目录】
+                     | --- module_base 存储基础的Python操作类
+                     | --- templates_base
+                               | --- layout 存储templates模板
+           | -- static 【静态文件目录】
+                   | --- css 样式文件
+                   | --- images 图片
+                   | --- js  文件
+                   | --- plugin 插件
+           | -- web 【项目中的app】
+
+   2) 修复和优化代码
+     A: 模板的引用 --- resources_base/templates_base需要手工添加到settings的TEMPLATES中
+     B：下
+
+     C：院系第一次无法加载
+         Ajax默认是异步请求，只要通过  async: false, 改成同步即可
+
+     D: URL调整
+           --基础数据： /basic
+                |--- 院系管理： /faculty
+                       |--- 获取数据：/list/
+                       |--- 添加数据：/add/
+                       |--- 编辑数据：/edit/
+                       |--- 删除数据：/del/
+                |--- 专业管理： /major
+                       |--- 获取数据：/list/
+                       |--- 添加数据：/add/
+                       |--- 编辑数据：/edit/
+                       |--- 删除数据：/del/
+           --学生管理： /student
+                |--- 学生信息： /info
+                       |--- 获取数据：/list/
+                       |--- 添加数据：/add/
+                       |--- 编辑数据：/edit/
+                       |--- 删除数据：/del/
+                |--- 学生照片： /image
+                       |--- 获取数据：/list/
+                       |--- 添加数据：/add/
+                       |--- 编辑数据：/edit/
+                       |--- 删除数据：/del/
+
+
+
+2.  学生照片上传 
+   1） 问题01： 后台返回信息 
+      res = {'stauts': True, 'data': '202212150435.jpg'}  -- 成功 
+      res = {'stauts': False, 'error': '具体错误原因'}  -- 失败
+   2） 问题02：上传文件存储在哪里 
+       磁盘--- 后端磁盘上！！
+       apps/upload/子文件夹 
+       比如：学生照片--》apps/upload/images/
+
+       存储在本地的路径：MEDIA_ROOT
+ 
+from django.conf import settings
+from django.conf.urls.static import static
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+

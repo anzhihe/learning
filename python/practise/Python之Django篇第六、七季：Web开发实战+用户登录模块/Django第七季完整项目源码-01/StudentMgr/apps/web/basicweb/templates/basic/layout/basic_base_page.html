@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <!-- 引入LayUI的样式文件 -->
+    <link rel="stylesheet" href="{% static 'plugin/layui/css/layui.css' %}">
+    <!-- 引入font-awesome 的CSS文件 -->
+    <link rel="stylesheet" href="{% static 'plugin/font-awesome/css/font-awesome.min.css' %}">
+    {% block css %} {% endblock %}
+
+</head>
+<body>
+<!-- 内容01：面包屑导航 -->
+<span class="layui-breadcrumb">
+  <a href="#">首页</a>
+  <a href="#">基础数据</a>
+  <a><b>{% block breadcrumb %}{% endblock %}</b></a>
+</span>
+
+<!-- 内容02：查询区域的表单 -->
+<div class="queryArea" style="margin-top: 15px;">
+    <form class="layui-form">
+        {% csrf_token %}
+        <div class="layui-form-item">
+            <div class="layui-inline" style="width: 30%">
+                <label class="layui-form-label" for="queryStr"><b>输入条件：</b></label>
+                <div class="layui-input-block">
+                    <input type="text" name="queryStr" id="queryStr" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button type="button" id="btnQuery" class="layui-btn">
+                    <i class="fa fa-search" aria-hidden="true"></i>&nbsp;查询
+                </button>
+                <button type="button" id="btnAll" class="layui-btn">
+                    <i class="fa fa-bars" aria-hidden="true"></i>&nbsp; 全部
+                </button>
+                <button type="button" id="btnAdd" class="layui-btn">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; 添加
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+{% block content %}{% endblock %}
+
+</body>
+</html>
+<!-- ==============引入 JS 文件================ -->
+<!-- 引入jQuery的JS文件 -->
+<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+<!-- 引入 LayUI的JS文件 -->
+<script src="{% static 'plugin/layui/layui.js' %}"></script>
+{% block js %}{% endblock %}
+
+<script>
+    // 入口函数
+    $(function () {
+        //=== 初始化导航（element）===
+        initBreadcrumb();
+    });
+
+    // =========== 初始化导航（element）===========
+    function initBreadcrumb() {
+        layui.use('element', function () {
+            //实例化一个element对象
+            let element = layui.element;
+        })
+    }
+</script>
+
+
+<!--
+不同页面差异化的内容：
+1. 标题
+2. CSS
+3. 内容 -- body
+4. js
+-->
