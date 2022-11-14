@@ -57,6 +57,8 @@ Program learning [**book**](/program/book) and source code
 - [太美工具](https://tiomg.org/)
 - [Awesome Open Source](https://awesomeopensource.com)
 - [对开发人员有用的定律、理论、原则和模式(Laws, Theories, Principles and Patterns that developers will find useful)](https://github.com/nusr/hacker-laws-zh)
+- [Learn X in Y Minutes: Scenic Programming Language Tours](https://learnxinyminutes.com/)
+- [Quick Reference 开发速查表](https://wangchujiang.com/reference/index.html)
 - [力扣（LeetCode）](https://leetcode-cn.com/)
 - [牛客网](https://www.nowcoder.com/)
 - [程序员学习书籍下载](https://089u.com/dir/3843664-39387910-f7bb20)
