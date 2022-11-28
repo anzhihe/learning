@@ -1,0 +1,319 @@
+{% extends 'layout/base_page.html' %}
+{% load static %}
+
+<!-- Title -->
+{% block title %}  菜单管理  {% endblock title %}
+
+<!-- CSS -->
+{% block css %}    {% endblock css %}
+
+
+<!-- Content -->
+{% block content %}
+    <!-- 内容01：面包屑导航 -->
+    <span class="layui-breadcrumb">
+      <a href="javascript:;">首页</a>
+      <a href="javascript:;">用户角色</a>
+      <a><b>菜单管理</b></a>
+    </span>
+
+    <!--内容02：查询区域 -->
+    <div id="queryArea" style="margin-top: 20px;">
+        <form class="layui-form">
+            {% csrf_token %}
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="q_str"><b>查询条件：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="q_str" id="q_str" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button type="button" id="btnQuery" class="layui-btn" style="width: 100px"><i
+                            class="fa fa-search"></i>&nbsp;&nbsp;查询
+                    </button>
+                    <button type="button" id="btnAll" class="layui-btn" style="width: 100px"><i class="fa fa-list"></i>&nbsp;&nbsp;全部
+                    </button>
+                    <button type="button" id="btnAdd" class="layui-btn" style="width: 100px"><i
+                            class="fa fa-plus-circle"></i>&nbsp;&nbsp;添加
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- 内容03： 加载menu -->
+    <div id="contentArea">
+
+    </div>
+
+    <!-- 内容04： 弹出层 -->
+    <div id="layerArea" style="display: none; padding: 20px;">
+        <form class="layui-form" id="layerForm" lay-filter="layerForm">
+            {% csrf_token %}
+            <div class="layui-form-item">
+                <div class="layui-inline" style="display: none">
+                    <label class="layui-form-label" for="id"><b>编号：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="id" name="id" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="title"><b>菜单名称：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="title" name="title" class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="icon"><b>菜单图标：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="icon" name="icon" class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="order"><b>优先级：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="order" name="order" class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+
+
+<!-- Title -->
+{% block js %}
+    <script>
+        // 定义全局变量
+        var TAG = 0; // 1--添加  2--修改
+
+        // 入口函数
+        $(function () {
+
+            // 加载数据和页面
+            loadData();
+            // 响应按钮事件
+            buttonClick();
+
+        });
+
+        // ============== 加载数据================
+        function loadData() {
+            // Ajax请求
+            $.ajax({
+                url: "{% url 'list_menu' %}"
+                , method: 'post'
+                , data: {
+                    q_str: $('#q_str').val(),
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                }
+                , type: 'json'
+                , success: function (res) {
+                    // 加载到页面！
+                    showInPage(res.data);
+
+                }
+            })
+        }
+
+        // ================ 把菜单信息以块状展示 ================
+        function showInPage(data) {
+            // 获取对象
+            let targetContainer = $('#contentArea');
+            // 清空集合
+            targetContainer.empty();
+            // 遍历
+            $.each(data, function (name, value) {
+
+                // 新建一个外层的集合
+                let child = $('<div>').attr('class', 'layui-col-xs6 layui-col-sm6 layui-col-md4 layui-col-lg2').css('margin-bottom', '20px');
+                // 新建一个子集集合
+                let childInner = $('<div>').attr('style', 'width: 80%;height: 200px;background-color:lightblue;border-radius: 10px;margin: auto;text-align: center;font-size:18px;').appendTo(child);
+                // 新建一个div
+                $('<div>').text(value.title).attr('name', value.id).attr('style', 'font-weight: bold;color:darkred;line-height:80px;').appendTo(childInner);
+                // 附加专业数量
+                $('<div>').html(value.icon).attr('style', 'line-height:80px;color:navy').appendTo(childInner);
+                // 附加
+                $('<i>').attr('id', 'btnEdit').attr('name', value.title).attr('code', value.id).attr("order", value.order).attr('class', 'fa fa-edit').attr('aria-hidden', true).appendTo(childInner);
+                $('<span>').html("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp").appendTo(childInner);
+                $('<i>').attr('id', 'btnDel').attr('name', value.title).attr('code', value.id).attr("order", value.order).attr('class', 'fa fa-trash').attr('aria-hidden', true).appendTo(childInner);
+                // 附加到
+                child.appendTo(targetContainer);
+
+            });
+        }
+
+        // ================ 按钮的点击事件 ======================
+        function buttonClick() {
+            // == 查询 ==
+            $('#btnQuery').on('click', function () {
+                // 重新加载数据
+                loadData();
+            });
+            // == 显示全部==
+            $('#btnAll').on('click', function () {
+                // 清除查询条件
+                $('#q_str').val("");
+                // 重新加载数据
+                loadData();
+
+            });
+            // == 添加 ==
+            $('#btnAdd').on('click', function () {
+                // 修改TAG
+                TAG = 1;
+                // 加载弹出层
+                loadLayer("添加菜单");
+            });
+
+            // == 编辑 ==
+            $('body').on('click', '#btnEdit', function () {
+                // 修改TAG
+                TAG = 2;
+                // 获取当前的值
+                let id = $(this).attr('code');
+                let name = $(this).attr('name');
+                let icon = $(this).prev().html();
+                let order = $(this).attr('order');
+                // 封装成类
+                let data = {id: id, title: name, icon: icon, order: order};
+                // 弹出层
+                loadLayer("编辑菜单", data)
+            });
+
+
+            // == 删除 ===
+            $('body').on('click', '#btnDel', function () {
+
+                // 获取id和title
+                let id = $(this).attr('code');
+                let title = $(this).attr('name');
+                let confirmStr = "您是否确认删除菜单信息【" + title + "】?";
+                console.log(confirmStr);
+                // 弹出层
+                layui.use(['layer'], function () {
+                        let layer = layui.layer;
+                        layer.confirm(confirmStr, {icon: 3, title: "删除确认", area: ['400px', '200px']},
+                            function (index) {
+                                // Ajax请求
+                                $.ajax({
+                                    url: "{% url 'del_menu' %}",
+                                    method: 'post',
+                                    data: {
+                                        id: id,
+                                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                                    },
+                                    dataType: 'json',
+                                    success: function (res) {
+                                        if (res.status) {
+                                            layer.msg("删除成功！");
+                                            loadData();
+                                        } else {
+                                            layer.msg(res.error, {
+                                                icon: 2,
+                                                area: ['500px', '200px'],
+                                                time: -1,
+                                                btn: ['取消']
+                                            })
+                                        }
+                                    }
+                                })
+                            }
+                        )
+                    },
+                )
+            });
+
+        }
+
+        // ================ 加载弹出层 ==========================
+        function loadLayer(title, value = "") {
+            layui.use(['layer', 'form'], function () {
+                let layer = layui.layer;
+                let form = layui.form;
+
+                // 展示Layer
+                layer.open({
+                    type: '1'
+                    , title: "<b style='color:navy'>【" + title + "】</b>"
+                    , btn: ['确定', '取消']
+                    , area: ['400px', '400px']
+                    , content: $('#layerArea')
+                    , resize: false
+
+                    // ============ 三个回调函数 =========
+                    , success: function (index, layero) {
+                        // 对于修改初始化值
+                        form.val('layerForm', value);
+                    }
+                    , yes: function (index, layero) {
+                        // 清除错误提示
+                        $('.error_msg').empty();
+                        // 对表单校验
+                        if ($('#title').val().length === 0) {
+                            $('#title').next().html("菜单名称不能为空");
+                            return;
+                        }
+                        if ($('#icon').val().length === 0) {
+                            $('#icon').next().html("图标不能为空");
+                            return;
+                        }
+                        // =========== 提交 ============
+                        let commitURL = "{% url 'add_menu' %}";
+                        if (TAG === 2) {
+                            commitURL = "{% url 'edit_menu' %}"
+                        }
+
+                        $.ajax({
+                            url: commitURL,
+                            method: 'post',
+                            data: $('#layerForm').serialize(),
+                            dataType: 'json',
+                            success: function (res) {
+                                if (res.status) {
+                                    // 提示成功
+                                    layer.msg("操作成功！");
+                                    // 关闭当前layer
+                                    layer.close(index);
+                                    // 重新加载数据
+                                    loadData();
+                                } else {
+                                    layer.msg(res.error, {
+                                        icon: 2,
+                                        area: ['500px', '200px'],
+                                        time: -1,
+                                        btn: ['取消']
+                                    })
+                                }
+                            }
+                        })
+
+                    }
+                    , end: function (index, layero) {
+                        // 清空表单选项
+                        form.val('layerForm', {
+                            title: "",
+                            icon: "",
+                            order: "",
+                        });
+                        // 清除错误提示
+                        $('.error_msg').empty();
+                    }
+                })
+            })
+        }
+
+
+    </script>
+
+
+{% endblock js %}

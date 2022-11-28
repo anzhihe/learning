@@ -1,0 +1,389 @@
+{% load static %}
+{% load rbac %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 后台大布局 - Layui</title>
+    <!-- 引入LayUI的样式文件 -->
+    <link rel="stylesheet" href="{% static 'plugin/layui/css/layui.css' %}">
+    <!-- 引入font-awesome 的CSS文件 -->
+    <link rel="stylesheet" href="{% static 'plugin/font-awesome/css/font-awesome.min.css' %}">
+</head>
+<body class="layui-layout-body">
+
+<!-- 页面内容 -->
+<div class="layui-layout layui-layout-admin">
+    <!-- 页面的header: 标题、顶部导航、登陆信息 -->
+    <div class="layui-header">
+        <!-- 标题 -->
+        <div class="layui-logo"><b>学生信息管理系统</b></div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="{% static 'images/1.jpg' %}" class="layui-nav-img" alt="头像">
+                    <span id="login_user">{{ request.session.user.name }}</span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a id="a_detail" href="javascript:;">基本资料</a></dd>
+                    <dd><a id="a_chpwd" href="javascript:;">更改密码</a></dd>
+                    <dd><a href="{% url 'main_logout' %}">退出</a></dd>
+                </dl>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- 页面的侧边栏 -->
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 加载自定义的menu -->
+            {% menu request %}
+        </div>
+    </div>
+    <!-- 主体区域 -->
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">
+            <iframe id="rightArea" name="rightArea" frameborder="0" height="830px" width="100%"></iframe>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="layui-footer" style="text-align: center">
+        <!-- 底部固定区域 -->
+        © 学生信息管理系统 2020 版权归****学校所有
+    </div>
+</div>
+
+<!-- 个人信息的弹出层 -->
+<div class="layerArea" style="display: none; padding: 20px">
+    <form id="layerForm" class="layui-form" lay-filter="layerForm">
+        {% csrf_token %}
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="loginid"><b>账号：</b></label>
+                <div class="layui-input-inline">
+                    <input type="text" id="loginid" name="loginid" readonly class="layui-input"
+                           style="background-color: #eaeaea">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="name"><b>姓名：</b></label>
+                <div class="layui-input-inline">
+                    <input type="text" id="name" name="name" class="layui-input">
+                    <span class="error_msg" style="color:red; font-weight: bold; position: absolute"></span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+
+            <div class="layui-inline" style="width: 626px;">
+                <label class="layui-form-label" for="role"><b>所属角色：</b></label>
+                <div class="layui-input-block">
+                    <input type="text" id="role" name="role" class="layui-input" readonly
+                           style="background-color: #eaeaea">
+                </div>
+            </div>
+
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="department"><b>部门：</b></label>
+                <div class="layui-input-inline">
+                    <input type="text" id="department" name="department" class="layui-input">
+                    <span class="error_msg" style="color:red; font-weight: bold; position: absolute"></span>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="position"><b>职位：</b></label>
+                <div class="layui-input-inline">
+                    <input type="text" id="position" name="position" class="layui-input">
+                    <span class="error_msg" style="color:red; font-weight: bold; position: absolute"></span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="mobile"><b>电话：</b></label>
+                <div class="layui-input-inline">
+                    <input type="text" id="mobile" name="mobile" class="layui-input">
+                    <span class="error_msg" style="color:red; font-weight: bold; position: absolute"></span>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="email"><b>邮箱地址：</b></label>
+                <div class="layui-input-inline">
+                    <input type="text" id="email" name="email" class="layui-input">
+                    <span class="error_msg" style="color:red; font-weight: bold; position: absolute"></span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="create_time"><b>创建时间：</b></label>
+                <div class="layui-input-inline">
+                    <input type="text" id="create_time" name="create_time" class="layui-input" readonly
+                           style="background-color: #eaeaea">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="edit_time"><b>修改时间：</b></label>
+                <div class="layui-input-inline">
+                    <input type="text" id="edit_time" name="edit_time" class="layui-input" readonly
+                           style="background-color: #eaeaea">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+
+            <div class="layui-inline">
+                <label class="layui-form-label" for="last_login"><b>上次登陆：</b></label>
+                <div class="layui-input-inline">
+                    <input type="text" id="last_login" name="last_login" class="layui-input" readonly
+                           style="background-color: #eaeaea">
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<!-- 修改密码的弹出层 -->
+<div class="layerChangePwd" style="display: none; padding: 20px">
+    <form class="layui-form" id="changePwdForm" lay-filter="changePwdForm">
+        {% csrf_token %}
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="ch_loginid"><b>账号：</b></label>
+                <div class="layui-input-inline">
+                    <input type="text" id="ch_loginid" name="ch_loginid" readonly class="layui-input"
+                           style="background-color: #eaeaea">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="ch_name"><b>姓名：</b></label>
+                <div class="layui-input-inline">
+                    <input type="text" id="ch_name" name="ch_name" readonly class="layui-input"
+                           style="background-color: #eaeaea">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="oldpwd"><b>原密码：</b></label>
+                <div class="layui-input-inline">
+                    <input type="password" id="oldpwd" name="oldpwd" class="layui-input">
+                    <span class="error_msg" style="color:red; position: absolute;font-weight: bold"></span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="loginpwd"><b>新密码：</b></label>
+                <div class="layui-input-inline">
+                    <input type="password" id="loginpwd" name="loginpwd" class="layui-input">
+                    <span class="error_msg" style="color:red; position: absolute;font-weight: bold"></span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="reloginpwd"><b>确认密码：</b></label>
+                <div class="layui-input-inline">
+                    <input type="password" id="reloginpwd" name="reloginpwd" class="layui-input">
+                    <span class="error_msg" style="color:red; position: absolute;font-weight: bold"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- 引入jQuery的JS文件 -->
+<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+<!-- 引入 LayUI的JS文件 -->
+<script src="{% static 'plugin/layui/layui.js' %}"></script>
+
+<script>
+
+    // =============== 获取当前用户的信息 ===============
+    let CurrentUser = {{ request.user |safe }};
+
+    // ===============  入口函数   =====================
+    $(function () {
+        // 页面的初始化 
+        initPage();
+        // 点击事件
+        buttonClick();
+    });
+
+    // ============ 页面初始化的代码 ====================
+    function initPage() {
+        //JavaScript代码区域
+        layui.use('element', function () {
+            var element = layui.element;
+
+        });
+    }
+
+    // ============响应点击事件 ========================
+    function buttonClick() {
+        // 个人信息
+        $('#a_detail').on('click', function () {
+            loadInfoLayer();
+        });
+        // 更改密码
+        $('#a_chpwd').on('click', function () {
+            loadChPwdLayer();
+        })
+    }
+
+    // ============ 个人信息的弹出层 ====================
+    function loadInfoLayer() {
+        layui.use(['layer', 'form'], function () {
+            let layer = layui.layer;
+            let form = layui.form;
+
+            layer.open({
+                type: 1
+                , title: "<b style='color:navy'>" + "【查看和更改个人信息】" + "</b>"
+                , btn: ['确定', '取消']
+                , area: ['700px', '500px']
+                , content: $('.layerArea')
+                , resize: false
+
+                // ====== 三个回调函数====
+                , success: function (index, layero) {
+                    // 对表单数据初始化
+                    form.val('layerForm', CurrentUser);
+                }
+                , yes: function (index, layero) {
+                    // ajax提交
+                    $.ajax({
+                        url: "{% url 'main_edit_info' %}"
+                        , method: 'post'
+                        , data: $("#layerForm").serialize()
+                        , dataType: 'json'
+                        , success: function (res) {
+                            if (res.status) {
+                                // 更新session
+                                CurrentUser.name = $('#name').val().trim();
+                                CurrentUser.mobile = $('#mobile').val().trim();
+                                CurrentUser.email = $('#email').val().trim();
+                                CurrentUser.department = $('#department').val().trim();
+                                CurrentUser.position = $('#position').val().trim();
+
+                                // 更改展示名称
+                                $('#login_user').text($('#name').val().trim());
+
+                                // 告诉用户成功
+                                layui.layer.msg("修改成功！")
+                            } else {
+                                {
+                                    layer.msg(res.error, {
+                                        icon: 2,
+                                        area: ['400px', '200px'],
+                                        time: -1,
+                                        btn: ['取消']
+                                    })
+                                }
+                            }
+
+                        }
+                    })
+
+                }
+                , end: function (index, layero) {
+                }
+            })
+        })
+
+    }
+
+    // ============ 更改个人密码的弹出层 ================
+    function loadChPwdLayer() {
+
+        layui.use(['layer', 'form'], function () {
+            let layer = layui.layer;
+            let form = layui.form;
+
+            layer.open({
+                type: 1
+                , title: "<b style='color:navy'>【" + "更改密码" + "】</b>"
+                , btn: ['确定', '取消']
+                , area: ['400px', '460px']
+                , content: $('.layerChangePwd')
+                , resize: false
+
+                // ====== 三个回调函数====
+                , success: function (index, layero) {
+                    // 填充登录名和姓名
+                    $('#ch_loginid').val(CurrentUser.loginid);
+                    $('#ch_name').val(CurrentUser.name);
+                }
+                , yes: function (index, layero) {
+
+                    // ==== 输入判断 ====
+                    $('.error_msg').empty();
+                    // 旧密码是否输入
+                    if ($('#oldpwd').val().length === 0) {
+                        $('#oldpwd').next().html("旧密码不能为空！");
+                        return;
+                    }
+                    // 新密码
+                    if ($('#loginpwd').val().length < 6) {
+                        $('#loginpwd').next().html("新密码不能小于6位！");
+                        return;
+                    }
+
+                    // 确认新密码
+                    if ($('#reloginpwd').val() != $('#loginpwd').val()) {
+                        $('#reloginpwd').next().html("两次密码不一致！");
+                        return;
+                    }
+
+                    //=============== 提交 ================
+                    $.ajax({
+                        url: "{% url 'main_change_pwd' %}"
+                        , method: 'post'
+                        , data: $('#changePwdForm').serialize()
+                        , dataType: 'json'
+                        , success: function (res) {
+                            if (res.status) {
+                                layer.msg("密码修改成功！", {
+                                    icon: 1,
+                                    area: ['360px', '180px'],
+                                    time: -1,
+                                    btn: ['关闭']
+                                });
+                                layer.close(index);
+
+                            } else {
+                                layer.msg(res.error, {
+                                    icon: 2,
+                                    area: ['360px', '180px'],
+                                    time: -1,
+                                    btn: ['关闭']
+                                });
+                            }
+                        }
+                    })
+
+                }
+                , end: function (index, layero) {
+                    $('#oldpwd').val("");
+                    $('#loginpwd').val("");
+                    $('#reloginpwd').val("");
+                }
+            })
+        })
+
+    }
+
+</script>
+</body>
+</html>

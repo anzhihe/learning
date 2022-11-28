@@ -1,0 +1,694 @@
+<!-- 继承模板 -->
+{% extends 'layout/base_page.html' %}
+
+<!-- 加载静态文件-->
+{% load static %}
+
+<!--- Title -->
+{% block title %}
+    登陆账号
+{% endblock %}
+
+
+<!--- CSS -->
+{% block css %}
+
+{% endblock %}
+
+
+<!--- Content -->
+{% block content %}
+    <!-- 内容01：面包屑导航-->
+    <span class="layui-breadcrumb">
+      <a href="javascript:;">首页</a>
+      <a href="javascript:;">用户角色</a>
+      <a><b>登陆账号</b></a>
+    </span>
+
+    <!-- 内容02：查询区域 -->
+    <div id="queryArea" style="margin-top: 15px;">
+        <form class="layui-form">
+            {% csrf_token %}
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="q_str"><b>输入条件：</b></label>
+                    <div class="layui-input-block">
+                        <input type="text" name="q_str" id="q_str" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="q_status"><b>状态：</b></label>
+                    <div class="layui-input-block">
+                        <select name="q_status" id="q_status">
+                            <option value="">全部</option>
+                            <option value="0">禁用</option>
+                            <option value="1">启用</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="q_department"><b>部门：</b></label>
+                    <div class="layui-input-block">
+                        <select name="q_department" id="q_department">
+                            <option value="">全部</option>
+                            <option value="信息部">信息部</option>
+                            <option value="财务部">财务部</option>
+                            <option value="销售部">销售部</option>
+                            <option value="人力资源部">人力资源部</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button type="button" id="btnQuery" class="layui-btn">
+                        <i class="fa fa-search" aria-hidden="true"></i>&nbsp;查询
+                    </button>
+                    <button type="button" id="btnAll" class="layui-btn">
+                        <i class="fa fa-bars" aria-hidden="true"></i>&nbsp; 全部
+                    </button>
+                    <button type="button" id="btnAdd" class="layui-btn">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; 添加
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 内容03：表格 -->
+    <table class="layui-hide" id="tableArea" lay-filter="tableDemo"></table>
+
+    <!-- 内容04：表格中的按钮 -->
+    <script type="text/html" id="tableButton">
+        <a id="btnEdit" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="chpwd">
+            <i class="fa fa-key" aria-hidden="true"></i> &nbsp;修改密码
+        </a>
+        <a id="btnEdit" class="layui-btn layui-btn-warm layui-btn-xs" lay-event="edit">
+            <i class="fa fa-edit" aria-hidden="true"></i> &nbsp;编辑
+        </a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+            <i class="fa fa-trash" aria-hidden="true"></i>&nbsp; 删除
+        </a>
+    </script>
+
+    <!-- 内容05： 弹出层的内容-->
+    <div id="layerForm" style="display: none; padding: 20px">
+        <form class="layui-form" id="accountForm" lay-filter="accountForm">
+            {% csrf_token %}
+            <!-- 账号，角色，密码，确认密码，姓名，部门，职位，电话，手机，状态，创建时间，更改时间 -->
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="loginid"><b>账号：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="loginid" id="loginid" class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="name"><b>姓名：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="name" id="name" class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline" style="width: 623px;">
+                    <label class="layui-form-label" for="roles"><b>角色：</b></label>
+                    <div class="layui-input-block">
+                        <div id="roles" class="xm-select-demo"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="loginpwd"><b>密码：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="password" name="loginpwd" id="loginpwd" class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="re_loginpwd"><b>确认密码：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="password" name="re_loginpwd" id="re_loginpwd" class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="status"><b>状态：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="checkbox" name="status" id="status" lay-skin="switch" lay-text="启用|禁用">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="department"><b>部门：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="department" id="department" class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="position"><b>职位：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="position" id="position" class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="mobile"><b>手机号码：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="mobile" id="mobile" class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="email"><b>邮箱地址：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="email" id="email" class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="create_time"><b>创建时间：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="create_time" id="create_time" class="layui-input" readonly
+                               style="background-color: #eaeaea;">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="edit_time"><b>更改时间：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="edit_time" id="edit_time" class="layui-input" readonly
+                               style="background-color: #eaeaea;">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 内容06: 修改密码的弹出层 -->
+    <div id="layerChPwdForm" style="display: none; padding: 20px">
+        <form class="layui-form" id="chPwdForm" lay-filter="chPwdForm">
+            {% csrf_token %}
+            <!-- 账号，角色，密码，确认密码，姓名，部门，职位，电话，手机，状态，创建时间，更改时间 -->
+            <div class="layui-form-item">
+                <div class="layui-inline" style="width: 360px">
+                    <label class="layui-form-label" for="ch_loginid"><b>账号：</b></label>
+                    <div class="layui-input-block">
+                        <input type="text" name="ch_loginid" id="ch_loginid" class="layui-input" readonly
+                               style="background-color:#eaeaea ">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline" style="width: 360px">
+                    <label class="layui-form-label" for="ch_name"><b>姓名：</b></label>
+                    <div class="layui-input-block">
+                        <input type="text" name="ch_name" id="ch_name" class="layui-input" readonly
+                               style="background-color:#eaeaea ">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline" style="width: 360px">
+                    <label class="layui-form-label" for="ch_oldPass"><b>原密码：</b></label>
+                    <div class="layui-input-block">
+                        <input type="password" name="ch_oldPass" id="ch_oldPass" required class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline" style="width: 360px">
+                    <label class="layui-form-label" for="ch_newPass"><b>新密码：</b></label>
+                    <div class="layui-input-block">
+                        <input type="password" name="ch_newPass" id="ch_newPass" required class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline" style="width: 360px">
+                    <label class="layui-form-label" for="ch_re_newPass"><b>确认密码：</b></label>
+                    <div class="layui-input-block">
+                        <input type="password" name="ch_re_newPass" id="ch_re_newPass" required class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+<!--- JS -->
+{% block js %}
+    <script src="{% static 'js/xm-select.js' %}"></script>
+    <script>
+        // 定义Operation 标识添加还是修改  1--添加  2--修改
+        let Operation = 0;
+        // === 入口函数 ===
+        $(function () {
+            // 页面初始化
+            initPage();
+            // 表格的初始化
+            initTable();
+            // 响应按钮的点击
+            buttonClick();
+        });
+
+        // ============= 页面初始化的实现 ============
+        function initPage() {
+            layui.use(['element', 'form'], function () {
+                let element = layui.element;
+                let form = layui.form;
+            })
+        }
+
+        // ============= 表格的初始化 ================
+        function initTable() {
+            // 使用table插件
+            layui.use('table', function () {
+                // 实例化一个表格
+                var table = layui.table;
+                var form = layui.form;
+
+                // 渲染表格
+                table.render({
+                    elem: '#tableArea'
+                    , url: "{% url 'list_account' %}"  //请求数据的后台接口
+                    , method: 'post'
+                    , even: true // 表格的斑马线效果
+                    , where: {
+                        // 携带查询条件
+                        q_str: $('#q_str').val(),
+                        q_status: $('#q_status').val(),
+                        q_department: $('#q_department').val(),
+                        'csrfmiddlewaretoken': "{{ csrf_token }}"
+                    }
+                    , cols: [[
+                        {type: 'numbers', width: 60, title: '编号', align: 'center', sort: true}
+                        , {field: 'name', width: 120, title: '账号', align: 'center', sort: true}
+                        , {field: 'loginid', width: 100, title: '姓名', align: 'center', sort: true}
+                        , {
+                            field: 'status', title: '状态', align: 'center', sort: true,
+                            templet: function (res) {
+                                // 再展示每一行数据的时候，res表示当前这一行数据，可以通过res.status就可以访问到当前这一行的状态
+                                if (res.status) {
+                                    // 开关--》开状态
+                                    return "<input type='checkbox' value='" + res.loginid + "' lay-skin='switch' lay-filter='accountStatus' lay-text='启用|禁用' checked>"
+                                } else {
+                                    // 开关--》关状态
+                                    return "<input type='checkbox' value='" + res.loginid + "' lay-skin='switch' lay-filter='accountStatus' lay-text='启用|禁用'>"
+                                }
+
+                            }
+                        }
+                        , {field: 'department', width: 120, title: '部门', align: 'center', sort: true}
+                        , {field: 'position', width: 120, title: '职位', align: 'center', sort: true}
+                        , {field: 'mobile', width: 120, title: '手机号码', align: 'center', sort: true}
+                        , {field: 'email', title: '邮箱地址', align: 'center', sort: true}
+                        , {field: 'last_login', width: 180, title: '上次登陆', align: 'center', sort: true}
+                        , {field: 'create_time', width: 180, title: '创建时间', align: 'center', sort: true}
+                        , {fixed: 'right', title: '操作', width: '16%', align: 'center', toolbar: '#tableButton'}
+                    ]]
+                    , page: true // 启用分页
+                    , limit: 16 // 设置分页的每页记录的条数
+                    , limits: [12, 16, 20, 30, 50, 75, 100]
+                    , done: function (res, current, count) {
+                        $('thead tr').css({'background-color': '#009688', 'color': 'white'});
+                    }
+                });
+
+                // 响应表格事件
+                table.on('tool(tableDemo)', function (obj) {
+                    // 获得当前行的数据
+                    let lineData = obj.data;
+                    // 判断点击的什么按钮
+                    if (obj.event === 'edit') {
+                        // 修改Operation
+                        Operation = 2;
+                        // 加载弹出层
+                        loadLayer('修改登陆账号', lineData);
+                    } else if (obj.event === 'chpwd') {
+                        // 加载弹出层
+                        loadChPwdLayer(lineData);
+                    } else if (obj.event === 'del') {
+                        // 加载弹出层
+                        delValue(lineData);
+                    }
+                });
+
+                // 响应switch选择
+                form.on('switch(accountStatus)', function (obj) {
+                    // Ajax请求
+                    $.ajax({
+                        url: "{% url 'chstatus_account' %}"
+                        , method: "post"
+                        , data: {
+                            loginid: obj.value,
+                            status: obj.elem.checked ? 1 : 0,
+                            csrfmiddlewaretoken: "{{ csrf_token }}"
+                        }
+                        , success: function (res) {
+                            if (res.status) {
+                                location.reload();
+                            } else {
+                                layer.msg(res.error, {
+                                    icon: 2, time: -1, area: ['300px', '150px'], btn: ['关闭']
+                                });
+                            }
+                        }
+                    })
+                })
+
+            })
+        }
+
+        // ============= 按钮的点击 ==================
+        function buttonClick() {
+            // === 查询===
+            $('#btnQuery').on('click', function () {
+                initTable();
+            });
+
+            // === 全部===
+            $('#btnAll').on('click', function () {
+                // 所有查询条件清空
+                $('#q_str').val("");
+                $('#q_status').val("");
+                $('#q_department').val("");
+                layui.form.render();
+                initTable();
+            });
+
+            // === 添加 ===
+            $('#btnAdd').on('click', function () {
+                // 修改Operation
+                Operation = 1;
+                // 加载弹出层
+                loadLayer("添加登陆账号");
+            })
+
+        }
+
+        // ============= 删除用户账号 ==========================
+        function delValue(value) {
+            // 定义确认的字符串
+            let confirmStr = "您确定要删除【" + value.loginid + "-" + value.name + "】账号信息吗？";
+            // 弹出确认框
+            layui.layer.confirm(confirmStr, {
+                icon: 3, title: "删除确认", area: ['400px', '200px'], btn: ['确定', '取消']
+            }, function (index) {
+                // Ajax请求
+                $.ajax({
+                    url: "{% url 'del_account' %}",
+                    method: 'post',
+                    data: {
+                        loginid: value.loginid,
+                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        if (res.status) {
+                            location.reload();
+                        } else {
+                            layer.msg(res.error, {
+                                icon: 2,
+                                area: ['400px', '200px'],
+                                time: -1,
+                                btn: ['关闭'],
+                            })
+                        }
+                    }
+                })
+            })
+
+        }
+
+        // ============= 展示账号详情的弹出层 ====================
+        function loadLayer(title, value = "") {
+            layui.use(['layer', 'form'], function () {
+                let layer = layui.layer;
+                let form = layui.form;
+
+                layer.open({
+                    type: 1
+                    , area: ['760px', '600px']
+                    , title: "<b style='color:navy'>【" + title + "】</b>"
+                    , offset: '50px'
+                    , btn: ['确定', '取消']
+                    , content: $('#layerForm')
+
+                    // ======== 回调函数==========
+                    , success: function (index, layero) {
+                        // 初始化角色的下拉框
+                        //initRolesSelect(value.loginid);
+
+                        initRolesSelect(value.selected_roles);
+
+                        // 填充数据
+                        form.val('accountForm', value);
+                        // 如果是修改，不允许修改loginid
+                        if (Operation === 2) {
+                            $('#loginid').attr('style', 'background-color: #eaeaea').prop('readonly', true);
+                            // 密码清空
+                            $('#loginpwd').attr('style', 'background-color: #eaeaea').prop('readonly', true).val("");
+                            $('#re_loginpwd').attr('style', 'background-color: #eaeaea').prop('readonly', true);
+                        }
+
+                    }
+                    , yes: function (index, layero) {
+                        // ===== 1. 校验表单的输入=====
+                        if (!checkFormCommit()) {
+                            return;
+                        }
+
+                        // ======2. 判断是添加还是修改=====
+                        let commitURL = "{% url 'add_account' %}";
+                        // 判断
+                        if (Operation === 2) {
+                            commitURL = "{% url 'edit_account' %}";
+                        }
+                        // ===== 3. 提交到后台 ===========
+                        $.ajax({
+                            url: commitURL
+                            , method: 'post'
+                            , data: $('#accountForm').serialize()
+                            , dataType: 'json'
+                            , success: function (res) {
+                                // 0 -- 成功  -1： 账号已存在  -2：异常
+                                if (res.status) {
+                                    layer.msg("账号添加成功！");
+                                    // 关闭
+                                    layer.close(index);
+                                    // 重新加载页面
+                                    location.reload();
+                                } else {
+                                    layer.msg(res.error, {
+                                        icon: 2, time: -1, area: ['300px', '150px'], btn: ['关闭']
+                                    });
+                                }
+
+                            }
+                        })
+
+                    }
+                    , end: function (index, layero) {
+                        // 清除信息
+                        $('#accountForm').find("input").val("");
+                        // 调整只读的input
+                        $('#accountForm').find("#loginid, #loginpwd, #re_loginpwd").attr('style', 'background-color: #FFF').prop('readonly', false);
+                    }
+
+                })
+            })
+        }
+
+        // ============= 角色下拉框的初始化 ======================
+        function initRolesSelect(selected) {
+
+            // 初始化
+            let roles_select = xmSelect.render({
+                el: '#roles'
+                , name: 'roles'
+                , tips: '请选择所属的角色'
+                , filterable: true
+                , height: '200px'
+                , data: []
+            });
+
+            // 初始化数据 --- 填充所有的角色
+            $.ajax({
+                url: "{% url 'select_roles' %}"
+                , method: 'get'
+                , async: false  // 设为同步
+                , success: function (res) {
+                    // 把获取的值赋值给下拉框
+                    roles_select.update({data: res.data});
+                }
+            });
+
+            // 直接赋值
+            roles_select.setValue(selected);
+            // 选择当前用户所属的角色  --- 携带loginid
+            /*
+            $.ajax({
+                 url: "select_roles'"
+                , method: 'post'
+                , data:{
+                     loginid: loginid,
+                     csrfmiddlewaretoken:
+                }
+                , success: function (res) {
+                    // 选中下拉框的值！
+                    roles_select.setValue(res.data);
+                }
+
+            })*/
+
+
+        }
+
+        // ============= 展示修改密码的弹出层 =============
+        function loadChPwdLayer(value) {
+            layui.use(['layer', 'form'], function () {
+                let layer = layui.layer;
+                let form = layui.form;
+
+                layer.open({
+                    type: 1
+                    , area: ['500px', '500px']
+                    , title: "<b style='color:navy'>【修改密码】</b>"
+                    , btn: ['确定', '取消']
+                    , content: $('#layerChPwdForm')
+
+                    // ============ 回调函数 =========
+                    , success: function (index, layero) {
+                        // ==== 赋值 ===
+                        $('#ch_loginid').val(value.loginid);
+                        $('#ch_name').val(value.name);
+                    }
+                    , yes: function (index, layero) {
+                        $('.error_msg').empty();
+                        // ====1 .输入进行校验 =======
+                        let oldPass = $('#ch_oldPass').val();
+                        if (oldPass.length < 6) {
+                            $('#ch_oldPass').next().html("旧密码必须要大于6位！");
+                            return;
+                        }
+                        let newPass = $('#ch_newPass').val();
+                        if (newPass.length < 6) {
+                            $('#ch_newPass').next().html("新密码必须要大于6位！");
+                            return;
+                        }
+
+                        let re_newPass = $('#ch_re_newPass').val();
+                        if (re_newPass != newPass) {
+                            $('#ch_re_newPass').next().html("输入的两次新密码不一致！");
+                            return;
+                        }
+
+                        // ======== 2. 提交 ===============
+                        $.ajax({
+                            url: "{% url 'chpwd_account' %}"
+                            , method: "post"
+                            , data: $('#chPwdForm').serialize()
+                            , dataType: 'json'
+                            , success: function (res) {
+                                if (res.status) {
+                                    layer.msg("密码修改成功！");
+
+                                } else {
+                                    layer.msg(res.error, {
+                                        icon: 2, time: -1, area: ['300px', '150px'], btn: ['关闭']
+                                    });
+                                }
+                            }
+                        })
+                    }
+                    , end: function (index, layero) {
+                        $('#chPwdForm').fin('input').val("");
+                    }
+                })
+            })
+        }
+
+        // ============= 实现用户账号表单提交的验证 =============
+        function checkFormCommit() {
+            // ===== 清除所有的错误 ===
+            $('.error_msg').empty();
+            // ==== 定义flag变量标识 ===
+            let flag = true;
+
+            //1. 学号 ： 4位数字
+            let loginid = $('#loginid').val();
+            if (loginid.match(/^\d{4}$/) == null) {
+                // 修改flag
+                flag = false;
+                // 展示错误
+                $('#loginid').next().text("登陆账号必须要是4位整数！");
+            }
+
+            // 2. 密码： A：密码必须大于6位， B：两次密码要一致
+
+            let loginpwd = $('#loginpwd').val();
+            let re_loginpwd = $('#re_loginpwd').val();
+            if (Operation === 1 && loginpwd.length < 6) {
+                // 修改flag
+                flag = false;
+                // 展示错误
+                $('#loginpwd').next().text("密码不能小于6位！");
+            }
+            if (Operation === 1 && loginpwd != re_loginpwd) {
+                // 修改flag
+                flag = false;
+                // 展示错误
+                $('#re_loginpwd').next().text("两次密码不一致！");
+            }
+
+            // 3. 姓名: 2-5个汉字
+            let name = $('#name').val();
+            if (name.match(/^[\u4E00-\u9FA5]{2,5}$/) == null) {
+                // 修改flag
+                flag = false;
+                // 展示错误
+                $('#name').next().text("姓名必须是2-5个汉字！");
+            }
+
+            // 4. 手机号码
+            let mobile = $('#mobile').val();
+            if (mobile.match(/^\d{11,12}$/) == null) {
+                // 修改result
+                flag = false;
+                // 展示错误
+                $('#mobile').next().text("电话号码必须是11-12的数字！");
+            }
+            // 5. 邮箱地址
+            let email = $('#email').val();
+            if (email.match(/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/) == null) {
+                // 修改result
+                flag = false;
+                // 展示错误
+                $('#email').next().text("邮箱地址不符合要求！");
+            }
+
+
+            return flag
+        }
+    </script>
+
+{% endblock %}
