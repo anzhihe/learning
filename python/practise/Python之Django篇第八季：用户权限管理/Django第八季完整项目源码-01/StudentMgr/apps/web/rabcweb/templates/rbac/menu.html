@@ -1,0 +1,21 @@
+{% load static %}
+
+<!-- 引入LayUI的样式文件 -->
+<link rel="stylesheet" href="{% static 'plugin/layui/css/layui.css' %}">
+<!-- 引入font-awesome 的CSS文件 -->
+<link rel="stylesheet" href="{% static 'plugin/font-awesome/css/font-awesome.min.css' %}">
+
+<ul class="layui-nav layui-nav-tree">
+    {% for item in menu_dict.values %}
+        <li class="layui-nav-item">
+            <a href="javascript:;"><i class="{{ item.icon }}" aria-hidden="true"></i> {{ item.title }}</a>
+            <dl class="layui-nav-child">
+                {% for node in item.children %}
+                    <dd>
+                        <a href="{{ node.url }}" target="rightArea" style="display:block;padding-left: 40px">{{ node.title }}</a>
+                    </dd>
+                {% endfor %}
+            </dl>
+        </li>
+    {% endfor %}
+</ul>

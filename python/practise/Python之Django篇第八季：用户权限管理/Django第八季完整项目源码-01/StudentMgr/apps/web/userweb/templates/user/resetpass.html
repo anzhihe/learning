@@ -1,0 +1,330 @@
+<!-- 继承模板 -->
+{% extends 'layout/base_page.html' %}
+
+<!-- 加载静态文件-->
+{% load static %}
+
+<!--- Title -->
+{% block title %}
+    用户登陆
+{% endblock %}
+
+
+<!--- CSS -->
+{% block css %}
+    <style>
+        body {
+            background-image: url("/static/images/login_bg.jpg");
+            background-size: cover;
+        }
+
+        .outer {
+            width: 420px;
+            height: 440px;
+            background-color: whitesmoke;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 20px;
+            box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.6);
+            padding: 40px 30px;
+        }
+
+        .title {
+            width: 100%;
+            text-align: center;
+            font-size: 30px;
+            color: navy;
+        }
+
+        .layui-form-item {
+            margin-bottom: 25px;
+        }
+
+    </style>
+{% endblock %}
+
+
+<!--- Content -->
+{% block content %}
+    <!-- 内容01：容器-->
+    <div class="outer">
+        <!--标题-->
+        <div class="title">邮 箱 找 回 密 码</div>
+
+        <hr style="margin: 40px 0">
+
+
+        <!-- 登陆的表单 -->
+        <form id="loginForm" class="layui-form" lay-filter="loginForm">
+            {% csrf_token %}
+            <div id="step_one" style="display: block">
+                <div class="layui-progress" lay-showpercent="true" style="margin: 40px">
+                    <div class="layui-progress-bar" lay-percent="1/4"></div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="input_loginid"><b>登陆账号：</b></label>
+                    <div class="layui-input-block">
+                        <input type="text" id="input_loginid" name="input_loginid" class="layui-input"
+                               placeholder="登陆账号/手机号码/邮箱">
+                        <span class="error_msg" style="position: absolute; color: red"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step_two" style="display: none">
+                <div class="layui-progress" lay-showpercent="true" style="margin: 40px">
+                    <div class="layui-progress-bar" lay-percent="2/4"></div>
+                </div>
+                <div class="layui-form-item" style="display: none;">
+                    <label class="layui-form-label" for="loginid"><b>登陆账号：</b></label>
+                    <div class="layui-input-block">
+                        <input type="text" id="loginid" name="loginid" class="layui-input" readonly
+                               style="background-color: #eaeaea">
+                        <span class="error_msg" style="position: absolute; color: red"></span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="name"><b>姓名：</b></label>
+                    <div class="layui-input-block">
+                        <input type="text" id="name" name="name" class="layui-input" readonly
+                               style="background-color: #eaeaea">
+                        <span class="error_msg" style="position: absolute; color: red"></span>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="email"><b>邮箱：</b></label>
+                    <div class="layui-input-block">
+                        <input type="text" id="email" name="email" class="layui-input" placeholder="登陆账号/手机号码/邮箱"
+                               readonly style="background-color: #eaeaea">
+                        <span class="error_msg" style="position: absolute; color: red"></span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline" style="width: 260px">
+                        <label class="layui-form-label" for="code"><b>验证码：</b></label>
+                        <div class="layui-input-block">
+                            <input type="text" id="code" name="code" class="layui-input" placeholder="验证码15分钟有效">
+                            <span class="error_msg" style="position: absolute; color: red"></span>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <input type="button" id="sendmail" value="发送邮件" class="layui-btn layui-btn-normal"
+                               style="width: 120px">
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="step_three" style="display: none">
+                <div class="layui-progress" lay-showpercent="true" style="margin: 40px">
+                    <div class="layui-progress-bar" lay-percent="3/4"></div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="newpass"><b>密码：</b></label>
+                    <div class="layui-input-block">
+                        <input type="password" id="newpass" name="newpass" class="layui-input" placeholder="请输入新密码">
+                        <span class="error_msg" style="position: absolute; color: red"></span>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="re_newpass"><b>确认密码：</b></label>
+                    <div class="layui-input-block">
+                        <input type="password" id="re_newpass" name="re_newpass" class="layui-input"
+                               placeholder="确认新密码">
+                        <span class="error_msg" style="position: absolute; color: red"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="step_four" style="display: none">
+                <div class="layui-progress" lay-showpercent="true" style="margin: 40px">
+                    <div class="layui-progress-bar" lay-percent="4/4"></div>
+                </div>
+                <div class="layui-form-item">
+                    <div style="text-align: center; color:green;font-size: 22px;">密码修改成功！<a href="{% url 'login' %}"
+                                                                                            style="color: red;line-height: 30px;">去登陆</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="float: right; margin-top:10px;">
+                <button id="btnChPwd" type="button" class="layui-btn">下一步</button>
+            </div>
+        </form>
+
+
+    </div>
+
+
+{% endblock %}
+
+
+<!--- JS -->
+{% block js %}
+    <script>
+        // 初识一个stepTag, 用来标识在哪一步
+        let STEP_TAG = 1;
+        $(function () {
+            // ===页面初始化===
+            initPage();
+            // ===验证滑块的初始化===
+            buttonClick();
+
+
+        });
+
+        // ============== 页面初始化的实现 ============
+        function initPage() {
+            layui.use(['element', 'form'], function () {
+                let element = layui.element;
+                let form = layui.form;
+            })
+        }
+
+        // =============== 按钮点击事件 =====================
+        function buttonClick() {
+            // 获取4个容器
+            let stepOne = $('#step_one');
+            let stepTwo = $('#step_two');
+            let stepThree = $('#step_three');
+            let stepFour = $('#step_four');
+
+            // ===== 点击修改密码按钮  ====
+            $('#btnChPwd').on('click', function () {
+                // 判断
+                if (STEP_TAG === 1) {
+                    // ==== 1，判断是否输入 ===
+                    if ($('#input_loginid').val().length === 0) {
+                        layui.layer.msg("账号不能为空！");
+                        return;
+                    }
+
+                    // ====2. Ajax请求 ==========
+                    $.ajax({
+                        url: "{% url 'reset_pass_get_account' %}"
+                        , method: "post"
+                        , data: {
+                            input_str: $('#input_loginid').val(),
+                            csrfmiddlewaretoken: "{{ csrf_token }}"
+                        }
+                        , success: function (res) {
+                            if (res.status) {
+                                // 到第二步
+                                stepOne.css('display', 'none');
+                                stepTwo.css('display', 'block');
+                                // 修改Step_Tag
+                                STEP_TAG = 2;
+                                // 为第二步赋值
+                                $('#name').val(res.data.name);
+                                $('#email').val(res.data.email);
+                                $('#loginid').val(res.data.loginid);
+
+
+                            } else {
+                                layui.layer.msg(res.error);
+                            }
+                        }
+                    })
+
+
+                } else if (STEP_TAG === 2) {
+                    // ==== 1. 判断是否输入验证码 ====
+                    if ($('#code').val().length === 0) {
+                        layui.layer.msg("验证码不能为空！");
+                        return;
+                    }
+                    // ==== 2. Ajax请求 ======
+                    $.ajax({
+                        url: "{% url 'reset_pass_check_code' %}"
+                        , method: "post"
+                        , data: {
+                            code: $('#code').val(),
+                            email: $('#email').val(),
+                            csrfmiddlewaretoken: "{{ csrf_token }}"
+                        }
+                        , success: function (res) {
+                            if (res.status) {
+                                // 到第三步
+                                stepTwo.css('display', 'none');
+                                stepThree.css('display', 'block');
+                                // 修改Step_Tag
+                                STEP_TAG = 3;
+
+                            } else {
+                                layui.layer.msg(res.error);
+                            }
+                        }
+                    })
+
+                } else if (STEP_TAG === 3) {
+                    // ==========1. 校验输入 =========
+                    if ($('#newpass').val().length < 6) {
+                        layui.layer.msg("密码不能少于6位！");
+                        return;
+                    }
+                    if ($('#newpass').val().length != $('#re_newpass').val().length) {
+                        layui.layer.msg("两次密码不一致！");
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "{% url 'reset_pass_commit' %}"
+                        , method: "post"
+                        , data: {
+                            loginid: $('#loginid').val(),
+                            newpass: $('#newpass').val(),
+                            csrfmiddlewaretoken: "{{ csrf_token }}"
+                        }
+                        , success: function (res) {
+                            if (res.status) {
+                                // 到第四步
+                                stepThree.css('display', 'none');
+                                stepFour.css('display', 'block');
+                                // 修改Step_Tag
+                                STEP_TAG = 4;
+
+                            } else {
+                                layui.layer.msg(res.error);
+                            }
+                        }
+                    })
+
+
+                }
+            });
+
+
+            // ==============发送邮件 =====================
+            $('#sendmail').on('click', function () {
+                // ajax请求
+                $.ajax({
+                    url: "{% url 'reset_pass_send_email' %}"
+                    , method: "post"
+                    , data: {
+                        email: $('#email').val(),
+                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                    }
+                    , success: function (res) {
+                        if (res.status) {
+                            layui.layer.msg("邮件发送成功！");
+                        } else {
+
+                            layui.layer.msg(res.error);
+                        }
+                    }
+                })
+            })
+
+
+        }
+
+
+    </script>
+
+{% endblock %}

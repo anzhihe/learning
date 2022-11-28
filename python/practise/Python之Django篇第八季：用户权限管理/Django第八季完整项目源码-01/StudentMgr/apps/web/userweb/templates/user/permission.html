@@ -1,0 +1,366 @@
+{% extends 'layout/base_page.html' %}
+{% load static %}
+
+<!-- Title部分 -->
+{% block title %}
+    权限页面
+{% endblock %}
+
+
+<!-- CSS部分 -->
+{% block css %}
+    <style>
+        #layerForm .layui-form-item {
+            margin-bottom: 25px;
+        }
+    </style>
+{% endblock %}
+
+
+
+<!-- Content部分 -->
+{% block content %}
+    <!-- 内容01：面包屑导航 -->
+    <span class="layui-breadcrumb">
+      <a href="{% url 'main' %}">首页</a>
+      <a href="#">用户角色</a>
+      <a><b>权限管理</b></a>
+    </span>
+
+    <!-- 内容部分【左：树状， 中：按钮，右：表单】-->
+    <div style="margin: 30px">
+        <!-- 左：树状结构-->
+        <div id="permissionArea" class="demo-tree demo-tree-box" style="width: 500px; height: 750px; overflow: auto;
+        background-color: whitesmoke;float: left"></div>
+
+        <!--中：按钮 -->
+        <div style="float: left; margin: 0 30px">
+            <div class="layui-form-item">
+                <button class="layui-btn" id="btnAdd">添加</button>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn" id="btnEdit">修改</button>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn" id="btnDel">删除</button>
+            </div>
+        </div>
+        <!--右：表单 -->
+        <div style="width:800px;height:750px; float:left; padding: 0 20px">
+            <form class="layui-form" id="layerForm" lay-filter="layerForm">
+                {% csrf_token %}
+                <div class="layui-form-item" style="display: none">
+                    <label class="layui-form-label" for="id"><b>编号:</b></label>
+                    <div class="layui-input-block">
+                        <input type="text" id="id" name="id" class="layui-input">
+                        <span class="error_msg" style="color: red; position: absolute"></span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="title"><b>标题:</b></label>
+                    <div class="layui-input-block">
+                        <input type="text" id="title" name="title" class="layui-input">
+                        <span class="error_msg" style="color: red; position: absolute"></span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="url"><b>URL:</b></label>
+                    <div class="layui-input-block">
+                        <input type="text" id="url" name="url" class="layui-input">
+                        <span class="error_msg" style="color: red; position: absolute"></span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="menu"><b>菜单:</b></label>
+                    <div class="layui-input-block">
+                        <div id="menu" class="xm-select-demo"></div>
+                        <span id="menu_error" class="error_msg" style="color: red; position: absolute"></span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="order"><b>排序:</b></label>
+                    <div class="layui-input-block">
+                        <input type="text" id="order" name="order" class="layui-input">
+                        <span class="error_msg" style="color: red; position: absolute"></span>
+                    </div>
+                </div>
+                <div class="layui-form-item" style="float: right; margin-top: 40px">
+                    <input type="button" class="layui-btn layui-btn-normal" id="btnCommit" value="提交">
+                    <input type="button" class="layui-btn layui-btn-primary" id="btnCancel" value="取消">
+                </div>
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
+
+<!-- JS部分 -->
+{% block js %}
+    <script src="{% static 'js/xm-select.js' %}"></script>
+    <script>
+        // 定义全局变量
+        var TAG = 0; // 1-添加 2--修改
+        // 入口函数
+        $(function () {
+            // 初始化页面
+            initPage();
+            // 初始化Tree
+            loadTreeData();
+            // 点击按钮
+            buttonClick();
+
+        });
+
+        // ============== 初始化页面的实现 ==========
+        function initPage() {
+
+            // 初始化xmselect插件
+            let menu_select = xmSelect.render({
+                el: '#menu'
+                , name: 'menu'
+                , tips: '请选择所隶属的菜单'
+                , radio: true
+                , filterable: true
+                , height: '200px'
+                , data: []
+            });
+            // 通过Ajax获取所有menu
+            $.ajax({
+                url: "{% url 'list_menu_select' %}"
+                , method: 'get'
+                , async: false
+                , success: function (res) {
+                    // 填充到下拉框
+                    menu_select.update({'data': res.data});
+                }
+            });
+            console.log(menu_select);
+            //menu_select.setValue([{name: '基础数据', value: 1}])
+
+
+        }
+
+        // ============== 获取树状结构的结构 =============
+        function loadTreeData() {
+            // 1. 加载数据 --- Ajax
+            $.ajax({
+                url: "{% url 'list_permission' %}"
+                , method: 'get'
+                , dataType: 'json'
+                , success: function (res) {
+                    // 展示数据
+                    initTree(res.data);
+                }
+            })
+
+
+        }
+
+        // ============== 用数据填充Tree组件 =============
+        function initTree(data) {
+            // 2. 生成树状结构
+            layui.use(['tree'], function () {
+                let tree = layui.tree;
+
+                tree.render({
+                    elem: '#permissionArea'
+                    , showCheckbox: false
+                    , data: data
+                    , accordion: true
+
+
+                    // ================= 点击事件 ===========
+                    , click: function (obj) {
+
+                        // 判断是否是二级节点（权限节点！）
+                        let is_not_child = obj.elem.hasClass('layui-tree-setHide');
+
+                        // 如果不是根节点
+                        if (!is_not_child) {
+                            // 获取对象
+                            let node_data = obj.data;
+                            // 一一赋值
+                            $('#id').val(obj.data.node_id);
+                            $('#title').val(obj.data.title);
+                            $('#url').val(obj.data.url);
+                            $('#order').val(obj.data.id);
+                            // == 赋值xmselect ====
+                            // 获取xmselect对象
+                            xmSelect.get('#menu')[0].setValue([{name: obj.data.p_title, value: obj.data.p_id}]);
+
+                            // ========== 设置表单 不可以修改 ============
+                            $('#layerForm').find("input[type='text']").prop('readonly', true).attr('style', 'background-color:#eaeaea');
+                            xmSelect.get('#menu')[0].update({disabled: true});
+
+                        }
+
+                    }
+
+                })
+            })
+
+        }
+
+        // ============== 按钮点击事件 ===================
+        function buttonClick() {
+            // === 添加 ===
+            $('#btnAdd').on('click', function () {
+                // 修改TAG的值
+                TAG = 1;
+                // 修改样式 【文本清空，可编辑】
+                $('#layerForm').find("input[type='text']").prop('readonly', false).attr('style', 'background-color:white').val("");
+                xmSelect.get('#menu')[0].update({disabled: false});
+                xmSelect.get('#menu')[0].setValue([]);
+
+            });
+
+            // === 修改 ===
+            $('#btnEdit').on('click', function () {
+                if ($('#title').val().length === 0) {
+                    layer.msg("请选择要修改的权限");
+                    return;
+                }
+                // 修改TAG的值
+                TAG = 2;
+                // 修改样式 【文本清空，可编辑】
+                $('#layerForm').find("input[type='text']").prop('readonly', false).attr('style', 'background-color:white');
+                xmSelect.get('#menu')[0].update({disabled: false});
+
+            });
+
+            // === 删除 ===
+            $('#btnDel').on('click', function () {
+                // 判断是否选中某一个权限
+                if ($('#title').val().length === 0) {
+                    layer.msg("请选择要删除的权限条目！");
+                    return;
+                }
+
+                // Layer 确认
+                layui.use(['layer'], function () {
+                    let layer = layui.layer;
+
+                    // 准备确认文本
+                    let confirmStr = "您确定要删除权限条目【名称为：" + $('#title').val() + "】信息吗？";
+                    // 确认框
+                    layer.confirm(confirmStr, {
+                        icon: 3, area: ['400px', '200px'], btn: ['确认', '取消']
+                    }, function (index) {
+                        // ajax请求
+                        $.ajax({
+                            url: "{% url 'del_permission' %}"
+                            , method: 'post'
+                            , data: {
+                                id: $('#id').val(),
+                                csrfmiddlewaretoken: "{{ csrf_token }}"
+                            }
+                            , dataType: 'json'
+                            , success: function (res) {
+                                if (res.status) {
+                                    // 显示成功！
+                                    layer.msg("删除成功！");
+                                    // 重新加载数据！
+                                    loadTreeData();
+                                    // 初始化
+                                    $('#btnCancel').click();
+
+                                } else {
+                                    layui.msg(res.error, {
+                                        icon: 2, time: -1, area: ['400px', '200px'], btn: ['取消']
+                                    });
+                                }
+                            }
+                        })
+
+                    })
+                })
+
+            });
+
+            // === 提交 ===
+            $('#btnCommit').on('click', function () {
+                // 清空错误提示
+                $('.error_msg').empty();
+                // 对表单进行校验【title, url, order, menu不能为空！】
+                if (TAG === 1 || TAG === 2) {
+                    // 定义Flag
+                    let flag = true;
+                    // 判断title
+                    if ($('#title').val().trim().length === 0) {
+                        $('#title').next().html("标题不能为空！");
+                        flag = false;
+                    }
+                    // 判断url
+                    if ($('#url').val().trim().length === 0) {
+                        $('#url').next().html("URL不能为空！");
+                        flag = false;
+                    }
+
+                    // 判断菜单是否选
+                    if (xmSelect.get('#menu')[0].getValue('nameStr').length === 0) {
+                        $('#menu_error').html("必须要选择放置的菜单！");
+                        flag = false;
+                    }
+                    // 判断order
+                    if ($('#order').val().trim().length === 0) {
+                        $('#order').next().html("Order不能为空！");
+                        flag = false;
+                    }
+
+
+                    // 判断
+                    if (!flag) {
+                        return;
+                    }
+                } else {
+                    layer.msg("请点击添加/修改按钮实现功能！");
+                    return;
+                }
+
+                // 定义提交的URL
+                let commitURL = "{% url 'add_permission' %}";
+                if (TAG === 2) {
+                    commitURL = "{% url 'edit_permission' %}";
+                }
+
+                // 提交
+                $.ajax({
+                    url: commitURL
+                    , method: 'post'
+                    , data: $('#layerForm').serialize()
+                    , dataType: 'json'
+                    , success: function (res) {
+                        if (res.status) {
+                            layer.msg("操作成功！");
+                            loadTreeData();
+                            // 初始化
+                            $('#btnCancel').click();
+                        } else {
+                            layer.msg(res.error, {
+                                icon: 2,
+                                area: ['400px', '200px'],
+                                btn: ['取消'],
+                                time: -1
+                            })
+                        }
+                    }
+                })
+
+
+            });
+
+
+            // === 取消 ===
+            $('#btnCancel').on('click', function () {
+                // 恢复只读的状态 -- 文本，xmselect
+                $('#layerForm').find("input[type='text']").prop('readonly', true).attr('style', 'background-color:#eaeaea').val("");
+                xmSelect.get('#menu')[0].update({disabled: true});
+                xmSelect.get('#menu')[0].setValue([]);
+                // TAG = 0
+                TAG = 0;
+            })
+        }
+
+
+    </script>
+{% endblock %}

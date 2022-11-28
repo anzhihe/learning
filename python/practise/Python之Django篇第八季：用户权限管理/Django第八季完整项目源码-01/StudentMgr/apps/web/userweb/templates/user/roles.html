@@ -1,0 +1,481 @@
+{% extends 'layout/base_page.html' %}
+{% load static %}
+
+<!-- Title -->
+{% block title %} 角色管理 {% endblock %}
+
+<!-- CSS -->
+{% block css %} {% endblock %}
+
+<!-- Content -->
+{% block content %}
+    <!-- 内容01: 面包屑导航 -->
+    <span class="layui-breadcrumb">
+      <a href="javascript:;">首页</a>
+      <a href="javascript:;">用户角色</a>
+      <a><b>角色管理</b></a>
+    </span>
+
+    <!-- 内容02: 查询区域 --->
+    <div id="queryArea" style="margin-top: 20px;">
+        <form class="layui-form">
+            {% csrf_token %}
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="q_str"><b>查询条件：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="q_str" id="q_str" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button type="button" id="btnQuery" class="layui-btn" style="width: 100px"><i
+                            class="fa fa-search"></i>&nbsp;&nbsp;查询
+                    </button>
+                    <button type="button" id="btnAll" class="layui-btn" style="width: 100px"><i class="fa fa-list"></i>&nbsp;&nbsp;全部
+                    </button>
+                    <button type="button" id="btnAdd" class="layui-btn" style="width: 100px"><i
+                            class="fa fa-plus-circle"></i>&nbsp;&nbsp;添加
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- 内容03: 表格部分 -->
+    <table class="layui-hide" id="tableArea" lay-filter="tableArea"></table>
+
+    <!-- 内容04：表格右侧的操作按钮 -->
+    <script type="text/html" id="tableButton">
+        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">
+            <i class="fa fa-edit" aria-label="true"></i>&nbsp;编辑
+        </a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+            <i class="fa fa-trash" aria-label="true"></i>&nbsp;删除
+        </a>
+        <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="permission">
+            <i class="fa fa-key" aria-label="true"></i>&nbsp;分配权限
+        </a>
+    </script>
+
+    <!-- 内容05：添加和修改的弹出层 -->
+    <div id="layerArea" style="display: none; padding: 30px;">
+        <form id="layerForm" class="layui-form" lay-filter="layerForm">
+            {% csrf_token %}
+            <div class="layui-form-item">
+                <div class="layui-inline" style="display: none">
+                    <label class="layui-form-label" for="id"><b> 编号：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="id" id="id" class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="name"><b> 角色名称：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="name" id="name" class="layui-input">
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="desc"><b> 角色描述：</b></label>
+                    <div class="layui-input-inline">
+                        <textarea type="text" id="desc" name="desc" class="layui-textarea"></textarea>
+                        <span class="error_msg" style="color:red; position: absolute"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="create_time"><b> 创建时间：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="create_time" name="create_time" class="layui-input"
+                               style="background-color:#eaeaea">
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+
+                <div class="layui-inline">
+                    <label class="layui-form-label" for="edit_time"><b> 修改时间：</b></label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="edit_time" name="edit_time" class="layui-input"
+                               style="background-color:#eaeaea">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 内容06：权限弹出层 -->
+    <div id="permissionArea" class="demo-tree demo-tree-box" style="display: none;padding: 20px 40px"></div>
+{% endblock %}
+
+<!-- JS -->
+{% block js %}
+    <script>
+        // 定义全局变量区分添加和修改
+        var TAG = 0; // 1--添加  2--修改
+
+        // 入口函数
+        $(function () {
+            // === 初始化表格 ===
+            initTable();
+            // === 按钮点击事件===
+            buttonClick();
+
+        });
+
+
+        // ============ 初始化表格的功能实现 ================
+        function initTable() {
+            layui.use(['table', 'form', 'element'], function () {
+                let table = layui.table;
+                let form = layui.form;
+                let element = layui.element;
+
+                // ===渲染表格===
+                table.render({
+                    elem: $('#tableArea')
+                    , url: "{% url 'list_roles' %}"
+                    , method: 'post'
+                    , where: {
+                        // 携带输入的查询条件！
+                        q_str: $('#q_str').val().trim(),
+                        // q_experiment: $('#q_experiment').val().trim(),
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                    }
+                    , even: true
+                    , cols: [[
+                        {type: 'numbers', width: 60, title: '序号', align: 'center', sort: true}
+                        , {field: 'name', width: 200, title: '角色名称', align: 'center', sort: true}
+                        , {field: 'desc', title: '角色描述', align: 'center',}
+                        , {fixed: 'right', title: '操作', width: 260, align: 'center', toolbar: '#tableButton'}
+                    ]]
+                    , page: true  // 启用分页，默认就向后台发送两个参数：page=1,limit=10
+                    , limit: 15
+                    , limits: [12, 15, 18, 20, 30, 50, 75, 100]
+                    , done: function (res, current, count) {
+                        console.log(res);
+                        $('thead tr').css({'background-color': '#009688', 'color': 'white'})
+                    }
+
+                });
+
+                // ===侦听表格的按钮点击===
+
+                table.on('tool(tableArea)', function (obj) {
+                    // 取出当前行数据
+                    let oneLineData = obj.data;
+                    // 响应按钮的点击事件
+                    if (obj.event === 'edit') {
+                        // 修改TAG值
+                        TAG = 2;
+                        // 加载弹出层
+                        loadLayer("编辑【角色信息】", oneLineData)
+
+                    } else if (obj.event === 'del') {
+                        deleteValue(oneLineData);
+                    } else if (obj.event === 'permission') {
+                        loadPermissionLayer(oneLineData);
+                    }
+                })
+            })
+
+        }
+
+        // ============ 实现按钮点击的事件的实现 =============
+        function buttonClick() {
+
+            // ==查询==
+            $('#btnQuery').on('click', function () {
+                // 重新加载table
+                initTable();
+
+            });
+
+            // ==显示全部==
+            $('#btnAll').on('click', function () {
+                // 清空查询数据，重新刷新表格
+                $('#q_str').val("");
+                initTable();
+
+            });
+
+            // ==添加==
+            $('#btnAdd').on('click', function () {
+                // 修改TAG 值
+                TAG = 1;
+                // 加载弹出层
+                loadLayer("添加【角色信息】");
+
+            });
+
+        }
+
+        // ===============用户添加和修改的弹出层 ==========
+        function loadLayer(title, value = "") {
+
+            // 使用layer
+            layui.use(['layer', 'form'], function () {
+                let layer = layui.layer;
+                let form = layui.form;
+
+                layer.open({
+                    type: 1
+                    , title: "<b style='color:navy'>" + title + "</b>"
+                    , area: ['400px', '500px']
+                    , offset: '100px'
+                    , btn: ['确定', '取消']
+                    , content: $('#layerArea')
+
+                    // ====== 三个回调函数====
+                    , success: function (index, layero) {
+                        //填充数据
+                        if (TAG === 2) {
+                            form.val('layerForm', value);
+                        }
+                    }
+                    , yes: function (index, layero) {
+                        // 准备提交的URL
+                        let commitURL = "{% url 'add_roles' %}";
+                        // 判断是否为编辑
+                        if (TAG === 2) {
+                            commitURL = "{% url 'edit_roles' %}";
+                        }
+
+                        // 使用Ajax提交
+                        $.ajax({
+                            url: commitURL
+                            , method: 'post'
+                            , data: {
+                                id: $('#id').val(),
+                                name: $('#name').val(),
+                                desc: $('#desc').val(),
+                                csrfmiddlewaretoken: "{{ csrf_token }}"
+                            }
+                            , dataType: 'json'
+                            , success: function (res) {
+                                // 判断
+                                if (res.status) {
+                                    layui.layer.msg("操作成功！");
+                                    layer.close(index);
+                                    initTable();
+                                } else {
+                                    layer.msg(res.error, {
+                                        icon: 2, area: ['300px', '150px'], time: -1, btn: ['关闭']
+                                    })
+                                }
+
+                            }
+
+                        })
+
+                    }
+                    , end: function (index, layero) {
+                        // 清除弹出层内容
+                        form.val('layerForm', {
+                            id: "", name: "", desc: ""
+                        });
+
+
+                    }
+                })
+
+            })
+
+        }
+
+        // ============== 用户配置权限的弹出层 ============
+        function loadPermissionLayer(value) {
+
+            layui.use(['layer', 'tree'], function () {
+                let layer = layui.layer;
+                let tree = layui.tree;
+
+                // 展示
+                layer.open({
+                    type: 1
+                    , title: "<b style='color:navy'>【分配权限】</b>"
+                    , area: ['400px', '500px']
+                    , btn: ['确定', '取消']
+                    , content: $('#permissionArea')
+                    , resize: false
+                    // =========== 回调函数 ===============
+                    , success: function (index, layero) {
+                        // 初始化当前所有的权限到树状结构中
+                        loadTreeData(value.permissions);
+
+                    }
+                    , yes: function (index, layero) {
+                        // 获取选择的权限的值
+                        let commitPermission = tree.getChecked('tree_commit');
+                        // 定义集合
+                        let commitList = [];
+                        // 遍历获取权限的id
+                        $.each(commitPermission, (index, value) => {
+                            // 遍历value下的children
+                            $.each(value.children, (i, v) => {
+                                commitList.push(v.node_id);
+                            })
+                        });
+                        // Ajax提交
+                        $.ajax({
+                            url: "{% url 'update_roles_permission' %}"
+                            , method: 'post'
+                            , data: {
+                                roles_id: value.id,
+                                commit: JSON.stringify(commitList),
+                                csrfmiddlewaretoken: "{{ csrf_token }}"
+                            }
+                            , success: function (res) {
+                                if (res.status) {
+                                    // 提示成功
+                                    layer.msg("权限更新成功！");
+                                    // 重新加载数据
+                                    initTable();
+                                    // 关闭
+                                    layer.close(index);
+
+                                } else {
+                                    layer.msg(res.error, {
+                                        icon: 2, area: ['400px', '200px'], btn: ['取消'], time: -1
+                                    })
+                                }
+                            }
+                        })
+
+                    }
+                    , end: function (index, layero) {
+
+                    }
+                })
+
+            })
+
+        }
+
+        // ============== 获取树状结构的结构 =============
+        function loadTreeData(permissions) {
+            // 1. 加载数据 --- Ajax
+            $.ajax({
+                url: "{% url 'list_permission' %}"
+                , method: 'get'
+                , dataType: 'json'
+                , success: function (res) {
+                    console.log(res.data);
+                    // 获取所有的权限明细
+                    let allPermissions = res.data;
+                    //=== 遍历allPermissions ==
+                    $.each(allPermissions, (index, value) => {
+                        // 遍历权限条目
+                        $.each(value.children, (i, v) => {
+                            // 判断是否具有这个权限
+                            if (permissions.indexOf(v.id) != -1) {
+                                v.checked = true;
+                            }
+                        })
+                    });
+
+                    // 展示数据
+                    initTree(allPermissions);
+                    // 再获取当前角色的权限
+                }
+            })
+
+
+        }
+
+        // ============== 用数据填充Tree组件 =============
+        function initTree(data) {
+            // 2. 生成树状结构
+            layui.use(['tree'], function () {
+                let tree = layui.tree;
+
+                tree.render({
+                    elem: '#permissionArea'
+                    , showCheckbox: true
+                    , data: data
+                    , accordion: false
+                    , id: 'tree_commit'
+
+
+                    // ================= 点击事件 ===========
+                    , click: function (obj) {
+
+                        // 判断是否是二级节点（权限节点！）
+                        let is_not_child = obj.elem.hasClass('layui-tree-setHide');
+
+                        // 如果不是根节点
+                        if (!is_not_child) {
+                            // 获取对象
+                            let node_data = obj.data;
+                            // 一一赋值
+                            $('#id').val(obj.data.node_id);
+                            $('#title').val(obj.data.title);
+                            $('#url').val(obj.data.url);
+                            $('#order').val(obj.data.id);
+                            // == 赋值xmselect ====
+                            // 获取xmselect对象
+                            xmSelect.get('#menu')[0].setValue([{name: obj.data.p_title, value: obj.data.p_id}]);
+
+                            // ========== 设置表单 不可以修改 ============
+                            $('#layerForm').find("input[type='text']").prop('readonly', true).attr('style', 'background-color:#eaeaea');
+                            xmSelect.get('#menu')[0].update({disabled: true});
+
+                        }
+
+                    }
+
+                })
+            })
+
+        }
+
+        // ==============实现用户角色的删除 ==============
+        function deleteValue(value) {
+            // 删除确认的提示信息
+            let confirmStr = "您确认要删除角色信息【" + value.name + "】信息吗？";
+            // 确认
+            layui.use('layer', function () {
+                let layer = layui.layer;
+
+                layer.confirm(confirmStr, {icon: 3, area: ['450px', '200px']}, function (index) {
+                    // Ajax请求
+                    $.ajax({
+                        url: "{% url 'del_roles' %}"
+                        , method: 'post'
+                        , data: {
+                            id: value.id,
+                            csrfmiddlewaretoken: "{{ csrf_token }}"
+                        }
+                        , dataType: 'json'
+                        , success: function (res) {
+                            if (res.status) {
+                                layui.layer.msg("操作成功！");
+                                layer.close(index);
+                                initTable();
+                            } else {
+                                layer.msg(res.error, {
+                                    icon: 2,
+                                    area: ['500px', '250px'],
+                                    time: -1,
+                                    btn: ['关闭']
+                                });
+                            }
+                        }
+                    })
+                })
+            })
+        }
+
+
+    </script>
+
+
+{% endblock %}
