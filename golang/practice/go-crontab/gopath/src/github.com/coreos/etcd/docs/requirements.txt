@@ -1,6 +1,6 @@
 alabaster==0.7.10
 Babel==2.4.0
-certifi==2017.7.27.1
+certifi==2022.12.7
 chardet==3.0.4
 docutils==0.14
 functools32==3.2.3.post2
