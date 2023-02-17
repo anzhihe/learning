@@ -1,0 +1,21 @@
+server:
+    port:8080
+spring:
+    application:
+        name: sredis
+    redis:
+        clientType: LETTUCE
+        database: 0
+        password: ''
+        timeout: 10000
+        cluster: 
+            nodes: 192.168.128.167:6381,192.168.128.167:6382,192.168.128.167:6383
+            max-redirects: 3
+        lettuce: 
+            pool: 
+                enabled: true
+                minIdle: 1
+                maxActive: 10
+                maxWait: 10000
+    cache:
+        type: REDIS

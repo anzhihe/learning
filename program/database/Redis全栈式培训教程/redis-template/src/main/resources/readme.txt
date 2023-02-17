@@ -1,0 +1,9 @@
+#以下几个类
+RedisProperties;
+RedisStandaloneConfiguration;
+RedisSentinelConfiguration;
+RedisClusterConfiguration;
+LettuceConnectionFactory;
+RedisStaticMasterReplicaConfiguration;
+RedisCacheConfiguration;
+CacheManager;
