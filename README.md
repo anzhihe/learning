@@ -51,7 +51,6 @@
 
 - [[**golang**]](/golang)：golang learning
 
-    - [Head First Go英文版](/golang/book/Head%20First%20Go.pdf)
     - [Go程序设计语言](/golang/book/Go%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%EF%BC%88%E8%AF%A6%E7%BB%86%E4%B9%A6%E7%AD%BE%E3%80%81%E6%B8%85%E6%99%B0%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.pdf)
     - [Go语言实战](/golang/book/Go%20%E8%AF%AD%E8%A8%80%E5%AE%9E%E6%88%98.pdf)
     - [Go语言核心编程笔记](/golang/book/Go语言核心编程笔记-韩顺平.zip)
