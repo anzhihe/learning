@@ -1,4 +1,4 @@
-Django==2.1.5
+Django==2.2.28
 django-pure-pagination==0.3.0
 Pillow==6.2.1
 PyMySQL==0.9.3
