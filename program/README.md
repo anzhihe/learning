@@ -63,5 +63,6 @@ Program learning [**book**](/program/book) and source code
 - [免费学习编程(freeCodeCamp) - Python、JavaScript、Java、Git 等](https://www.freecodecamp.org/chinese/learn/)
 - [力扣（LeetCode）](https://leetcode-cn.com/)
 - [牛客网](https://www.nowcoder.com/)
+- [代码随想录](https://programmercarl.com/)
 - [程序员学习书籍下载](https://089u.com/dir/3843664-39387910-f7bb20)
 - [BPF学习仓库](https://github.com/DavadDi/bpf_study)
