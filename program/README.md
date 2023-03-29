@@ -66,3 +66,4 @@ Program learning [**book**](/program/book) and source code
 - [代码随想录](https://programmercarl.com/)
 - [程序员学习书籍下载](https://089u.com/dir/3843664-39387910-f7bb20)
 - [BPF学习仓库](https://github.com/DavadDi/bpf_study)
+- [ChatGPT资料汇总学习持续更新](https://chegva.com/5694.html)
