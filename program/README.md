@@ -61,6 +61,7 @@ Program learning [**book**](/program/book) and source code
 - [Learn X in Y Minutes: Scenic Programming Language Tours](https://learnxinyminutes.com/)
 - [Quick Reference 开发速查表](https://wangchujiang.com/reference/index.html)
 - [免费学习编程(freeCodeCamp) - Python、JavaScript、Java、Git 等](https://www.freecodecamp.org/chinese/learn/)
+- [OI Wiki-编程竞赛知识整合站点](https://oi-wiki.org/)
 - [力扣（LeetCode）](https://leetcode-cn.com/)
 - [牛客网](https://www.nowcoder.com/)
 - [代码随想录](https://programmercarl.com/)
