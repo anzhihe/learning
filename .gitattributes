@@ -1,3 +1,4 @@
 *.js linguist-language=python
 *.css linguist-language=python
 *.html linguist-language=python
+*.pdf filter=lfs diff=lfs merge=lfs -text
