@@ -1,39 +1,0 @@
-.error {
-  font-weight: bold;
-  color: #FF0000;
-}
-
-table {  border: 1px solid #DDDDDD;
-  border-collapse: collapse;}
-
-tr.heading {
-  font-size: large;
-  color: #006600;
-}
-
-td {
-  border: 1px solid #DDDDDD;
-}
-
-form label {  display: inline-block;  width: 225px;
-  font-weight: bold;
-}
-
-a {
-  text-decoration: none;
-  font-weight: bold;
-}
-a:link {
-  color: #006600;
-}
-
-a:hover {
-  background-color: #EEEEEE;
-}
-a:visited {
-  color: #002200;
-}
-
-a:active {
-  color: #009900;
-}
