@@ -1,4 +1,0 @@
----
-# Variables listed here are applicable to all host groups
-
-ntpserver: 210.72.145.44 

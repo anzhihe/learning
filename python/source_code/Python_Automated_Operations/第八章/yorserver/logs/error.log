@@ -1,3 +1,0 @@
-2014-07-20 00:04:56-[Errno 2] No such file or directory: u'/usr/local/yorserver/www//omaudit/omaudit_pull/?history_id=690&history_ip=192.168.1.20&history_user=root&history_datetime=2014-07-20%2000:04:55&history_command=sbin/server.sh%20restart'
-2014-07-20 00:05:17-[Errno 2] No such file or directory: u'/usr/local/yorserver/www//omaudit/omaudit_pull/?history_id=691&history_ip=192.168.1.20&history_user=root&history_datetime=2014-07-20%2000:05:17&history_command=cd%20..'
-2014-07-20 00:05:18-[Errno 2] No such file or directory: u'/usr/local/yorserver/www//omaudit/omaudit_pull/?history_id=692&history_ip=192.168.1.20&history_user=root&history_datetime=2014-07-20%2000:05:18&history_command=ls'

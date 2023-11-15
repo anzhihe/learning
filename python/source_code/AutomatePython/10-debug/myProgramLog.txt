@@ -1,8 +1,0 @@
-2017-07-02 20:28:30,480 - DEBUG - Start of program
-2017-07-02 20:28:30,480 - DEBUG - Start of factorial(5%)
-2017-07-02 20:28:30,480 - DEBUG - i is 1, total is 1
-2017-07-02 20:28:30,480 - DEBUG - i is 2, total is 2
-2017-07-02 20:28:30,480 - DEBUG - i is 3, total is 6
-2017-07-02 20:28:30,480 - DEBUG - i is 4, total is 24
-2017-07-02 20:28:30,480 - DEBUG - i is 5, total is 120
-2017-07-02 20:28:30,480 - DEBUG - End of program

@@ -1,8 +1,0 @@
-COPYRIGHT
-
-"Core Python Programming", 2nd Edition, by Wesley J. Chun
-
-The book and its contents are (c) 2007 Prentice Hall Ptr
-and Pearson Education.  The code holds the same copyright
-but is released under the Creative Commons Attribution-
-SharedAlike2.5 License.  See LICENSE for more information.
