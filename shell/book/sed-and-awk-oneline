@@ -126,6 +126,10 @@ du -shc .[!.]* * | sort -hr | head
 for i in 23095 1906 65432 9925 1857;do echo -e "################################ $(date +%F\ %T) ##############################";ansible *$i* -m shell -a ' egrep -v "^$|^192|^127|^172|^unknown|^Refreshing|^Adding|^Ethernet|^Waiting|^2023|^2018|^ssh" /root/net_process.log | awk "{sent[\$1]+=\$(NF-1);recv[\$1]+=\$NF;counts[\$1]++;}END{for (i in sent){print i,sent[i],recv[i],counts[i],sent[i]/counts[i],recv[i]/counts[i]}}"|sort -rn -k5|head -15' 2>/dev/null;done | tee net_process.txt
 # awk 输出每行的第4列到最后一列的内容
 awk '{for (i=4; i<=NF; i++) {printf "%s ", $i}; printf "\n"}'
+# 删除第一个匹配到的行，而不删除所有匹配
+sed '0,/pattern/{//d;}' file.txt
+# 使用GNU sed删除所有包含pattern的行，除了第一行
+sed '0,/pattern/!{/pattern/d;}' file.txt
 
 #################################################################
 
