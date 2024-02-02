@@ -1,0 +1,2 @@
+chi_sim.traineddata 
+https://raw.githubusercontent.com/tesseract-ocr/tessdata/master/chi_sim.traineddata
