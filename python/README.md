@@ -56,3 +56,4 @@ Python learning [**book**](/python/book) and source code
 - [i Hate Regex - The Regex Cheat Sheet](https://ihateregex.io/)
 - [Online Tools](http://emn178.github.io/online-tools/index.html)
 - [Awesome Open Source](https://awesomeopensource.com)
+- [Pyrexp](https://pythonium.net/regex)
