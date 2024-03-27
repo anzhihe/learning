@@ -1,5 +1,8 @@
-# MxShop
+## MxShop
+
 慕课网生鲜电商项目源码-长期维护
+
+视频地址：[Python前后端分离开发Vue+Django REST framework实战课程](https://coding.imooc.com/down/131.html)
 
 **课程更新了django5分支，支持django5！**
 	
