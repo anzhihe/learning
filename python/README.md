@@ -44,6 +44,7 @@ Python learning [**book**](/python/book) and source code
 - [Django2.2教程](http://www.liujiangblog.com/course/django/2)
 - [Django REST framework](https://www.django-rest-framework.org/)
 - [Python资源大全中文版](https://github.com/jobbole/awesome-python-cn)
+- [Python Web开发框架Django & Django REST framework学习指南](https://chegva.com/5993.html)
 - [The Algorithms - Python](https://github.com/TheAlgorithms/Python)
 - [visualising data structures and algorithms through animation](https://visualgo.net/zh)
 - [PythonTab](https://www.pythontab.com/)
