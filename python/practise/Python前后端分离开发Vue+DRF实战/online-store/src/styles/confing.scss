@@ -1,0 +1,18 @@
+/*主色*/
+$main-color:#e44946 !default;//红
+/*辅助色*/
+$vice-1:#f69f5f !default;//黄色
+$vice-2:#e9615f !default;//红色
+$vice-3:#ffa200 !default;//亮黄色
+$vice-4:#5bbfde !default;//天蓝
+$vice-5:#4690cd !default;//蓝色
+$vice-6:#665ca8 !default;//紫色
+$vice-7:#45b6b0 !default;//亮绿
+$vice-8:#939393 !default;//灰
+$vice-9:#666666 !default;//深灰
+//设置一个颜色数组快速生成颜色控制类
+//生成辅助色
+$vice-list:$vice-1 $vice-2 $vice-3 $vice-4 $vice-5 $vice-6 $vice-7 $vice-8 $vice-9;
+
+//全局边框色
+$border_color:#dddddd !default;

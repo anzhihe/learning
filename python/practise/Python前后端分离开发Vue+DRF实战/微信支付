@@ -1,0 +1,79 @@
+微信支付模式和支付宝的支付方式有不小的差异
+  
+  1. 支付宝是直接跳转到支付宝支付页面，成功后可以调回自己的支付成功的页面
+  2. 微信支付需要自己设置显示二维码的页面，所以页面需要自己设计，这个页面主要是两个功能
+    
+      1. 显示微信返回的二维码
+      2. 定时通过ajax查询支付状态，所以这里的支付状态查询可以自己写，定时查询数据库里面的支付状态就行了，如果成功就跳转到订单页面就行了
+  
+  所以微信支付就需要解决下面的问题：
+    如果去获取微信的二维码并展示出来
+    
+   下面是代码
+   
+   class GenerateWechatQrcodeView(LoginRequiredMixin, View):
+    """
+    生成微信支付二维码
+    """
+    # 微信生成支付二维码
+    # 获取用户ip
+
+    def get(self, request, order_no):
+        if request.META.has_key('HTTP_X_FORWARDED_FOR'):
+            ip = request.META['HTTP_X_FORWARDED_FOR']
+        else:
+            ip = request.META.get('HTTP_X_REAL_IP') or request.META['REMOTE_ADDR']
+
+        user_purchase = get_object_or_404(UserPurchase, order_no=order_no)
+        body_name = '商品-啤酒'
+        nonce_str = generate_random(20, 1)
+        user_purchase.nonce_str = nonce_str
+        user_purchase.save()
+        out_trade_no = order_no
+        total_fee = user_purchase.pay_price * 100
+        if request.user.is_staff:
+            total_fee = 1
+        sign_url = "appid=%s&body=%s&mch_id=%s&nonce_str=%s&notify_url=%s&" \
+                   "out_trade_no=%s&spbill_create_ip=%s&total_fee=%s&trade_type=%s" % (
+                        settings.WEIXIN_PAY_APPID, body_name, settings.WEIXIN_PAY_MCH_ID, nonce_str, settings.WEIXIN_NOTIFY_URL, out_trade_no, ip, total_fee,settings.WEIXIN_PAY_TRADE_TYPE
+                        )
+        sign_url = sign_url + '&key=' + settings.WEIXIN_PAY_KEY
+        md5_signer = hashlib.md5()
+        md5_signer.update(sign_url)
+        sign = md5_signer.hexdigest().upper()
+        xml_string = """
+                        <xml>
+                            <appid>%s</appid>
+                            <body>%s</body>
+                            <mch_id>%s</mch_id>
+                            <nonce_str>%s</nonce_str>
+                            <notify_url>%s</notify_url>
+                            <out_trade_no>%s</out_trade_no>
+                            <spbill_create_ip>%s</spbill_create_ip>
+                            <total_fee>%s</total_fee>
+                            <trade_type>%s</trade_type>
+                            <sign>%s</sign>
+                        </xml>
+                    """ % (settings.WEIXIN_PAY_APPID, body_name, settings.WEIXIN_PAY_MCH_ID, nonce_str, settings.WEIXIN_NOTIFY_URL, out_trade_no, ip, total_fee, settings.WEIXIN_PAY_TRADE_TYPE, sign)
+
+        xml_string = xml_string.encode('utf-8')
+        req = urllib2.Request(url=settings.WEIXIN_PAY_URL,
+                              data=xml_string,
+                              headers={'Content-Type': 'application/xml'})
+        response = urllib2.urlopen(req)
+        json_read = response.read()
+        root = ET.fromstring(json_read)
+        code_url = ''
+        for child in root._children:
+            if child.tag == 'code_url':
+                code_url = child.text
+
+        img = qrcode.make(code_url)
+        buf = StringIO()
+        img.save(buf)
+        image_stream = buf.getvalue()
+
+        response = HttpResponse(image_stream, content_type="image/png")
+        response['Last-Modified'] = 'Mon, 27 Apr 2015 02:05:03 GMT'
+        response['Cache-Control'] = 'max-age=31536000'
+        return response

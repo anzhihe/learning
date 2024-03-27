@@ -1,0 +1,123 @@
+html {
+    background:#fafafa;
+    color:#333;
+    _background-attachment:fixed
+}
+html.isPhone {
+    min-width:1196px
+}
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,ul,ol,li,pre,form,fieldset,legend,button,input,select,textarea {
+    margin:0;
+    padding:0
+}
+body,button,input,select,textarea {
+    font:12px/1.5 "Microsoft YaHei",Tahoma,Helvetica,Arial,simsun
+}
+address,cite,dfn,em,var,i {
+    font-style:normal
+}
+ul,ol {
+    list-style:none
+}
+fieldset,img {
+    border:0
+}
+h1 {
+    font-size:18px
+}
+h2 {
+    font-size:14px;
+    font-weight:bold
+}
+h3 {
+    font-size:14px;
+    font-weight:400
+}
+h4 {
+    font-size:12px;
+    font-weight:400
+}
+h5 {
+    font-size:18px;
+    font-weight:bold;
+    padding-top:20px;
+}
+input,textarea,button,select {
+    font-size:12px;
+    outline:0;
+    resize:none;
+    color:#333
+}
+button {
+    cursor:pointer
+}
+.clear {
+    clear:both;
+    height:0;
+    font-size:0;
+    line-height:0;
+    overflow:hidden
+}
+.cle:after,.clearfix:after,.clear_f:after,.cle_float:after {
+    visibility:hidden;
+    display:block;
+    font-size:0;
+    content:'\20';
+    clear:both;
+    height:0
+}
+.cle,.clearfix,.clear_f,.cle_float {
+    *zoom:1
+}
+
+/*.fl {*/
+/*float:left*/
+/*}*/
+/*.fr {*/
+/*float:right*/
+/*}*/
+a {
+    text-decoration:none;
+    color:#333;
+    -webkit-transition:color .2s;
+    -moz-transition:color .2s;
+    -o-transition:color .2s;
+    -ms-transition:color .2s;
+    transition:color .2s;
+    cursor: pointer;
+}
+a:hover {
+    text-decoration:underline;
+    color:#09c762
+}
+a:focus,area:focus {
+    outline:0
+}
+::selection {
+    background:#09c762;
+    color:#fff
+}
+canvas {
+    -ms-touch-action:double-tap-zoom
+}
+.fs14 {
+    font-size:14px
+}
+.red,a.red,a.red:hover,.pink,a.pink,a.pink:hover {
+    color:#09c762
+}
+.gray999,.gray,a.gray,a.gray:hover {
+    color:#999
+}
+.green {
+    color:#2b9b2d
+}
+.blue,.blue:hover {
+    color:#09f
+}
+
+
+#wrapper {
+    width: 1196px;
+    margin: 10px auto 80px;
+}
