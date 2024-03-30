@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static thumbnail %}
+
+{% block title %}{{ object.username }} - {{ block.super }}{% endblock %}
+
+{% block css %}
+    <link href="{% static 'css/user_profile.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-2">
+            {% thumbnail object.picture "x180" as im %}
+                <img src="{{ im.url }}" alt="用户头像">
+            {% empty %}
+                <img src="{% static 'img/user.png' %}" height="180px" alt="没有头像"/>
+            {% endthumbnail %}
+        </div>
+
+        <div class="col-md-7">
+            <div class="card card-body"><p>{{ object.introduction }}</p></div>
+        </div>
+        <div class="col-md-3">
+            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            {{ object.get_profile_name }}
+            <br/>
+            <i class="fa fa-envelope" aria-hidden="true"></i><a class="email" href="mailto:{{ object.email }}">   {{ object.email }}</a><br/>
+            {% if object.job_title %}
+                <i class="fa fa-briefcase" aria-hidden="true"></i>  {{ object.job_title }} <br/>
+            {% endif %}
+            {% if object.location %}
+                <i class="fa fa-map-marker" aria-hidden="true"></i>  {{ object.location }} <br/>
+            {% endif %}
+            <div class="mb-2"></div>
+            <!--自己的页面显示更新按钮-->
+            {% if request.user.username == object.username %}
+                <a class="btn btn-primary" href="{% url 'users:update' %}">更新信息</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="clear mb-3"></div>
+    {% if object.personal_url %}
+        <a href="{{ object.personal_url }}" style="font-size: 2em" title="个人网站"><i class="fa fa-link"></i> </a>
+    {% endif %}
+    {% if object.weibo %}
+        <a href="{{ object.weibo }}" style="font-size: 2em" title="微博"><i class="fa fa-weibo"></i> </a>
+    {% endif %}
+    {% if object.zhihu %}
+        <a href="{{ object.zhihu }}" style="font-size: 2em" title="知乎"><i class="fa fa-quora"></i> </a>
+    {% endif %}
+    {% if object.github %}
+        <a href="{{ object.github }}" style="font-size: 2em" title="Github"><i class="fa fa-github"></i> </a>
+    {% endif %}
+    {% if object.linkedin %}
+        <a href="{{ object.linkedin }}" style="font-size: 2em" title="LinkedIn"><i class="fa fa-linkedin"></i> </a>
+    {% endif %}
+
+    {% if request.user.username == object.username %}
+        <!-- Data tiles -->
+        <div class="row tile_count">
+            <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
+                <p class="fa fa-code"> 动态</p>
+                <div class="count">{{ moments_num }}</div>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
+                <p class="fa fa-key"> 文章</p>
+                <div class="count">{{ article_num }}</div>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
+                <p class="fa fa-comments"> 评论</p>
+                <div class="count">{{ comment_num }}</div>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
+                <p class="fa fa-question-circle"> 提问</p>
+                <div class="count">{{ question_num }}</div>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
+                <p class="fa fa-keyboard-o"> 回答</p>
+                <div class="count">{{ answer_num }}</div>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
+                <p class="fa fa-navicon"> 互动</p>
+                <div class="count">{{ interaction_num }}</div>
+            </div>
+        </div>
+        <!-- /data tiles -->
+    {% endif %}
+{% endblock content %}

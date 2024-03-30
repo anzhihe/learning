@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static thumbnail %}
+
+{% block title %}私信 - {{ block.super }}{% endblock %}
+
+{% block css %}
+    <link href="{% static 'css/messager.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h4>{{ request.user.get_profile_name }}的聊天记录</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {% for user in users_list %}
+                <a href="{% url 'messager:conversation_detail' user.username %}"
+                   class="list-group-item list-group-item-action {% if active == user.username %}active{% endif %}">
+                    {% thumbnail user.picture "x45" as im %}
+                        <img src="{{ im.url }}" alt="用户头像">
+                        {% empty %}
+                        <img src="{% static 'img/user.png' %}" height="45px" alt="没有头像"/>
+                    {% endthumbnail %}
+                    {{ user.get_profile_name }}
+                </a>
+            {% endfor %}
+        </div>
+        <div class="col-md-9">
+            <div class="messages-list">
+                {% if message_list %}
+                    {% for message in message_list %}
+                        {% include 'messager/single_message.html' with message=message %}
+                    {% endfor %}
+                {% else %}
+                    <p>没有聊天记录</p>
+                {% endif %}
+                <li class="send-message"></li>
+            </div>
+            <hr>
+            <div class="chat-box">
+                <form role="form" method="post" action="#" id="send">
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <input type="hidden" name="to" value="{{ active }}">
+                        <input class="form-control" type="text" name="message" placeholder="发送消息" autocomplete="off">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+{% block js %}
+    <script type="text/javascript">
+        const activeUser = "{{ active }}";
+        window.onload = $('.messages-list').scrollTop($('.messages-list')[0].scrollHeight);
+    </script>
+    <script src="{% static 'js/messager.js' %}" type="text/javascript"></script>
+{% endblock js %}

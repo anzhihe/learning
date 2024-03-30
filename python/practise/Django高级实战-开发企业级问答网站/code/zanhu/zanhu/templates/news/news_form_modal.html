@@ -1,0 +1,26 @@
+<div class="modal fade" id="newsFormModal" tabindex="-1" role="dialog" aria-labelledby="newsFormModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">说说最近在发生的事</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="postNewsForm" role="form" method="post" action="#" onsubmit="return false">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="newsInput"></label><textarea id="newsInput" name="post" rows="5" class="form-control"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="postNews" class="btn btn-primary">
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i> 发送
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_tags %}
+{% block title %}写文章 - {{ block.super }}{% endblock %}
+{% block content %}
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'news:list' %}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'articles:list' %}">文章</a></li>
+            <li class="breadcrumb-item active" aria-current="page">写文章</li>
+        </ol>
+    </nav>
+    <form action="{% url 'articles:write_new' %}" enctype="multipart/form-data" id="article-form" method="post" role="form">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="form-group">
+            <button type="button" class="btn btn-primary publish">发表</button>
+            <button type="button" class="btn btn-default draft">保存草稿</button>
+            <a class="btn btn-light" style="float:right" href="{% url 'articles:list' %}">取消</a>
+        </div>
+    </form>
+    {{ form.media }}
+
+{% endblock content %}
+
+{% block js %}
+    <script src="{% static 'js/articles.js' %}"></script>
+{% endblock js %}

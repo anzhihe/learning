@@ -1,0 +1,20 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+
+{% block inner %}
+  <h1>{% trans "Verify Your E-mail Address" %}</h1>
+
+  {% url 'account_email' as email_url %}
+
+    <p>{% blocktrans %}验证当前用户是否为邮箱使用者{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}验证邮件发送成功，请点击邮件中的连接完成注册，若几分钟之内未收到，请联系管理员。{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}<strong>提示:</strong><a href="{{ email_url }}">可以更改邮件地址</a>.{% endblocktrans %}</p>
+
+
+{% endblock %}
+

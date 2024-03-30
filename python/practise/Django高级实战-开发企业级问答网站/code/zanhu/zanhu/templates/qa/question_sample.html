@@ -1,0 +1,27 @@
+{% load static thumbnail %}
+
+<div class="card questions">
+    <div class="card-body">
+        <div class="question-info pull-left text-center">
+            <h3 class="{% if question.has_answer %}bg-success text-white{% endif %}">{{ question.count_answers }}</h3>
+            <small class="text-secondary">回答</small>
+            <h3>{{ question.total_votes }}</h3>
+            <small class="text-secondary">投票</small>
+        </div>
+        <div>
+            <h4 class="card-title">
+                <a href="{% url 'qa:question_detail' question.id %}">{{ question.title }}</a>
+            </h4>
+            <p>{{ question.get_markdown|safe|truncatechars:100 }}</p>
+            <div class="question-user pull-right">
+                <a href="{% url 'users:detail' question.user.username %}">{{ question.user.get_profile_name }} </a>
+                <span class="text-secondary"> {{ question.created_at|timesince }}之前提问</span>
+                {% if question.tags.names %}
+                    {% for tag in question.tags.names %}
+                        <span class="badge badge-primary"> {{ tag }}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

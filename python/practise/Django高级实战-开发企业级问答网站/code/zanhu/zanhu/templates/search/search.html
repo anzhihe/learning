@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static thumbnail %}
+
+{% block title %}搜索 - {{ block.super }} {% endblock %}
+
+{% block content %}
+
+    <!-- Page Content -->
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'news:list' %}">首页</a></li>
+                <li class="breadcrumb-item active"><a href="#">搜索结果</a></li>
+            </ol>
+        </nav>
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active" id="list-articles-list" data-toggle="list" href="#list-articles"
+                       role="tab" aria-controls="articles">文章</a>
+
+                    <a class="list-group-item list-group-item-action" id="list-news-list" data-toggle="list" href="#list-news" role="tab"
+                       aria-controls="news">动态</a>
+
+                    <a class="list-group-item list-group-item-action" id="list-questions-list" data-toggle="list" href="#list-questions" role="tab"
+                       aria-controls="questions">问题</a>
+
+                    <a class="list-group-item list-group-item-action" id="list-users-list" data-toggle="list" href="#list-users" role="tab"
+                       aria-controls="users">用户</a>
+
+                    <a class="list-group-item list-group-item-action" id="list-tags-list" data-toggle="list" href="#list-tags" role="tab"
+                       aria-controls="tags">标签</a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="tab-content" id="nav-tabContent">
+                    {% for result in page.object_list %}
+                        {% if result.app_label == "articles" %}
+                            <div class="tab-pane fade show active" id="list-articles" role="tabpanel" aria-labelledby="list-articles-list">
+                                <div class="card mb-4">
+                                    {% thumbnail result.object.image "1920x1080" as im %}
+                                        <img src="{{ im.url }}" alt="文章图片" class="card-img-top">
+                                    {% empty %}
+                                        <img class="card-img-top" src="http://placehold.it/1920x1080" alt="没有图片">
+                                    {% endthumbnail %}
+                                    <div class="card-body">
+                                        <h2 class="card-title"><a href="{% url 'articles:article' result.object.slug %}">
+                                            {{ result.object.title|title }}</a></h2>
+                                        <p class="card-text">{{ result.object.content|truncatechars:100 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% elif result.app_label == "news" %}
+                            <div class="tab-pane fade" id="list-news" role="tabpanel" aria-labelledby="list-news-list">
+                                {% include 'news/news_single.html' with news=result.object %}
+                            </div>
+
+                        {% elif result.app_label == "qa" %}
+                            <div class="tab-pane fade" id="list-questions" role="tabpanel" aria-labelledby="list-questions-list">
+                                {% include 'qa/question_sample.html' with question=result.object %}
+                            </div>
+
+                        {% elif result.app_label == "users" %}
+                            <div class="tab-pane fade" id="list-users" role="tabpanel" aria-labelledby="list-users-list">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <a href="{% url 'users:detail' result.object.username %}">
+                                            {% thumbnail result.object.picture "x75" as im %}
+                                                <img src="{{ im.url }}" alt="用户头像" id="pic">
+                                            {% empty %}
+                                                <img src="{% static 'img/user.png' %}" height="75px" alt="没有头像"/>
+                                            {% endthumbnail %}
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        <a class="email" href="mailto:{{ result.object.email }}">  {{ result.object.get_profile_name }}<br/></a>
+                                        {% if result.object.job_title %}
+                                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                                            <i>  {{ result.object.job_title }}<br/></i>
+                                        {% endif %}
+                                        {% if result.object.location %}
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            <i>  {{ result.object.location }}</i>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+
+                        {% elif result.app_label == "taggit" %}
+                            <div class="tab-pane fade" id="list-tags" role="tabpanel" aria-labelledby="list-tags-list">
+                                <div class="card my-4">
+                                    <div class="card-body">
+                                        <a href="#"><span class="badge badge-info">{{ result.object.name }}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    {% empty %}
+                        <h4 class="no-data">没有您要的搜索结果，换个关键字试试</h4>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+
+{% endblock content %}

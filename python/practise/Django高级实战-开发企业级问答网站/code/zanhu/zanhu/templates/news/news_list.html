@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}首页 - {{ block.super }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/news.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <!-- Container -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-centered">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newsFormModal">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i> 发表动态
+                </button>
+                {% include 'news/news_form_modal.html' %}
+                {% include 'news/news_thread_modal.html' %}
+                <div class="mb-2"></div>
+
+                <!-- 有新的状态时 -->
+                <div class="stream-update">
+                    <a href="{% url 'news:list' %}"><span class="new-posts"></span>以下是新的动态</a>
+                </div>
+                <!-- 有新的状态时 -->
+
+                <div class="infinite-container">
+                    <ul class="stream">
+
+                        {% for news in news_list %}
+                            {% include 'news/news_single.html' with news=news %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% include 'pagination.html' %}
+            </div>
+        </div>
+    </div>
+    <!-- End container -->
+
+{% endblock content %}
+
+{% block js %}
+    <script src="{% static 'js/jquery.waypoints.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/infinite.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/news.js' %}" type="text/javascript"></script>
+    <script>
+        var infinite = new Waypoint.Infinite({
+            element: $('.infinite-container')[0],
+            onBeforePageLoad: function () {
+                $('.load').show();
+            },
+            onAfterPageLoad: function ($items) {
+                $('.load').hide();
+            }
+        });
+    </script>
+{% endblock js %}

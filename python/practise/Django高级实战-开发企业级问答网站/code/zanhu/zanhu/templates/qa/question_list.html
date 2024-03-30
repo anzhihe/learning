@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}问答 - {{ block.super }}{% endblock %}
+
+{% block css %}
+    <link href="{% static 'css/qa.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'news:list' %}">首页</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'qa:unanswered_q' %}">问答</a></li>
+        </ol>
+    </nav>
+
+    <div class="card my-4">
+        <h5 class="card-header">按话题分类
+            <a href="{% url 'qa:ask_question' %}" class="btn-sm btn-primary pull-right">
+                <i class="fa fa-pencil" aria-hidden="true"></i> 提问
+            </a>
+        </h5>
+        <div class="card-body">
+            {% for tag, count in popular_tags %}
+                <a href="#"><span class="badge badge-info">{{ count }} {{ tag }}</span></a>
+            {% endfor %}
+        </div>
+    </div>
+    <div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link{% if active == 'unanswered' %} active{% endif %}" href="{% url 'qa:unanswered_q' %}">
+                    等待回答
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link{% if active == 'answered' %} active{% endif %}" href="{% url 'qa:answered_q' %}">
+                    已有回答
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link{% if active == 'all' %} active{% endif %}" href="{% url 'qa:all_q' %}">
+                    全部问答
+                </a>
+            </li>
+        </ul>
+        {% for question in questions %}
+            {% include 'qa/question_sample.html' with question=question %}
+            {% empty %}
+            <h4 class="no-data">没有要显示的问题</h4>
+        {% endfor %}
+        {% include 'pagination.html' %}
+    </div>
+
+{% endblock content %}
+
+
+{% block js %}
+    <script src="{% static 'js/qa.js' %}"></script>
+{% endblock js %}

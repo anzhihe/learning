@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static thumbnail %}
+
+{% block title %}文章 - {{ block.super }}{% endblock %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'news:list' %}">首页</a></li>
+                <li class="breadcrumb-item active"><a href="{% url 'articles:list' %}">文章</a></li>
+            </ol>
+        </nav>
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+                {% for article in articles %}
+                    <!-- Blog Post -->
+                    <div class="card mb-4">
+                        {% thumbnail article.image "1920x1080" as im %}
+                            <img src="{{ im.url }}" alt="文章图片" class="card-img-top">
+                            {% empty %}
+                            <img class="card-img-top" src="http://placehold.it/1920x1080" alt="图片大小">
+                        {% endthumbnail %}
+
+                        <div class="card-body">
+                            <h3 class="card-title">{{ article.title|title }}</h3>
+                            <p class="">{{ article.get_markdown|safe|truncatechars:100 }}</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <a href="{% url 'users:detail' article.user.username %}">{{ article.user.get_profile_name }}</a>
+                            发表于{{ article.created_at }}
+
+                            {% for tag in article.tags.names %}
+                                <a href="#"><span class="badge badge-info">{{ tag }}</span></a>
+                            {% endfor %}
+                            <a style="float:right" href="{% url 'articles:article' article.slug %}" class="btn-sm btn-primary">阅读全文→</a>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <h4 class="no-data"><a href="{% url 'articles:write_new' %}">快来成为第一个写文章的吧！</a></h4>
+                {% endfor %}
+                {% include 'pagination.html' %}
+            </div>
+
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+                <!-- Write Article Widget -->
+                {% if request.user.is_authenticated %}
+                    <div class="card my-4">
+                        <div class="card-body text-center">
+                            <a class="btn btn-success" href="{% url 'articles:write_new' %}" title="写文章">
+                                <i class="fa fa-pencil" aria-hidden="true"></i> 写文章</a>
+                            <a class="btn btn-primary" href="{% url 'articles:drafts' %}" title="草稿箱">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 草稿箱</a>
+                        </div>
+                    </div>
+                {% endif %}
+                <!-- 云标签 -->
+                <div class="card my-4">
+                    <h5 class="card-header">云标签</h5>
+                    <div class="card-body">
+                        {% for tag, count in popular_tags %}
+                            <a href="#"><span class="badge badge-info">{{ tag }}({{ count }})</span></a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+
+{% endblock content %}

@@ -1,0 +1,37 @@
+{% load static thumbnail %}
+
+<ul>
+    {% if notifications %}
+        {% for notification in notifications %}
+
+            <span class="fa fa-stack float-left">
+            {% if notification.verb == 'A' or notification.verb == 'C' %}
+                <i class="fa fa-comment fa-stack-1x"></i>
+            {% elif notification.verb == 'U' %}
+                <i class="fa fa-users fa-stack-1x"></i>
+            {% elif notification.verb == 'L' %}
+                <i class="fa fa-heart fa-stack-1x"></i>
+            {% elif notification.verb == 'F' %}
+                <i class="fa fa-star fa-stack-1x"></i>
+            {% elif notification.verb == 'W' %}
+                <i class="fa fa-check-circle fa-stack-1x"></i>
+            {% elif notification.verb == 'E' %}
+                <i class="fa fa-pencil fa-stack-1x"></i>
+            {% elif notification.verb == 'V' %}
+                <i class="fa fa-plus fa-stack-1x"></i>
+            {% elif notification.verb == 'I' or notification.verb == 'R' or notification.verb == 'O' %}
+                <i class="fa fa-reply fa-stack-1x"></i>
+            {% endif %}
+            </span>
+
+            <p>{{ notification }}&nbsp;{{ notification.created_at|timesince }}之前</p>
+        {% endfor %}
+
+        <a type="button" class="btn-sm btn-dark text-center" href="{% url 'notifications:unread' %}">查看所有</a>
+        <a type="button" class="btn-sm btn-dark text-center"
+           href="{% url 'notifications:mark_all_read' %}">全部标为已读</a>
+
+    {% else %}
+        <li class="text-center">没有未读通知</li>
+    {% endif %}
+</ul>

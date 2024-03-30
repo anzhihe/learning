@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_tags %}
+
+{% block title %}回答问题 - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'news:list' %}">首页</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'qa:all_q' %}">问答</a></li>
+            <li class="breadcrumb-item active" aria-current="page">回答问题</li>
+        </ol>
+    </nav>
+    <form action="{% url 'qa:propose_answer' view.kwargs.question_id %}" id="answerForm" method="post" role="form">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="form-group">
+            <button id="answer" type="submit" class="btn btn-primary">回答</button>
+            <a class="btn btn-light" style="float:right" href="{% url 'qa:all_q' %}">取消</a>
+
+        </div>
+    </form>
+    {{ form.media }}
+
+{% endblock content %}
