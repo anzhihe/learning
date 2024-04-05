@@ -38,6 +38,7 @@ Python learning [**book**](/python/book) and source code
 - [Python 从入门到深入](https://pythonhowto.readthedocs.io/zh-cn/latest/index.html)
 - [Python 秘籍](https://py.qizhen.xyz/)
 - [Python进阶](https://docs.pythontab.com/interpy/)
+- [Python Cookbook 3rd](https://python3-cookbook.readthedocs.io/zh-cn/latest/)
 - [Python并行编程](https://python-parallel-programmning-cookbook.readthedocs.io/zh_CN/latest/index.html)
 - [Python中文学习大本营](http://www.pythondoc.com/)
 - [Django 基础教程](https://code.ziqiangxuetang.com/django/django-tutorial.html)
