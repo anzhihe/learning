@@ -4,7 +4,7 @@ certifi==2017.7.27.1
 chardet==3.0.4
 docutils==0.14
 functools32==3.2.3.post2
-idna==2.5
+idna==3.7
 imagesize==0.7.1
 Jinja2==2.9.6
 jsonschema==2.6.0
