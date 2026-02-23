@@ -74,3 +74,4 @@ Program learning [**book**](/program/book) and source code
 - [ChatGPT资料汇总学习持续更新](https://chegva.com/5694.html)
 - [AI Code Converter | AI Code Translator | AI Code Generator](https://aicodeconvert.com/)
 - [Cursor - The AI-first Code Editor](https://www.cursor.so/)
+- [[搬书匠] - IT学习电子书)](http://www.banshujiang.cn/)
